@@ -1,0 +1,24 @@
+/*****
+Import all basic file
+*****/
+
+@import "_easings.scss";
+@import "_theme.scss";
+@import "_site.scss";
+@import "_layout.scss";
+
+/*****
+Import components
+
+example:
+@import "components/_buttons.scss";
+*****/
+
+@import "components/_alert.scss";
+
+/*****
+Import pages
+
+example:
+@import "pages/_home.scss";
+*****/

@@ -1,0 +1,14 @@
+.alert {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid $color-grey-border;
+  color: $color-grey-text;
+  background-color: $color-grey-background;
+  border-radius: 2px;
+
+  &--info {
+    background-color: $color-blue-background;
+    border-color: $color-blue-border;
+    color: $color-blue-text;
+  }
+}
