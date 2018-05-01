@@ -8,8 +8,15 @@ import {Component, ViewEncapsulation} from '@angular/core';
 })
 export class HeaderComponent {
 
-  responsive = false;
+    responsive = false;
 
-  constructor() { }
+    constructor() { }
 
+    closeResponsiveNavbar() {
+        this.responsive = false;
+    }
+
+    toogleResponsiveNavbar() {
+        this.responsive = !this.responsive;
+    }
 }

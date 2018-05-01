@@ -1,3 +1,19 @@
-<nav>
-  Header
+<nav class="navbar" [class.responsive]="responsive">
+  <a class="navbar__item navbar__item--brand" href="#" (click)="closeResponsiveNavbar()">
+    <img src="assets/images/logo.png" alt="Logo" />
+  </a>
+  <div class="navbar__left" (click)="closeResponsiveNavbar()">
+  </div>
+  <div class="navbar__right" (click)="closeResponsiveNavbar()">
+    <a class="navbar__item" href="#">Accueil</a>
+    <a class="navbar__item" href="#">A propos</a>
+    <a class="navbar__item" href="#">Inscription</a>
+    <a class="navbar__item" href="#">Ressources</a>
+    <a class="navbar__item" href="#">Blogue</a>
+    <a class="navbar__item" href="#">Contact</a>
+    <a class="navbar__item" href="#">Connexion</a>
+  </div>
+  <span class="navbar__item navbar__item--icon" (click)="toogleResponsiveNavbar()">
+    &#9776;
+  </span>
 </nav>
