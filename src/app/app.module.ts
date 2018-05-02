@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { ForgotPasswordPageComponent } from './components/pages/forgot-password-page/forgot-password-page.component';
 
 
 const appRoutes = [
@@ -28,6 +29,10 @@ const appRoutes = [
       {
         path: 'register',
         component: RegisterPageComponent,
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordPageComponent,
       }
     ]
   }
@@ -41,7 +46,8 @@ const appRoutes = [
     FooterComponent,
     HomePageComponent,
     LoginPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    ForgotPasswordPageComponent
   ],
   imports: [
     BrowserModule,
