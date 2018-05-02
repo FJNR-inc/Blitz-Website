@@ -5,8 +5,17 @@ paragraph (p) or list (ul, ol)
 
 body {
   margin: 0;
+  font: 14px 'Roboto', sans-serif;
 }
 
 *, ::after, ::before {
   box-sizing: border-box;
+}
+
+a {
+  color: $link-color;
+
+  &:hover {
+    color: $link-color-hover;
+  }
 }
