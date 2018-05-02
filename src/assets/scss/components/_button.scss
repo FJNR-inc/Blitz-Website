@@ -1,3 +1,20 @@
-.button {
+.button-icon {
+  border: 2px solid lightgrey;
+  padding: 10px;
+  margin: 10px;
+  text-decoration: none;
 
+  &:hover {
+    background-color: lightgrey;
+  }
+
+  &__text {
+    border-right: 2px solid lightgrey;
+    padding: 10px;
+    padding-left: 0;
+  }
+
+  &__icon {
+    padding-left: 7px;
+  }
 }

@@ -8,6 +8,7 @@ import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 
 
 const appRoutes = [
@@ -18,6 +19,10 @@ const appRoutes = [
       {
         path: '',
         component: HomePageComponent,
+      },
+      {
+        path: 'login',
+        component: LoginPageComponent,
       }
     ]
   }
@@ -29,7 +34,8 @@ const appRoutes = [
     DefaultLayoutComponent,
     HeaderComponent,
     FooterComponent,
-    HomePageComponent
+    HomePageComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,

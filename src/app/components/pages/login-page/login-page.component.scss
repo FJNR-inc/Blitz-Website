@@ -1,0 +1,21 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+
+  &__content {
+    margin-top: 50px;
+    border: 2px solid lightgrey;
+    padding: 20px;
+    width: 600px;
+
+    &__header {
+      text-align: center;
+    }
+
+    &__actions {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import "../../../assets/scss/theme.scss";
+
+.footer {
+  display: flex;
+  flex-direction: column;
+
+  border-top: 2px solid lightgrey;
+  padding: 20px;
+
+  color: $color-grey;
+
+  &__section {
+    text-align: center;
+  }
+}
