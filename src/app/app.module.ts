@@ -9,6 +9,7 @@ import { HomePageComponent } from './components/pages/home-page/home-page.compon
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 
 
 const appRoutes = [
@@ -23,6 +24,10 @@ const appRoutes = [
       {
         path: 'login',
         component: LoginPageComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterPageComponent,
       }
     ]
   }
@@ -35,7 +40,8 @@ const appRoutes = [
     HeaderComponent,
     FooterComponent,
     HomePageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,99 @@
+<div class="register-page">
+  <div class="register-page__content">
+    <div class="register-page__content__header">
+      <img class="register-page__content__header__logo" src="assets/images/logo.png" alt="Logo" />
+
+      <div>
+        <h2>
+          Creer un compte
+        </h2>
+      </div>
+    </div>
+    <form class="register-page__content__form">
+      <div class="form-group">
+        <label for="email" class="form-label">Courriel :</label>
+        <input type="email" id="email" class="form-input" />
+        <div class="form-text">Seul les courriel universitaire sont admis</div>
+      </div>
+      <div class="form-group">
+        <label for="firstname" class="form-label">Prenom :</label>
+        <input type="text" id="firstname" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label for="lastname" class="form-label">Nom de famille :</label>
+        <input type="text" id="lastname" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label for="university" class="form-label">Universite :</label>
+        <select id="university" class="form-input">
+          <option>Universite de Montreal</option>
+          <option>McGill</option>
+          <option>Sherbrooke</option>
+          <option>Concordia</option>
+          <option>Ecole de techonologie superieure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="study_level" class="form-label">Niveau d'etude :</label>
+        <select id="study_level" class="form-input">
+          <option>Baccalaureat</option>
+          <option>Maitrise</option>
+          <option>Doctorat</option>
+          <option>Gradue</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="study_domain" class="form-label">Domaine d'etude :</label>
+        <select id="study_domain" class="form-input">
+          <option>Technologies</option>
+          <option>Social</option>
+          <option>Educations</option>
+        </select>
+      </div>
+      <div class="register-page__content__form__birthday">
+        <div class="form-group register-page__content__form__birthday__item">
+          <label for="birthday_day" class="form-label">Jour de naissance:</label>
+          <input type="number" id="birthday_day" class="form-input" />
+        </div>
+        <div class="form-group register-page__content__form__birthday__item">
+          <label for="birthday_month" class="form-label">Mois de naissance:</label>
+          <input type="number" id="birthday_month" class="form-input" />
+        </div>
+        <div class="form-group register-page__content__form__birthday__item">
+          <label for="birthday_year" class="form-label">Annee de naissance:</label>
+          <input type="number" id="birthday_year" class="form-input" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gender" class="form-label">Genre :</label>
+        <select id="gender" class="form-input">
+          <option>Je ne souhaite pas m'identifie</option>
+          <option>Homme</option>
+          <option>Femme</option>
+          <option>Trans</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label">Mot de passe :</label>
+        <input type="password" id="password" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label for="confirmation" class="form-label">Confirmation :</label>
+        <input type="password" id="confirmation" class="form-input" />
+      </div>
+    </form>
+    <div class="register-page__content__actions">
+      <div>
+        <a routerLink="/login">Se connecter</a>
+      </div>
+      <div>
+        <a href="#" class="button-icon">
+          <span class="button-icon__text">Creer mon compte</span>
+          <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
