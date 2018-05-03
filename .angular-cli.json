@@ -19,8 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss",
-        "../node_modules/font-awesome/scss/font-awesome.scss"
+        "styles.scss"
       ],
       "stylePreprocessorOptions": {
         "includePaths": [

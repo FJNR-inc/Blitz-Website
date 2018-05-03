@@ -67,19 +67,27 @@
   }
 
   &__retraite {
-    height: 500px;
     padding: 20px;
     border-top: 5px solid lightgrey;
     display: flex;
     justify-content: space-around;
 
-    &__item {
-      font-size: 16px;
+    &__video-content {
+      flex: 2;
+      max-width: 800px;
 
-      & iframe {
-        height: 460px;
-        width: 820px;
+      & video {
+        width: 100%;
+        height: auto;
       }
+    }
+
+    &__description {
+      flex: 1;
+      font-size: 16px;
+      padding: 10px;
+      text-align: center;
+      max-width: 500px;
     }
   }
 
@@ -88,6 +96,12 @@
     display: flex;
     border-top: 2px solid lightgrey;
     border-bottom: 2px solid lightgrey;
+
+    &__select {
+      display: none;
+      height: 50px;
+      border-bottom: 2px solid lightgrey;
+    }
 
     &__details {
       flex: 1;
@@ -103,12 +117,90 @@
       &__description {
         margin-top: 20px;
       }
+
+      &__list {
+        display: table;
+        margin-top: 20px;
+
+        &__item {
+          display: table-row;
+          height: 60px;
+
+          &__icon {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+          }
+
+          &__text {
+            display: table-cell;
+            padding-left: 20px;
+            vertical-align: middle;
+          }
+        }
+      }
+
+      &__register {
+        margin-top: 40px;
+        text-align: center;
+      }
     }
 
     &__carte {
       flex: 2;
       background-image: url('../../../../assets/images/carte.png');
       background-position: center center;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  .home-page {
+    &__splash-screen{
+      &__title {
+        font-size: 50px;
+
+        &__sub {
+          text-align: center;
+        }
+      }
+
+      &__register {
+        &__button {
+          padding: 5px 15px;
+        }
+      }
+    }
+
+    &__retraite {
+      height: inherit;
+      flex-direction: column;
+
+      &__description {
+        max-width: inherit;
+      }
+    }
+
+    &__espace {
+      height: inherit;
+      flex-direction: column;
+
+      &__select {
+        display: block;
+      }
+
+      &__details {
+        border: none;
+
+        &__title {
+          font-size: 18px;
+        }
+      }
+
+      &__carte {
+        display: none;
+      }
     }
   }
 }
