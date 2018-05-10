@@ -39,6 +39,11 @@
           color: white;
           text-decoration: none;
           border-bottom: 1px solid white;
+
+          &:hover {
+            color: $color-main;
+            border-color: $color-main;
+          }
         }
       }
     }
@@ -67,8 +72,7 @@
   }
 
   &__retraite {
-    padding: 20px;
-    border-top: 5px solid lightgrey;
+    padding: 40px;
     display: flex;
     justify-content: space-around;
 
@@ -94,24 +98,25 @@
   &__espace {
     height: 500px;
     display: flex;
-    border-top: 2px solid lightgrey;
-    border-bottom: 2px solid lightgrey;
+    border-bottom: 5px solid $color-main;
 
     &__select {
       display: none;
       height: 50px;
-      border-bottom: 2px solid lightgrey;
+      border-bottom: 5px solid $color-main;
     }
 
     &__details {
       flex: 1;
-      border-right: 2px solid lightgrey;
+      border-right: 1px solid lightgrey;
       padding: 20px;
 
       &__title {
         text-transform: uppercase;
         font-size: 27px;
         letter-spacing: 5px;
+        color: $color-main;
+        font-weight: 900;
       }
 
       &__description {
@@ -130,6 +135,7 @@
             display: table-cell;
             text-align: center;
             vertical-align: middle;
+            color: $color-main;
           }
 
           &__text {
@@ -151,6 +157,17 @@
       background-image: url('../../../../assets/images/carte.png');
       background-position: center center;
     }
+  }
+
+  &__separator {
+    background-color: $color-main;
+    font-size: 25px;
+    letter-spacing: 5px;
+    word-spacing: 10px;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px;
   }
 }
 

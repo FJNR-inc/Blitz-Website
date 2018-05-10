@@ -3,13 +3,23 @@
 .footer {
   display: flex;
   flex-direction: column;
-
-  border-top: 2px solid lightgrey;
+  background-color: $color-main;
   padding: 20px;
+  color: white;
+  text-align: center;
 
-  color: $color-grey;
+  &__links {
+    margin-bottom: 10px;
 
-  &__section {
-    text-align: center;
+    &__link {
+      padding: 3px 10px;
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        color: white;
+        border-bottom: 1px solid white;
+      }
+    }
   }
 }

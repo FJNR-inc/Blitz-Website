@@ -1,13 +1,23 @@
+@import "../../../../assets/scss/_theme.scss";
+
 .register-page {
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+  ),
+  url('../../../../assets/images/home_background.jpg');
+  min-height: 100%;
 
   &__content {
-    margin-top: 50px;
-    border: 2px solid lightgrey;
+    margin: 50px 0;
+    border: 5px solid $color-main;
     padding: 20px;
     margin-bottom: 100px;
     width: 600px;
+    background-color: white;
 
     &__header {
       text-align: center;

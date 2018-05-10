@@ -1,15 +1,20 @@
 .button-icon {
-  border: 2px solid lightgrey;
+  border: 2px solid $color-main;
   padding: 10px;
   margin: 10px;
   text-decoration: none;
+  color: $color-main;
+  background-color: inherit;
+  transition: all $ease-inout-sine 300ms;
 
   &:hover {
-    background-color: lightgrey;
+    background-color: $color-main;
+    color: white;
+    cursor: pointer;
   }
 
   &__text {
-    border-right: 2px solid lightgrey;
+    border-right: 2px solid $color-main;
     padding: 10px;
     padding-left: 0;
   }
