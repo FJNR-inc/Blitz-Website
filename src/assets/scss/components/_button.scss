@@ -1,11 +1,13 @@
 .button-icon {
   border: 2px solid $color-main;
-  padding: 10px;
-  margin: 10px;
+  margin: 10px 0;
   text-decoration: none;
   color: $color-main;
   background-color: inherit;
   transition: all $ease-inout-sine 300ms;
+  text-align: center;
+  display: flex;
+  align-items: center;
 
   &:hover {
     background-color: $color-main;
@@ -16,10 +18,31 @@
   &__text {
     border-right: 2px solid $color-main;
     padding: 10px;
-    padding-left: 0;
+    flex: 1;
   }
 
   &__icon {
-    padding-left: 7px;
+    padding: 10px;
+  }
+
+  &--reverse {
+    &__text {
+      border-left: 2px solid $color-main;
+      border-right: none;
+    }
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &--main {
+    background-color: $color-main;
+    color: white;
+
+    &:hover {
+      background-color: white;
+      color: $color-main;
+    }
   }
 }

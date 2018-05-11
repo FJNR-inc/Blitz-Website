@@ -1,0 +1,149 @@
+<div class="reservation-page">
+  <div class="separator">
+    Informations
+  </div>
+
+  <div class="reservation-page__details">
+    <div class="reservation-page__details__text espace-detail">
+      <div class="espace-detail__title">
+        Espace della vita
+      </div>
+      <div class="espace-detail__description">
+        Necessitatibus et vel sed temporibus totam eum iure. Et ducimus laboriosam eum. Occaecati sint alias tempora ut explicabo ut quod. Dolorem qui vel assumenda. Temporibus optio quibusdam at et aut corporis quis quia.
+
+        Est ipsa recusandae quam. Molestiae placeat non ut numquam aut dolores et laudantium. Consequatur corrupti ipsum nihil quibusdam omnis molestias.
+      </div>
+      <div class="espace-detail__list">
+        <div class="espace-detail__list__item">
+          <div class="espace-detail__list__item__icon">
+            <i class="fa fa-3x fa-home"></i>
+          </div>
+          <div class="espace-detail__list__item__text">
+            6750 Avenue de l'Esplanade,<br/>
+            Montréal, QC H2V 4M1
+          </div>
+        </div>
+        <div class="espace-detail__list__item">
+          <div class="espace-detail__list__item__icon">
+            <i class="fa fa-3x fa-clipboard-list"></i>
+          </div>
+          <div class="espace-detail__list__item__text">
+            Membership requis
+          </div>
+        </div>
+        <div class="espace-detail__list__item">
+          <div class="espace-detail__list__item__icon">
+            <i class="far fa-3x fa-building"></i>
+          </div>
+          <div class="espace-detail__list__item__text">
+            30 places disponibles
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reservation-page__details__pictures">
+      <div class="reservation-page__details__pictures__preview">
+        <img class="reservation-page__details__pictures__preview__item" src="../../../../assets/images/temp/espace.jpg" />
+        <img class="reservation-page__details__pictures__preview__item" src="../../../../assets/images/temp/espace.jpg" />
+        <img class="reservation-page__details__pictures__preview__item" src="../../../../assets/images/temp/espace.jpg" />
+      </div>
+      <img class="reservation-page__details__pictures__main" src="../../../../assets/images/temp/espace.jpg" />
+    </div>
+  </div>
+  <div class="separator">
+    Reservations
+  </div>
+  <div class="reservation-page__reservation">
+    <div class="reservation-page__reservation__calendar">
+      <div class="reservation-page__reservation__calendar__actions">
+        <a class="button-icon button-icon--reverse">
+          <span class="button-icon__icon button-icon--reverse__icon">
+            <i class="fa fa-caret-left"></i>
+          </span>
+          <span class="button-icon__text button-icon--reverse__text"
+                mwlCalendarPreviousView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="activeDayIsOpen = false">
+            Precedent
+          </span>
+        </a>
+        <h2>
+          {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+        </h2>
+        <a class="button-icon"
+           mwlCalendarNextView
+           [view]="view"
+           [(viewDate)]="viewDate"
+           (viewDateChange)="activeDayIsOpen = false">
+          <span class="button-icon__text">Suivant</span>
+          <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+        </a>
+      </div>
+      <div [ngSwitch]="view" class="page-homepage__calendar">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="eventClicked($event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+      </div>
+    </div>
+    <div class="reservation-page__reservation__form">
+      <form class="reservation-page__reservation__form__date">
+        <div class="form-group">
+          <label for="date" class="form-label">Date :</label>
+          <input type="date" id="date" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label for="schedule" class="form-label">Plage horaire :</label>
+          <select id="schedule" class="form-input">
+            <option>09H00 - 12H00</option>
+            <option>13H00 - 16H00</option>
+            <option>17H00 - 20H00</option>
+          </select>
+        </div>
+      </form>
+
+      <div class="reservation-page__reservation__form__ticket">
+        <div class="reservation-page__reservation__form__ticket__title">
+          Details
+        </div>
+        <div class="reservation-page__reservation__form__ticket__content">
+          <b>Date:</b> 02 Avril 2018<br/>
+          <b>Heure:</b> 09H00 - 12H00<br/>
+          <b>Prix:</b> 7$CAN
+        </div>
+        <div class="reservation-page__reservation__form__ticket__total">
+          TOTAL: 7$ CAN
+        </div>
+      </div>
+
+      <form class="reservation-page__reservation__form__payment">
+        <div class="form-group">
+          <label for="card" class="form-label">Mode de paiement :</label>
+          <select id="card" class="form-input">
+            <option>Mastercard (xxxx xxxx xxxx 9371)</option>
+            <option>Visa (xxxx xxxx xxxx 7785)</option>
+          </select>
+        </div>
+        <div class="form__group">
+          <input type="checkbox" value="yes" id="terms" />
+          <label for="terms">J’accepte les <a href="#">conditions d’utilisation.</a></label>
+        </div>
+        <button type="submit" class="button-icon button-icon--full-width button-icon--main">
+          <span class="button-icon__text">Reserver</span>
+          <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

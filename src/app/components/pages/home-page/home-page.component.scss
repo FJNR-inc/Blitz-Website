@@ -111,41 +111,6 @@
       border-right: 1px solid lightgrey;
       padding: 20px;
 
-      &__title {
-        text-transform: uppercase;
-        font-size: 27px;
-        letter-spacing: 5px;
-        color: $color-main;
-        font-weight: 900;
-      }
-
-      &__description {
-        margin-top: 20px;
-      }
-
-      &__list {
-        display: table;
-        margin-top: 20px;
-
-        &__item {
-          display: table-row;
-          height: 60px;
-
-          &__icon {
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-            color: $color-main;
-          }
-
-          &__text {
-            display: table-cell;
-            padding-left: 20px;
-            vertical-align: middle;
-          }
-        }
-      }
-
       &__register {
         margin-top: 40px;
         text-align: center;
@@ -157,17 +122,6 @@
       background-image: url('../../../../assets/images/carte.png');
       background-position: center center;
     }
-  }
-
-  &__separator {
-    background-color: $color-main;
-    font-size: 25px;
-    letter-spacing: 5px;
-    word-spacing: 10px;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 10px;
   }
 }
 

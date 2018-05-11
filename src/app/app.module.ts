@@ -16,6 +16,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ReservationPageComponent } from './components/pages/reservation-page/reservation-page.component';
+import { CalendarModule } from 'angular-calendar';
 
 
 const appRoutes = [
@@ -38,6 +40,10 @@ const appRoutes = [
       {
         path: 'forgot-password',
         component: ForgotPasswordPageComponent,
+      },
+      {
+        path: 'reservation',
+        component: ReservationPageComponent,
       }
     ]
   }
@@ -52,7 +58,8 @@ const appRoutes = [
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    ForgotPasswordPageComponent
+    ForgotPasswordPageComponent,
+    ReservationPageComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +71,7 @@ const appRoutes = [
     HttpClientModule,
     FormsModule,
     SimpleNotificationsModule.forRoot(),
+    CalendarModule.forRoot()
   ],
   providers: [
     UserService,
