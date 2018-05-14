@@ -1,6 +1,6 @@
 <div class="login-page">
   <div class="login-page__content">
-    <form (submit)="authenticate()">
+    <form (submit)="authenticate(loginForm)" [formGroup]="loginForm">
     <div class="login-page__content__header">
       <img class="login-page__content__header__logo" src="assets/images/logo.png" alt="Logo" />
 
@@ -10,13 +10,24 @@
         </h2>
       </div>
     </div>
+    <div *ngFor="let error of errors" class="alert alert--danger">
+      {{ error }}
+    </div>
     <div class="form-group">
       <label for="email" class="form-label">Courriel :</label>
-      <input [(ngModel)]="login" name="login" type="email" id="email" class="form-input" />
+      <input formControlName="login" name="login" type="email" id="email" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of loginForm.controls['login'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
     </div>
     <div class="form-group">
       <label for="password" class="form-label">Mot de passe :</label>
-      <input [(ngModel)]="password" name="password" type="password" id="password" class="form-input" />
+      <input formControlName="password" name="password" type="password" id="password" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of loginForm.controls['password'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
       <div class="form-text form-text--right">
         <a routerLink="/forgot-password">J'ai oublié mon mot de passe</a>
       </div>

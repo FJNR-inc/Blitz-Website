@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -18,7 +18,10 @@ import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReservationPageComponent } from './components/pages/reservation-page/reservation-page.component';
 import { CalendarModule } from 'angular-calendar';
-
+import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
+import { AcademicFieldService } from './services/academic-field.service';
+import { AcademicLevelService } from './services/academic-level.service';
+import { OrganizationService } from './services/organization.service';
 
 const appRoutes = [
   {
@@ -32,6 +35,10 @@ const appRoutes = [
       {
         path: 'login',
         component: LoginPageComponent,
+      },
+      {
+        path: 'logout',
+        component: LogoutPageComponent,
       },
       {
         path: 'register',
@@ -59,7 +66,8 @@ const appRoutes = [
     LoginPageComponent,
     RegisterPageComponent,
     ForgotPasswordPageComponent,
-    ReservationPageComponent
+    ReservationPageComponent,
+    LogoutPageComponent
   ],
   imports: [
     BrowserModule,
@@ -70,12 +78,16 @@ const appRoutes = [
     ),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     SimpleNotificationsModule.forRoot(),
     CalendarModule.forRoot()
   ],
   providers: [
     UserService,
-    AuthenticationService
+    AuthenticationService,
+    AcademicFieldService,
+    AcademicLevelService,
+    OrganizationService,
   ],
   bootstrap: [AppComponent]
 })

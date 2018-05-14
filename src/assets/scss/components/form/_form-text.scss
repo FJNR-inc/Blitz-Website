@@ -4,4 +4,8 @@
   &--right {
     text-align: right;
   }
+
+  &--danger {
+    color: $color-danger-text;
+  }
 }

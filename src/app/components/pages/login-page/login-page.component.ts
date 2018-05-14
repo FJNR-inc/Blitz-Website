@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { NotificationsService } from 'angular2-notifications';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -10,28 +11,50 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
-  login: string;
-  password: string;
-  error: string;
+  loginForm: FormGroup;
+  errors: string[];
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService,
-    private notificationService: NotificationsService
-  ) {}
-
-  authenticate() {
-    this.authenticationService.authenticate(this.login, this.password).subscribe(
-      data => {
-        console.log('YEAHHHH!');
-        localStorage.setItem('token', data.token);
-        this.notificationService.success('Connecté', 'Bienvenue!');
-        this.router.navigate(['/']);
-      },
-      err => {
-        this.error = 'Ces identifiants sont incorrects!';
+    private notificationService: NotificationsService,
+    private formBuilder: FormBuilder
+  ) {
+    this.loginForm = this.formBuilder.group(
+      {
+        login: null,
+        password: null
       }
     );
+  }
+
+  authenticate(form: FormGroup) {
+    if ( form.valid ) {
+      this.authenticationService.authenticate(form.value['login'], form.value['password']).subscribe(
+        data => {
+          localStorage.setItem('token', data.token);
+          this.notificationService.success('Connecté', 'Bienvenue!');
+          this.router.navigate(['/']);
+        },
+        err => {
+          console.log(err.error);
+          if (err.error.non_field_errors) {
+            this.errors = err.error.non_field_errors;
+            console.log(this.errors);
+          }
+          if (err.error.username) {
+            this.loginForm.controls['login'].setErrors({
+              apiError: err.error.username
+            });
+          }
+          if (err.error.password) {
+            this.loginForm.controls['password'].setErrors({
+              apiError: err.error.password
+            });
+          }
+        }
+      );
+    }
   }
 }

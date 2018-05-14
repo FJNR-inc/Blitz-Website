@@ -1,5 +1,7 @@
 import BaseModel from './baseModel';
 import { Organization } from './organization';
+import { AcademicField } from './academicField';
+import { AcademicLevel } from './academicLevel';
 
 export class User extends BaseModel {
   id: number;
@@ -8,10 +10,10 @@ export class User extends BaseModel {
   email: string;
   phone: string;
   other_phone: string;
-  university: Organization;
-  academic_field: string;
-  academic_level: string;
-  birthday: string;
+  university: any;
+  academic_field: any;
+  academic_level: any;
+  birthdate: string;
   gender: string;
   is_active: boolean;
   is_superuser: boolean;

@@ -11,4 +11,10 @@
     border-color: $color-blue-border;
     color: $color-blue-text;
   }
+
+  &--danger {
+    background-color: $color-danger-background;
+    border-color: $color-danger-border;
+    color: $color-danger-text;
+  }
 }

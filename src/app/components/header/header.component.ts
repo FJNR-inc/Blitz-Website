@@ -1,4 +1,5 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ export class HeaderComponent {
 
     responsive = false;
 
-    constructor() { }
+    constructor(private authenticationService: AuthenticationService) { }
 
     closeResponsiveNavbar() {
         this.responsive = false;
@@ -18,5 +19,9 @@ export class HeaderComponent {
 
     toogleResponsiveNavbar() {
         this.responsive = !this.responsive;
+    }
+
+    isAuthenticated() {
+      return this.authenticationService.isAuthenticated();
     }
 }

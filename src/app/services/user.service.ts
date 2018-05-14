@@ -17,7 +17,7 @@ export class UserService extends GlobalService {
     super();
   }
 
-  createUser(user: User, password: string): Observable<any> {
+  create(user: User, password: string): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
       this.url_users,
@@ -26,8 +26,17 @@ export class UserService extends GlobalService {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-        phone: user.phone,
-        other_phone: user.other_phone,
+        gender: user.gender,
+        university: {
+          name: user.university
+        },
+        academic_field: {
+          name: user.academic_field,
+        },
+        academic_level: {
+          name: user.academic_level
+        },
+        birthdate: user.birthdate,
       },
       {headers: headers}
     );
