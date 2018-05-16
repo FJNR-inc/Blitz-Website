@@ -1,0 +1,19 @@
+<div class="admin-users-page">
+  <div class="admin-users-page__title">
+    <h2>Utilisateurs</h2>
+  </div>
+  <div class="admin-users-page__actions">
+    <div>
+      <!-- Space for some filters -->
+    </div>
+    <div>
+      <!-- Space for button actions -->
+    </div>
+  </div>
+  <div class="admin-users-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="listUsers"
+                  (selectItem)="selectUser($event);"
+                  (addButton)="createUser()"></app-my-table>
+  </div>
+</div>

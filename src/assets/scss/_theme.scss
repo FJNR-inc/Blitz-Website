@@ -17,13 +17,18 @@ $color-danger-border: #f5c6cb;
 $color-danger-background: #F8D7DA;
 $color-danger-text: #975057;
 
+$color-warning-border: #FFEEBA;
+$color-warning-background: #FFF3CD;
+$color-warning-text: #88680a;
+
 $color-grey: #4b4b4b;
 $color-grey-dark: #1b1b1b;
 
 $link-color: $color-grey;
 
 $color-main: #33a27f;
-
+$color-background-main: lighten($color-main, 52);
+$color-hover-main: lighten($color-main, 40);
 
 $font-little: 10px;
 $link-color-hover: $color-main;

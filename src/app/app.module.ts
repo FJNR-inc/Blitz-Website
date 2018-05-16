@@ -15,13 +15,20 @@ import { ForgotPasswordPageComponent } from './components/pages/forgot-password-
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReservationPageComponent } from './components/pages/reservation-page/reservation-page.component';
 import { CalendarModule } from 'angular-calendar';
 import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
 import { AcademicFieldService } from './services/academic-field.service';
 import { AcademicLevelService } from './services/academic-level.service';
 import { OrganizationService } from './services/organization.service';
+import { UsersPageComponent } from './components/pages/admin/users-page/users-page.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { MyTableComponent } from './components/my-table/my-table.component';
+import { MyHttpInterceptor } from './my-http-interceptor';
+import { UserPageComponent } from './components/pages/admin/user-page/user-page.component';
+import { OrganizationsPageComponent } from './components/pages/admin/organizations-page/organizations-page.component';
+import { AcademicsPageComponent } from './components/pages/admin/academics-page/academics-page.component';
 
 const appRoutes = [
   {
@@ -53,6 +60,28 @@ const appRoutes = [
         component: ReservationPageComponent,
       }
     ]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: 'admin/users',
+        component: UsersPageComponent,
+      },
+      {
+        path: 'admin/users/:id',
+        component: UserPageComponent,
+      },
+      {
+        path: 'admin/organizations',
+        component: OrganizationsPageComponent,
+      },
+      {
+        path: 'admin/academics',
+        component: AcademicsPageComponent,
+      }
+    ]
   }
 ];
 
@@ -60,6 +89,7 @@ const appRoutes = [
   declarations: [
     AppComponent,
     DefaultLayoutComponent,
+    AdminLayoutComponent,
     HeaderComponent,
     FooterComponent,
     HomePageComponent,
@@ -67,7 +97,12 @@ const appRoutes = [
     RegisterPageComponent,
     ForgotPasswordPageComponent,
     ReservationPageComponent,
-    LogoutPageComponent
+    LogoutPageComponent,
+    UsersPageComponent,
+    MyTableComponent,
+    UserPageComponent,
+    OrganizationsPageComponent,
+    AcademicsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +118,11 @@ const appRoutes = [
     CalendarModule.forRoot()
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true,
+    },
     UserService,
     AuthenticationService,
     AcademicFieldService,

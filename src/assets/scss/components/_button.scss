@@ -1,3 +1,18 @@
+.button {
+  padding: 5px 10px;
+  color: $color-main;
+  background-color: white;
+  border: 1px solid $color-main;
+  border-radius: 15px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $color-main;
+    color: white;
+    cursor: pointer;
+  }
+}
+
 .button-icon {
   border: 2px solid $color-main;
   margin: 10px 0;

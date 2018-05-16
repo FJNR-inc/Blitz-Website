@@ -41,4 +41,20 @@ export class UserService extends GlobalService {
       {headers: headers}
     );
   }
+
+  list(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_users,
+      {headers: headers}
+    );
+  }
+
+  get(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_users + '/' + id,
+      {headers: headers}
+    );
+  }
 }

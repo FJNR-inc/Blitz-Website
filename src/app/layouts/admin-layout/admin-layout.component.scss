@@ -1,0 +1,47 @@
+@import "../../../assets/scss/_theme.scss";
+@import "../../../assets/scss/_easings.scss";
+
+#content {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.left-nav {
+  width: 250px;
+  border-right: 1px solid lightgrey;
+  height: 100%;
+  box-sizing: border-box;
+
+  &__header {
+    display: block;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    text-align: center;
+    color: $color-main;
+    font-weight: 900;
+  }
+
+  &__item {
+    display: block;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    transition: all $ease-inout-sine 200ms;
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $color-main;
+      color: white;
+    }
+  }
+}
+
+#main {
+  width: calc(100% - 250px);
+  margin: 1rem;
+}

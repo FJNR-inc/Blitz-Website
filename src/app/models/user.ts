@@ -17,5 +17,13 @@ export class User extends BaseModel {
   gender: string;
   is_active: boolean;
   is_superuser: boolean;
+
+  getUniversity() {
+    if (this.university) {
+      return this.university.name;
+    } else {
+      return null;
+    }
+  }
 }
 

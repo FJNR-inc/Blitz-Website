@@ -1,0 +1,50 @@
+<div class="my-table__actions">
+  <div>
+    <!-- Space for some filters -->
+  </div>
+  <div>
+    <a class="button" *ngIf="settings.addButton" (click)="add()">
+      Ajouter
+      <i class="fa fa-plus"></i>
+    </a>
+  </div>
+</div>
+<table class="my-table__table">
+  <tr class="my-table__table__header">
+    <th *ngFor="let column of settings.columns" class="my-table__table__header__column">
+      {{ column.title }}
+    </th>
+    <th *ngIf="settings.editButton || settings.deleteButton" class="my-table__table__header__column my-table__table__header__column--actions">
+      Actions
+    </th>
+  </tr>
+  <tr *ngFor="let item of data"
+      [ngClass]="{'my-table__table__line--clickable' : settings.clickable}"
+      (click)="clickItem(item)"
+      class="my-table__table__line">
+    <td *ngFor="let column of settings.columns"
+        class="my-table__table__line__cell">
+      <span *ngIf="column.type === 'boolean' && item[column.name] === true">
+        <i class="fa fa-check" style="color: green;"></i>
+      </span>
+      <span *ngIf="column.type === 'boolean' && item[column.name] === false">
+        <i class="fa fa-times" style="color: darkred;"></i>
+      </span>
+      <span *ngIf="column.type !== 'boolean'">
+        {{ item[column.name] }}
+      </span>
+    </td>
+    <td class="my-table__table__line__cell my-table__table__line__cell--actions" *ngIf="settings.editButton || settings.deleteButton">
+      <a *ngIf="settings.editButton"
+         class="my-table__table__line__cell--actions__edit"
+         (click)="edit(item)">
+        <i class="fas fa-pencil-alt"></i>
+      </a>
+      <a *ngIf="settings.removeButton"
+         class="my-table__table__line__cell--actions__remove"
+         (click)="remove(item)">
+        <i class="fa fa-trash"></i>
+      </a>
+    </td>
+  </tr>
+</table>
