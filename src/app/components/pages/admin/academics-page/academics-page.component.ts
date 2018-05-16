@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AcademicField} from "../../../../models/academicField";
-import {AcademicLevel} from "../../../../models/academicLevel";
-import {AcademicFieldService} from "../../../../services/academic-field.service";
-import {AcademicLevelService} from "../../../../services/academic-level.service";
-import {Router} from "@angular/router";
+import { AcademicField } from '../../../../models/academicField';
+import { AcademicLevel } from '../../../../models/academicLevel';
+import { AcademicFieldService } from '../../../../services/academic-field.service';
+import { AcademicLevelService } from '../../../../services/academic-level.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-academics-page',

@@ -24,7 +24,7 @@ export class RegisterPageComponent implements OnInit {
   listAcademicLevels: AcademicLevel[];
   listOrganizations: Organization[];
   years: number[] = [];
-  hasSubmit: boolean = false;
+  hasSubmit = false;
 
   constructor(private formBuilder: FormBuilder,
               private academicFieldService: AcademicFieldService,
