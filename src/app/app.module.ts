@@ -29,6 +29,8 @@ import { MyHttpInterceptor } from './my-http-interceptor';
 import { UserPageComponent } from './components/pages/admin/user-page/user-page.component';
 import { OrganizationsPageComponent } from './components/pages/admin/organizations-page/organizations-page.component';
 import { AcademicsPageComponent } from './components/pages/admin/academics-page/academics-page.component';
+import { MyModalComponent } from './components/my-modal/my-modal.component';
+import { MyModalService } from './services/my-modal/my-modal.service';
 
 const appRoutes = [
   {
@@ -103,6 +105,7 @@ const appRoutes = [
     UserPageComponent,
     OrganizationsPageComponent,
     AcademicsPageComponent,
+    MyModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,6 +126,7 @@ const appRoutes = [
       useClass: MyHttpInterceptor,
       multi: true,
     },
+    MyModalService,
     UserService,
     AuthenticationService,
     AcademicFieldService,

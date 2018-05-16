@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
 import { Router } from '@angular/router';
+import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 
 @Component({
   selector: 'app-users-page',
@@ -43,7 +44,8 @@ export class UsersPageComponent implements OnInit {
   };
 
   constructor(private userService: UserService,
-              private router: Router) { }
+              private router: Router,
+              private myModalService: MyModalService) { }
 
   ngOnInit() {
     this.userService.list().subscribe(
@@ -75,6 +77,13 @@ export class UsersPageComponent implements OnInit {
   }
 
   createUser() {
-    console.log('Open a new modal here');
+    const modal = this.myModalService.get('create_user');
+
+    if (!modal) {
+      console.error('No modal named %s', 'create_user');
+      return;
+    }
+
+    modal.toggle();
   }
 }
