@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Organization } from '../../../../models/organization';
 import { OrganizationService } from '../../../../services/organization.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MyModalService } from '../../../../services/my-modal/my-modal.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-organizations-page',
@@ -11,8 +14,15 @@ export class OrganizationsPageComponent implements OnInit {
 
   listOrganizations: Organization[];
 
+  organizationForm: FormGroup;
+  organizationErrors: string[];
+  selectedOrganizationUrl: string;
+
   settings = {
     clickable: true,
+    addButton: true,
+    editButton: true,
+    removeButton: true,
     columns: [
       {
         name: 'name',
@@ -21,13 +31,108 @@ export class OrganizationsPageComponent implements OnInit {
     ]
   };
 
-  constructor(private organizationService: OrganizationService) { }
+  constructor(private organizationService: OrganizationService,
+              private myModalService: MyModalService,
+              private notificationService: NotificationsService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.refreshOrganizationList();
+
+    this.organizationForm = this.formBuilder.group(
+      {
+        name: null
+      }
+    );
+  }
+
+  refreshOrganizationList() {
     this.organizationService.list().subscribe(
       organizations => {
         this.listOrganizations = organizations.results.map(o => new Organization(o));
       }
     );
+  }
+
+  OpenModalCreateOrganization() {
+    this.organizationForm.reset();
+    this.selectedOrganizationUrl = null;
+    this.toogleModal('form_organizations', 'Ajouter une universite', 'Creer');
+  }
+
+  OpenModalEditOrganization(item) {
+    this.organizationForm.controls['name'].setValue(item.name);
+    this.selectedOrganizationUrl = item.url;
+    this.toogleModal('form_organizations', 'Editer une universite', 'Editer');
+  }
+
+  submitOrganization() {
+    if ( this.organizationForm.valid ) {
+      if (this.selectedOrganizationUrl) {
+        this.organizationService.update(this.selectedOrganizationUrl, this.organizationForm.value['name']).subscribe(
+          data => {
+            this.notificationService.success('Modifié');
+            this.refreshOrganizationList();
+            this.toogleModal('form_organizations');
+          },
+          err => {
+            if (err.error.non_field_errors) {
+              this.organizationErrors = err.error.non_field_errors;
+              console.log(this.organizationErrors);
+            }
+            if (err.error.name) {
+              this.organizationForm.controls['name'].setErrors({
+                apiError: err.error.name
+              });
+            }
+          }
+        );
+      } else {
+        this.organizationService.create(this.organizationForm.value['name']).subscribe(
+          data => {
+            this.notificationService.success('Ajouté');
+            this.refreshOrganizationList();
+            this.toogleModal('form_organizations');
+          },
+          err => {
+            if (err.error.non_field_errors) {
+              this.organizationErrors = err.error.non_field_errors;
+              console.log(this.organizationErrors);
+            }
+            if (err.error.name) {
+              this.organizationForm.controls['name'].setErrors({
+                apiError: err.error.name
+              });
+            }
+          }
+        );
+      }
+    }
+  }
+
+  removeOrganization(item) {
+    console.log('bad!');
+    this.organizationService.remove(item).subscribe(
+      data => {
+        this.notificationService.success('Supprimé', 'Le domaine d\'étude a bien été supprimé.');
+        this.refreshOrganizationList();
+      },
+      err => {
+        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+      }
+    );
+  }
+
+  toogleModal(name, title = '', button2 = '') {
+    const modal = this.myModalService.get(name);
+
+    if (!modal) {
+      console.error('No modal named %s', name);
+      return;
+    }
+
+    modal.title = title;
+    modal.button2Label = button2;
+    modal.toggle();
   }
 }

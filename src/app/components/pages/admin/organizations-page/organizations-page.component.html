@@ -11,6 +11,29 @@
     </div>
   </div>
   <div class="admin-organizations-page__table">
-    <app-my-table [settings]="settings" [data]="listOrganizations"></app-my-table>
+    <app-my-table [settings]="settings"
+                  [data]="listOrganizations"
+                  (addButton)="OpenModalCreateOrganization()"
+                  (editItem)="OpenModalEditOrganization($event)"
+                  (removeItem)="removeOrganization($event)">
+    </app-my-table>
   </div>
 </div>
+
+<app-my-modal name="form_organizations"
+              typeModal="success"
+              (button2)="submitOrganization()">
+  <form [formGroup]="organizationForm">
+    <div *ngFor="let error of organizationErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <label for="organizationName" class="form-label">Nom :</label>
+      <input formControlName="name" type="text" id="organizationName" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of organizationForm.controls['name'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</app-my-modal>

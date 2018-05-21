@@ -1,7 +1,7 @@
 import BaseModel from './baseModel';
 
 export class Organization extends BaseModel {
-  id: number;
+  url: string;
   name: string;
 }
 
