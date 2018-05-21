@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
 import { Router } from '@angular/router';
-import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 
 @Component({
   selector: 'app-users-page',
@@ -15,9 +14,6 @@ export class UsersPageComponent implements OnInit {
 
   settings = {
     clickable: true,
-    addButton: true,
-    editButton: true,
-    removeButton: true,
     columns: [
       {
         name: 'first_name',
@@ -44,8 +40,7 @@ export class UsersPageComponent implements OnInit {
   };
 
   constructor(private userService: UserService,
-              private router: Router,
-              private myModalService: MyModalService) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.userService.list().subscribe(
@@ -74,16 +69,5 @@ export class UsersPageComponent implements OnInit {
 
   selectUser(user) {
     this.router.navigate(['/admin/users/' + user.id]);
-  }
-
-  createUser() {
-    const modal = this.myModalService.get('create_user');
-
-    if (!modal) {
-      console.error('No modal named %s', 'create_user');
-      return;
-    }
-
-    modal.toggle();
   }
 }

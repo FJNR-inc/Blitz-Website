@@ -13,14 +13,7 @@
   <div class="admin-users-page__table">
     <app-my-table [settings]="settings"
                   [data]="listUsers"
-                  (selectItem)="selectUser($event);"
-                  (addButton)="createUser()"></app-my-table>
+                  (selectItem)="selectUser($event)">
+    </app-my-table>
   </div>
 </div>
-
-<app-my-modal name="create_user"
-              title="Ajouter un utilisateur"
-              button2Label="Ajouter"
-              typeModal="form">
-  Here is a little form to add a new user
-</app-my-modal>
