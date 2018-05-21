@@ -1,4 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MyModalService } from '../../services/my-modal/my-modal.service';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-my-table',
@@ -15,9 +17,15 @@ export class MyTableComponent implements OnInit {
   @Output() removeItem: EventEmitter<any> = new EventEmitter();
   @Output() addButton: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  selectedItem: any;
+  uuid: string;
+  deleteModalName: string;
+
+  constructor(private myModalService: MyModalService) { }
 
   ngOnInit() {
+    this.uuid = uuid();
+    this.deleteModalName = 'delete_table_' + this.uuid;
   }
 
   clickItem(item) {
@@ -28,8 +36,23 @@ export class MyTableComponent implements OnInit {
     this.editItem.emit(item);
   }
 
-  remove(item) {
-    this.removeItem.emit(item);
+  confirmRemove(item) {
+    this.selectedItem = item;
+
+    const modal = this.myModalService.get(this.deleteModalName);
+
+    if (!modal) {
+      console.error('No modal named %s', this.deleteModalName);
+      return;
+    }
+
+    modal.toggle();
+  }
+
+  remove() {
+    this.removeItem.emit(this.selectedItem);
+    const modal = this.myModalService.get(this.deleteModalName);
+    modal.toggle();
   }
 
   add() {

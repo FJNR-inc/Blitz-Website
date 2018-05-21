@@ -65,6 +65,28 @@
               color: $color-warning-text-hover;
             }
           }
+
+          &--success {
+            background-color: $color-success-background;
+            color: $color-success-text;
+            border: 1px solid $color-success-border;
+
+            &:hover {
+              background-color: $color-success-background-hover;
+              color: $color-success-text-hover;
+            }
+          }
+
+          &--danger {
+            background-color: $color-danger-background;
+            color: $color-danger-text;
+            border: 1px solid $color-danger-border;
+
+            &:hover {
+              background-color: $color-danger-background-hover;
+              color: $color-danger-text-hover;
+            }
+          }
         }
       }
     }

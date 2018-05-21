@@ -10,9 +10,8 @@ export class MyModalComponent implements OnInit {
 
   @Input() name: string;
   @Input() title: string;
-  @Input() typeModal = 'information';
+  @Input() typeModal: string;
   @Input() button2Label: string;
-  @Input() button2Style = 'button--danger';
 
   @ViewChild('modalContent') modalContent;
 
@@ -52,7 +51,6 @@ export class MyModalComponent implements OnInit {
 
     if (this.show) {
       document.addEventListener('keyup', this.escapeListener);
-      this.modalContent.nativeElement.getElementsByTagName('input')[0].focus();
     } else {
       document.removeEventListener('keyup', this.escapeListener);
       this.errorMessage = '';

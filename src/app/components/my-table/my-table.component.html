@@ -42,9 +42,17 @@
       </a>
       <a *ngIf="settings.removeButton"
          class="my-table__table__line__cell--actions__remove"
-         (click)="remove(item)">
+         (click)="confirmRemove(item)">
         <i class="fa fa-trash"></i>
       </a>
     </td>
   </tr>
 </table>
+
+<app-my-modal name="{{deleteModalName}}"
+              typeModal="danger"
+              title="Supprimer ?"
+              button2Label="Supprimer"
+              (button2)="remove()">
+  Etes-vous vraiment sur de vouloir supprimer ?
+</app-my-modal>

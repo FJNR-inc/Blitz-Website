@@ -1,7 +1,7 @@
 import BaseModel from './baseModel';
 
 export class AcademicField extends BaseModel {
-  id: number;
+  url: string;
   name: string;
 }
 
