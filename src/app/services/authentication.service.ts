@@ -14,6 +14,7 @@ export class AuthenticationService extends GlobalService {
 
   url_authentication = environment.url_base_api + environment.paths_api.authentication;
   url_reset_password = environment.url_base_api + environment.paths_api.reset_password;
+  url_activate_user = environment.url_base_api + environment.paths_api.activate_user;
 
   constructor(public http: HttpClient) {
     super();
@@ -45,6 +46,17 @@ export class AuthenticationService extends GlobalService {
       this.url_reset_password,
       {
         email: email
+      },
+      {headers: headers}
+    );
+  }
+
+  activate(token: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      this.url_activate_user,
+      {
+        activation_token: token
       },
       {headers: headers}
     );
