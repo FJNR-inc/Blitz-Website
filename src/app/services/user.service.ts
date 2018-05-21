@@ -19,25 +19,36 @@ export class UserService extends GlobalService {
 
   create(user: User, password: string): Observable<any> {
     const headers = this.getHeaders();
+    const body = {
+      password: password,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      gender: user.gender,
+      birthdate: user.birthdate
+    };
+
+    if (user.university) {
+      body['university'] = {
+        name: user.university
+      };
+    }
+
+    if (user.academic_field) {
+      body['academic_field'] = {
+        name: user.academic_field
+      };
+    }
+
+    if (user.academic_level) {
+      body['academic_level'] = {
+        name: user.academic_level
+      };
+    }
+
     return this.http.post<any>(
       this.url_users,
-      {
-        password: password,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        gender: user.gender,
-        university: {
-          name: user.university
-        },
-        academic_field: {
-          name: user.academic_field,
-        },
-        academic_level: {
-          name: user.academic_level
-        },
-        birthdate: user.birthdate,
-      },
+      body,
       {headers: headers}
     );
   }

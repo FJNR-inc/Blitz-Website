@@ -37,9 +37,9 @@ export class RegisterPageComponent implements OnInit {
         email: [null, Validators.required],
         first_name: [null, Validators.required],
         last_name: [null, Validators.required],
-        university: [null, Validators.required],
-        academic_level: [null, Validators.required],
-        academic_field: [null, Validators.required],
+        university: [null],
+        academic_level: [null],
+        academic_field: [null],
         birth_day: [null, Validators.required],
         birth_month: [null, Validators.required],
         birth_year: [null, Validators.required],
@@ -153,19 +153,27 @@ export class RegisterPageComponent implements OnInit {
   register(form: FormGroup) {
     if ( form.valid ) {
       const birthdate = form.value['birth_year'] + '-' + form.value['birth_month'] + '-' + form.value['birth_day'];
-      const user = new User({
+      const userData = {
         first_name: form.value['first_name'],
         last_name: form.value['last_name'],
         email: form.value['email'],
-        university: form.value['university'],
-        academic_field: form.value['academic_field'],
-        academic_level: form.value['academic_level'],
         birthdate: birthdate,
         gender: form.value['gender'],
-      });
+      };
+      if (form.value['university'] !== 'none') {
+        userData['university'] = form.value['university'];
+      }
+      if (form.value['academic_field'] !== 'none') {
+        userData['academic_field'] = form.value['academic_field'];
+      }
+      if (form.value['academic_level'] !== 'none') {
+        userData['academic_level'] = form.value['academic_level'];
+      }
+
+      const user = new User(userData);
       this.userService.create(user, form.value['password']).subscribe(
         data => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/register/confirmation']);
         },
         err => {
           console.log(err.error);
@@ -193,15 +201,27 @@ export class RegisterPageComponent implements OnInit {
               apiError: err.error.university.name
             });
           }
-          if (err.error.academic_level && err.error.academic_level.name) {
-            this.registerForm.controls['academic_level'].setErrors({
-              apiError: err.error.academic_level.name
-            });
+          if (err.error.academic_level) {
+            if (err.error.academic_level.name) {
+              this.registerForm.controls['academic_level'].setErrors({
+                apiError: err.error.academic_level.name
+              });
+            } else {
+              this.registerForm.controls['academic_level'].setErrors({
+                apiError: err.error.academic_level
+              });
+            }
           }
-          if (err.error.academic_field && err.error.academic_field.name) {
-            this.registerForm.controls['academic_field'].setErrors({
-              apiError: err.error.academic_field.name
-            });
+          if (err.error.academic_field) {
+            if (err.error.academic_field.name) {
+              this.registerForm.controls['academic_field'].setErrors({
+                apiError: err.error.academic_field.name
+              });
+            } else {
+              this.registerForm.controls['academic_field'].setErrors({
+                apiError: err.error.academic_field
+              });
+            }
           }
           if (err.error.password) {
             this.registerForm.controls['password'].setErrors({
@@ -210,8 +230,6 @@ export class RegisterPageComponent implements OnInit {
           }
         }
       );
-    } else {
-      console.log(form.valid);
     }
   }
 }

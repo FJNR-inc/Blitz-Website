@@ -31,6 +31,7 @@ import { OrganizationsPageComponent } from './components/pages/admin/organizatio
 import { AcademicsPageComponent } from './components/pages/admin/academics-page/academics-page.component';
 import { MyModalComponent } from './components/my-modal/my-modal.component';
 import { MyModalService } from './services/my-modal/my-modal.service';
+import { RegisterConfirmationPageComponent } from './components/pages/register-confirmation-page/register-confirmation-page.component';
 
 const appRoutes = [
   {
@@ -52,6 +53,10 @@ const appRoutes = [
       {
         path: 'register',
         component: RegisterPageComponent,
+      },
+      {
+        path: 'register/confirmation',
+        component: RegisterConfirmationPageComponent,
       },
       {
         path: 'forgot-password',
@@ -106,6 +111,7 @@ const appRoutes = [
     OrganizationsPageComponent,
     AcademicsPageComponent,
     MyModalComponent,
+    RegisterConfirmationPageComponent,
   ],
   imports: [
     BrowserModule,

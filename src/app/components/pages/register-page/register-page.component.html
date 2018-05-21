@@ -14,16 +14,15 @@
           {{ error }}
         </div>
         <div class="form-group">
-          <label for="email" class="form-label">Courriel :</label>
+          <label for="email" class="form-label">Courriel* :</label>
           <input formControlName="email" type="email" id="email" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
             {{ errorMessage }}
           </div>
-          <div class="form-text">Seul les courriel universitaire sont admis</div>
         </div>
         <div class="form-group">
-          <label for="firstname" class="form-label">Prenom :</label>
+          <label for="firstname" class="form-label">Prenom* :</label>
           <input formControlName="first_name" type="text" id="firstname" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['first_name'].getError('apiError')">
@@ -31,7 +30,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="lastname" class="form-label">Nom de famille :</label>
+          <label for="lastname" class="form-label">Nom de famille* :</label>
           <input formControlName="last_name" type="text" id="lastname" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['last_name'].getError('apiError')">
@@ -41,6 +40,7 @@
         <div class="form-group">
           <label for="university" class="form-label">Universite :</label>
           <select formControlName="university" id="university" class="form-input">
+            <option value="none"></option>
             <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
               {{ organization.name }}
             </option>
@@ -53,6 +53,7 @@
         <div class="form-group">
           <label for="study_level" class="form-label">Niveau d'etude :</label>
           <select formControlName="academic_level" id="study_level" class="form-input">
+            <option value="none"></option>
             <option value="{{ level.name }}" *ngFor="let level of listAcademicLevels">
               {{ level.name }}
             </option>
@@ -65,6 +66,7 @@
         <div class="form-group">
           <label for="study_field" class="form-label">Domaine d'etude :</label>
           <select formControlName="academic_field" id="study_field" class="form-input">
+            <option value="none"></option>
             <option value="{{ field.name }}" *ngFor="let field of listAcademicFields">
               {{ field.name }}
             </option>
@@ -76,7 +78,7 @@
         </div>
         <div class="register-page__content__form__birthday">
           <div class="form-group register-page__content__form__birthday__item">
-            <label for="birthday_day" class="form-label">Jour de naissance:</label>
+            <label for="birthday_day" class="form-label">Jour de naissance*:</label>
             <select formControlName="birth_day" id="birthday_day" class="form-input">
               <option value="1">1</option>
               <option value="2">2</option>
@@ -116,7 +118,7 @@
             </div>
           </div>
           <div class="form-group register-page__content__form__birthday__item">
-            <label for="birthday_month" class="form-label">Mois de naissance:</label>
+            <label for="birthday_month" class="form-label">Mois de naissance*:</label>
             <select formControlName="birth_month" id="birthday_month" class="form-input">
               <option value="1">Janvier</option>
               <option value="2">Fevrier</option>
@@ -137,7 +139,7 @@
             </div>
           </div>
           <div class="form-group register-page__content__form__birthday__item">
-            <label for="birthday_year" class="form-label">Annee de naissance:</label>
+            <label for="birthday_year" class="form-label">Annee de naissance*:</label>
             <select formControlName="birth_year" id="birthday_year" class="form-input">
               <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
             </select>
@@ -148,7 +150,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="gender" class="form-label">Genre :</label>
+          <label for="gender" class="form-label">Genre* :</label>
           <select formControlName="gender" id="gender" class="form-input">
             <option value="A">Je ne souhaite pas m'identifie</option>
             <option value="M">Homme</option>
@@ -157,7 +159,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="password" class="form-label">Mot de passe :</label>
+          <label for="password" class="form-label">Mot de passe* :</label>
           <input formControlName="password" type="password" id="password" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['password'].getError('apiError')">
@@ -165,7 +167,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="confirmation" class="form-label">Confirmation :</label>
+          <label for="confirmation" class="form-label">Confirmation* :</label>
           <input formControlName="confirmation" type="password" id="confirmation" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['confirmation'].getError('apiError')">
@@ -174,7 +176,7 @@
         </div>
         <div class="form__group">
           <input formControlName="terms" type="checkbox" value="yes" id="terms" />
-          <label for="terms">J’accepte les <a href="#">conditions d’utilisation.</a></label>
+          <label for="terms">J’accepte les <a href="#">conditions d’utilisation.</a>*</label>
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['terms'].getError('apiError')">
             {{ errorMessage }}
