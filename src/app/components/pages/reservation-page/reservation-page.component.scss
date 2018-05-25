@@ -4,8 +4,14 @@
 
   &__details{
     padding: 30px;
+    background-color: $color-main;
+    color: white;
     display: flex;
     justify-content: space-between;
+
+    &__title {
+      color: white;
+    }
 
     &__text {
       padding-right: 20px;
