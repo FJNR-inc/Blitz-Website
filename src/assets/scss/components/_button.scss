@@ -40,6 +40,20 @@
     padding: 10px;
   }
 
+  &--color-reverse {
+    color: white;
+    border-color: white;
+
+    &:hover {
+      background-color: white;
+      color: $color-main;
+    }
+
+    .button-icon__text {
+      border-right: 2px solid white;
+    }
+  }
+
   &--reverse {
     &__text {
       border-left: 2px solid $color-main;

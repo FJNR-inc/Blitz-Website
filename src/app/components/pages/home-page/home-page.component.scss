@@ -66,6 +66,7 @@
 
         &:hover {
           background-color: white;
+          color: $color-main;
         }
       }
     }
@@ -75,6 +76,7 @@
     padding: 40px;
     display: flex;
     justify-content: space-around;
+    align-items: center;
 
     &__video-content {
       flex: 2;
@@ -99,6 +101,10 @@
     height: 500px;
     display: flex;
     border-bottom: 5px solid $color-main;
+    background-color: $color-main;
+    color: white;
+    padding-right: 10px;
+    font-size: 16px;
 
     &__select {
       display: none;
@@ -110,6 +116,11 @@
       flex: 1;
       border-right: 1px solid lightgrey;
       padding: 20px;
+      text-align: justify;
+
+      &__title {
+        color: white;
+      }
 
       &__register {
         margin-top: 40px;
@@ -122,6 +133,10 @@
       background-image: url('../../../../assets/images/carte.png');
       background-position: center center;
     }
+  }
+
+  &__sponsors {
+    height: 500px;
   }
 }
 
