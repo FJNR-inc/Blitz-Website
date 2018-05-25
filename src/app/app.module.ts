@@ -33,6 +33,8 @@ import { MyModalComponent } from './components/my-modal/my-modal.component';
 import { MyModalService } from './services/my-modal/my-modal.service';
 import { RegisterConfirmationPageComponent } from './components/pages/register-confirmation-page/register-confirmation-page.component';
 import { ActivationPageComponent } from './components/pages/activation-page/activation-page.component';
+import { CanActivateViaAuthGuard } from './guards/CanActivateViaAuthGuard';
+import { CanAccessAdminPanelGuard } from './guards/CanAccessAdminPanelGuard';
 
 const appRoutes = [
   {
@@ -80,18 +82,34 @@ const appRoutes = [
       {
         path: 'admin/users',
         component: UsersPageComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard
+        ]
       },
       {
         path: 'admin/users/:id',
         component: UserPageComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard
+        ]
       },
       {
         path: 'admin/organizations',
         component: OrganizationsPageComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard
+        ]
       },
       {
         path: 'admin/academics',
         component: AcademicsPageComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard
+        ]
       }
     ]
   }
@@ -133,6 +151,8 @@ const appRoutes = [
     CalendarModule.forRoot()
   ],
   providers: [
+    CanActivateViaAuthGuard,
+    CanAccessAdminPanelGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptor,

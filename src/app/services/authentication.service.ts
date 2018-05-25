@@ -79,4 +79,21 @@ export class AuthenticationService extends GlobalService {
   getProfile() {
     return JSON.parse(localStorage.getItem('userProfile'));
   }
+
+  hasPermissions(permissions: string[]) {
+    // Shortcut for admin only
+    if (this.isAdmin()) {
+      return true;
+    }
+
+    // Define here all the default permissions
+    const list_permissions: string[] = [];
+
+    for (const permission in permissions) {
+      if (list_permissions.indexOf(permissions[permission]) === -1) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
