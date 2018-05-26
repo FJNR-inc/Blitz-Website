@@ -26,6 +26,8 @@ export class RegisterPageComponent implements OnInit {
   years: number[] = [];
   hasSubmit = false;
 
+  selectedUniversity: Organization;
+
   constructor(private formBuilder: FormBuilder,
               private academicFieldService: AcademicFieldService,
               private academicLevelService: AcademicLevelService,
@@ -230,6 +232,15 @@ export class RegisterPageComponent implements OnInit {
           }
         }
       );
+    }
+  }
+
+  changeUniversity() {
+    this.selectedUniversity = null;
+    for (const university of this.listOrganizations) {
+      if (university.name === this.registerForm.controls['university'].value) {
+        this.selectedUniversity = university;
+      }
     }
   }
 }

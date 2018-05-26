@@ -14,14 +14,6 @@
           {{ error }}
         </div>
         <div class="form-group">
-          <label for="email" class="form-label">Courriel* :</label>
-          <input formControlName="email" type="email" id="email" class="form-input" />
-          <div class="form-text form-text--right form-text--danger"
-               *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
-            {{ errorMessage }}
-          </div>
-        </div>
-        <div class="form-group">
           <label for="firstname" class="form-label">Prenom* :</label>
           <input formControlName="first_name" type="text" id="firstname" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
@@ -39,7 +31,7 @@
         </div>
         <div class="form-group">
           <label for="university" class="form-label">Universite :</label>
-          <select formControlName="university" id="university" class="form-input">
+          <select formControlName="university" id="university" class="form-input" (change)="changeUniversity()">
             <option value="none"></option>
             <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
               {{ organization.name }}
@@ -50,7 +42,7 @@
             {{ errorMessage }}
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="selectedUniversity">
           <label for="study_level" class="form-label">Niveau d'etude :</label>
           <select formControlName="academic_level" id="study_level" class="form-input">
             <option value="none"></option>
@@ -63,7 +55,7 @@
             {{ errorMessage }}
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="selectedUniversity">
           <label for="study_field" class="form-label">Domaine d'etude :</label>
           <select formControlName="academic_field" id="study_field" class="form-input">
             <option value="none"></option>
@@ -74,6 +66,22 @@
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['academic_field'].getError('apiError')">
             {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Courriel* :</label>
+          <input formControlName="email" type="email" id="email" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+          <div class="alert alert--info"  *ngIf="selectedUniversity">
+            Voici la liste des nom de domaines autorise pour cette universite :
+            <ul>
+              <li *ngFor="let domain of selectedUniversity.domains">
+                {{domain.name}}
+              </li>
+            </ul>
           </div>
         </div>
         <div class="register-page__content__form__birthday">
