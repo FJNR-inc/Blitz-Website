@@ -84,7 +84,6 @@ const appRoutes = [
         component: UsersPageComponent,
         canActivate: [
           CanActivateViaAuthGuard,
-          CanAccessAdminPanelGuard
         ]
       },
       {
@@ -92,7 +91,6 @@ const appRoutes = [
         component: UserPageComponent,
         canActivate: [
           CanActivateViaAuthGuard,
-          CanAccessAdminPanelGuard
         ]
       },
       {
@@ -100,7 +98,6 @@ const appRoutes = [
         component: OrganizationsPageComponent,
         canActivate: [
           CanActivateViaAuthGuard,
-          CanAccessAdminPanelGuard
         ]
       },
       {
@@ -108,7 +105,6 @@ const appRoutes = [
         component: AcademicsPageComponent,
         canActivate: [
           CanActivateViaAuthGuard,
-          CanAccessAdminPanelGuard
         ]
       }
     ]
