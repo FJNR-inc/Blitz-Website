@@ -28,7 +28,7 @@ export class ForgotPasswordPageComponent {
       this.authenticationService.resetPassword(form.value['email']).subscribe(
         data => {
           console.log('success');
-          this.router.navigate(['/']);
+          this.router.navigate(['/forgot-password/confirmation']);
         },
         err => {
           console.log(err.error);

@@ -35,6 +35,9 @@ import { RegisterConfirmationPageComponent } from './components/pages/register-c
 import { ActivationPageComponent } from './components/pages/activation-page/activation-page.component';
 import { CanActivateViaAuthGuard } from './guards/CanActivateViaAuthGuard';
 import { CanAccessAdminPanelGuard } from './guards/CanAccessAdminPanelGuard';
+// tslint:disable-next-line:max-line-length
+import { ForgotPasswordConfirmationPageComponent } from './components/pages/forgot-password-confirmation-page/forgot-password-confirmation-page.component';
+import { ResetPasswordPageComponent } from './components/pages/reset-password-page/reset-password-page.component';
 
 const appRoutes = [
   {
@@ -68,6 +71,14 @@ const appRoutes = [
       {
         path: 'forgot-password',
         component: ForgotPasswordPageComponent,
+      },
+      {
+        path: 'forgot-password/confirmation',
+        component: ForgotPasswordConfirmationPageComponent,
+      },
+      {
+        path: 'reset-password/:token',
+        component: ResetPasswordPageComponent,
       },
       {
         path: 'reservation',
@@ -132,6 +143,8 @@ const appRoutes = [
     MyModalComponent,
     RegisterConfirmationPageComponent,
     ActivationPageComponent,
+    ForgotPasswordConfirmationPageComponent,
+    ResetPasswordPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -52,7 +52,6 @@ export class RegisterPageComponent implements OnInit {
       },
       {validator: [
         this.confirmationValidator(),
-        this.dayValidator(),
         this.monthValidator(),
         this.yearValidator(),
         this.termsValidator()
