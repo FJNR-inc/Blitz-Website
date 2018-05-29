@@ -52,7 +52,7 @@
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
-  flex-direction: column;
+  flex-direction: row-reverse;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch; }
@@ -99,7 +99,7 @@
   flex: 1;
   -webkit-box-align: end;
   -ms-flex-align: end;
-  align-items: flex-end;
+  flex-direction: column;
   margin: 3px;
   line-height: 10px;
   display: -webkit-box;
@@ -107,7 +107,9 @@
   -js-display: flex;
   display: flex;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  padding: 10px;
+}
 
 .cal-month-view .cal-event {
   width: 10px;
@@ -403,7 +405,8 @@
 
   .cal-month-view .cal-events {
     margin: 0;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
   }
 
   .cal-month-view .cal-header .cal-cell {
