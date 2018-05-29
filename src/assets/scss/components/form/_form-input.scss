@@ -7,4 +7,16 @@
   &[type='checkbox']{
     width: inherit;
   }
+
+  &.ng-invalid.ng-touched  {
+    border-color: $color-danger-border;
+    box-shadow: 0 0 5px $color-danger-border;
+    margin-top: 5px;
+  }
+
+  &.ng-valid.ng-touched {
+    border-color: $color-success-border;
+    box-shadow: 0 0 5px $color-success-border;
+    margin-top: 5px;
+  }
 }

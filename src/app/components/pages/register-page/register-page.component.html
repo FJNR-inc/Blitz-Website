@@ -5,7 +5,7 @@
         <img class="register-page__content__header__logo" src="assets/images/logo.png" alt="Logo" />
         <div>
           <h2>
-            Creer un compte
+            Créer un compte
           </h2>
         </div>
       </div>
@@ -14,7 +14,7 @@
           {{ error }}
         </div>
         <div class="form-group">
-          <label for="firstname" class="form-label">Prenom* :</label>
+          <label for="firstname" class="form-label">Prénom*:</label>
           <input formControlName="first_name" type="text" id="firstname" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['first_name'].getError('apiError')">
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="lastname" class="form-label">Nom de famille* :</label>
+          <label for="lastname" class="form-label">Nom de famille*:</label>
           <input formControlName="last_name" type="text" id="lastname" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['last_name'].getError('apiError')">
@@ -30,9 +30,9 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="university" class="form-label">Universite :</label>
+          <label for="university" class="form-label">Université:</label>
           <select formControlName="university" id="university" class="form-input" (change)="changeUniversity()">
-            <option value="none"></option>
+            <option value="none">Je n'appartiens pas/plus à une université</option>
             <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
               {{ organization.name }}
             </option>
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="form-group" *ngIf="selectedUniversity">
-          <label for="study_level" class="form-label">Niveau d'etude :</label>
+          <label for="study_level" class="form-label">Niveau d'étude*:</label>
           <select formControlName="academic_level" id="study_level" class="form-input">
             <option value="none"></option>
             <option value="{{ level.name }}" *ngFor="let level of listAcademicLevels">
@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="form-group" *ngIf="selectedUniversity">
-          <label for="study_field" class="form-label">Domaine d'etude :</label>
+          <label for="study_field" class="form-label">Domaine d'étude*:</label>
           <select formControlName="academic_field" id="study_field" class="form-input">
             <option value="none"></option>
             <option value="{{ field.name }}" *ngFor="let field of listAcademicFields">
@@ -69,14 +69,14 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="email" class="form-label">Courriel* :</label>
+          <label for="email" class="form-label">Courriel*:</label>
           <input formControlName="email" type="email" id="email" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
             {{ errorMessage }}
           </div>
           <div class="alert alert--info"  *ngIf="selectedUniversity">
-            Voici la liste des nom de domaines autorise pour cette universite :
+            Voici la liste des noms de domaines autorisés pour cette université:
             <ul>
               <li *ngFor="let domain of selectedUniversity.domains">
                 {{domain.name}}
@@ -158,7 +158,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="gender" class="form-label">Genre* :</label>
+          <label for="gender" class="form-label">Genre*:</label>
           <select formControlName="gender" id="gender" class="form-input">
             <option value="A">Je ne souhaite pas m'identifie</option>
             <option value="M">Homme</option>
@@ -167,7 +167,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="password" class="form-label">Mot de passe* :</label>
+          <label for="password" class="form-label">Mot de passe*:</label>
           <input formControlName="password" type="password" id="password" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['password'].getError('apiError')">
@@ -175,7 +175,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="confirmation" class="form-label">Confirmation* :</label>
+          <label for="confirmation" class="form-label">Confirmation*:</label>
           <input formControlName="confirmation" type="password" id="confirmation" class="form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['confirmation'].getError('apiError')">
@@ -197,7 +197,7 @@
         </div>
         <div>
           <button type="submit" (click)="hasSubmit=true" class="button-icon">
-            <span class="button-icon__text">Creer mon compte</span>
+            <span class="button-icon__text">Créer mon compte</span>
             <span class="button-icon__icon">
               <i class="fa fa-caret-right"></i>
             </span>
@@ -205,7 +205,7 @@
         </div>
       </div>
       <div *ngIf="!registerForm.valid && hasSubmit" class="alert alert--danger">
-        Veuillez remplir tout les champs
+        Veuillez remplir tous les champs
       </div>
     </form>
   </div>

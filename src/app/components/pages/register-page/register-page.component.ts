@@ -39,7 +39,7 @@ export class RegisterPageComponent implements OnInit {
         email: [null, Validators.required],
         first_name: [null, Validators.required],
         last_name: [null, Validators.required],
-        university: [null],
+        university: ['none'],
         academic_level: [null],
         academic_field: [null],
         birth_day: [null, Validators.required],
