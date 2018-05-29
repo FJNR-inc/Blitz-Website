@@ -38,6 +38,7 @@ import { CanAccessAdminPanelGuard } from './guards/CanAccessAdminPanelGuard';
 // tslint:disable-next-line:max-line-length
 import { ForgotPasswordConfirmationPageComponent } from './components/pages/forgot-password-confirmation-page/forgot-password-confirmation-page.component';
 import { ResetPasswordPageComponent } from './components/pages/reset-password-page/reset-password-page.component';
+import { WorkplaceService } from './services/workplace.service';
 
 const appRoutes = [
   {
@@ -173,6 +174,7 @@ const appRoutes = [
     AcademicFieldService,
     AcademicLevelService,
     OrganizationService,
+    WorkplaceService,
   ],
   bootstrap: [AppComponent]
 })

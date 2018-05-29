@@ -48,14 +48,12 @@
       <option>Selectionnez un espace de travail</option>
       <option>Espace della vita</option>
     </select>
-    <div class="home-page__espace__details espace-detail">
+    <div class="home-page__espace__details espace-detail" *ngIf="workplaceList">
       <div class="home-page__espace__details__title espace-detail__title">
-        Espace della vita
+        {{workplaceList[0].name}}
       </div>
       <div class="espace-detail__description">
-        Necessitatibus et vel sed temporibus totam eum iure. Et ducimus laboriosam eum. Occaecati sint alias tempora ut explicabo ut quod. Dolorem qui vel assumenda. Temporibus optio quibusdam at et aut corporis quis quia.
-
-        Est ipsa recusandae quam. Molestiae placeat non ut numquam aut dolores et laudantium. Consequatur corrupti ipsum nihil quibusdam omnis molestias.
+        {{workplaceList[0].details}}
       </div>
       <div class="espace-detail__list">
         <div class="espace-detail__list__item">
@@ -63,8 +61,8 @@
             <i class="fa fa-3x fa-home"></i>
           </div>
           <div class="espace-detail__list__item__text">
-            6750 Avenue de l'Esplanade,<br/>
-            Montréal, QC H2V 4M1
+            {{workplaceList[0].location.address_line1}}<br/>
+            {{workplaceList[0].location.city}}, {{workplaceList[0].location.state_province.name}} {{workplaceList[0].location.postal_code}}
           </div>
         </div>
         <div class="espace-detail__list__item">
@@ -80,7 +78,7 @@
             <i class="far fa-3x fa-building"></i>
           </div>
           <div class="espace-detail__list__item__text">
-            30 places disponibles
+            {{workplaceList[0].seats}} places disponibles
           </div>
         </div>
       </div>

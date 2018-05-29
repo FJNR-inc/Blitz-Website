@@ -13,5 +13,6 @@ export const environment = {
     reset_password: '/reset_password',
     change_password: '/change_password',
     activate_user: '/users/activate',
+    workplaces: '/workplaces',
   }
 };
