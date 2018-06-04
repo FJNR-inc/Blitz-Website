@@ -14,5 +14,6 @@ export const environment = {
     change_password: '/change_password',
     activate_user: '/users/activate',
     workplaces: '/workplaces',
+    profile: '/profile',
   }
 };

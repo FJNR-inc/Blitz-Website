@@ -39,6 +39,7 @@ import { CanAccessAdminPanelGuard } from './guards/CanAccessAdminPanelGuard';
 import { ForgotPasswordConfirmationPageComponent } from './components/pages/forgot-password-confirmation-page/forgot-password-confirmation-page.component';
 import { ResetPasswordPageComponent } from './components/pages/reset-password-page/reset-password-page.component';
 import { WorkplaceService } from './services/workplace.service';
+import { ProfileService } from './services/profile.service';
 
 const appRoutes = [
   {
@@ -96,6 +97,7 @@ const appRoutes = [
         component: UsersPageComponent,
         canActivate: [
           CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
         ]
       },
       {
@@ -103,6 +105,7 @@ const appRoutes = [
         component: UserPageComponent,
         canActivate: [
           CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
         ]
       },
       {
@@ -110,6 +113,7 @@ const appRoutes = [
         component: OrganizationsPageComponent,
         canActivate: [
           CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
         ]
       },
       {
@@ -117,6 +121,7 @@ const appRoutes = [
         component: AcademicsPageComponent,
         canActivate: [
           CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
         ]
       }
     ]
@@ -175,6 +180,7 @@ const appRoutes = [
     AcademicLevelService,
     OrganizationService,
     WorkplaceService,
+    ProfileService,
   ],
   bootstrap: [AppComponent]
 })

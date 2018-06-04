@@ -3,7 +3,8 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { NotificationsService } from 'angular2-notifications';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ProfileService } from '../../../services/profile.service';
 
 @Component({
   selector: 'app-login-page',
@@ -19,7 +20,8 @@ export class LoginPageComponent {
     private router: Router,
     private userService: UserService,
     private notificationService: NotificationsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private profileService: ProfileService
   ) {
     this.loginForm = this.formBuilder.group(
       {
@@ -34,8 +36,14 @@ export class LoginPageComponent {
       this.authenticationService.authenticate(form.value['login'], form.value['password']).subscribe(
         data => {
           localStorage.setItem('token', data.token);
-          this.notificationService.success('Connecté', 'Bienvenue!');
-          this.router.navigate(['/']);
+          console.log('Connected');
+          this.profileService.get().subscribe(
+            profile => {
+              console.log('Profiled');
+              localStorage.setItem('userProfile', JSON.stringify(profile));
+              this.notificationService.success('Connecté', 'Bienvenue!');
+              this.router.navigate(['/']);            }
+          );
         },
         err => {
           console.log(err.error);
