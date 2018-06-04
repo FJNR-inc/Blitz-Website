@@ -98,7 +98,7 @@
   }
 
   &__espace {
-    height: 500px;
+    min-height: 500px;
     display: flex;
     border-bottom: 5px solid $color-main;
     background-color: $color-main;

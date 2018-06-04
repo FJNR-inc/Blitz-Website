@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 
 import {
@@ -25,6 +25,9 @@ import {
   CalendarEventAction,
   CalendarEventTimesChangedEvent
 } from 'angular-calendar';
+import {ActivatedRoute, Params} from "@angular/router";
+import {WorkplaceService} from "../../../services/workplace.service";
+import {Workplace} from "../../../models/workplace";
 
 const colors: any = {
   red: {
@@ -47,7 +50,7 @@ const colors: any = {
   templateUrl: './reservation-page.component.html',
   styleUrls: ['./reservation-page.component.scss']
 })
-export class ReservationPageComponent {
+export class ReservationPageComponent implements OnInit {
   view = 'month';
 
   viewDate: Date = new Date();
@@ -88,9 +91,20 @@ export class ReservationPageComponent {
   ];
 
   activeDayIsOpen = true;
+  workplace: Workplace;
 
-  constructor() {}
+  constructor(private activatedRoute: ActivatedRoute,
+              private workplaceService: WorkplaceService) {}
 
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.workplaceService.get(params['id']).subscribe(
+        data => {
+          this.workplace = new Workplace(data);
+        }
+      );
+    });
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (

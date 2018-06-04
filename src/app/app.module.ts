@@ -84,7 +84,7 @@ const appRoutes = [
         component: ResetPasswordPageComponent,
       },
       {
-        path: 'reservation',
+        path: 'reservation/:id',
         component: ReservationPageComponent,
       }
     ]

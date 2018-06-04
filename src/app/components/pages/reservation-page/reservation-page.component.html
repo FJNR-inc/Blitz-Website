@@ -2,12 +2,10 @@
   <div class="reservation-page__details">
     <div class="reservation-page__details__text espace-detail">
       <div class="espace-detail__title">
-        Espace della vita
+        {{ workplace.name }}
       </div>
       <div class="espace-detail__description">
-        Necessitatibus et vel sed temporibus totam eum iure. Et ducimus laboriosam eum. Occaecati sint alias tempora ut explicabo ut quod. Dolorem qui vel assumenda. Temporibus optio quibusdam at et aut corporis quis quia.
-
-        Est ipsa recusandae quam. Molestiae placeat non ut numquam aut dolores et laudantium. Consequatur corrupti ipsum nihil quibusdam omnis molestias.
+        {{ workplace.details }}
       </div>
       <div class="espace-detail__list">
         <div class="espace-detail__list__item">
@@ -15,8 +13,8 @@
             <i class="fa fa-3x fa-home"></i>
           </div>
           <div class="espace-detail__list__item__text">
-            6750 Avenue de l'Esplanade,<br/>
-            Montréal, QC H2V 4M1
+            {{workplace.location.address_line1}}<br/>
+            {{workplace.location.city}}, {{workplace.location.state_province.name}} {{workplace.location.postal_code}}
           </div>
         </div>
         <div class="espace-detail__list__item">
@@ -32,7 +30,7 @@
             <i class="far fa-3x fa-building"></i>
           </div>
           <div class="espace-detail__list__item__text">
-            30 places disponibles
+            {{ workplace.seats }} places disponibles
           </div>
         </div>
       </div>

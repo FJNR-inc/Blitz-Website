@@ -16,6 +16,14 @@ export class WorkplaceService extends GlobalService {
     super();
   }
 
+  get(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_workplaces + '/' + id,
+      {headers: headers}
+    );
+  }
+
   list(): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get<any>(
