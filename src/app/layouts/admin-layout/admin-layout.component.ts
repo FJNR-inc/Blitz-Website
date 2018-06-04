@@ -28,6 +28,10 @@ import { Component, OnInit } from '@angular/core';
             <i class="fas fa-graduation-cap"></i>
             Etudes
           </a>
+          <a routerLink="/admin/workplaces" class="left-nav__item">
+            <i class="fas fa-building"></i>
+            Espaces de travail
+          </a>
         </div>
         <div id="main">
           <router-outlet></router-outlet>

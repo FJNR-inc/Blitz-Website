@@ -39,6 +39,7 @@ import { CanAccessAdminPanelGuard } from './guards/CanAccessAdminPanelGuard';
 import { ForgotPasswordConfirmationPageComponent } from './components/pages/forgot-password-confirmation-page/forgot-password-confirmation-page.component';
 import { ResetPasswordPageComponent } from './components/pages/reset-password-page/reset-password-page.component';
 import { WorkplaceService } from './services/workplace.service';
+import { WorkplacesComponent } from './components/pages/admin/workplaces/workplaces.component';
 import { ProfileService } from './services/profile.service';
 
 const appRoutes = [
@@ -123,6 +124,14 @@ const appRoutes = [
           CanActivateViaAuthGuard,
           CanAccessAdminPanelGuard,
         ]
+      },
+      {
+        path: 'admin/workplaces',
+        component: WorkplacesComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
       }
     ]
   }
@@ -151,6 +160,7 @@ const appRoutes = [
     ActivationPageComponent,
     ForgotPasswordConfirmationPageComponent,
     ResetPasswordPageComponent,
+    WorkplacesComponent,
   ],
   imports: [
     BrowserModule,

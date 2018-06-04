@@ -1,0 +1,38 @@
+<div class="admin-workplaces-page">
+  <div class="admin-workplaces-page__title">
+    <h2>Espaces de travail</h2>
+  </div>
+  <div class="admin-workplaces-page__actions">
+    <div>
+      <!-- Space for some filters -->
+    </div>
+    <div>
+      <!-- Space for button actions -->
+    </div>
+  </div>
+  <div class="admin-workplaces-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="listWorkplaces"
+                  (addButton)="OpenModalCreateWorkplace()"
+                  (editItem)="OpenModalEditWorkplace($event)"
+                  (removeItem)="removeWorkplace($event)">
+    </app-my-table>
+  </div>
+</div>
+
+<app-my-modal name="form_workplaces"
+              typeModal="success">
+  <form [formGroup]="workplaceForm">
+    <div *ngFor="let error of workplaceErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <label for="workplaceName" class="form-label">Nom :</label>
+      <input formControlName="name" type="text" id="workplaceName" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['name'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</app-my-modal>
