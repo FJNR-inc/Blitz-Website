@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -11,6 +11,8 @@ interface AuthenticationResponse {
 
 @Injectable()
 export class AuthenticationService extends GlobalService {
+
+  @Output() profile: EventEmitter<any> = new EventEmitter();
 
   url_authentication = environment.url_base_api + environment.paths_api.authentication;
   url_reset_password = environment.url_base_api + environment.paths_api.reset_password;
@@ -91,6 +93,11 @@ export class AuthenticationService extends GlobalService {
 
   getProfile() {
     return JSON.parse(localStorage.getItem('userProfile'));
+  }
+
+  setProfile(profile) {
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+    this.profile.emit(profile);
   }
 
   hasPermissions(permissions: string[]) {

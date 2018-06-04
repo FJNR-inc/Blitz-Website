@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
@@ -10,8 +10,15 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class HeaderComponent {
 
     responsive = false;
+    dropdownOpened = [];
+    profile: any;
 
-    constructor(private authenticationService: AuthenticationService) { }
+    constructor(private authenticationService: AuthenticationService) {
+      this.profile = this.authenticationService.getProfile();
+      this.authenticationService.profile.subscribe(
+        profile => this.profile = profile
+      );
+    }
 
     closeResponsiveNavbar() {
         this.responsive = false;
@@ -23,5 +30,18 @@ export class HeaderComponent {
 
     isAuthenticated() {
       return this.authenticationService.isAuthenticated();
+    }
+
+    closeDropdown(name: string) {
+      console.log('Close');
+      const index = this.dropdownOpened.indexOf(name, 0);
+      if (index > -1) {
+        this.dropdownOpened.splice(index, 1);
+      }
+    }
+
+    openDropdown(name: string) {
+      console.log('Open');
+      this.dropdownOpened.push(name);
     }
 }

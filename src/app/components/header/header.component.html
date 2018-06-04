@@ -7,12 +7,22 @@
   <div class="navbar__right" (click)="closeResponsiveNavbar()">
     <a class="navbar__item" routerLink="">Accueil</a>
     <a class="navbar__item" href="#">À propos</a>
-    <a class="navbar__item" routerLink="/reservation">Espace de travail</a>
     <a class="navbar__item" href="#">Ressources</a>
     <a class="navbar__item" href="#">Blogue</a>
     <a class="navbar__item" href="#">Contact</a>
     <a class="navbar__item" routerLink="/login" *ngIf="!isAuthenticated()">Connexion</a>
-    <a class="navbar__item" routerLink="/logout" *ngIf="isAuthenticated()">Deconnexion</a>
+    <div *ngIf="isAuthenticated()"
+         (mouseenter)="openDropdown('profile')"
+         (mouseleave)="closeDropdown('profile')">
+      <div class="navbar__item">
+        {{ profile.email }} <i class="fas fa-caret-down"></i>
+      </div>
+      <div class="navbar__dropdown" *ngIf="dropdownOpened.indexOf('profile') !== -1">
+        <a class="navbar__item" href="#">Mon profil</a>
+        <a class="navbar__item" routerLink="/admin/users">Administration</a>
+        <a class="navbar__item" routerLink="/logout" *ngIf="isAuthenticated()">Deconnexion</a>
+      </div>
+    </div>
   </div>
   <span class="navbar__item navbar__item--icon" (click)="toogleResponsiveNavbar()">
     &#9776;

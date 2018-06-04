@@ -36,11 +36,9 @@ export class LoginPageComponent {
       this.authenticationService.authenticate(form.value['login'], form.value['password']).subscribe(
         data => {
           localStorage.setItem('token', data.token);
-          console.log('Connected');
           this.profileService.get().subscribe(
             profile => {
-              console.log('Profiled');
-              localStorage.setItem('userProfile', JSON.stringify(profile));
+              this.authenticationService.setProfile(profile);
               this.notificationService.success('Connecté', 'Bienvenue!');
               this.router.navigate(['/']);            }
           );
