@@ -15,11 +15,11 @@
          (mouseenter)="openDropdown('profile')"
          (mouseleave)="closeDropdown('profile')">
       <div class="navbar__item">
-        {{ profile.email }} <i class="fas fa-caret-down"></i>
+        Mon profil <i class="fas fa-caret-down"></i>
       </div>
       <div class="navbar__dropdown" *ngIf="dropdownOpened.indexOf('profile') !== -1">
         <a class="navbar__item" href="#">Mon profil</a>
-        <a class="navbar__item" routerLink="/admin/users">Administration</a>
+        <a class="navbar__item" routerLink="/admin/users" [appHasPermissions]="['canAccessAdminPanel']">Administration</a>
         <a class="navbar__item" routerLink="/logout" *ngIf="isAuthenticated()">Deconnexion</a>
       </div>
     </div>

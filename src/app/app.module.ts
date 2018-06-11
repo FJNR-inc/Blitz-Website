@@ -44,6 +44,7 @@ import { WorkplacesComponent } from './components/pages/admin/workplaces/workpla
 import { ProfileService } from './services/profile.service';
 import { TimeSlotService } from './services/time-slot.service';
 import { registerLocaleData } from '@angular/common';
+import { PermissionsDirective } from './directives/permissions.directive';
 
 registerLocaleData(localeFr);
 
@@ -166,6 +167,7 @@ const appRoutes = [
     ForgotPasswordConfirmationPageComponent,
     ResetPasswordPageComponent,
     WorkplacesComponent,
+    PermissionsDirective,
   ],
   imports: [
     BrowserModule,
