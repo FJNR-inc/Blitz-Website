@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { NotificationsService } from 'angular2-notifications';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -15,14 +15,18 @@ export class LoginPageComponent {
   loginForm: FormGroup;
   errors: string[];
 
+  returnUrl: string;
+
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService,
     private notificationService: NotificationsService,
     private formBuilder: FormBuilder,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private activatedRoute: ActivatedRoute
   ) {
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
     this.loginForm = this.formBuilder.group(
       {
         login: null,
@@ -40,7 +44,8 @@ export class LoginPageComponent {
             profile => {
               this.authenticationService.setProfile(profile);
               this.notificationService.success('Connecté', 'Bienvenue!');
-              this.router.navigate(['/']);            }
+              this.router.navigate([this.returnUrl]);
+            }
           );
         },
         err => {

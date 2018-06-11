@@ -12,15 +12,14 @@ import {
 } from 'date-fns';
 
 import { Subject } from 'rxjs/Subject';
-import {CalendarDateFormatter, CalendarEvent, CalendarEventAction, DAYS_OF_WEEK} from 'angular-calendar';
-import { ActivatedRoute, Params } from '@angular/router';
+import { CalendarDateFormatter, CalendarEvent, CalendarEventAction, DAYS_OF_WEEK } from 'angular-calendar';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WorkplaceService } from '../../../services/workplace.service';
 import { Workplace } from '../../../models/workplace';
 import { TimeSlotService } from '../../../services/time-slot.service';
 import { TimeSlot } from '../../../models/timeSlot';
 import { User } from '../../../models/user';
 import { AuthenticationService } from '../../../services/authentication.service';
-import {isNumber} from "util";
 
 const colors: any = {
   green: {
@@ -78,7 +77,8 @@ export class ReservationPageComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
               private timeSlotService: TimeSlotService,
-              private authenticationService: AuthenticationService) {}
+              private authenticationService: AuthenticationService,
+              private router: Router) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -161,5 +161,9 @@ export class ReservationPageComponent implements OnInit {
       color: colors.yellow,
       actions: this.actions,
     };
+  }
+
+  goToLoginPage() {
+    this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url }});
   }
 }
