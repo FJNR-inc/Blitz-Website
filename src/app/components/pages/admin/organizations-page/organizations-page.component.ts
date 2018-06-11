@@ -4,6 +4,7 @@ import { OrganizationService } from '../../../../services/organization.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-organizations-page',
@@ -34,7 +35,8 @@ export class OrganizationsPageComponent implements OnInit {
   constructor(private organizationService: OrganizationService,
               private myModalService: MyModalService,
               private notificationService: NotificationsService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit() {
     this.refreshOrganizationList();
@@ -134,5 +136,10 @@ export class OrganizationsPageComponent implements OnInit {
     modal.title = title;
     modal.button2Label = button2;
     modal.toggle();
+  }
+
+  goToOrganization(event) {
+    console.log('todo: add organization.id in API');
+    //this.router.navigate(['/admin/organization/' + event.id]);
   }
 }

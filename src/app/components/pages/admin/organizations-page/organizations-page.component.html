@@ -15,7 +15,8 @@
                   [data]="listOrganizations"
                   (addButton)="OpenModalCreateOrganization()"
                   (editItem)="OpenModalEditOrganization($event)"
-                  (removeItem)="removeOrganization($event)">
+                  (removeItem)="removeOrganization($event)"
+                  (selectItem)="goToOrganization($event)">
     </app-my-table>
   </div>
 </div>

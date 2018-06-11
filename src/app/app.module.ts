@@ -48,6 +48,8 @@ import { PermissionsDirective } from './directives/permissions.directive';
 import { WorkplaceComponent } from './components/pages/admin/workplace/workplace.component';
 import { AuthenticatedDirective } from './directives/authenticated.directive';
 import { Error403Component } from './components/error-403/error-403.component';
+import { OrganizationComponent } from './components/pages/admin/organization/organization.component';
+import { DomainService } from './services/domain.service';
 
 registerLocaleData(localeFr);
 
@@ -135,6 +137,14 @@ const appRoutes = [
         ]
       },
       {
+        path: 'admin/organization/:id',
+        component: OrganizationComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
         path: 'admin/academics',
         component: AcademicsPageComponent,
         canActivate: [
@@ -190,6 +200,7 @@ const appRoutes = [
     WorkplaceComponent,
     AuthenticatedDirective,
     Error403Component,
+    OrganizationComponent,
   ],
   imports: [
     BrowserModule,
@@ -220,7 +231,8 @@ const appRoutes = [
     OrganizationService,
     WorkplaceService,
     ProfileService,
-    TimeSlotService
+    TimeSlotService,
+    DomainService
   ],
   bootstrap: [AppComponent]
 })

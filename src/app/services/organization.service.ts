@@ -34,6 +34,14 @@ export class OrganizationService extends GlobalService {
     );
   }
 
+  get(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_organizations + '/' + id,
+      {headers: headers}
+    );
+  }
+
   update(url: string, name: string): Observable<any> {
     const headers = this.getHeaders();
     return this.http.patch<any>(
