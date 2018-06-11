@@ -1,4 +1,4 @@
-<div class="reservation-page">
+<div class="reservation-page" *ngIf="workplace">
   <div class="reservation-page__details">
     <div class="reservation-page__details__text espace-detail">
       <div class="espace-detail__title">
@@ -79,6 +79,8 @@
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
+          [weekStartsOn]="weekStartsOn"
+          [locale]="locale"
           [activeDayIsOpen]="activeDayIsOpen"
           (dayClicked)="dayClicked($event.day)"
           (eventClicked)="eventClicked($event.event)"
@@ -87,36 +89,36 @@
       </div>
     </div>
     <div class="reservation-page__reservation__form">
-      <form class="reservation-page__reservation__form__date">
-        <div class="form-group">
-          <label for="date" class="form-label">Date :</label>
-          <input type="date" id="date" class="form-input" />
-        </div>
-        <div class="form-group">
-          <label for="schedule" class="form-label">Plage horaire :</label>
-          <select id="schedule" class="form-input">
-            <option>09H00 - 12H00</option>
-            <option>13H00 - 16H00</option>
-            <option>17H00 - 20H00</option>
-          </select>
-        </div>
-      </form>
-
-      <div class="reservation-page__reservation__form__ticket">
+      <div class="alert alert--warning" *ngIf="!user">
+        <p>
+          Pour reserver une plage horaire dans un espace de travail
+          vous devez d'abord <a routerLink="/login">vous connecter</a> ou
+          bien vous <a routerLink="/register">creer un compte</a>.
+        </p>
+      </div>
+      <div class="reservation-page__reservation__form__ticket" *ngIf="user">
         <div class="reservation-page__reservation__form__ticket__title">
           Details
         </div>
-        <div class="reservation-page__reservation__form__ticket__content">
-          <b>Date:</b> 02 Avril 2018<br/>
-          <b>Heure:</b> 09H00 - 12H00<br/>
-          <b>Prix:</b> 7$CAN
+        <div *ngIf="selectedTimeSlots.length === 0" class="alert alert--info">
+          Aucune plage horaire selectionnee.
+        </div>
+        <div *ngFor="let timeslot of selectedTimeSlots" class="reservation-page__reservation__form__ticket__line">
+          <div class="reservation-page__reservation__form__ticket__line__title">
+            {{ timeslot.getStartDay() }} ({{ timeslot.getStartTime() }} - {{ timeslot.getEndTime() }}) - {{ timeslot.price }}$CAN
+          </div>
+          <div class="reservation-page__reservation__form__ticket__line__actions">
+            <a (click)="removeFromCart(timeslot)">
+              <i class="fa fa-times" style="color: darkred;"></i>
+            </a>
+          </div>
         </div>
         <div class="reservation-page__reservation__form__ticket__total">
-          TOTAL: 7$ CAN
+          TOTAL: {{ totalBill }}$ CAN
         </div>
       </div>
 
-      <form class="reservation-page__reservation__form__payment">
+      <form class="reservation-page__reservation__form__payment" *ngIf="user">
         <div class="form-group">
           <label for="card" class="form-label">Mode de paiement :</label>
           <select id="card" class="form-input">

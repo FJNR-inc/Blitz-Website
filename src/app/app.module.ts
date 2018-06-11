@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import localeFr from '@angular/common/locales/fr';
 
 import { AppComponent } from './app.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
@@ -41,6 +42,10 @@ import { ResetPasswordPageComponent } from './components/pages/reset-password-pa
 import { WorkplaceService } from './services/workplace.service';
 import { WorkplacesComponent } from './components/pages/admin/workplaces/workplaces.component';
 import { ProfileService } from './services/profile.service';
+import { TimeSlotService } from './services/time-slot.service';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeFr);
 
 const appRoutes = [
   {
@@ -191,6 +196,7 @@ const appRoutes = [
     OrganizationService,
     WorkplaceService,
     ProfileService,
+    TimeSlotService
   ],
   bootstrap: [AppComponent]
 })

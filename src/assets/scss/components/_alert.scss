@@ -17,4 +17,10 @@
     border-color: $color-danger-border;
     color: $color-danger-text;
   }
+
+  &--warning {
+    background-color: $color-warning-background;
+    border-color: $color-warning-border;
+    color: $color-warning-text;
+  }
 }

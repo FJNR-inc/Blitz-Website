@@ -15,6 +15,7 @@ body {
 a {
   color: $link-color;
   transition: all $ease-inout-sine 300ms;
+  cursor: pointer;
 
   &:hover {
     color: $link-color-hover;

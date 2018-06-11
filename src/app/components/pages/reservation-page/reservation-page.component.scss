@@ -85,8 +85,15 @@
           font-weight: 900;
         }
 
-        &__content {
-          padding: 0 15px 15px 15px;
+        &__line {
+          padding: 10px;
+          display: flex;
+          justify-content: space-between;
+          background-color: white;
+
+          &:nth-child(odd) {
+            background-color: $color-hover-main;
+          }
         }
 
         &__total {

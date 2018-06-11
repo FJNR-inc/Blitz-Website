@@ -15,5 +15,6 @@ export const environment = {
     activate_user: '/users/activate',
     workplaces: '/workplaces',
     profile: '/profile',
+    time_slots: '/time_slots',
   }
 };
