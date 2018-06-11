@@ -21,5 +21,6 @@ export const environment = {
     workplaces: '/workplaces',
     profile: '/profile',
     time_slots: '/time_slots',
+    periods: '/periods',
   }
 };

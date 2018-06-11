@@ -3,10 +3,12 @@
 
   &__general {
     max-width: 500px;
+    flex: 1;
   }
 
   &__others {
     padding: 20px 40px;
+    flex: 1;
 
     &__pictures {
       display: flex;

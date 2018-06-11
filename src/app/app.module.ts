@@ -50,6 +50,8 @@ import { AuthenticatedDirective } from './directives/authenticated.directive';
 import { Error403Component } from './components/error-403/error-403.component';
 import { OrganizationComponent } from './components/pages/admin/organization/organization.component';
 import { DomainService } from './services/domain.service';
+import { PeriodsComponent } from './components/pages/admin/periods/periods.component';
+import { PeriodService } from './services/period.service';
 
 registerLocaleData(localeFr);
 
@@ -167,7 +169,15 @@ const appRoutes = [
           CanActivateViaAuthGuard,
           CanAccessAdminPanelGuard,
         ]
-      }
+      },
+      {
+        path: 'admin/periods',
+        component: PeriodsComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
     ]
   }
 ];
@@ -201,6 +211,7 @@ const appRoutes = [
     AuthenticatedDirective,
     Error403Component,
     OrganizationComponent,
+    PeriodsComponent,
   ],
   imports: [
     BrowserModule,
@@ -232,7 +243,8 @@ const appRoutes = [
     WorkplaceService,
     ProfileService,
     TimeSlotService,
-    DomainService
+    DomainService,
+    PeriodService
   ],
   bootstrap: [AppComponent]
 })

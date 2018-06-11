@@ -1,0 +1,39 @@
+<div class="admin-periods-page">
+  <div class="admin-periods-page__title">
+    <h2>Periodes de reservation</h2>
+  </div>
+  <div class="admin-periods-page__actions">
+    <div>
+      <!-- Space for some filters -->
+    </div>
+    <div>
+      <!-- Space for button actions -->
+    </div>
+  </div>
+  <div class="admin-periods-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="listPeriods"
+                  (addButton)="OpenModalCreatePeriod()"
+                  (editItem)="OpenModalEditPeriod($event)"
+                  (removeItem)="removePeriod($event)">
+    </app-my-table>
+  </div>
+</div>
+
+<app-my-modal name="form_periods"
+              typeModal="success"
+              (button2)="submitPeriod()">
+  <form [formGroup]="periodForm">
+    <div *ngFor="let error of periodErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <label for="periodName" class="form-label">Nom :</label>
+      <input formControlName="name" type="text" id="periodName" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of periodForm.controls['name'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</app-my-modal>

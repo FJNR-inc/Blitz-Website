@@ -32,6 +32,10 @@ import { Component, OnInit } from '@angular/core';
             <i class="fas fa-building"></i>
             Espaces de travail
           </a>
+          <a routerLink="/admin/periods" class="left-nav__item">
+            <i class="fas fa-calendar-alt"></i>
+            Périodes de reservations
+          </a>
         </div>
         <div id="main">
           <router-outlet></router-outlet>
