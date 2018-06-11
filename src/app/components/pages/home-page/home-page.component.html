@@ -6,7 +6,7 @@
         <a href="#">En savoir plus</a>
       </div>
     </div>
-    <div class="home-page__splash-screen__register">
+    <div class="home-page__splash-screen__register" [appIsAuthenticated]="false">
       <a class="home-page__splash-screen__register__button button" routerLink="/register">Devenir membre</a>
     </div>
   </div>
@@ -43,12 +43,12 @@
   </div>
   <div class="separator">
   </div>
-  <div class="home-page__espace" *ngIf="workplaceList[0]">
+  <div class="home-page__espace" *ngIf="workplaceList && workplaceList[0]">
     <select class="home-page__espace__select form-input">
       <option>Selectionnez un espace de travail</option>
       <option>Espace della vita</option>
     </select>
-    <div class="home-page__espace__details espace-detail" *ngIf="workplaceList">
+    <div class="home-page__espace__details espace-detail">
       <div class="home-page__espace__details__title espace-detail__title">
         {{workplaceList[0].name}}
       </div>
@@ -70,7 +70,7 @@
             <i class="fa fa-3x fa-clipboard-list"></i>
           </div>
           <div class="espace-detail__list__item__text">
-            Membership requis
+            Adhésion requis
           </div>
         </div>
         <div class="espace-detail__list__item">
@@ -84,7 +84,7 @@
       </div>
       <div class="home-page__espace__details__register">
         <a routerLink="reservation/{{workplaceList[0].id}}" class="button-icon button-icon--color-reverse">
-          <span class="button-icon__text">Reserver une plage horaire</span>
+          <span class="button-icon__text">Réserver une plage horaire</span>
           <span class="button-icon__icon">
             <i class="fa fa-caret-right"></i>
           </span>

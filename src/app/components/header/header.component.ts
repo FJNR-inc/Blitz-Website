@@ -33,7 +33,6 @@ export class HeaderComponent {
     }
 
     closeDropdown(name: string) {
-      console.log('Close');
       const index = this.dropdownOpened.indexOf(name, 0);
       if (index > -1) {
         this.dropdownOpened.splice(index, 1);
@@ -41,7 +40,6 @@ export class HeaderComponent {
     }
 
     openDropdown(name: string) {
-      console.log('Open');
       this.dropdownOpened.push(name);
     }
 }
