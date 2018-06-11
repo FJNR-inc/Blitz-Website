@@ -37,11 +37,11 @@
     </div>
     <div class="reservation-page__details__pictures">
       <div class="reservation-page__details__pictures__preview">
-        <img class="reservation-page__details__pictures__preview__item" src="../../../../assets/images/temp/espace.jpg" />
-        <img class="reservation-page__details__pictures__preview__item" src="../../../../assets/images/temp/espace.jpg" />
-        <img class="reservation-page__details__pictures__preview__item" src="../../../../assets/images/temp/espace.jpg" />
+        <img *ngIf="workplace.pictures[1]" class="reservation-page__details__pictures__preview__item" src="{{ workplace.pictures[1] }}" />
+        <img *ngIf="workplace.pictures[2]" class="reservation-page__details__pictures__preview__item" src="{{ workplace.pictures[2] }}" />
+        <img *ngIf="workplace.pictures[3]" class="reservation-page__details__pictures__preview__item" src="{{ workplace.pictures[3] }}" />
       </div>
-      <img class="reservation-page__details__pictures__main" src="../../../../assets/images/temp/espace.jpg" />
+      <img *ngIf="workplace.pictures[0]" class="reservation-page__details__pictures__main" src="{{ workplace.pictures[0] }}" />
     </div>
   </div>
   <div class="reservation-page__reservation">

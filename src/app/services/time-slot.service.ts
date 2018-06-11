@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
@@ -14,11 +14,15 @@ export class TimeSlotService extends GlobalService {
     super();
   }
 
-  list(): Observable<any> {
+  list(workplaceId: number = null): Observable<any> {
     const headers = this.getHeaders();
+    let params = new HttpParams();
+    if (workplaceId != null) {
+      params = params.set('period__workplace', workplaceId.toString());
+    }
     return this.http.get<any>(
       this.url_time_slots,
-      {headers: headers}
+      {headers: headers, params: params}
     );
   }
 }

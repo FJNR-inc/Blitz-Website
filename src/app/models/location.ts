@@ -1,6 +1,6 @@
 import BaseModel from './baseModel';
-import {Country} from "./country";
-import {StateProvince} from "./stateProvince";
+import { Country } from './country';
+import { StateProvince } from './stateProvince';
 
 export class Location extends BaseModel {
   id: number;

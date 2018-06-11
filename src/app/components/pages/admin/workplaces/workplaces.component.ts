@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { WorkplaceService } from '../../../../services/workplace.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workplaces',
@@ -19,9 +20,8 @@ export class WorkplacesComponent implements OnInit {
   selectedWorkplaceUrl: string;
 
   settings = {
-    addButton: true,
-    editButton: true,
     removeButton: true,
+    clickable: true,
     columns: [
       {
         name: 'name',
@@ -33,7 +33,8 @@ export class WorkplacesComponent implements OnInit {
   constructor(private workplaceService: WorkplaceService,
               private myModalService: MyModalService,
               private notificationService: NotificationsService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit() {
     this.refreshWorkplaceList();
@@ -54,9 +55,17 @@ export class WorkplacesComponent implements OnInit {
   }
 
   OpenModalCreateWorkplace() {
-    this.workplaceForm.reset();
-    this.selectedWorkplaceUrl = null;
-    this.toogleModal('form_workplaces', 'Ajouter un espace de travail', 'Creer');
+    this.redirectToWorkplace();
+  }
+
+  redirectToWorkplace(id = null) {
+    let url = '/admin/workplaces/';
+    if (id !== null) {
+      url += id.toString();
+    } else {
+      url += 'new';
+    }
+    this.router.navigate([url]);
   }
 
   OpenModalEditWorkplace(item) {

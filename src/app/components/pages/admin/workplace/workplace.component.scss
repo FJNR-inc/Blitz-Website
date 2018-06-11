@@ -1,0 +1,29 @@
+.admin-workplace-page {
+  display: flex;
+
+  &__general {
+    max-width: 500px;
+  }
+
+  &__others {
+    padding: 20px 40px;
+
+    &__pictures {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: start;
+
+      &__button {
+        height: 100px;
+        width: 250px;
+        margin: 10px;
+      }
+
+      &__picture {
+        max-height: 100px;
+        max-width: 250px;
+        margin: 10px;
+      }
+    }
+  }
+}

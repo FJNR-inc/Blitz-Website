@@ -1,4 +1,5 @@
 import BaseModel from './baseModel';
+import { Location } from './location';
 
 export class Workplace extends BaseModel {
   url: string;

@@ -15,7 +15,8 @@
                   [data]="listWorkplaces"
                   (addButton)="OpenModalCreateWorkplace()"
                   (editItem)="OpenModalEditWorkplace($event)"
-                  (removeItem)="removeWorkplace($event)">
+                  (removeItem)="removeWorkplace($event)"
+                  (selectItem)="redirectToWorkplace($event.id)">
     </app-my-table>
   </div>
 </div>

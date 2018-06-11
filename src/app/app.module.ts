@@ -45,6 +45,7 @@ import { ProfileService } from './services/profile.service';
 import { TimeSlotService } from './services/time-slot.service';
 import { registerLocaleData } from '@angular/common';
 import { PermissionsDirective } from './directives/permissions.directive';
+import { WorkplaceComponent } from './components/pages/admin/workplace/workplace.component';
 
 registerLocaleData(localeFr);
 
@@ -138,6 +139,14 @@ const appRoutes = [
           CanActivateViaAuthGuard,
           CanAccessAdminPanelGuard,
         ]
+      },
+      {
+        path: 'admin/workplaces/:id',
+        component: WorkplaceComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
       }
     ]
   }
@@ -168,6 +177,7 @@ const appRoutes = [
     ResetPasswordPageComponent,
     WorkplacesComponent,
     PermissionsDirective,
+    WorkplaceComponent,
   ],
   imports: [
     BrowserModule,

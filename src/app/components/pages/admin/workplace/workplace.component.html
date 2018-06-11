@@ -1,0 +1,137 @@
+<div class="admin-workplace-page" *ngIf="workplace">
+  <div class="admin-workplace-page__general">
+    <h2>Informations generales</h2>
+
+    <form (submit)="submit(workplaceForm)" [formGroup]="workplaceForm">
+      <div class="admin-workplace-page__general__infos__form">
+        <div *ngFor="let error of errors" class="alert alert--danger">
+          {{ error }}
+        </div>
+        <div class="form-group">
+          <label for="name" class="form-label">Nom:</label>
+          <input formControlName="name" type="text" id="name" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of workplaceForm.controls['name'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="details" class="form-label">Description:</label>
+          <textarea formControlName="details" id="details" class="form-input form-input--textarea">
+          </textarea>
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of workplaceForm.controls['details'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="seats" class="form-label">Nombre de place:</label>
+          <input formControlName="seats" type="text" id="seats" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of workplaceForm.controls['seats'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+      </div>
+      <div class="admin-workplace-page__content__actions">
+        <div>
+          <button type="submit" (click)="hasSubmit=true" class="button-icon">
+            <span class="buttfon-icon__text">Enregister</span>
+            <span class="button-icon__icon">
+              <i class="fa fa-caret-right"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!workplaceForm.valid && hasSubmit" class="alert alert--danger">
+        Veuillez remplir tous les champs
+      </div>
+    </form>
+
+    <h2>Adresse</h2>
+    <form (submit)="submit(locationForm)" [formGroup]="locationForm">
+      <div class="admin-workplace-page__general__location__form">
+        <div *ngFor="let error of errors" class="alert alert--danger">
+          {{ error }}
+        </div>
+        <div class="form-group">
+          <label for="address_line_1" class="form-label">1ere ligne d'adresse:</label>
+          <input formControlName="address_line_1" type="text" id="address_line_1" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of locationForm.controls['address_line_1'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address_line_2" class="form-label">2nd ligne d'adresse:</label>
+          <input formControlName="address_line_2" type="text" id="address_line_2" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of locationForm.controls['address_line_2'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="postal_code" class="form-label">Code postal:</label>
+          <input formControlName="postal_code" type="text" id="postal_code" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of locationForm.controls['postal_code'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="city" class="form-label">Ville:</label>
+          <input formControlName="city" type="text" id="city" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of locationForm.controls['city'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="state_province" class="form-label">Etat/Province:</label>
+          <input formControlName="state_province" type="text" id="state_province" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of locationForm.controls['state_province'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="country" class="form-label">Pays:</label>
+          <input formControlName="country" type="text" id="country" class="form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of locationForm.controls['country'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+      </div>
+      <div class="admin-workplace-page__content__actions">
+        <div>
+          <button type="submit" (click)="hasSubmit=true" class="button-icon">
+            <span class="button-icon__text">Enregister</span>
+            <span class="button-icon__icon">
+              <i class="fa fa-caret-right"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!locationForm.valid && hasSubmit" class="alert alert--danger">
+        Veuillez remplir tous les champs
+      </div>
+    </form>
+  </div>
+  <div class="admin-workplace-page__others">
+    <h2>Photo de l'espace</h2>
+    <div class="admin-workplace-page__others__pictures">
+      <img *ngFor="let pictureUrl of workplace.pictures" src="{{ pictureUrl }}" class="admin-workplace-page__others__pictures__picture"/>
+      <button class="button admin-workplace-page__others__pictures__button">
+        <i class="fa fa-plus"></i>
+        Ajouter une photo
+      </button>
+    </div>
+
+    <h2>Plages horaires</h2>
+    <div class="admin-workplace-page__others__timeslots">
+      <app-my-table [settings]="settings"
+                    [data]="listTimeslots">
+      </app-my-table>
+    </div>
+</div>
