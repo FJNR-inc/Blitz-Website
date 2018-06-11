@@ -46,6 +46,8 @@ import { TimeSlotService } from './services/time-slot.service';
 import { registerLocaleData } from '@angular/common';
 import { PermissionsDirective } from './directives/permissions.directive';
 import { WorkplaceComponent } from './components/pages/admin/workplace/workplace.component';
+import { AuthenticatedDirective } from './directives/authenticated.directive';
+import { Error403Component } from './components/error-403/error-403.component';
 
 registerLocaleData(localeFr);
 
@@ -60,6 +62,10 @@ const appRoutes = [
       },
       {
         path: 'login',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'login/:lastUrl',
         component: LoginPageComponent,
       },
       {
@@ -93,6 +99,10 @@ const appRoutes = [
       {
         path: 'reservation/:id',
         component: ReservationPageComponent,
+      },
+      {
+        path: '403',
+        component: Error403Component,
       }
     ]
   },
@@ -178,6 +188,8 @@ const appRoutes = [
     WorkplacesComponent,
     PermissionsDirective,
     WorkplaceComponent,
+    AuthenticatedDirective,
+    Error403Component,
   ],
   imports: [
     BrowserModule,

@@ -5,5 +5,6 @@ export class Domain extends BaseModel {
   id: number;
   name: string;
   organization: Organization;
+  example: string;
 }
 
