@@ -28,7 +28,7 @@
       {{ error }}
     </div>
     <div class="form-group">
-      <label for="domainName" class="form-label">Nom :</label>
+      <label for="domainName" class="form-label">Nom de domaine:</label>
       <input formControlName="name" type="text" id="domainName" class="form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of domainForm.controls['name'].getError('apiError')">

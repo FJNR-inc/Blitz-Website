@@ -28,7 +28,7 @@ export class OrganizationComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'Nom'
+        title: 'Nom de domaine'
       },
       {
         name: 'example',
@@ -54,14 +54,23 @@ export class OrganizationComponent implements OnInit {
   }
 
   resetForm() {
-    // todo: replace hardcoded value by organization Id of API
-    this.domainForm = this.formBuilder.group(
-      {
-        name: null,
-        example: null,
-        organization: 1
-      }
-    );
+    if ( this.organization ) {
+      this.domainForm = this.formBuilder.group(
+        {
+          name: null,
+          example: null,
+          organization: this.organization.url
+        }
+      );
+    } else {
+      this.domainForm = this.formBuilder.group(
+        {
+          name: null,
+          example: null,
+          organization: null
+        }
+      );
+    }
   }
 
   refreshOrganization() {
@@ -117,7 +126,7 @@ export class OrganizationComponent implements OnInit {
           data => {
             this.notificationService.success('Ajouté');
             this.refreshOrganization();
-            this.toogleModal('form_organizations');
+            this.toogleModal('form_domain');
           },
           err => {
             if (err.error.non_field_errors) {

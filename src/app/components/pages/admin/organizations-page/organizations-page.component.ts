@@ -113,10 +113,9 @@ export class OrganizationsPageComponent implements OnInit {
   }
 
   removeOrganization(item) {
-    console.log('bad!');
     this.organizationService.remove(item).subscribe(
       data => {
-        this.notificationService.success('Supprimé', 'Le domaine d\'étude a bien été supprimé.');
+        this.notificationService.success('Supprimé', 'L\'université a bien été supprimé.');
         this.refreshOrganizationList();
       },
       err => {
@@ -139,7 +138,6 @@ export class OrganizationsPageComponent implements OnInit {
   }
 
   goToOrganization(event) {
-    console.log('todo: add organization.id in API');
-    //this.router.navigate(['/admin/organization/' + event.id]);
+    this.router.navigate(['/admin/organization/' + event.id]);
   }
 }
