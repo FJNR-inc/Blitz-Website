@@ -52,6 +52,7 @@ import { OrganizationComponent } from './components/pages/admin/organization/org
 import { DomainService } from './services/domain.service';
 import { PeriodsComponent } from './components/pages/admin/periods/periods.component';
 import { PeriodService } from './services/period.service';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 registerLocaleData(localeFr);
 
@@ -224,7 +225,9 @@ const appRoutes = [
     FormsModule,
     ReactiveFormsModule,
     SimpleNotificationsModule.forRoot(),
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [
     CanActivateViaAuthGuard,

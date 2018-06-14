@@ -35,5 +35,58 @@
         {{ errorMessage }}
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="start_date" class="form-label">Debut de la periode:</label>
+      <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
+             formControlName="start_date" class="form-input"
+             id="start_date">
+      <owl-date-time #dt_start [firstDayOfWeek]="1"></owl-date-time>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of periodForm.controls['start_date'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="end_date" class="form-label">Fin de la periode:</label>
+      <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
+             formControlName="end_date" class="form-input"
+             id="end_date">
+      <owl-date-time #dt_end [firstDayOfWeek]="1"></owl-date-time>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of periodForm.controls['end_date'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="price" class="form-label">Prix:</label>
+      <input formControlName="price" class="form-input" id="price" type="number">
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of periodForm.controls['price'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="workplace" class="form-label">Espace de travail:</label>
+      <select formControlName="workplace" class="form-input" id="workplace">
+        <option *ngFor="let workplace of listWorkplaces" value="{{workplace.url}}">{{ workplace.name }}</option>
+      </select>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of periodForm.controls['workplace'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="is_active">Activer la periode: </label>
+      <input formControlName="is_active" type="checkbox" id="is_active">
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of periodForm.controls['is_active'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
   </form>
 </app-my-modal>

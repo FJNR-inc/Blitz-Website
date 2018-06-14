@@ -5,6 +5,8 @@ import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { Period } from '../../../../models/period';
 import { PeriodService } from '../../../../services/period.service';
+import { Workplace } from '../../../../models/workplace';
+import { WorkplaceService } from '../../../../services/workplace.service';
 
 @Component({
   selector: 'app-periods',
@@ -14,6 +16,7 @@ import { PeriodService } from '../../../../services/period.service';
 export class PeriodsComponent implements OnInit {
 
   listPeriods: Period[];
+  listWorkplaces: Workplace[];
 
   periodForm: FormGroup;
   periodErrors: string[];
@@ -27,6 +30,19 @@ export class PeriodsComponent implements OnInit {
       {
         name: 'name',
         title: 'Nom'
+      },
+      {
+        name: 'start_date',
+        title: 'Date de debut'
+      },
+      {
+        name: 'end_date',
+        title: 'Date de fin'
+      },
+      {
+        name: 'is_active',
+        title: 'Active',
+        type: 'boolean'
       }
     ]
   };
@@ -35,14 +51,21 @@ export class PeriodsComponent implements OnInit {
               private myModalService: MyModalService,
               private notificationService: NotificationsService,
               private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private workplaceService: WorkplaceService) { }
 
   ngOnInit() {
     this.refreshPeriodList();
+    this.refreshWorkplaceList();
 
     this.periodForm = this.formBuilder.group(
       {
-        name: null
+        name: null,
+        start_date: null,
+        end_date: null,
+        workplace: null,
+        price: null,
+        is_active: false,
       }
     );
   }
@@ -50,19 +73,33 @@ export class PeriodsComponent implements OnInit {
   refreshPeriodList() {
     this.periodService.list().subscribe(
       periods => {
-        this.listPeriods = periods.results.map(p => new Period(p));
+        this.listPeriods = periods.results.map(p => this.periodAdapter(new Period(p)));
+      }
+    );
+  }
+
+  refreshWorkplaceList() {
+    this.workplaceService.list().subscribe(
+      workplaces => {
+        this.listWorkplaces = workplaces.results.map(w => new Workplace(w));
       }
     );
   }
 
   OpenModalCreatePeriod() {
     this.periodForm.reset();
+    this.periodForm.controls['is_active'].setValue(false);
     this.selectedPeriodUrl = null;
     this.toogleModal('form_periods', 'Ajouter une periode', 'Creer');
   }
 
   OpenModalEditPeriod(item) {
     this.periodForm.controls['name'].setValue(item.name);
+    this.periodForm.controls['start_date'].setValue(item.start_date);
+    this.periodForm.controls['end_date'].setValue(item.end_date);
+    this.periodForm.controls['workplace'].setValue(item.workplace);
+    this.periodForm.controls['is_active'].setValue(item.is_active);
+    this.periodForm.controls['price'].setValue(item.price);
     this.selectedPeriodUrl = item.url;
     this.toogleModal('form_periods', 'Editer une periode', 'Editer');
   }
@@ -86,6 +123,31 @@ export class PeriodsComponent implements OnInit {
                 apiError: err.error.name
               });
             }
+            if (err.error.start_date) {
+              this.periodForm.controls['start_date'].setErrors({
+                apiError: err.error.start_date
+              });
+            }
+            if (err.error.end_date) {
+              this.periodForm.controls['end_date'].setErrors({
+                apiError: err.error.end_date
+              });
+            }
+            if (err.error.workplace) {
+              this.periodForm.controls['workplace'].setErrors({
+                apiError: err.error.workplace
+              });
+            }
+            if (err.error.is_active) {
+              this.periodForm.controls['is_active'].setErrors({
+                apiError: err.error.is_active
+              });
+            }
+            if (err.error.price) {
+              this.periodForm.controls['price'].setErrors({
+                apiError: err.error.price
+              });
+            }
           }
         );
       } else {
@@ -103,6 +165,31 @@ export class PeriodsComponent implements OnInit {
             if (err.error.name) {
               this.periodForm.controls['name'].setErrors({
                 apiError: err.error.name
+              });
+            }
+            if (err.error.start_date) {
+              this.periodForm.controls['start_date'].setErrors({
+                apiError: err.error.start_date
+              });
+            }
+            if (err.error.end_date) {
+              this.periodForm.controls['end_date'].setErrors({
+                apiError: err.error.end_date
+              });
+            }
+            if (err.error.workplace) {
+              this.periodForm.controls['workplace'].setErrors({
+                apiError: err.error.workplace
+              });
+            }
+            if (err.error.is_active) {
+              this.periodForm.controls['is_active'].setErrors({
+                apiError: err.error.is_active
+              });
+            }
+            if (err.error.price) {
+              this.periodForm.controls['price'].setErrors({
+                apiError: err.error.price
               });
             }
           }
@@ -134,5 +221,14 @@ export class PeriodsComponent implements OnInit {
     modal.title = title;
     modal.button2Label = button2;
     modal.toggle();
+  }
+
+  periodAdapter(period) {
+    return {
+      name: period.name,
+      start_date: period.getStartDay(),
+      end_date: period.getEndDay(),
+      is_active: period.is_active
+    };
   }
 }
