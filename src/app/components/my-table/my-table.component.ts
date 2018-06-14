@@ -28,8 +28,12 @@ export class MyTableComponent implements OnInit {
     this.deleteModalName = 'delete_table_' + this.uuid;
   }
 
-  clickItem(item) {
-    this.selectItem.emit(item);
+  clickItem(event: Event, item) {
+    const target = (event.target as HTMLElement);
+
+    if (!target.classList.contains('actionnable')) {
+      this.selectItem.emit(item);
+    }
   }
 
   edit(item) {

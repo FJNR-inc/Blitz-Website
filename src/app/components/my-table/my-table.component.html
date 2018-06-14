@@ -20,7 +20,7 @@
   </tr>
   <tr *ngFor="let item of data"
       [ngClass]="{'my-table__table__line--clickable' : settings.clickable}"
-      (click)="clickItem(item)"
+      (click)="clickItem($event, item)"
       class="my-table__table__line">
     <td *ngFor="let column of settings.columns"
         class="my-table__table__line__cell">
@@ -38,12 +38,12 @@
       <a *ngIf="settings.editButton"
          class="my-table__table__line__cell--actions__edit"
          (click)="edit(item)">
-        <i class="fas fa-pencil-alt"></i>
+        <i class="fas fa-pencil-alt actionnable"></i>
       </a>
       <a *ngIf="settings.removeButton"
          class="my-table__table__line__cell--actions__remove"
          (click)="confirmRemove(item)">
-        <i class="fa fa-trash"></i>
+        <i class="fa fa-trash actionnable"></i>
       </a>
     </td>
   </tr>
