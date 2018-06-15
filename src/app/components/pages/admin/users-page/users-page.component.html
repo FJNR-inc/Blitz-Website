@@ -13,7 +13,8 @@
   <div class="admin-users-page__table">
     <app-my-table [settings]="settings"
                   [data]="listUsers"
-                  (selectItem)="selectUser($event)">
+                  (selectItem)="selectUser($event)"
+                  (changePage)="changePage($event)">
     </app-my-table>
   </div>
 </div>

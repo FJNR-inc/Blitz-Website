@@ -24,9 +24,11 @@ export class TimeSlotService extends GlobalService {
     );
   }
 
-  list(workplaceId: number = null): Observable<any> {
+  list(workplaceId: number = null, limit = 100, offset = 0): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();
+    params = params.set('limit', limit.toString());
+    params = params.set('offset', offset.toString());
     if (workplaceId != null) {
       params = params.set('period__workplace', workplaceId.toString());
     }

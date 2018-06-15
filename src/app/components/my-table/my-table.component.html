@@ -48,6 +48,13 @@
     </td>
   </tr>
 </table>
+<div class="my-table__pagination">
+  <button *ngFor="let page of pagination"
+     (click)="goToPage(page.index)"
+     class="my-table__pagination__page"
+     [disabled]="page.index == null"
+     [ngClass]="{'active': page.active, 'disabled': page.index == null}">{{ page.name }}</button>
+</div>
 
 <app-my-modal name="{{deleteModalName}}"
               typeModal="danger"

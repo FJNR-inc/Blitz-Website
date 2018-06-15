@@ -7,6 +7,7 @@ import { Period } from '../../../../models/period';
 import { PeriodService } from '../../../../services/period.service';
 import { Workplace } from '../../../../models/workplace';
 import { WorkplaceService } from '../../../../services/workplace.service';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-periods',
@@ -27,6 +28,10 @@ export class PeriodsComponent implements OnInit {
     addButton: true,
     editButton: true,
     removeButton: true,
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
     columns: [
       {
         name: 'name',
@@ -71,9 +76,17 @@ export class PeriodsComponent implements OnInit {
     );
   }
 
-  refreshPeriodList() {
-    this.periodService.list().subscribe(
+  changePage(index: number) {
+    this.refreshPeriodList(index);
+  }
+
+  refreshPeriodList(page = 1, limit = 20) {
+    this.periodService.list(limit, limit * (page - 1)).subscribe(
       periods => {
+        this.settings.numberOfPage = Math.ceil(periods.count / limit);
+        this.settings.page = page;
+        this.settings.previous = !isNull(periods.previous);
+        this.settings.next = !isNull(periods.next);
         this.listPeriods = periods.results.map(p => this.periodAdapter(new Period(p)));
       }
     );

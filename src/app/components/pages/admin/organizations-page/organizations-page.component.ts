@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-organizations-page',
@@ -24,6 +25,10 @@ export class OrganizationsPageComponent implements OnInit {
     addButton: true,
     editButton: true,
     removeButton: true,
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
     columns: [
       {
         name: 'name',
@@ -48,9 +53,17 @@ export class OrganizationsPageComponent implements OnInit {
     );
   }
 
-  refreshOrganizationList() {
-    this.organizationService.list().subscribe(
+  changePage(index: number) {
+    this.refreshOrganizationList(index);
+  }
+
+  refreshOrganizationList(page = 1, limit = 20) {
+    this.organizationService.list(limit, limit * (page - 1)).subscribe(
       organizations => {
+        this.settings.numberOfPage = Math.ceil(organizations.count / limit);
+        this.settings.page = page;
+        this.settings.previous = !isNull(organizations.previous);
+        this.settings.next = !isNull(organizations.next);
         this.listOrganizations = organizations.results.map(o => new Organization(o));
       }
     );

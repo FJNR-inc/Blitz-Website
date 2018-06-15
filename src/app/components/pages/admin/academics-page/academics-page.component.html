@@ -11,11 +11,12 @@
     </div>
   </div>
   <div class="admin-academics-page__levels">
-    <app-my-table [settings]="settings"
+    <app-my-table [settings]="settingsLevel"
                   [data]="listAcademicLevels"
                   (addButton)="OpenModalCreateLevel()"
                   (editItem)="OpenModalEditLevel($event)"
-                  (removeItem)="removeLevel($event)"></app-my-table>
+                  (removeItem)="removeLevel($event)"
+                  (changePage)="changePageLevel($event)"></app-my-table>
   </div>
 
   <div class="admin-academics-page__title">
@@ -30,11 +31,12 @@
     </div>
   </div>
   <div class="admin-academics-page__fields">
-    <app-my-table [settings]="settings"
+    <app-my-table [settings]="settingsField"
                   [data]="listAcademicFields"
                   (addButton)="OpenModalCreateField()"
                   (editItem)="OpenModalEditField($event)"
-                  (removeItem)="removeField($event)"></app-my-table>
+                  (removeItem)="removeField($event)"
+                  (changePage)="changePageField($event)"></app-my-table>
   </div>
 </div>
 

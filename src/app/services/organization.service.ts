@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
@@ -26,11 +26,14 @@ export class OrganizationService extends GlobalService {
     );
   }
 
-  list(): Observable<any> {
+  list(limit = 100, offset = 0): Observable<any> {
     const headers = this.getHeaders();
+    let params = new HttpParams();
+    params = params.set('limit', limit.toString());
+    params = params.set('offset', offset.toString());
     return this.http.get<any>(
       this.url_organizations,
-      {headers: headers}
+      {headers: headers, params: params}
     );
   }
 

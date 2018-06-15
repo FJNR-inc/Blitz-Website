@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
 import { Router } from '@angular/router';
+import {isNull} from "util";
 
 @Component({
   selector: 'app-users-page',
@@ -14,6 +15,10 @@ export class UsersPageComponent implements OnInit {
 
   settings = {
     clickable: true,
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
     columns: [
       {
         name: 'first_name',
@@ -43,10 +48,22 @@ export class UsersPageComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.userService.list().subscribe(
+    this.refreshUserList();
+  }
+
+  changePage(index: number) {
+    this.refreshUserList(index);
+  }
+
+  refreshUserList(page = 1, limit = 20) {
+    this.userService.list(limit, limit * (page - 1)).subscribe(
       users => {
+        this.settings.numberOfPage = Math.ceil(users.count / limit);
+        this.settings.page = page;
+        this.settings.previous = !isNull(users.previous);
+        this.settings.next = !isNull(users.next);
         this.listUsers = this.userAdapter(users.results.map(u => new User(u)));
-      }
+        }
     );
   }
 

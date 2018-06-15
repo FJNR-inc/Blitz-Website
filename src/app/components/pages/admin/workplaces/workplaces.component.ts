@@ -5,6 +5,7 @@ import { WorkplaceService } from '../../../../services/workplace.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-workplaces',
@@ -22,6 +23,10 @@ export class WorkplacesComponent implements OnInit {
   settings = {
     removeButton: true,
     clickable: true,
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
     columns: [
       {
         name: 'name',
@@ -46,9 +51,17 @@ export class WorkplacesComponent implements OnInit {
     );
   }
 
-  refreshWorkplaceList() {
-    this.workplaceService.list().subscribe(
+  changePage(index: number) {
+    this.refreshWorkplaceList(index);
+  }
+
+  refreshWorkplaceList(page = 1, limit = 20) {
+    this.workplaceService.list(limit, limit * (page - 1)).subscribe(
       workplaces => {
+        this.settings.numberOfPage = Math.ceil(workplaces.count / limit);
+        this.settings.page = page;
+        this.settings.previous = !isNull(workplaces.previous);
+        this.settings.next = !isNull(workplaces.next);
         this.listWorkplaces = workplaces.results.map(o => new Workplace(o));
       }
     );

@@ -6,6 +6,7 @@ import { AcademicLevelService } from '../../../../services/academic-level.servic
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-academics-page',
@@ -25,10 +26,30 @@ export class AcademicsPageComponent implements OnInit {
   levelErrors: string[];
   selectedLevelUrl: string;
 
-  settings = {
+  settingsLevel = {
     addButton: true,
     editButton: true,
     removeButton: true,
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
+    columns: [
+      {
+        name: 'name',
+        title: 'Nom'
+      }
+    ]
+  };
+
+  settingsField = {
+    addButton: true,
+    editButton: true,
+    removeButton: true,
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
     columns: [
       {
         name: 'name',
@@ -60,17 +81,33 @@ export class AcademicsPageComponent implements OnInit {
     );
   }
 
-  refreshLevelList() {
-    this.academicLevelService.list().subscribe(
+  changePageLevel(index: number) {
+    this.refreshLevelList(index);
+  }
+
+  refreshLevelList(page = 1, limit = 20) {
+    this.academicLevelService.list(limit, limit * (page - 1)).subscribe(
       levels => {
+        this.settingsLevel.numberOfPage = Math.ceil(levels.count / limit);
+        this.settingsLevel.page = page;
+        this.settingsLevel.previous = !isNull(levels.previous);
+        this.settingsLevel.next = !isNull(levels.next);
         this.listAcademicLevels = levels.results.map(l => new AcademicLevel(l));
       }
     );
   }
 
-  refreshFieldList() {
-    this.academicFieldService.list().subscribe(
+  changePageField(index: number) {
+    this.refreshFieldList(index);
+  }
+
+  refreshFieldList(page = 1, limit = 20) {
+    this.academicFieldService.list(limit, limit * (page - 1)).subscribe(
       fields => {
+        this.settingsField.numberOfPage = Math.ceil(fields.count / limit);
+        this.settingsField.page = page;
+        this.settingsField.previous = !isNull(fields.previous);
+        this.settingsField.next = !isNull(fields.next);
         this.listAcademicFields = fields.results.map(f => new AcademicField(f));
       }
     );
