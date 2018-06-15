@@ -53,6 +53,7 @@ import { DomainService } from './services/domain.service';
 import { PeriodsComponent } from './components/pages/admin/periods/periods.component';
 import { PeriodService } from './services/period.service';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { PeriodComponent } from './components/pages/admin/period/period.component';
 
 registerLocaleData(localeFr);
 
@@ -179,6 +180,14 @@ const appRoutes = [
           CanAccessAdminPanelGuard,
         ]
       },
+      {
+        path: 'admin/periods/:id',
+        component: PeriodComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
     ]
   }
 ];
@@ -213,6 +222,7 @@ const appRoutes = [
     Error403Component,
     OrganizationComponent,
     PeriodsComponent,
+    PeriodComponent,
   ],
   imports: [
     BrowserModule,

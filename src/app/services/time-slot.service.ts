@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
+import { TimeSlot } from '../models/timeSlot';
 
 @Injectable()
 export class TimeSlotService extends GlobalService {
@@ -12,6 +13,15 @@ export class TimeSlotService extends GlobalService {
 
   constructor(public http: HttpClient) {
     super();
+  }
+
+  create(timeslot: TimeSlot): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      this.url_time_slots,
+      timeslot,
+      {headers: headers}
+    );
   }
 
   list(workplaceId: number = null): Observable<any> {
@@ -23,6 +33,23 @@ export class TimeSlotService extends GlobalService {
     return this.http.get<any>(
       this.url_time_slots,
       {headers: headers, params: params}
+    );
+  }
+
+  update(url: string, timeslot: TimeSlot): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.patch<any>(
+      url,
+      timeslot,
+      {headers: headers}
+    );
+  }
+
+  remove(timeslot: TimeSlot): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(
+      timeslot.url,
+      {headers: headers}
     );
   }
 }

@@ -1,0 +1,56 @@
+<div class="admin-period-page" *ngIf="period">
+  <div class="admin-period-page__title">
+    <h2>{{ period.name }}</h2>
+  </div>
+  du {{ period.getStartDay() }} au {{ period.getEndDay()}}
+  <div class="admin-period-page__actions">
+    <div>
+      <!-- Space for some filters -->
+    </div>
+    <div>
+      <!-- Space for button actions -->
+    </div>
+  </div>
+  <div class="admin-period-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="listAdaptedTimeslots"
+                  (addButton)="OpenModalCreateTimeslot()"
+                  (editItem)="OpenModalEditTimeslot($event)"
+                  (removeItem)="removeTimeslot($event)">
+    </app-my-table>
+  </div>
+</div>
+
+<app-my-modal name="form_timeslots"
+              typeModal="success"
+              (button2)="submitTimeslot()">
+  <form [formGroup]="timeslotForm">
+    <div *ngFor="let error of timeslotErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+
+    <div class="form-group">
+      <label for="start_time" class="form-label">Debut de la plage horaire:</label>
+      <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
+             formControlName="start_time" class="form-input"
+             id="start_time">
+      <owl-date-time #dt_start [firstDayOfWeek]="1"></owl-date-time>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of timeslotForm.controls['start_time'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="end_time" class="form-label">Fin de la plage horaire:</label>
+      <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
+             formControlName="end_time" class="form-input"
+             id="end_time">
+      <owl-date-time #dt_end [firstDayOfWeek]="1"></owl-date-time>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of timeslotForm.controls['end_time'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+  </form>
+</app-my-modal>

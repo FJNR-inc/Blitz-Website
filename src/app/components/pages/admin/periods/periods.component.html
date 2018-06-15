@@ -15,7 +15,8 @@
                   [data]="listPeriods"
                   (addButton)="OpenModalCreatePeriod()"
                   (editItem)="OpenModalEditPeriod($event)"
-                  (removeItem)="removePeriod($event)">
+                  (removeItem)="removePeriod($event)"
+                  (selectItem)="goToPeriod($event)">
     </app-my-table>
   </div>
 </div>
@@ -56,15 +57,6 @@
       <owl-date-time #dt_end [firstDayOfWeek]="1"></owl-date-time>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of periodForm.controls['end_date'].getError('apiError')">
-        {{ errorMessage}}
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="price" class="form-label">Prix:</label>
-      <input formControlName="price" class="form-input" id="price" type="number">
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of periodForm.controls['price'].getError('apiError')">
         {{ errorMessage}}
       </div>
     </div>

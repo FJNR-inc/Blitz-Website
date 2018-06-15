@@ -23,6 +23,7 @@ export class PeriodsComponent implements OnInit {
   selectedPeriodUrl: string;
 
   settings = {
+    clickable: true,
     addButton: true,
     editButton: true,
     removeButton: true,
@@ -89,6 +90,7 @@ export class PeriodsComponent implements OnInit {
   OpenModalCreatePeriod() {
     this.periodForm.reset();
     this.periodForm.controls['is_active'].setValue(false);
+    this.periodForm.controls['price'].setValue(1);
     this.selectedPeriodUrl = null;
     this.toogleModal('form_periods', 'Ajouter une periode', 'Creer');
   }
@@ -99,7 +101,7 @@ export class PeriodsComponent implements OnInit {
     this.periodForm.controls['end_date'].setValue(item.end_date);
     this.periodForm.controls['workplace'].setValue(item.workplace);
     this.periodForm.controls['is_active'].setValue(item.is_active);
-    this.periodForm.controls['price'].setValue(item.price);
+    this.periodForm.controls['price'].setValue(1);
     this.selectedPeriodUrl = item.url;
     this.toogleModal('form_periods', 'Editer une periode', 'Editer');
   }
@@ -143,11 +145,6 @@ export class PeriodsComponent implements OnInit {
                 apiError: err.error.is_active
               });
             }
-            if (err.error.price) {
-              this.periodForm.controls['price'].setErrors({
-                apiError: err.error.price
-              });
-            }
           }
         );
       } else {
@@ -187,11 +184,6 @@ export class PeriodsComponent implements OnInit {
                 apiError: err.error.is_active
               });
             }
-            if (err.error.price) {
-              this.periodForm.controls['price'].setErrors({
-                apiError: err.error.price
-              });
-            }
           }
         );
       }
@@ -225,10 +217,15 @@ export class PeriodsComponent implements OnInit {
 
   periodAdapter(period) {
     return {
+      id: period.id,
       name: period.name,
       start_date: period.getStartDay(),
       end_date: period.getEndDay(),
       is_active: period.is_active
     };
+  }
+
+  goToPeriod(event) {
+    this.router.navigate(['/admin/periods/' + event.id]);
   }
 }
