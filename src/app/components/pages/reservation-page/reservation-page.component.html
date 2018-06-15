@@ -105,7 +105,7 @@
         </div>
         <div *ngFor="let timeslot of selectedTimeSlots" class="reservation-page__reservation__form__ticket__line">
           <div class="reservation-page__reservation__form__ticket__line__title">
-            {{ timeslot.getStartDay() }} ({{ timeslot.getStartTime() }} - {{ timeslot.getEndTime() }}) - {{ timeslot.price }}$CAN
+            {{ timeslot.getStartDay() }} ({{ timeslot.getStartTime() }} - {{ timeslot.getEndTime() }})
           </div>
           <div class="reservation-page__reservation__form__ticket__line__actions">
             <a (click)="removeFromCart(timeslot)">
@@ -114,14 +114,58 @@
           </div>
         </div>
         <div class="reservation-page__reservation__form__ticket__total">
-          TOTAL: {{ totalBill }}$ CAN
+          TOTAL: {{ totalBill }} ticket(s)
         </div>
       </div>
+
+      <form class="reservation-page__reservation__form__box" *ngIf="user">
+        <div class="alert alert--warning">
+          <div class="alert__icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="alert__content">
+            Les plages horaires de cet espace de travail necessite une
+            adhesion valide pour etre reserver. Veuillez selectionner
+            un type d'adhesion a acheter.
+          </div>
+        </div>
+        <div class="reservation-page__reservation__form__box__content">
+          <div class="form-group">
+            <label for="membership" class="form-label">Type de membership :</label>
+            <select id="membership" class="form-input">
+              <option>Membership Etudiant</option>
+              <option>Membership Type 2</option>
+            </select>
+          </div>
+        </div>
+      </form>
+
+      <form class="reservation-page__reservation__form__box" *ngIf="user">
+        <div class="alert alert--warning">
+          <div class="alert__icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="alert__content">
+            Vous avez besoin de {{ totalBill }} tickets, soit
+            # tickets de plus que ceux disponible sur votre compte.
+            Veuillez selectionner l'offre que vous souhaitez acheter.
+          </div>
+        </div>
+        <div class="reservation-page__reservation__form__box__content">
+          <div class="form-group">
+            <label for="package" class="form-label">Offre d'achat :</label>
+            <select id="package" class="form-input">
+              <option>Offre Etudiant</option>
+              <option>Offre Type 2</option>
+            </select>
+          </div>
+        </div>
+      </form>
 
       <form class="reservation-page__reservation__form__payment" *ngIf="user">
         <div class="form-group">
           <label for="card" class="form-label">Mode de paiement :</label>
-          <select id="card" class="form-input">
+          <select id="card" class="form-input">{{ totalBill }}
             <option>Mastercard (xxxx xxxx xxxx 9371)</option>
             <option>Visa (xxxx xxxx xxxx 7785)</option>
           </select>

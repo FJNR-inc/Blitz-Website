@@ -106,6 +106,15 @@
         }
       }
 
+      &__box {
+        margin-top: 20px;
+        border: 2px solid $color-main;
+
+        &__content {
+          padding: 15px;
+        }
+      }
+
       &__payment {
         margin-top: 20px;
         border: 2px solid $color-main;
