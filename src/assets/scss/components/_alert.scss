@@ -15,6 +15,12 @@
     margin-right: 15px;
   }
 
+  &--success {
+    background-color: $color-success-background;
+    border-color: $color-success-border;
+    color: $color-success-text;
+  }
+
   &--info {
     background-color: $color-blue-background;
     border-color: $color-blue-border;

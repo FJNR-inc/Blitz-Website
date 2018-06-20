@@ -1,7 +1,4 @@
 import BaseModel from './baseModel';
-import { Organization } from './organization';
-import { AcademicField } from './academicField';
-import { AcademicLevel } from './academicLevel';
 
 export class User extends BaseModel {
   id: number;
@@ -17,6 +14,7 @@ export class User extends BaseModel {
   gender: string;
   is_active: boolean;
   is_superuser: boolean;
+  membership: string;
 
   getUniversity() {
     if (this.university) {

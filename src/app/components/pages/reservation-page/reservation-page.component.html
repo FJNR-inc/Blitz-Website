@@ -118,7 +118,21 @@
         </div>
       </div>
 
-      <form class="reservation-page__reservation__form__box" *ngIf="user">
+      <div class="reservation-page__reservation__form__box"
+           *ngIf="user && (user.membership || user.reservations >= totalBill)">
+        <div class="alert alert--success">
+          <div class="alert__content">
+            <p *ngIf="user && user.membership">
+              <i class="fas fa-check"></i> Votre membership est encore valide.
+            </p>
+            <p *ngIf="user && user.reservations >= totalBill">
+              <i class="fas fa-check"></i> Il vous reste {{ user.reservations - totalBill }} ticket(s).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <form class="reservation-page__reservation__form__box" *ngIf="user && !user.membership">
         <div class="alert alert--warning">
           <div class="alert__icon">
             <i class="fas fa-exclamation-triangle"></i>
@@ -141,14 +155,14 @@
         </div>
       </form>
 
-      <form class="reservation-page__reservation__form__box" *ngIf="user">
+      <form class="reservation-page__reservation__form__box" *ngIf="user && user.reservations < totalBill">
         <div class="alert alert--warning">
           <div class="alert__icon">
             <i class="fas fa-exclamation-triangle"></i>
           </div>
           <div class="alert__content">
             Vous avez besoin de {{ totalBill }} tickets, soit
-            # tickets de plus que ceux disponible sur votre compte.
+            {{ totalBill - user.reservations }} tickets de plus que ceux disponible sur votre compte.
             Veuillez selectionner l'offre que vous souhaitez acheter.
           </div>
         </div>
