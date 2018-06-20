@@ -12,7 +12,7 @@
   </div>
   <div class="admin-periods-page__table">
     <app-my-table [settings]="settings"
-                  [data]="listPeriods"
+                  [data]="listAdaptedPeriods"
                   (addButton)="OpenModalCreatePeriod()"
                   (editItem)="OpenModalEditPeriod($event)"
                   (removeItem)="removePeriod($event)"

@@ -9,6 +9,7 @@ export class Period extends BaseModel {
   end_date: string;
   is_active: boolean;
   workplace: Workplace[];
+  price: number;
 
   getStartDay() {
     return new Date(this.start_date).toLocaleDateString();

@@ -22,5 +22,7 @@ export const environment = {
     profile: '/profile',
     time_slots: '/time_slots',
     periods: '/periods',
+    memberships: '/memberships',
+    reservationPackages: '/packages',
   }
 };

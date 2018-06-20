@@ -17,6 +17,7 @@ import { isNull } from 'util';
 export class PeriodsComponent implements OnInit {
 
   listPeriods: Period[];
+  listAdaptedPeriods: any[];
   listWorkplaces: Workplace[];
 
   periodForm: FormGroup;
@@ -85,9 +86,14 @@ export class PeriodsComponent implements OnInit {
       periods => {
         this.settings.numberOfPage = Math.ceil(periods.count / limit);
         this.settings.page = page;
+        // todo: remove previous and next page on all pagined page.
         this.settings.previous = !isNull(periods.previous);
         this.settings.next = !isNull(periods.next);
-        this.listPeriods = periods.results.map(p => this.periodAdapter(new Period(p)));
+        this.listPeriods = periods.results.map(p => new Period(p));
+        this.listAdaptedPeriods = [];
+        for (const period of this.listPeriods) {
+          this.listAdaptedPeriods.push(this.periodAdapter(period));
+        }
       }
     );
   }
@@ -109,14 +115,18 @@ export class PeriodsComponent implements OnInit {
   }
 
   OpenModalEditPeriod(item) {
-    this.periodForm.controls['name'].setValue(item.name);
-    this.periodForm.controls['start_date'].setValue(item.start_date);
-    this.periodForm.controls['end_date'].setValue(item.end_date);
-    this.periodForm.controls['workplace'].setValue(item.workplace);
-    this.periodForm.controls['is_active'].setValue(item.is_active);
-    this.periodForm.controls['price'].setValue(1);
-    this.selectedPeriodUrl = item.url;
-    this.toogleModal('form_periods', 'Editer une periode', 'Editer');
+    for (const period of this.listPeriods) {
+      if (period.id === item.id) {
+        this.periodForm.controls['name'].setValue(period.name);
+        this.periodForm.controls['start_date'].setValue(period.start_date);
+        this.periodForm.controls['end_date'].setValue(period.end_date);
+        this.periodForm.controls['workplace'].setValue(period.workplace);
+        this.periodForm.controls['is_active'].setValue(period.is_active);
+        this.periodForm.controls['price'].setValue(period.price);
+        this.selectedPeriodUrl = period.url;
+        this.toogleModal('form_periods', 'Editer une periode', 'Editer');
+      }
+    }
   }
 
   submitPeriod() {

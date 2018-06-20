@@ -54,6 +54,11 @@ import { PeriodsComponent } from './components/pages/admin/periods/periods.compo
 import { PeriodService } from './services/period.service';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { PeriodComponent } from './components/pages/admin/period/period.component';
+import { MembershipService } from './services/membership.service';
+import { ReservationPackageService } from './services/reservation-package.service';
+import { MembershipsComponent } from './components/pages/admin/memberships/memberships.component';
+// tslint:disable-next-line:max-line-length
+import { ReservationPackagesComponent } from './components/pages/admin/reservation-packages/reservation-packages.component';
 
 registerLocaleData(localeFr);
 
@@ -188,6 +193,22 @@ const appRoutes = [
           CanAccessAdminPanelGuard,
         ]
       },
+      {
+        path: 'admin/memberships',
+        component: MembershipsComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/offers',
+        component: ReservationPackagesComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
     ]
   }
 ];
@@ -223,6 +244,8 @@ const appRoutes = [
     OrganizationComponent,
     PeriodsComponent,
     PeriodComponent,
+    MembershipsComponent,
+    ReservationPackagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -257,7 +280,9 @@ const appRoutes = [
     ProfileService,
     TimeSlotService,
     DomainService,
-    PeriodService
+    PeriodService,
+    MembershipService,
+    ReservationPackageService
   ],
   bootstrap: [AppComponent]
 })

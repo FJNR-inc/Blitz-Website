@@ -131,10 +131,11 @@
         </div>
         <div class="reservation-page__reservation__form__box__content">
           <div class="form-group">
-            <label for="membership" class="form-label">Type de membership :</label>
+            <label for="membership" class="form-label">Type d'adhesion :</label>
             <select id="membership" class="form-input">
-              <option>Membership Etudiant</option>
-              <option>Membership Type 2</option>
+              <option *ngFor="let membership of listMembership">
+                {{ membership.name }} - {{ membership.price }}$CAN
+              </option>
             </select>
           </div>
         </div>
@@ -155,8 +156,9 @@
           <div class="form-group">
             <label for="package" class="form-label">Offre d'achat :</label>
             <select id="package" class="form-input">
-              <option>Offre Etudiant</option>
-              <option>Offre Type 2</option>
+              <option *ngFor="let package of listReservationPackage">
+                {{ package.reservations }} ticket(s) - {{ package.price }}$CAN
+              </option>
             </select>
           </div>
         </div>

@@ -1,0 +1,57 @@
+<div class="admin-reservation-packages-page">
+  <div class="admin-reservation-packages-page__title">
+    <h2>Offres</h2>
+  </div>
+  <div class="admin-reservation-packages-page__actions">
+    <div>
+      <!-- Space for some filters -->
+    </div>
+    <div>
+      <!-- Space for button actions -->
+    </div>
+  </div>
+  <div class="admin-reservation-packages-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="listAdaptedReservationPackages"
+                  (addButton)="OpenModalCreateReservationPackage()"
+                  (editItem)="OpenModalEditReservationPackage($event)"
+                  (removeItem)="removeReservationPackage($event)"
+                  (changePage)="changePage($event)">
+    </app-my-table>
+  </div>
+</div>
+
+<app-my-modal name="form_reservation_packages"
+              class="modal-reservation-packages"
+              typeModal="success"
+              (button2)="submitReservationPackage()">
+  <form [formGroup]="reservationPackageForm" *ngIf="reservationPackageForm">
+    <div *ngFor="let error of reservationPackageErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <label for="reservationPackageName" class="form-label">Nom*:</label>
+      <input formControlName="name" type="text" id="reservationPackageName" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of reservationPackageForm.controls['name'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="reservationPackagePrice" class="form-label">Prix*:</label>
+      <input formControlName="price" type="text" id="reservationPackagePrice" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of reservationPackageForm.controls['price'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="reservationPackageReservations" class="form-label">Nombre de reservations*:</label>
+      <input formControlName="reservations" type="text" id="reservationPackageReservations" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of reservationPackageForm.controls['reservations'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</app-my-modal>

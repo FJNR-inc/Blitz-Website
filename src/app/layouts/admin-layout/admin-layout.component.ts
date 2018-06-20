@@ -36,6 +36,14 @@ import { Component, OnInit } from '@angular/core';
             <i class="fas fa-calendar-alt"></i>
             Périodes de reservations
           </a>
+          <a routerLink="/admin/memberships" class="left-nav__item">
+            <i class="fas fa-address-card"></i>
+            Type d'adhesion
+          </a>
+          <a routerLink="/admin/offers" class="left-nav__item">
+            <i class="fas fa-hand-holding-usd"></i>
+            Offres
+          </a>
         </div>
         <div id="main">
           <router-outlet></router-outlet>

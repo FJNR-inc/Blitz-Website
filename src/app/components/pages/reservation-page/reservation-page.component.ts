@@ -20,6 +20,10 @@ import { TimeSlotService } from '../../../services/time-slot.service';
 import { TimeSlot } from '../../../models/timeSlot';
 import { User } from '../../../models/user';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { Membership } from '../../../models/membership';
+import { MembershipService } from '../../../services/membership.service';
+import { ReservationPackageService } from '../../../services/reservation-package.service';
+import { ReservationPackage } from '../../../models/reservationPackage';
 
 const colors: any = {
   green: {
@@ -70,6 +74,8 @@ export class ReservationPageComponent implements OnInit {
 
   workplace: Workplace;
   listTimeSlots: TimeSlot[];
+  listMembership: Membership[];
+  listReservationPackage: ReservationPackage[];
   selectedTimeSlots: TimeSlot[] = [];
   totalBill = 0;
 
@@ -78,7 +84,9 @@ export class ReservationPageComponent implements OnInit {
               private workplaceService: WorkplaceService,
               private timeSlotService: TimeSlotService,
               private authenticationService: AuthenticationService,
-              private router: Router) {}
+              private router: Router,
+              private membershipService: MembershipService,
+              private reservationPackageService: ReservationPackageService) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -96,6 +104,24 @@ export class ReservationPageComponent implements OnInit {
     });
 
     this.user = this.authenticationService.getProfile();
+    this.refreshListMembership();
+    this.refreshListReservationPackage();
+  }
+
+  refreshListReservationPackage() {
+    this.reservationPackageService.list().subscribe(
+      reservationPackages => {
+        this.listReservationPackage = reservationPackages.results.map(r => new ReservationPackage(r));
+      }
+    );
+  }
+
+  refreshListMembership() {
+    this.membershipService.list().subscribe(
+      memberships => {
+        this.listMembership = memberships.results.map(m => new Membership(m));
+      }
+    );
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
