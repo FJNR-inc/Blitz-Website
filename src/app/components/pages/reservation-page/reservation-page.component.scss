@@ -123,3 +123,28 @@
     }
   }
 }
+
+@media only screen and (max-width: 955px) {
+  .reservation-page {
+    &__details {
+      flex-direction: column-reverse;
+
+      &__pictures {
+
+        &__preview {
+          display: none;
+        }
+
+        &__main {
+          height: inherit;
+          width: 100%;
+          margin: 20px 0;
+        }
+      }
+    }
+
+    &__reservation {
+      flex-direction: column;
+    }
+  }
+}
