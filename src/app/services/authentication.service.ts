@@ -88,7 +88,12 @@ export class AuthenticationService extends GlobalService {
   }
 
   isAdmin() {
-    return this.getProfile().is_superuser;
+    const profile = this.getProfile();
+    if (profile) {
+      return profile.is_superuser;
+    } else {
+      return false;
+    }
   }
 
   getProfile() {

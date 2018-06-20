@@ -17,7 +17,7 @@ export class LogoutPageComponent {
     this.authenticationService.logout().subscribe(
       data => {
         localStorage.removeItem('token');
-        localStorage.removeItem('userProfile');
+        this.authenticationService.setProfile('');
         this.notificationService.success('Déconnecté', 'À bientôt!');
         this.router.navigate(['/login']);
       }
