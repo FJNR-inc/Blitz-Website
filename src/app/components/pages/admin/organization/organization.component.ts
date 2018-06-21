@@ -84,7 +84,7 @@ export class OrganizationComponent implements OnInit {
   OpenModalCreateDomain() {
     this.resetForm();
     this.selectedDomainUrl = null;
-    this.toogleModal('form_domain', 'Ajouter un nom de domaine', 'Creer');
+    this.toogleModal('form_domain', 'Ajouter un nom de domaine', 'Créer');
   }
 
   OpenModalEditDomain(item) {
@@ -92,7 +92,7 @@ export class OrganizationComponent implements OnInit {
     this.domainForm.controls['name'].setValue(item.name);
     this.domainForm.controls['example'].setValue(item.example);
     this.selectedDomainUrl = item.url;
-    this.toogleModal('form_domain', 'Editer un nom de domaine', 'Editer');
+    this.toogleModal('form_domain', 'Éditer un nom de domaine', 'Éditer');
   }
 
   submitDomain() {

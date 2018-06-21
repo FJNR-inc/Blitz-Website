@@ -1,6 +1,6 @@
 <div class="admin-memberships-page">
   <div class="admin-memberships-page__title">
-    <h2>Adhesions</h2>
+    <h2>Adhésions</h2>
   </div>
   <div class="admin-memberships-page__actions">
     <div>
@@ -46,9 +46,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="membershipLevel" class="form-label">Niveau d'etude requis:</label>
+      <label for="membershipLevel" class="form-label">Niveau d'étude requis:</label>
       <select formControlName="academic_level" type="text" id="membershipLevel" class="form-input">
-        <option value="none">Aucun niveau d'etude</option>
+        <option value="none">Aucun niveau d'étude</option>
         <option *ngFor="let level of listAcademicLevels" value="{{level.url}}">
           {{ level.name }}
         </option>
@@ -59,9 +59,8 @@
       </div>
     </div>
     <div class="alert alert--warning" *ngIf="showAcademicLevelWarning()">
-      Attention, si vous specifiez un niveau d'etude, seul les gens
-      actuellement dans ce niveau d'etude pourront beneficier de ce
-      type d'adhesion.
+      Attention, si vous spécifiez un niveau d'étude, seuls les gens actuellement
+      dans ce niveau d'étude pourront bénéficier de ce type d'adhésion.
     </div>
   </form>
 </app-my-modal>

@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
       },
       {
         name: 'start_event',
-        title: 'Date et heure'
+        title: 'Plage horaire'
       }
     ]
   };

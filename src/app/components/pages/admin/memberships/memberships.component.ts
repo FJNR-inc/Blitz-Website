@@ -95,7 +95,7 @@ export class MembershipsComponent implements OnInit {
     this.membershipForm.reset();
     this.membershipForm.controls['duration'].setValue('365 00:00:00');
     this.selectedMembershipUrl = null;
-    this.toogleModal('form_memberships', 'Ajouter un type d\'adhesion', 'Creer');
+    this.toogleModal('form_memberships', 'Ajouter un type d\'adhésion', 'Créer');
   }
 
   OpenModalEditMembership(item) {
@@ -106,7 +106,7 @@ export class MembershipsComponent implements OnInit {
         this.membershipForm.controls['duration'].setValue(membership.duration);
         this.membershipForm.controls['academic_level'].setValue(membership.academic_level);
         this.selectedMembershipUrl = item.url;
-        this.toogleModal('form_memberships', 'Editer un type d\'adhesion', 'Editer');
+        this.toogleModal('form_memberships', 'Éditer un type d\'adhésion', 'Éditer');
       }
     }
   }
@@ -173,7 +173,7 @@ export class MembershipsComponent implements OnInit {
   removeMembership(item) {
     this.membershipService.remove(item).subscribe(
       data => {
-        this.notificationService.success('Supprimé', 'Le type d\'adhesion a bien été supprimé.');
+        this.notificationService.success('Supprimé', 'Le type d\'adhésion a bien été supprimé.');
         this.refreshMembershipList();
       },
       err => {

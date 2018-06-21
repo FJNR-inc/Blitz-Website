@@ -22,7 +22,7 @@ export class UsersPageComponent implements OnInit {
     columns: [
       {
         name: 'first_name',
-        title: 'Prenom'
+        title: 'Prénom'
       },
       {
         name: 'last_name',
@@ -34,7 +34,7 @@ export class UsersPageComponent implements OnInit {
       },
       {
         name: 'university',
-        title: 'Universite'
+        title: 'Université'
       },
       {
         name: 'is_active',

@@ -1,14 +1,6 @@
 <div class="admin-periods-page">
   <div class="admin-periods-page__title">
-    <h2>Periodes de reservation</h2>
-  </div>
-  <div class="admin-periods-page__actions">
-    <div>
-      <!-- Space for some filters -->
-    </div>
-    <div>
-      <!-- Space for button actions -->
-    </div>
+    <h2>Périodes de réservation</h2>
   </div>
   <div class="admin-periods-page__table">
     <app-my-table [settings]="settings"
@@ -39,7 +31,7 @@
     </div>
 
     <div class="form-group">
-      <label for="start_date" class="form-label">Debut de la periode:</label>
+      <label for="start_date" class="form-label">Début de la période:</label>
       <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
              formControlName="start_date" class="form-input"
              id="start_date">
@@ -51,7 +43,7 @@
     </div>
 
     <div class="form-group">
-      <label for="end_date" class="form-label">Fin de la periode:</label>
+      <label for="end_date" class="form-label">Fin de la ériode:</label>
       <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
              formControlName="end_date" class="form-input"
              id="end_date">
@@ -74,7 +66,7 @@
     </div>
 
     <div class="form-group">
-      <label for="is_active">Activer la periode: </label>
+      <label for="is_active">Activer la période: </label>
       <input formControlName="is_active" type="checkbox" id="is_active">
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of periodForm.controls['is_active'].getError('apiError')">

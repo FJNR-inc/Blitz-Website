@@ -84,7 +84,7 @@ export class WorkplacesComponent implements OnInit {
   OpenModalEditWorkplace(item) {
     this.workplaceForm.controls['name'].setValue(item.name);
     this.selectedWorkplaceUrl = item.url;
-    this.toogleModal('form_workplaces', 'Editer un espace de travail', 'Editer');
+    this.toogleModal('form_workplaces', 'Éditer un espace de travail', 'Éditer');
   }
 
   removeWorkplace(item) {

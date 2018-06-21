@@ -72,13 +72,13 @@ export class OrganizationsPageComponent implements OnInit {
   OpenModalCreateOrganization() {
     this.organizationForm.reset();
     this.selectedOrganizationUrl = null;
-    this.toogleModal('form_organizations', 'Ajouter une universite', 'Creer');
+    this.toogleModal('form_organizations', 'Ajouter une université', 'Créer');
   }
 
   OpenModalEditOrganization(item) {
     this.organizationForm.controls['name'].setValue(item.name);
     this.selectedOrganizationUrl = item.url;
-    this.toogleModal('form_organizations', 'Editer une universite', 'Editer');
+    this.toogleModal('form_organizations', 'Éditer une université', 'Éditer');
   }
 
   submitOrganization() {

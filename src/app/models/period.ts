@@ -1,5 +1,6 @@
 import BaseModel from './baseModel';
 import { Workplace } from './workplace';
+import { DateUtil } from '../utils/date';
 
 export class Period extends BaseModel {
   id: number;
@@ -12,10 +13,10 @@ export class Period extends BaseModel {
   price: number;
 
   getStartDay() {
-    return new Date(this.start_date).toLocaleDateString();
+    return DateUtil.formatDay(new Date(this.start_date));
   }
 
   getEndDay() {
-    return new Date(this.end_date).toLocaleDateString();
+    return DateUtil.formatDay(new Date(this.end_date));
   }
 }

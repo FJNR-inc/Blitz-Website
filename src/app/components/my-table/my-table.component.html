@@ -1,6 +1,8 @@
 <div class="my-table__actions">
   <div>
-    <!-- Space for some filters -->
+    <h2 class="my-table__actions__title" *ngIf="settings.title">
+      {{settings.title}}
+    </h2>
   </div>
   <div>
     <a class="button" *ngIf="settings.addButton" (click)="add()">

@@ -24,13 +24,14 @@ export class PeriodComponent implements OnInit {
   selectedTimeslotUrl: string;
 
   settings = {
+    title: 'Liste des plages horaires:',
     addButton: true,
     editButton: true,
     removeButton: true,
     columns: [
       {
         name: 'start_time',
-        title: 'Date de debut'
+        title: 'Date de début'
       },
       {
         name: 'end_time',
@@ -83,7 +84,7 @@ export class PeriodComponent implements OnInit {
     this.timeslotForm.controls['period'].setValue(this.period.url);
     this.timeslotForm.controls['price'].setValue(1);
     this.selectedTimeslotUrl = null;
-    this.toogleModal('form_timeslots', 'Ajouter une plage horaire', 'Creer');
+    this.toogleModal('form_timeslots', 'Ajouter une plage horaire', 'Créer');
   }
 
   OpenModalEditTimeslot(item) {
@@ -96,7 +97,7 @@ export class PeriodComponent implements OnInit {
       }
     }
     this.selectedTimeslotUrl = item.url;
-    this.toogleModal('form_timeslots', 'Editer une plage horaire', 'Editer');
+    this.toogleModal('form_timeslots', 'Éditer une plage horaire', 'Éditer');
   }
 
   submitTimeslot() {

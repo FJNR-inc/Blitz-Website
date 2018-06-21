@@ -20,7 +20,7 @@ export class UserPageComponent implements OnInit {
       },
       {
         name: 'start_event',
-        title: 'Date et heure'
+        title: 'Plage horaire'
       }
     ]
   };

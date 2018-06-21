@@ -116,13 +116,13 @@ export class AcademicsPageComponent implements OnInit {
   OpenModalCreateField() {
     this.fieldForm.reset();
     this.selectedFieldUrl = null;
-    this.toogleModal('form_academic_fields', 'Ajouter un domaine d\'etude', 'Creer');
+    this.toogleModal('form_academic_fields', 'Ajouter un domaine d\'étude', 'Créer');
   }
 
   OpenModalEditField(item) {
     this.fieldForm.controls['name'].setValue(item.name);
     this.selectedFieldUrl = item.url;
-    this.toogleModal('form_academic_fields', 'Editer un domaine d\'etude', 'Editer');
+    this.toogleModal('form_academic_fields', 'Éditer un domaine d\'étude', 'Éditer');
   }
 
   submitField() {
@@ -198,13 +198,13 @@ export class AcademicsPageComponent implements OnInit {
   OpenModalCreateLevel() {
     this.levelForm.reset();
     this.selectedLevelUrl = null;
-    this.toogleModal('form_academic_levels', 'Ajouter un niveau d\'etude', 'Creer');
+    this.toogleModal('form_academic_levels', 'Ajouter un niveau d\'étude', 'Créer');
   }
 
   OpenModalEditLevel(item) {
     this.levelForm.controls['name'].setValue(item.name);
     this.selectedLevelUrl = item.url;
-    this.toogleModal('form_academic_levels', 'Editer un niveau d\'etude', 'Editer');
+    this.toogleModal('form_academic_levels', 'Éditer un niveau d\'étude', 'Éditer');
   }
 
   submitLevel() {

@@ -2,15 +2,9 @@
   <div class="admin-period-page__title">
     <h2>{{ period.name }}</h2>
   </div>
-  du {{ period.getStartDay() }} au {{ period.getEndDay()}}
-  <div class="admin-period-page__actions">
-    <div>
-      <!-- Space for some filters -->
-    </div>
-    <div>
-      <!-- Space for button actions -->
-    </div>
-  </div>
+  Début de la période: {{ period.getStartDay() }}<br/>
+  Fin de la période: {{ period.getEndDay()}}
+
   <div class="admin-period-page__table">
     <app-my-table [settings]="settings"
                   [data]="listAdaptedTimeslots"
@@ -30,7 +24,7 @@
     </div>
 
     <div class="form-group">
-      <label for="start_time" class="form-label">Debut de la plage horaire:</label>
+      <label for="start_time" class="form-label">Début de la plage horaire:</label>
       <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
              formControlName="start_time" class="form-input"
              id="start_time">

@@ -1,5 +1,6 @@
 import BaseModel from './baseModel';
 import { User } from './user';
+import { DateUtil } from '../utils/date';
 
 export class TimeSlot extends BaseModel {
   url: string;
@@ -12,36 +13,17 @@ export class TimeSlot extends BaseModel {
 
   getStartDay() {
     const date = new Date(this.start_time);
-    return this.formatDay(date);
+    return DateUtil.formatDay(date);
   }
 
   getStartTime() {
     const date = new Date(this.start_time);
-    return this.formatTime(date);
+    return DateUtil.formatTime(date);
   }
 
   getEndTime() {
     const date = new Date(this.end_time);
-    return this.formatTime(date);
-  }
-
-  formatDay(date) {
-    const options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    };
-
-    return date.toLocaleDateString('fr-CA', options);
-  }
-
-  formatTime(date) {
-    const options = {
-      hour: '2-digit',
-      minute: '2-digit'
-    };
-    return date.toLocaleString('fr-CA', options);
+    return DateUtil.formatTime(date);
   }
 }
 

@@ -20,7 +20,7 @@
         <div class="user-page__header__right__status__main">
           {{user.reservations || 0}}
         </div>
-        tickets disponible
+        ticket(s) disponible(s)
       </div>
       <div class="user-page__header__right__status" *ngIf="user.membership">
         <div class="user-page__header__right__status__main">
@@ -32,7 +32,7 @@
     </div>
   </div>
   <div class="user-page__reservations">
-    <h2>Ses reservations</h2>
+    <h2>Ses réservations</h2>
     <app-my-table [settings]="settings"
                   [data]="fakeData"
                   (addButton)="OpenModalCreateDomain()"

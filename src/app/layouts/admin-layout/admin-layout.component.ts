@@ -26,7 +26,7 @@ import { Component, OnInit } from '@angular/core';
           </a>
           <a routerLink="/admin/academics" class="left-nav__item">
             <i class="fas fa-graduation-cap"></i>
-            Etudes
+            Études
           </a>
           <a routerLink="/admin/workplaces" class="left-nav__item">
             <i class="fas fa-building"></i>
@@ -34,11 +34,11 @@ import { Component, OnInit } from '@angular/core';
           </a>
           <a routerLink="/admin/periods" class="left-nav__item">
             <i class="fas fa-calendar-alt"></i>
-            Périodes de reservations
+            Périodes de réservations
           </a>
           <a routerLink="/admin/memberships" class="left-nav__item">
             <i class="fas fa-address-card"></i>
-            Type d'adhesion
+            Type d'adhésion
           </a>
           <a routerLink="/admin/offers" class="left-nav__item">
             <i class="fas fa-hand-holding-usd"></i>

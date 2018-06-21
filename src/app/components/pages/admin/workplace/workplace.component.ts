@@ -29,7 +29,7 @@ export class WorkplaceComponent implements OnInit {
     columns: [
       {
         name: 'period',
-        title: 'Periode'
+        title: 'Période'
       },
       {
         name: 'day',
@@ -37,7 +37,7 @@ export class WorkplaceComponent implements OnInit {
       },
       {
         name: 'start',
-        title: 'Debut'
+        title: 'Début'
       },
       {
         name: 'end',

@@ -22,7 +22,7 @@
             <i class="fa fa-3x fa-clipboard-list"></i>
           </div>
           <div class="espace-detail__list__item__text">
-            Adhésion requis
+            Adhésion requise
           </div>
         </div>
         <div class="espace-detail__list__item">
@@ -60,7 +60,7 @@
           </span>
         </a>
         <h2>
-          {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+          {{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}
         </h2>
         <a class="button-icon"
            mwlCalendarNextView
@@ -93,7 +93,7 @@
         <p>
           Pour réserver une plage horaire dans un espace de travail
           vous devez d'abord <a (click)="goToLoginPage()">vous connecter</a> ou
-          bien vous <a routerLink="/register">creer un compte</a>.
+          bien vous <a routerLink="/register">créer un compte</a>.
         </p>
       </div>
       <div class="reservation-page__reservation__form__ticket" *ngIf="user">
@@ -123,10 +123,10 @@
         <div class="alert alert--success">
           <div class="alert__content">
             <p *ngIf="user && user.membership">
-              <i class="fas fa-check"></i> Votre membership est encore valide.
+              <i class="fas fa-check"></i> Votre adhésion est encore valide.
             </p>
             <p *ngIf="user && user.reservations >= totalBill">
-              <i class="fas fa-check"></i> Il vous reste {{ user.reservations - totalBill }} ticket(s).
+              <i class="fas fa-check"></i> Il vous reste {{ user.reservations - totalBill }} ticket(s) disponible(s).
             </p>
           </div>
         </div>
@@ -138,14 +138,15 @@
             <i class="fas fa-exclamation-triangle"></i>
           </div>
           <div class="alert__content">
-            Les plages horaires de cet espace de travail necessite une
-            adhesion valide pour etre reserver. Veuillez selectionner
-            un type d'adhesion a acheter.
+            Les plages horaires de cet espace de travail
+            nécessitent une adhésion valide pour être
+            réservées. Veuillez sélectionner un type
+            d'adhésion à acheter.
           </div>
         </div>
         <div class="reservation-page__reservation__form__box__content">
           <div class="form-group">
-            <label for="membership" class="form-label">Type d'adhesion :</label>
+            <label for="membership" class="form-label">Type d'adhésion :</label>
             <select id="membership" class="form-input">
               <option *ngFor="let membership of listMembership">
                 {{ membership.name }} - {{ membership.price }}$CAN
@@ -162,8 +163,8 @@
           </div>
           <div class="alert__content">
             Vous avez besoin de {{ totalBill }} tickets, soit
-            {{ totalBill - user.reservations }} tickets de plus que ceux disponible sur votre compte.
-            Veuillez selectionner l'offre que vous souhaitez acheter.
+            {{ totalBill - user.reservations }} tickets de plus que ceux disponibles sur votre compte.
+            Veuillez sélectionner l'offre que vous souhaitez acheter.
           </div>
         </div>
         <div class="reservation-page__reservation__form__box__content">

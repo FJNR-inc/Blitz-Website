@@ -40,7 +40,7 @@ export class PeriodsComponent implements OnInit {
       },
       {
         name: 'start_date',
-        title: 'Date de debut'
+        title: 'Date de début'
       },
       {
         name: 'end_date',
@@ -111,7 +111,7 @@ export class PeriodsComponent implements OnInit {
     this.periodForm.controls['is_active'].setValue(false);
     this.periodForm.controls['price'].setValue(1);
     this.selectedPeriodUrl = null;
-    this.toogleModal('form_periods', 'Ajouter une periode', 'Creer');
+    this.toogleModal('form_periods', 'Ajouter une période', 'Créer');
   }
 
   OpenModalEditPeriod(item) {
@@ -124,7 +124,7 @@ export class PeriodsComponent implements OnInit {
         this.periodForm.controls['is_active'].setValue(period.is_active);
         this.periodForm.controls['price'].setValue(period.price);
         this.selectedPeriodUrl = period.url;
-        this.toogleModal('form_periods', 'Editer une periode', 'Editer');
+        this.toogleModal('form_periods', 'Éditer une période', 'Éditer');
       }
     }
   }
