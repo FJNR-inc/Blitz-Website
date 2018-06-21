@@ -3,7 +3,7 @@
 .user-page {
   &__header {
     background-color: $color-main;
-    height: 200px;
+    min-height: 200px;
     display: flex;
     justify-content: space-between;
     color: white;

@@ -3,7 +3,7 @@
 .profile-page {
   &__header {
     background-color: $color-main;
-    height: 200px;
+    min-height: 200px;
     display: flex;
     justify-content: space-between;
     color: white;
@@ -49,5 +49,17 @@
 
   &__reservations {
     padding: 20px;
+  }
+}
+
+@media only screen and (max-width: 955px) {
+  .profile-page {
+    &__header {
+      flex-direction: column;
+
+      &__right {
+        flex-direction: column;
+      }
+    }
   }
 }

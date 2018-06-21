@@ -59,9 +59,6 @@
             Précédent
           </span>
         </a>
-        <h2>
-          {{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}
-        </h2>
         <a class="button-icon"
            mwlCalendarNextView
            [view]="view"
@@ -72,6 +69,11 @@
             <i class="fa fa-caret-right"></i>
           </span>
         </a>
+      </div>
+      <div class="reservation-page__reservation__calendar__title">
+        <h2>
+          {{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}
+        </h2>
       </div>
       <div [ngSwitch]="view" class="page-homepage__calendar">
         <mwl-calendar-month-view

@@ -2,25 +2,25 @@
   <a class="navbar__item navbar__item--brand" href="#" (click)="closeResponsiveNavbar()">
     <img src="assets/images/logo.png" alt="Logo" />
   </a>
-  <div class="navbar__left" (click)="closeResponsiveNavbar()">
+  <div class="navbar__left">
   </div>
-  <div class="navbar__right" (click)="closeResponsiveNavbar()">
-    <a class="navbar__item" routerLink="">Accueil</a>
-    <a class="navbar__item" href="#">À propos</a>
-    <a class="navbar__item" href="#">Ressources</a>
-    <a class="navbar__item" href="#">Blogue</a>
-    <a class="navbar__item" href="#">Contact</a>
-    <a class="navbar__item" routerLink="/login" *ngIf="!isAuthenticated()">Connexion</a>
+  <div class="navbar__right">
+    <a class="navbar__item" routerLink="" (click)="closeResponsiveNavbar()">Accueil</a>
+    <a class="navbar__item" href="#" (click)="closeResponsiveNavbar()">À propos</a>
+    <a class="navbar__item" href="#" (click)="closeResponsiveNavbar()">Ressources</a>
+    <a class="navbar__item" href="#" (click)="closeResponsiveNavbar()">Blogue</a>
+    <a class="navbar__item" href="#" (click)="closeResponsiveNavbar()">Contact</a>
+    <a class="navbar__item" routerLink="/login" *ngIf="!isAuthenticated()" (click)="closeResponsiveNavbar()">Connexion</a>
     <div *ngIf="isAuthenticated()"
          (mouseenter)="openDropdown('profile')"
          (mouseleave)="closeDropdown('profile')">
-      <div class="navbar__item">
+      <div class="navbar__item" (click)="toogleDropdown('profile')">
         Mon compte <i class="fas fa-caret-down"></i>
       </div>
       <div class="navbar__dropdown" *ngIf="dropdownOpened.indexOf('profile') !== -1">
-        <a class="navbar__item" routerLink="/profile">Mon profil</a>
-        <a class="navbar__item" routerLink="/admin/users" [appHasPermissions]="['canAccessAdminPanel']">Administration</a>
-        <a class="navbar__item" routerLink="/logout" *ngIf="isAuthenticated()">Deconnexion</a>
+        <a class="navbar__item" routerLink="/profile" (click)="closeResponsiveNavbar()">Mon profil</a>
+        <a class="navbar__item" routerLink="/admin/users" (click)="closeResponsiveNavbar()" [appHasPermissions]="['canAccessAdminPanel']">Administration</a>
+        <a class="navbar__item" routerLink="/logout" (click)="closeResponsiveNavbar()" *ngIf="isAuthenticated()">Deconnexion</a>
       </div>
     </div>
   </div>

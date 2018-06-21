@@ -22,11 +22,16 @@ export class HeaderComponent {
     }
 
     closeResponsiveNavbar() {
-        this.responsive = false;
+      this.responsive = false;
+      this.dropdownOpened = [];
     }
 
     toogleResponsiveNavbar() {
-        this.responsive = !this.responsive;
+      if (this.responsive) {
+        this.closeResponsiveNavbar();
+      } else {
+        this.responsive = true;
+      }
     }
 
     isAuthenticated() {
@@ -42,5 +47,14 @@ export class HeaderComponent {
 
     openDropdown(name: string) {
       this.dropdownOpened.push(name);
+    }
+
+    toogleDropdown(name: string) {
+      const index = this.dropdownOpened.indexOf(name, 0);
+      if (index > -1) {
+        this.closeDropdown(name);
+      } else {
+        this.openDropdown(name);
+      }
     }
 }
