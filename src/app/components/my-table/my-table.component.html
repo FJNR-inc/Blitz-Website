@@ -14,7 +14,7 @@
     <th *ngFor="let column of settings.columns" class="my-table__table__header__column">
       {{ column.title }}
     </th>
-    <th *ngIf="settings.editButton || settings.deleteButton" class="my-table__table__header__column my-table__table__header__column--actions">
+    <th *ngIf="settings.editButton || settings.removeButton" class="my-table__table__header__column my-table__table__header__column--actions">
       Actions
     </th>
   </tr>
@@ -34,7 +34,8 @@
         {{ item[column.name] }}
       </span>
     </td>
-    <td class="my-table__table__line__cell my-table__table__line__cell--actions" *ngIf="settings.editButton || settings.deleteButton">
+    <td class="my-table__table__line__cell my-table__table__line__cell--actions"
+        *ngIf="settings.editButton || settings.removeButton">
       <a *ngIf="settings.editButton"
          class="my-table__table__line__cell--actions__edit"
          (click)="edit(item)">
