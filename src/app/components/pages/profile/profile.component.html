@@ -18,9 +18,16 @@
     <div class="profile-page__header__right">
       <div class="profile-page__header__right__status">
         <div class="profile-page__header__right__status__main">
-          {{profile.reservations}}
+          {{profile.reservations || 0}}
         </div>
         tickets disponible
+      </div>
+      <div class="profile-page__header__right__status" *ngIf="profile.membership">
+        <div class="profile-page__header__right__status__main">
+          #
+        </div>
+        jours restants<br/>
+        ({{ profile.membership.name }})
       </div>
     </div>
   </div>

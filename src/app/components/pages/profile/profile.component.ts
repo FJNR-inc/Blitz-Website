@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   profile: User;
 
   settings = {
+    removeButton: true,
     columns: [
       {
         name: 'workplace',
