@@ -59,6 +59,7 @@ import { ReservationPackageService } from './services/reservation-package.servic
 import { MembershipsComponent } from './components/pages/admin/memberships/memberships.component';
 // tslint:disable-next-line:max-line-length
 import { ReservationPackagesComponent } from './components/pages/admin/reservation-packages/reservation-packages.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 
 registerLocaleData(localeFr);
 
@@ -110,6 +111,13 @@ const appRoutes = [
       {
         path: 'reservation/:id',
         component: ReservationPageComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
       },
       {
         path: '403',
@@ -246,6 +254,7 @@ const appRoutes = [
     PeriodComponent,
     MembershipsComponent,
     ReservationPackagesComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

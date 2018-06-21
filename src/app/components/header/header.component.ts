@@ -1,5 +1,6 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent {
 
     responsive = false;
     dropdownOpened = [];
-    profile: any;
+    profile: User;
 
     constructor(private authenticationService: AuthenticationService) {
       this.profile = this.authenticationService.getProfile();

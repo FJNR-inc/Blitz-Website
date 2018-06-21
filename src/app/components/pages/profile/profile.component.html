@@ -1,0 +1,36 @@
+<div class="profile-page" *ngIf="profile">
+  <div class="profile-page__header">
+    <div class="profile-page__header__informations">
+      <div class="profile-page__header__informations__name">
+        {{profile.first_name}} {{profile.last_name}}
+        <a class="profile-page__header__informations__name__edit button">
+          <i class="fas fa-pencil-alt"></i> Editer mon profil
+        </a>
+      </div>
+      <div class="profile-page__header__informations__email">
+        <i class="fas fa-envelope"></i> {{profile.email}}
+      </div>
+      <div class="profile-page__header__informations__university" *ngIf="profile.university">
+        {{profile.university.name}}<br/>
+        {{ profile.academic_level.name }} ({{ profile.academic_field.name }})
+      </div>
+    </div>
+    <div class="profile-page__header__right">
+      <div class="profile-page__header__right__status">
+        <div class="profile-page__header__right__status__main">
+          {{profile.reservations}}
+        </div>
+        tickets disponible
+      </div>
+    </div>
+  </div>
+  <div class="profile-page__reservations">
+    <h2>Mes reservations</h2>
+    <app-my-table [settings]="settings"
+                  [data]="fakeData"
+                  (addButton)="OpenModalCreateDomain()"
+                  (editItem)="OpenModalEditDomain($event)"
+                  (removeItem)="removeDomain($event)">
+    </app-my-table>
+  </div>
+</div>
