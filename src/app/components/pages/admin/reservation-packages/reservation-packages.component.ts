@@ -138,6 +138,11 @@ export class ReservationPackagesComponent implements OnInit {
                 apiError: err.error.price
               });
             }
+            if (err.error.reservations) {
+              this.reservationPackageForm.controls['reservations'].setErrors({
+                apiError: err.error.reservations
+              });
+            }
           }
         );
       } else {
@@ -160,6 +165,11 @@ export class ReservationPackagesComponent implements OnInit {
             if (err.error.price) {
               this.reservationPackageForm.controls['price'].setErrors({
                 apiError: err.error.price
+              });
+            }
+            if (err.error.reservations) {
+              this.reservationPackageForm.controls['reservations'].setErrors({
+                apiError: err.error.reservations
               });
             }
           }
