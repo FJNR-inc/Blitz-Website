@@ -1,6 +1,43 @@
-<p *ngIf="user">
-  {{ user.id }}<br/>
-  {{ user.first_name }}<br/>
-  {{ user.last_name }}<br/>
-  {{ user.email }}
-</p>
+<div class="user-page" *ngIf="user">
+  <div class="user-page__header">
+    <div class="user-page__header__informations">
+      <div class="user-page__header__informations__name">
+        {{ user.first_name }} {{ user.last_name }}
+      </div>
+      <div class="user-page__header__informations__email">
+        <i class="fas fa-envelope"></i> {{ user.email }}<br/>
+      </div>
+      <div class="user-page__header__informations__email" *ngIf="user.is_superuser">
+        <i class="fas fa-user-shield"></i> Administrateur
+      </div>
+      <div class="user-page__header__informations__university" *ngIf="user.university">
+        {{ user.university.name }}<br/>
+        {{ user.academic_level.name }} ({{ user.academic_field.name }})
+      </div>
+    </div>
+    <div class="user-page__header__right">
+      <div class="user-page__header__right__status">
+        <div class="user-page__header__right__status__main">
+          {{user.reservations || 0}}
+        </div>
+        tickets disponible
+      </div>
+      <div class="user-page__header__right__status" *ngIf="user.membership">
+        <div class="user-page__header__right__status__main">
+          #
+        </div>
+        jours restants<br/>
+        ({{ user.membership.name }})
+      </div>
+    </div>
+  </div>
+  <div class="user-page__reservations">
+    <h2>Ses reservations</h2>
+    <app-my-table [settings]="settings"
+                  [data]="fakeData"
+                  (addButton)="OpenModalCreateDomain()"
+                  (editItem)="OpenModalEditDomain($event)"
+                  (removeItem)="removeDomain($event)">
+    </app-my-table>
+  </div>
+</div>
