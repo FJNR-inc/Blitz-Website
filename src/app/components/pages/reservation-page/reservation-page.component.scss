@@ -129,6 +129,45 @@
   }
 }
 
+.modal-credit-card {
+  &__form {
+
+    &__alert {
+      margin-bottom: 10px;
+    }
+
+    &__field {
+      height: 32px;
+      margin-bottom: 1em;
+      display: block;
+      background-color: transparent;
+      color: rgba(0, 0, 0, .87);
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, .26);
+      outline: 0;
+      width: 100%;
+      font-size: 16px;
+      padding: 0;
+      box-shadow: none;
+      border-radius: 0;
+      position: relative;
+    }
+
+    &__expiration {
+      display: flex;
+      align-content: space-between;
+
+      &__item {
+        width: 100%;
+
+        & + .modal-credit-card__form__expiration__item {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 955px) {
   .reservation-page {
     &__details {

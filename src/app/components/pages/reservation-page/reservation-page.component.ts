@@ -24,6 +24,8 @@ import { Membership } from '../../../models/membership';
 import { MembershipService } from '../../../services/membership.service';
 import { ReservationPackageService } from '../../../services/reservation-package.service';
 import { ReservationPackage } from '../../../models/reservationPackage';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MyModalService } from '../../../services/my-modal/my-modal.service';
 
 const colors: any = {
   green: {
@@ -43,6 +45,8 @@ const colors: any = {
     secondary: '#D1E8FF'
   },
 };
+
+declare let paysafe: any;
 
 @Component({
   selector: 'app-reservation-page',
@@ -80,15 +84,42 @@ export class ReservationPageComponent implements OnInit {
   totalBill = 0;
 
   user: User;
+
+  API_KEY = 'T1QtNjE1NjA6Qi1xYTItMC01ODI0NzQ0YS0wLTMw' +
+    'MmQwMjE0NDA2MjUwMDNjMjZjZmUzZmVkYmMxM2UyMmY4YTYwMzBhMW' +
+    'JlMDQ4NjAyMTUwMDgyYTYzYzAxNTk5MmRkNWRiYWFhNTIxMTUxNzk3' +
+    'NDNjMTY4MDNmNDc=';
+  OPTIONS = {
+    environment: 'TEST',
+    fields: {
+      cardNumber: {
+        selector: '#card-number',
+        placeholder: 'Card number'
+      },
+      expiryDate: {
+        selector: '#expiration-date',
+        placeholder: 'Expiration date'
+      },
+      cvv: {
+        selector: '#cvv',
+        placeholder: 'CVV'
+      }
+    }
+  };
+  private paysafeInstance: any;
+  error: string[];
+
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
               private timeSlotService: TimeSlotService,
               private authenticationService: AuthenticationService,
               private router: Router,
               private membershipService: MembershipService,
-              private reservationPackageService: ReservationPackageService) {}
+              private reservationPackageService: ReservationPackageService,
+              private myModalService: MyModalService) {}
 
   ngOnInit() {
+    this.initPaysafe();
     this.activatedRoute.params.subscribe((params: Params) => {
       this.workplaceService.get(params['id']).subscribe(
         data => {
@@ -106,6 +137,17 @@ export class ReservationPageComponent implements OnInit {
     this.user = this.authenticationService.getProfile();
     this.refreshListMembership();
     this.refreshListReservationPackage();
+  }
+
+  initPaysafe() {
+    const instance = this;
+    paysafe.fields.setup(this.API_KEY, this.OPTIONS, (paysafeInstance: any, error: any) => {
+      if (error) {
+        alert(`Setup error: [${error.code}] ${error.detailedMessage}`);
+      } else {
+        instance.paysafeInstance = paysafeInstance;
+      }
+    });
   }
 
   refreshListReservationPackage() {
@@ -191,5 +233,36 @@ export class ReservationPageComponent implements OnInit {
 
   goToLoginPage() {
     this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url }});
+  }
+
+  ToggleModalAddCard() {
+    const name = 'form_credit_card';
+    const modal = this.myModalService.get(name);
+
+    if (!modal) {
+      console.error('No modal named %s', name);
+      return;
+    }
+
+    modal.title = 'Ajouter une carte';
+    modal.button2Label = 'Ajouter';
+    modal.toggle();
+  }
+
+  generateCardToken() {
+    const instance = this;
+    if (!instance.paysafeInstance) {
+      console.error('No instance Paysafe');
+    } else {
+      instance.paysafeInstance.tokenize((paysafeInstance: any, error: any, result: any) => {
+        if (error) {
+          this.error = ['Ces informations bancaires sont invalides'];
+          console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
+        } else {
+          this.ToggleModalAddCard();
+          alert(`Token: ${result.token}`);
+        }
+      });
+    }
   }
 }
