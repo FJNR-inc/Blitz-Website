@@ -62,6 +62,7 @@ export class ReservationPackagesComponent implements OnInit {
         name: null,
         price: null,
         reservations: null,
+        exclusive_memberships: 'none',
       }
     );
   }
@@ -96,6 +97,7 @@ export class ReservationPackagesComponent implements OnInit {
 
   OpenModalCreateReservationPackage() {
     this.reservationPackageForm.reset();
+    this.reservationPackageForm.controls['exclusive_memberships'].setValue('none');
     this.selectedReservationPackageUrl = null;
     this.toogleModal('form_reservation_packages', 'Ajouter une offre', 'Créer');
   }
@@ -106,6 +108,11 @@ export class ReservationPackagesComponent implements OnInit {
         this.reservationPackageForm.controls['name'].setValue(reservationPackage.name);
         this.reservationPackageForm.controls['price'].setValue(reservationPackage.price);
         this.reservationPackageForm.controls['reservations'].setValue(reservationPackage.reservations);
+        if (reservationPackage['exclusive_memberships'].length === 0) {
+          this.reservationPackageForm.controls['exclusive_memberships'].setValue('none');
+        } else {
+          this.reservationPackageForm.controls['exclusive_memberships'].setValue(reservationPackage.exclusive_memberships[0]);
+        }
         this.selectedReservationPackageUrl = item.url;
         this.toogleModal('form_reservation_packages', 'Éditer une offre', 'Éditer');
       }
@@ -115,6 +122,14 @@ export class ReservationPackagesComponent implements OnInit {
   submitReservationPackage() {
     if ( this.reservationPackageForm.valid ) {
       const reservationPackage = this.reservationPackageForm.value;
+
+      if (this.reservationPackageForm.controls['exclusive_memberships'].value === 'none') {
+        reservationPackage['exclusive_memberships'] = [];
+      } else {
+        reservationPackage['exclusive_memberships'] = [
+          this.reservationPackageForm.controls['exclusive_memberships'].value
+        ];
+      }
 
       if (this.selectedReservationPackageUrl) {
         this.reservationPackageService.update(this.selectedReservationPackageUrl, reservationPackage).subscribe(
@@ -126,7 +141,6 @@ export class ReservationPackagesComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.reservationPackageErrors = err.error.non_field_errors;
-              console.log(this.reservationPackageErrors);
             }
             if (err.error.name) {
               this.reservationPackageForm.controls['name'].setErrors({
@@ -155,7 +169,6 @@ export class ReservationPackagesComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.reservationPackageErrors = err.error.non_field_errors;
-              console.log(this.reservationPackageErrors);
             }
             if (err.error.name) {
               this.reservationPackageForm.controls['name'].setErrors({
@@ -211,5 +224,22 @@ export class ReservationPackagesComponent implements OnInit {
       price: reservationPackage.price,
       reservations: reservationPackage.reservations,
     };
+  }
+
+  showMembershipWarning() {
+    if (this.reservationPackageForm) {
+      for (const membership of this.listMemberships) {
+        if (membership.url === this.reservationPackageForm.value['exclusive_memberships']) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  addMembership(url) {
+    if (this.reservationPackageForm) {
+      this.reservationPackageForm.controls['exclusive_memberships'].setValue(url);
+    }
   }
 }

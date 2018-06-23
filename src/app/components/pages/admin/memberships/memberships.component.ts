@@ -105,6 +105,11 @@ export class MembershipsComponent implements OnInit {
         this.membershipForm.controls['price'].setValue(membership.price);
         this.membershipForm.controls['duration'].setValue(membership.duration);
         this.membershipForm.controls['academic_level'].setValue(membership.academic_level);
+        if (membership.academic_level === null) {
+          this.membershipForm.controls['academic_level'].setValue('none');
+        } else {
+          this.membershipForm.controls['academic_level'].setValue(membership.academic_level);
+        }
         this.selectedMembershipUrl = item.url;
         this.toogleModal('form_memberships', 'Éditer un type d\'adhésion', 'Éditer');
       }

@@ -53,5 +53,22 @@
         {{ errorMessage }}
       </div>
     </div>
+    <div class="form-group">
+      <label for="reservationPackageMemberships" class="form-label">Adhesion requise:</label>
+      <select formControlName="exclusive_memberships" id="reservationPackageMemberships" class="form-input" (change)="addMembership($event.target.value)">
+        <option value="none">Aucune adhésion requise</option>
+        <option *ngFor="let membership of listMemberships" value="{{membership.url}}">
+          {{ membership.name }}
+        </option>
+      </select>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of reservationPackageForm.controls['exclusive_memberships'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+      <div class="alert alert--warning" *ngIf="showMembershipWarning()">
+        Attention, si vous spécifiez un type d'adhésion, seuls les gens disposant
+        actuellement de ce type d'adhésion pourront bénéficier de cette offre.
+      </div>
+    </div>
   </form>
 </app-my-modal>

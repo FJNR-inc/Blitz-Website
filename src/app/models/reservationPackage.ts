@@ -8,6 +8,6 @@ export class ReservationPackage extends BaseModel {
   price: number;
   details: string;
   reservations: number;
-  memberships: Membership[];
+  exclusive_memberships: Membership[];
 }
 
