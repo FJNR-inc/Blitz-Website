@@ -1,12 +1,18 @@
 import BaseModel from './baseModel';
-import { Location } from './location';
+import { Country } from './country';
+import { StateProvince } from './stateProvince';
 
 export class Workplace extends BaseModel {
   url: string;
   id: number;
-  location: Location;
   name: string;
   details: string;
   seats: string;
+  address_line1: string;
+  address_line2: string;
+  postal_code: string;
+  city: string;
+  country: Country;
+  state_province: StateProvince;
 }
 

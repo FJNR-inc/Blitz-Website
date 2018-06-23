@@ -92,12 +92,12 @@ export class WorkplaceComponent implements OnInit {
   initLocationForm() {
     this.locationForm = this.formBuilder.group(
       {
-        address_line_1: this.workplace.location.address_line1,
-        address_line_2: this.workplace.location.address_line2,
-        postal_code: this.workplace.location.postal_code,
-        city: this.workplace.location.city,
-        state_province: this.workplace.location.state_province.name,
-        country: this.workplace.location.country.name
+        address_line_1: this.workplace.address_line1,
+        address_line_2: this.workplace.address_line2,
+        postal_code: this.workplace.postal_code,
+        city: this.workplace.city,
+        state_province: this.workplace.state_province,
+        country: this.workplace.country
       }
     );
   }
