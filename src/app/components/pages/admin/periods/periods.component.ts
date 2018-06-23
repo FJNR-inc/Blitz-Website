@@ -241,6 +241,7 @@ export class PeriodsComponent implements OnInit {
   periodAdapter(period) {
     return {
       id: period.id,
+      url: period.url,
       name: period.name,
       start_date: period.getStartDay(),
       end_date: period.getEndDay(),
