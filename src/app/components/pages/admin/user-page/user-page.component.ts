@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
 import { User } from '../../../../models/user';
+import { TimeSlotService } from '../../../../services/time-slot.service';
+import { TimeSlot } from '../../../../models/timeSlot';
 
 @Component({
   selector: 'app-user-page',
@@ -15,38 +17,50 @@ export class UserPageComponent implements OnInit {
   settings = {
     columns: [
       {
-        name: 'workplace',
-        title: 'Espace de travail'
-      },
-      {
         name: 'start_event',
         title: 'Plage horaire'
       }
     ]
   };
 
-  fakeData = [
-    {
-      workplace: 'Espace della vitta',
-      start_event: 'Samedi 23 juin 2018 (09 h 00 - 12 h 00) ',
-    },
-    {
-      workplace: 'Espace della vitta',
-      start_event: 'Dimanche 24 juin 2018 (14 h 00 - 17 h 00) ',
-    },
-  ];
+  listReservations: any[];
 
   constructor(private activatedRoute: ActivatedRoute,
-              private userService: UserService) { }
+              private userService: UserService,
+              private timeSlotService: TimeSlotService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.userService.get(params['id']).subscribe(
         data => {
           this.user = new User(data);
+          this.refreshReservation();
         }
       );
     });
   }
 
+  refreshReservation() {
+    this.timeSlotService.list([{'name': 'user', 'value': this.user.id}]).subscribe(
+      timeslots => {
+        this.listReservations = timeslots.results.map(
+          t => this.listReservationsAdapter(new TimeSlot(t))
+        );
+      }
+    );
+  }
+
+  listReservationsAdapter(reservation) {
+    let detail = '';
+    detail += reservation.getStartDay();
+    detail += ' (';
+    detail += reservation.getStartTime();
+    detail += ' - ';
+    detail += reservation.getEndTime() + ')';
+
+    return {
+      id: reservation.id,
+      start_event: detail,
+    };
+  }
 }
