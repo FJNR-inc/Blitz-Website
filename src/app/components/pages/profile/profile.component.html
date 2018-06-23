@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <div class="profile-page__reservations">
+  <div class="profile-page__sections">
     <app-my-table [settings]="settings"
                   [data]="listReservations"
                   (addButton)="OpenModalCreateDomain()"
@@ -39,4 +39,27 @@
                   (removeItem)="removeDomain($event)">
     </app-my-table>
   </div>
+  <div class="profile-page__sections">
+    <h2>Désactiver mon compte</h2>
+    <div>
+      Si vous désactivez votre compte:
+      <ul>
+        <li>vous ne pourrez plus vous connecter sur ce site</li>
+        <li>toutes vos réservations seront annulées automatiquement</li>
+        <li>certaines de vos informations personnelles pourraient être supprimées</li>
+      </ul>
+      <a class="button button--danger" [appMyModalOpen]="'form_deactivate_account'">
+        <i class="fas fa-trash-alt"></i> Désactiver mon compte
+      </a>
+    </div>
+  </div>
 </div>
+
+<app-my-modal name="form_deactivate_account"
+              typeModal="danger"
+              title="Désactiver mon compte"
+              button2Label="Désactiver"
+              (button2)="deactivateAccount()">
+  La désactivation de votre compte est un acte important et irréversible.<br/>
+  Êtes-vous vraiment sûr de vouloir désactiver votre compte ?
+</app-my-modal>

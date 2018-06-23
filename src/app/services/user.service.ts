@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import GlobalService from './globalService';
 import { User } from '../models/user';
@@ -68,6 +68,14 @@ export class UserService extends GlobalService {
     const headers = this.getHeaders();
     return this.http.get<any>(
       this.url_users + '/' + id,
+      {headers: headers}
+    );
+  }
+
+  remove(user: User): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(
+      user.url,
       {headers: headers}
     );
   }

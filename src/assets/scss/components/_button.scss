@@ -11,6 +11,15 @@
     color: white;
     cursor: pointer;
   }
+
+  &--danger {
+    color: $color-danger-text;
+    border-color: $color-danger-text;
+
+    &:hover {
+      background-color: $color-danger-text;
+    }
+  }
 }
 
 .button-icon {

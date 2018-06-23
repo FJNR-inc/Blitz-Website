@@ -60,6 +60,7 @@ import { MembershipsComponent } from './components/pages/admin/memberships/membe
 // tslint:disable-next-line:max-line-length
 import { ReservationPackagesComponent } from './components/pages/admin/reservation-packages/reservation-packages.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
+import { MyModalOpenDirective } from './directives/my-modal-open-directive.directive';
 
 registerLocaleData(localeFr);
 
@@ -255,6 +256,7 @@ const appRoutes = [
     MembershipsComponent,
     ReservationPackagesComponent,
     ProfileComponent,
+    MyModalOpenDirective,
   ],
   imports: [
     BrowserModule,
