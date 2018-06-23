@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user';
 import { ProfileService } from '../../../services/profile.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import {TimeSlotService} from "../../../services/time-slot.service";
+import {TimeSlot} from "../../../models/timeSlot";
 
 @Component({
   selector: 'app-profile',
@@ -14,11 +16,8 @@ export class ProfileComponent implements OnInit {
 
   settings = {
     removeButton: true,
+    title: 'Mes réservations',
     columns: [
-      {
-        name: 'workplace',
-        title: 'Espace de travail'
-      },
       {
         name: 'start_event',
         title: 'Plage horaire'
@@ -26,19 +25,11 @@ export class ProfileComponent implements OnInit {
     ]
   };
 
-  fakeData = [
-    {
-      workplace: 'Espace della vitta',
-      start_event: 'Samedi 23 juin 2018 (09 h 00 - 12 h 00) ',
-    },
-    {
-      workplace: 'Espace della vitta',
-      start_event: 'Dimanche 24 juin 2018 (14 h 00 - 17 h 00) ',
-    },
-  ];
+  listReservations: any[];
 
   constructor(private profileService: ProfileService,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private timeSlotService: TimeSlotService) { }
 
   ngOnInit() {
     this.profileService.get().subscribe(
@@ -48,8 +39,32 @@ export class ProfileComponent implements OnInit {
         this.authenticationService.profile.subscribe(
           emitedProfile => this.profile = new User(emitedProfile)
         );
+        this.refreshReservation();
       }
     );
   }
 
+  refreshReservation() {
+    this.timeSlotService.list([{'name': 'user', 'value': this.profile.id}]).subscribe(
+      timeslots => {
+        this.listReservations = timeslots.results.map(
+          t => this.listReservationsAdapter(new TimeSlot(t))
+        );
+      }
+    );
+  }
+
+  listReservationsAdapter(reservation) {
+    let detail = '';
+    detail += reservation.getStartDay();
+    detail += ' (';
+    detail += reservation.getStartTime();
+    detail += ' - ';
+    detail += reservation.getEndTime() + ')';
+
+    return {
+      id: reservation.id,
+      start_event: detail,
+    };
+  }
 }

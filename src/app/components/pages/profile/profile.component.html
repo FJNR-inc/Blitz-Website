@@ -32,9 +32,8 @@
     </div>
   </div>
   <div class="profile-page__reservations">
-    <h2>Mes réservations</h2>
     <app-my-table [settings]="settings"
-                  [data]="fakeData"
+                  [data]="listReservations"
                   (addButton)="OpenModalCreateDomain()"
                   (editItem)="OpenModalEditDomain($event)"
                   (removeItem)="removeDomain($event)">
