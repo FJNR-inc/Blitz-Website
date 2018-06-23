@@ -62,7 +62,7 @@ export class WorkplaceComponent implements OnInit {
         data => {
           this.workplace = new Workplace(data);
           this.initForms();
-          this.timeSlotService.list(params['id']).subscribe(
+          this.timeSlotService.list([{'name': 'workplace', 'value': params['id']}]).subscribe(
             timeslots => {
               this.listTimeslots = timeslots.results.map(
                 t => this.timeSlotAdapter(new TimeSlot(t))

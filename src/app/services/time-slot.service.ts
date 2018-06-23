@@ -24,13 +24,20 @@ export class TimeSlotService extends GlobalService {
     );
   }
 
-  list(workplaceId: number = null, limit = 100, offset = 0): Observable<any> {
+  list(filters: {name: string, value: any}[] = null, limit: number = 100, offset: number = 0): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();
     params = params.set('limit', limit.toString());
     params = params.set('offset', offset.toString());
-    if (workplaceId != null) {
-      params = params.set('period__workplace', workplaceId.toString());
+    if (filters != null) {
+      for (const filter of filters) {
+        if (filter.name === 'workplace') {
+          params = params.set('period__workplace', filter.value);
+        }
+        if (filter.name === 'user') {
+          params = params.set('users', filter.value);
+        }
+      }
     }
     return this.http.get<any>(
       this.url_time_slots,
