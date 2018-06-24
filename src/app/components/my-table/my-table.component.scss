@@ -54,6 +54,7 @@
 
           &__edit {
             margin: 0 5px;
+            text-decoration: none;
 
             &:hover {
               color: $color-warning-text;
@@ -63,6 +64,7 @@
 
           &__remove {
             margin: 0 5px;
+            text-decoration: none;
 
             &:hover {
               color: $color-danger-text;
