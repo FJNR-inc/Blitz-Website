@@ -82,6 +82,7 @@ export class ReservationPageComponent implements OnInit {
   listReservationPackage: ReservationPackage[];
   selectedTimeSlots: TimeSlot[] = [];
   totalBill = 0;
+  terms: Boolean = false;
 
   user: User;
 
@@ -264,5 +265,17 @@ export class ReservationPageComponent implements OnInit {
         }
       });
     }
+  }
+
+  needToBuyPackage() {
+    return this.user && this.user.tickets < this.totalBill;
+  }
+
+  needToBuyMembership() {
+    return this.user && !this.user.membership;
+  }
+
+  needToUseCard() {
+    return this.needToBuyMembership() || this.needToBuyPackage();
   }
 }

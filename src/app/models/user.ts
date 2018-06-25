@@ -16,6 +16,8 @@ export class User extends BaseModel {
   is_active: boolean;
   is_superuser: boolean;
   membership: string;
+  membership_end: string;
+  tickets: number;
 
   getUniversity() {
     if (this.university) {
@@ -23,6 +25,13 @@ export class User extends BaseModel {
     } else {
       return null;
     }
+  }
+
+  getTimeBeforeEndMembership() {
+    const endMembership = new Date(this.membership_end);
+    const now = Date.now();
+    const delta = endMembership.getTime() - now;
+    return Math.ceil(delta / 86400000);
   }
 }
 

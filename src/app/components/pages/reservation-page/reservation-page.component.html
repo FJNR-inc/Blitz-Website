@@ -121,20 +121,20 @@
       </div>
 
       <div class="reservation-page__reservation__form__box"
-           *ngIf="user && (user.membership || user.reservations >= totalBill)">
+           *ngIf="user && (user.membership || user.tickets >= totalBill)">
         <div class="alert alert--success">
           <div class="alert__content">
             <p *ngIf="user && user.membership">
               <i class="fas fa-check"></i> Votre adhésion est encore valide.
             </p>
-            <p *ngIf="user && user.reservations >= totalBill">
-              <i class="fas fa-check"></i> Il vous reste {{ user.reservations - totalBill }} ticket(s) disponible(s).
+            <p *ngIf="user && user.tickets >= totalBill">
+              <i class="fas fa-check"></i> Il vous reste {{ user.tickets - totalBill }} ticket(s) disponible(s).
             </p>
           </div>
         </div>
       </div>
 
-      <form class="reservation-page__reservation__form__box" *ngIf="user && !user.membership">
+      <form class="reservation-page__reservation__form__box" *ngIf="needToBuyMembership()">
         <div class="alert alert--warning">
           <div class="alert__icon">
             <i class="fas fa-exclamation-triangle"></i>
@@ -158,14 +158,14 @@
         </div>
       </form>
 
-      <form class="reservation-page__reservation__form__box" *ngIf="user && user.reservations < totalBill">
+      <form class="reservation-page__reservation__form__box" *ngIf="needToBuyPackage()">
         <div class="alert alert--warning">
           <div class="alert__icon">
             <i class="fas fa-exclamation-triangle"></i>
           </div>
           <div class="alert__content">
             Vous avez besoin de {{ totalBill }} tickets, soit
-            {{ totalBill - user.reservations }} tickets de plus que ceux disponibles sur votre compte.
+            {{ totalBill - user.tickets }} tickets de plus que ceux disponibles sur votre compte.
             Veuillez sélectionner l'offre que vous souhaitez acheter.
           </div>
         </div>
@@ -181,8 +181,8 @@
         </div>
       </form>
 
-      <form class="reservation-page__reservation__form__payment" *ngIf="user">
-        <div class="form-group">
+      <form class="reservation-page__reservation__form__payment" *ngIf="selectedTimeSlots.length">
+        <div class="form-group" *ngIf="needToUseCard()">
           <label for="card" class="form-label">Mode de paiement :</label>
           <select id="card" class="form-input">{{ totalBill }}
             <option>Mastercard (xxxx xxxx xxxx 9371)</option>
@@ -193,10 +193,10 @@
           </div>
         </div>
         <div class="form__group">
-          <input type="checkbox" value="yes" id="terms" />
+          <input [(ngModel)]="terms" name="terms" type="checkbox" value="yes" id="terms" />
           <label for="terms">J’accepte les <a href="#">conditions d’utilisation.</a></label>
         </div>
-        <button type="submit" class="button-icon button-icon--full-width button-icon--main">
+        <button type="submit" class="button-icon button-icon--full-width button-icon--main" [disabled]="!terms">
           <span class="button-icon__text">Réserver</span>
           <span class="button-icon__icon">
             <i class="fa fa-caret-right"></i>
@@ -216,12 +216,12 @@
       {{ errorMessage }}
     </div>
     <div class="form-group">
-      <label for="card-number" class="form-label">Credit card number*:</label>
+      <label for="card-number" class="form-label">Numéro de la carte*:</label>
       <div id="card-number" class="modal-credit-card__form__field"></div>
     </div>
     <div class="modal-credit-card__form__expiration">
       <div class="form-group modal-credit-card__form__expiration__item">
-        <label for="expiration-date" class="form-label">Mois d'expiration*:</label>
+        <label for="expiration-date" class="form-label">Date d'expiration*:</label>
         <div id="expiration-date" class="modal-credit-card__form__field"></div>
       </div>
       <div class="form-group modal-credit-card__form__expiration__item">

@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   profile: User;
 
   settings = {
+    noDataText: 'Aucune réservation pour le moment',
     removeButton: true,
     title: 'Mes réservations',
     columns: [

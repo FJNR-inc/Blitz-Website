@@ -83,4 +83,15 @@
       color: $color-main;
     }
   }
+
+  &:disabled {
+    background-color: $color-neutral-background;
+    border-color: $color-neutral-border;
+    color: $color-neutral-text;
+    cursor: inherit;
+
+    .button-icon__text {
+      border-color: $color-neutral-border;
+    }
+  }
 }
