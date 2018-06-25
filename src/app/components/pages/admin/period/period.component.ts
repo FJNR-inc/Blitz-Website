@@ -6,7 +6,7 @@ import { Period } from '../../../../models/period';
 import { PeriodService } from '../../../../services/period.service';
 import { TimeSlot } from '../../../../models/timeSlot';
 import { TimeSlotService } from '../../../../services/time-slot.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-period',
@@ -25,9 +25,11 @@ export class PeriodComponent implements OnInit {
 
   settings = {
     title: 'Liste des plages horaires:',
+    noDataText: 'Aucune plage horaire pour le moment',
     addButton: true,
     editButton: true,
     removeButton: true,
+    clickable: true,
     columns: [
       {
         name: 'start_time',
@@ -36,6 +38,10 @@ export class PeriodComponent implements OnInit {
       {
         name: 'end_time',
         title: 'Date de fin'
+      },
+      {
+        name: 'number_of_reservations',
+        title: 'Nombre de reservations'
       }
     ]
   };
@@ -45,7 +51,8 @@ export class PeriodComponent implements OnInit {
               private notificationService: NotificationsService,
               private formBuilder: FormBuilder,
               private timeslotService: TimeSlotService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -186,6 +193,11 @@ export class PeriodComponent implements OnInit {
       url: timeslot.url,
       start_time: timeslot.getStartDay() + ' - ' + timeslot.getStartTime(),
       end_time: timeslot.getStartDay() + ' - ' + timeslot.getEndTime(),
+      number_of_reservations: timeslot.users.length
     };
+  }
+
+  goToTimeslot(event) {
+    this.router.navigate(['/admin/timeslot/' + event.id]);
   }
 }

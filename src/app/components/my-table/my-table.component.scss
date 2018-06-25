@@ -39,6 +39,14 @@
       }
     }
 
+    &__no-data {
+      text-align: center;
+
+      &__cell {
+        padding: 10px;
+      }
+    }
+
     &__line {
       background-color: $color-background-main;
 

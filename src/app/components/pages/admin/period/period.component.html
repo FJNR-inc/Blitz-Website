@@ -10,7 +10,8 @@
                   [data]="listAdaptedTimeslots"
                   (addButton)="OpenModalCreateTimeslot()"
                   (editItem)="OpenModalEditTimeslot($event)"
-                  (removeItem)="removeTimeslot($event)">
+                  (removeItem)="removeTimeslot($event)"
+                  (selectItem)="goToTimeslot($event)">
     </app-my-table>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
 import { User } from '../../../../models/user';
 import { TimeSlotService } from '../../../../services/time-slot.service';
@@ -15,6 +15,8 @@ export class UserPageComponent implements OnInit {
   user: User;
 
   settings = {
+    noDataText: 'Aucune réservation pour le moment',
+    clickable: true,
     columns: [
       {
         name: 'start_event',
@@ -27,7 +29,8 @@ export class UserPageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
-              private timeSlotService: TimeSlotService) { }
+              private timeSlotService: TimeSlotService,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -62,5 +65,9 @@ export class UserPageComponent implements OnInit {
       id: reservation.id,
       start_event: detail,
     };
+  }
+
+  goToTimeslot(event) {
+    this.router.navigate(['/admin/timeslot/' + event.id]);
   }
 }

@@ -24,6 +24,14 @@ export class TimeSlotService extends GlobalService {
     );
   }
 
+  get(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_time_slots + '/' + id,
+      {headers: headers}
+    );
+  }
+
   list(filters: {name: string, value: any}[] = null, limit: number = 100, offset: number = 0): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();

@@ -61,6 +61,7 @@ import { MembershipsComponent } from './components/pages/admin/memberships/membe
 import { ReservationPackagesComponent } from './components/pages/admin/reservation-packages/reservation-packages.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { MyModalOpenDirective } from './directives/my-modal-open-directive.directive';
+import { TimeslotComponent } from './components/pages/admin/timeslot/timeslot.component';
 
 registerLocaleData(localeFr);
 
@@ -218,6 +219,14 @@ const appRoutes = [
           CanAccessAdminPanelGuard,
         ]
       },
+      {
+        path: 'admin/timeslot/:id',
+        component: TimeslotComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
     ]
   }
 ];
@@ -257,6 +266,7 @@ const appRoutes = [
     ReservationPackagesComponent,
     ProfileComponent,
     MyModalOpenDirective,
+    TimeslotComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+<div class="admin-timeslot-page" *ngIf="timeslot">
+  <div class="admin-timeslot-page__title">
+    <h2>Plage horaire #{{ timeslot.id }}</h2>
+  </div>
+  Plage horaire allant :<br/>
+  du <b>{{ timeslot.getStartDay() }}</b> a <b>{{ timeslot.getStartTime() }}</b><br/>
+  au <b>{{ timeslot.getStartDay() }}</b> a <b>{{ timeslot.getEndTime() }}</b>.
+
+  <div class="admin-timeslot-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="timeslot.users"
+                  (selectItem)="goToUser($event)">
+    </app-my-table>
+  </div>
+</div>
