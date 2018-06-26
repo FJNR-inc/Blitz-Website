@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="university" class="form-label">Université:</label>
+          <label for="university" class="form-label">Université d'appartenance actuelle:</label>
           <select formControlName="university" id="university" class="form-input" (change)="changeUniversity()">
             <option value="none">Je n'appartiens pas/plus à une université</option>
             <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="form-group" *ngIf="selectedUniversity">
-          <label for="study_level" class="form-label">Niveau d'étude*:</label>
+          <label for="study_level" class="form-label">Statut principal*:</label>
           <select formControlName="academic_level" id="study_level" class="form-input">
             <option value="none"></option>
             <option value="{{ level.name }}" *ngFor="let level of listAcademicLevels">
@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="form-group" *ngIf="selectedUniversity">
-          <label for="study_field" class="form-label">Domaine d'étude*:</label>
+          <label for="study_field" class="form-label">Domaine principal*:</label>
           <select formControlName="academic_field" id="study_field" class="form-input">
             <option value="none"></option>
             <option value="{{ field.name }}" *ngFor="let field of listAcademicFields">
@@ -76,12 +76,14 @@
             {{ errorMessage }}
           </div>
           <div class="alert alert--info"  *ngIf="selectedUniversity">
-            Voici la liste des noms de domaines autorisés pour cette université:
-            <ul>
-              <li *ngFor="let domain of selectedUniversity.domains">
-                {{ domain.example }}
-              </li>
-            </ul>
+            <div class="alert__content">
+              Voici la liste des noms de domaines autorisés pour cette université:
+              <ul>
+                <li *ngFor="let domain of selectedUniversity.domains">
+                  {{ domain.example }}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="register-page__content__form__birthday">

@@ -38,11 +38,11 @@ import { Component, OnInit } from '@angular/core';
           </a>
           <a routerLink="/admin/memberships" class="left-nav__item">
             <i class="fas fa-address-card"></i>
-            Type d'adhésion
+            Type de membership
           </a>
           <a routerLink="/admin/offers" class="left-nav__item">
             <i class="fas fa-hand-holding-usd"></i>
-            Offres
+            Forfaits
           </a>
         </div>
         <div id="main">

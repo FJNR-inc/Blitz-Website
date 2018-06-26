@@ -99,7 +99,7 @@ export class ReservationPackagesComponent implements OnInit {
     this.reservationPackageForm.reset();
     this.reservationPackageForm.controls['exclusive_memberships'].setValue('none');
     this.selectedReservationPackageUrl = null;
-    this.toogleModal('form_reservation_packages', 'Ajouter une offre', 'Créer');
+    this.toogleModal('form_reservation_packages', 'Ajouter un forfait', 'Créer');
   }
 
   OpenModalEditReservationPackage(item) {
@@ -114,7 +114,7 @@ export class ReservationPackagesComponent implements OnInit {
           this.reservationPackageForm.controls['exclusive_memberships'].setValue(reservationPackage.exclusive_memberships[0]);
         }
         this.selectedReservationPackageUrl = item.url;
-        this.toogleModal('form_reservation_packages', 'Éditer une offre', 'Éditer');
+        this.toogleModal('form_reservation_packages', 'Éditer un forfait', 'Éditer');
       }
     }
   }
@@ -194,7 +194,7 @@ export class ReservationPackagesComponent implements OnInit {
   removeReservationPackage(item) {
     this.reservationPackageService.remove(item).subscribe(
       data => {
-        this.notificationService.success('Supprimé', 'Le type d\'adhésion a bien été supprimé.');
+        this.notificationService.success('Supprimé', 'Le type de membership a bien été supprimé.');
         this.refreshReservationPackageList();
       },
       err => {

@@ -22,7 +22,7 @@
             <i class="fa fa-3x fa-clipboard-list"></i>
           </div>
           <div class="espace-detail__list__item__text">
-            Adhésion requise
+            Membership requis
           </div>
         </div>
         <div class="espace-detail__list__item">
@@ -151,7 +151,7 @@
         <div class="alert alert--success">
           <div class="alert__content">
             <p *ngIf="user && user.membership">
-              <i class="fas fa-check"></i> Votre adhésion est encore valide.
+              <i class="fas fa-check"></i> Votre membership est encore valide.
             </p>
             <p *ngIf="user && user.tickets >= totalTicket">
               <i class="fas fa-check"></i> Il vous reste {{ user.tickets - totalTicket }} ticket(s) disponible(s).
@@ -167,14 +167,14 @@
           </div>
           <div class="alert__content">
             Les plages horaires de cet espace de travail
-            nécessitent une adhésion valide pour être
+            nécessitent un membership valide pour être
             réservées. Veuillez sélectionner un type
-            d'adhésion à acheter.
+            de membership à acheter.
           </div>
         </div>
         <div class="reservation-page__reservation__form__box__content">
           <div class="form-group">
-            <label for="membership" class="form-label">Type d'adhésion :</label>
+            <label for="membership" class="form-label">Type de membership :</label>
             <select [(ngModel)]="currentMembership" name="membership" id="membership" class="form-input">
               <option *ngFor="let membership of listMembership" value="{{membership.id}}">
                 {{ membership.name }} - {{ membership.price }}$CAN
@@ -200,12 +200,12 @@
           <div class="alert__content">
             Vous avez besoin de {{ totalTicket }} tickets, soit
             {{ totalTicket - user.tickets }} tickets de plus que ceux disponibles sur votre compte.
-            Veuillez sélectionner l'offre que vous souhaitez acheter.
+            Veuillez sélectionner le forfait que vous souhaitez acheter.
           </div>
         </div>
         <div class="reservation-page__reservation__form__box__content">
           <div class="form-group">
-            <label for="package" class="form-label">Offre d'achat :</label>
+            <label for="package" class="form-label">Forfaits :</label>
             <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="form-input">
               <option *ngFor="let package of listReservationPackage" value="{{package.id}}">
                 {{ package.reservations }} ticket(s) - {{ package.price }}$CAN
