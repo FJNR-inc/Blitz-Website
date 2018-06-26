@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AcademicFieldService} from '../../../services/academic-field.service';
-import {AcademicField} from '../../../models/academicField';
-import {AcademicLevel} from '../../../models/academicLevel';
-import {AcademicLevelService} from '../../../services/academic-level.service';
-import {Organization} from '../../../models/organization';
-import {OrganizationService} from '../../../services/organization.service';
-import {UserService} from '../../../services/user.service';
-import {Router} from '@angular/router';
-import {User} from '../../../models/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AcademicFieldService } from '../../../services/academic-field.service';
+import { AcademicField } from '../../../models/academicField';
+import { AcademicLevel } from '../../../models/academicLevel';
+import { AcademicLevelService } from '../../../services/academic-level.service';
+import { Organization } from '../../../models/organization';
+import { OrganizationService } from '../../../services/organization.service';
+import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
+import { User } from '../../../models/user';
+import { MyModalService } from '../../../services/my-modal/my-modal.service';
 
 @Component({
   selector: 'app-register-page',
@@ -28,12 +29,15 @@ export class RegisterPageComponent implements OnInit {
 
   selectedUniversity: Organization;
 
+  validatedTerms = false;
+
   constructor(private formBuilder: FormBuilder,
               private academicFieldService: AcademicFieldService,
               private academicLevelService: AcademicLevelService,
               private organizationService: OrganizationService,
               private userService: UserService,
-              private router: Router) {
+              private router: Router,
+              private myModalService: MyModalService) {
     this.registerForm = this.formBuilder.group(
       {
         email: [null, Validators.required],
@@ -48,13 +52,11 @@ export class RegisterPageComponent implements OnInit {
         gender: [null, Validators.required],
         password: [null, Validators.required],
         confirmation: [null, Validators.required],
-        terms: [null, Validators.required]
       },
       {validator: [
         this.confirmationValidator(),
         this.monthValidator(),
         this.yearValidator(),
-        this.termsValidator()
       ]}
     );
   }
@@ -112,18 +114,6 @@ export class RegisterPageComponent implements OnInit {
     };
   }
 
-  termsValidator() {
-    return (group: FormGroup) => {
-
-      const terms = group.controls['terms'];
-      if (terms.value !== true && terms.valid) {
-        return terms.setErrors({
-          apiError: ['Veuillez accepter les conditions d\'utilisation.']
-        });
-      }
-    };
-  }
-
   ngOnInit() {
     const actualYear = new Date().getFullYear();
     const minYear = actualYear - 120;
@@ -151,7 +141,36 @@ export class RegisterPageComponent implements OnInit {
     );
   }
 
-  register(form: FormGroup) {
+  submit() {
+    if (this.validatedTerms === true) {
+      this.register();
+    } else {
+      this.toogleModal();
+    }
+  }
+
+  toogleModal() {
+    const name = 'form_terms';
+    const modal = this.myModalService.get(name);
+
+    if (!modal) {
+      console.error('No modal named %s', name);
+      return;
+    }
+
+    modal.title = 'Conditions d\'utilisations';
+    modal.button2Label = 'J\'accepte les conditions';
+    modal.toggle();
+  }
+
+  acceptTerms() {
+    this.validatedTerms = true;
+    this.toogleModal();
+  }
+
+  register() {
+    this.hasSubmit = true;
+    const form = this.registerForm;
     if ( form.valid ) {
       const birthdate = form.value['birth_year'] + '-' + form.value['birth_month'] + '-' + form.value['birth_day'];
       const userData = {

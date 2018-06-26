@@ -232,11 +232,7 @@
             <a (click)="ToggleModalAddCard()">Ajouter une nouvelle carte</a>
           </div>
         </div>
-        <div class="form__group">
-          <input [(ngModel)]="terms" name="terms" type="checkbox" value="yes" id="terms" />
-          <label for="terms">J’accepte les <a href="#">conditions d’utilisation.</a></label>
-        </div>
-        <button type="submit" class="button-icon button-icon--full-width button-icon--main" [disabled]="!terms">
+        <button type="submit" class="button-icon button-icon--full-width button-icon--main" [disabled]="!canFinalizePayment()">
           <span class="button-icon__text">Réserver</span>
           <span class="button-icon__icon">
             <i class="fa fa-caret-right"></i>

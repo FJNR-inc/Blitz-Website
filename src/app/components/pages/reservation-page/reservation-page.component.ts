@@ -304,6 +304,10 @@ export class ReservationPageComponent implements OnInit {
     return this.totalPrice > 0;
   }
 
+  canFinalizePayment() {
+    return !this.needToBuyPackage() && !this.needToBuyMembership();
+  }
+
   addPackage() {
     for (const reservationPackage of this.listReservationPackage) {
       if (reservationPackage.id.toString() === this.currentPackage.toString()) {

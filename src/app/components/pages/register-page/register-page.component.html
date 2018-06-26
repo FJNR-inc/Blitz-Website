@@ -1,6 +1,6 @@
 <div class="register-page">
   <div class="register-page__content">
-    <form (submit)="register(registerForm)" [formGroup]="registerForm">
+    <form (submit)="submit()" [formGroup]="registerForm">
       <div class="register-page__content__header">
         <img class="register-page__content__header__logo" src="assets/images/logo.png" alt="Logo" />
         <div>
@@ -184,12 +184,20 @@
             {{ errorMessage }}
           </div>
         </div>
-        <div class="form__group">
-          <input formControlName="terms" type="checkbox" value="yes" id="terms" />
-          <label for="terms">J’accepte les <a href="#">conditions d’utilisation.</a>*</label>
-          <div class="form-text form-text--right form-text--danger"
-               *ngFor="let errorMessage of registerForm.controls['terms'].getError('apiError')">
-            {{ errorMessage }}
+        <div *ngIf="!validatedTerms" class="alert alert--warning">
+          <div class="alert__icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="alert__content">
+            Pour finaliser votre inscription, nous vous demanderons d'accepter les conditions d'utilisations.
+          </div>
+        </div>
+        <div *ngIf="validatedTerms" class="alert alert--success">
+          <div class="alert__icon">
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="alert__content">
+            Vous avez accepté les conditions d'utilisations.
           </div>
         </div>
       </div>
@@ -198,7 +206,7 @@
           <a routerLink="/login">Se connecter</a>
         </div>
         <div>
-          <button type="submit" (click)="hasSubmit=true" class="button-icon">
+          <button type="submit" class="button-icon">
             <span class="button-icon__text">Créer mon compte</span>
             <span class="button-icon__icon">
               <i class="fa fa-caret-right"></i>
@@ -212,3 +220,12 @@
     </form>
   </div>
 </div>
+
+<app-my-modal name="form_terms"
+              class="modal-terms"
+              typeModal="success"
+              (button2)="acceptTerms()">
+  <div class="modal-terms__content">
+    Conditions d'utilisation
+  </div>
+</app-my-modal>
