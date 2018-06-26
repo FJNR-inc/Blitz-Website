@@ -115,20 +115,46 @@
             </a>
           </div>
         </div>
+        <div *ngFor="let package of selectedPackages" class="reservation-page__reservation__form__ticket__line">
+          <div class="reservation-page__reservation__form__ticket__line__title">
+            {{ package.name }} - {{ package.reservations }} ticket(s) ({{ package.price }} $CAN)
+          </div>
+          <div class="reservation-page__reservation__form__ticket__line__actions">
+            <a (click)="removePackageFromCart(package)">
+              <i class="fa fa-times" style="color: darkred;"></i>
+            </a>
+          </div>
+        </div>
+        <div *ngIf="selectedMembership" class="reservation-page__reservation__form__ticket__line">
+          <div class="reservation-page__reservation__form__ticket__line__title">
+            Membership {{ selectedMembership.name }} ({{ selectedMembership.price }} $CAN)
+          </div>
+          <div class="reservation-page__reservation__form__ticket__line__actions">
+            <a (click)="removeMembershipFromCart()">
+              <i class="fa fa-times" style="color: darkred;"></i>
+            </a>
+          </div>
+        </div>
         <div class="reservation-page__reservation__form__ticket__total">
-          TOTAL: {{ totalBill }} ticket(s)
+          <div class="reservation-page__reservation__form__ticket__total__title">
+            TOTAL:
+          </div>
+          <div class="reservation-page__reservation__form__ticket__total__values">
+            {{ totalTicket }} ticket(s)<br/>
+            {{ totalPrice }} $CAN
+          </div>
         </div>
       </div>
 
       <div class="reservation-page__reservation__form__box"
-           *ngIf="user && (user.membership || user.tickets >= totalBill)">
+           *ngIf="user && (user.membership || user.tickets >= totalTicket)">
         <div class="alert alert--success">
           <div class="alert__content">
             <p *ngIf="user && user.membership">
               <i class="fas fa-check"></i> Votre adhésion est encore valide.
             </p>
-            <p *ngIf="user && user.tickets >= totalBill">
-              <i class="fas fa-check"></i> Il vous reste {{ user.tickets - totalBill }} ticket(s) disponible(s).
+            <p *ngIf="user && user.tickets >= totalTicket">
+              <i class="fas fa-check"></i> Il vous reste {{ user.tickets - totalTicket }} ticket(s) disponible(s).
             </p>
           </div>
         </div>
@@ -149,12 +175,20 @@
         <div class="reservation-page__reservation__form__box__content">
           <div class="form-group">
             <label for="membership" class="form-label">Type d'adhésion :</label>
-            <select id="membership" class="form-input">
-              <option *ngFor="let membership of listMembership">
+            <select [(ngModel)]="currentMembership" name="membership" id="membership" class="form-input">
+              <option *ngFor="let membership of listMembership" value="{{membership.id}}">
                 {{ membership.name }} - {{ membership.price }}$CAN
               </option>
             </select>
           </div>
+          <button (click)="addMembership()"
+                  type="submit"
+                  class="button-icon button-icon--full-width button-icon--main">
+            <span class="button-icon__text">Ajouter au panier</span>
+            <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+          </button>
         </div>
       </form>
 
@@ -164,27 +198,33 @@
             <i class="fas fa-exclamation-triangle"></i>
           </div>
           <div class="alert__content">
-            Vous avez besoin de {{ totalBill }} tickets, soit
-            {{ totalBill - user.tickets }} tickets de plus que ceux disponibles sur votre compte.
+            Vous avez besoin de {{ totalTicket }} tickets, soit
+            {{ totalTicket - user.tickets }} tickets de plus que ceux disponibles sur votre compte.
             Veuillez sélectionner l'offre que vous souhaitez acheter.
           </div>
         </div>
         <div class="reservation-page__reservation__form__box__content">
           <div class="form-group">
             <label for="package" class="form-label">Offre d'achat :</label>
-            <select id="package" class="form-input">
-              <option *ngFor="let package of listReservationPackage">
+            <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="form-input">
+              <option *ngFor="let package of listReservationPackage" value="{{package.id}}">
                 {{ package.reservations }} ticket(s) - {{ package.price }}$CAN
               </option>
             </select>
           </div>
+          <button (click)="addPackage()" type="submit" class="button-icon button-icon--full-width button-icon--main">
+            <span class="button-icon__text">Ajouter au panier</span>
+            <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+          </button>
         </div>
       </form>
 
       <form class="reservation-page__reservation__form__payment" *ngIf="selectedTimeSlots.length">
         <div class="form-group" *ngIf="needToUseCard()">
           <label for="card" class="form-label">Mode de paiement :</label>
-          <select id="card" class="form-input">{{ totalBill }}
+          <select id="card" class="form-input">{{ totalTicket }}
             <option>Mastercard (xxxx xxxx xxxx 9371)</option>
             <option>Visa (xxxx xxxx xxxx 7785)</option>
           </select>

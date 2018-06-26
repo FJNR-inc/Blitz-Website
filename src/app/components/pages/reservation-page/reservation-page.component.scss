@@ -108,6 +108,12 @@
           font-weight: 900;
           background-color: $color-main;
           color: white;
+          display: flex;
+          justify-content: space-between;
+
+          &__values {
+            text-align: right;
+          }
         }
       }
 

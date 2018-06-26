@@ -24,8 +24,8 @@ import { Membership } from '../../../models/membership';
 import { MembershipService } from '../../../services/membership.service';
 import { ReservationPackageService } from '../../../services/reservation-package.service';
 import { ReservationPackage } from '../../../models/reservationPackage';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../services/my-modal/my-modal.service';
+import { isNull } from 'util';
 
 const colors: any = {
   green: {
@@ -80,8 +80,15 @@ export class ReservationPageComponent implements OnInit {
   listTimeSlots: TimeSlot[];
   listMembership: Membership[];
   listReservationPackage: ReservationPackage[];
+
   selectedTimeSlots: TimeSlot[] = [];
-  totalBill = 0;
+  selectedMembership: Membership = null;
+  selectedPackages: ReservationPackage[] = [];
+  currentMembership: number;
+  currentPackage: number;
+
+  totalTicket = 0;
+  totalPrice = 0;
   terms: Boolean = false;
 
   user: User;
@@ -191,7 +198,7 @@ export class ReservationPageComponent implements OnInit {
 
   addToCart(timeSlot) {
     this.selectedTimeSlots.push(timeSlot);
-    this.totalBill += Number(timeSlot.price);
+    this.totalTicket += Number(timeSlot.price);
     for (const event of this.events) {
       if (event.id === timeSlot.id) {
         event.color = colors.reserved;
@@ -204,13 +211,21 @@ export class ReservationPageComponent implements OnInit {
     const index = this.selectedTimeSlots.indexOf(timeSlot);
     if (index > -1) {
       this.selectedTimeSlots.splice(index, 1);
-      this.totalBill -= timeSlot.price;
+      this.totalTicket -= Number(timeSlot.price);
       for (const event of this.events) {
         if (event.id === timeSlot.id) {
           event.color = colors.yellow;
           event.actions = this.actions;
         }
       }
+    }
+  }
+
+  removePackageFromCart(reservationPackage) {
+    const index = this.selectedPackages.indexOf(reservationPackage);
+    if (index > -1) {
+      this.selectedPackages.splice(index, 1);
+      this.totalPrice -= Number(reservationPackage.price);
     }
   }
 
@@ -268,14 +283,47 @@ export class ReservationPageComponent implements OnInit {
   }
 
   needToBuyPackage() {
-    return this.user && this.user.tickets < this.totalBill;
+    if (this.user) {
+      let total = this.user.tickets;
+      for (const reservationPackage of this.selectedPackages) {
+        total += reservationPackage.reservations;
+      }
+      return total < this.totalTicket;
+    } else {
+      return false;
+    }
   }
 
   needToBuyMembership() {
-    return this.user && !this.user.membership;
+    const userWithoutMembership = this.user && !this.user.membership;
+    const noMembershipInCart = isNull(this.selectedMembership);
+    return noMembershipInCart && userWithoutMembership;
   }
 
   needToUseCard() {
-    return this.needToBuyMembership() || this.needToBuyPackage();
+    return this.totalPrice > 0;
+  }
+
+  addPackage() {
+    for (const reservationPackage of this.listReservationPackage) {
+      if (reservationPackage.id.toString() === this.currentPackage.toString()) {
+        this.selectedPackages.push(reservationPackage);
+        this.totalPrice += Number(reservationPackage.price);
+      }
+    }
+  }
+
+  addMembership() {
+    for (const membership of this.listMembership) {
+      if (membership.id.toString() === this.currentMembership.toString()) {
+        this.selectedMembership = membership;
+        this.totalPrice += Number(membership.price);
+      }
+    }
+  }
+
+  removeMembershipFromCart() {
+    this.totalPrice -= Number(this.selectedMembership.price);
+    this.selectedMembership = null;
   }
 }
