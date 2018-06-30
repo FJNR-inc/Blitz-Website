@@ -51,4 +51,13 @@ export class WorkplaceService extends GlobalService {
       {headers: headers}
     );
   }
+
+  update(url: string, workplace: Workplace): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.patch<any>(
+      url,
+      workplace,
+      {headers: headers}
+    );
+  }
 }

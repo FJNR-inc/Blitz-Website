@@ -15,5 +15,17 @@ export class Workplace extends BaseModel {
   country: string;
   state_province: string;
   timezone: string;
+
+  getAddress() {
+    let string = this.address_line1 + ', ';
+    if(this.address_line2) {
+      string += this.address_line2 + ', ';
+    }
+    string += this.city + ', ';
+    string += this.state_province + ' ';
+    string += this.postal_code + ', ';
+    string += this.country;
+    return string;
+  }
 }
 

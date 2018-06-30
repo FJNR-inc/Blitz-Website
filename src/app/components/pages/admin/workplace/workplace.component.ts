@@ -5,6 +5,8 @@ import { WorkplaceService } from '../../../../services/workplace.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TimeSlot } from '../../../../models/timeSlot';
 import { TimeSlotService } from '../../../../services/time-slot.service';
+import { MyModalService } from '../../../../services/my-modal/my-modal.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-workplace',
@@ -13,14 +15,12 @@ import { TimeSlotService } from '../../../../services/time-slot.service';
 })
 export class WorkplaceComponent implements OnInit {
 
+  workplaceId: number;
   workplace: Workplace;
   listTimeslots: TimeSlot[];
-  isACreation: boolean;
 
   workplaceForm: FormGroup;
   errors: string[];
-
-  locationForm: FormGroup;
 
   settings = {
     addButton: true,
@@ -53,51 +53,43 @@ export class WorkplaceComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
               private timeSlotService: TimeSlotService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private myModalService: MyModalService,
+              private notificationService: NotificationsService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.isACreation = false;
-      this.workplaceService.get(params['id']).subscribe(
-        data => {
-          this.workplace = new Workplace(data);
-          this.initForms();
-          this.timeSlotService.list([{'name': 'workplace', 'value': params['id']}]).subscribe(
-            timeslots => {
-              this.listTimeslots = timeslots.results.map(
-                t => this.timeSlotAdapter(new TimeSlot(t))
-              );
-            }
-          );
-        }
-      );
+      this.workplaceId = params['id'];
+      this.refreshWorkplace();
     });
-  }
 
-  initForms() {
-    this.initWorkplaceForm();
-    this.initLocationForm();
-  }
-
-  initWorkplaceForm() {
     this.workplaceForm = this.formBuilder.group(
       {
-        name: this.workplace.name,
-        details: this.workplace.details,
-        seats: this.workplace.seats,
+        name: null,
+        details: null,
+        seats: null,
+        address_line1: null,
+        address_line2: null,
+        postal_code: null,
+        city: null,
+        state_province: null,
+        country: null,
+        timezone: null,
       }
     );
   }
 
-  initLocationForm() {
-    this.locationForm = this.formBuilder.group(
-      {
-        address_line_1: this.workplace.address_line1,
-        address_line_2: this.workplace.address_line2,
-        postal_code: this.workplace.postal_code,
-        city: this.workplace.city,
-        state_province: this.workplace.state_province,
-        country: this.workplace.country
+  refreshWorkplace() {
+    this.workplaceService.get(this.workplaceId).subscribe(
+      data => {
+        this.workplace = new Workplace(data);
+        this.timeSlotService.list([{'name': 'workplace', 'value': this.workplaceId}]).subscribe(
+          timeslots => {
+            this.listTimeslots = timeslots.results.map(
+              t => this.timeSlotAdapter(new TimeSlot(t))
+            );
+          }
+        );
       }
     );
   }
@@ -113,4 +105,100 @@ export class WorkplaceComponent implements OnInit {
     };
   }
 
+  OpenModalEditWorkplace() {
+    this.workplaceForm.reset();
+    this.workplaceForm.controls['name'].setValue(this.workplace.name);
+    this.workplaceForm.controls['details'].setValue(this.workplace.details);
+    this.workplaceForm.controls['seats'].setValue(this.workplace.seats);
+    this.workplaceForm.controls['address_line1'].setValue(this.workplace.address_line1);
+    this.workplaceForm.controls['address_line2'].setValue(this.workplace.address_line2);
+    this.workplaceForm.controls['postal_code'].setValue(this.workplace.postal_code);
+    this.workplaceForm.controls['city'].setValue(this.workplace.city);
+    this.workplaceForm.controls['state_province'].setValue(this.workplace.state_province);
+    this.workplaceForm.controls['country'].setValue(this.workplace.country);
+    this.workplaceForm.controls['timezone'].setValue(this.workplace.timezone);
+    this.toogleModal('form_workplaces', 'Editer un espace de travail', 'Editer');
+  }
+
+  toogleModal(name, title = '', button2 = '') {
+    const modal = this.myModalService.get(name);
+
+    if (!modal) {
+      console.error('No modal named %s', name);
+      return;
+    }
+
+    modal.title = title;
+    modal.button2Label = button2;
+    modal.toggle();
+  }
+
+  submitWorkplace() {
+    if ( this.workplaceForm.valid ) {
+      this.workplaceService.update(this.workplace.url, this.workplaceForm.value).subscribe(
+        data => {
+          this.notificationService.success('Ajouté');
+          this.refreshWorkplace();
+          this.toogleModal('form_workplaces');
+        },
+        err => {
+          console.log(err.error);
+          if (err.error.non_field_errors) {
+            this.errors = err.error.non_field_errors;
+            console.log(this.errors);
+          }
+          if (err.error.name) {
+            this.workplaceForm.controls['name'].setErrors({
+              apiError: err.error.name
+            });
+          }
+          if (err.error.details) {
+            this.workplaceForm.controls['details'].setErrors({
+              apiError: err.error.details
+            });
+          }
+          if (err.error.seats) {
+            this.workplaceForm.controls['seats'].setErrors({
+              apiError: err.error.seats
+            });
+          }
+          if (err.error.address_line1) {
+            this.workplaceForm.controls['address_line1'].setErrors({
+              apiError: err.error.address_line1
+            });
+          }
+          if (err.error.address_line2) {
+            this.workplaceForm.controls['address_line2'].setErrors({
+              apiError: err.error.address_line2
+            });
+          }
+          if (err.error.postal_code) {
+            this.workplaceForm.controls['postal_code'].setErrors({
+              apiError: err.error.postal_code
+            });
+          }
+          if (err.error.city) {
+            this.workplaceForm.controls['city'].setErrors({
+              apiError: err.error.city
+            });
+          }
+          if (err.error.country) {
+            this.workplaceForm.controls['country'].setErrors({
+              apiError: err.error.country
+            });
+          }
+          if (err.error.state_province) {
+            this.workplaceForm.controls['state_province'].setErrors({
+              apiError: err.error.state_province
+            });
+          }
+          if (err.error.timezone) {
+            this.workplaceForm.controls['timezone'].setErrors({
+              apiError: err.error.timezone
+            });
+          }
+        }
+      );
+    }
+  }
 }
