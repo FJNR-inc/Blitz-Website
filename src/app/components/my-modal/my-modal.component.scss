@@ -36,6 +36,9 @@
       &__content {
         padding: 20px;
         flex: 1;
+
+        max-height: 80vh;
+        overflow: auto;
       }
 
       &__action {

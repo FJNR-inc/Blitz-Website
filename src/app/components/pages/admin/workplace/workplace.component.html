@@ -7,31 +7,7 @@
         <div *ngFor="let error of errors" class="alert alert--danger">
           {{ error }}
         </div>
-        <div class="form-group">
-          <label for="name" class="form-label">Nom:</label>
-          <input formControlName="name" type="text" id="name" class="form-input" />
-          <div class="form-text form-text--right form-text--danger"
-               *ngFor="let errorMessage of workplaceForm.controls['name'].getError('apiError')">
-            {{ errorMessage }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="details" class="form-label">Description:</label>
-          <textarea formControlName="details" id="details" class="form-input form-input--textarea">
-          </textarea>
-          <div class="form-text form-text--right form-text--danger"
-               *ngFor="let errorMessage of workplaceForm.controls['details'].getError('apiError')">
-            {{ errorMessage }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="seats" class="form-label">Nombre de place:</label>
-          <input formControlName="seats" type="text" id="seats" class="form-input" />
-          <div class="form-text form-text--right form-text--danger"
-               *ngFor="let errorMessage of workplaceForm.controls['seats'].getError('apiError')">
-            {{ errorMessage }}
-          </div>
-        </div>
+
       </div>
       <div class="admin-workplace-page__content__actions">
         <div>

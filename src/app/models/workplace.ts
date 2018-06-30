@@ -12,7 +12,8 @@ export class Workplace extends BaseModel {
   address_line2: string;
   postal_code: string;
   city: string;
-  country: Country;
-  state_province: StateProvince;
+  country: string;
+  state_province: string;
+  timezone: string;
 }
 

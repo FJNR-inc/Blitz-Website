@@ -21,6 +21,7 @@ export class WorkplacesComponent implements OnInit {
   selectedWorkplaceUrl: string;
 
   settings = {
+    addButton: true,
     removeButton: true,
     clickable: true,
     previous: false,
@@ -46,7 +47,16 @@ export class WorkplacesComponent implements OnInit {
 
     this.workplaceForm = this.formBuilder.group(
       {
-        name: null
+        name: null,
+        details: null,
+        seats: null,
+        address_line1: null,
+        address_line2: '',
+        postal_code: null,
+        city: null,
+        state_province: null,
+        country: null,
+        timezone: null,
       }
     );
   }
@@ -68,7 +78,9 @@ export class WorkplacesComponent implements OnInit {
   }
 
   OpenModalCreateWorkplace() {
-    this.redirectToWorkplace();
+    this.workplaceForm.reset();
+    this.selectedWorkplaceUrl = null;
+    this.toogleModal('form_workplaces', 'Créer un espace de travail', 'Créer');
   }
 
   redirectToWorkplace(id = null) {
@@ -79,12 +91,6 @@ export class WorkplacesComponent implements OnInit {
       url += 'new';
     }
     this.router.navigate([url]);
-  }
-
-  OpenModalEditWorkplace(item) {
-    this.workplaceForm.controls['name'].setValue(item.name);
-    this.selectedWorkplaceUrl = item.url;
-    this.toogleModal('form_workplaces', 'Éditer un espace de travail', 'Éditer');
   }
 
   removeWorkplace(item) {
@@ -111,5 +117,74 @@ export class WorkplacesComponent implements OnInit {
     modal.title = title;
     modal.button2Label = button2;
     modal.toggle();
+  }
+
+  submitWorkplace() {
+    if ( this.workplaceForm.valid ) {
+      this.workplaceService.create(this.workplaceForm.value).subscribe(
+        data => {
+          this.notificationService.success('Ajouté');
+          this.refreshWorkplaceList();
+          this.toogleModal('form_workplaces');
+        },
+        err => {
+          console.log(err.error);
+          if (err.error.non_field_errors) {
+            this.workplaceErrors = err.error.non_field_errors;
+            console.log(this.workplaceErrors);
+          }
+          if (err.error.name) {
+            this.workplaceForm.controls['name'].setErrors({
+              apiError: err.error.name
+            });
+          }
+          if (err.error.details) {
+            this.workplaceForm.controls['details'].setErrors({
+              apiError: err.error.details
+            });
+          }
+          if (err.error.seats) {
+            this.workplaceForm.controls['seats'].setErrors({
+              apiError: err.error.seats
+            });
+          }
+          if (err.error.address_line1) {
+            this.workplaceForm.controls['address_line1'].setErrors({
+              apiError: err.error.address_line1
+            });
+          }
+          if (err.error.address_line2) {
+            this.workplaceForm.controls['address_line2'].setErrors({
+              apiError: err.error.address_line2
+            });
+          }
+          if (err.error.postal_code) {
+            this.workplaceForm.controls['postal_code'].setErrors({
+              apiError: err.error.postal_code
+            });
+          }
+          if (err.error.city) {
+            this.workplaceForm.controls['city'].setErrors({
+              apiError: err.error.city
+            });
+          }
+          if (err.error.country) {
+            this.workplaceForm.controls['country'].setErrors({
+              apiError: err.error.country
+            });
+          }
+          if (err.error.state_province) {
+            this.workplaceForm.controls['state_province'].setErrors({
+              apiError: err.error.state_province
+            });
+          }
+          if (err.error.timezone) {
+            this.workplaceForm.controls['timezone'].setErrors({
+              apiError: err.error.timezone
+            });
+          }
+        }
+      );
+    }
   }
 }
