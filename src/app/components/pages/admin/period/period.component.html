@@ -47,5 +47,33 @@
         {{ errorMessage}}
       </div>
     </div>
+    <div *ngIf="selectedTimeslot && selectedTimeslot.number_of_reservations > 0">
+      <div class="alert alert--danger">
+        Si vous modifier cette plage horaire toutes les réservations
+        déja effectué seront annulé et remboursé et un message
+        d'explication sera envoyé aux membres ayant subit une annulation.
+      </div>
+      <div class="form-group">
+        <label for="force_update" class="form-label">
+          Message d'explication qui sera envoyé aux membres subissant une annulation:
+        </label>
+        <textarea formControlName="custom_message" class="form-input form-input--textarea" id="custom_message">
+        </textarea>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of timeslotForm.controls['custom_message'].getError('apiError')">
+          {{ errorMessage}}
+        </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="force_update" class="form-input" id="force_update" type="checkbox">
+        <label for="force_update">
+          Je comprends les répercutions de cette modification.
+        </label>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of timeslotForm.controls['force_update'].getError('apiError')">
+          {{ errorMessage}}
+        </div>
+      </div>
+    </div>
   </form>
 </app-my-modal>

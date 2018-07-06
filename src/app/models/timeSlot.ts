@@ -9,7 +9,7 @@ export class TimeSlot extends BaseModel {
   price: number;
   start_time: string;
   end_time: string;
-  users: User[];
+  users: string[];
 
   getStartDay() {
     const date = new Date(this.start_time);

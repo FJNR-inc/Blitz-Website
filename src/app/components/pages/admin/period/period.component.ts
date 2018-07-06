@@ -7,6 +7,7 @@ import { PeriodService } from '../../../../services/period.service';
 import { TimeSlot } from '../../../../models/timeSlot';
 import { TimeSlotService } from '../../../../services/time-slot.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import {isNull} from "util";
 
 @Component({
   selector: 'app-period',
@@ -21,7 +22,7 @@ export class PeriodComponent implements OnInit {
 
   timeslotForm: FormGroup;
   timeslotErrors: string[];
-  selectedTimeslotUrl: string;
+  selectedTimeslot: any = null;
 
   settings = {
     title: 'Liste des plages horaires:',
@@ -63,13 +64,18 @@ export class PeriodComponent implements OnInit {
         }
       );
     });
+    this.resetForm();
+  }
 
+  resetForm() {
     this.timeslotForm = this.formBuilder.group(
       {
         start_time: null,
         end_time: null,
         period: null,
-        price: null,
+        price: 1,
+        force_update: false,
+        custom_message: null,
       }
     );
   }
@@ -87,54 +93,64 @@ export class PeriodComponent implements OnInit {
   }
 
   OpenModalCreateTimeslot() {
-    this.timeslotForm.reset();
+    this.resetForm();
     this.timeslotForm.controls['period'].setValue(this.period.url);
-    this.timeslotForm.controls['price'].setValue(1);
-    this.selectedTimeslotUrl = null;
+    this.selectedTimeslot = null;
     this.toogleModal('form_timeslots', 'Ajouter une plage horaire', 'Créer');
   }
 
   OpenModalEditTimeslot(item) {
+    this.resetForm();
     for (const timeslot of this.listTimeslots) {
       if (timeslot.id === item.id) {
         this.timeslotForm.controls['start_time'].setValue(timeslot.start_time);
         this.timeslotForm.controls['end_time'].setValue(timeslot.end_time);
         this.timeslotForm.controls['period'].setValue(this.period.url);
-        this.timeslotForm.controls['price'].setValue(1);
       }
     }
-    this.selectedTimeslotUrl = item.url;
+    this.selectedTimeslot = item;
     this.toogleModal('form_timeslots', 'Éditer une plage horaire', 'Éditer');
   }
 
   submitTimeslot() {
     if ( this.timeslotForm.valid ) {
-      if (this.selectedTimeslotUrl) {
-        this.timeslotService.update(this.selectedTimeslotUrl, this.timeslotForm.value).subscribe(
-          data => {
-            this.notificationService.success('Modifié');
-            this.refreshTimeslotList();
-            this.toogleModal('form_timeslots');
-          },
-          err => {
-            if (err.error.non_field_errors) {
-              this.timeslotErrors = err.error.non_field_errors;
-              console.log(this.timeslotErrors);
+      const value = this.timeslotForm.value;
+      if (isNull(value.custom_message)) {
+        delete value['custom_message'];
+      }
+      if (this.selectedTimeslot) {
+        if (this.selectedTimeslot.number_of_reservations > 0 && value.force_update === false) {
+          this.timeslotForm.controls['force_update'].setErrors({
+            apiError: ['Vous devez comprendre les repercutions de cet acte avant de valider!']
+          });
+        }
+        else {
+          this.timeslotService.update(this.selectedTimeslot.url, value).subscribe(
+            data => {
+              this.notificationService.success('Modifié');
+              this.refreshTimeslotList();
+              this.toogleModal('form_timeslots');
+            },
+            err => {
+              if (err.error.non_field_errors) {
+                this.timeslotErrors = err.error.non_field_errors;
+                console.log(this.timeslotErrors);
+              }
+              if (err.error.start_time) {
+                this.timeslotForm.controls['start_time'].setErrors({
+                  apiError: err.error.start_time
+                });
+              }
+              if (err.error.end_time) {
+                this.timeslotForm.controls['end_time'].setErrors({
+                  apiError: err.error.end_time
+                });
+              }
             }
-            if (err.error.start_time) {
-              this.timeslotForm.controls['start_time'].setErrors({
-                apiError: err.error.start_time
-              });
-            }
-            if (err.error.end_time) {
-              this.timeslotForm.controls['end_time'].setErrors({
-                apiError: err.error.end_time
-              });
-            }
-          }
-        );
+          );
+        }
       } else {
-        this.timeslotService.create(this.timeslotForm.value).subscribe(
+        this.timeslotService.create(value).subscribe(
           data => {
             this.notificationService.success('Ajouté');
             this.refreshTimeslotList();
