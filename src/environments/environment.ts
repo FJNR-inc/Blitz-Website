@@ -24,5 +24,6 @@ export const environment = {
     periods: '/periods',
     memberships: '/memberships',
     reservationPackages: '/packages',
+    pictures: '/pictures',
   }
 };

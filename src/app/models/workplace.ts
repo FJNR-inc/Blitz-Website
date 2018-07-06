@@ -15,6 +15,7 @@ export class Workplace extends BaseModel {
   country: string;
   state_province: string;
   timezone: string;
+  pictures: string[];
 
   getAddress() {
     let string = this.address_line1 + ', ';

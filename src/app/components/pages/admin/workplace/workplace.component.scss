@@ -49,9 +49,32 @@
       }
 
       &__picture {
-        max-height: 100px;
-        max-width: 250px;
-        margin: 10px;
+        position: relative;
+
+        & img {
+          max-height: 100px;
+          max-width: 250px;
+          margin: 10px;
+        }
+
+        &__remove {
+          position: absolute;
+          top:0;
+          right: 0;
+          background-color: $color-danger-text;
+          border: 2px solid $color-danger-text;
+          color: white;
+          border-radius: 50%;
+          line-height: 25px;
+          width: 29px;
+          text-align: center;
+          justify-content: center;
+
+          &:hover {
+            background-color: white;
+            color: $color-danger-text;
+          }
+        }
       }
     }
   }

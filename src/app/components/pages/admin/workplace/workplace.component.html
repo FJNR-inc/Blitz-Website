@@ -19,7 +19,12 @@
   <div class="admin-workplace-page__pictures">
     <h2>Photo de l'espace</h2>
     <div class="admin-workplace-page__pictures__list">
-      <img *ngFor="let pictureUrl of workplace.pictures" src="{{ pictureUrl }}" class="admin-workplace-page__pictures__list__picture"/>
+      <div *ngFor="let pictureUrl of workplace.pictures" class="admin-workplace-page__pictures__list__picture">
+        <img src="{{ pictureUrl }}"/>
+        <a class="admin-workplace-page__pictures__list__picture__remove">
+          <i class="fa fa-times"></i>
+        </a>
+      </div>
       <button class="button admin-workplace-page__pictures__list__button">
         <i class="fa fa-plus"></i>
         Ajouter une photo
@@ -33,7 +38,7 @@
                     [data]="listTimeslots">
       </app-my-table>
     </div>
-
+  </div>
 </div>
 
 <app-my-modal name="form_workplaces"
