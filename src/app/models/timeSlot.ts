@@ -10,6 +10,7 @@ export class TimeSlot extends BaseModel {
   start_time: string;
   end_time: string;
   users: string[];
+  places_remaining: number;
 
   getStartDay() {
     const date = new Date(this.start_time);

@@ -243,7 +243,7 @@ export class ReservationPageComponent implements OnInit {
       id: timeSlot.id,
       start: new Date(timeSlot.start_time),
       end: new Date(timeSlot.end_time),
-      title: timeSlot.getStartTime() + '-' + timeSlot.getEndTime() + ' (# places restantes)',
+      title: timeSlot.getStartTime() + '-' + timeSlot.getEndTime() + ' (' + timeSlot.places_remaining.toString() + ' places restantes)',
       color: colors.yellow,
       actions: this.actions,
     };
