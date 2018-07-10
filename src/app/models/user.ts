@@ -33,5 +33,15 @@ export class User extends BaseModel {
     const delta = endMembership.getTime() - now;
     return Math.ceil(delta / 86400000);
   }
+
+  getBirthdate() {
+    /* Since the birthdate have no timezone
+       in the API we add our timezone in
+       the UTC date to reverse the display timezone
+    */
+    const date = new Date(this.birthdate);
+    const offset = date.getTimezoneOffset();
+    return new Date(date.getTime() + offset * 60000);
+  }
 }
 

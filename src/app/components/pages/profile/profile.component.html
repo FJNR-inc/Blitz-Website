@@ -3,7 +3,7 @@
     <div class="profile-page__header__informations">
       <div class="profile-page__header__informations__name">
         {{profile.first_name}} {{profile.last_name}}
-        <a class="profile-page__header__informations__name__edit button">
+        <a class="profile-page__header__informations__name__edit button" [appMyModalOpen]="'form_user'">
           <i class="fas fa-pencil-alt"></i> Éditer mon profil
         </a>
       </div>
@@ -62,4 +62,59 @@
               (button2)="deactivateAccount()">
   La désactivation de votre compte est un acte important et irréversible.<br/>
   Êtes-vous vraiment sûr de vouloir désactiver votre compte ?
+</app-my-modal>
+
+<app-my-modal name="form_user"
+              typeModal="success"
+              title="Editer mon profil"
+              button2Label="Editer"
+              (button2)="submitProfile()">
+  <form [formGroup]="userForm" *ngIf="userForm">
+    <div *ngFor="let error of userErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+
+    <div class="form-group">
+      <label for="first_name" class="form-label">Nom:</label>
+      <input formControlName="first_name" class="form-input" id="first_name" type="text">
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of userForm.controls['first_name'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="last_name" class="form-label">Prenom:</label>
+      <input formControlName="last_name" class="form-input" id="last_name" type="text">
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of userForm.controls['last_name'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="birthdate" class="form-label">Date de naissance:</label>
+      <input [owlDateTimeTrigger]="dt_end"
+             [owlDateTime]="dt_end"
+             formControlName="birthdate"
+             class="form-input"
+             id="birthdate">
+      <owl-date-time #dt_end [firstDayOfWeek]="1" pickerType="calendar"></owl-date-time>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of userForm.controls['birthdate'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="gender" class="form-label">Genre*:</label>
+      <select formControlName="gender" id="gender" class="form-input">
+        <option value="A">Je ne souhaite pas m'identifie</option>
+        <option value="M">Homme</option>
+        <option value="F">Femme</option>
+        <option value="T">Trans</option>
+      </select>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of userForm.controls['gender'].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+  </form>
 </app-my-modal>

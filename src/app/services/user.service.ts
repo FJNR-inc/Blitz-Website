@@ -72,6 +72,15 @@ export class UserService extends GlobalService {
     );
   }
 
+  update(url: string, user: User): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.patch<any>(
+      url,
+      user,
+      {headers: headers}
+    );
+  }
+
   remove(user: User): Observable<any> {
     const headers = this.getHeaders();
     return this.http.delete<any>(
