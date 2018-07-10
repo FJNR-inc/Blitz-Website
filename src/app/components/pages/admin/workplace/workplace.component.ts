@@ -7,6 +7,11 @@ import { TimeSlot } from '../../../../models/timeSlot';
 import { TimeSlotService } from '../../../../services/time-slot.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
+import { Picture } from '../../../../models/picture';
+import { PictureService } from '../../../../services/picture.service';
+import { environment } from '../../../../../environments/environment';
+import {AuthenticationService} from "../../../../services/authentication.service";
+import GlobalService from "../../../../services/globalService";
 
 @Component({
   selector: 'app-workplace',
@@ -18,6 +23,8 @@ export class WorkplaceComponent implements OnInit {
   workplaceId: number;
   workplace: Workplace;
   listTimeslots: TimeSlot[];
+  listPictures: Picture[];
+  listPicturesUpload: any[] = [];
 
   workplaceForm: FormGroup;
   errors: string[];
@@ -55,7 +62,8 @@ export class WorkplaceComponent implements OnInit {
               private timeSlotService: TimeSlotService,
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService) { }
+              private notificationService: NotificationsService,
+              private pictureService: PictureService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -90,6 +98,25 @@ export class WorkplaceComponent implements OnInit {
             );
           }
         );
+        this.pictureService.list([{'name': 'workplace', 'value': this.workplaceId}]).subscribe(
+          pictures => {
+            this.listPictures = pictures.results.map(
+              p => new Picture(p)
+            );
+          }
+        );
+      }
+    );
+  }
+
+  removePicture(picture) {
+    this.pictureService.remove(picture).subscribe(
+      data => {
+        this.notificationService.success('Supprimé', 'La photo a bien été supprimé.');
+        this.refreshWorkplace();
+      },
+      err => {
+        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
       }
     );
   }
@@ -103,6 +130,34 @@ export class WorkplaceComponent implements OnInit {
       period: timeSlot.period.name,
       price: timeSlot.price
     };
+  }
+
+  OpenModalAddPicture() {
+    this.toogleModal('form_add_picture', 'Ajouter une photo', 'Ajouter');
+  }
+
+  onUploadFinished(event) {
+    this.listPicturesUpload.push(event);
+  }
+
+  addPicture() {
+    for (const picture of this.listPicturesUpload) {
+      const newPicture = new Picture({
+        picture: picture.src,
+        name: picture.file.name,
+        workplace: this.workplace.url
+      });
+      this.pictureService.create(newPicture).subscribe(
+        data => {
+          this.notificationService.success('Ajouté');
+          this.refreshWorkplace();
+          this.toogleModal('form_add_picture');
+        },
+        err => {
+          this.notificationService.error('Erreur');
+        }
+      );
+    }
   }
 
   OpenModalEditWorkplace() {

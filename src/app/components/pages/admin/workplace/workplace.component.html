@@ -16,16 +16,16 @@
         {{ workplace.details }}
       </p>
   </div>
-  <div class="admin-workplace-page__pictures">
+  <div class="admin-workplace-page__pictures" *ngIf="listPictures">
     <h2>Photo de l'espace</h2>
     <div class="admin-workplace-page__pictures__list">
-      <div *ngFor="let pictureUrl of workplace.pictures" class="admin-workplace-page__pictures__list__picture">
-        <img src="{{ pictureUrl }}"/>
-        <a class="admin-workplace-page__pictures__list__picture__remove">
+      <div *ngFor="let picture of listPictures" class="admin-workplace-page__pictures__list__picture">
+        <img src="{{ picture.picture }}"/>
+        <a class="admin-workplace-page__pictures__list__picture__remove" (click)="removePicture(picture)">
           <i class="fa fa-times"></i>
         </a>
       </div>
-      <button class="button admin-workplace-page__pictures__list__button">
+      <button class="button admin-workplace-page__pictures__list__button" (click)="OpenModalAddPicture()">
         <i class="fa fa-plus"></i>
         Ajouter une photo
       </button>
@@ -129,5 +129,18 @@
         {{ errorMessage }}
       </div>
     </div>
+  </form>
+</app-my-modal>
+
+
+<app-my-modal name="form_add_picture"
+              typeModal="success"
+              (button2)="addPicture()">
+  <form>
+    <image-upload [url]=""
+                  buttonCaption="Selectionner une photo"
+                  dropBoxMessage="ou glissez votre image ici"
+                  clearButtonCaption="Reinitialiser"
+                  (uploadFinished)="onUploadFinished($event)"></image-upload>
   </form>
 </app-my-modal>

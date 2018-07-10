@@ -62,6 +62,8 @@ import { ReservationPackagesComponent } from './components/pages/admin/reservati
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { MyModalOpenDirective } from './directives/my-modal-open-directive.directive';
 import { TimeslotComponent } from './components/pages/admin/timeslot/timeslot.component';
+import { PictureService } from './services/picture.service';
+import { ImageUploadModule } from 'angular2-image-upload';
 
 registerLocaleData(localeFr);
 
@@ -282,6 +284,7 @@ const appRoutes = [
     CalendarModule.forRoot(),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    ImageUploadModule.forRoot(),
   ],
   providers: [
     CanActivateViaAuthGuard,
@@ -303,7 +306,8 @@ const appRoutes = [
     DomainService,
     PeriodService,
     MembershipService,
-    ReservationPackageService
+    ReservationPackageService,
+    PictureService,
   ],
   bootstrap: [AppComponent]
 })

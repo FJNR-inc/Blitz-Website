@@ -24,10 +24,28 @@ export class PictureService extends GlobalService {
     );
   }
 
+  list(filters: {name: string, value: any}[] = null, limit: number = 100, offset: number = 0): Observable<any> {
+    const headers = this.getHeaders();
+    let params = new HttpParams();
+    params = params.set('limit', limit.toString());
+    params = params.set('offset', offset.toString());
+    if (filters != null) {
+      for (const filter of filters) {
+        if (filter.name === 'workplace') {
+          params = params.set('workplace', filter.value);
+        }
+      }
+    }
+    return this.http.get<any>(
+      this.url_pictures,
+      {headers: headers, params: params}
+    );
+  }
+
   remove(picture: Picture): Observable<any> {
     const headers = this.getHeaders();
     return this.http.delete<any>(
-      picture.picture,
+      picture.url,
       {headers: headers}
     );
   }
