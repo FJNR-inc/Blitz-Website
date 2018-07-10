@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Period } from '../../../../models/period';
@@ -7,7 +7,7 @@ import { PeriodService } from '../../../../services/period.service';
 import { TimeSlot } from '../../../../models/timeSlot';
 import { TimeSlotService } from '../../../../services/time-slot.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {isNull} from "util";
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-period',
@@ -67,17 +67,28 @@ export class PeriodComponent implements OnInit {
     this.resetForm();
   }
 
-  resetForm() {
-    this.timeslotForm = this.formBuilder.group(
-      {
-        start_time: null,
-        end_time: null,
-        period: null,
-        price: 1,
-        force_update: false,
-        custom_message: null,
-      }
-    );
+  resetForm(edit = false) {
+    if (edit) {
+      this.timeslotForm = this.formBuilder.group(
+        {
+          start_time: null,
+          end_time: null,
+          period: null,
+          price: 1,
+          force_update: false,
+          custom_message: null
+        }
+      );
+    } else {
+      this.timeslotForm = this.formBuilder.group(
+        {
+          start_time: null,
+          end_time: null,
+          period: null,
+          price: 1,
+        }
+      );
+    }
   }
 
   refreshTimeslotList() {
@@ -100,7 +111,7 @@ export class PeriodComponent implements OnInit {
   }
 
   OpenModalEditTimeslot(item) {
-    this.resetForm();
+    this.resetForm(true);
     for (const timeslot of this.listTimeslots) {
       if (timeslot.id === item.id) {
         this.timeslotForm.controls['start_time'].setValue(timeslot.start_time);
