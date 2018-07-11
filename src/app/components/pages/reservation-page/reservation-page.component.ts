@@ -134,7 +134,7 @@ export class ReservationPageComponent implements OnInit {
           this.workplace = new Workplace(data);
           const now = new Date().toISOString();
           console.log(now);
-          this.timeSlotService.list([{'name': 'start_time__gte', 'value': now}]).subscribe(
+          this.timeSlotService.list([{'name': 'workplace', 'value': this.workplace.id}, {'name': 'start_time__gte', 'value': now}]).subscribe(
             timeSlots => {
               this.listTimeSlots = timeSlots.results.map(l => new TimeSlot(l));
               this.syncCalendarEvent();
