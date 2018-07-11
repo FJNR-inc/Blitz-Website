@@ -9,5 +9,6 @@ export class Membership extends BaseModel {
   details: string;
   duration: number;
   academic_level: string;
+  available: boolean;
 }
 

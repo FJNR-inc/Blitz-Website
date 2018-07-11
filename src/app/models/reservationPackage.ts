@@ -9,5 +9,6 @@ export class ReservationPackage extends BaseModel {
   details: string;
   reservations: number;
   exclusive_memberships: Membership[];
+  available: boolean;
 }
 

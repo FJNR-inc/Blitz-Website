@@ -26,7 +26,6 @@ export class MembershipsComponent implements OnInit {
   settings = {
     addButton: true,
     editButton: true,
-    removeButton: true,
     previous: false,
     next: false,
     numberOfPage: 0,
@@ -39,6 +38,11 @@ export class MembershipsComponent implements OnInit {
       {
         name: 'price',
         title: 'Prix'
+      },
+      {
+        name: 'available',
+        title: 'Disponible',
+        type: 'boolean'
       }
     ]
   };
@@ -59,6 +63,7 @@ export class MembershipsComponent implements OnInit {
         price: null,
         duration: null,
         academic_level: ['none'],
+        available: null,
       }
     );
   }
@@ -94,6 +99,7 @@ export class MembershipsComponent implements OnInit {
   OpenModalCreateMembership() {
     this.membershipForm.reset();
     this.membershipForm.controls['duration'].setValue('365 00:00:00');
+    this.membershipForm.controls['available'].setValue(false);
     this.selectedMembershipUrl = null;
     this.toogleModal('form_memberships', 'Ajouter un type de membership', 'Créer');
   }
@@ -105,6 +111,7 @@ export class MembershipsComponent implements OnInit {
         this.membershipForm.controls['price'].setValue(membership.price);
         this.membershipForm.controls['duration'].setValue(membership.duration);
         this.membershipForm.controls['academic_level'].setValue(membership.academic_level);
+        this.membershipForm.controls['available'].setValue(membership.available);
         if (membership.academic_level === null) {
           this.membershipForm.controls['academic_level'].setValue('none');
         } else {
@@ -169,22 +176,15 @@ export class MembershipsComponent implements OnInit {
                 apiError: err.error.price
               });
             }
+            if (err.error.available) {
+              this.membershipForm.controls['available'].setErrors({
+                apiError: err.error.available
+              });
+            }
           }
         );
       }
     }
-  }
-
-  removeMembership(item) {
-    this.membershipService.remove(item).subscribe(
-      data => {
-        this.notificationService.success('Supprimé', 'Le type de membership a bien été supprimé.');
-        this.refreshMembershipList();
-      },
-      err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
-      }
-    );
   }
 
   toogleModal(name, title = '', button2 = '') {
@@ -206,6 +206,7 @@ export class MembershipsComponent implements OnInit {
       url: membership.url,
       name: membership.name,
       price: membership.price,
+      available: membership.available,
     };
   }
 

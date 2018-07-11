@@ -26,7 +26,6 @@ export class ReservationPackagesComponent implements OnInit {
   settings = {
     addButton: true,
     editButton: true,
-    removeButton: true,
     previous: false,
     next: false,
     numberOfPage: 0,
@@ -43,6 +42,11 @@ export class ReservationPackagesComponent implements OnInit {
       {
         name: 'reservations',
         title: 'Nombre de réservations'
+      },
+      {
+        name: 'available',
+        title: 'Disponible',
+        type: 'boolean'
       }
     ]
   };
@@ -63,6 +67,7 @@ export class ReservationPackagesComponent implements OnInit {
         price: null,
         reservations: null,
         exclusive_memberships: 'none',
+        available: null,
       }
     );
   }
@@ -98,6 +103,7 @@ export class ReservationPackagesComponent implements OnInit {
   OpenModalCreateReservationPackage() {
     this.reservationPackageForm.reset();
     this.reservationPackageForm.controls['exclusive_memberships'].setValue('none');
+    this.reservationPackageForm.controls['available'].setValue(false);
     this.selectedReservationPackageUrl = null;
     this.toogleModal('form_reservation_packages', 'Ajouter un forfait', 'Créer');
   }
@@ -108,6 +114,7 @@ export class ReservationPackagesComponent implements OnInit {
         this.reservationPackageForm.controls['name'].setValue(reservationPackage.name);
         this.reservationPackageForm.controls['price'].setValue(reservationPackage.price);
         this.reservationPackageForm.controls['reservations'].setValue(reservationPackage.reservations);
+        this.reservationPackageForm.controls['available'].setValue(reservationPackage.available);
         if (reservationPackage['exclusive_memberships'].length === 0) {
           this.reservationPackageForm.controls['exclusive_memberships'].setValue('none');
         } else {
@@ -157,6 +164,11 @@ export class ReservationPackagesComponent implements OnInit {
                 apiError: err.error.reservations
               });
             }
+            if (err.error.available) {
+              this.reservationPackageForm.controls['available'].setErrors({
+                apiError: err.error.available
+              });
+            }
           }
         );
       } else {
@@ -185,22 +197,15 @@ export class ReservationPackagesComponent implements OnInit {
                 apiError: err.error.reservations
               });
             }
+            if (err.error.available) {
+              this.reservationPackageForm.controls['available'].setErrors({
+                apiError: err.error.available
+              });
+            }
           }
         );
       }
     }
-  }
-
-  removeReservationPackage(item) {
-    this.reservationPackageService.remove(item).subscribe(
-      data => {
-        this.notificationService.success('Supprimé', 'Le type de membership a bien été supprimé.');
-        this.refreshReservationPackageList();
-      },
-      err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
-      }
-    );
   }
 
   toogleModal(name, title = '', button2 = '') {
@@ -223,6 +228,7 @@ export class ReservationPackagesComponent implements OnInit {
       name: reservationPackage.name,
       price: reservationPackage.price,
       reservations: reservationPackage.reservations,
+      available: reservationPackage.available,
     };
   }
 
