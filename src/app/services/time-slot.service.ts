@@ -45,6 +45,9 @@ export class TimeSlotService extends GlobalService {
         if (filter.name === 'user') {
           params = params.set('users', filter.value);
         }
+        if (filter.name === 'period') {
+          params = params.set('period', filter.value);
+        }
         if (filter.name === 'start_time__gte') {
           params = params.set('start_time__gte', filter.value);
         }

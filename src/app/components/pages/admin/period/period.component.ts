@@ -92,7 +92,7 @@ export class PeriodComponent implements OnInit {
   }
 
   refreshTimeslotList() {
-    this.timeslotService.list().subscribe(
+    this.timeslotService.list([{'name': 'period', 'value': this.period.id}]).subscribe(
       timeslots => {
         this.listTimeslots = timeslots.results.map(t => new TimeSlot(t));
         this.listAdaptedTimeslots = [];
