@@ -4,7 +4,7 @@ import { MembershipService } from '../../../../services/membership.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
-import { isNull } from 'util';
+import { isNull, isString } from 'util';
 import { AcademicLevel } from '../../../../models/academicLevel';
 import { AcademicLevelService } from '../../../../services/academic-level.service';
 
@@ -18,6 +18,7 @@ export class MembershipsComponent implements OnInit {
   listMemberships: Membership[];
   listAcademicLevels: AcademicLevel[] = [];
   listAdaptedMemberships: any[];
+  listAcademicLevelsSelected: string[];
 
   membershipForm: FormGroup;
   membershipErrors: string[];
@@ -62,7 +63,7 @@ export class MembershipsComponent implements OnInit {
         name: null,
         price: null,
         duration: null,
-        academic_level: ['none'],
+        academic_levels: [[]],
         available: null,
       }
     );
@@ -73,7 +74,7 @@ export class MembershipsComponent implements OnInit {
   }
 
   refreshMembershipList(page = 1, limit = 20) {
-    this.membershipService.list(limit, limit * (page - 1)).subscribe(
+    this.membershipService.list(null, limit, limit * (page - 1)).subscribe(
       memberships => {
         this.settings.numberOfPage = Math.ceil(memberships.count / limit);
         this.settings.page = page;
@@ -100,6 +101,7 @@ export class MembershipsComponent implements OnInit {
     this.membershipForm.reset();
     this.membershipForm.controls['duration'].setValue('365 00:00:00');
     this.membershipForm.controls['available'].setValue(false);
+    this.membershipForm.controls['academic_levels'].setValue([[]]);
     this.selectedMembershipUrl = null;
     this.toogleModal('form_memberships', 'Ajouter un type de membership', 'Créer');
   }
@@ -110,13 +112,12 @@ export class MembershipsComponent implements OnInit {
         this.membershipForm.controls['name'].setValue(membership.name);
         this.membershipForm.controls['price'].setValue(membership.price);
         this.membershipForm.controls['duration'].setValue(membership.duration);
-        this.membershipForm.controls['academic_level'].setValue(membership.academic_level);
+        this.membershipForm.controls['academic_levels'].setValue(membership.academic_levels);
         this.membershipForm.controls['available'].setValue(membership.available);
-        if (membership.academic_level === null) {
-          this.membershipForm.controls['academic_level'].setValue('none');
-        } else {
-          this.membershipForm.controls['academic_level'].setValue(membership.academic_level);
-        }
+
+        // We keep a copy of the academic_levels list in memory to manage the select multiple
+        this.listAcademicLevelsSelected = this.membershipForm.controls['academic_levels'].value;
+
         this.selectedMembershipUrl = item.url;
         this.toogleModal('form_memberships', 'Éditer un type de membership', 'Éditer');
       }
@@ -126,8 +127,8 @@ export class MembershipsComponent implements OnInit {
   submitMembership() {
     if ( this.membershipForm.valid ) {
       const membership = this.membershipForm.value;
-      if (this.membershipForm.controls['academic_level'].value === 'none') {
-        membership['academic_level'] = null;
+      if (!isString(this.membershipForm.controls['academic_levels'].value[0])) {
+        membership['academic_levels'] = [];
       }
 
       if (this.selectedMembershipUrl) {
@@ -140,7 +141,6 @@ export class MembershipsComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
-              console.log(this.membershipErrors);
             }
             if (err.error.name) {
               this.membershipForm.controls['name'].setErrors({
@@ -150,6 +150,16 @@ export class MembershipsComponent implements OnInit {
             if (err.error.price) {
               this.membershipForm.controls['price'].setErrors({
                 apiError: err.error.price
+              });
+            }
+            if (err.error.academic_levels) {
+              this.membershipForm.controls['academic_levels'].setErrors({
+                apiError: err.error.academic_levels
+              });
+            }
+            if (err.error.available) {
+              this.membershipForm.controls['available'].setErrors({
+                apiError: err.error.available
               });
             }
           }
@@ -164,7 +174,6 @@ export class MembershipsComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
-              console.log(this.membershipErrors);
             }
             if (err.error.name) {
               this.membershipForm.controls['name'].setErrors({
@@ -174,6 +183,11 @@ export class MembershipsComponent implements OnInit {
             if (err.error.price) {
               this.membershipForm.controls['price'].setErrors({
                 apiError: err.error.price
+              });
+            }
+            if (err.error.academic_levels) {
+              this.membershipForm.controls['academic_levels'].setErrors({
+                apiError: err.error.academic_levels
               });
             }
             if (err.error.available) {
@@ -212,12 +226,26 @@ export class MembershipsComponent implements OnInit {
 
   showAcademicLevelWarning() {
     if (this.membershipForm) {
-      for (const level of this.listAcademicLevels) {
-        if (level.url === this.membershipForm.value['academic_level']) {
+      if (this.membershipForm.value['academic_levels'].value) {
+        if (this.membershipForm.value['academic_levels'].value.length) {
           return true;
         }
       }
     }
     return false;
+  }
+
+  changeAcademicLevel(event) {
+    // Update the list of academic level we kept in memory
+    const stringValue = event.target.value.split( '\'' )[1];
+    const index = this.listAcademicLevelsSelected.indexOf(stringValue);
+    if (index > -1) {
+      this.listAcademicLevelsSelected.splice(index, 1);
+    } else {
+      this.listAcademicLevelsSelected.push(stringValue);
+    }
+
+    // Refresh the data in form
+    this.membershipForm.controls['academic_levels'].setValue(this.listAcademicLevelsSelected);
   }
 }
