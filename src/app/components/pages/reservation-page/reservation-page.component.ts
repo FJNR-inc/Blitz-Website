@@ -134,7 +134,17 @@ export class ReservationPageComponent implements OnInit {
           this.workplace = new Workplace(data);
           const now = new Date().toISOString();
           console.log(now);
-          this.timeSlotService.list([{'name': 'workplace', 'value': this.workplace.id}, {'name': 'start_time__gte', 'value': now}]).subscribe(
+          const filters = [
+            {
+              'name': 'workplace',
+              'value': this.workplace.id
+            },
+            {
+              'name': 'start_time__gte',
+              'value': now
+            }
+          ];
+          this.timeSlotService.list(filters).subscribe(
             timeSlots => {
               this.listTimeSlots = timeSlots.results.map(l => new TimeSlot(l));
               this.syncCalendarEvent();
@@ -169,7 +179,18 @@ export class ReservationPageComponent implements OnInit {
   }
 
   refreshListMembership() {
-    this.membershipService.list().subscribe(
+    const filters: any[] = [
+      {
+        'name': 'available',
+        'value': true
+      }
+    ];
+    if (this.user.academic_level) {
+      filters.push({'name': 'academic_levels', 'value': [this.user.academic_level.id]});
+    } else {
+      filters.push({'name': 'academic_levels', 'value': null});
+    }
+    this.membershipService.list(filters).subscribe(
       memberships => {
         this.listMembership = memberships.results.map(m => new Membership(m));
       }
