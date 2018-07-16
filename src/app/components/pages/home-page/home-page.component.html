@@ -41,8 +41,6 @@
       </p>
     </div>
   </div>
-  <div class="separator">
-  </div>
   <div class="home-page__espace" *ngIf="workplaceList && workplaceList[0]">
     <div class="home-page__espace__details espace-detail">
       <div class="home-page__espace__details__title espace-detail__title">
@@ -91,9 +89,20 @@
 
     </div>
   </div>
-  <div class="separator">
-  </div>
   <div class="home-page__sponsors">
-
+    <h2>Nos partenaires</h2>
+    <div class="home-page__sponsors__description">
+      <p class="home-page__sponsors__description__text">
+        Comme organisme à but non lucratif (OBNL), nous mettons tout en oeuvre pour garder les retraites Thèsez-vous? accessibles pour l'ensemble des étudiants et étudiantes aux cycles supérieurs. C'est pourquoi nous comptons sur la contribution de professeur.e.s et d'étudiant.e.s bénévoles et la générosité de nos partenaires pour couvrir ou réduire au minimum les coûts des retraites.
+      </p>
+    </div>
+    <div class="home-page__sponsors__list">
+      <div class="home-page__sponsors__list__sponsor" *ngFor="let sponsor of sponsorsList">
+        <img class="home-page__sponsors__list__sponsor__logo" src="{{ sponsor.imageUrl }}"/>
+        <div class="home-page__sponsors__list__sponsor__title">
+          {{ sponsor.name }}
+        </div>
+      </div>
+    </div>
   </div>
 </div>

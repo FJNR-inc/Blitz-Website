@@ -43,8 +43,12 @@ $color-grey-dark: #1b1b1b;
 $link-color: $color-grey;
 
 $color-main: #33a27f;
+$color-main-text: rgb(77, 77, 77);
 $color-background-main: lighten($color-main, 52);
 $color-hover-main: lighten($color-main, 40);
 
+$color-title: rgb(43, 43, 43);
+
+$font-family: "Roboto", "sans-serif";
 $font-little: 10px;
 $link-color-hover: $color-main;

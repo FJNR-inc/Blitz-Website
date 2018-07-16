@@ -6,6 +6,7 @@ paragraph (p) or list (ul, ol)
 body {
   margin: 0;
   font: 14px 'Roboto', sans-serif;
+  color: $color-main-text
 }
 
 *, ::after, ::before {
@@ -25,10 +26,10 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
   display: inline-block;
-  color: $color-main;
+  color: $color-title;
+  font-weight: 300;
 }
 
 h2 {
-  font-size: 20px;
-  border-bottom: 1px solid $color-main;
+  font-size: 32px;
 }
