@@ -64,6 +64,7 @@ import { MyModalOpenDirective } from './directives/my-modal-open-directive.direc
 import { TimeslotComponent } from './components/pages/admin/timeslot/timeslot.component';
 import { PictureService } from './services/picture.service';
 import { ImageUploadModule } from 'angular2-image-upload';
+import { CardService } from './services/card.service';
 
 registerLocaleData(localeFr);
 
@@ -308,6 +309,7 @@ const appRoutes = [
     MembershipService,
     ReservationPackageService,
     PictureService,
+    CardService,
   ],
   bootstrap: [AppComponent]
 })

@@ -26,6 +26,8 @@ import { ReservationPackageService } from '../../../services/reservation-package
 import { ReservationPackage } from '../../../models/reservationPackage';
 import { MyModalService } from '../../../services/my-modal/my-modal.service';
 import { isNull } from 'util';
+import { Card } from '../../../models/card';
+import { CardService } from '../../../services/card.service';
 
 const colors: any = {
   green: {
@@ -80,10 +82,12 @@ export class ReservationPageComponent implements OnInit {
   listTimeSlots: TimeSlot[];
   listMembership: Membership[];
   listReservationPackage: ReservationPackage[];
+  listCards: Card[];
 
   selectedTimeSlots: TimeSlot[] = [];
   selectedMembership: Membership = null;
   selectedPackages: ReservationPackage[] = [];
+  selectedCard: string = null;
   currentMembership: number;
   currentPackage: number;
 
@@ -124,10 +128,19 @@ export class ReservationPageComponent implements OnInit {
               private router: Router,
               private membershipService: MembershipService,
               private reservationPackageService: ReservationPackageService,
-              private myModalService: MyModalService) {}
+              private myModalService: MyModalService,
+              private cardService: CardService) {}
 
   ngOnInit() {
     this.initPaysafe();
+    this.refreshListTimeSlot();
+    this.user = this.authenticationService.getProfile();
+    this.refreshListMembership();
+    this.refreshListReservationPackage();
+    this.refreshListCard();
+  }
+
+  refreshListTimeSlot() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.workplaceService.get(params['id']).subscribe(
         data => {
@@ -153,10 +166,6 @@ export class ReservationPageComponent implements OnInit {
         }
       );
     });
-
-    this.user = this.authenticationService.getProfile();
-    this.refreshListMembership();
-    this.refreshListReservationPackage();
   }
 
   initPaysafe() {
@@ -206,6 +215,20 @@ export class ReservationPageComponent implements OnInit {
     this.membershipService.list(filters).subscribe(
       memberships => {
         this.listMembership = memberships.results.map(m => new Membership(m));
+      }
+    );
+  }
+
+  refreshListCard() {
+    const filters: any[] = [
+      {
+        'name': 'owner',
+        'value': this.user.id
+      }
+    ];
+    this.cardService.list(filters).subscribe(
+      cards => {
+        this.listCards = cards.results.map(c => new Card(c));
       }
     );
   }
@@ -342,7 +365,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   canFinalizePayment() {
-    return !this.needToBuyPackage() && !this.needToBuyMembership();
+    return !this.needToBuyPackage() && !this.needToBuyMembership() && this.selectedCard;
   }
 
   addPackage() {
@@ -367,5 +390,14 @@ export class ReservationPageComponent implements OnInit {
   removeMembershipFromCart() {
     this.totalPrice -= Number(this.selectedMembership.price);
     this.selectedMembership = null;
+  }
+
+  selectCard(event) {
+    const value = event.target.value;
+    if (value !== 'none') {
+      this.selectedCard = value;
+    } else {
+      this.selectedCard = null;
+    }
   }
 }

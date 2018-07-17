@@ -223,13 +223,26 @@
 
       <form class="reservation-page__reservation__form__payment" *ngIf="selectedTimeSlots.length">
         <div class="form-group" *ngIf="needToUseCard()">
-          <label for="card" class="form-label">Mode de paiement :</label>
-          <select id="card" class="form-input">{{ totalTicket }}
-            <option>Mastercard (xxxx xxxx xxxx 9371)</option>
-            <option>Visa (xxxx xxxx xxxx 7785)</option>
-          </select>
-          <div class="form-text form-text--right">
-            <a (click)="ToggleModalAddCard()">Ajouter une nouvelle carte</a>
+          <div *ngIf="listCards.length">
+            <label for="card" class="form-label">Mode de paiement :</label>
+            <select id="card" class="form-input" (change)="selectCard($event)">
+              <option value="none">Choisir une carte de paiement</option>
+              <option value="{{card.url}}" *ngFor="let card of listCards">
+                **** **** **** {{card.number}} ({{card.expiry_date}})
+              </option>
+            </select>
+            <div class="form-text form-text--right">
+              <a (click)="ToggleModalAddCard()">Ajouter une nouvelle carte</a>
+            </div>
+          </div>
+          <div *ngIf="!listCards.length" class="alert alert--warning">
+            <div class="alert__icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="alert__content">
+              Vous n'avez pas de carte de paiement enregistre pour le moment.<br/>
+              <a (click)="ToggleModalAddCard()">Ajouter une nouvelle carte</a> afin de finaliser votre reservation.
+            </div>
           </div>
         </div>
         <button type="submit" class="button-icon button-icon--full-width button-icon--main" [disabled]="!canFinalizePayment()">

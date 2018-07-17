@@ -20,5 +20,6 @@ export const environment = {
     memberships: '/memberships',
     reservationPackages: '/packages',
     pictures: '/pictures',
+    cards: '/credit_cards',
   }
 };
