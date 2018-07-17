@@ -27,7 +27,7 @@
           {{ profile.getTimeBeforeEndMembership() }}
         </div>
         jours restants<br/>
-        ({{ profile.membership.name }})
+        (Membership {{ profile.membership.name }})
       </div>
     </div>
   </div>
@@ -104,7 +104,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="gender" class="form-label">Genre*:</label>
+      <label for="gender" class="form-label">Genre:</label>
       <select formControlName="gender" id="gender" class="form-input">
         <option value="A">Je ne souhaite pas m'identifie</option>
         <option value="M">Homme</option>
