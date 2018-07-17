@@ -4,6 +4,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
+import { Card } from '../models/card';
 
 @Injectable()
 export class CardService extends GlobalService {
@@ -31,6 +32,15 @@ export class CardService extends GlobalService {
     return this.http.get<any>(
       this.url_cards,
       {headers: headers, params: params}
+    );
+  }
+
+
+  remove(card: Card): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(
+      card.url,
+      {headers: headers}
     );
   }
 }

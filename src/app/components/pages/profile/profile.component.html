@@ -41,7 +41,8 @@
   </div>
   <div class="profile-page__sections">
     <app-my-table [settings]="settingsCard"
-                  [data]="listCards">
+                  [data]="listCards"
+                  (removeItem)="removeCard($event)">
     </app-my-table>
   </div>
   <div class="profile-page__sections">
