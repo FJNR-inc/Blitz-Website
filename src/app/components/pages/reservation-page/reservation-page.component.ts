@@ -171,7 +171,20 @@ export class ReservationPageComponent implements OnInit {
   }
 
   refreshListReservationPackage() {
-    this.reservationPackageService.list().subscribe(
+    const filters: any[] = [
+      {
+        'name': 'available',
+        'value': true
+      }
+    ];
+    if (this.user.membership) {
+      filters.push({'name': 'exclusive_memberships', 'value': [this.user.membership.id]});
+    } else if (this.selectedMembership){
+      filters.push({'name': 'exclusive_memberships', 'value': [this.selectedMembership.id]});
+    } else {
+      filters.push({'name': 'exclusive_memberships', 'value': null});
+    }
+    this.reservationPackageService.list(filters).subscribe(
       reservationPackages => {
         this.listReservationPackage = reservationPackages.results.map(r => new ReservationPackage(r));
       }
@@ -307,14 +320,15 @@ export class ReservationPageComponent implements OnInit {
 
   needToBuyPackage() {
     if (this.user) {
-      let total = this.user.tickets;
-      for (const reservationPackage of this.selectedPackages) {
-        total += reservationPackage.reservations;
+      if (this.user.membership || this.selectedMembership) {
+        let total = this.user.tickets;
+        for (const reservationPackage of this.selectedPackages) {
+          total += reservationPackage.reservations;
+        }
+        return total < this.totalTicket;
       }
-      return total < this.totalTicket;
-    } else {
-      return false;
     }
+    return false;
   }
 
   needToBuyMembership() {
@@ -347,6 +361,7 @@ export class ReservationPageComponent implements OnInit {
         this.totalPrice += Number(membership.price);
       }
     }
+    this.refreshListReservationPackage();
   }
 
   removeMembershipFromCart() {

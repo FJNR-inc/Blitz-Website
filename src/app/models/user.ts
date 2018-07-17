@@ -15,7 +15,7 @@ export class User extends BaseModel {
   gender: string;
   is_active: boolean;
   is_superuser: boolean;
-  membership: string;
+  membership: any;
   membership_end: string;
   tickets: number;
 

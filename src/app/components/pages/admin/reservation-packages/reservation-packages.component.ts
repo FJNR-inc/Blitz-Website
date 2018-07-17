@@ -77,7 +77,7 @@ export class ReservationPackagesComponent implements OnInit {
   }
 
   refreshReservationPackageList(page = 1, limit = 20) {
-    this.reservationPackageService.list(limit, limit * (page - 1)).subscribe(
+    this.reservationPackageService.list(null, limit, limit * (page - 1)).subscribe(
       reservationPackages => {
         this.settings.numberOfPage = Math.ceil(reservationPackages.count / limit);
         this.settings.page = page;
