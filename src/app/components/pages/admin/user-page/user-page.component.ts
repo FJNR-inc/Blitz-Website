@@ -4,6 +4,8 @@ import { UserService } from '../../../../services/user.service';
 import { User } from '../../../../models/user';
 import { TimeSlotService } from '../../../../services/time-slot.service';
 import { TimeSlot } from '../../../../models/timeSlot';
+import { Card } from '../../../../models/card';
+import { CardService } from '../../../../services/card.service';
 
 @Component({
   selector: 'app-user-page',
@@ -17,6 +19,7 @@ export class UserPageComponent implements OnInit {
   settings = {
     noDataText: 'Aucune réservation pour le moment',
     clickable: true,
+    title: 'Réservations',
     columns: [
       {
         name: 'start_event',
@@ -25,12 +28,30 @@ export class UserPageComponent implements OnInit {
     ]
   };
 
+  settingsCard = {
+    noDataText: 'Aucune carte de paiement pour le moment',
+    title: 'Cartes de paiements',
+    columns: [
+      {
+        name: 'number',
+        title: 'Numero de carte'
+      },
+      {
+        name: 'expiry_date',
+        title: 'Date d\'expiration'
+      }
+    ]
+  };
+
+
   listReservations: any[];
+  listCards: Card[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private timeSlotService: TimeSlotService,
-              private router: Router) { }
+              private router: Router,
+              private cardService: CardService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -38,6 +59,7 @@ export class UserPageComponent implements OnInit {
         data => {
           this.user = new User(data);
           this.refreshReservation();
+          this.refreshListCard();
         }
       );
     });
@@ -47,13 +69,23 @@ export class UserPageComponent implements OnInit {
     this.timeSlotService.list([{'name': 'user', 'value': this.user.id}]).subscribe(
       timeslots => {
         this.listReservations = timeslots.results.map(
-          t => this.listReservationsAdapter(new TimeSlot(t))
+          t => this.reservationAdapter(new TimeSlot(t))
         );
       }
     );
   }
 
-  listReservationsAdapter(reservation) {
+  refreshListCard() {
+    this.cardService.list([{'name': 'owner', 'value': this.user.id}]).subscribe(
+      cards => {
+        this.listCards = cards.results.map(
+          c => this.cardAdapter(new Card(c))
+        );
+      }
+    );
+  }
+
+  reservationAdapter(reservation) {
     let detail = '';
     detail += reservation.getStartDay();
     detail += ' (';
@@ -64,6 +96,14 @@ export class UserPageComponent implements OnInit {
     return {
       id: reservation.id,
       start_event: detail,
+    };
+  }
+
+  cardAdapter(card: Card) {
+    return {
+      id: card.id,
+      number: '**** **** **** ' + card.number,
+      expiry_date: card.expiry_date,
     };
   }
 
