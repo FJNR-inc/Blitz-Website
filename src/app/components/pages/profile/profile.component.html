@@ -40,6 +40,11 @@
     </app-my-table>
   </div>
   <div class="profile-page__sections">
+    <app-my-table [settings]="settingsCard"
+                  [data]="listCards">
+    </app-my-table>
+  </div>
+  <div class="profile-page__sections">
     <h2>Désactiver mon compte</h2>
     <div>
       Si vous désactivez votre compte:

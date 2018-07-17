@@ -9,6 +9,8 @@ import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../services/my-modal/my-modal.service';
+import { Card } from '../../../models/card';
+import { CardService } from '../../../services/card.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +33,23 @@ export class ProfileComponent implements OnInit {
     ]
   };
 
+  settingsCard = {
+    noDataText: 'Aucune carte de paiement pour le moment',
+    title: 'Mes cartes de paiements',
+    columns: [
+      {
+        name: 'number',
+        title: 'Numero de carte'
+      },
+      {
+        name: 'expiry_date',
+        title: 'Date d\'expiration'
+      }
+    ]
+  };
+
   listReservations: any[];
+  listCards: Card[];
   errors: string[];
 
   constructor(private profileService: ProfileService,
@@ -41,7 +59,8 @@ export class ProfileComponent implements OnInit {
               private notificationService: NotificationsService,
               private router: Router,
               private formBuilder: FormBuilder,
-              private myModalService: MyModalService) { }
+              private myModalService: MyModalService,
+              private cardService: CardService) { }
 
   ngOnInit() {
     this.refreshProfile();
@@ -67,6 +86,7 @@ export class ProfileComponent implements OnInit {
           emitedProfile => this.profile = new User(emitedProfile)
         );
         this.refreshReservation();
+        this.refreshListCard();
         this.resetForm();
       }
     );
@@ -76,13 +96,23 @@ export class ProfileComponent implements OnInit {
     this.timeSlotService.list([{'name': 'user', 'value': this.profile.id}]).subscribe(
       timeslots => {
         this.listReservations = timeslots.results.map(
-          t => this.listReservationsAdapter(new TimeSlot(t))
+          t => this.reservationAdapter(new TimeSlot(t))
         );
       }
     );
   }
 
-  listReservationsAdapter(reservation) {
+  refreshListCard() {
+    this.cardService.list([{'name': 'owner', 'value': this.profile.id}]).subscribe(
+      cards => {
+        this.listCards = cards.results.map(
+          c => this.cardAdapter(new Card(c))
+        );
+      }
+    );
+  }
+
+  reservationAdapter(reservation) {
     let detail = '';
     detail += reservation.getStartDay();
     detail += ' (';
@@ -93,6 +123,14 @@ export class ProfileComponent implements OnInit {
     return {
       id: reservation.id,
       start_event: detail,
+    };
+  }
+
+  cardAdapter(card: Card) {
+    return {
+      id: card.id,
+      number: '**** **** **** ' + card.number,
+      expiry_date: card.expiry_date,
     };
   }
 
