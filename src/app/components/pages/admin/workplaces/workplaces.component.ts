@@ -56,7 +56,6 @@ export class WorkplacesComponent implements OnInit {
         city: null,
         state_province: null,
         country: null,
-        timezone: null,
       }
     );
   }
@@ -121,7 +120,9 @@ export class WorkplacesComponent implements OnInit {
 
   submitWorkplace() {
     if ( this.workplaceForm.valid ) {
-      this.workplaceService.create(this.workplaceForm.value).subscribe(
+      const value = this.workplaceForm.value;
+      value['timezone'] = 'America/Montreal';
+      this.workplaceService.create(value).subscribe(
         data => {
           this.notificationService.success('Ajouté');
           this.refreshWorkplaceList();
@@ -176,11 +177,6 @@ export class WorkplacesComponent implements OnInit {
           if (err.error.state_province) {
             this.workplaceForm.controls['state_province'].setErrors({
               apiError: err.error.state_province
-            });
-          }
-          if (err.error.timezone) {
-            this.workplaceForm.controls['timezone'].setErrors({
-              apiError: err.error.timezone
             });
           }
         }

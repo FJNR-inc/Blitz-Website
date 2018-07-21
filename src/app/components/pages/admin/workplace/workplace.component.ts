@@ -82,7 +82,6 @@ export class WorkplaceComponent implements OnInit {
         city: null,
         state_province: null,
         country: null,
-        timezone: null,
       }
     );
   }
@@ -171,7 +170,6 @@ export class WorkplaceComponent implements OnInit {
     this.workplaceForm.controls['city'].setValue(this.workplace.city);
     this.workplaceForm.controls['state_province'].setValue(this.workplace.state_province);
     this.workplaceForm.controls['country'].setValue(this.workplace.country);
-    this.workplaceForm.controls['timezone'].setValue(this.workplace.timezone);
     this.toogleModal('form_workplaces', 'Editer un espace de travail', 'Editer');
   }
 
@@ -190,6 +188,7 @@ export class WorkplaceComponent implements OnInit {
 
   submitWorkplace() {
     const value = this.workplaceForm.value;
+    value['timezone'] = 'America/Montreal';
     if (value['address_line2'] === '') {
       value['address_line2'] = null;
     }
@@ -248,11 +247,6 @@ export class WorkplaceComponent implements OnInit {
           if (err.error.state_province) {
             this.workplaceForm.controls['state_province'].setErrors({
               apiError: err.error.state_province
-            });
-          }
-          if (err.error.timezone) {
-            this.workplaceForm.controls['timezone'].setErrors({
-              apiError: err.error.timezone
             });
           }
         }
