@@ -189,8 +189,12 @@ export class WorkplaceComponent implements OnInit {
   }
 
   submitWorkplace() {
+    const value = this.workplaceForm.value;
+    if (value['address_line2'] === '') {
+      value['address_line2'] = null;
+    }
     if ( this.workplaceForm.valid ) {
-      this.workplaceService.update(this.workplace.url, this.workplaceForm.value).subscribe(
+      this.workplaceService.update(this.workplace.url, value).subscribe(
         data => {
           this.notificationService.success('Ajouté');
           this.refreshWorkplace();
