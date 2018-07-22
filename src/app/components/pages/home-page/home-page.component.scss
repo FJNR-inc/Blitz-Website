@@ -105,7 +105,8 @@
     padding: 10px 10px 10px 0;
     font-size: 16px;
     box-shadow: 15px 0 20px grey;
-    width: calc(100% - 40px);
+    width: calc(100% - 80px);
+    margin: auto;
 
     &__select {
       display: none;
@@ -171,6 +172,7 @@
 
         &__logo {
           height: 70px;
+          max-width: 100%;
         }
       }
     }
@@ -208,6 +210,9 @@
     &__espace {
       height: inherit;
       flex-direction: column;
+      box-shadow: none;
+      width: inherit;
+      margin: inherit;
 
       &__select {
         display: block;
