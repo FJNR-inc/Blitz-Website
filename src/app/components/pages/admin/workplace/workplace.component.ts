@@ -42,10 +42,6 @@ export class WorkplaceComponent implements OnInit {
     removeButton: true,
     columns: [
       {
-        name: 'period',
-        title: 'Période'
-      },
-      {
         name: 'day',
         title: 'Jour'
       },
@@ -129,7 +125,6 @@ export class WorkplaceComponent implements OnInit {
       day: timeSlot.getStartDay(),
       start: timeSlot.getStartTime(),
       end: timeSlot.getEndTime(),
-      period: timeSlot.period.name,
       price: timeSlot.price
     };
   }
