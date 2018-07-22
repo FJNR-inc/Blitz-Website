@@ -6,5 +6,5 @@ export class Picture extends BaseModel {
   url: string;
   name: string;
   picture: string;
-  workplace: Workplace;
+  workplace: string;
 }

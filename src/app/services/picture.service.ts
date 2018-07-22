@@ -16,10 +16,14 @@ export class PictureService extends GlobalService {
   }
 
   create(picture: Picture): Observable<any> {
-    const headers = this.getHeaders();
+    const headers = this.getHeaders(null);
+    const formData = new FormData();
+    formData.append('picture', picture.picture);
+    formData.append('workplace', picture.workplace);
+    formData.append('name', picture.name);
     return this.http.post<any>(
       this.url_pictures,
-      picture,
+      formData,
       {headers: headers}
     );
   }

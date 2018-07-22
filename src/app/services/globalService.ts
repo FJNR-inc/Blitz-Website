@@ -3,13 +3,15 @@ import {environment} from '../../environments/environment';
 
 export default class GlobalService {
 
-  getHeaders() {
+  getHeaders(contentType: string = 'application/json') {
     const options = {
-      'Content-Type': 'application/json',
       'Accept-Language': environment.default_language
     };
 
     const token = localStorage.getItem('token');
+    if (contentType) {
+      options['Content-Type'] = contentType;
+    }
     if (token) {
       options['Authorization'] = 'Token ' + token;
     }

@@ -24,12 +24,19 @@ export class WorkplaceComponent implements OnInit {
   workplace: Workplace;
   listTimeslots: TimeSlot[];
   listPictures: Picture[];
-  listPicturesUpload: any[] = [];
+  listPicturesAdapted: any[] = [];
 
   workplaceForm: FormGroup;
   errors: string[];
 
+  customStyle = {
+    clearButton: {
+      'display': 'none'
+    },
+  };
+
   settings = {
+    title: 'Plages horaires',
     addButton: true,
     editButton: true,
     removeButton: true,
@@ -102,20 +109,16 @@ export class WorkplaceComponent implements OnInit {
             this.listPictures = pictures.results.map(
               p => new Picture(p)
             );
+            this.listPicturesAdapted = [];
+            for (const picture of this.listPictures) {
+              this.listPicturesAdapted.push({
+                'fileName': picture.name,
+                'url': picture.picture
+              });
+            }
+            console.log(this.listPicturesAdapted);
           }
         );
-      }
-    );
-  }
-
-  removePicture(picture) {
-    this.pictureService.remove(picture).subscribe(
-      data => {
-        this.notificationService.success('Supprimé', 'La photo a bien été supprimé.');
-        this.refreshWorkplace();
-      },
-      err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
       }
     );
   }
@@ -131,31 +134,37 @@ export class WorkplaceComponent implements OnInit {
     };
   }
 
-  OpenModalAddPicture() {
-    this.toogleModal('form_add_picture', 'Ajouter une photo', 'Ajouter');
-  }
-
   onUploadFinished(event) {
-    this.listPicturesUpload.push(event);
+    const newPicture = new Picture({
+      picture: event.file,
+      name: event.file.name,
+      workplace: this.workplace.url
+    });
+    this.pictureService.create(newPicture).subscribe(
+      data => {
+        this.listPictures.push(new Picture(data));
+        this.notificationService.success('Ajouté');
+      },
+      err => {
+        this.notificationService.error('Erreur');
+      }
+    );
   }
 
-  addPicture() {
-    for (const picture of this.listPicturesUpload) {
-      const newPicture = new Picture({
-        picture: picture.src,
-        name: picture.file.name,
-        workplace: this.workplace.url
-      });
-      this.pictureService.create(newPicture).subscribe(
-        data => {
-          this.notificationService.success('Ajouté');
-          this.refreshWorkplace();
-          this.toogleModal('form_add_picture');
-        },
-        err => {
-          this.notificationService.error('Erreur');
-        }
-      );
+  onRemoved(event) {
+    for (const picture of this.listPictures) {
+      console.log(picture.name);
+      console.log(event);
+      if (picture.name === event.file.name) {
+        this.pictureService.remove(picture).subscribe(
+          data => {
+            this.notificationService.success('Supprimé', 'La photo a bien été supprimé.');
+          },
+          err => {
+            this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+          }
+        );
+      }
     }
   }
 
