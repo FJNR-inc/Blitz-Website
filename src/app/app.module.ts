@@ -65,6 +65,7 @@ import { TimeslotComponent } from './components/pages/admin/timeslot/timeslot.co
 import { PictureService } from './services/picture.service';
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CardService } from './services/card.service';
+import { BackgroundLayoutComponent } from './layouts/background-layout/background-layout.component';
 
 registerLocaleData(localeFr);
 
@@ -78,32 +79,12 @@ const appRoutes = [
         component: HomePageComponent,
       },
       {
-        path: 'login',
-        component: LoginPageComponent,
-      },
-      {
-        path: 'login/:lastUrl',
-        component: LoginPageComponent,
-      },
-      {
-        path: 'logout',
-        component: LogoutPageComponent,
-      },
-      {
-        path: 'register',
-        component: RegisterPageComponent,
-      },
-      {
         path: 'register/confirmation',
         component: RegisterConfirmationPageComponent,
       },
       {
         path: 'register/activation/:token',
         component: ActivationPageComponent,
-      },
-      {
-        path: 'forgot-password',
-        component: ForgotPasswordPageComponent,
       },
       {
         path: 'forgot-password/confirmation',
@@ -128,6 +109,32 @@ const appRoutes = [
         path: '403',
         component: Error403Component,
       }
+    ]
+  },
+  {
+    path: '',
+    component: BackgroundLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'login/:lastUrl',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'logout',
+        component: LogoutPageComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterPageComponent,
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordPageComponent,
+      },
     ]
   },
   {
@@ -239,6 +246,7 @@ const appRoutes = [
     AppComponent,
     DefaultLayoutComponent,
     AdminLayoutComponent,
+    BackgroundLayoutComponent,
     HeaderComponent,
     FooterComponent,
     HomePageComponent,
