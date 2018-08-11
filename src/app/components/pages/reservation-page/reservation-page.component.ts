@@ -188,7 +188,7 @@ export class ReservationPageComponent implements OnInit {
     ];
     if (this.user.membership) {
       filters.push({'name': 'exclusive_memberships', 'value': [this.user.membership.id]});
-    } else if (this.selectedMembership){
+    } else if (this.selectedMembership) {
       filters.push({'name': 'exclusive_memberships', 'value': [this.selectedMembership.id]});
     } else {
       filters.push({'name': 'exclusive_memberships', 'value': null});

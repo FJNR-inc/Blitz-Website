@@ -19,7 +19,7 @@ export class Workplace extends BaseModel {
 
   getAddress() {
     let string = this.address_line1 + ', ';
-    if(this.address_line2) {
+    if (this.address_line2) {
       string += this.address_line2 + ', ';
     }
     string += this.city + ', ';

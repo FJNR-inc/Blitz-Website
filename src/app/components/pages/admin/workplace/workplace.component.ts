@@ -10,8 +10,8 @@ import { NotificationsService } from 'angular2-notifications';
 import { Picture } from '../../../../models/picture';
 import { PictureService } from '../../../../services/picture.service';
 import { environment } from '../../../../../environments/environment';
-import {AuthenticationService} from "../../../../services/authentication.service";
-import GlobalService from "../../../../services/globalService";
+import { AuthenticationService } from '../../../../services/authentication.service';
+import GlobalService from '../../../../services/globalService';
 
 @Component({
   selector: 'app-workplace',

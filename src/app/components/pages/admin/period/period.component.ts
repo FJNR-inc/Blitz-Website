@@ -134,8 +134,7 @@ export class PeriodComponent implements OnInit {
           this.timeslotForm.controls['force_update'].setErrors({
             apiError: ['Vous devez comprendre les repercutions de cet acte avant de valider!']
           });
-        }
-        else {
+        } else {
           this.timeslotService.update(this.selectedTimeslot.url, value).subscribe(
             data => {
               this.notificationService.success('Modifié');

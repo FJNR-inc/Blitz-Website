@@ -31,3 +31,8 @@ script:
 # after_success:
 #   - npm run coveralls
 
+deploy:
+  provider: s3
+  access_key_id: $aws_access_key_id
+  secret_access_key: $aws_access_key_id
+  bucket: "testdjangofjnr-frontendbucket-g036llhmmugz"
