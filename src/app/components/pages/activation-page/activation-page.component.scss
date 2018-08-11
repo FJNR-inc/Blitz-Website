@@ -1,0 +1,27 @@
+@import '../../../../assets/scss/theme';
+
+.activation-page {
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    text-align: center;
+    max-width: 600px;
+
+    &__icon {
+      font-size: 70px;
+      color: $color-main;
+    }
+
+    &__title {
+      font-size: 25px;
+    }
+
+    &__sub-title {
+      margin: 20px 0;
+    }
+  }
+}

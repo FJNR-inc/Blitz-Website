@@ -1,0 +1,34 @@
+.espace-detail {
+  &__title {
+    text-transform: uppercase;
+    font-size: 27px;
+    letter-spacing: 5px;
+    font-weight: 900;
+  }
+
+  &__description {
+    margin-top: 20px;
+  }
+
+  &__list {
+    display: table;
+    margin-top: 20px;
+
+    &__item {
+      display: table-row;
+      height: 60px;
+
+      &__icon {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      &__text {
+        display: table-cell;
+        padding-left: 20px;
+        vertical-align: middle;
+      }
+    }
+  }
+}

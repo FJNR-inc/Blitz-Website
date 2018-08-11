@@ -1,0 +1,61 @@
+<div class="admin-academics-page">
+  <div class="admin-academics-page__title">
+    <h2>Niveaux d'études</h2>
+  </div>
+  <div class="admin-academics-page__levels">
+    <app-my-table [settings]="settingsLevel"
+                  [data]="listAcademicLevels"
+                  (addButton)="OpenModalCreateLevel()"
+                  (editItem)="OpenModalEditLevel($event)"
+                  (removeItem)="removeLevel($event)"
+                  (changePage)="changePageLevel($event)"></app-my-table>
+  </div>
+
+  <div class="admin-academics-page__title">
+    <h2>Domaines d'études</h2>
+  </div>
+  <div class="admin-academics-page__fields">
+    <app-my-table [settings]="settingsField"
+                  [data]="listAcademicFields"
+                  (addButton)="OpenModalCreateField()"
+                  (editItem)="OpenModalEditField($event)"
+                  (removeItem)="removeField($event)"
+                  (changePage)="changePageField($event)"></app-my-table>
+  </div>
+</div>
+
+<app-my-modal name="form_academic_fields"
+              typeModal="success"
+              (button2)="submitField()">
+  <form [formGroup]="fieldForm">
+    <div *ngFor="let error of fieldErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <label for="fieldName" class="form-label">Nom :</label>
+      <input formControlName="name" type="text" id="fieldName" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of fieldForm.controls['name'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</app-my-modal>
+
+<app-my-modal name="form_academic_levels"
+              typeModal="success"
+              (button2)="submitLevel()">
+  <form [formGroup]="levelForm">
+    <div *ngFor="let error of levelErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <label for="levelName" class="form-label">Nom :</label>
+      <input formControlName="name" type="text" id="levelName" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of levelForm.controls['name'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</app-my-modal>

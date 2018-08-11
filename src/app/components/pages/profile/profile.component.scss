@@ -1,0 +1,65 @@
+@import '../../../../assets/scss/theme';
+
+.profile-page {
+  &__header {
+    background-color: $color-main;
+    min-height: 200px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    padding: 20px;
+
+    &__informations {
+
+      &__name {
+        font-weight: 900;
+        font-size: 30px;
+        display: flex;
+        align-items: flex-start;
+
+        &__edit {
+          font-size: 10px;
+          margin-left: 10px;
+        }
+      }
+
+      &__university {
+        margin-top: 20px;
+        font-size: 14px;
+      }
+    }
+
+    &__right {
+      display: flex;
+      align-items: center;
+
+      &__status {
+        text-align: center;
+        font-weight: 900;
+        font-size: 20px;
+        margin: 0 40px;
+
+        &__main {
+          font-size: 50px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+
+  &__sections {
+    padding: 20px;
+  }
+}
+
+@media only screen and (max-width: 955px) {
+  .profile-page {
+    &__header {
+      flex-direction: column;
+
+      &__right {
+        flex-direction: column;
+      }
+    }
+  }
+}

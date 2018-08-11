@@ -1,0 +1,20 @@
+.error-403-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: 100%;
+
+  &__title{
+    font-size: 50px;
+  }
+
+  &__subtitle {
+    font-size: 25px;
+  }
+
+  &__explanations {
+    margin-top: 50px;
+  }
+}

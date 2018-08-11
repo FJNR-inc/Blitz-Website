@@ -1,0 +1,25 @@
+@import "../../../assets/scss/theme.scss";
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-main;
+  padding: 20px;
+  color: white;
+  text-align: center;
+
+  &__links {
+    margin-bottom: 10px;
+
+    &__link {
+      padding: 3px 10px;
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        color: white;
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+}

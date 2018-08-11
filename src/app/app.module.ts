@@ -1,18 +1,324 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import localeFr from '@angular/common/locales/fr';
 
 import { AppComponent } from './app.component';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
+import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { ForgotPasswordPageComponent } from './components/pages/forgot-password-page/forgot-password-page.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { UserService } from './services/user.service';
+import { AuthenticationService } from './services/authentication.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ReservationPageComponent } from './components/pages/reservation-page/reservation-page.component';
+import { CalendarModule } from 'angular-calendar';
+import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
+import { AcademicFieldService } from './services/academic-field.service';
+import { AcademicLevelService } from './services/academic-level.service';
+import { OrganizationService } from './services/organization.service';
+import { UsersPageComponent } from './components/pages/admin/users-page/users-page.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { MyTableComponent } from './components/my-table/my-table.component';
+import { MyHttpInterceptor } from './my-http-interceptor';
+import { UserPageComponent } from './components/pages/admin/user-page/user-page.component';
+import { OrganizationsPageComponent } from './components/pages/admin/organizations-page/organizations-page.component';
+import { AcademicsPageComponent } from './components/pages/admin/academics-page/academics-page.component';
+import { MyModalComponent } from './components/my-modal/my-modal.component';
+import { MyModalService } from './services/my-modal/my-modal.service';
+import { RegisterConfirmationPageComponent } from './components/pages/register-confirmation-page/register-confirmation-page.component';
+import { ActivationPageComponent } from './components/pages/activation-page/activation-page.component';
+import { CanActivateViaAuthGuard } from './guards/CanActivateViaAuthGuard';
+import { CanAccessAdminPanelGuard } from './guards/CanAccessAdminPanelGuard';
+// tslint:disable-next-line:max-line-length
+import { ForgotPasswordConfirmationPageComponent } from './components/pages/forgot-password-confirmation-page/forgot-password-confirmation-page.component';
+import { ResetPasswordPageComponent } from './components/pages/reset-password-page/reset-password-page.component';
+import { WorkplaceService } from './services/workplace.service';
+import { WorkplacesComponent } from './components/pages/admin/workplaces/workplaces.component';
+import { ProfileService } from './services/profile.service';
+import { TimeSlotService } from './services/time-slot.service';
+import { registerLocaleData } from '@angular/common';
+import { PermissionsDirective } from './directives/permissions.directive';
+import { WorkplaceComponent } from './components/pages/admin/workplace/workplace.component';
+import { AuthenticatedDirective } from './directives/authenticated.directive';
+import { Error403Component } from './components/error-403/error-403.component';
+import { OrganizationComponent } from './components/pages/admin/organization/organization.component';
+import { DomainService } from './services/domain.service';
+import { PeriodsComponent } from './components/pages/admin/periods/periods.component';
+import { PeriodService } from './services/period.service';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { PeriodComponent } from './components/pages/admin/period/period.component';
+import { MembershipService } from './services/membership.service';
+import { ReservationPackageService } from './services/reservation-package.service';
+import { MembershipsComponent } from './components/pages/admin/memberships/memberships.component';
+// tslint:disable-next-line:max-line-length
+import { ReservationPackagesComponent } from './components/pages/admin/reservation-packages/reservation-packages.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
+import { MyModalOpenDirective } from './directives/my-modal-open-directive.directive';
+import { TimeslotComponent } from './components/pages/admin/timeslot/timeslot.component';
+import { PictureService } from './services/picture.service';
+import { ImageUploadModule } from 'angular2-image-upload';
+import { CardService } from './services/card.service';
+import { BackgroundLayoutComponent } from './layouts/background-layout/background-layout.component';
 
+registerLocaleData(localeFr);
+
+const appRoutes = [
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: HomePageComponent,
+      },
+      {
+        path: 'register/confirmation',
+        component: RegisterConfirmationPageComponent,
+      },
+      {
+        path: 'register/activation/:token',
+        component: ActivationPageComponent,
+      },
+      {
+        path: 'forgot-password/confirmation',
+        component: ForgotPasswordConfirmationPageComponent,
+      },
+      {
+        path: 'reset-password/:token',
+        component: ResetPasswordPageComponent,
+      },
+      {
+        path: 'reservation/:id',
+        component: ReservationPageComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: '403',
+        component: Error403Component,
+      }
+    ]
+  },
+  {
+    path: '',
+    component: BackgroundLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'login/:lastUrl',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'logout',
+        component: LogoutPageComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterPageComponent,
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordPageComponent,
+      },
+    ]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: 'admin/users',
+        component: UsersPageComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/users/:id',
+        component: UserPageComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/organizations',
+        component: OrganizationsPageComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/organization/:id',
+        component: OrganizationComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/academics',
+        component: AcademicsPageComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/workplaces',
+        component: WorkplacesComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/workplaces/:id',
+        component: WorkplaceComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/periods',
+        component: PeriodsComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/periods/:id',
+        component: PeriodComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/memberships',
+        component: MembershipsComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/offers',
+        component: ReservationPackagesComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/timeslot/:id',
+        component: TimeslotComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+    ]
+  }
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DefaultLayoutComponent,
+    AdminLayoutComponent,
+    BackgroundLayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    HomePageComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    ForgotPasswordPageComponent,
+    ReservationPageComponent,
+    LogoutPageComponent,
+    UsersPageComponent,
+    MyTableComponent,
+    UserPageComponent,
+    OrganizationsPageComponent,
+    AcademicsPageComponent,
+    MyModalComponent,
+    RegisterConfirmationPageComponent,
+    ActivationPageComponent,
+    ForgotPasswordConfirmationPageComponent,
+    ResetPasswordPageComponent,
+    WorkplacesComponent,
+    PermissionsDirective,
+    WorkplaceComponent,
+    AuthenticatedDirective,
+    Error403Component,
+    OrganizationComponent,
+    PeriodsComponent,
+    PeriodComponent,
+    MembershipsComponent,
+    ReservationPackagesComponent,
+    ProfileComponent,
+    MyModalOpenDirective,
+    TimeslotComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true }
+    ),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SimpleNotificationsModule.forRoot(),
+    CalendarModule.forRoot(),
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    ImageUploadModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    CanActivateViaAuthGuard,
+    CanAccessAdminPanelGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true,
+    },
+    MyModalService,
+    UserService,
+    AuthenticationService,
+    AcademicFieldService,
+    AcademicLevelService,
+    OrganizationService,
+    WorkplaceService,
+    ProfileService,
+    TimeSlotService,
+    DomainService,
+    PeriodService,
+    MembershipService,
+    ReservationPackageService,
+    PictureService,
+    CardService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

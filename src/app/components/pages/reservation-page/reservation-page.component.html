@@ -1,0 +1,282 @@
+<div class="reservation-page" *ngIf="workplace">
+  <div class="reservation-page__details">
+    <div class="reservation-page__details__text espace-detail">
+      <div class="espace-detail__title">
+        {{ workplace.name }}
+      </div>
+      <div class="espace-detail__description">
+        {{ workplace.details }}
+      </div>
+      <div class="espace-detail__list">
+        <div class="espace-detail__list__item">
+          <div class="espace-detail__list__item__icon">
+            <i class="fa fa-3x fa-home"></i>
+          </div>
+          <div class="espace-detail__list__item__text">
+            {{workplace.address_line1}}<br/>
+            {{workplace.city}}, {{workplace.state_province}} {{workplace.postal_code}}
+          </div>
+        </div>
+        <div class="espace-detail__list__item">
+          <div class="espace-detail__list__item__icon">
+            <i class="fa fa-3x fa-clipboard-list"></i>
+          </div>
+          <div class="espace-detail__list__item__text">
+            Membership requis
+          </div>
+        </div>
+        <div class="espace-detail__list__item">
+          <div class="espace-detail__list__item__icon">
+            <i class="far fa-3x fa-building"></i>
+          </div>
+          <div class="espace-detail__list__item__text">
+            {{ workplace.seats }} places disponibles
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reservation-page__details__pictures">
+      <div class="reservation-page__details__pictures__preview">
+        <img *ngIf="workplace.pictures[1]" class="reservation-page__details__pictures__preview__item" src="{{ workplace.pictures[1] }}" />
+        <img *ngIf="workplace.pictures[2]" class="reservation-page__details__pictures__preview__item" src="{{ workplace.pictures[2] }}" />
+        <img *ngIf="workplace.pictures[3]" class="reservation-page__details__pictures__preview__item" src="{{ workplace.pictures[3] }}" />
+      </div>
+      <img *ngIf="workplace.pictures[0]" class="reservation-page__details__pictures__main" src="{{ workplace.pictures[0] }}" />
+    </div>
+  </div>
+  <div class="reservation-page__reservation">
+    <div class="reservation-page__reservation__calendar">
+      <div class="reservation-page__reservation__calendar__actions">
+        <a class="button-icon button-icon--reverse">
+          <span class="button-icon__icon button-icon--reverse__icon">
+            <i class="fa fa-caret-left"></i>
+          </span>
+          <span class="button-icon__text button-icon--reverse__text"
+                mwlCalendarPreviousView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="activeDayIsOpen = false">
+            Précédent
+          </span>
+        </a>
+        <a class="button-icon"
+           mwlCalendarNextView
+           [view]="view"
+           [(viewDate)]="viewDate"
+           (viewDateChange)="activeDayIsOpen = false">
+          <span class="button-icon__text">Suivant</span>
+          <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+        </a>
+      </div>
+      <div class="reservation-page__reservation__calendar__title">
+        <h2>
+          {{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}
+        </h2>
+      </div>
+      <div [ngSwitch]="view" class="page-homepage__calendar">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          [weekStartsOn]="weekStartsOn"
+          [locale]="locale"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="eventClicked($event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+      </div>
+    </div>
+    <div class="reservation-page__reservation__form">
+      <div class="alert alert--warning" *ngIf="!user">
+        <p>
+          Pour réserver une plage horaire dans un espace de travail
+          vous devez d'abord <a (click)="goToLoginPage()">vous connecter</a> ou
+          bien vous <a routerLink="/register">créer un compte</a>.
+        </p>
+      </div>
+      <div class="reservation-page__reservation__form__ticket" *ngIf="user">
+        <div class="reservation-page__reservation__form__ticket__title">
+          Détails
+        </div>
+        <div *ngIf="selectedTimeSlots.length === 0" class="alert alert--info">
+          Aucune plage horaire sélectionnée.
+        </div>
+        <div *ngFor="let timeslot of selectedTimeSlots" class="reservation-page__reservation__form__ticket__line">
+          <div class="reservation-page__reservation__form__ticket__line__title">
+            {{ timeslot.getStartDay() }} ({{ timeslot.getStartTime() }} - {{ timeslot.getEndTime() }})
+          </div>
+          <div class="reservation-page__reservation__form__ticket__line__actions">
+            <a (click)="removeFromCart(timeslot)">
+              <i class="fa fa-times" style="color: darkred;"></i>
+            </a>
+          </div>
+        </div>
+        <div *ngFor="let package of selectedPackages" class="reservation-page__reservation__form__ticket__line">
+          <div class="reservation-page__reservation__form__ticket__line__title">
+            {{ package.name }} - {{ package.reservations }} ticket(s) ({{ package.price }} $CAN)
+          </div>
+          <div class="reservation-page__reservation__form__ticket__line__actions">
+            <a (click)="removePackageFromCart(package)">
+              <i class="fa fa-times" style="color: darkred;"></i>
+            </a>
+          </div>
+        </div>
+        <div *ngIf="selectedMembership" class="reservation-page__reservation__form__ticket__line">
+          <div class="reservation-page__reservation__form__ticket__line__title">
+            Membership {{ selectedMembership.name }} ({{ selectedMembership.price }} $CAN)
+          </div>
+          <div class="reservation-page__reservation__form__ticket__line__actions">
+            <a (click)="removeMembershipFromCart()">
+              <i class="fa fa-times" style="color: darkred;"></i>
+            </a>
+          </div>
+        </div>
+        <div class="reservation-page__reservation__form__ticket__total">
+          <div class="reservation-page__reservation__form__ticket__total__title">
+            TOTAL:
+          </div>
+          <div class="reservation-page__reservation__form__ticket__total__values">
+            {{ totalTicket }} ticket(s)<br/>
+            {{ totalPrice }} $CAN
+          </div>
+        </div>
+      </div>
+
+      <div class="reservation-page__reservation__form__box"
+           *ngIf="user && (user.membership || user.tickets >= totalTicket)">
+        <div class="alert alert--success">
+          <div class="alert__content">
+            <p *ngIf="user && user.membership">
+              <i class="fas fa-check"></i> Votre membership est encore valide.
+            </p>
+            <p *ngIf="user && user.tickets >= totalTicket">
+              <i class="fas fa-check"></i> Il vous reste {{ user.tickets - totalTicket }} ticket(s) disponible(s).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <form class="reservation-page__reservation__form__box" *ngIf="needToBuyMembership()">
+        <div class="alert alert--warning">
+          <div class="alert__icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="alert__content">
+            Les plages horaires de cet espace de travail
+            nécessitent un membership valide pour être
+            réservées. Veuillez sélectionner un type
+            de membership à acheter.
+          </div>
+        </div>
+        <div class="reservation-page__reservation__form__box__content">
+          <div class="form-group">
+            <label for="membership" class="form-label">Type de membership :</label>
+            <select [(ngModel)]="currentMembership" name="membership" id="membership" class="form-input">
+              <option *ngFor="let membership of listMembership" value="{{membership.id}}">
+                {{ membership.name }} - {{ membership.price }}$CAN
+              </option>
+            </select>
+          </div>
+          <button (click)="addMembership()"
+                  type="submit"
+                  class="button-icon button-icon--full-width button-icon--main">
+            <span class="button-icon__text">Ajouter au panier</span>
+            <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+          </button>
+        </div>
+      </form>
+
+      <form class="reservation-page__reservation__form__box" *ngIf="needToBuyPackage()">
+        <div class="alert alert--warning">
+          <div class="alert__icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="alert__content">
+            Vous avez besoin de {{ totalTicket }} tickets, soit
+            {{ totalTicket - user.tickets }} tickets de plus que ceux disponibles sur votre compte.
+            Veuillez sélectionner le forfait que vous souhaitez acheter.
+          </div>
+        </div>
+        <div class="reservation-page__reservation__form__box__content">
+          <div class="form-group">
+            <label for="package" class="form-label">Forfaits :</label>
+            <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="form-input">
+              <option *ngFor="let package of listReservationPackage" value="{{package.id}}">
+                {{ package.reservations }} ticket(s) - {{ package.price }}$CAN
+              </option>
+            </select>
+          </div>
+          <button (click)="addPackage()" type="submit" class="button-icon button-icon--full-width button-icon--main">
+            <span class="button-icon__text">Ajouter au panier</span>
+            <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+          </button>
+        </div>
+      </form>
+
+      <form class="reservation-page__reservation__form__payment" *ngIf="selectedTimeSlots.length">
+        <div class="form-group" *ngIf="needToUseCard()">
+          <div *ngIf="listCards.length">
+            <label for="card" class="form-label">Mode de paiement :</label>
+            <select id="card" class="form-input" (change)="selectCard($event)">
+              <option value="none">Choisir une carte de paiement</option>
+              <option value="{{card.url}}" *ngFor="let card of listCards">
+                **** **** **** {{card.number}} ({{card.expiry_date}})
+              </option>
+            </select>
+            <div class="form-text form-text--right">
+              <a (click)="ToggleModalAddCard()">Ajouter une nouvelle carte</a>
+            </div>
+          </div>
+          <div *ngIf="!listCards.length" class="alert alert--warning">
+            <div class="alert__icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="alert__content">
+              Vous n'avez pas de carte de paiement enregistre pour le moment.<br/>
+              <a (click)="ToggleModalAddCard()">Ajouter une nouvelle carte</a> afin de finaliser votre reservation.
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="button-icon button-icon--full-width button-icon--main" [disabled]="!canFinalizePayment()">
+          <span class="button-icon__text">Réserver</span>
+          <span class="button-icon__icon">
+            <i class="fa fa-caret-right"></i>
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-my-modal name="form_credit_card"
+              class="modal-credit-card"
+              typeModal="success"
+              (button2)="generateCardToken()">
+  <form class="modal-credit-card__form">
+    <div *ngFor="let errorMessage of error" class="alert alert--danger modal-credit-card__form__alert">
+      {{ errorMessage }}
+    </div>
+    <div class="form-group">
+      <label for="card-number" class="form-label">Numéro de la carte*:</label>
+      <div id="card-number" class="modal-credit-card__form__field"></div>
+    </div>
+    <div class="modal-credit-card__form__expiration">
+      <div class="form-group modal-credit-card__form__expiration__item">
+        <label for="expiration-date" class="form-label">Date d'expiration*:</label>
+        <div id="expiration-date" class="modal-credit-card__form__field"></div>
+      </div>
+      <div class="form-group modal-credit-card__form__expiration__item">
+        <label for="cvv" class="form-label">CVV*:</label>
+        <div id="cvv" class="modal-credit-card__form__field"></div>
+      </div>
+    </div>
+  </form>
+</app-my-modal>

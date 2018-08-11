@@ -1,0 +1,200 @@
+@import "../../../../assets/scss/_theme.scss";
+
+.reservation-page {
+
+  &__details{
+    padding: 30px;
+    background-color: $color-main;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+
+    &__text {
+      padding-right: 20px;
+      text-align: justify;
+    }
+
+    &__pictures {
+      display: flex;
+
+      &__preview {
+        display: flex;
+        flex-direction: column;
+
+        &__item {
+          height: 100px;
+          margin: 10px;
+
+          &:hover {
+            cursor: pointer;
+            box-shadow: 2px 2px 10px black;
+          }
+
+          &:first-of-type {
+            margin-top: 0;
+          }
+        }
+      }
+
+      &__main {
+        height: 340px;
+
+        &:hover {
+          cursor: pointer;
+          box-shadow: 2px 2px 10px black;
+        }
+      }
+    }
+  }
+
+  &__reservation {
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 50px;
+
+    &__calendar {
+      flex: 2;
+      padding: 0 20px 20px 20px;
+
+      &__actions {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__title {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    &__form {
+      flex: 1;
+
+      &__date {
+        border: 2px solid $color-main;
+        padding: 15px;
+      }
+
+      &__ticket {
+        margin-top: 20px;
+        border: 2px solid $color-main;
+
+        &__title {
+          padding: 15px;
+          text-transform: uppercase;
+          font-size: 20px;
+          letter-spacing: 5px;
+          color: $color-main;
+          font-weight: 900;
+        }
+
+        &__line {
+          padding: 10px;
+          display: flex;
+          justify-content: space-between;
+          background-color: white;
+
+          &:nth-child(odd) {
+            background-color: $color-hover-main;
+          }
+        }
+
+        &__total {
+          padding: 15px;
+          text-transform: uppercase;
+          font-size: 20px;
+          font-weight: 900;
+          background-color: $color-main;
+          color: white;
+          display: flex;
+          justify-content: space-between;
+
+          &__values {
+            text-align: right;
+          }
+        }
+      }
+
+      &__box {
+        margin-top: 20px;
+        border: 2px solid $color-main;
+
+        &__content {
+          padding: 15px;
+        }
+      }
+
+      &__payment {
+        margin-top: 20px;
+        border: 2px solid $color-main;
+        padding: 15px;
+      }
+    }
+  }
+}
+
+.modal-credit-card {
+  &__form {
+
+    &__alert {
+      margin-bottom: 10px;
+    }
+
+    &__field {
+      height: 32px;
+      margin-bottom: 1em;
+      display: block;
+      background-color: transparent;
+      color: rgba(0, 0, 0, .87);
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, .26);
+      outline: 0;
+      width: 100%;
+      font-size: 16px;
+      padding: 0;
+      box-shadow: none;
+      border-radius: 0;
+      position: relative;
+    }
+
+    &__expiration {
+      display: flex;
+      align-content: space-between;
+
+      &__item {
+        width: 100%;
+
+        & + .modal-credit-card__form__expiration__item {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 955px) {
+  .reservation-page {
+    &__details {
+      flex-direction: column-reverse;
+
+      &__pictures {
+
+        &__preview {
+          display: none;
+        }
+
+        &__main {
+          height: inherit;
+          width: 100%;
+          margin: 20px 0;
+        }
+      }
+    }
+
+    &__reservation {
+      flex-direction: column;
+    }
+  }
+}

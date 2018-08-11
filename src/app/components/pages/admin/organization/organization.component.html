@@ -1,0 +1,47 @@
+<div class="admin-organization-page" *ngIf="organization">
+  <div class="admin-organization-page__title">
+    <h2>{{ organization.name }}</h2>
+  </div>
+  <div class="admin-organization-page__actions">
+    <div>
+      <!-- Space for some filters -->
+    </div>
+    <div>
+      <!-- Space for button actions -->
+    </div>
+  </div>
+  <div class="admin-organization-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="organization.domains"
+                  (addButton)="OpenModalCreateDomain()"
+                  (editItem)="OpenModalEditDomain($event)"
+                  (removeItem)="removeDomain($event)">
+    </app-my-table>
+  </div>
+</div>
+
+<app-my-modal name="form_domain"
+              typeModal="success"
+              (button2)="submitDomain()">
+  <form [formGroup]="domainForm">
+    <div *ngFor="let error of domainErrors" class="alert alert--danger">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <label for="domainName" class="form-label">Nom de domaine:</label>
+      <input formControlName="name" type="text" id="domainName" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of domainForm.controls['name'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="domainExample" class="form-label">Exemple :</label>
+      <input formControlName="example" type="text" id="domainExample" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of domainForm.controls['example'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</app-my-modal>

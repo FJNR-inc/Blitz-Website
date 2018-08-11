@@ -1,0 +1,120 @@
+<div class="admin-workplace-page" *ngIf="workplace">
+  <div class="admin-workplace-page__header">
+      <div class="admin-workplace-page__header__name">
+        {{ workplace.name }}
+        <a class="admin-workplace-page__header__name__edit button" (click)="OpenModalEditWorkplace()">
+          <i class="fas fa-pencil-alt"></i> Éditer les informations generale
+        </a>
+      </div>
+      <div class="admin-workplace-page__header__informations">
+        <i class="fas fa-location-arrow"></i> {{ workplace.getAddress() }}<br/>
+      </div>
+      <div class="admin-workplace-page__header__informations">
+        <i class="fas fa-building"></i> {{ workplace.seats }} places disponibles
+      </div>
+      <p class="admin-workplace-page__header__details">
+        {{ workplace.details }}
+      </p>
+  </div>
+  <div class="admin-workplace-page__pictures" *ngIf="listPictures">
+    <h2>Photo de l'espace</h2>
+    <image-upload [url]=""
+                  buttonCaption="Selectionner une photo"
+                  dropBoxMessage="ou glissez votre image ici"
+                  clearButtonCaption=""
+                  (uploadFinished)="onUploadFinished($event)"
+                  (removed)="onRemoved($event)"
+                  [uploadedFiles]="listPicturesAdapted"
+                  [style]="customStyle"></image-upload>
+  </div>
+  <div class="admin-workplace-page__timeslots">
+    <div>
+      <app-my-table [settings]="settings"
+                    [data]="listTimeslots">
+      </app-my-table>
+    </div>
+  </div>
+</div>
+
+<app-my-modal name="form_workplaces"
+              typeModal="success"
+              (button2)="submitWorkplace()">
+  <form [formGroup]="workplaceForm" *ngIf="workplaceForm">
+    <div *ngFor="let error of errors" class="alert alert--danger">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <label for="name" class="form-label">Nom:</label>
+      <input formControlName="name" type="text" id="name" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['name'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="details" class="form-label">Description:</label>
+      <textarea formControlName="details" id="details" class="form-input form-input--textarea">
+          </textarea>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['details'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="seats" class="form-label">Nombre de place:</label>
+      <input formControlName="seats" type="text" id="seats" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['seats'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="address_line1" class="form-label">1ere ligne d'adresse:</label>
+      <input formControlName="address_line1" type="text" id="address_line1" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['address_line1'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="address_line2" class="form-label">2nd ligne d'adresse:</label>
+      <input formControlName="address_line2" type="text" id="address_line2" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['address_line2'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="postal_code" class="form-label">Code postal:</label>
+      <input formControlName="postal_code" type="text" id="postal_code" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['postal_code'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="city" class="form-label">Ville:</label>
+      <input formControlName="city" type="text" id="city" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['city'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="state_province" class="form-label">Etat/Province:</label>
+      <input formControlName="state_province" type="text" id="state_province" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['state_province'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="country" class="form-label">Pays:</label>
+      <input formControlName="country" type="text" id="country" class="form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of workplaceForm.controls['country'].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</app-my-modal>

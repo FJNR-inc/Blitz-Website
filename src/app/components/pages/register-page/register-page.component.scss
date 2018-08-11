@@ -1,0 +1,40 @@
+@import "../../../../assets/scss/_theme.scss";
+
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    margin: 50px 0;
+    border: 5px solid $color-main;
+    padding: 20px;
+    margin-bottom: 100px;
+    width: 600px;
+    background-color: white;
+
+    &__header {
+      text-align: center;
+    }
+
+    &__form {
+      &__birthday {
+        display: flex;
+
+        &__item {
+          padding-right: 20px;
+
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+
+    &__actions {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

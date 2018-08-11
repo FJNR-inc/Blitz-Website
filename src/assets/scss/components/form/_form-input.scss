@@ -1,0 +1,27 @@
+.form-input {
+  border: 1px solid lightgrey;
+  width: 100%;
+  padding: 5px;
+  background-color: white;
+
+  &[type='checkbox']{
+    width: inherit;
+  }
+
+  &--textarea {
+    height: 200px;
+    max-width: 100%;
+  }
+
+  &.ng-invalid.ng-touched  {
+    border-color: $color-danger-border;
+    box-shadow: 0 0 5px $color-danger-border;
+    margin-top: 5px;
+  }
+
+  &.ng-valid.ng-touched {
+    border-color: $color-success-border;
+    box-shadow: 0 0 5px $color-success-border;
+    margin-top: 5px;
+  }
+}

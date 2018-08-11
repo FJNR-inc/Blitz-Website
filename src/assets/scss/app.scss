@@ -1,0 +1,33 @@
+/*****
+Import all basic file
+*****/
+
+@import "_reset.scss";
+@import "_easings.scss";
+@import "_theme.scss";
+@import "_site.scss";
+@import "_layout.scss";
+
+/*****
+Import components
+
+example:
+@import "components/_buttons.scss";
+*****/
+
+@import "components/_button.scss";
+@import "components/_alert.scss";
+@import "components/_separator.scss";
+@import "components/form/_form-group.scss";
+@import "components/form/_form-input.scss";
+@import "components/form/_form-text.scss";
+@import "components/form/_form-label.scss";
+@import "components/_espace-detail.scss";
+@import "components/calendar/_calendar.scss";
+
+/*****
+Import pages
+
+example:
+@import "pages/_home.scss";
+*****/

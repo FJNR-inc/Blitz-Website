@@ -1,0 +1,73 @@
+<div class="my-table__actions">
+  <div>
+    <h2 class="my-table__actions__title" *ngIf="settings.title">
+      {{settings.title}}
+    </h2>
+  </div>
+  <div>
+    <a class="button" *ngIf="settings.addButton" (click)="add()">
+      Ajouter
+      <i class="fa fa-plus"></i>
+    </a>
+  </div>
+</div>
+<table class="my-table__table">
+  <tr class="my-table__table__header">
+    <th *ngFor="let column of settings.columns" class="my-table__table__header__column">
+      {{ column.title }}
+    </th>
+    <th *ngIf="settings.editButton || settings.removeButton" class="my-table__table__header__column my-table__table__header__column--actions">
+      Actions
+    </th>
+  </tr>
+  <tr *ngIf="data && data.length === 0" class="my-table__table__no-data">
+    <td [colSpan]="settings.columns.length" class="my-table__table__no-data__cell">
+      {{settings.noDataText}}
+    </td>
+  </tr>
+  <tr *ngFor="let item of data"
+      [ngClass]="{'my-table__table__line--clickable' : settings.clickable}"
+      (click)="clickItem($event, item)"
+      class="my-table__table__line">
+    <td *ngFor="let column of settings.columns"
+        class="my-table__table__line__cell">
+      <span *ngIf="column.type === 'boolean' && item[column.name] === true">
+        <i class="fa fa-check" style="color: green;"></i>
+      </span>
+      <span *ngIf="column.type === 'boolean' && item[column.name] === false">
+        <i class="fa fa-times" style="color: darkred;"></i>
+      </span>
+      <span *ngIf="column.type !== 'boolean'">
+        {{ item[column.name] }}
+      </span>
+    </td>
+    <td class="my-table__table__line__cell my-table__table__line__cell--actions"
+        *ngIf="settings.editButton || settings.removeButton">
+      <a *ngIf="settings.editButton"
+         class="my-table__table__line__cell--actions__edit"
+         (click)="edit(item)">
+        <i class="fas fa-pencil-alt actionnable"></i>
+      </a>
+      <a *ngIf="settings.removeButton"
+         class="my-table__table__line__cell--actions__remove"
+         (click)="confirmRemove(item)">
+        <i class="fa fa-trash actionnable"></i>
+      </a>
+    </td>
+  </tr>
+</table>
+<div class="my-table__pagination">
+  <button *ngFor="let page of pagination"
+     (click)="goToPage(page.index)"
+     class="my-table__pagination__page"
+     [disabled]="page.index == null"
+     [ngClass]="{'active': page.active, 'disabled': page.index == null}">{{ page.name }}</button>
+</div>
+
+<app-my-modal name="{{deleteModalName}}"
+              typeModal="danger"
+              title="Supprimer ?"
+              button2Label="Supprimer"
+              (button2)="remove()">
+  Êtes-vous vraiment sûr de vouloir supprimer ?
+</app-my-modal>

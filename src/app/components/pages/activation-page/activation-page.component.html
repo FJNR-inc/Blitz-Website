@@ -1,0 +1,39 @@
+<div class="activation-page">
+  <div class="activation-page__content" *ngIf="success === null">
+    <div class="activation-page__content__icon">
+      <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+    </div>
+    <div class="activation-page__content__title">
+      Activation du compte en cours...
+    </div>
+  </div>
+  <div class="activation-page__content" *ngIf="success === false">
+    <div class="activation-page__content__icon">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+    </div>
+    <div class="activation-page__content__title">
+      Impossible d'activer le compte.
+    </div>
+    <div class="activation-page__content__sub-title">
+      Vérifiez que le compte n'ait pas déjà été activé, si ce n'est
+      pas le cas n'hésitez pas à contacter l'équipe d'administration.
+    </div>
+    <a class="button" routerLink="/login">
+      Se rendre sur la page de connexion
+    </a>
+  </div>
+  <div class="activation-page__content" *ngIf="success">
+    <div class="activation-page__content__icon">
+      <i class="fa fa-check-circle" aria-hidden="true"></i>
+    </div>
+    <div class="activation-page__content__title">
+      Votre compte est activé!
+    </div>
+    <div class="activation-page__content__sub-title">
+      Vous pouvez maintenant vous connecter à la plateforme.
+    </div>
+    <a class="button" routerLink="/login">
+      Se rendre sur la page de connexion
+    </a>
+  </div>
+</div>

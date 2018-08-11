@@ -1,0 +1,54 @@
+/*****
+Please use this file for all your constant
+
+example :
+$color-theme-green: #00d59c;
+*****/
+
+$color-grey-border: #D6D8DB;
+$color-grey-background: #E2E3E5;
+$color-grey-text: #393E42;
+
+$color-blue-border: #B8DAFF;
+$color-blue-background: #CCE5FF;
+$color-blue-text: #034386;
+
+$color-neutral-border: #D6D8DB;
+$color-neutral-background: #E2E3E5;
+$color-neutral-background-hover: darken($color-neutral-background, 50%);
+$color-neutral-text: #65696B;
+$color-neutral-text-hover: white;
+
+$color-danger-border: #f5c6cb;
+$color-danger-background: #F8D7DA;
+$color-danger-background-hover: darken($color-danger-background, 50%);
+$color-danger-text: #975057;
+$color-danger-text-hover: white;
+
+$color-success-border: #C3E6CB;
+$color-success-background: #D4EDDA;
+$color-success-background-hover: darken($color-success-background, 50%);
+$color-success-text: #155724;
+$color-success-text-hover: white;
+
+$color-warning-border: #FFEEBA;
+$color-warning-background: #FFF3CD;
+$color-warning-background-hover: darken($color-warning-background, 50%);
+$color-warning-text: #88680a;
+$color-warning-text-hover: white;
+
+$color-grey: #4b4b4b;
+$color-grey-dark: #1b1b1b;
+
+$link-color: $color-grey;
+
+$color-main: #33a27f;
+$color-main-text: rgb(77, 77, 77);
+$color-background-main: lighten($color-main, 52);
+$color-hover-main: lighten($color-main, 40);
+
+$color-title: rgb(43, 43, 43);
+
+$font-family: "Roboto", "sans-serif";
+$font-little: 10px;
+$link-color-hover: $color-main;

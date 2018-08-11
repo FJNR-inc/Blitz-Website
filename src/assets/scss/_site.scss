@@ -1,0 +1,35 @@
+/*****
+Please use this file to style all basic item like link (a),
+paragraph (p) or list (ul, ol)
+*****/
+
+body {
+  margin: 0;
+  font: 14px 'Roboto', sans-serif;
+  color: $color-main-text
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+a {
+  color: $link-color;
+  transition: all $ease-inout-sine 300ms;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: $link-color-hover;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: inline-block;
+  color: $color-title;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 32px;
+}

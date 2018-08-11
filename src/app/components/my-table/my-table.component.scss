@@ -1,0 +1,136 @@
+@import "../../../assets/scss/_theme.scss";
+
+.my-table {
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    &__title {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &__table {
+    font-size: 14px;
+    width: 100%;
+
+    border: 1px solid $color-main;
+    border-collapse: collapse;
+
+    &--full-width {
+      width: 100%;
+    }
+
+    &__header {
+
+      &__column {
+        text-align: left;
+        font-weight: bold;
+        padding: 10px;
+        background-color: $color-main;
+        color: white;
+
+        &--actions {
+          text-align: right;
+        }
+      }
+    }
+
+    &__no-data {
+      text-align: center;
+
+      &__cell {
+        padding: 10px;
+      }
+    }
+
+    &__line {
+      background-color: $color-background-main;
+
+      &:nth-child(odd) {
+        background-color: white;
+      }
+
+      &__cell {
+        padding: 10px;
+
+        &--actions {
+          text-align: right;
+
+          &__edit {
+            margin: 0 5px;
+            text-decoration: none;
+
+            &:hover {
+              color: $color-warning-text;
+              cursor: pointer;
+            }
+          }
+
+          &__remove {
+            margin: 0 5px;
+            text-decoration: none;
+
+            &:hover {
+              color: $color-danger-text;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      &--clickable {
+        &:hover {
+          cursor: pointer;
+          background-color: $color-hover-main;
+        }
+      }
+    }
+  }
+
+  &__pagination {
+    text-align: right;
+
+    &__page {
+      background-color: $color-main;
+      border: 1px solid $color-main;
+      padding: 5px;
+      color: white;
+      margin-left: 5px;
+      position: relative;
+      top: 10px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+
+      &.active {
+        color: $color-main;
+        background-color: white;
+        border: 1px solid $color-main;
+      }
+
+      &.disabled {
+        background-color: inherit;
+        border: none;
+        padding: 5px;
+        color: inherit;
+        margin-right: 5px;
+        position: relative;
+        top: 10px;
+        text-align: center;
+        cursor: inherit;
+      }
+    }
+  }
+}
+
+.table {
+  tr {
+
+  }
+
+
+}

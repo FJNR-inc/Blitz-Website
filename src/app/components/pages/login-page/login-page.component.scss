@@ -1,0 +1,25 @@
+@import "../../../../assets/scss/_theme.scss";
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    margin: 50px 0;
+    border: 5px solid $color-main;
+    padding: 20px;
+    width: 600px;
+    background-color: white;
+
+    &__header {
+      text-align: center;
+    }
+
+    &__actions {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
