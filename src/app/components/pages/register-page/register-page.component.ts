@@ -166,6 +166,7 @@ export class RegisterPageComponent implements OnInit {
   acceptTerms() {
     this.validatedTerms = true;
     this.toogleModal();
+    this.submit();
   }
 
   register() {
