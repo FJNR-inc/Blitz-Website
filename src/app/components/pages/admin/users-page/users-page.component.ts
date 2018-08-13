@@ -46,6 +46,7 @@ export class UsersPageComponent implements OnInit {
   ];
 
   settings = {
+    title: 'Utilisateurs',
     allowFiltering: true,
     clickable: true,
     previous: false,

@@ -24,6 +24,7 @@ export class ReservationPackagesComponent implements OnInit {
   selectedReservationPackageUrl: string;
 
   settings = {
+    title: 'Forfaits',
     addButton: true,
     editButton: true,
     previous: false,

@@ -25,6 +25,7 @@ export class MembershipsComponent implements OnInit {
   selectedMembershipUrl: string;
 
   settings = {
+    title: 'Memberships',
     addButton: true,
     editButton: true,
     previous: false,

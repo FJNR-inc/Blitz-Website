@@ -22,6 +22,7 @@ export class OrganizationComponent implements OnInit {
   selectedDomainUrl: string;
 
   settings = {
+    title: '',
     addButton: true,
     editButton: true,
     removeButton: true,
@@ -77,6 +78,7 @@ export class OrganizationComponent implements OnInit {
     this.organizationService.get(this.organizationId).subscribe(
       data => {
         this.organization = new Organization(data);
+        this.settings.title = this.organization.name;
       }
     );
   }

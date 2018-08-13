@@ -1,7 +1,4 @@
 <div class="admin-academics-page">
-  <div class="admin-academics-page__title">
-    <h2>Niveaux d'études</h2>
-  </div>
   <div class="admin-academics-page__levels">
     <app-my-table [settings]="settingsLevel"
                   [data]="listAcademicLevels"
@@ -9,10 +6,6 @@
                   (editItem)="OpenModalEditLevel($event)"
                   (removeItem)="removeLevel($event)"
                   (changePage)="changePageLevel($event)"></app-my-table>
-  </div>
-
-  <div class="admin-academics-page__title">
-    <h2>Domaines d'études</h2>
   </div>
   <div class="admin-academics-page__fields">
     <app-my-table [settings]="settingsField"

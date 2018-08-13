@@ -21,6 +21,7 @@ export class WorkplacesComponent implements OnInit {
   selectedWorkplaceUrl: string;
 
   settings = {
+    title: 'Espaces de travail',
     addButton: true,
     removeButton: true,
     clickable: true,

@@ -27,6 +27,7 @@ export class AcademicsPageComponent implements OnInit {
   selectedLevelUrl: string;
 
   settingsLevel = {
+    title: 'Niveaux d\'études',
     addButton: true,
     editButton: true,
     removeButton: true,
@@ -43,6 +44,7 @@ export class AcademicsPageComponent implements OnInit {
   };
 
   settingsField = {
+    title: 'Domaines d\'études',
     addButton: true,
     editButton: true,
     removeButton: true,

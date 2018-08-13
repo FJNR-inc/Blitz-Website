@@ -21,6 +21,7 @@ export class OrganizationsPageComponent implements OnInit {
   selectedOrganizationUrl: string;
 
   settings = {
+    title: 'Universités',
     clickable: true,
     addButton: true,
     editButton: true,

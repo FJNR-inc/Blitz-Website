@@ -25,6 +25,7 @@ export class PeriodsComponent implements OnInit {
   selectedPeriodUrl: string;
 
   settings = {
+    title: 'Périodes de réservation',
     clickable: true,
     addButton: true,
     editButton: true,
