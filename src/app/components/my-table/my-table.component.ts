@@ -11,17 +11,20 @@ export class MyTableComponent implements OnInit, OnChanges {
 
   @Input() settings: any;
   @Input() data: any;
+  @Input() filters: any[];
 
   @Output() selectItem: EventEmitter<any> = new EventEmitter();
   @Output() editItem: EventEmitter<any> = new EventEmitter();
   @Output() removeItem: EventEmitter<any> = new EventEmitter();
   @Output() addButton: EventEmitter<any> = new EventEmitter();
   @Output() changePage: EventEmitter<any> = new EventEmitter();
+  @Output() updateFilters: EventEmitter<any> = new EventEmitter();
 
   selectedItem: any;
   uuid: string;
   deleteModalName: string;
   pagination = [];
+  selectionnedFilters = [];
 
   constructor(private myModalService: MyModalService) { }
 
@@ -127,5 +130,29 @@ export class MyTableComponent implements OnInit, OnChanges {
     } else {
       return this.settings.columns.length;
     }
+  }
+
+  addFilter(value) {
+    for (const filter of this.filters) {
+      if (filter.name === value) {
+        const newFilter = {
+          'display': filter.display,
+          'name': value,
+          'value': null,
+          'comparator': filter.comparators[0],
+          'comparators': filter.comparators,
+        };
+        this.selectionnedFilters.push(newFilter);
+      }
+    }
+  }
+
+  resetFilters() {
+    this.selectionnedFilters = [];
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    this.updateFilters.emit(this.selectionnedFilters);
   }
 }

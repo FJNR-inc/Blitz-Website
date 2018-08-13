@@ -11,6 +11,36 @@
     </a>
   </div>
 </div>
+<div class="my-table__filters" *ngIf="settings.allowFiltering">
+  <label for="new_filter">Ajouter un filtre: </label>
+  <select id="new_filter" (change)="addFilter($event.target.value)">
+    <option value=""></option>
+    <option *ngFor="let filter of filters" value="{{filter.name}}">{{filter.display}}</option>
+  </select>
+  <div class="my-table__filters__filter" *ngFor="let filter of selectionnedFilters">
+    <div>
+      {{filter.display}}
+    </div>
+    <div>
+      <select [(ngModel)]="filter.comparator">
+        <option *ngFor="let comparator of filter.comparators" value="{{comparator.name}}">{{comparator.display}}</option>
+      </select>
+    </div>
+    <div>
+      <input type="text" [(ngModel)]="filter.value">
+    </div>
+  </div>
+  <div class="my-table__filters__actions" *ngIf="selectionnedFilters.length">
+    <button (click)="resetFilters()">
+      <i class="fas fa-sync-alt"></i>
+      Reinitialiser
+    </button>
+    <button (click)="applyFilters()">
+      <i class="fas fa-filter"></i>
+      Filtrer
+    </button>
+  </div>
+</div>
 <table class="my-table__table">
   <tr class="my-table__table__header">
     <th *ngFor="let column of settings.columns" class="my-table__table__header__column">

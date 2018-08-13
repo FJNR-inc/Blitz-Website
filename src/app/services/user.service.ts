@@ -53,11 +53,38 @@ export class UserService extends GlobalService {
     );
   }
 
-  list(limit = 100, offset = 0): Observable<any> {
+  list(filters: {name: string, comparator: string, value: any}[] = null, limit = 100, offset = 0): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();
     params = params.set('limit', limit.toString());
     params = params.set('offset', offset.toString());
+
+    if (filters != null) {
+      for (const filter of filters) {
+        console.log(filter);
+        let name = '';
+        if (filter.name === 'first_name') {
+          name = 'first_name';
+        } else if (filter.name === 'last_name') {
+          name = 'last_name';
+        }
+
+        let comparator = '';
+        if (filter.value === null) {
+          comparator = 'is_null';
+        } else if ( filter.comparator === 'contain') {
+          comparator = 'contains';
+        }
+        if (name && comparator) {
+          name += '__' + comparator;
+        }
+
+        if (name) {
+          params = params.set(name, filter.value);
+        }
+      }
+    }
+
     return this.http.get<any>(
       this.url_users,
       {headers: headers, params: params}

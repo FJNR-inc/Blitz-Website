@@ -12,8 +12,41 @@ import { isNull } from 'util';
 export class UsersPageComponent implements OnInit {
 
   listUsers: User[];
+  userFilters = [];
+
+  filters = [
+    {
+      display: 'Prénom',
+      name: 'first_name',
+      comparators: [
+        {
+          display: 'contient',
+          name: 'contain'
+        },
+        {
+          display: 'est egal a',
+          name: 'equal_to'
+        }
+      ]
+    },
+    {
+      display: 'Université',
+      name: 'university',
+      comparators: [
+        {
+          display: 'est',
+          name: 'is'
+        },
+        {
+          display: 'n\'est pas',
+          name: 'is_not'
+        }
+      ]
+    },
+  ];
 
   settings = {
+    allowFiltering: true,
     clickable: true,
     previous: false,
     next: false,
@@ -56,7 +89,7 @@ export class UsersPageComponent implements OnInit {
   }
 
   refreshUserList(page = 1, limit = 20) {
-    this.userService.list(limit, limit * (page - 1)).subscribe(
+    this.userService.list(this.userFilters, limit, limit * (page - 1)).subscribe(
       users => {
         this.settings.numberOfPage = Math.ceil(users.count / limit);
         this.settings.page = page;
@@ -86,5 +119,19 @@ export class UsersPageComponent implements OnInit {
 
   selectUser(user) {
     this.router.navigate(['/admin/users/' + user.id]);
+  }
+
+  updateFilters(filters) {
+    this.userFilters = [];
+
+    for (const filter of filters) {
+        const newFilter = {
+          'name': filter.name,
+          'comparator': 'contain',
+          'value': filter.value
+        };
+        this.userFilters.push(newFilter);
+    }
+    this.refreshUserList();
   }
 }

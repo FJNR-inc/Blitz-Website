@@ -13,6 +13,26 @@
     }
   }
 
+  &__filters {
+    padding: 5px 0;
+    text-align: right;
+
+    &__filter {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      &> div {
+        padding: 5px;
+      }
+    }
+
+    &__actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
   &__table {
     font-size: 14px;
     width: 100%;
@@ -127,10 +147,20 @@
   }
 }
 
-.table {
-  tr {
+input {
+  border: 1px solid lightgrey;
+  height: 25px;
+}
 
+select {
+  border: 1px solid lightgrey;
+  height: 25px;
+}
+
+button {
+  border: 1px solid lightgrey;
+
+  &:hover {
+    cursor: pointer;
   }
-
-
 }
