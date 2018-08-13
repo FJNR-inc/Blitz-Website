@@ -117,4 +117,15 @@ export class MyTableComponent implements OnInit, OnChanges {
     this.addButton.emit(null);
   }
 
+  displayActionColumn() {
+    return this.settings.removeButton || this.settings.editButton;
+  }
+
+  getNumberOfColumns() {
+    if (this.displayActionColumn()) {
+      return this.settings.columns.length + 1;
+    } else {
+      return this.settings.columns.length;
+    }
+  }
 }

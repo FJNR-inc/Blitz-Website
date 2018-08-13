@@ -16,12 +16,12 @@
     <th *ngFor="let column of settings.columns" class="my-table__table__header__column">
       {{ column.title }}
     </th>
-    <th *ngIf="settings.editButton || settings.removeButton" class="my-table__table__header__column my-table__table__header__column--actions">
+    <th *ngIf="displayActionColumn()" class="my-table__table__header__column my-table__table__header__column--actions">
       Actions
     </th>
   </tr>
   <tr *ngIf="data && data.length === 0" class="my-table__table__no-data">
-    <td [colSpan]="settings.columns.length" class="my-table__table__no-data__cell">
+    <td [colSpan]="getNumberOfColumns()" class="my-table__table__no-data__cell">
       {{settings.noDataText}}
     </td>
   </tr>
