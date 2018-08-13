@@ -5,6 +5,7 @@
   border: 1px solid $color-main;
   border-radius: 15px;
   text-decoration: none;
+  display: inline-block;
 
   &:hover {
     background-color: $color-main;
