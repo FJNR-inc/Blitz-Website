@@ -46,9 +46,9 @@
     </app-my-table>
   </div>
   <div class="profile-page__sections">
-    <h2>Désactiver mon compte</h2>
+    <h2>Désactiver mon profil</h2>
     <div>
-      Si vous désactivez votre compte:
+      Si vous désactivez votre profil:
       <ul>
         <li>vous ne pourrez plus vous connecter sur ce site</li>
         <li>toutes vos réservations seront annulées automatiquement</li>
@@ -56,7 +56,7 @@
       </ul>
       <br/>
       <a class="button button--danger" [appMyModalOpen]="'form_deactivate_account'">
-        <i class="fas fa-trash-alt"></i> Désactiver mon compte
+        <i class="fas fa-trash-alt"></i> Désactiver mon profil
       </a>
     </div>
   </div>
@@ -64,11 +64,11 @@
 
 <app-my-modal name="form_deactivate_account"
               typeModal="danger"
-              title="Désactiver mon compte"
+              title="Désactiver mon profil"
               button2Label="Désactiver"
               (button2)="deactivateAccount()">
-  La désactivation de votre compte est un acte important et irréversible.<br/>
-  Êtes-vous vraiment sûr de vouloir désactiver votre compte ?
+  La désactivation de votre profil est un acte important et irréversible.<br/>
+  Êtes-vous vraiment sûr de vouloir désactiver votre profil ?
 </app-my-modal>
 
 <app-my-modal name="form_user"

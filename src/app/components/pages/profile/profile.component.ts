@@ -139,7 +139,7 @@ export class ProfileComponent implements OnInit {
   deactivateAccount() {
     this.userService.remove(this.profile).subscribe(
       data => {
-        this.notificationService.success('Désactivé', 'Votre compte a bien été désactivé.');
+        this.notificationService.success('Désactivé', 'Votre profil a bien été désactivé.');
         this.router.navigate(['/logout']);
       },
       err => {
