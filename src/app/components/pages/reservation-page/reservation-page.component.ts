@@ -28,6 +28,10 @@ import { MyModalService } from '../../../services/my-modal/my-modal.service';
 import { isNull } from 'util';
 import { Card } from '../../../models/card';
 import { CardService } from '../../../services/card.service';
+import { OrderService } from '../../../services/order.service';
+import { Order } from '../../../models/order';
+import { OrderLine } from '../../../models/orderLine';
+import {ProfileService} from "../../../services/profile.service";
 
 const colors: any = {
   green: {
@@ -129,7 +133,9 @@ export class ReservationPageComponent implements OnInit {
               private membershipService: MembershipService,
               private reservationPackageService: ReservationPackageService,
               private myModalService: MyModalService,
-              private cardService: CardService) {}
+              private cardService: CardService,
+              private orderService: OrderService,
+              private profileService: ProfileService) {}
 
   ngOnInit() {
     this.initPaysafe();
@@ -138,6 +144,15 @@ export class ReservationPageComponent implements OnInit {
     this.refreshListMembership();
     this.refreshListReservationPackage();
     this.refreshListCard();
+    this.refreshProfile();
+  }
+
+  refreshProfile() {
+    this.profileService.get().subscribe(
+      profile => {
+        this.authenticationService.setProfile(profile);
+      }
+    );
   }
 
   refreshListTimeSlot() {
@@ -196,6 +211,7 @@ export class ReservationPageComponent implements OnInit {
     this.reservationPackageService.list(filters).subscribe(
       reservationPackages => {
         this.listReservationPackage = reservationPackages.results.map(r => new ReservationPackage(r));
+        this.currentPackage = this.listReservationPackage[0].id;
       }
     );
   }
@@ -324,7 +340,7 @@ export class ReservationPageComponent implements OnInit {
     modal.toggle();
   }
 
-  generateCardToken() {
+  generateOrder() {
     const instance = this;
     if (!instance.paysafeInstance) {
       console.error('No instance Paysafe');
@@ -334,8 +350,48 @@ export class ReservationPageComponent implements OnInit {
           this.error = ['Ces informations bancaires sont invalides'];
           console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
         } else {
-          this.ToggleModalAddCard();
-          alert(`Token: ${result.token}`);
+          let newOrder = new Order(
+            {
+              'single_use_token': result.token,
+              'order_lines': [],
+            }
+          );
+          if (this.selectedMembership) {
+            newOrder['order_lines'].push(new OrderLine({
+                'content_type': 'membership',
+                'object_id': this.selectedMembership.id,
+                'quantity': 1,
+              })
+            );
+          }
+          if (this.selectedPackages) {
+            for (let selectedPackage of this.selectedPackages) {
+              newOrder['order_lines'].push(new OrderLine({
+                  'content_type': 'package',
+                  'object_id': selectedPackage.id,
+                  'quantity': 1,
+                })
+              );
+            }
+          }
+          if (this.selectedTimeSlots) {
+            for (let selectedTimeslot of this.selectedTimeSlots) {
+              newOrder['order_lines'].push(new OrderLine({
+                  'content_type': 'timeslot',
+                  'object_id': selectedTimeslot.id,
+                  'quantity': 1,
+                })
+              );
+            }
+          }
+          this.orderService.create(newOrder).subscribe(
+            response => {
+              this.ToggleModalAddCard();
+            },
+            err => {
+              console.log(err);
+            }
+          );
         }
       });
     }

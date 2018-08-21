@@ -9,9 +9,6 @@ import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Picture } from '../../../../models/picture';
 import { PictureService } from '../../../../services/picture.service';
-import { environment } from '../../../../../environments/environment';
-import { AuthenticationService } from '../../../../services/authentication.service';
-import GlobalService from '../../../../services/globalService';
 
 @Component({
   selector: 'app-workplace',
@@ -37,9 +34,6 @@ export class WorkplaceComponent implements OnInit {
 
   settings = {
     title: 'Plages horaires',
-    addButton: true,
-    editButton: true,
-    removeButton: true,
     columns: [
       {
         name: 'day',

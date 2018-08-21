@@ -6,6 +6,6 @@ export class Card extends BaseModel {
   expiry_date: string;
   external_api_id: string;
   name: string;
-  number: number;
+  number: string;
   owner: string;
 }

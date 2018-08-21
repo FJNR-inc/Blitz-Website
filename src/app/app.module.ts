@@ -66,6 +66,7 @@ import { PictureService } from './services/picture.service';
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CardService } from './services/card.service';
 import { BackgroundLayoutComponent } from './layouts/background-layout/background-layout.component';
+import { OrderService } from './services/order.service';
 
 registerLocaleData(localeFr);
 
@@ -318,6 +319,7 @@ const appRoutes = [
     ReservationPackageService,
     PictureService,
     CardService,
+    OrderService,
   ],
   bootstrap: [AppComponent]
 })

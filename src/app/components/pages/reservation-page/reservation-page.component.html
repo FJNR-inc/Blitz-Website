@@ -259,7 +259,7 @@
 <app-my-modal name="form_credit_card"
               class="modal-credit-card"
               typeModal="success"
-              (button2)="generateCardToken()">
+              (button2)="generateOrder()">
   <form class="modal-credit-card__form">
     <div *ngFor="let errorMessage of error" class="alert alert--danger modal-credit-card__form__alert">
       {{ errorMessage }}
