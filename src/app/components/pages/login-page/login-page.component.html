@@ -1,50 +1,39 @@
 <div class="login-page">
-  <div class="login-page__content">
-    <form (submit)="authenticate(loginForm)" [formGroup]="loginForm">
-    <div class="login-page__content__header">
-      <img class="login-page__content__header__logo" src="assets/images/logo.png" alt="Logo" />
-
-      <div>
-        <h2>
-          Se connecter
-        </h2>
-      </div>
-    </div>
+  <div>
+    <h2 class="nt-title">
+      Se connecter
+    </h2>
+  </div>
+  <form class="login-page__content" (submit)="authenticate(loginForm)" [formGroup]="loginForm">
     <div *ngFor="let error of errors" class="alert alert--danger">
       {{ error }}
     </div>
     <div class="form-group">
-      <label for="email" class="form-label">Courriel*:</label>
-      <input formControlName="login" name="login" type="email" id="email" class="form-input" />
+      <label for="email" class="nt-form-label">Courriel*:</label>
+      <input formControlName="login" name="login" type="email" id="email" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of loginForm.controls['login'].getError('apiError')">
         {{ errorMessage }}
       </div>
     </div>
     <div class="form-group">
-      <label for="password" class="form-label">Mot de passe*:</label>
-      <input formControlName="password" name="password" type="password" id="password" class="form-input" />
+      <label for="password" class="nt-form-label">Mot de passe*:</label>
+      <input formControlName="password" name="password" type="password" id="password" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of loginForm.controls['password'].getError('apiError')">
         {{ errorMessage }}
       </div>
-      <div class="form-text form-text--right">
-        <a routerLink="/forgot-password">J'ai oublié mon mot de passe</a>
-      </div>
     </div>
     <div class="login-page__content__actions">
-      <div class="login-page__content____actions__register">
-        <a routerLink="/register">Créer un profil</a>
+      <div class="login-page__content__actions__main">
+        <a routerLink="/register" class="nt-link">Vous n'etes pas encore inscrit.e.s?</a>
       </div>
-      <div class="login-page__content____actions__login">
-        <button type="submit" class="button-icon">
-          <span class="button-icon__text">Se connecter</span>
-          <span class="button-icon__icon">
-            <i class="fa fa-caret-right"></i>
-          </span>
-        </button>
+      <div>
+        <a routerLink="/forgot-password" class="nt-link">Mot de passe oublié?</a>
       </div>
     </div>
-    </form>
-  </div>
+    <button type="submit" class="nt-button login-page__content__submit">
+      Se connecter
+    </button>
+  </form>
 </div>

@@ -53,6 +53,9 @@ export class ResetPasswordPageComponent implements OnInit {
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
           }
+          if (err.error.detail) {
+            this.errors = ['Une erreure est survenue. Veuillez contacter l\'administration.'];
+          }
           if (err.error.new_password) {
             this.resetForm.controls['password'].setErrors({
               apiError: err.error.new_password
@@ -60,6 +63,8 @@ export class ResetPasswordPageComponent implements OnInit {
           }
         }
       );
+    } else {
+      this.errors = ['Veuillez remplir tous les champs.'];
     }
   }
 

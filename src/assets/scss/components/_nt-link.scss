@@ -1,0 +1,9 @@
+.nt-link {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $nt-text;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

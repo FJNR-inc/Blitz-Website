@@ -1,25 +1,26 @@
-@import "../../../../assets/scss/_theme.scss";
+@import '../../../../assets/scss/theme';
 
 .login-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: $nt-background-color-light;
+  width: 700px;
+  margin: auto;
+  padding: 40px;
 
   &__content {
-    margin: 50px 0;
-    border: 5px solid $color-main;
-    padding: 20px;
-    width: 600px;
-    background-color: white;
-
-    &__header {
-      text-align: center;
-    }
-
     &__actions {
       margin-top: 40px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      font-size: 10pt;
+
+      &__main {
+        flex: 1;
+      }
+    }
+
+    &__submit {
+      margin-top: 40px;
     }
   }
 }

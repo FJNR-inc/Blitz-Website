@@ -1,0 +1,64 @@
+@import '../../../../assets/scss/theme';
+
+.membership-payment-page {
+  background-color: $nt-background-color-light;
+  max-width: 600px;
+  margin: 0 20px;
+  padding: 40px;
+
+  &__nav {
+    margin: 30px 0;
+  }
+
+  &__form {
+    &__alert {
+      margin: 20px 0;
+    }
+
+    &__expiration {
+      display: flex;
+      align-content: space-between;
+
+      &__item {
+        width: 100%;
+
+        & + .membership-payment-page__form__expiration__item {
+          padding-left: 10px;
+        }
+      }
+    }
+
+    &__actions {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &__item {
+        &--main {
+          flex: 1;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .membership-payment-page {
+    padding: 20px;
+
+    &__form {
+      &__actions {
+        flex-direction: column-reverse;
+        align-items: start;
+
+        &__item {
+          margin-top: 20px;
+          width: 100%;
+          text-align: left;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<ul class="wizard">
+  <li *ngFor="let item of this.items" ui-sref="firstStep" [ngClass]="{'completed': item.completed, 'active': item.actived }">
+    <span>{{item.name}}</span>
+  </li>
+</ul>
+
+<div class="wizard--responsive">
+  {{getIndex()}} / {{items.length}}
+</div>

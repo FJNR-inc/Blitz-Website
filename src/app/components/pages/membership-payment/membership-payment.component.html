@@ -1,0 +1,42 @@
+<div class="membership-payment-page">
+  <div class="membership-payment-page__nav">
+    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+  </div>
+  <div>
+    <h2 class="nt-title">
+      Paiement
+    </h2>
+  </div>
+  <form class="membership-payment-page__form">
+    <div *ngFor="let errorMessage of error" class="membership-payment-page__form__alert alert alert--danger">
+      {{ errorMessage }}
+    </div>
+    <div class="form-group">
+      <label for="card-number" class="nt-form-label">Numéro de la carte*:</label>
+      <div id="card-number" class="nt-form-input membership-payment-page__form__field"></div>
+    </div>
+    <div class="membership-payment-page__form__expiration">
+      <div class="form-group membership-payment-page__form__expiration__item">
+        <label for="expiration-date" class="nt-form-label">Date d'expiration*:</label>
+        <div id="expiration-date" class="nt-form-input membership-payment-page__form__field"></div>
+      </div>
+      <div class="form-group membership-payment-page__form__expiration__item">
+        <label for="cvv" class="nt-form-label">CVV*:</label>
+        <div id="cvv" class="nt-form-input membership-payment-page__form__field"></div>
+      </div>
+    </div>
+    <div class="membership-payment-page__form__actions">
+      <div class="membership-payment-page__form__actions__item membership-payment-page__form__actions__item--main">
+        <a routerLink="/" class="nt-link">Annuler</a>
+      </div>
+      <div>
+        <a routerLink="/membership/summary" class="membership-payment-page__form__actions__item nt-button nt-button--reverse">
+          Précédent
+        </a>
+        <button (click)="generateOrder()" [disabled]="!membership" type="submit" class="membership-payment-page__form__actions__item nt-button">
+          Payer
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

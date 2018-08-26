@@ -1,0 +1,54 @@
+@import '../../../../assets/scss/theme';
+
+.membership-done-page {
+  background-color: $nt-background-color-light;
+  max-width: 600px;
+  margin: 0 20px;
+  padding: 40px;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+
+    &__column1 {
+      &__promotion {
+        font-size: 14pt;
+        margin-top: 30px;
+        font-weight: 400;
+      }
+
+      &__text {
+        font-size: 12pt;
+        margin-top: 30px;
+      }
+
+      &__profil {
+        margin-top: 30px;
+      }
+
+      &__link {
+        font-size: 9pt;
+        margin-top: 40px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .membership-done-page {
+    padding: 20px;
+
+    &__content {
+      flex-direction: column-reverse;
+
+      &__column1 {
+        margin-top: 40px;
+      }
+
+      &__column2 {
+        max-width: 300px;
+        margin: auto;
+      }
+    }
+  }
+}

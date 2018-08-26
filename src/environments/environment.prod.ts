@@ -2,6 +2,7 @@ export const environment = {
   production: false,
   default_language: 'fr',
   url_base_api: 'http://api.mydomain',
+  token_paysafe: 'blahblah',
   paths_api: {
     activation: '/users/activate',
     authentication: '/authentication',
@@ -21,5 +22,6 @@ export const environment = {
     reservationPackages: '/packages',
     pictures: '/pictures',
     cards: '/credit_cards',
+    orders: '/orders',
   }
 };

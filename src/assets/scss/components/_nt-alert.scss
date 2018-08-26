@@ -1,0 +1,40 @@
+.nt-alert {
+  width: 100%;
+  padding: 10px 15px;
+  color: $nt-text;
+  background-color: $nt-background-color;
+  border-radius: 2px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    align-content: center;
+    font-size: 30px;
+    margin-right: 15px;
+  }
+
+  &--success {
+    background-color: $color-success-background;
+    border-color: $color-success-border;
+    color: $color-success-text;
+  }
+
+  &--info {
+    background-color: $color-blue-background;
+    border-color: $color-blue-border;
+    color: $color-blue-text;
+  }
+
+  &--danger {
+    background-color: $color-danger-background;
+    border-color: $color-danger-border;
+    color: $color-danger-text;
+  }
+
+  &--warning {
+    background-color: $color-warning-background;
+    border-color: $color-warning-border;
+    color: $color-warning-text;
+  }
+}

@@ -1,0 +1,14 @@
+.nt-title {
+  font-size: 20pt;
+  font-weight: 900;
+  color: $nt-text;
+
+  &--secondary {
+    display: block;
+    text-transform: uppercase;
+    font-size: 12pt;
+    font-weight: 400;
+    border-bottom: 1px solid $nt-text;
+    padding-bottom: 5px;
+  }
+}

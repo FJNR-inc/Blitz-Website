@@ -1,0 +1,155 @@
+@import '../../../../assets/scss/theme';
+
+.membership-register-page {
+  background-color: $nt-background-color-light;
+  max-width: 600px;
+  margin: 0 20px;
+  padding: 40px;
+
+  &__nav {
+    margin: 30px 0;
+  }
+
+  &__form {
+    &__content {
+      &__form {
+        &__inline {
+          display: flex;
+
+          &__gender {
+            margin-left: 10px;
+            flex: 1;
+          }
+        }
+      }
+
+      &__actions {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__item {
+          &--main {
+            flex: 1;
+            text-align: center;
+          }
+        }
+      }
+
+      &__error {
+        margin-top: 20px;
+      }
+
+      &__link {
+        margin-top: 40px;
+      }
+    }
+  }
+}
+
+.modal-terms {
+
+  &__text {
+    height: 250px;
+    overflow-y: auto;
+    margin: 30px 0;
+    border: 1px solid $nt-text;
+
+    &__section {
+      padding: 20px;
+
+      &__title {
+        font-size: 10pt;
+        margin-bottom: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      &__text {
+        font-size: 10pt
+      }
+    }
+
+    &__columns {
+      display: flex;
+
+      &__column {
+        flex: 1;
+
+        &__bref {
+          font-size: 14pt;
+        }
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .membership-register-page {
+    padding: 20px;
+
+    &__form {
+
+      &__content {
+        &__form {
+          &__inline {
+            flex-direction: column;
+
+            &__gender {
+              margin-left: 0;
+            }
+          }
+        }
+
+        &__actions {
+          flex-direction: column-reverse;
+          align-items: start;
+
+          &__item {
+            margin-top: 20px;
+            width: 100%;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+
+  .modal-terms {
+    &__text {
+      height: 250px;
+      overflow-y: auto;
+      margin: 30px 0;
+      border: 1px solid $nt-text;
+
+      &__section {
+        padding: 20px;
+
+        &__title {
+          font-size: 10pt;
+          margin-bottom: 10px;
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+
+        &__text {
+          font-size: 10pt
+        }
+      }
+
+      &__columns {
+        display: flex;
+
+        &__column {
+          flex: 1;
+
+          &__bref {
+            font-size: 14pt;
+          }
+        }
+      }
+    }
+  }
+}

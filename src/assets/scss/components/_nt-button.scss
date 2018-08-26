@@ -1,0 +1,30 @@
+.nt-button {
+  background-color: $nt-text;
+  color: $nt-background-color;
+  padding: 10px 30px;
+  border: 1px solid $nt-text;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: all $ease-inout-sine 300ms;
+  line-height: 15pt;
+  text-align: center;
+
+  &:hover {
+    color: $nt-text;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &--reverse {
+    background-color: transparent;
+    color: $nt-text;
+    border: 1px solid $nt-text;
+
+    &:hover {
+      color: $nt-background-color;
+      background-color: $nt-text;
+    }
+  }
+}

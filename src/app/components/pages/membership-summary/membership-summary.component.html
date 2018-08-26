@@ -1,0 +1,69 @@
+<div class="membership-summary-page">
+  <div class="membership-summary-page__nav">
+    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+  </div>
+  <div class="membership-summary-page__title">
+    <h2 class="nt-title">
+      Résumé
+    </h2>
+  </div>
+  <div class="membership-summary-page__title">
+    <h2 class="nt-title nt-title--secondary">
+      Abonnement
+    </h2>
+  </div>
+  <div class="membership-summary-page__form" *ngIf="membership">
+    <div>
+      {{ membership.name }}
+    </div>
+    <div class="membership-summary-page__form__spacer"></div>
+    <div>
+      {{ membership.price }} $
+    </div>
+  </div>
+  <div class="membership-summary-page__title">
+    <h2 class="nt-title nt-title--secondary">
+      Total
+    </h2>
+  </div>
+  <div class="membership-summary-page__form">
+    <div>
+      TPS
+    </div>
+    <div class="membership-summary-page__form__spacer"></div>
+    <div>
+      {{ getTPS() }} $
+    </div>
+  </div>
+  <div class="membership-summary-page__form">
+    <div>
+      TVQ
+    </div>
+    <div class="membership-summary-page__form__spacer"></div>
+    <div>
+      {{ getTVQ() }} $
+    </div>
+  </div>
+  <div class="membership-summary-page__form membership-summary-page__form--total">
+    <div>
+      Total
+    </div>
+    <div class="membership-summary-page__form__spacer"></div>
+    <div>
+      {{ getTotal() }} $CAN
+    </div>
+  </div>
+  <div class="membership-summary-page__actions">
+    <div class="membership-summary-page__actions__item membership-summary-page__actions__item--main">
+      <a routerLink="/" class="nt-link">Annuler</a>
+    </div>
+    <div>
+      <a routerLink="/membership/subscription" class="membership-summary-page__actions__item nt-button nt-button--reverse">
+        Précédent
+      </a>
+      <a routerLink="/membership/payment" type="submit" class="membership-summary-page__actions__item nt-button">
+        Confirmer
+      </a>
+    </div>
+  </div>
+</div>

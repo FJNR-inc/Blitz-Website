@@ -1,0 +1,303 @@
+<div class="membership-register-page">
+  <div class="membership-register-page__nav">
+    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+  </div>
+  <form (submit)="submit()" class="membership-register-page__form" [formGroup]="registerForm">
+    <div class="membership-register-page__form__content__header">
+      <div>
+        <h2 class="nt-title">
+          Informations
+        </h2>
+      </div>
+    </div>
+    <div class="membership-register-page__form__content__form">
+      <div *ngFor="let error of errors" class="alert alert--danger">
+        {{ error }}
+      </div>
+      <div class="form-group form-group--multiple">
+        <div class="form-group__item">
+          <label for="firstname" class="nt-form-label">Prénom*:</label>
+          <input formControlName="first_name" type="text" id="firstname" class="nt-form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of registerForm.controls['first_name'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group__item">
+          <label for="lastname" class="nt-form-label">Nom de famille*:</label>
+          <input formControlName="last_name" type="text" id="lastname" class="nt-form-input" />
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of registerForm.controls['last_name'].getError('apiError')">
+            {{ errorMessage }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="university" class="nt-form-label">Université d'appartenance actuelle*:</label>
+        <select formControlName="university" id="university" class="nt-form-input" (change)="changeUniversity()">
+          <option value="none">Je n'appartiens pas/plus à une université</option>
+          <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
+            {{ organization.name }}
+          </option>
+        </select>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of registerForm.controls['university'].getError('apiError')">
+          {{ errorMessage }}
+        </div>
+      </div>
+      <div class="form-group" *ngIf="selectedUniversity">
+        <label for="study_level" class="nt-form-label">Statut principal*:</label>
+        <select formControlName="academic_level" id="study_level" class="nt-form-input">
+          <option value="none"></option>
+          <option value="{{ level.name }}" *ngFor="let level of listAcademicLevels">
+            {{ level.name }}
+          </option>
+        </select>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of registerForm.controls['academic_level'].getError('apiError')">
+          {{ errorMessage }}
+        </div>
+      </div>
+      <div class="form-group" *ngIf="selectedUniversity">
+        <label for="study_field" class="nt-form-label">Domaine d'études ou d'enseignement principal*:</label>
+        <select formControlName="academic_field" id="study_field" class="nt-form-input">
+          <option value="none"></option>
+          <option value="{{ field.name }}" *ngFor="let field of listAcademicFields">
+            {{ field.name }}
+          </option>
+        </select>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of registerForm.controls['academic_field'].getError('apiError')">
+          {{ errorMessage }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="nt-form-label">Adresse courriel universitaire*:</label>
+        <input formControlName="email" type="email" id="email" class="nt-form-input" />
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
+          {{ errorMessage }}
+        </div>
+        <div class="nt-alert"  *ngIf="selectedUniversity">
+          <div class="alert__content">
+            Voici la liste des noms de domaines autorisés pour cette université:
+            <ul>
+              <li *ngFor="let domain of selectedUniversity.domains">
+                {{ domain.example }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="membership-register-page__form__content__form__inline">
+        <div>
+          <label for="birthday_day" class="nt-form-label">Date de naissance*:</label>
+          <div class="form-group form-group--multiple">
+            <div class="form-group__item">
+              <select formControlName="birth_day" id="birthday_day" class="nt-form-input">
+                <option value="" disabled="disabled">Jour</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+              </select>
+              <div class="form-text form-text--right form-text--danger"
+                   *ngFor="let errorMessage of registerForm.controls['birth_day'].getError('apiError')">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div class="form-group__item">
+              <select formControlName="birth_month" id="birthday_month" class="nt-form-input">
+                <option value="" disabled="disabled">Mois</option>
+                <option value="1">Janvier</option>
+                <option value="2">Fevrier</option>
+                <option value="3">Mars</option>
+                <option value="4">Avril</option>
+                <option value="5">Mai</option>
+                <option value="6">Juin</option>
+                <option value="7">Juillet</option>
+                <option value="8">Aout</option>
+                <option value="9">Septembre</option>
+                <option value="10">Octobre</option>
+                <option value="11">Novembre</option>
+                <option value="12">Decembre</option>
+              </select>
+              <div class="form-text form-text--right form-text--danger"
+                   *ngFor="let errorMessage of registerForm.controls['birth_month'].getError('apiError')">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div class="form-group__item">
+              <select formControlName="birth_year" id="birthday_year" class="nt-form-input">
+                <option value="" disabled="disabled">Année</option>
+                <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
+              </select>
+              <div class="form-text form-text--right form-text--danger"
+                   *ngFor="let errorMessage of registerForm.controls['birth_year'].getError('apiError')">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="membership-register-page__form__content__form__inline__gender">
+          <label for="gender" class="nt-form-label">Genre*:</label>
+          <select formControlName="gender" id="gender" class="nt-form-input">
+            <option value="A">Je ne souhaite pas m'identifier</option>
+            <option value="M">Homme</option>
+            <option value="F">Femme</option>
+            <option value="T">Trans</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="nt-form-label">Mot de passe*:</label>
+        <input formControlName="password" type="password" id="password" class="nt-form-input" />
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of registerForm.controls['password'].getError('apiError')">
+          {{ errorMessage }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirmation" class="nt-form-label">Confirmation du mot de passe*:</label>
+        <input formControlName="confirmation" type="password" id="confirmation" class="nt-form-input" />
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of registerForm.controls['confirmation'].getError('apiError')">
+          {{ errorMessage }}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!registerForm.valid && hasSubmit" class="membership-register-page__form__content__error alert alert--danger">
+      Veuillez remplir tous les champs
+    </div>
+    <div class="membership-register-page__form__content__link">
+      <a (click)="goToLoginPage()" class="nt-link">Vous etes deja inscrit.e.s?</a>
+    </div>
+    <div class="membership-register-page__form__content__actions">
+      <div class="membership-register-page__form__content__actions__item membership-register-page__form__content__actions__item--main">
+        <a routerLink="/" class="nt-link">Annuler</a>
+      </div>
+      <div>
+        <a routerLink="/membership/intro" type="submit" class="membership-register-page__form__content__actions__item nt-button nt-button--reverse">
+          Précédent
+        </a>
+        <button type="submit" class="membership-register-page__form__content__actions__item nt-button">
+          Suivant
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-nt-modal name="form_terms" (button2)="acceptTerms()" maxWidth='780px' class="modal-terms">
+  <h1 class="nt-title">
+    Termes et conditions
+  </h1>
+
+  <div class="modal-terms__text">
+    <div class="modal-terms__text__section">
+      <h2 class="modal-terms__text__section__title">
+        Conditions generales d'utilisation de la plateforme thesez-vous?
+      </h2>
+      <p class="modal-terms__text__section__text">
+        Qui ut sit magni aliquam et quia soluta dolorem. Saepe ad assumenda autem qui non occaecati aspernatur. Cumque sunt amet ipsam molestiae expedita. Ut beatae incidunt dolores fuga et sit facere. Fugit totam cum nihil tempore et consectetur.
+      </p>
+    </div>
+    <div class="modal-terms__text__columns">
+      <div class="modal-terms__text__columns__column">
+        <div class="modal-terms__text__section">
+          <h2 class="modal-terms__text__section__title">
+            A propos de la plateforme
+          </h2>
+          <p class="modal-terms__text__section__text">
+            Qui ut sit magni aliquam et quia soluta dolorem. Saepe ad assumenda autem qui non occaecati aspernatur. Cumque sunt amet ipsam molestiae expedita. Ut beatae incidunt dolores fuga et sit facere. Fugit totam cum nihil tempore et consectetur.
+          </p>
+        </div>
+      </div>
+      <div class="modal-terms__text__columns__column">
+        <div class="modal-terms__text__section">
+          <h2 class="modal-terms__text__section__title">
+            Bref
+          </h2>
+          <p class="modal-terms__text__text modal-terms__text__columns__column__bref">
+            Qui ut sit magni aliquam et quia soluta dolorem.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-terms__text__columns">
+      <div class="modal-terms__text__columns__column">
+        <div class="modal-terms__text__section">
+          <h2 class="modal-terms__text__section__title">
+            A propos de la plateforme
+          </h2>
+          <p class="modal-terms__text__section__text">
+            Qui ut sit magni aliquam et quia soluta dolorem. Saepe ad assumenda autem qui non occaecati aspernatur. Cumque sunt amet ipsam molestiae expedita. Ut beatae incidunt dolores fuga et sit facere. Fugit totam cum nihil tempore et consectetur.
+          </p>
+        </div>
+      </div>
+      <div class="modal-terms__text__columns__column">
+        <div class="modal-terms__text__section">
+          <h2 class="modal-terms__text__section__title">
+            Bref
+          </h2>
+          <p class="modal-terms__text__text modal-terms__text__columns__column__bref">
+            Qui ut sit magni aliquam et quia soluta dolorem.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-terms__text__columns">
+      <div class="modal-terms__text__columns__column">
+        <div class="modal-terms__text__section">
+          <h2 class="modal-terms__text__section__title">
+            A propos de la plateforme
+          </h2>
+          <p class="modal-terms__text__section__text">
+            Qui ut sit magni aliquam et quia soluta dolorem. Saepe ad assumenda autem qui non occaecati aspernatur. Cumque sunt amet ipsam molestiae expedita. Ut beatae incidunt dolores fuga et sit facere. Fugit totam cum nihil tempore et consectetur.
+          </p>
+        </div>
+      </div>
+      <div class="modal-terms__text__columns__column">
+        <div class="modal-terms__text__section">
+          <h2 class="modal-terms__text__section__title">
+            Bref
+          </h2>
+          <p class="modal-terms__text__text modal-terms__text__columns__column__bref">
+            Qui ut sit magni aliquam et quia soluta dolorem.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    En cliquant sur "ACCEPTER", j'accepte les termes et conditions de Thesez-vous.
+  </p>
+</app-nt-modal>

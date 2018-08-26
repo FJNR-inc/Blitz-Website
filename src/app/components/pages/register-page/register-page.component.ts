@@ -46,9 +46,9 @@ export class RegisterPageComponent implements OnInit {
         university: ['none'],
         academic_level: [null],
         academic_field: [null],
-        birth_day: [null, Validators.required],
-        birth_month: [null, Validators.required],
-        birth_year: [null, Validators.required],
+        birth_day: ['', Validators.required],
+        birth_month: ['', Validators.required],
+        birth_year: ['', Validators.required],
         gender: [null, Validators.required],
         password: [null, Validators.required],
         confirmation: [null, Validators.required],
@@ -158,8 +158,7 @@ export class RegisterPageComponent implements OnInit {
       return;
     }
 
-    modal.title = 'Conditions d\'utilisations';
-    modal.button2Label = 'J\'accepte les conditions';
+    modal.button2Label = 'Accepter';
     modal.toggle();
   }
 

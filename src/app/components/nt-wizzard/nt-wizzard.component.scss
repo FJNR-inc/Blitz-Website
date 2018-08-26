@@ -1,0 +1,102 @@
+@import '../../../assets/scss/_theme.scss';
+
+.wizard--responsive {
+  display: none;
+}
+
+ul.wizard,
+ul.wizard li {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+}
+
+ul.wizard li {
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+
+/* Cerchio*/
+
+ul.wizard li::before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 15px;
+  border-radius: 50%;
+  border: 1px solid $nt-text;
+  color: $nt-text;
+}
+
+
+/* Linea */
+
+ul.wizard li ~ li::after {
+  content: '';
+  position: absolute;
+  width: 87%;
+  right: 56%;
+  height: 2px;
+  background-color: $nt-text;
+  top: calc(7px - 1px);
+}
+
+ul.wizard li.active::before {
+  background: $nt-text;
+}
+
+ul.wizard li.active::after {
+  background: $nt-text;
+}
+
+ul.wizard span {
+  color: $nt-text;
+  font-size: 12px;
+  word-break: break-all;
+  margin-top: 10px;
+  visibility: hidden;
+}
+
+ul.wizard:hover span {
+  visibility: visible;
+}
+
+
+/*  updated sample  */
+
+
+/*  number and circle  */
+
+ul.wizard li.completed::before {
+  background: $nt-text;
+  color: #333;
+}
+
+ul.wizard li.completed span {
+  /*  text  */
+  color: $nt-text;
+}
+
+ul.wizard li.completed + li::after {
+  /*  line after circle  */
+  background: $nt-text;
+}
+
+ul.wizard li.completed::after {
+  /*  line before circle  */
+  background: $nt-text;
+}
+
+@media only screen and (max-width: 600px) {
+  ul.wizard {
+    display: none;
+  }
+
+  .wizard--responsive {
+    display: block;
+  }
+}

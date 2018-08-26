@@ -31,7 +31,7 @@ import { CardService } from '../../../services/card.service';
 import { OrderService } from '../../../services/order.service';
 import { Order } from '../../../models/order';
 import { OrderLine } from '../../../models/orderLine';
-import {ProfileService} from "../../../services/profile.service";
+import {ProfileService} from '../../../services/profile.service';
 
 const colors: any = {
   green: {
@@ -350,7 +350,7 @@ export class ReservationPageComponent implements OnInit {
           this.error = ['Ces informations bancaires sont invalides'];
           console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
         } else {
-          let newOrder = new Order(
+          const newOrder = new Order(
             {
               'single_use_token': result.token,
               'order_lines': [],
@@ -365,7 +365,7 @@ export class ReservationPageComponent implements OnInit {
             );
           }
           if (this.selectedPackages) {
-            for (let selectedPackage of this.selectedPackages) {
+            for (const selectedPackage of this.selectedPackages) {
               newOrder['order_lines'].push(new OrderLine({
                   'content_type': 'package',
                   'object_id': selectedPackage.id,
@@ -375,7 +375,7 @@ export class ReservationPageComponent implements OnInit {
             }
           }
           if (this.selectedTimeSlots) {
-            for (let selectedTimeslot of this.selectedTimeSlots) {
+            for (const selectedTimeslot of this.selectedTimeSlots) {
               newOrder['order_lines'].push(new OrderLine({
                   'content_type': 'timeslot',
                   'object_id': selectedTimeslot.id,

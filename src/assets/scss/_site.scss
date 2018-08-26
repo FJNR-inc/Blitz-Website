@@ -5,23 +5,29 @@ paragraph (p) or list (ul, ol)
 
 body {
   margin: 0;
-  font: 14px 'Roboto', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
+  // font: 14px 'Roboto', sans-serif;
   color: $color-main-text
 }
 
 *, ::after, ::before {
   box-sizing: border-box;
+  outline:none;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 a {
-  color: $link-color;
-  transition: all $ease-inout-sine 300ms;
   cursor: pointer;
-  text-decoration: underline;
+}
 
-  &:hover {
-    color: $link-color-hover;
-  }
+p {
+  margin-bottom: 10px;
+}
+
+sup {
+  font-size: 0.6em;
+  position: relative;
+  bottom: 0.5em;
 }
 
 h1, h2, h3, h4, h5, h6 {

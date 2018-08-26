@@ -1,0 +1,82 @@
+@import '../../../../assets/scss/theme';
+
+.membership-subscription-page {
+  background-color: $nt-background-color-light;
+  max-width: 600px;
+  margin: 0 20px;
+  padding: 40px;
+
+  &__nav {
+    margin: 30px 0;
+  }
+
+  &__title {
+    margin-bottom: 30px;
+  }
+
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 16pt;
+
+    &__spacer {
+      flex: 1;
+      border-bottom: 1px dotted $nt-text;
+      margin: 0 5px;
+      height: 10px;
+    }
+
+    &--disabled {
+      color: lightgrey;
+
+      .membership-subscription-page__form__spacer {
+        border-color: lightgrey;
+      }
+    }
+  }
+
+  &__text {
+    font-size: 10pt;
+    margin-top: 30px;
+    text-align: justify;
+  }
+
+  &__link {
+    margin-top: 40px;
+    font-size: 9pt;
+  }
+  &__actions {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__item {
+      margin-top: 20px;
+      width: 100%;
+
+      &--main {
+        flex: 1;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .membership-subscription-page {
+    padding: 20px;
+
+    &__actions {
+      flex-direction: column-reverse;
+
+      &__item {
+        margin-top: 20px;
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
+}

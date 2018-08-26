@@ -1,3 +1,31 @@
 .form-group {
   margin-bottom: 10px;
+
+  &--multiple {
+    display: flex;
+  }
+
+  &__item {
+    flex: 1;
+
+    & + .form-group__item {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .form-group {
+    &--multiple {
+      flex-direction: column;
+    }
+
+    &__item {
+      flex: 1;
+
+      & + .form-group__item {
+        margin-left: 0;
+      }
+    }
+  }
 }

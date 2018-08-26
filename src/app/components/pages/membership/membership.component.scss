@@ -1,0 +1,87 @@
+@import '../../../../assets/scss/theme';
+
+app-membership {
+  min-height: 100%;
+}
+
+.membership-page {
+  display: flex;
+  min-height: calc(100vh - 100px);
+  min-width: 350px;
+
+  &__column1 {
+    flex: 1;
+    background-image: url('../../../../assets/images/home_background.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__column2 {
+    flex: 1;
+    text-align: center;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+
+    &__price {
+      border: 1px solid $nt-text;
+      border-radius: 50%;
+      width: 250px;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &__title {
+        font-weight: bold;
+        font-size: 12pt;
+      }
+
+      &__number {
+        font-weight: bold;
+        font-size: 36.5pt;
+      }
+
+      &__explanation {
+        font-size: 13pt;
+      }
+    }
+
+    &__text {
+      margin-top: 30px;
+      font-size: 18pt;
+    }
+
+    &__button {
+      margin-top: 30px;
+    }
+
+    &__link {
+      margin-top: 30px;
+    }
+
+    &__card {
+      margin-top: 30px;
+      border: 1px solid $nt-text;
+      padding: 20px;
+      font-size: 16px;
+      text-align: left;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .membership-page {
+    flex-direction: column;
+
+    &__column1 {
+      min-height: 200px;
+    }
+
+    &__column2 {
+      padding: 40px 0;
+    }
+  }
+}

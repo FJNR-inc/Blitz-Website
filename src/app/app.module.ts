@@ -67,17 +67,45 @@ import { ImageUploadModule } from 'angular2-image-upload';
 import { CardService } from './services/card.service';
 import { BackgroundLayoutComponent } from './layouts/background-layout/background-layout.component';
 import { OrderService } from './services/order.service';
+import { MembershipComponent } from './components/pages/membership/membership.component';
+import { NewLayoutComponent } from './layouts/new-layout/new-layout.component';
+import { NewBackgroundLayoutComponent } from './layouts/new-background-layout/new-background-layout.component';
+import { MembershipRegisterComponent } from './components/pages/membership-register/membership-register.component';
+import { NtWizzardComponent } from './components/nt-wizzard/nt-wizzard.component';
+import { MembershipIntroComponent } from './components/pages/membership-intro/membership-intro.component';
+import { MembershipVerificationComponent } from './components/pages/membership-verification/membership-verification.component';
+import { MembershipConfirmationComponent } from './components/pages/membership-confirmation/membership-confirmation.component';
+import { MembershipSubscriptionComponent } from './components/pages/membership-subscription/membership-subscription.component';
+import { MembershipSummaryComponent } from './components/pages/membership-summary/membership-summary.component';
+import { MembershipDoneComponent } from './components/pages/membership-done/membership-done.component';
+import { MembershipPaymentComponent } from './components/pages/membership-payment/membership-payment.component';
+import { NtModalComponent } from './components/nt-modal/nt-modal.component';
+import { NtHeaderComponent } from './components/nt-header/nt-header.component';
 
 registerLocaleData(localeFr);
 
 const appRoutes = [
   {
     path: '',
-    component: DefaultLayoutComponent,
+    component: NewLayoutComponent,
     children: [
       {
         path: '',
-        component: HomePageComponent,
+        component: MembershipComponent,
+      },
+    ]
+  },
+  {
+    path: '',
+    component: NewBackgroundLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterPageComponent,
       },
       {
         path: 'register/confirmation',
@@ -88,12 +116,70 @@ const appRoutes = [
         component: ActivationPageComponent,
       },
       {
+        path: 'forgot-password',
+        component: ForgotPasswordPageComponent,
+      },
+      {
         path: 'forgot-password/confirmation',
         component: ForgotPasswordConfirmationPageComponent,
       },
       {
         path: 'reset-password/:token',
         component: ResetPasswordPageComponent,
+      },
+      {
+        path: 'membership/intro',
+        component: MembershipIntroComponent,
+      },
+      {
+        path: 'membership/register',
+        component: MembershipRegisterComponent,
+      },
+      {
+        path: 'membership/verification',
+        component: MembershipVerificationComponent,
+      },
+      {
+        path: 'membership/confirmation/:token',
+        component: MembershipConfirmationComponent,
+      },
+      {
+        path: 'membership/subscription',
+        component: MembershipSubscriptionComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'membership/summary',
+        component: MembershipSummaryComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'membership/payment',
+        component: MembershipPaymentComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'membership/done',
+        component: MembershipDoneComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+    ]
+  },
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: 'home',
+        component: HomePageComponent,
       },
       {
         path: 'reservation/:id',
@@ -117,24 +203,12 @@ const appRoutes = [
     component: BackgroundLayoutComponent,
     children: [
       {
-        path: 'login',
-        component: LoginPageComponent,
-      },
-      {
         path: 'login/:lastUrl',
         component: LoginPageComponent,
       },
       {
         path: 'logout',
         component: LogoutPageComponent,
-      },
-      {
-        path: 'register',
-        component: RegisterPageComponent,
-      },
-      {
-        path: 'forgot-password',
-        component: ForgotPasswordPageComponent,
       },
     ]
   },
@@ -248,6 +322,9 @@ const appRoutes = [
     DefaultLayoutComponent,
     AdminLayoutComponent,
     BackgroundLayoutComponent,
+    NewBackgroundLayoutComponent,
+    NewLayoutComponent,
+    NtWizzardComponent,
     HeaderComponent,
     FooterComponent,
     HomePageComponent,
@@ -279,6 +356,18 @@ const appRoutes = [
     ProfileComponent,
     MyModalOpenDirective,
     TimeslotComponent,
+    MembershipComponent,
+    MembershipRegisterComponent,
+    NtWizzardComponent,
+    MembershipIntroComponent,
+    MembershipVerificationComponent,
+    MembershipConfirmationComponent,
+    MembershipSubscriptionComponent,
+    MembershipSummaryComponent,
+    MembershipDoneComponent,
+    MembershipPaymentComponent,
+    NtModalComponent,
+    NtHeaderComponent,
   ],
   imports: [
     BrowserModule,
