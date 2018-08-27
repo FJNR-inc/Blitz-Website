@@ -5,7 +5,7 @@
     </h2>
   </div>
   <form class="login-page__content" (submit)="authenticate(loginForm)" [formGroup]="loginForm">
-    <div *ngFor="let error of errors" class="alert alert--danger">
+    <div *ngFor="let error of errors" class="login-page__content__alert nt-alert nt-alert--danger">
       {{ error }}
     </div>
     <div class="form-group">
@@ -26,7 +26,7 @@
     </div>
     <div class="login-page__content__actions">
       <div class="login-page__content__actions__main">
-        <a routerLink="/register" class="nt-link">Vous n'etes pas encore inscrit.e.s?</a>
+        <a routerLink="/register" class="nt-link">Vous n'êtes pas encore inscrit.e?</a>
       </div>
       <div>
         <a routerLink="/forgot-password" class="nt-link">Mot de passe oublié?</a>

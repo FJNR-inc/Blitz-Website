@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   default_language: 'fr',
   url_base_api: 'http://localhost:8000',
-  token_paysafe: 'T1QtMjM1MjAwOkItcWEyLTAtNWI3NmQ3ZTQtMC0zMDJkMDIxNTAwOGQ3ODRiOTQzNzVmN2NmYjQwYTkwNzMwZDBlYmU0NmJhMTdmYmRlYjAyMTQzYTcxMzBkYTI0ZjQ3Mzg4YWQzYjYzOTE2ZWE2NDE1MzJkZTIyZjU5',
+  token_paysafe: 'T1QtMjAzODcwOkItcWEyLTAtNWI4NDE4MTItMC0zMDJjMDIxNDU0OTlkYzBmYWYwMmRiMTllMmZhOTg2YmQwMWJiMDUwZTk1NjI0ODQwMjE0NmRiZTBlNWQzNmRlMTA3NzNjZTFmODM1NWNkNDRlY2EzMTdiZGViZQ==',
   paths_api: {
     activation: '/users/activate',
     authentication: '/authentication',

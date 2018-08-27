@@ -104,6 +104,14 @@ const appRoutes = [
         component: LoginPageComponent,
       },
       {
+        path: 'login/:lastUrl',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'logout',
+        component: LogoutPageComponent,
+      },
+      {
         path: 'register',
         component: RegisterPageComponent,
       },
@@ -196,20 +204,6 @@ const appRoutes = [
         path: '403',
         component: Error403Component,
       }
-    ]
-  },
-  {
-    path: '',
-    component: BackgroundLayoutComponent,
-    children: [
-      {
-        path: 'login/:lastUrl',
-        component: LoginPageComponent,
-      },
-      {
-        path: 'logout',
-        component: LogoutPageComponent,
-      },
     ]
   },
   {

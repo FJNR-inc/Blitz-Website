@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="register-page__form__content__form">
-      <div *ngFor="let error of errors" class="alert alert--danger">
+      <div *ngFor="let error of errors" class="nt-alert nt-alert--danger">
         {{ error }}
       </div>
       <div class="form-group form-group--multiple">
@@ -190,7 +190,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!registerForm.valid && hasSubmit" class="register-page__form__content__error alert alert--danger">
+    <div *ngIf="!registerForm.valid && hasSubmit" class="register-page__form__content__error nt-alert nt-alert--danger">
       Veuillez remplir tous les champs
     </div>
     <div class="register-page__form__content__actions">
@@ -289,6 +289,6 @@
   </div>
 
   <p>
-    En cliquant sur "ACCEPTER", j'accepte les termes et conditions de Thesez-vous.
+    En cliquant sur "ACCEPTER", j'accepte les termes et conditions de Thèsez-vous.
   </p>
 </app-nt-modal>
