@@ -105,6 +105,18 @@ export class AuthenticationService extends GlobalService {
     this.profile.emit(profile);
   }
 
+  setToken(token) {
+    localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    return JSON.parse(localStorage.getItem('token'));
+  }
+
+  removeToken() {
+    localStorage.removeItem('token');
+  }
+
   hasPermissions(permissions: string[]) {
     // Shortcut for admin only
     if (this.isAdmin()) {

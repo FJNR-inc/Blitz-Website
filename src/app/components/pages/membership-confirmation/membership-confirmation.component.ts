@@ -45,7 +45,8 @@ export class MembershipConfirmationComponent implements OnInit {
       this.authenticationService.activate(params['token']).subscribe(
         data => {
           this.success = true;
-          console.log(data);
+          this.authenticationService.setProfile(data.user);
+          this.authenticationService.setToken(data.token);
         },
         error => {
           this.success = false;

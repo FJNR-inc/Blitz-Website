@@ -39,7 +39,7 @@ export class LoginPageComponent {
     if ( form.valid ) {
       this.authenticationService.authenticate(form.value['login'], form.value['password']).subscribe(
         data => {
-          localStorage.setItem('token', data.token);
+          this.authenticationService.setToken(data.token);
           this.profileService.get().subscribe(
             profile => {
               this.authenticationService.setProfile(profile);
