@@ -7,51 +7,67 @@
       Abonnement
     </h2>
   </div>
-  <div *ngIf="error" class="nt-alert nt-alert--danger">
-    {{ error }}
-  </div>
-  <div *ngFor="let membership of listMemberships" class="membership-subscription-page__form" [ngClass]="{'membership-subscription-page__form--disabled': !membershipIsAvailable(membership)}">
-    <div>
-      <label for="membership-{{ membership.id }}">{{ membership.name }}</label>
+  <div *ngIf="profile.getTimeBeforeEndMembership() <= 0">
+    <div *ngIf="error" class="nt-alert nt-alert--danger">
+      {{ error }}
     </div>
-    <div class="membership-subscription-page__form__spacer"></div>
-    <div>
-      {{ membership.price }} $<sup>+txs</sup>
+    {{profile.getTimeBeforeEndMembership()}}
+    <div *ngFor="let membership of listMemberships" class="membership-subscription-page__form" [ngClass]="{'membership-subscription-page__form--disabled': !membershipIsAvailable(membership)}">
+      <div>
+        <label for="membership-{{ membership.id }}">{{ membership.name }}</label>
+      </div>
+      <div class="membership-subscription-page__form__spacer"></div>
+      <div>
+        {{ membership.price }} $<sup>+txs</sup>
+      </div>
+      <div>
+        <input class="nt-form-input"
+               (click)="changeMembership($event)"
+               name="membership"
+               type="radio"
+               value="{{ membership.id }}"
+               id="membership-{{ membership.id }}"
+               [disabled]="!membershipIsAvailable(membership)" />
+      </div>
     </div>
-    <div>
-      <input class="nt-form-input"
-             (click)="changeMembership($event)"
-             name="membership"
-             type="radio"
-             value="{{ membership.id }}"
-             id="membership-{{ membership.id }}"
-             [disabled]="!membershipIsAvailable(membership)" />
+    <div class="membership-subscription-page__text">
+      <p>
+      * Tarif de lancement. Après le 1<sup>er</sup> novembre 2018,
+        le tarif sera de 20$<sup>+txs</sup> pour les étudiant.e.s et postdoctorant.e.s.
+      </p>
+      <p>
+      L'adhésion est valable pour un an à partir de la date d'adhésion
+      et n'est pas remboursable.
+      <p>
+        L'adhésion est automatiquement renouvelée à moins de désistement.
+        Un courriel de rappel est envoyé un mois avant le renouvellement.
+      </p>
+    </div>
+    <div class="membership-subscription-page__link">
+      <a href="#" class="nt-link">En savoir plus sur nos abonnements</a>
+    </div>
+    <div class="membership-subscription-page__actions">
+      <div class="membership-subscription-page__actions__item membership-subscription-page__actions__item--main">
+        <a routerLink="/" class="nt-link">Annuler</a>
+      </div>
+      <div>
+        <a (click)="submit()" type="submit" class="membership-subscription-page__actions__item nt-button">
+          Suivant
+        </a>
+      </div>
     </div>
   </div>
-  <div class="membership-subscription-page__text">
-    <p>
-    * Tarif de lancement. Après le 1<sup>er</sup> novembre 2018,
-      le tarif sera de 20$<sup>+txs</sup> pour les étudiant.e.s et postdoctorant.e.s.
-    </p>
-    <p>
-    L'adhésion est valable pour un an à partir de la date d'adhésion
-    et n'est pas remboursable.
-    <p>
-      L'adhésion est automatiquement renouvelée à moins de désistement.
-      Un courriel de rappel est envoyé un mois avant le renouvellement.
-    </p>
-  </div>
-  <div class="membership-subscription-page__link">
-    <a href="#" class="nt-link">En savoir plus sur nos abonnements</a>
-  </div>
-  <div class="membership-subscription-page__actions">
-    <div class="membership-subscription-page__actions__item membership-subscription-page__actions__item--main">
-      <a routerLink="/" class="nt-link">Annuler</a>
+  <div *ngIf="profile.getTimeBeforeEndMembership() > 0" >
+    <div class="membership-subscription-page__unavailable">
+      Vous avez déjà un membership pour
+      {{ profile.getTimeBeforeEndMembership() }} jour.s. Tant que
+      votre membership n'est pas terminé il vous est impossible
+      (et inutile) d'acheter un nouveau membership.
     </div>
-    <div>
-      <a (click)="submit()" type="submit" class="membership-subscription-page__actions__item nt-button">
-        Suivant
-      </a>
+    <div class="membership-subscription-page__actions">
+      <div class="membership-subscription-page__actions__item membership-subscription-page__actions__item--main">
+        <a routerLink="/" class="nt-link">Retour à la page d'accueil</a>
+      </div>
     </div>
   </div>
 </div>

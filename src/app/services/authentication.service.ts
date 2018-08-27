@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import GlobalService from './globalService';
+import {User} from '../models/user';
 
 interface AuthenticationResponse {
   token: string;
@@ -97,7 +98,7 @@ export class AuthenticationService extends GlobalService {
   }
 
   getProfile() {
-    return JSON.parse(localStorage.getItem('userProfile'));
+    return new User(JSON.parse(localStorage.getItem('userProfile')));
   }
 
   setProfile(profile) {

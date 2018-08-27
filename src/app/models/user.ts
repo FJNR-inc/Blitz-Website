@@ -28,10 +28,14 @@ export class User extends BaseModel {
   }
 
   getTimeBeforeEndMembership() {
-    const endMembership = new Date(this.membership_end);
-    const now = Date.now();
-    const delta = endMembership.getTime() - now;
-    return Math.ceil(delta / 86400000);
+    if (this.membership_end) {
+      const endMembership = new Date(this.membership_end);
+      const now = Date.now();
+      const delta = endMembership.getTime() - now;
+      return Math.ceil(delta / 86400000);
+    } else {
+      return 0;
+    }
   }
 
   getBirthdate() {
