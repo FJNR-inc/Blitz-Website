@@ -157,3 +157,25 @@
     }
   }
 }
+
+@media only screen and (max-width: 550px) {
+  .nt-header {
+    justify-content: space-between;
+
+    &__logo {
+      height: 30px;
+    }
+
+    &__actions {
+      &__item {
+        &--responsive {
+          display: none;
+        }
+      }
+    }
+
+    &__content {
+      flex-direction: column;
+    }
+  }
+}

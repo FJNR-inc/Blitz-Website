@@ -30,3 +30,11 @@
     }
   }
 }
+
+@media only screen and (max-width: 550px) {
+  .new-layout {
+    &__content {
+      padding: 10px;
+    }
+  }
+}
