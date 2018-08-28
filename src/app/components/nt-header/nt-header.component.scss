@@ -32,6 +32,7 @@
     padding: 0;
     margin: 0;
     transition: all $ease-inout-sine 500ms;
+    font-size: 11pt;
 
     &:hover {
       color: lightgrey;
@@ -63,6 +64,7 @@
     display: flex;
     justify-content: flex-start;
     margin-top: 30px;
+    transition: all $ease-inout-sine 500ms;
 
     &:hover {
       & path {

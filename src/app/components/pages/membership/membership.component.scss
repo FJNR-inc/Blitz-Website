@@ -50,8 +50,10 @@ app-membership {
     }
 
     &__text {
+      margin-top: 40px;
       max-width: 500px;
       font-size: 15pt;
+      line-height: 20pt;
     }
 
     &__button {
