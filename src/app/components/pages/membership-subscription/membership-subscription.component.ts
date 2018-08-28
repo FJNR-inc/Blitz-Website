@@ -74,15 +74,11 @@ export class MembershipSubscriptionComponent implements OnInit {
   }
 
   membershipIsAvailable(membership) {
-    console.log(membership);
     let haveRight = false;
     if (this.profile.academic_level) {
       haveRight = membership.academic_levels.indexOf(this.profile.academic_level.url);
     }
     const isForAll = membership.academic_levels.length === 0;
-    console.log(membership);
-    console.log(haveRight);
-    console.log(isForAll);
     return haveRight || isForAll;
   }
 }

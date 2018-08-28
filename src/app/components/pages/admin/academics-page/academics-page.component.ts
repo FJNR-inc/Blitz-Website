@@ -137,7 +137,6 @@ export class AcademicsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.fieldErrors = err.error.non_field_errors;
-              console.log(this.fieldErrors);
             }
             if (err.error.name) {
               this.fieldForm.controls['name'].setErrors({
@@ -156,7 +155,6 @@ export class AcademicsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.fieldErrors = err.error.non_field_errors;
-              console.log(this.fieldErrors);
             }
             if (err.error.name) {
               this.fieldForm.controls['name'].setErrors({
@@ -170,7 +168,6 @@ export class AcademicsPageComponent implements OnInit {
   }
 
   removeField(item) {
-    console.log('bad!');
     this.academicFieldService.remove(item).subscribe(
       data => {
         this.notificationService.success('Supprimé', 'Le domaine d\'étude a bien été supprimé.');
@@ -219,7 +216,6 @@ export class AcademicsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.levelErrors = err.error.non_field_errors;
-              console.log(this.levelErrors);
             }
             if (err.error.name) {
               this.levelForm.controls['name'].setErrors({
@@ -238,7 +234,6 @@ export class AcademicsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.levelErrors = err.error.non_field_errors;
-              console.log(this.levelErrors);
             }
             if (err.error.name) {
               this.levelForm.controls['name'].setErrors({

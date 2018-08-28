@@ -142,7 +142,6 @@ export class PeriodsComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.periodErrors = err.error.non_field_errors;
-              console.log(this.periodErrors);
             }
             if (err.error.name) {
               this.periodForm.controls['name'].setErrors({
@@ -181,7 +180,6 @@ export class PeriodsComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.periodErrors = err.error.non_field_errors;
-              console.log(this.periodErrors);
             }
             if (err.error.name) {
               this.periodForm.controls['name'].setErrors({

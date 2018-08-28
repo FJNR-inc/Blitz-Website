@@ -49,10 +49,8 @@ export class LoginPageComponent {
           );
         },
         err => {
-          console.log(err.error);
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
-            console.log(this.errors);
           }
           if (err.error.username) {
             this.loginForm.controls['login'].setErrors({

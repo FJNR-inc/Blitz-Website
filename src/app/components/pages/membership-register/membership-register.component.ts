@@ -225,10 +225,8 @@ export class MembershipRegisterComponent implements OnInit {
           this.router.navigate(['/membership/verification']);
         },
         err => {
-          console.log(err.error);
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
-            console.log(this.errors);
           }
           if (err.error.first_name) {
             this.registerForm.controls['first_name'].setErrors({

@@ -144,7 +144,6 @@ export class PeriodComponent implements OnInit {
             err => {
               if (err.error.non_field_errors) {
                 this.timeslotErrors = err.error.non_field_errors;
-                console.log(this.timeslotErrors);
               }
               if (err.error.start_time) {
                 this.timeslotForm.controls['start_time'].setErrors({
@@ -169,7 +168,6 @@ export class PeriodComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.timeslotErrors = err.error.non_field_errors;
-              console.log(this.timeslotErrors);
             }
             if (err.error.start_time) {
               this.timeslotForm.controls['start_time'].setErrors({
@@ -194,7 +192,6 @@ export class PeriodComponent implements OnInit {
         this.refreshTimeslotList();
       },
       err => {
-        console.log(err);
         this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
       }
     );

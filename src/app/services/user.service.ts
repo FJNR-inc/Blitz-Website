@@ -61,7 +61,6 @@ export class UserService extends GlobalService {
 
     if (filters != null) {
       for (const filter of filters) {
-        console.log(filter);
         let name = '';
         if (filter.name === 'first_name') {
           name = 'first_name';

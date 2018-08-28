@@ -106,7 +106,6 @@ export class WorkplaceComponent implements OnInit {
                 'url': picture.picture
               });
             }
-            console.log(this.listPicturesAdapted);
           }
         );
       }
@@ -142,8 +141,6 @@ export class WorkplaceComponent implements OnInit {
 
   onRemoved(event) {
     for (const picture of this.listPictures) {
-      console.log(picture.name);
-      console.log(event);
       if (picture.name === event.file.name) {
         this.pictureService.remove(picture).subscribe(
           data => {
@@ -200,7 +197,6 @@ export class WorkplaceComponent implements OnInit {
         err => {
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
-            console.log(this.errors);
           }
           if (err.error.name) {
             this.workplaceForm.controls['name'].setErrors({

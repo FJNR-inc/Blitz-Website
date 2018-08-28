@@ -11,7 +11,6 @@
     <div *ngIf="error" class="nt-alert nt-alert--danger">
       {{ error }}
     </div>
-    {{profile.getTimeBeforeEndMembership()}}
     <div *ngFor="let membership of listMemberships" class="membership-subscription-page__form" [ngClass]="{'membership-subscription-page__form--disabled': !membershipIsAvailable(membership)}">
       <div>
         <label for="membership-{{ membership.id }}">{{ membership.name }}</label>

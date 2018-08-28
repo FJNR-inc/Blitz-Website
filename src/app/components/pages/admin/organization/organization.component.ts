@@ -109,7 +109,6 @@ export class OrganizationComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.domainErrors = err.error.non_field_errors;
-              console.log(this.domainErrors);
             }
             if (err.error.name) {
               this.domainForm.controls['name'].setErrors({
@@ -133,7 +132,6 @@ export class OrganizationComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.domainErrors = err.error.non_field_errors;
-              console.log(this.domainErrors);
             }
             if (err.error.name) {
               this.domainForm.controls['name'].setErrors({

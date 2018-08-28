@@ -161,7 +161,6 @@ export class ReservationPageComponent implements OnInit {
         data => {
           this.workplace = new Workplace(data);
           const now = new Date().toISOString();
-          console.log(now);
           const filters = [
             {
               'name': 'workplace',
@@ -387,9 +386,6 @@ export class ReservationPageComponent implements OnInit {
           this.orderService.create(newOrder).subscribe(
             response => {
               this.ToggleModalAddCard();
-            },
-            err => {
-              console.log(err);
             }
           );
         }

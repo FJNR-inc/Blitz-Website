@@ -94,7 +94,6 @@ export class WorkplacesComponent implements OnInit {
   }
 
   removeWorkplace(item) {
-    console.log('bad!');
     this.workplaceService.remove(item).subscribe(
       data => {
         this.notificationService.success('Supprimé', 'L\'espace de travail a bien été supprimé.');
@@ -130,10 +129,8 @@ export class WorkplacesComponent implements OnInit {
           this.toogleModal('form_workplaces');
         },
         err => {
-          console.log(err.error);
           if (err.error.non_field_errors) {
             this.workplaceErrors = err.error.non_field_errors;
-            console.log(this.workplaceErrors);
           }
           if (err.error.name) {
             this.workplaceForm.controls['name'].setErrors({

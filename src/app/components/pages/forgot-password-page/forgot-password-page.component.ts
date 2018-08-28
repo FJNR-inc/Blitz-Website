@@ -27,14 +27,11 @@ export class ForgotPasswordPageComponent {
     if ( form.valid ) {
       this.authenticationService.resetPassword(form.value['email']).subscribe(
         data => {
-          console.log('success');
           this.router.navigate(['/forgot-password/confirmation']);
         },
         err => {
-          console.log(err.error);
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
-            console.log(this.errors);
           }
           if (err.error.email) {
             this.forgotForm.controls['email'].setErrors({

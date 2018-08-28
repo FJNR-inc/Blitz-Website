@@ -94,7 +94,6 @@ export class OrganizationsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.organizationErrors = err.error.non_field_errors;
-              console.log(this.organizationErrors);
             }
             if (err.error.name) {
               this.organizationForm.controls['name'].setErrors({
@@ -113,7 +112,6 @@ export class OrganizationsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.organizationErrors = err.error.non_field_errors;
-              console.log(this.organizationErrors);
             }
             if (err.error.name) {
               this.organizationForm.controls['name'].setErrors({

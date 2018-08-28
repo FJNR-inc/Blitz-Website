@@ -104,7 +104,6 @@ export class UsersPageComponent implements OnInit {
   userAdapter(users) {
     const usersAdapted = [];
     for (let user of users) {
-      console.log(user);
       user = {
         id: user.id,
         first_name: user.first_name,
