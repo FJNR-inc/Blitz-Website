@@ -56,9 +56,11 @@ ul.wizard li.active::after {
 ul.wizard span {
   color: $nt-text;
   font-size: 12px;
-  word-break: break-all;
   margin-top: 10px;
   visibility: hidden;
+  word-break: keep-all;
+  padding: 3px;
+  overflow: hidden;
 }
 
 ul.wizard:hover span {
