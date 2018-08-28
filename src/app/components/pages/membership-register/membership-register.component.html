@@ -12,7 +12,10 @@
     </div>
     <div class="membership-register-page__form__content__form">
       <div *ngFor="let error of errors" class="nt-alert nt-alert--danger">
-        {{ error }}
+        <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
+        <div class="nt-alert__content">
+          {{ error }}
+        </div>
       </div>
       <div class="form-group form-group--multiple">
         <div class="form-group__item">
@@ -194,7 +197,10 @@
       </div>
     </div>
     <div *ngIf="!registerForm.valid && hasSubmit" class="membership-register-page__form__content__error nt-alert nt-alert--danger">
-      Veuillez remplir tous les champs
+      <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
+      <div class="nt-alert__content">
+        Veuillez remplir tous les champs
+      </div>
     </div>
     <div class="membership-register-page__form__content__link">
       <a (click)="goToLoginPage()" class="nt-link">Vous êtes deja inscrit.e?</a>

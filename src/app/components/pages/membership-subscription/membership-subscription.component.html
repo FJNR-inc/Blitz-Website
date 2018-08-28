@@ -9,7 +9,10 @@
   </div>
   <div *ngIf="profile.getTimeBeforeEndMembership() <= 0">
     <div *ngIf="error" class="nt-alert nt-alert--danger">
-      {{ error }}
+      <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
+      <div class="nt-alert__content">
+        {{ error }}
+      </div>
     </div>
     <div *ngFor="let membership of listMemberships" class="membership-subscription-page__form" [ngClass]="{'membership-subscription-page__form--disabled': !membershipIsAvailable(membership)}">
       <div>
