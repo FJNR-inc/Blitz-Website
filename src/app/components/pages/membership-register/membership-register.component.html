@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="membership-register-page__form__content__form">
-      <div *ngFor="let error of errors" class="alert alert--danger">
+      <div *ngFor="let error of errors" class="nt-alert nt-alert--danger">
         {{ error }}
       </div>
       <div class="form-group form-group--multiple">
@@ -193,7 +193,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!registerForm.valid && hasSubmit" class="membership-register-page__form__content__error alert alert--danger">
+    <div *ngIf="!registerForm.valid && hasSubmit" class="membership-register-page__form__content__error nt-alert nt-alert--danger">
       Veuillez remplir tous les champs
     </div>
     <div class="membership-register-page__form__content__link">

@@ -1,4 +1,5 @@
 @import '../../../assets/scss/theme';
+@import '../../../assets/scss/easings';
 
 .nt-header {
   color: $nt-text;
@@ -30,10 +31,21 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
+    transition: all $ease-inout-sine 500ms;
+
+    &:hover {
+      color: lightgrey;
+    }
 
     &__item {
       margin: 15px 0;
       text-transform: uppercase;
+
+      & a {
+        &:hover {
+          color: $nt-text;
+        }
+      }
     }
   }
 
@@ -51,9 +63,22 @@
     display: flex;
     justify-content: flex-start;
     margin-top: 30px;
+
+    &:hover {
+      & path {
+        fill: lightgrey;
+      }
+    }
+
     &__item {
       padding-right: 20px;
       width: 42px;
+
+      &:hover {
+        & path {
+          fill: $nt-text;
+        }
+      }
     }
   }
 
