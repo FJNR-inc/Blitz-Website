@@ -72,7 +72,8 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="email" class="nt-form-label">Adresse courriel universitaire*:</label>
+        <label *ngIf="selectedUniversity" for="email" class="nt-form-label">Adresse courriel universitaire*:</label>
+        <label *ngIf="!selectedUniversity" for="email" class="nt-form-label">Adresse courriel*:</label>
         <input formControlName="email" type="email" id="email" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
@@ -172,7 +173,7 @@
             <option value="A">Je ne souhaite pas m'identifier</option>
             <option value="M">Homme</option>
             <option value="F">Femme</option>
-            <option value="T">Trans</option>
+            <option value="T">Non-binaire</option>
           </select>
         </div>
       </div>

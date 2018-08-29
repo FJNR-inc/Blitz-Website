@@ -285,6 +285,7 @@ export class MembershipRegisterComponent implements OnInit {
     for (const university of this.listOrganizations) {
       if (university.name === this.registerForm.controls['university'].value) {
         this.selectedUniversity = university;
+        this.registerForm.controls['email'].setErrors(null);
       }
     }
   }
