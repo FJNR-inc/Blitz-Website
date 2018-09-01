@@ -55,6 +55,7 @@ export class MembershipRegisterComponent implements OnInit {
   selectedUniversity: Organization;
 
   validatedTerms = false;
+  haveReadTerms = false;
 
   constructor(private formBuilder: FormBuilder,
               private academicFieldService: AcademicFieldService,
@@ -292,5 +293,11 @@ export class MembershipRegisterComponent implements OnInit {
 
   goToLoginPage() {
     this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url }});
+  }
+
+  onScroll(event) {
+    if (event.target.scrollTop === event.target.scrollTopMax) {
+      this.haveReadTerms = true;
+    }
   }
 }

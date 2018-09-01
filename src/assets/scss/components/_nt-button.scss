@@ -29,4 +29,10 @@
       background-color: $nt-text;
     }
   }
+
+  &:disabled {
+    background-color: lightgrey;
+    color: grey;
+    cursor: default;
+  }
 }

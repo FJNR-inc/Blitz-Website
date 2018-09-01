@@ -9,9 +9,9 @@
       </div>
       <div class="modal-component__content__reveal__content" #modalContent>
         <ng-content></ng-content>
-        <a *ngIf="!isModalInformation" class="modal-component__content__reveal__content__button nt-button" (click)="clickButton2()">
+        <button *ngIf="!isModalInformation" [disabled]="!activated" class="modal-component__content__reveal__content__button nt-button" (click)="clickButton2()">
           {{ button2Label }}
-        </a>
+        </button>
       </div>
     </div>
   </div>

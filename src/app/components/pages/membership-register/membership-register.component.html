@@ -222,12 +222,12 @@
   </form>
 </div>
 
-<app-nt-modal name="form_terms" (button2)="acceptTerms()" maxWidth='780px' class="modal-terms">
+<app-nt-modal name="form_terms" [activated]="haveReadTerms" (button2)="acceptTerms()" maxWidth='780px' class="modal-terms">
   <h1 class="nt-title">
     Termes et conditions
   </h1>
 
-  <div class="modal-terms__text">
+  <div class="modal-terms__text" (scroll)="onScroll($event)">
     <div class="modal-terms__text__section">
       <h2 class="modal-terms__text__section__title">
         Conditions generales d'utilisation de la plateforme thesez-vous?
