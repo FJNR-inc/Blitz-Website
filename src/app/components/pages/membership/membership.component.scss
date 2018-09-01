@@ -70,6 +70,13 @@ app-membership {
       padding: 40px;
       font-size: 12pt;
       text-align: left;
+
+      &__important {
+        font-size: 1.2em;
+        font-style: italic;
+        margin-top: 15px;
+        text-align: center;
+      }
     }
   }
 }
