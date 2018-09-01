@@ -11,3 +11,18 @@ install:
 - npm install
 script:
 - ng build --prod
+deploy:
+  provider: s3
+  access_key_id: "$AWS_ACCESS_KEY_ID"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+  bucket: thesezvous-dev-frontendbucket-3k24zycbd7x
+  skip_cleanup: true
+  local-dir: dist
+  acl: public_read
+  on:
+    repo: FJNR-inc/Blitz-Website
+    branch: develop
+env:
+  global:
+  - secure: Fk5RrtB0dcVek7hnjTT9AELpibbnhMM2OD9SOOpaGOyev1Z40TfRYU2LsRQcaC09BUWWZUOKIOpwKXxYx6q4UPtNaYhG1FrnvqEQ3uXocwZelKvUpYUYDccRLiqWAcX99K0fsOidHTYBf5eXSntdjZqq8ZdCjxbZlDmn00uS/ABw8cWzycGh1Oc2OgIUkvBIjpoMRhd4oiTHkxIxyerAS8VVVbatF/Z5NWU8b8tnha1RrYgMM5dckaiysoXGnClPJznAFDHcZM1foxluFMuUoPC8eUPo4WaT6VYSjei2KnqXs46elJC4FoGbl3xnZfGnCBcfCSqfEK7Egl2/C4pGUl3WY1Qgw6jwaw2llYRGZFv2yzIQ7KMlaXUA+IAGV3+m33u+F+g7VFbSIm3PRRiq8KyaPhfEvU2pHU2+rDzw8GgmSkw3hqdMNxiwaibeG+BDPSYBHdZO5oZ9kCb6aLqjx0e4aqfBgxIvnwcGNPZEel/9JUn7JA52VUeC4Vl5QbGSxOGhI+V4gITJ9+xQTLOdtyY0URA251810dBESBShABmWOhp50JHfvvLB/ts9qM2Ninytr7Bhv1tRZ3Upm2hJ+6EK0xceH+Gc25b6dHa4ZnXOHrOy1FD7SE2vM3Gpuexd9uOuZDJ47HYK5gTtIpKnSV3FClfpM4H6duSTJlrHCTw=
+  - secure: E/agfVo4vSn8PXL4Az+bMDgT4qvTMzj3uNfgzQM7TEuhlY0MA1Qwj5B1ZxZopPSJRMVsKH8YxOU5LxBPjKhfakprxMIdn7JHbtMlbRhBRnJA5AZQ3P07DI7bz7lXDAj6HEDzNdvUvedZ+zNNWby9pyQf2qov4L7vjbK3zf4dxhGRGiJdJdnlHzfn+IotJVnOCil0mc16Pq9I2G/or1T9dbs+O4ABoQVe1/Z2ZuVYThnQbwV2rUw/7hOoOiihl/LS4CSauHT9qCKlz350rBHYy9XrNTcysOmAKaUgO52PkMr+IDp8mIbJi0DJX6qd9LgGInWr1U13YvqKXBXvCPk0ebxHWNCLbRfCuAW6CZCgBQsgDqbsJ/6WSYXhOrVWkmm2CZx+s9Y1n0lZuUBQLuDxGr/mf1nT/X9mECgBPkHu9XjgeEHBrlcQfUMcyg/m3v5W7nvP8D99V/H8Kc+hIE+gd3L3M3Z0Vw0FuvxTryeUCHzkc3V9uoLbHfCbrhW/PXUaiRuZVAry74WKxo1Pjr5i+sveQgTWjdcVRcBrh0YaJAfhZkj1h743cdwlCi00/rulb+cuw4eN4qVtQnCp9jsD/ogs+zpxo+HoKh1VEdumuK8us/Dzld5mP1FlIVDSIgphy1MMHi/w7o7Y7MKM/naJ3q7aMnPRAAXiz8WFlQi0+bQ=
