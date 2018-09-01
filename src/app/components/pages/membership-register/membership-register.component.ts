@@ -296,7 +296,8 @@ export class MembershipRegisterComponent implements OnInit {
   }
 
   onScroll(event) {
-    if (event.target.scrollTop === event.target.scrollTopMax) {
+    console.log(event);
+    if (event.target.scrollTop + event.target.offsetHeight >= event.target.scrollHeight) {
       this.haveReadTerms = true;
     }
   }
