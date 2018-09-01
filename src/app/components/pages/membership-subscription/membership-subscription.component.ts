@@ -49,7 +49,7 @@ export class MembershipSubscriptionComponent implements OnInit {
   }
 
   refreshListMemberships() {
-    this.membershipService.list().subscribe(
+    this.membershipService.list([{name: 'available', value: true}]).subscribe(
       memberships => {
         this.listMemberships = memberships.results.map(m => new Membership(m));
       }
