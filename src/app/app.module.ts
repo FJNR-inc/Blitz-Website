@@ -81,6 +81,7 @@ import { MembershipDoneComponent } from './components/pages/membership-done/memb
 import { MembershipPaymentComponent } from './components/pages/membership-payment/membership-payment.component';
 import { NtModalComponent } from './components/nt-modal/nt-modal.component';
 import { NtHeaderComponent } from './components/nt-header/nt-header.component';
+import { TermsComponent } from './components/modal/terms/terms.component';
 
 registerLocaleData(localeFr);
 
@@ -362,6 +363,7 @@ const appRoutes = [
     MembershipPaymentComponent,
     NtModalComponent,
     NtHeaderComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule,

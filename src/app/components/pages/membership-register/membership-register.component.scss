@@ -50,44 +50,6 @@
   }
 }
 
-.modal-terms {
-
-  &__text {
-    height: 250px;
-    overflow-y: auto;
-    margin: 30px 0;
-    border: 1px solid $nt-text;
-
-    &__section {
-      padding: 20px;
-
-      &__title {
-        font-size: 10pt;
-        margin-bottom: 10px;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-
-      &__text {
-        font-size: 10pt
-      }
-    }
-
-    &__columns {
-      display: flex;
-
-      &__column {
-        flex: 1;
-
-        &__bref {
-          font-size: 14pt;
-        }
-      }
-    }
-  }
-}
-
-
 @media only screen and (max-width: 500px) {
   .membership-register-page {
     padding: 20px;
@@ -113,42 +75,6 @@
             margin-top: 20px;
             width: 100%;
             text-align: left;
-          }
-        }
-      }
-    }
-  }
-
-  .modal-terms {
-    &__text {
-      height: 250px;
-      overflow-y: auto;
-      margin: 30px 0;
-      border: 1px solid $nt-text;
-
-      &__section {
-        padding: 20px;
-
-        &__title {
-          font-size: 10pt;
-          margin-bottom: 10px;
-          font-weight: 600;
-          text-transform: uppercase;
-        }
-
-        &__text {
-          font-size: 10pt
-        }
-      }
-
-      &__columns {
-        display: flex;
-
-        &__column {
-          flex: 1;
-
-          &__bref {
-            font-size: 14pt;
           }
         }
       }
