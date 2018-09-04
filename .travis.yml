@@ -10,7 +10,7 @@ install:
 - npm install -g @angular/cli
 - npm install
 script:
-- ng build --dev
+- ng build -c qa
 deploy:
   provider: s3
   access_key_id: "$AWS_ACCESS_KEY_ID"

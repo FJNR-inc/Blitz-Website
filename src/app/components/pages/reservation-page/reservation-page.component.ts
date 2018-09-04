@@ -11,7 +11,7 @@ import {
   addHours
 } from 'date-fns';
 
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { CalendarDateFormatter, CalendarEvent, CalendarEventAction, DAYS_OF_WEEK } from 'angular-calendar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WorkplaceService } from '../../../services/workplace.service';

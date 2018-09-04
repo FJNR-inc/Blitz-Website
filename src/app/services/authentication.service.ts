@@ -1,7 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import GlobalService from './globalService';
 import {User} from '../models/user';

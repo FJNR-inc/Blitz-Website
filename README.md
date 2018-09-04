@@ -14,16 +14,16 @@ Feel free to create an account on this instance if you want to contribute!
 
 ## Development server
 
-Run `ng serve --env=local` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve -c local` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. 
 
- - Use the `-prod` flag for a production build.
- - Use the `-dev` flag for a development build.
+ - Use the `-c prod` flag for a production build.
+ - Use the `-c qa` flag for a quality assurance build.
 
-**Note:** A development build is created and updated on `dev.thesez-vous.org` each time a commit is merged on the `develop` branch. 
+**Note:** A quality assurance build is created and updated on `dev.thesez-vous.org` each time a commit is merged on the `develop` branch. 
 
 ## Running unit tests
 
