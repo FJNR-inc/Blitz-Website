@@ -6,7 +6,8 @@
  - Free software: [MIT license](https://github.com/FJNR-inc/Blitz-Website/blob/master/LICENSE)
  - API repository: https://github.com/FJNR-inc/Blitz-API
  - Continious Integration: https://travis-ci.org/FJNR-inc/Blitz-Website
- 
+ - NodeJS Version Supported: 8, 10
+
 ## Issue manager 
 
 Issue are handled in a [Redmine instance](https://genielibre.com/projects/blitz-paradisio). 
