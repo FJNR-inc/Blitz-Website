@@ -2,9 +2,7 @@
   <div class="modal-component__content">
     <div class="modal-component__content__reveal" [style.width]="maxWidth">
       <div class="modal-component__content__reveal__header">
-        <div class="modal-component__content__reveal__header__cancel" (click)="toggle()">
-          X
-        </div>
+        <img src="../../../assets/images/icons/icon_exit.svg" class="modal-component__content__reveal__header__cancel" (click)="toggle()" />
         {{ title }}
       </div>
       <div class="modal-component__content__reveal__content" #modalContent>
