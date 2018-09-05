@@ -60,3 +60,18 @@
     }
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .modal-component {
+    &__content {
+      &__reveal {
+        height: calc(100% - 20px);
+        max-width: calc(100% - 20px);
+
+        &__content {
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
