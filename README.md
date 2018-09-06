@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/FJNR-inc/Blitz-Website.svg?branch=master)](https://travis-ci.org/FJNR-inc/Blitz-Website)
 [![Coverage Status](https://coveralls.io/repos/github/FJNR-inc/Blitz-Website/badge.svg?branch=master)](https://coveralls.io/github/FJNR-inc/Blitz-Website?branch=master)
+[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=rsLVqzB12n8o1kFsKrUD)](https://www.browserstack.com/automate/public-build/rsLVqzB12n8o1kFsKrUD)
 
 # BlitzWebsite
 
