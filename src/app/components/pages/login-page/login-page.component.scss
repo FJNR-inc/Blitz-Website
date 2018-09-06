@@ -2,8 +2,8 @@
 
 .login-page {
   background-color: $nt-background-color-light;
-  width: 700px;
-  margin: auto;
+  max-width: 700px;
+  margin: 0 20px;
   padding: 40px;
 
   &__content {
@@ -19,6 +19,10 @@
       align-items: center;
       font-size: 10pt;
 
+      &__item + .login-page__content__actions__item{
+        padding-left: 60px;
+      }
+
       &__main {
         flex: 1;
       }
@@ -26,6 +30,30 @@
 
     &__submit {
       margin-top: 40px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .login-page {
+    padding: 20px;
+
+    &__content {
+      &__actions {
+        flex-direction: column-reverse;
+        align-items: start;
+
+        &__item {
+          margin-top: 20px;
+          width: 100%;
+          text-align: left;
+
+          &+ .login-page__content__actions__item {
+            padding-left: 0;
+          }
+        }
+      }
     }
   }
 }

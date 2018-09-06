@@ -2,8 +2,8 @@
 
 .register-page {
   background-color: $nt-background-color-light;
-  width: 600px;
-  margin: auto;
+  max-width: 600px;
+  margin: 0 20px;
   padding: 40px;
 
   &__form {
@@ -38,37 +38,32 @@
   }
 }
 
-.modal-terms {
+@media only screen and (max-width: 500px) {
+  .register-page {
+    padding: 20px;
 
-  &__text {
-    height: 250px;
-    overflow-y: auto;
-    margin: 30px 0;
-    border: 1px solid $nt-text;
+    &__form {
 
-    &__section {
-      padding: 20px;
+      &__content {
+        &__form {
+          &__inline {
+            flex-direction: column;
 
-      &__title {
-        font-size: 10pt;
-        margin-bottom: 10px;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
+            &__gender {
+              margin-left: 0;
+            }
+          }
+        }
 
-      &__text {
-        font-size: 10pt
-      }
-    }
+        &__actions {
+          flex-direction: column-reverse;
+          align-items: start;
 
-    &__columns {
-      display: flex;
-
-      &__column {
-        flex: 1;
-
-        &__bref {
-          font-size: 14pt;
+          &__item {
+            margin-top: 20px;
+            width: 100%;
+            text-align: left;
+          }
         }
       }
     }
