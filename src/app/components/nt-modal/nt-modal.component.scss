@@ -30,10 +30,10 @@
         padding: 15px;
         font-weight: 900;
         color: $nt-text;
-        background-color: $nt-background-color-dark;
         display: flex;
         justify-content: space-between;
         flex-direction: row-reverse;
+        height: 60px;
 
         &__cancel {
           width: 30px;
