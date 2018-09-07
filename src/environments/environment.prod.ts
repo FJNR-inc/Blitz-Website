@@ -2,7 +2,8 @@ export const environment = {
   production: false,
   default_language: 'fr',
   url_base_api: 'https://api.thesez-vous.org',
-  token_paysafe: 'T1QtMjMxODcwOkItcWEyLTAtNWI4NmUxMDktMC0zMDJjMDIxNDJiMWI4YjNjZmMyNmM0YTc3ZTUzNTI0YjYzNzEwMzU3YWE1NmYzNWMwMjE0NjM5N2ZhZTJiMDZjNjFiYmFhNGQ1NGZjNDE2MjlhOGIxNzVmOTRhNw==',
+  environment_paysafe: 'LIVE',
+  token_paysafe: 'U1VULTIwNzI3MjpCLXAxLTAtNWI5Mjg5OTItMC0zMDJjMDIxNDczNDgwYjc5NjM5OTRiZDRjMDFlYTQxODhlMzMxZmEwYWRlNjU3NDIwMjE0NjMzMGQ5OGQ0YjFiYTA3YjNjNmVmYjMxNTJlMWQyMTljNTI0MjI1ZA==',
   paths_api: {
     activation: '/users/activate',
     authentication: '/authentication',

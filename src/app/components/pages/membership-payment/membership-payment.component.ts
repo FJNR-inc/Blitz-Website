@@ -40,7 +40,7 @@ export class MembershipPaymentComponent implements OnInit {
 
   API_KEY = environment.token_paysafe;
   OPTIONS = {
-    environment: 'TEST',
+    environment: environment.environment_paysafe,
     fields: {
       cardNumber: {
         selector: '#card-number',
