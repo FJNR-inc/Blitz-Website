@@ -55,6 +55,7 @@ export class MembershipRegisterComponent implements OnInit {
   selectedUniversity: Organization;
 
   validatedTerms = false;
+  inProcess = false;
 
   constructor(private formBuilder: FormBuilder,
               private academicFieldService: AcademicFieldService,
@@ -199,6 +200,7 @@ export class MembershipRegisterComponent implements OnInit {
   }
 
   register() {
+    this.inProcess = true;
     this.hasSubmit = true;
     const form = this.registerForm;
     if ( form.valid ) {
@@ -226,6 +228,7 @@ export class MembershipRegisterComponent implements OnInit {
           this.router.navigate(['/membership/verification']);
         },
         err => {
+          this.inProcess = false;
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
           }

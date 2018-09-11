@@ -214,7 +214,7 @@
         <a routerLink="/membership/intro" type="submit" class="membership-register-page__form__content__actions__item nt-button nt-button--reverse">
           Précédent
         </a>
-        <button type="submit" class="membership-register-page__form__content__actions__item nt-button">
+        <button type="submit" [disabled]="inProcess" class="membership-register-page__form__content__actions__item nt-button">
           Suivant
         </button>
       </div>
