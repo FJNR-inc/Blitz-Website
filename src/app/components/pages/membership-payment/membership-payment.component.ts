@@ -110,7 +110,10 @@ export class MembershipPaymentComponent implements OnInit {
             },
             err => {
               if (err.error.non_field_errors) {
-                this.error = err.error.non_field_errors;
+                this.error = [
+                  'Il semblerait que nous éprouvons des problèmes avec ' +
+                  'notre système de vente, veuillez réessayer dans quelques instants.'
+                ];
               }
             }
           );
