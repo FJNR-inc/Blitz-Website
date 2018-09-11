@@ -58,6 +58,7 @@ export class MembershipPaymentComponent implements OnInit {
   };
   private paysafeInstance: any;
   error: string[];
+  buttonDisabled = false;
 
   membership: Membership = null;
 
@@ -73,7 +74,11 @@ export class MembershipPaymentComponent implements OnInit {
     const instance = this;
     paysafe.fields.setup(this.API_KEY, this.OPTIONS, (paysafeInstance: any, error: any) => {
       if (error) {
-        alert(`Setup error: [${error.code}] ${error.detailedMessage}`);
+        this.error = [
+          'Il semblerait que nous éprouvons des problèmes avec ' +
+          'notre système de vente, veuillez réessayer dans quelques instants.'
+        ];
+        this.buttonDisabled = true;
       } else {
         instance.paysafeInstance = paysafeInstance;
       }
@@ -81,14 +86,20 @@ export class MembershipPaymentComponent implements OnInit {
   }
 
   generateOrder() {
+    this.buttonDisabled = true;
     const instance = this;
     if (!instance.paysafeInstance) {
       console.error('No instance Paysafe');
+      this.error = [
+        'Il semblerait que nous éprouvons des problèmes avec ' +
+        'notre système de vente, veuillez réessayer dans quelques instants.'
+      ];
     } else {
       instance.paysafeInstance.tokenize((paysafeInstance: any, error: any, result: any) => {
         if (error) {
           this.error = ['Ces informations bancaires sont invalides'];
           console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
+          this.buttonDisabled = false;
         } else {
           const newOrder = new Order(
             {
@@ -114,6 +125,7 @@ export class MembershipPaymentComponent implements OnInit {
                   'Il semblerait que nous éprouvons des problèmes avec ' +
                   'notre système de vente, veuillez réessayer dans quelques instants.'
                 ];
+                this.buttonDisabled = false;
               }
             }
           );
