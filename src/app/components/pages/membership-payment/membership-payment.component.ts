@@ -5,6 +5,7 @@ import {OrderService} from '../../../services/order.service';
 import {OrderLine} from '../../../models/orderLine';
 import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
+import {isEmpty} from 'rxjs/operators';
 
 declare let paysafe: any;
 
@@ -60,7 +61,7 @@ export class MembershipPaymentComponent implements OnInit {
   error: string[];
   buttonDisabled = false;
 
-  membership: Membership = null;
+  membership = null;
 
   constructor(private orderService: OrderService,
               private router: Router) { }
@@ -68,6 +69,9 @@ export class MembershipPaymentComponent implements OnInit {
   ngOnInit() {
     this.initPaysafe();
     this.membership = new Membership(JSON.parse(localStorage.getItem('selectedMembership')));
+    if ( !this.membership.id ) {
+      this.router.navigate(['/membership/subscription']);
+    }
   }
 
   initPaysafe() {
@@ -107,14 +111,12 @@ export class MembershipPaymentComponent implements OnInit {
               'order_lines': [],
             }
           );
-          if (this.membership) {
-            newOrder['order_lines'].push(new OrderLine({
-                'content_type': 'membership',
-                'object_id': this.membership.id,
-                'quantity': 1,
-              })
-            );
-          }
+          newOrder['order_lines'].push(new OrderLine({
+              'content_type': 'membership',
+              'object_id': this.membership.id,
+              'quantity': 1,
+            })
+          );
           this.orderService.create(newOrder).subscribe(
             response => {
               this.router.navigate(['/membership/done']);

@@ -36,7 +36,7 @@
         <a routerLink="/membership/summary" class="membership-payment-page__form__actions__item nt-button nt-button--reverse">
           Précédent
         </a>
-        <button (click)="generateOrder()" [disabled]="!membership || buttonDisabled" type="submit" class="membership-payment-page__form__actions__item nt-button">
+        <button (click)="generateOrder()" [disabled]="buttonDisabled" type="submit" class="membership-payment-page__form__actions__item nt-button">
           Payer
         </button>
       </div>
