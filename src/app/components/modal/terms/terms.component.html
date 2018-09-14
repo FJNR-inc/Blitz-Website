@@ -441,4 +441,11 @@
   <p>
     En cliquant sur "ACCEPTER", j'accepte les termes et conditions de Thèsez-vous?.
   </p>
+
+  <div *ngIf="!haveReadTerms" class="nt-alert nt-alert--danger">
+    <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
+    <div class="nt-alert__content">
+      Vous devez lire les termes et conditions avant de pouvoir les accepter!
+    </div>
+  </div>
 </app-nt-modal>
