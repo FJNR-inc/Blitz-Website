@@ -7,6 +7,7 @@
   -moz-appearance: none;
   -webkit-appearance: none;
   color: $nt-text;
+  transition: all $ease-inout-sine 300ms;
 
   &[type='radio']{
     border-radius: 50%;
@@ -16,9 +17,35 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+    position: relative;
 
     &:checked {
       background-color: $nt-text;
+    }
+
+    &:hover:not(:checked) {
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: $nt-text;
+      }
+    }
+
+    &:disabled {
+      border-color: lightgrey;
+
+      &:hover {
+        &:before {
+          background-color: inherit;
+          cursor: not-allowed;
+        }
+      }
     }
   }
 
