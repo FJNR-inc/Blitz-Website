@@ -28,6 +28,10 @@
       height: 10px;
     }
 
+    &__price {
+      white-space: nowrap;
+    }
+
     &--disabled {
       color: lightgrey;
 
