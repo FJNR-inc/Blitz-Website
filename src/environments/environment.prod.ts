@@ -3,6 +3,7 @@ export const environment = {
   default_language: 'fr',
   url_base_api: 'https://api.thesez-vous.org',
   environment_paysafe: 'LIVE',
+  // tslint:disable-next-line:max-line-length
   token_paysafe: 'U1VULTIwNzI3MjpCLXAxLTAtNWI5Mjg5OTItMC0zMDJjMDIxNDczNDgwYjc5NjM5OTRiZDRjMDFlYTQxODhlMzMxZmEwYWRlNjU3NDIwMjE0NjMzMGQ5OGQ0YjFiYTA3YjNjNmVmYjMxNTJlMWQyMTljNTI0MjI1ZA==',
   paths_api: {
     activation: '/users/activate',
