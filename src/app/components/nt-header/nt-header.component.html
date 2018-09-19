@@ -1,9 +1,20 @@
 <div class="nt-header" [ngClass]="{'nt-header--open': isOpen}">
-  <a class="nt-header__logo">
-    <img class="nt-header__logo__image" src="../../../assets/images/logo_general.svg"/>
-  </a>
+  <div class="nt-header__top">
+    <a class="nt-header__top__toggle">
+      <img (click)='toggleHeader()' src="../../../assets/images/icons/icon_exit.svg"/>
+    </a>
+    <a class="nt-header__top__toggle nt-header__top__toggle--closed">
+      <span (click)='toggleHeader()'>&#9776;</span>
+    </a>
+    <a class="nt-header__top__logo">
+      <img class="nt-header__top__logo__image" src="../../../assets/images/logo_general.svg"/>
+    </a>
+  </div>
   <div class="nt-header__content">
     <div class="nt-header__content__left">
+      <div class="nt-header__nav nt-header__nav--closed">
+        Menu
+      </div>
       <ul class="nt-header__nav">
         <li class="nt-header__nav__item">
           <a href="http://www.thesez-vous.com/agrave-propos.html">
@@ -34,9 +45,18 @@
     </div>
     <div class="nt-header__content__right">
       <div class="nt-header__actions">
-        <a routerLink="/membership/intro" class="nt-header__actions__item nt-button nt-button--reverse">Devenir membre</a>
-        <a *ngIf="!isAuthenticated()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--responsive nt-button nt-button--reverse">Se connecter</a>
-        <a *ngIf="isAuthenticated()" routerLink="/logout" class="nt-header__actions__item nt-header__actions__item--responsive nt-button nt-button--reverse">Se déconnecter</a>
+        <a routerLink="/membership/intro" class="nt-header__actions__item">Devenir membre</a>
+        <a *ngIf="!isAuthenticated()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--responsive">Se connecter</a>
+        <a *ngIf="isAuthenticated()" routerLink="/logout" class="nt-header__actions__item nt-header__actions__item--responsive">Se déconnecter</a>
+        <a routerLink="/membership/intro" class="nt-header__actions__item nt-header__actions__item--closed">
+          <img src="../../../assets/images/icons/icon_communaute.svg" />
+        </a>
+        <a *ngIf="!isAuthenticated()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--closed">
+          <img src="../../../assets/images/icons/icon_membre.svg" />
+        </a>
+        <a *ngIf="isAuthenticated()" routerLink="/logout" class="nt-header__actions__item nt-header__actions__item--closed">
+          <img src="../../../assets/images/icons/icon_membre.svg" />
+        </a>
       </div>
 
       <div class="nt-header__socials">

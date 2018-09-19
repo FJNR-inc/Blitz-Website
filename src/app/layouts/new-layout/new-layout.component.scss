@@ -3,30 +3,20 @@
 .new-layout {
   background-color: $nt-background-color;
   min-height: 100vh;
-
-  &__nav {
-    max-width: 350px;
-    position: fixed;
-    height: 100vh;
-  }
+  display: flex;
 
   &__content {
-    padding: 50px 50px 50px 350px;
+    padding: 50px;
     min-height: 100vh;
   }
 }
 
 @media only screen and (max-width: 1300px) {
   .new-layout {
-    &__nav {
-      max-width: none;
-      width: 100%;
-      height: auto;
-      position: inherit;
-    }
+    flex-direction: column;
 
-    &__content {
-      padding: 50px;
+    &__nav {
+      position: inherit;
     }
   }
 }

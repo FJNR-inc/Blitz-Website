@@ -3,25 +3,44 @@
 
 .nt-header {
   color: $nt-text;
-  margin: 50px 0 0 50px;
-  padding-right: 50px;
-  height: calc(100vh - 100px);
-  overflow-y: auto;
+  height: 100vh;
+  width: 300px;
+  overflow-x: hidden;
+  border-right: 2px solid #E6DCCF;
+  background-color: $nt-3;
 
   &__content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 180px);
   }
 
-  &__logo {
-    height: 60px;
-    display: block;
-    margin-bottom: 30px;
+  &__top {
+    padding: 20px 60px  15px 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
-    &__image {
-      height: 100%;
+    &__toggle {
+      width: 25px;
+      height: 25px;
+      margin-right: 40px;
+      display: block;
+
+      &--closed {
+        display: none;
+      }
+    }
+
+    &__logo {
+      display: block;
+      flex: 1;
+
+      &__image {
+        height: 100%;
+      }
     }
   }
 
@@ -29,10 +48,11 @@
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    padding: 0;
+    padding: 25px 50px 0 65px;
     margin: 0;
     transition: all $ease-inout-sine 500ms;
     font-size: 11pt;
+    border-top: 2px solid #E6DCCF;
 
     &:hover {
       color: lightgrey;
@@ -48,6 +68,10 @@
         }
       }
     }
+
+    &--closed {
+      display: none;
+    }
   }
 
   &__actions {
@@ -55,14 +79,25 @@
     flex-direction: column;
 
     &__item {
-      margin-top: 20px;
+      padding: 15px 0 15px 65px;
       width: 100%;
+      border-top: 2px solid #E6DCCF;
+      font-weight: 900;
+      text-transform: uppercase;
+
+      &:last-child {
+        border-bottom: 2px solid #E6DCCF;
+      }
+
+      &--closed {
+        display: none;
+      }
     }
   }
 
   &__socials {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin-top: 30px;
     transition: all $ease-inout-sine 500ms;
 
@@ -87,16 +122,88 @@
   &__burger {
     display: none;
   }
+
+  &--open {
+    width: 60px;
+
+    & .nt-header {
+      &__top {
+        padding: 0;
+
+        &__toggle {
+          display: none;
+          margin: 20px 0;
+          text-align: center;
+
+          &--closed {
+            display: block;
+          }
+        }
+
+        &__logo {
+          display: none;
+        }
+      }
+      &__nav {
+        display: none;
+
+        &--closed {
+          display: block;
+          padding: 25px 0 0 0;
+          text-align: center;
+
+          &:hover {
+            color: $nt-text;
+          }
+        }
+      }
+
+      &__content {
+        display: flex;
+
+        &__left {
+          flex: 1;
+        }
+
+        &__right {
+          flex: 1;
+        }
+      }
+
+      &__actions {
+        &__item {
+          padding: 10px;
+          display: none;
+
+          &--closed {
+            display: block;
+          }
+        }
+      }
+
+      &__socials {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__item {
+          padding: 10px;
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 1300px) {
   .nt-header {
     height: 80px;
     margin: 0 20px;
-    padding: 0;
+    padding: 10px 30px;
     overflow-y: hidden;
     display: flex;
     align-items: center;
+    width: 100%;
+    transition: none;
 
     &__content {
       flex-direction: row;
@@ -104,18 +211,33 @@
       height: auto;
     }
 
-    &__logo {
-      flex: 1;
-      margin-bottom: 0;
+    &__top {
+      padding: 0;
+
+      &__toggle {
+        display: none;
+      }
+
+      &__logo {
+        flex: 1;
+        margin-bottom: 0;
+        height: 60px;
+      }
     }
 
     &__nav {
       display: none;
+      border: none;
     }
 
     &__actions {
       &__item {
         display: none;
+        border: 1px solid $nt-text;
+        padding: 10px;
+        white-space: nowrap;
+        text-align: center;
+        margin-top: 20px;
 
         &--responsive {
           display: block;
@@ -146,6 +268,18 @@
       z-index: 100;
 
       & .nt-header {
+        &__top {
+          &__toggle {
+            &--closed {
+              display: none;
+            }
+          }
+
+          &__logo {
+            display: block;
+          }
+        }
+
         &__nav {
           display: flex;
           text-align: center;
@@ -188,9 +322,13 @@
 @media only screen and (max-width: 550px) {
   .nt-header {
     justify-content: space-between;
+    padding: 10px;
+    margin: 0;
 
-    &__logo {
-      height: 30px;
+    &__top {
+      &__logo {
+        height: 30px;
+      }
     }
 
     &__actions {
