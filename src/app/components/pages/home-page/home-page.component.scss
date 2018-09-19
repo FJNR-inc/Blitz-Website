@@ -2,239 +2,240 @@
 @import "../../../../assets/scss/_theme.scss";
 
 .home-page {
-  &__splash-screen {
-    width: 100%;
-    height: calc(100vh - 50px);
-    background-image: linear-gradient(
-          rgba(0, 0, 0, 0.5),
-          rgba(0, 0, 0, 0.5)
-      ),
-      url('../../../../assets/images/home_background.jpg'
-    );
-    background-size: cover;
+  position: relative;
 
+  &__splashscreen {
+    width: 100%;
+  }
+
+  &__splash-text {
+    position: absolute;
+    top: 0;
+    text-align: center;
     display: flex;
+    justify-content: center;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
 
     &__title {
-      text-align: center;
-      font-weight: 300;
-      font-size: 110px;
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 15px;
-      text-shadow: 0 0 3px white;
-      margin: 0 auto;
-
-      &__sub {
-        font-size: $font-little;
-        letter-spacing: 5px;
-        text-align: right;
-        margin-right: 20px;
-        color: white;
-        text-shadow: 0 0 1px white;
-
-        & a {
-          color: white;
-          text-decoration: none;
-          border-bottom: 1px solid white;
-
-          &:hover {
-            color: $color-main;
-            border-color: $color-main;
-          }
-        }
-      }
+      font-size: 40px;
+      color: $nt-text;
+      font-weight: 900;
+      padding-top: 30px;
     }
 
-    &__register {
-      text-align: center;
-
-      &__button {
-        padding: 25px 35px;
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        border: 3px solid white;
-        border-radius: 3px;
-        text-decoration: none;
-        text-transform: uppercase;
-
-        background-color: rgba(0, 0, 0, 0.5);
-        transition: all $ease-inout-sine 300ms;
-
-        &:hover {
-          background-color: white;
-          color: $color-main;
-        }
-      }
+    &__content {
+      max-width: 600px;
+      padding: 20px;
+      line-height: 25px;
+      font-weight: 500;
     }
   }
 
   &__retraite {
-    padding: 40px;
+    padding: 75px 75px 0 75px;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
 
-    &__video-content {
-      flex: 2;
-      max-width: 800px;
-
-      & video {
-        width: 100%;
-        height: auto;
-      }
+    &__picture {
+      flex: 1;
+      background-image: url('../../../../assets/images/retraite.jpg');
+      background-position: top;
+      background-size: cover;
+      min-height: 400px;
     }
 
-    &__description {
+    &__text {
       flex: 1;
-      font-size: 16px;
-      padding: 10px;
+      padding: 60px;
+      background-color: $nt-12;
+      color: $nt-text;
       text-align: center;
-      max-width: 500px;
+
+      &__title {
+        text-transform: uppercase;
+        font-weight: 900;
+        display: block;
+        color: $nt-text;
+
+        &:after {
+          content: '';
+          width: 100px;
+          border-bottom: 1px solid $nt-text;
+          position: relative;
+          top: 20px;
+          display: block;
+          margin: auto;
+        }
+      }
+
+      &__content {
+        font-size: 40px;
+        font-weight: 300;
+        margin-top: 60px;
+      }
+
+      &__button {
+        margin-top: 60px;
+      }
     }
   }
 
   &__espace {
-    min-height: 500px;
+    padding: 0 75px 0 75px;
     display: flex;
-    background-color: $color-main;
-    color: white;
-    padding: 10px 10px 10px 0;
-    font-size: 16px;
-    box-shadow: 15px 0 20px grey;
-    width: calc(100% - 80px);
-    margin: auto;
 
-    &__select {
-      display: none;
-      height: 50px;
-      border-bottom: 5px solid $color-main;
+    &__map {
+      flex: 2;
+      background-image: url('../../../../assets/images/map_espace.jpg');
+      background-position: top;
+      background-size: cover;
+      min-height: 400px;
     }
 
-    &__details {
+    &__text {
       flex: 1;
-      border-right: 1px solid lightgrey;
-      padding: 20px;
-      text-align: justify;
+      padding: 60px;
+      background-color: $nt-4;
+      color: $nt-text;
+      text-align: center;
 
       &__title {
-        color: white;
+        text-transform: uppercase;
+        font-weight: 900;
+        display: block;
+        color: $nt-text;
+        font-size: 26px;
+        text-align: left;
       }
 
-      &__register {
+      &__content {
         margin-top: 40px;
-        text-align: center;
+        text-align: left;
       }
-    }
 
-    &__carte {
-      flex: 2;
-      background-image: url('../../../../assets/images/carte.png');
-      background-position: center center;
+      &__details {
+        list-style-type: none;
+        padding: 20px 0 0 0;
+        margin: 0;
+        text-align: left;
+
+        &__item {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          margin-top: 20px;
+
+          &__icon {
+            width: 40px;
+            margin-right: 20px;
+          }
+
+          &__label {
+            line-height: 25px;
+          }
+        }
+      }
+
+      &__button {
+        margin-top: 60px;
+      }
     }
   }
 
-  &__sponsors {
+  &__pictures {
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: 40px 0;
+    margin: 0 75px 0 75px;
 
-    &__description {
-      display: flex;
-      justify-content: center;
-      padding: 0 20px;
+    &__item {
+      flex: 1;
+      height: 500px;
+      min-width: 300px;
+      background-size: cover;
 
-      &__text {
-        max-width: 1000px;
+      &--space {
+        background-image: url('../../../../assets/images/space.jpg');
+      }
+
+      &--flag {
+        background-image: url('../../../../assets/images/flag.jpg');
+      }
+
+      &--bike {
+        background-image: url('../../../../assets/images/bike.jpg');
+      }
+    }
+  }
+
+  &__partners {
+    margin: 60px;
+
+    &__title {
+      text-transform: uppercase;
+      font-weight: 900;
+      display: block;
+      color: $nt-text;
+      text-align: center;
+
+      &:after {
+        content: '';
+        width: 100px;
+        border-bottom: 1px solid $nt-text;
+        position: relative;
+        top: 20px;
+        display: block;
+        margin: auto;
       }
     }
 
-    &__list {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      padding: 20px;
-
-      &__sponsor {
-        margin: 40px;
-
-        &__title {
-          width: 100%;
-          font-size: 14px;
-          text-align: center;
-          color: $color-main;
-        }
-
-        &__logo {
-          height: 70px;
-          max-width: 100%;
-        }
-      }
+    &__content {
+      margin-top: 60px;
     }
   }
 }
 
-
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1200px) {
   .home-page {
-    &__splash-screen{
-      &__title {
-        font-size: 50px;
-
-        &__sub {
-          text-align: center;
-        }
-      }
-
-      &__register {
-        &__button {
-          padding: 5px 15px;
-        }
-      }
-    }
-
     &__retraite {
-      height: inherit;
+      padding: 80px 40px 0 40px;
       flex-direction: column;
-
-      &__description {
-        max-width: inherit;
-      }
     }
-
     &__espace {
-      height: inherit;
+      padding: 0 40px 0 40px;
       flex-direction: column;
-      box-shadow: none;
-      width: inherit;
-      margin: inherit;
+    }
+    &__pictures {
+      display: none;
+    }
+  }
+}
 
-      &__select {
-        display: block;
-      }
+@media only screen and (max-width: 400px) {
+  .home-page {
+    &__retraite {
+      &__text {
+        padding: 40px 10px;
 
-      &__details {
-        border: none;
-
-        &__title {
-          font-size: 18px;
+        &__content {
+          font-size: 20px;
         }
       }
-
-      &__carte {
-        display: none;
-      }
     }
+    &__espace {
+      &__text {
+        padding: 40px 10px;
 
-    &__sponsors {
-      &__list {
-        &__sponsor {
-          margin: 10px;
+        &__details {
+          &__item {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            &__icon {
+              margin: 0;
+            }
+          }
         }
       }
     }

@@ -4,10 +4,16 @@
   background-color: $nt-background-color;
   min-height: 100vh;
   display: flex;
+  width: 100%;
 
   &__content {
-    padding: 50px;
     min-height: 100vh;
+    flex: 1;
+  }
+
+  &__nav {
+    background-color: $nt-3;
+    border-right: 2px solid $nt-0;
   }
 }
 
@@ -17,14 +23,6 @@
 
     &__nav {
       position: inherit;
-    }
-  }
-}
-
-@media only screen and (max-width: 550px) {
-  .new-layout {
-    &__content {
-      padding: 10px;
     }
   }
 }

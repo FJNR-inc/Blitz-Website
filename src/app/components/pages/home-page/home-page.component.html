@@ -1,108 +1,83 @@
 <div class="home-page">
-  <div class="home-page__splash-screen">
-    <div class="home-page__splash-screen__title">
-      Thèsez-vous?<br/>
-      <div class="home-page__splash-screen__title__sub">
-        <a href="#">En savoir plus</a>
-      </div>
-    </div>
-    <div class="home-page__splash-screen__register" [appIsAuthenticated]="false">
-      <a class="home-page__splash-screen__register__button button" routerLink="/register">Devenir membre</a>
-    </div>
-  </div>
-  <div class="separator">
+  <img class="home-page__splashscreen" src="../../../../assets/images/illustration1.jpg" />
+  <div class="home-page__splash-text">
+    <h1 class="home-page__splash-text__title">Rédiger plus, mieux, ensemble</h1>
+    <p class="home-page__splash-text__content">
+      Grâce à des espaces favorables à la concentration, à une communauté motivante
+      et à un encadrement structurant, des étudiant.e.s et des chercheur.e.s de toutes
+      les disciplines et de toutes les universités passent à un stade de productivité
+      supérieur dans la rédction de leur mémoire, thèse, article ou demande de financement.
+    </p>
   </div>
   <div class="home-page__retraite">
-    <div class="home-page__retraite__video-content">
-      <video controls>
-        <source src="assets/videos/retraite.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <div class="home-page__retraite__description">
-      <p>
-        Plusieurs activités spontanées se déroulent aux quatre coins du Québec via
-        <a href="http://www.thesez-vous.com/blogue/thesez-vous-ensemble">Thèsez-vous ensemble.</a>
+    <div class="home-page__retraite__picture"></div>
+    <div class="home-page__retraite__text">
+      <h1 class="home-page__retraite__text__title">
+        Les retraites de rédaction
+      </h1>
+      <p class="home-page__retraite__text__content">
+        S'exiler pour des retraites de rédaction dans des sites inspirants
       </p>
 
-      <h2>Retraites</h2>
-
-      <p>
-        Pour connaitre les prochaines dates de retraite ou pour vous inscrire a l'une de nos retraites il vous suffit de vous rendre sur l'espace dedie au retraite.
-      </p>
-      <br/>
-      <p>
-        <a href="#" class="button-icon">
-          <span class="button-icon__text">Visiter l'espace retraite</span>
-          <span class="button-icon__icon">
-            <i class="fa fa-caret-right"></i>
-          </span>
-        </a>
-      </p>
+      <a class="home-page__retraite__text__button nt nt-button">Consulter le calendrier</a>
     </div>
   </div>
-  <div class="home-page__espace" *ngIf="workplaceList && workplaceList[0]">
-    <div class="home-page__espace__details espace-detail">
-      <div class="home-page__espace__details__title espace-detail__title">
-        {{workplaceList[0].name}}
-      </div>
-      <div class="espace-detail__description">
-        {{workplaceList[0].details}}
-      </div>
-      <div class="espace-detail__list">
-        <div class="espace-detail__list__item">
-          <div class="espace-detail__list__item__icon">
-            <i class="fa fa-3x fa-home"></i>
-          </div>
-          <div class="espace-detail__list__item__text">
+  <div class="home-page__espace">
+    <div class="home-page__espace__text">
+      <h1 class="home-page__espace__text__title">
+        L'espace Thèsez-vous
+      </h1>
+      <p class="home-page__espace__text__content">
+        Premier espace de travail en ville
+      </p>
+      <ul class="home-page__espace__text__details" *ngIf="workplaceList && workplaceList[0]">
+        <li class="home-page__espace__text__details__item">
+          <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_rdv.svg" />
+          <span class="home-page__espace__text__details__item__label">
             {{workplaceList[0].address_line1}}<br/>
             {{workplaceList[0].city}}, {{workplaceList[0].state_province}} {{workplaceList[0].postal_code}}
-          </div>
-        </div>
-        <div class="espace-detail__list__item">
-          <div class="espace-detail__list__item__icon">
-            <i class="fa fa-3x fa-clipboard-list"></i>
-          </div>
-          <div class="espace-detail__list__item__text">
-            Membership requis
-          </div>
-        </div>
-        <div class="espace-detail__list__item">
-          <div class="espace-detail__list__item__icon">
-            <i class="far fa-3x fa-building"></i>
-          </div>
-          <div class="espace-detail__list__item__text">
-            {{workplaceList[0].seats}} places disponibles
-          </div>
-        </div>
-      </div>
-      <div class="home-page__espace__details__register">
-        <a routerLink="reservation/{{workplaceList[0].id}}" class="button-icon button-icon--color-reverse">
-          <span class="button-icon__text">Réserver une plage horaire</span>
-          <span class="button-icon__icon">
-            <i class="fa fa-caret-right"></i>
           </span>
-        </a>
-      </div>
+        </li>
+        <li class="home-page__espace__text__details__item">
+          <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_membre.svg" />
+          <span class="home-page__espace__text__details__item__label">
+            Membership requis
+          </span>
+        </li>
+        <li class="home-page__espace__text__details__item">
+          <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_chair.svg" />
+          <span class="home-page__espace__text__details__item__label">
+            {{workplaceList[0].seats}} places disponibles
+          </span>
+        </li>
+        <li class="home-page__espace__text__details__item">
+          <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_coffee.svg" />
+          <span class="home-page__espace__text__details__item__label">
+            Café inclu
+          </span>
+        </li>
+      </ul>
+      <a class="home-page__espace__text__button nt nt-button" routerLink="/reservation/{{workplaceList[0].id}}">Réserver ma place</a>
     </div>
-    <div class="home-page__espace__carte">
-
-    </div>
+    <div class="home-page__espace__map"></div>
   </div>
-  <div class="home-page__sponsors">
-    <h2>Nos partenaires</h2>
-    <div class="home-page__sponsors__description">
-      <p class="home-page__sponsors__description__text">
-        Comme organisme à but non lucratif (OBNL), nous mettons tout en oeuvre pour garder les retraites Thèsez-vous? accessibles pour l'ensemble des étudiants et étudiantes aux cycles supérieurs. C'est pourquoi nous comptons sur la contribution de professeur.e.s et d'étudiant.e.s bénévoles et la générosité de nos partenaires pour couvrir ou réduire au minimum les coûts des retraites.
-      </p>
-    </div>
-    <div class="home-page__sponsors__list">
-      <div class="home-page__sponsors__list__sponsor" *ngFor="let sponsor of sponsorsList">
-        <img class="home-page__sponsors__list__sponsor__logo" src="{{ sponsor.imageUrl }}"/>
-        <div class="home-page__sponsors__list__sponsor__title">
-          {{ sponsor.name }}
-        </div>
-      </div>
-    </div>
+  <div class="home-page__pictures">
+    <div class="home-page__pictures__item home-page__pictures__item--space"></div>
+    <div class="home-page__pictures__item home-page__pictures__item--flag"></div>
+    <div class="home-page__pictures__item home-page__pictures__item--bike"></div>
+  </div>
+  <div class="home-page__partners">
+    <h1 class="home-page__partners__title">
+      Nos précieux partenaires
+    </h1>
+    <p class="home-page__partners__content">
+      Sit natus in dicta qui placeat quaerat quod. Assumenda aut et et voluptates quisquam minus autem. Ullam omnis dolor explicabo rem quia. Culpa reprehenderit dolore dicta aut quo est velit. Debitis ut iure non facilis.
+
+      Dolores sit praesentium deserunt. Neque rerum in in. Sed nisi minus voluptas rerum adipisci alias et. Atque rerum est minima laboriosam tempora laboriosam. Facere aut at autem dolorum ut quasi qui dolor.
+
+      Ut quia mollitia rerum quia velit est aut. Repudiandae tenetur totam aut repellat exercitationem fugiat. Autem quos et exercitationem veniam incidunt.
+
+      Numquam non nihil est quo perspiciatis voluptates. Pariatur at inventore doloremque explicabo non voluptatem aperiam fugiat. Ipsa repellat voluptatibus quia eos. Assumenda consequatur similique omnis qui quis aspernatur.
+    </p>
   </div>
 </div>

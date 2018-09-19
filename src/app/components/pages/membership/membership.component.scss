@@ -6,7 +6,8 @@ app-membership {
 
 .membership-page {
   display: flex;
-  min-height: calc(100vh - 100px);
+  min-height: 100vh;
+  padding: 50px;
 
   &__column1 {
     flex: 1;

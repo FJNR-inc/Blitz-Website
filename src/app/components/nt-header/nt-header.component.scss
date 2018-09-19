@@ -6,8 +6,6 @@
   height: 100vh;
   width: 300px;
   overflow-x: hidden;
-  border-right: 2px solid #E6DCCF;
-  background-color: $nt-3;
 
   &__content {
     display: flex;
@@ -197,7 +195,6 @@
 @media only screen and (max-width: 1300px) {
   .nt-header {
     height: 80px;
-    margin: 0 20px;
     padding: 10px 30px;
     overflow-y: hidden;
     display: flex;
@@ -301,12 +298,17 @@
         &__actions {
           &__item {
             display: block;
+
+            &--closed {
+              display: none;
+            }
           }
         }
 
         &__socials {
           display: flex;
           justify-content: center;
+          flex-direction: row;
         }
 
         &__burger {
