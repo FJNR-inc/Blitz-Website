@@ -60,6 +60,8 @@
             border-radius: 50%;
             width: 10px;
             height: 10px;
+            min-width: 10px;
+            min-height: 10px;
             margin-right: 5px;
           }
         }
@@ -267,27 +269,29 @@
   }
 }
 
-@media only screen and (max-width: 955px) {
+@media only screen and (max-width: 1000px) {
   .reservation-page {
+    flex-direction: column;
+
     &__details {
-      flex-direction: column-reverse;
-
-      &__pictures {
-
-        &__preview {
-          display: none;
-        }
-
-        &__main {
-          height: inherit;
-          width: 100%;
-          margin: 20px 0;
-        }
-      }
+      max-width: 100%;
     }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .reservation-page {
 
     &__reservation {
-      flex-direction: column;
+      padding: 30px 0;
+
+      &__calendar {
+        &__actions {
+          &__title {
+            font-size: 0.6em;
+          }
+        }
+      }
     }
   }
 }
