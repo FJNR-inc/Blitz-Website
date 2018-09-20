@@ -1,126 +1,233 @@
 <div class="profile-page" *ngIf="profile">
-  <div class="profile-page__header">
-    <div class="profile-page__header__informations">
-      <div class="profile-page__header__informations__name">
-        {{profile.first_name}} {{profile.last_name}}
-        <a class="profile-page__header__informations__name__edit button" [appMyModalOpen]="'form_user'">
-          <i class="fas fa-pencil-alt"></i> Éditer mon profil
+  <h1 class="profile-page__title">
+    Bonjour {{ profile.first_name }},
+  </h1>
+
+  <div class="profile-page__content">
+    <div class="profile-page__content__left">
+      <h2 class="profile-page__sub-title">
+        Informations personnelles
+      </h2>
+
+      <form (submit)="submitProfile()" [formGroup]="userForm" *ngIf="userForm">
+        <div *ngFor="let error of errors" class="alert alert--danger">
+          {{ error }}
+        </div>
+
+        <div class="form-group">
+          <label for="first_name" class="nt-form-label">Nom:</label>
+          <input formControlName="first_name" class="nt-form-input" id="first_name" type="text">
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of userForm.controls['first_name'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="last_name" class="nt-form-label">Prenom:</label>
+          <input formControlName="last_name" class="nt-form-input" id="last_name" type="text">
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of userForm.controls['last_name'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="birthdate" class="nt-form-label">Date de naissance:</label>
+          <input [owlDateTimeTrigger]="dt_end"
+                 [owlDateTime]="dt_end"
+                 formControlName="birthdate"
+                 class="nt-form-input"
+                 id="birthdate">
+          <owl-date-time #dt_end [firstDayOfWeek]="1" pickerType="calendar"></owl-date-time>
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of userForm.controls['birthdate'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="gender" class="nt-form-label">Genre:</label>
+          <select formControlName="gender" id="gender" class="nt-form-input">
+            <option value="A">Je ne souhaite pas m'identifie</option>
+            <option value="M">Homme</option>
+            <option value="F">Femme</option>
+            <option value="T">Trans</option>
+          </select>
+          <div class="form-text form-text--right form-text--danger"
+               *ngFor="let errorMessage of userForm.controls['gender'].getError('apiError')">
+            {{ errorMessage}}
+          </div>
+        </div>
+        <button type="submit" class="nt-button">Sauvegarder</button>
+      </form>
+
+      <h2 class="profile-page__sub-title">
+        Abonnement
+      </h2>
+
+      <div class="profile-page__content__left__box" *ngIf="profile.membership">
+        <p class="profile-page__content__left__box__text">
+          {{ profile.membership.name }}
+        </p>
+        <p class="profile-page__content__left__box__sub-text">
+          {{ profile.membership.price }}$ / année
+        </p>
+      </div>
+
+      <h2 class="profile-page__sub-title">
+        Mode de paiement
+      </h2>
+
+      <div class="profile-page__content__left__cards">
+        <div class="profile-page__content__left__cards__card" *ngFor="let card of listCards">
+          <div class="profile-page__content__left__cards__card__title">
+            Numéro de carte
+          </div>
+          <div class="profile-page__content__left__cards__card__number">
+            **** **** **** {{ card.last_digits }}
+          </div>
+          <div class="profile-page__content__left__cards__card__bottom">
+            <div>
+              <div class="profile-page__content__left__cards__card__title">
+                Date d'expiration
+              </div>
+              <div class="profile-page__content__left__cards__card__number">
+                {{ card.card_expiry.month }} / {{ card.card_expiry.year }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="profile-page__sub-title">
+        Désactivation
+      </h2>
+
+      <div class="profile-page__content__left__account">
+        <div class="profile-page__content__left__account__content">
+          <p>Si vous désactivez votre profil:</p>
+          <ul>
+            <li>Vous ne pourrez plus vous connecter sur ce site</li>
+            <li>Vos réservations seront annulées automatiquement</li>
+            <li>Certaines de vos informations personnelles pourraient être supprimés</li>
+          </ul>
+        </div>
+        <a class="profile-page__content__left__account__action" appMyModalOpen='form_deactivate_account'>
+          Désactiver mon profil
         </a>
       </div>
-      <div class="profile-page__header__informations__email">
-        <i class="fas fa-envelope"></i> {{profile.email}}
-      </div>
-      <div class="profile-page__header__informations__university" *ngIf="profile.university">
-        {{profile.university.name}}<br/>
-        {{ profile.academic_level.name }} ({{ profile.academic_field.name }})
-      </div>
     </div>
-    <div class="profile-page__header__right">
-      <div class="profile-page__header__right__status">
-        <div class="profile-page__header__right__status__main">
-          {{profile.tickets || 0}}
+    <div class="profile-page__content__right">
+      <div class="profile-page__content__right__top">
+        <div class="profile-page__content__right__top__box">
+          <p class="profile-page__content__right__top__box__number">
+            {{ profile.tickets}}
+          </p>
+          <div class="profile-page__content__right__top__box__text">
+            ticket(s) restant(s)
+          </div>
+          <p class="profile-page__content__right__top__box__sub-text">
+            pour réserver à l'Espace
+          </p>
         </div>
-        ticket(s) disponible(s)
-      </div>
-      <div class="profile-page__header__right__status" *ngIf="profile.membership_end">
-        <div class="profile-page__header__right__status__main">
-          {{ profile.getTimeBeforeEndMembership() }}
+        <div class="profile-page__content__right__top__box profile-page__content__right__top__box--main">
+          <p class="profile-page__content__right__top__box__number">
+            {{ profile.getTimeBeforeEndMembership() }}
+          </p>
+          <div class="profile-page__content__right__top__box__text">
+            jour(s) restant(s)
+          </div>
+          <p class="profile-page__content__right__top__box__sub-text">
+            à votre membership
+          </p>
         </div>
-        jours restants<br/>
-        (Membership {{ profile.membership.name }})
       </div>
-    </div>
-  </div>
-  <div class="profile-page__sections">
-    <app-my-table [settings]="settings"
-                  [data]="listReservations"
-                  (addButton)="OpenModalCreateDomain()"
-                  (editItem)="OpenModalEditDomain($event)"
-                  (removeItem)="removeDomain($event)">
-    </app-my-table>
-  </div>
-  <div class="profile-page__sections">
-    <app-my-table [settings]="settingsCard"
-                  [data]="listCards">
-    </app-my-table>
-  </div>
-  <div class="profile-page__sections">
-    <h2>Désactiver mon profil</h2>
-    <div>
-      Si vous désactivez votre profil:
-      <ul>
-        <li>vous ne pourrez plus vous connecter sur ce site</li>
-        <li>toutes vos réservations seront annulées automatiquement</li>
-        <li>certaines de vos informations personnelles pourraient être supprimées</li>
-      </ul>
-      <br/>
-      <a class="button button--danger" [appMyModalOpen]="'form_deactivate_account'">
-        <i class="fas fa-trash-alt"></i> Désactiver mon profil
-      </a>
+      <div class="profile-page__content__right__stats">
+        <div class="profile-page__content__right__stats__done">
+          <p class="profile-page__content__right__stats__done__number">
+            {{totalPastReservations}}
+            <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__stats__done__number__icon"/>
+          </p>
+          <p class="profile-page__content__right__stats__done__text">
+            Accomplie(s)
+          </p>
+          <p class="profile-page__content__right__stats__done__sub-text">
+            jusqu'à maintenant
+          </p>
+        </div>
+        <div class="profile-page__content__right__stats__future">
+          <p class="profile-page__content__right__stats__future__number" *ngIf="listReservations">
+            {{listReservations.length}}
+            <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__stats__future__number__icon"/>
+          </p>
+          <p class="profile-page__content__right__stats__future__text">
+            Prévue(s)
+          </p>
+          <p class="profile-page__content__right__stats__future__sub-text">
+            à votre horaire
+          </p>
+        </div>
+      </div>
+      <div class="profile-page__content__right__blocs">
+        <h2 class="profile-page__sub-title">
+          Mes blocs de rédaction
+        </h2>
+
+        <table class="profile-page__content__right__blocs__table">
+          <thead class="profile-page__content__right__blocs__table__header">
+            <tr>
+              <th>
+                Date
+              </th>
+              <th>
+                Espace
+              </th>
+              <th>
+                Heures
+              </th>
+              <th>
+                <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__blocs__table__header__icon" />
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="listReservations">
+            <tr *ngFor="let reservation of listReservations">
+              <td>
+                {{reservation.getStartDay()}}
+              </td>
+              <td>
+                <p>
+                  {{reservation.workplace.name}}
+                </p>
+                {{reservation.workplace.address_line1}}<br/>
+                <span *ngIf="reservation.workplace.address_line2">{{reservation.workplace.address_line2}}<br/></span>
+                {{reservation.workplace.city}}, {{reservation.workplace.state_province}} {{reservation.workplace.postal_code}}
+              </td>
+              <td>
+                {{reservation.getStartTime()}} à {{reservation.getEndTime()}}
+              </td>
+              <td>
+                3
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <a class="profile-page__content__right__blocs__action" routerLink="/home">
+          <img src="../../../../assets/images/icons/icon_plus.svg" class="profile-page__content__right__blocs__action__icon"/> Ajouter des blocs d'heures
+        </a>
+      </div>
     </div>
   </div>
 </div>
 
-<app-my-modal name="form_deactivate_account"
+<app-nt-modal name="form_deactivate_account"
               typeModal="danger"
               title="Désactiver mon profil"
               button2Label="Désactiver"
-              (button2)="deactivateAccount()">
-  La désactivation de votre profil est un acte important et irréversible.<br/>
-  Êtes-vous vraiment sûr de vouloir désactiver votre profil ?
-</app-my-modal>
-
-<app-my-modal name="form_user"
-              typeModal="success"
-              title="Editer mon profil"
-              button2Label="Editer"
-              (button2)="submitProfile()">
-  <form [formGroup]="userForm" *ngIf="userForm">
-    <div *ngFor="let error of userErrors" class="alert alert--danger">
-      {{ error }}
-    </div>
-
-    <div class="form-group">
-      <label for="first_name" class="form-label">Nom:</label>
-      <input formControlName="first_name" class="form-input" id="first_name" type="text">
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of userForm.controls['first_name'].getError('apiError')">
-        {{ errorMessage}}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="last_name" class="form-label">Prenom:</label>
-      <input formControlName="last_name" class="form-input" id="last_name" type="text">
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of userForm.controls['last_name'].getError('apiError')">
-        {{ errorMessage}}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="birthdate" class="form-label">Date de naissance:</label>
-      <input [owlDateTimeTrigger]="dt_end"
-             [owlDateTime]="dt_end"
-             formControlName="birthdate"
-             class="form-input"
-             id="birthdate">
-      <owl-date-time #dt_end [firstDayOfWeek]="1" pickerType="calendar"></owl-date-time>
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of userForm.controls['birthdate'].getError('apiError')">
-        {{ errorMessage}}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="gender" class="form-label">Genre:</label>
-      <select formControlName="gender" id="gender" class="form-input">
-        <option value="A">Je ne souhaite pas m'identifie</option>
-        <option value="M">Homme</option>
-        <option value="F">Femme</option>
-        <option value="T">Trans</option>
-      </select>
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of userForm.controls['gender'].getError('apiError')">
-        {{ errorMessage}}
-      </div>
-    </div>
-  </form>
-</app-my-modal>
+              (button2)="deactivateAccount()"
+              maxWidth="600px">
+  <p>
+    La désactivation de votre profil est un acte important et irréversible.
+  </p>
+  <p>
+    Êtes-vous vraiment sûr de vouloir désactiver votre profil ?
+  </p>
+</app-nt-modal>

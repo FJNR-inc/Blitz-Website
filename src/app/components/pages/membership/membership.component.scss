@@ -8,6 +8,7 @@ app-membership {
   display: flex;
   min-height: 100vh;
   padding: 50px;
+  background-color: $nt-background-color;
 
   &__column1 {
     flex: 1;

@@ -82,6 +82,7 @@ import { MembershipPaymentComponent } from './components/pages/membership-paymen
 import { NtModalComponent } from './components/nt-modal/nt-modal.component';
 import { NtHeaderComponent } from './components/nt-header/nt-header.component';
 import { TermsComponent } from './components/modal/terms/terms.component';
+import { NtTopComponent } from './components/nt-top/nt-top.component';
 
 registerLocaleData(localeFr);
 
@@ -101,6 +102,13 @@ const appRoutes = [
       {
         path: 'reservation/:id',
         component: ReservationPageComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
       },
     ]
   },
@@ -194,13 +202,6 @@ const appRoutes = [
     path: '',
     component: DefaultLayoutComponent,
     children: [
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        canActivate: [
-          CanActivateViaAuthGuard,
-        ]
-      },
       {
         path: '403',
         component: Error403Component,
@@ -364,6 +365,7 @@ const appRoutes = [
     NtModalComponent,
     NtHeaderComponent,
     TermsComponent,
+    NtTopComponent,
   ],
   imports: [
     BrowserModule,
