@@ -247,8 +247,20 @@
 
 @media only screen and (max-width: 1300px) {
   .profile-page {
+    &__title {
+      padding-left: 20px;
+    }
+
     &__content {
       flex-direction: column-reverse;
+
+      &__left {
+        padding: 20px 20px;
+      }
+
+      &__right {
+        padding: 20px 20px;
+      }
     }
   }
 }
@@ -273,7 +285,10 @@
 
 @media only screen and (max-width: 700px) {
   .profile-page {
+    padding: 100px 10px;
+
     &__content {
+
       &__right {
         &__stats {
           flex-direction: column;
@@ -281,6 +296,35 @@
           &__future {
             border-top: 1px solid $border-calendar;
             border-left: none;
+          }
+        }
+
+        &__blocs {
+          &__table {
+            & td, th {
+              padding: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .profile-page {
+    padding: 100px 5px;
+
+    &__content {
+      &__left {
+        padding: 20px 5px;
+      }
+
+      &__right {
+        padding: 20px 5px;
+        &__blocs {
+          &__table {
+            font-size: 0.7em;
           }
         }
       }
