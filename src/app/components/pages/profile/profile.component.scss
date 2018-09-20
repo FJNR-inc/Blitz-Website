@@ -245,6 +245,45 @@
   }
 }
 
-@media only screen and (max-width: 955px) {
+@media only screen and (max-width: 1300px) {
+  .profile-page {
+    &__content {
+      flex-direction: column-reverse;
+    }
+  }
+}
 
+@media only screen and (max-width: 700px) {
+  .profile-page {
+    &__content {
+      &__right {
+        &__top {
+          flex-direction: column;
+
+          &__box {
+            &:last-child {
+              margin: 20px 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .profile-page {
+    &__content {
+      &__right {
+        &__stats {
+          flex-direction: column;
+
+          &__future {
+            border-top: 1px solid $border-calendar;
+            border-left: none;
+          }
+        }
+      }
+    }
+  }
 }
