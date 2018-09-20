@@ -2,10 +2,12 @@ import BaseModel from './baseModel';
 
 export class Card extends BaseModel {
   id: number;
-  url: string;
-  expiry_date: string;
-  external_api_id: string;
-  name: string;
-  number: string;
-  owner: string;
+  card_expiry: {
+    year: number,
+    month: number
+  };
+  card_type: string;
+  last_digits: string;
+  holder_name: string;
+  payment_token: string;
 }

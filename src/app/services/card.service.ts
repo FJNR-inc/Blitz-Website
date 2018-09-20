@@ -33,13 +33,4 @@ export class CardService extends GlobalService {
       {headers: headers, params: params}
     );
   }
-
-
-  remove(card: Card): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.delete<any>(
-      card.url,
-      {headers: headers}
-    );
-  }
 }

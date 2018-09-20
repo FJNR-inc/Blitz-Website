@@ -98,6 +98,10 @@ const appRoutes = [
         path: 'home',
         component: HomePageComponent,
       },
+      {
+        path: 'reservation/:id',
+        component: ReservationPageComponent,
+      },
     ]
   },
   {
@@ -190,10 +194,6 @@ const appRoutes = [
     path: '',
     component: DefaultLayoutComponent,
     children: [
-      {
-        path: 'reservation/:id',
-        component: ReservationPageComponent,
-      },
       {
         path: 'profile',
         component: ProfileComponent,

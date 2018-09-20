@@ -1,53 +1,11 @@
 @import "../../../../assets/scss/_theme.scss";
 
 .reservation-page {
-
-  &__details{
-    padding: 30px;
-    background-color: $color-main;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-
-    &__text {
-      padding-right: 20px;
-      text-align: justify;
-    }
-
-    &__pictures {
-      display: flex;
-
-      &__preview {
-        display: flex;
-        flex-direction: column;
-
-        &__item {
-          height: 100px;
-          margin: 10px;
-
-          &:hover {
-            cursor: pointer;
-            box-shadow: 2px 2px 10px black;
-          }
-
-          &:first-of-type {
-            margin-top: 0;
-          }
-        }
-      }
-
-      &__main {
-        height: 340px;
-
-        &:hover {
-          cursor: pointer;
-          box-shadow: 2px 2px 10px black;
-        }
-      }
-    }
-  }
+  display: flex;
+  background-color: white;
 
   &__reservation {
+    flex: 1;
     padding: 30px;
     display: flex;
     justify-content: space-around;
@@ -61,76 +19,211 @@
       &__actions {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+
+        &__button {
+          display: flex;
+          align-items: center;
+          opacity: 0.5;
+          text-decoration: none;
+
+          &__icon {
+            width: 25px;
+            margin: 0 15px;
+          }
+        }
+
+        &__title {
+          display: flex;
+          justify-content: center;
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: 600;
+        }
       }
 
-      &__title {
+      &__legend {
         display: flex;
-        justify-content: center;
+        margin-top: 25px;
+
+        &__item {
+          margin-right: 20px;
+          display: flex;
+
+          &__text {
+            opacity: 0.6;
+            font-size: 10px;
+          }
+
+          &__color {
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  &__details{
+    padding: 30px;
+    background-color: $nt-3;
+    color: $nt-text;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid $nt-0;
+    max-width: 500px;
+
+    &__title {
+      font-size: 30px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    &__text {
+      margin-top: 20px;
+    }
+
+    &__list {
+      list-style-type: none;
+      padding: 20px 0 0 0;
+      margin: 0;
+      text-align: left;
+
+      &__item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 20px;
+
+        &__icon {
+          width: 40px;
+          margin-right: 20px;
+        }
+
+        &__label {
+          line-height: 25px;
+        }
       }
     }
 
     &__form {
-      flex: 1;
+      &__alert {
+        background-color: $nt-7;
+        padding: 20px;
+        margin-top: 30px;
 
-      &__date {
-        border: 2px solid $color-main;
-        padding: 15px;
+        &__content {
+          display: flex;
+          align-items: center;
+
+          &__icon {
+            width: 25px;
+            margin-right: 20px;
+          }
+
+          &__text {
+            flex: 1;
+          }
+        }
+
+        &__button {
+          width: 100%;
+          margin-top: 30px;
+        }
       }
 
       &__ticket {
-        margin-top: 20px;
-        border: 2px solid $color-main;
+        background-color: $nt-4;
+        padding: 20px 30px 20px 30px;
+        margin-top: 30px;
 
         &__title {
-          padding: 15px;
+          font-size: 0.8em;
+          font-weight: 600;
+          border-bottom: 1px solid $nt-text;
           text-transform: uppercase;
-          font-size: 20px;
-          letter-spacing: 5px;
-          color: $color-main;
-          font-weight: 900;
-        }
-
-        &__line {
-          padding: 10px;
-          display: flex;
-          justify-content: space-between;
-          background-color: white;
-
-          &:nth-child(odd) {
-            background-color: $color-hover-main;
-          }
+          padding-bottom: 5px;
+          margin: 20px 0;
         }
 
         &__total {
-          padding: 15px;
-          text-transform: uppercase;
-          font-size: 20px;
-          font-weight: 900;
-          background-color: $color-main;
-          color: white;
+          text-align: right;
+          font-size: 1.2em;
+          font-weight: 400;
+          line-height: 1.5em;
+        }
+
+        &__line {
           display: flex;
           justify-content: space-between;
+          padding: 10px 0;
 
-          &__values {
-            text-align: right;
+          &__title:first-letter {
+            text-transform: capitalize;
+          }
+
+          &__actions {
+            width: 14px;
           }
         }
       }
 
-      &__box {
-        margin-top: 20px;
-        border: 2px solid $color-main;
+      &__infos {
+        margin: 30px 0 0 0;
+        padding: 0;
+        list-style-type: none;
 
-        &__content {
-          padding: 15px;
+        &__item {
+          padding: 5px 0;
+          color: $nt-9;
+
+          &--success {
+            color: $nt-12;
+          }
+
+          &__icon {
+            width: 14px;
+          }
         }
       }
 
       &__payment {
-        margin-top: 20px;
-        border: 2px solid $color-main;
-        padding: 15px;
+        margin-top: 30px;
+
+        &__card {
+          background-color: $nt-4;
+          padding: 5px 20px 30px 20px;
+        }
+
+        &__button {
+          margin-top: 20px;
+          width: 100%;
+        }
       }
+    }
+
+    &__picture {
+      &__title {
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 18px;
+        text-align: center;
+        display: block;
+        margin: 20px 0;
+      }
+
+      &__image {
+        width: 100%;
+      }
+    }
+
+    &__map {
+      width: 100%;
+      margin-top: 20px;
     }
   }
 }

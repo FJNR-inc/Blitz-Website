@@ -102,8 +102,8 @@ export class UserPageComponent implements OnInit {
   cardAdapter(card: Card) {
     return {
       id: card.id,
-      number: '**** **** **** ' + card.number,
-      expiry_date: card.expiry_date,
+      number: '**** **** **** ' + card.last_digits,
+      expiry_date: card.card_expiry.month + '/' + card.card_expiry.year,
     };
   }
 

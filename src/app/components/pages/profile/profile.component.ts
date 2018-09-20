@@ -36,7 +36,6 @@ export class ProfileComponent implements OnInit {
   settingsCard = {
     noDataText: 'Aucune carte de paiement pour le moment',
     title: 'Mes cartes de paiements',
-    removeButton: true,
     columns: [
       {
         name: 'number',
@@ -130,9 +129,8 @@ export class ProfileComponent implements OnInit {
   cardAdapter(card: Card) {
     return {
       id: card.id,
-      url: card.url,
-      number: '**** **** **** ' + card.number,
-      expiry_date: card.expiry_date,
+      number: '**** **** **** ' + card.last_digits,
+      expiry_date: card.card_expiry.month + '/' + card.card_expiry.year,
     };
   }
 
@@ -198,17 +196,5 @@ export class ProfileComponent implements OnInit {
       return;
     }
     modal.toggle();
-  }
-
-  removeCard(item) {
-    this.cardService.remove(item).subscribe(
-      data => {
-        this.notificationService.success('Supprimé', 'Le carte a bien été supprimé.');
-        this.refreshListCard();
-      },
-      err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
-      }
-    );
   }
 }

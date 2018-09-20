@@ -12,7 +12,7 @@ import {
 } from 'date-fns';
 
 import { Subject } from 'rxjs';
-import { CalendarDateFormatter, CalendarEvent, CalendarEventAction, DAYS_OF_WEEK } from 'angular-calendar';
+import { CalendarDateFormatter, CalendarEvent, DAYS_OF_WEEK } from 'angular-calendar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WorkplaceService } from '../../../services/workplace.service';
 import { Workplace } from '../../../models/workplace';
@@ -32,25 +32,8 @@ import { OrderService } from '../../../services/order.service';
 import { Order } from '../../../models/order';
 import { OrderLine } from '../../../models/orderLine';
 import {ProfileService} from '../../../services/profile.service';
+import {environment} from '../../../../environments/environment';
 
-const colors: any = {
-  green: {
-    primary: '#33ad21',
-    secondary: '#FAE3E3'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  },
-  red: {
-    primary: '#ad2121',
-    secondary: '#FDF1BA'
-  },
-  reserved: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-};
 
 declare let paysafe: any;
 
@@ -73,14 +56,6 @@ export class ReservationPageComponent implements OnInit {
   refresh: Subject<any> = new Subject();
   events: CalendarEvent[] = [];
   activeDayIsOpen = false;
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-plus"></i> S\'inscrire',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.eventClicked(event);
-      }
-    }
-  ];
 
   workplace: Workplace;
   listTimeSlots: TimeSlot[];
@@ -91,22 +66,17 @@ export class ReservationPageComponent implements OnInit {
   selectedTimeSlots: TimeSlot[] = [];
   selectedMembership: Membership = null;
   selectedPackages: ReservationPackage[] = [];
-  selectedCard: string = null;
   currentMembership: number;
   currentPackage: number;
 
   totalTicket = 0;
   totalPrice = 0;
-  terms: Boolean = false;
 
-  user: User;
+  user: User = null;
 
-  API_KEY = 'T1QtNjE1NjA6Qi1xYTItMC01ODI0NzQ0YS0wLTMw' +
-    'MmQwMjE0NDA2MjUwMDNjMjZjZmUzZmVkYmMxM2UyMmY4YTYwMzBhMW' +
-    'JlMDQ4NjAyMTUwMDgyYTYzYzAxNTk5MmRkNWRiYWFhNTIxMTUxNzk3' +
-    'NDNjMTY4MDNmNDc=';
+  API_KEY = environment.token_paysafe;
   OPTIONS = {
-    environment: 'TEST',
+    environment: environment.environment_paysafe,
     fields: {
       cardNumber: {
         selector: '#card-number',
@@ -122,8 +92,44 @@ export class ReservationPageComponent implements OnInit {
       }
     }
   };
+  cardToken: string = null;
   private paysafeInstance: any;
-  error: string[];
+  errorModal: string[];
+  errorOrder: string[];
+
+  colors = [
+    {
+      'label': 'Beaucoup de places disponibles',
+      'color': {
+        primary: '#2A7358',
+        secondary: '#2A7358'
+      }
+    },
+    {
+      'label': 'Moins de 50% de places disponibles',
+      'color': {
+        primary: '#FFB415',
+        secondary: '#FFB415'
+      }
+    },
+    {
+      'label': 'Presque plus de places disponibles',
+      'color': {
+        primary: '#D95219',
+        secondary: '#D95219'
+      }
+    },
+    {
+      'label': 'Aucune places disponible',
+      'color': {
+        primary: '#E6DCCF',
+        secondary: '#E6DCCF'
+      }
+    }
+  ];
+
+  waitPaysafe = false;
+  waitAPI = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
@@ -139,20 +145,24 @@ export class ReservationPageComponent implements OnInit {
 
   ngOnInit() {
     this.initPaysafe();
-    this.refreshListTimeSlot();
-    this.user = this.authenticationService.getProfile();
-    this.refreshListMembership();
-    this.refreshListReservationPackage();
-    this.refreshListCard();
     this.refreshProfile();
+    this.refreshListTimeSlot();
+    this.refreshListMembership();
   }
 
   refreshProfile() {
-    this.profileService.get().subscribe(
-      profile => {
-        this.authenticationService.setProfile(profile);
-      }
-    );
+    if (this.authenticationService.isAuthenticated()) {
+      this.profileService.get().subscribe(
+        profile => {
+          this.authenticationService.setProfile(profile);
+          this.user = new User(profile);
+          this.refreshListCard();
+          this.refreshListReservationPackage();
+        }
+      );
+    } else {
+      this.refreshListReservationPackage();
+    }
   }
 
   refreshListTimeSlot() {
@@ -200,7 +210,7 @@ export class ReservationPageComponent implements OnInit {
         'value': true
       }
     ];
-    if (this.user.membership) {
+    if (this.user && this.user.membership) {
       filters.push({'name': 'exclusive_memberships', 'value': [this.user.membership.id]});
     } else if (this.selectedMembership) {
       filters.push({'name': 'exclusive_memberships', 'value': [this.selectedMembership.id]});
@@ -210,7 +220,6 @@ export class ReservationPageComponent implements OnInit {
     this.reservationPackageService.list(filters).subscribe(
       reservationPackages => {
         this.listReservationPackage = reservationPackages.results.map(r => new ReservationPackage(r));
-        this.currentPackage = this.listReservationPackage[0].id;
       }
     );
   }
@@ -222,7 +231,7 @@ export class ReservationPageComponent implements OnInit {
         'value': true
       }
     ];
-    if (this.user.academic_level) {
+    if (this.user && this.user.academic_level) {
       filters.push({'name': 'academic_levels', 'value': [this.user.academic_level.id]});
     } else {
       filters.push({'name': 'academic_levels', 'value': null});
@@ -235,17 +244,21 @@ export class ReservationPageComponent implements OnInit {
   }
 
   refreshListCard() {
-    const filters: any[] = [
-      {
-        'name': 'owner',
-        'value': this.user.id
-      }
-    ];
-    this.cardService.list(filters).subscribe(
-      cards => {
-        this.listCards = cards.results.map(c => new Card(c));
-      }
-    );
+    if ( this.user ) {
+      const filters: any[] = [
+        {
+          'name': 'owner',
+          'value': this.user.id
+        }
+      ];
+      this.cardService.list(filters).subscribe(
+        cards => {
+          if (cards.results.length >= 1) {
+            this.listCards = cards.results[0].cards.map(c => new Card(c));
+          }
+        }
+      );
+    }
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -265,7 +278,9 @@ export class ReservationPageComponent implements OnInit {
   eventClicked(event) {
     for (const timeSlot of this.listTimeSlots) {
       if (timeSlot.id === event.id && this.selectedTimeSlots.indexOf(timeSlot) === -1) {
-        this.addToCart(timeSlot);
+        if (timeSlot.places_remaining > 0) {
+          this.addToCart(timeSlot);
+        }
       }
     }
   }
@@ -275,8 +290,7 @@ export class ReservationPageComponent implements OnInit {
     this.totalTicket += Number(timeSlot.price);
     for (const event of this.events) {
       if (event.id === timeSlot.id) {
-        event.color = colors.reserved;
-        event.actions = null;
+        event.color = this.colors[3].color;
       }
     }
   }
@@ -288,8 +302,7 @@ export class ReservationPageComponent implements OnInit {
       this.totalTicket -= Number(timeSlot.price);
       for (const event of this.events) {
         if (event.id === timeSlot.id) {
-          event.color = colors.yellow;
-          event.actions = this.actions;
+          event.color = this.getTimeslotColor(timeSlot);
         }
       }
     }
@@ -310,14 +323,25 @@ export class ReservationPageComponent implements OnInit {
     }
   }
 
+  getTimeslotColor(timeSlot) {
+    if (timeSlot.places_remaining === 0) {
+      return this.colors[3].color;
+    } else if (timeSlot.places_remaining < Number(this.workplace.seats) / 4) {
+      return this.colors[2].color;
+    } else if (timeSlot.places_remaining < Number(this.workplace.seats) / 2) {
+      return this.colors[1].color;
+    } else {
+      return this.colors[0].color;
+    }
+  }
+
   timeSlotAdapter(timeSlot) {
     return {
       id: timeSlot.id,
       start: new Date(timeSlot.start_time),
       end: new Date(timeSlot.end_time),
-      title: timeSlot.getStartTime() + '-' + timeSlot.getEndTime() + ' (' + timeSlot.places_remaining.toString() + ' places restantes)',
-      color: colors.yellow,
-      actions: this.actions,
+      title: timeSlot.getStartTime() + ' à ' + timeSlot.getEndTime() + ' (' + timeSlot.places_remaining.toString() + ' places restantes)',
+      color: this.getTimeslotColor(timeSlot)
     };
   }
 
@@ -339,77 +363,95 @@ export class ReservationPageComponent implements OnInit {
     modal.toggle();
   }
 
-  generateOrder() {
+  addCard() {
     const instance = this;
     if (!instance.paysafeInstance) {
       console.error('No instance Paysafe');
     } else {
       instance.paysafeInstance.tokenize((paysafeInstance: any, error: any, result: any) => {
         if (error) {
-          this.error = ['Ces informations bancaires sont invalides'];
+          this.errorModal = ['Ces informations bancaires sont invalides'];
           console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
         } else {
-          const newOrder = new Order(
-            {
-              'single_use_token': result.token,
-              'order_lines': [],
-            }
-          );
-          if (this.selectedMembership) {
-            newOrder['order_lines'].push(new OrderLine({
-                'content_type': 'membership',
-                'object_id': this.selectedMembership.id,
-                'quantity': 1,
-              })
-            );
-          }
-          if (this.selectedPackages) {
-            for (const selectedPackage of this.selectedPackages) {
-              newOrder['order_lines'].push(new OrderLine({
-                  'content_type': 'package',
-                  'object_id': selectedPackage.id,
-                  'quantity': 1,
-                })
-              );
-            }
-          }
-          if (this.selectedTimeSlots) {
-            for (const selectedTimeslot of this.selectedTimeSlots) {
-              newOrder['order_lines'].push(new OrderLine({
-                  'content_type': 'timeslot',
-                  'object_id': selectedTimeslot.id,
-                  'quantity': 1,
-                })
-              );
-            }
-          }
-          this.orderService.create(newOrder).subscribe(
-            response => {
-              this.ToggleModalAddCard();
-            }
-          );
+          this.cardToken = result.token;
+          this.waitPaysafe = true;
+          this.ToggleModalAddCard();
         }
       });
     }
   }
 
-  needToBuyPackage() {
-    if (this.user) {
-      if (this.user.membership || this.selectedMembership) {
-        let total = this.user.tickets;
-        for (const reservationPackage of this.selectedPackages) {
-          total += reservationPackage.reservations;
-        }
-        return total < this.totalTicket;
+  generateOrder() {
+    this.waitAPI = true;
+    const newOrder = new Order(
+      {
+        'single_use_token': this.cardToken,
+        'order_lines': [],
       }
+    );
+    if (this.selectedMembership) {
+      newOrder['order_lines'].push(new OrderLine({
+          'content_type': 'membership',
+          'object_id': this.selectedMembership.id,
+          'quantity': 1,
+        })
+      );
+    }
+    if (this.selectedPackages) {
+      for (const selectedPackage of this.selectedPackages) {
+        newOrder['order_lines'].push(new OrderLine({
+            'content_type': 'package',
+            'object_id': selectedPackage.id,
+            'quantity': 1,
+          })
+        );
+      }
+    }
+    if (this.selectedTimeSlots) {
+      for (const selectedTimeslot of this.selectedTimeSlots) {
+        newOrder['order_lines'].push(new OrderLine({
+            'content_type': 'timeslot',
+            'object_id': selectedTimeslot.id,
+            'quantity': 1,
+          })
+        );
+      }
+    }
+    this.orderService.create(newOrder).subscribe(
+      response => {
+        this.waitAPI = false;
+      }, err => {
+        this.errorOrder = ['Impossible de finaliser le paiement. Veuillez réessayer.'];
+      }
+    );
+  }
+
+  getNumberOfTicket() {
+    let total = 0;
+    for (const reservationPackage of this.selectedPackages) {
+      total += reservationPackage.reservations;
+    }
+    if (this.user != null) {
+      total += this.user.tickets;
+    }
+    return total;
+  }
+
+  needToBuyPackage() {
+    if (this.user != null) {
+      return this.getNumberOfTicket() < this.totalTicket;
     }
     return false;
   }
 
   needToBuyMembership() {
-    const userWithoutMembership = this.user && !this.user.membership;
+    const neverHadMembership = this.user && !this.user.membership;
+    let expiredMembership = false;
+    if (!neverHadMembership && this.user) {
+      expiredMembership = new Date(this.user.membership_end) < new Date();
+    }
     const noMembershipInCart = isNull(this.selectedMembership);
-    return noMembershipInCart && userWithoutMembership;
+    return noMembershipInCart && (neverHadMembership || expiredMembership);
   }
 
   needToUseCard() {
@@ -417,7 +459,13 @@ export class ReservationPageComponent implements OnInit {
   }
 
   canFinalizePayment() {
-    return !this.needToBuyPackage() && !this.needToBuyMembership() && this.selectedCard;
+    if (this.needToUseCard() && !this.cardToken) {
+      return false;
+    }
+    if (!this.totalTicket && !this.totalPrice) {
+      return false;
+    }
+    return !this.needToBuyPackage() && !this.needToBuyMembership();
   }
 
   addPackage() {
@@ -447,9 +495,9 @@ export class ReservationPageComponent implements OnInit {
   selectCard(event) {
     const value = event.target.value;
     if (value !== 'none') {
-      this.selectedCard = value;
+      this.cardToken = value;
     } else {
-      this.selectedCard = null;
+      this.cardToken = null;
     }
   }
 }
