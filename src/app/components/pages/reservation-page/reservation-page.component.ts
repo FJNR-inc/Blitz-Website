@@ -185,6 +185,19 @@ export class ReservationPageComponent implements OnInit {
             timeSlots => {
               this.listTimeSlots = timeSlots.results.map(l => new TimeSlot(l));
               this.syncCalendarEvent();
+              const newSelectedTimeSlots = [];
+              for (const timeslot of this.listTimeSlots) {
+                for (const selected of this.selectedTimeSlots) {
+                  if (timeslot.id === selected.id) {
+                    if (timeslot.places_remaining > 0) {
+                      newSelectedTimeSlots.push(timeslot);
+                    } else {
+                      this.totalTicket -= timeslot.price;
+                    }
+                  }
+                }
+              }
+              this.selectedTimeSlots = newSelectedTimeSlots;
             }
           );
         }
@@ -286,11 +299,13 @@ export class ReservationPageComponent implements OnInit {
   }
 
   addToCart(timeSlot) {
-    this.selectedTimeSlots.push(timeSlot);
-    this.totalTicket += Number(timeSlot.price);
-    for (const event of this.events) {
-      if (event.id === timeSlot.id) {
-        event.color = this.colors[3].color;
+    if (this.authenticationService.isAuthenticated()) {
+      this.selectedTimeSlots.push(timeSlot);
+      this.totalTicket += Number(timeSlot.price);
+      for (const event of this.events) {
+        if (event.id === timeSlot.id) {
+          event.color = this.colors[3].color;
+        }
       }
     }
   }
@@ -349,8 +364,7 @@ export class ReservationPageComponent implements OnInit {
     this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url }});
   }
 
-  ToggleModalAddCard() {
-    const name = 'form_credit_card';
+  ToggleModal(name: string) {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
@@ -358,8 +372,6 @@ export class ReservationPageComponent implements OnInit {
       return;
     }
 
-    modal.title = 'Ajouter une carte';
-    modal.button2Label = 'Ajouter';
     modal.toggle();
   }
 
@@ -375,7 +387,7 @@ export class ReservationPageComponent implements OnInit {
         } else {
           this.cardToken = result.token;
           this.waitPaysafe = true;
-          this.ToggleModalAddCard();
+          this.ToggleModal('form_credit_card');
         }
       });
     }
@@ -420,8 +432,16 @@ export class ReservationPageComponent implements OnInit {
     this.orderService.create(newOrder).subscribe(
       response => {
         this.waitAPI = false;
+        this.router.navigate(['/profile']);
       }, err => {
-        this.errorOrder = ['Impossible de finaliser le paiement. Veuillez réessayer.'];
+        this.waitAPI = false;
+
+        if (err.error.non_field_errors.indexOf('There are no places left in the requested timeslot.') > -1) {
+          this.ToggleModal('no_places');
+          this.refreshListTimeSlot();
+        } else {
+          this.errorOrder = ['Impossible de finaliser le paiement. Veuillez réessayer.'];
+        }
       }
     );
   }

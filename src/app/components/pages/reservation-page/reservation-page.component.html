@@ -180,7 +180,7 @@
         </button>
       </form>
 
-      <form class="reservation-page__details__form__alert" *ngIf="needToBuyPackage()">
+      <form class="reservation-page__details__form__alert" *ngIf="needToBuyPackage()" ngIf="user">
         <div class="reservation-page__details__form__alert__content">
           <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__details__form__alert__content__icon" />
           <div class="reservation-page__details__form__alert__content__text">
@@ -211,7 +211,7 @@
               </option>
             </select>
             <div class="form-text form-text--right">
-              <a (click)="ToggleModalAddCard()">Ajouter une nouvelle carte</a>
+              <a (click)="ToggleModal('form_credit_card')">Ajouter une nouvelle carte</a>
             </div>
           </div>
           <div *ngIf="!listCards || !listCards.length" class="reservation-page__details__form__alert">
@@ -221,7 +221,7 @@
                 Vous n'avez pas de carte de paiement enregistré pour le moment.
               </div>
             </div>
-            <a (click)="ToggleModalAddCard()" class="reservation-page__details__form__alert__button nt-button">
+            <a (click)="ToggleModal('form_credit_card')" class="reservation-page__details__form__alert__button nt-button">
               Ajouter une carte
             </a>
           </div>
@@ -251,6 +251,8 @@
 
 <app-nt-modal name="form_credit_card"
               class="modal-credit-card"
+              title="Ajouter une carte"
+              button2Label="Ajouter"
               typeModal="success"
               (button2)="addCard()"
               [activated]="!waitPaysafe">
@@ -273,4 +275,16 @@
       </div>
     </div>
   </form>
+</app-nt-modal>
+
+<app-nt-modal name="no_places"
+              title="Oh snap.."
+              button2Label="J'ai compris!"
+              maxWidth="600px"
+              [autoClose]="true">
+  <p>
+    Quelqu'un a été plus rapide que vous pour réserver et
+    certaines places ne sont plus disponibles,
+    nous venons de mettre à jour votre panier!
+  </p>
 </app-nt-modal>

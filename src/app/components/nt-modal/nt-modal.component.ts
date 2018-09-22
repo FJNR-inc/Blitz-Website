@@ -14,6 +14,7 @@ export class NtModalComponent implements OnInit {
   @Input() button2Label: string;
   @Input() maxWidth = '95%';
   @Input() activated = true;
+  @Input() autoClose = false;
 
   @ViewChild('modalContent') modalContent;
 
@@ -72,6 +73,9 @@ export class NtModalComponent implements OnInit {
 
   clickButton2(): void {
     this.button2.emit(null);
+    if (this.autoClose) {
+      this.toggle();
+    }
   }
 
 }
