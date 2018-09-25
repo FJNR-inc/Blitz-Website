@@ -209,7 +209,7 @@ export class ReservationPageComponent implements OnInit {
     const instance = this;
     paysafe.fields.setup(this.API_KEY, this.OPTIONS, (paysafeInstance: any, error: any) => {
       if (error) {
-        alert(`Setup error: [${error.code}] ${error.detailedMessage}`);
+        console.error(`Setup error: [${error.code}] ${error.detailedMessage}`);
       } else {
         instance.paysafeInstance = paysafeInstance;
       }
