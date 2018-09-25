@@ -80,11 +80,11 @@ export class ReservationPageComponent implements OnInit {
     fields: {
       cardNumber: {
         selector: '#card-number',
-        placeholder: 'Card number'
+        placeholder: 'Numéro de carte'
       },
       expiryDate: {
         selector: '#expiration-date',
-        placeholder: 'Expiration date'
+        placeholder: 'Date d\'expiration (Mois/Année)'
       },
       cvv: {
         selector: '#cvv',
