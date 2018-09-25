@@ -2,23 +2,25 @@
   <div class="reservation-page__reservation">
     <div class="reservation-page__reservation__calendar">
       <div class="reservation-page__reservation__calendar__actions">
-        <a class="reservation-page__reservation__calendar__actions__button">
+        <a class="reservation-page__reservation__calendar__actions__button"
+           mwlCalendarPreviousView
+           [view]="view"
+           [(viewDate)]="viewDate"
+           (viewDateChange)="activeDayIsOpen = false">
           <img class="reservation-page__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_left_arrow.svg"/>
-          <span mwlCalendarPreviousView
-                [view]="view"
-                [(viewDate)]="viewDate"
-                (viewDateChange)="activeDayIsOpen = false">
+          <span>
             Précédent
           </span>
         </a>
         <h2 class="reservation-page__reservation__calendar__actions__title">
           {{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}
         </h2>
-        <a class="reservation-page__reservation__calendar__actions__button">
-          <span mwlCalendarNextView
-                [view]="view"
-                [(viewDate)]="viewDate"
-                (viewDateChange)="activeDayIsOpen = false">
+        <a class="reservation-page__reservation__calendar__actions__button"
+           mwlCalendarNextView
+           [view]="view"
+           [(viewDate)]="viewDate"
+           (viewDateChange)="activeDayIsOpen = false">
+          <span>
             Suivant
           </span>
           <img class="reservation-page__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_right_arrow.svg"/>
