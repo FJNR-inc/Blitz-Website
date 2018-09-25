@@ -31,11 +31,14 @@ export class TimeSlotService extends GlobalService {
     );
   }
 
-  list(filters: {name: string, value: any}[] = null, limit: number = 100, offset: number = 0): Observable<any> {
+  list(filters: {name: string, value: any}[] = null, limit: number = 100, offset: number = 0, ordering: string = null): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();
     params = params.set('limit', limit.toString());
     params = params.set('offset', offset.toString());
+    if ( ordering === 'start_time' ) {
+      params = params.set('ordering', 'start_time');
+    }
     if (filters != null) {
       for (const filter of filters) {
         if (filter.name === 'workplace') {

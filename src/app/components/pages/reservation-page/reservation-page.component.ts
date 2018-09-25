@@ -181,7 +181,7 @@ export class ReservationPageComponent implements OnInit {
               'value': now
             }
           ];
-          this.timeSlotService.list(filters).subscribe(
+          this.timeSlotService.list(filters, 1000, 0, 'start_time').subscribe(
             timeSlots => {
               this.listTimeSlots = timeSlots.results.map(l => new TimeSlot(l));
               this.syncCalendarEvent();
