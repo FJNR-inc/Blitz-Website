@@ -75,19 +75,10 @@
           border: 1px solid $border-calendar;
           margin-top: 20px;
           padding: 20px;
-        }
 
-        &__action {
-          font-size: 20px;
-          font-weight: 500;
-          padding: 20px;
-          border-style: solid;
-          border-color: $border-calendar;
-          border-width: 0 1px 1px 1px;
-          text-align: center;
-          display: block;
-          text-decoration: none;
-          text-transform: uppercase;
+          &__link {
+            margin-top: 30px;
+          }
         }
       }
     }
@@ -126,6 +117,7 @@
             font-size: 1.1em;
             text-transform: uppercase;
             font-weight: 700;
+            text-align: center;
           }
 
           &__sub-text {
@@ -260,6 +252,12 @@
 
       &__right {
         padding: 20px 20px;
+
+        &__blocs {
+          &__action {
+            font-size: 0.9em;
+          }
+        }
       }
     }
   }
@@ -324,6 +322,10 @@
         padding: 20px 5px;
         &__blocs {
           &__table {
+            font-size: 0.7em;
+          }
+
+          &__action {
             font-size: 0.7em;
           }
         }

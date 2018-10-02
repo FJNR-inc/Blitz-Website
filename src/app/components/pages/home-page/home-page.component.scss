@@ -6,6 +6,7 @@
 
   &__splashscreen {
     width: 100%;
+    min-height: 600px;
   }
 
   &__splash-text {
@@ -41,7 +42,7 @@
     &__picture {
       flex: 1;
       background-image: url('../../../../assets/images/retraite.jpg');
-      background-position: top;
+      background-position: center;
       background-size: cover;
       min-height: 400px;
     }
@@ -89,7 +90,7 @@
     &__map {
       flex: 2;
       background-image: url('../../../../assets/images/map_espace.jpg');
-      background-position: top;
+      background-position: center;
       background-size: cover;
       min-height: 400px;
     }

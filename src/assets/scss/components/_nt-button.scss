@@ -31,7 +31,7 @@
   }
 
   &:disabled {
-    background-color: lightgrey;
+    background-color: $nt-0;
     color: grey;
     cursor: not-allowed;
   }

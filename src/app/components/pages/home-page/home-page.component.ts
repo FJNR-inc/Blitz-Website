@@ -12,7 +12,7 @@ import { Workplace } from '../../../models/workplace';
 
 export class HomePageComponent implements OnInit {
 
-  workplaceList: Workplace[];
+  workplaceList: Workplace[] = null;
   sponsorsList = [
     {
       'imageUrl': '../../../../assets/images/temp/partners/partners1.jpg',

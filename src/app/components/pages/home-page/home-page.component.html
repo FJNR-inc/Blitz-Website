@@ -23,14 +23,14 @@
     </div>
   </div>
   <div class="home-page__espace">
-    <div class="home-page__espace__text">
+    <div class="home-page__espace__text" *ngIf="workplaceList && workplaceList[0]">
       <h1 class="home-page__espace__text__title">
         L'espace Thèsez-vous
       </h1>
       <p class="home-page__espace__text__content">
         Premier espace de travail en ville
       </p>
-      <ul class="home-page__espace__text__details" *ngIf="workplaceList && workplaceList[0]">
+      <ul class="home-page__espace__text__details">
         <li class="home-page__espace__text__details__item">
           <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_rdv.svg" />
           <span class="home-page__espace__text__details__item__label">

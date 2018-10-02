@@ -1,13 +1,18 @@
 .nt-form-input {
-  border: none;
-  border-bottom: 1px solid grey;
+  border-color: grey;
+  border-width: 0 0 1px 0;
+  border-style: solid;
   width: 100%;
-  padding: 12px 0 0 5px;
+  margin-top: 12px;
+  padding: 0 0 0 5px;
   background-color: transparent;
   -moz-appearance: none;
   -webkit-appearance: none;
   color: $nt-text;
   transition: all $ease-inout-sine 300ms;
+
+  // To manage paysafeJS iframe integration
+  height: 32px;
 
   &[type='radio']{
     border-radius: 50%;
@@ -61,6 +66,14 @@
     &:checked {
       background-color: $nt-text;
     }
+  }
+
+  &--select {
+    background-image: url('assets/images/icons/icon_down_arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    border-width: 1px 1px 1px 1px;
   }
 
   &--textarea {

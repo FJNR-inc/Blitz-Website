@@ -19,6 +19,10 @@ export class NtHeaderComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
 
+  closeHeader() {
+    this.isOpen = false;
+  }
+
   isAuthenticated() {
     return this.authenticationService.isAuthenticated();
   }

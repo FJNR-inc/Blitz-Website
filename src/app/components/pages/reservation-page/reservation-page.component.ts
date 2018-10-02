@@ -33,6 +33,7 @@ import { Order } from '../../../models/order';
 import { OrderLine } from '../../../models/orderLine';
 import {ProfileService} from '../../../services/profile.service';
 import {environment} from '../../../../environments/environment';
+import {NotificationsService} from 'angular2-notifications';
 
 
 declare let paysafe: any;
@@ -141,7 +142,8 @@ export class ReservationPageComponent implements OnInit {
               private myModalService: MyModalService,
               private cardService: CardService,
               private orderService: OrderService,
-              private profileService: ProfileService) {}
+              private profileService: ProfileService,
+              private notificationService: NotificationsService) {}
 
   ngOnInit() {
     this.initPaysafe();
@@ -233,8 +235,13 @@ export class ReservationPageComponent implements OnInit {
     this.reservationPackageService.list(filters).subscribe(
       reservationPackages => {
         this.listReservationPackage = reservationPackages.results.map(r => new ReservationPackage(r));
+        this.currentPackage = this.listReservationPackage[0].id;
       }
     );
+  }
+
+  scroll(element) {
+    document.getElementById(element).scrollIntoView({behavior: 'smooth'});
   }
 
   refreshListMembership() {
@@ -301,6 +308,7 @@ export class ReservationPageComponent implements OnInit {
   addToCart(timeSlot) {
     if (this.authenticationService.isAuthenticated()) {
       this.selectedTimeSlots.push(timeSlot);
+      this.scroll('cart');
       this.totalTicket += Number(timeSlot.price);
       for (const event of this.events) {
         if (event.id === timeSlot.id) {
@@ -377,16 +385,20 @@ export class ReservationPageComponent implements OnInit {
 
   addCard() {
     const instance = this;
+    this.waitPaysafe = true;
     if (!instance.paysafeInstance) {
       console.error('No instance Paysafe');
+      this.errorModal = ['Nos services bancaires semblent éprouver quelques difficultés, veuillez recommencer.'];
+      this.waitPaysafe = false;
     } else {
       instance.paysafeInstance.tokenize((paysafeInstance: any, error: any, result: any) => {
         if (error) {
           this.errorModal = ['Ces informations bancaires sont invalides'];
           console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
+          this.waitPaysafe = false;
         } else {
           this.cardToken = result.token;
-          this.waitPaysafe = true;
+          this.waitPaysafe = false;
           this.ToggleModal('form_credit_card');
         }
       });
@@ -432,6 +444,7 @@ export class ReservationPageComponent implements OnInit {
     this.orderService.create(newOrder).subscribe(
       response => {
         this.waitAPI = false;
+        this.notificationService.success('Réservation effectué', 'Bravo!');
         this.router.navigate(['/profile']);
       }, err => {
         this.waitAPI = false;

@@ -94,7 +94,7 @@
         </div>
         <a (click)="goToLoginPage()" class="reservation-page__details__form__alert__button nt-button">Se connecter</a>
       </div>
-      <div class="reservation-page__details__form__ticket" *ngIf="user">
+      <div class="reservation-page__details__form__ticket" *ngIf="user" id="cart">
         <div class="reservation-page__details__form__ticket__title">
           Panier
         </div>
@@ -140,15 +140,15 @@
 
       <ul class="reservation-page__details__form__infos" *ngIf="user && (user.membership || user.tickets > totalTicket)">
         <li *ngIf="!needToBuyMembership()" class="reservation-page__details__form__infos__item reservation-page__details__form__infos__item--success">
-          <img src="../../../../assets/images/icons/icon_exit.svg" class="reservation-page__details__form__infos__item__icon">
+          <img src="../../../../assets/images/icons/icon_check.svg" class="reservation-page__details__form__infos__item__icon">
           Votre membership est encore valide.
         </li>
         <li *ngIf="needToBuyMembership()" class="reservation-page__details__form__infos__item reservation-page__details__form__infos__item">
           <img src="../../../../assets/images/icons/icon_exit.svg" class="reservation-page__details__form__infos__item__icon">
           Votre n'avez pas de membership actif.
         </li>
-        <li *ngIf="!needToBuyPackage()" class="reservation-page__details__form__infos__item reservation-page__details__form__infos__item--success">
-          <img src="../../../../assets/images/icons/icon_exit.svg" class="reservation-page__details__form__infos__item__icon">
+        <li *ngIf="!needToBuyPackage() && getNumberOfTicket()" class="reservation-page__details__form__infos__item reservation-page__details__form__infos__item--success">
+          <img src="../../../../assets/images/icons/icon_check.svg" class="reservation-page__details__form__infos__item__icon">
           Il vous reste {{ getNumberOfTicket() - totalTicket }} ticket(s) disponible(s).
         </li>
         <li *ngIf="needToBuyPackage()" class="reservation-page__details__form__infos__item reservation-page__details__form__infos__item">
@@ -169,7 +169,7 @@
         </div>
         <div class="form-group">
           <label for="membership" class="nt-form-label">Type de membership :</label>
-          <select [(ngModel)]="currentMembership" name="membership" id="membership" class="nt-form-input">
+          <select [(ngModel)]="currentMembership" name="membership" id="membership" class="nt-form-input nt-form-input--select">
             <option *ngFor="let membership of listMembership" value="{{membership.id}}">
               {{ membership.name }} - {{ membership.price }}$CAN
             </option>
@@ -182,7 +182,7 @@
         </button>
       </form>
 
-      <form class="reservation-page__details__form__alert" *ngIf="needToBuyPackage()" ngIf="user">
+      <form class="reservation-page__details__form__alert" *ngIf="needToBuyPackage() && user">
         <div class="reservation-page__details__form__alert__content">
           <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__details__form__alert__content__icon" />
           <div class="reservation-page__details__form__alert__content__text">
@@ -191,7 +191,7 @@
         </div>
         <div class="form-group">
           <label for="package" class="nt-form-label">Forfaits :</label>
-          <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="nt-form-input">
+          <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="nt-form-input nt-form-input--select">
             <option *ngFor="let package of listReservationPackage" value="{{package.id}}">
               {{ package.reservations }} ticket(s) - {{ package.price }}$CAN
             </option>
@@ -206,7 +206,7 @@
         <div class="reservation-page__details__form__payment__card form-group" *ngIf="needToUseCard()">
           <div *ngIf="listCards && listCards.length">
             <label for="card" class="nt-form-label">Mode de paiement :</label>
-            <select id="card" class="nt-form-input" (change)="selectCard($event)">
+            <select id="card" class="nt-form-input nt-form-input--select" (change)="selectCard($event)">
               <option value="none">Choisir une carte de paiement</option>
               <option value="{{card.payment_token}}" *ngFor="let card of listCards">
                 **** **** **** {{card.last_digits}} ({{card.card_expiry.month}}/{{card.card_expiry.year}})
@@ -253,11 +253,14 @@
 
 <app-nt-modal name="form_credit_card"
               class="modal-credit-card"
-              title="Ajouter une carte"
               button2Label="Ajouter"
               typeModal="success"
               (button2)="addCard()"
-              [activated]="!waitPaysafe">
+              [activated]="!waitPaysafe"
+              maxWidth="600px">
+  <h1 class="nt-title">
+    Ajouter une carte
+  </h1>
   <form class="modal-credit-card__form">
     <div *ngFor="let errorMessage of errorModal" class="nt-alert nt-alert--danger">
       {{ errorMessage }}
@@ -280,10 +283,12 @@
 </app-nt-modal>
 
 <app-nt-modal name="no_places"
-              title="Oh snap.."
               button2Label="J'ai compris!"
               maxWidth="600px"
               [autoClose]="true">
+  <h1 class="nt-title">
+    Oups..
+  </h1>
   <p>
     Quelqu'un a été plus rapide que vous pour réserver et
     certaines places ne sont plus disponibles,

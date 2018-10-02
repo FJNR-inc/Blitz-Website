@@ -114,7 +114,6 @@
   flex-wrap: wrap;
   padding: 10px;
   align-items: flex-end;
-  justify-content: space-around;
 }
 
 .cal-month-view .cal-event {
@@ -145,12 +144,6 @@
 .cal-month-view .cal-day-cell.cal-out-month .cal-day-number {
   opacity: 0.1;
   cursor: default; }
-
-.cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
-  color: darkred; }
-
-.cal-month-view .cal-day-cell.cal-today {
-  background-color: #e8fde7; }
 
 .cal-month-view .cal-day-cell.cal-today .cal-day-number {
   font-size: 1.9em;

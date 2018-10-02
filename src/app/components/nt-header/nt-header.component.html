@@ -1,12 +1,12 @@
 <div class="nt-header" [ngClass]="{'nt-header--open': isOpen}">
   <div class="nt-header__top">
-    <a class="nt-header__top__toggle">
-      <img (click)='toggleHeader()' src="../../../assets/images/icons/icon_exit.svg"/>
+    <a (click)="toggleHeader()" class="nt-header__top__toggle">
+      <img src="../../../assets/images/icons/icon_exit.svg"/>
     </a>
     <a class="nt-header__top__toggle nt-header__top__toggle--closed" (click)='toggleHeader()'>
       &#9776;
     </a>
-    <a class="nt-header__top__logo" routerLink="/home">
+    <a class="nt-header__top__logo" (click)="closeHeader()" routerLink="/home">
       <img class="nt-header__top__logo__image" src="../../../assets/images/logo_general.svg"/>
     </a>
   </div>
@@ -17,7 +17,7 @@
       </div>
       <ul class="nt-header__nav">
         <li class="nt-header__nav__item">
-          <a routerLink="/home">
+          <a (click)="closeHeader()" routerLink="/home">
             Accueil
           </a>
         </li>
@@ -50,20 +50,20 @@
     </div>
     <div class="nt-header__content__right">
       <div class="nt-header__actions">
-        <a *ngIf="!isAuthenticated()" routerLink="/membership/intro" class="nt-header__actions__item">Devenir membre</a>
-        <a *ngIf="isAuthenticated()" routerLink="/profile" class="nt-header__actions__item">
+        <a *ngIf="!isAuthenticated()" (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item">Devenir membre</a>
+        <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/profile" class="nt-header__actions__item">
           <img class="nt-header__actions__item__icon" src="../../../assets/images/icons/icon_membre.svg" />
           <span>Mon profil</span>
         </a>
-        <a *ngIf="!isAuthenticated()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--responsive">Se connecter</a>
-        <a *ngIf="isAuthenticated()" routerLink="/logout" class="nt-header__actions__item nt-header__actions__item--responsive">Se déconnecter</a>
-        <a routerLink="/membership/intro" class="nt-header__actions__item nt-header__actions__item--closed">
+        <a *ngIf="!isAuthenticated()" (click)="closeHeader()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--responsive">Se connecter</a>
+        <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/logout" class="nt-header__actions__item nt-header__actions__item--responsive">Se déconnecter</a>
+        <a (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item nt-header__actions__item--closed">
           <img src="../../../assets/images/icons/icon_communaute.svg" />
         </a>
-        <a *ngIf="!isAuthenticated()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--closed">
+        <a (click)="closeHeader()" *ngIf="!isAuthenticated()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--closed">
           <img src="../../../assets/images/icons/icon_membre.svg" />
         </a>
-        <a *ngIf="isAuthenticated()" routerLink="/profile" class="nt-header__actions__item nt-header__actions__item--closed">
+        <a (click)="closeHeader()" *ngIf="isAuthenticated()" routerLink="/profile" class="nt-header__actions__item nt-header__actions__item--closed">
           <img src="../../../assets/images/icons/icon_membre.svg" />
         </a>
       </div>
