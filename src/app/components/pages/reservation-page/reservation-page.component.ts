@@ -93,7 +93,8 @@ export class ReservationPageComponent implements OnInit {
       }
     }
   };
-  cardToken: string = null;
+  singleUseToken: string = null;
+  paymentToken: string = null;
   private paysafeInstance: any;
   errorModal: string[];
   errorOrder: string[];
@@ -397,7 +398,7 @@ export class ReservationPageComponent implements OnInit {
           console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
           this.waitPaysafe = false;
         } else {
-          this.cardToken = result.token;
+          this.setSingleUseToken(result.token);
           this.waitPaysafe = false;
           this.ToggleModal('form_credit_card');
         }
@@ -405,14 +406,28 @@ export class ReservationPageComponent implements OnInit {
     }
   }
 
+  setSingleUseToken(token) {
+    this.singleUseToken = token;
+    this.paymentToken = null;
+  }
+
+  setPaymentToken(token) {
+    this.singleUseToken = null;
+    this.paymentToken = token;
+  }
+
   generateOrder() {
     this.waitAPI = true;
     const newOrder = new Order(
       {
-        'single_use_token': this.cardToken,
         'order_lines': [],
       }
     );
+    if (this.singleUseToken) {
+      newOrder['single_use_token'] = this.singleUseToken;
+    } else if (this.paymentToken) {
+      newOrder['payment_token'] = this.paymentToken;
+    }
     if (this.selectedMembership) {
       newOrder['order_lines'].push(new OrderLine({
           'content_type': 'membership',
@@ -492,7 +507,11 @@ export class ReservationPageComponent implements OnInit {
   }
 
   canFinalizePayment() {
-    if (this.needToUseCard() && !this.cardToken) {
+    let paymentMethod = false;
+    if ( this.singleUseToken || this.paymentToken) {
+      paymentMethod = true;
+    }
+    if (this.needToUseCard() && !paymentMethod) {
       return false;
     }
     if (!this.totalTicket && !this.totalPrice) {
@@ -528,9 +547,9 @@ export class ReservationPageComponent implements OnInit {
   selectCard(event) {
     const value = event.target.value;
     if (value !== 'none') {
-      this.cardToken = value;
+      this.setPaymentToken(value);
     } else {
-      this.cardToken = null;
+      this.setPaymentToken(null);
     }
   }
 }

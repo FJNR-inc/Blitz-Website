@@ -204,7 +204,7 @@
 
       <form class="reservation-page__details__form__payment">
         <div class="reservation-page__details__form__payment__card form-group" *ngIf="needToUseCard()">
-          <div *ngIf="listCards && listCards.length">
+          <div *ngIf="listCards && listCards.length && !singleUseToken">
             <label for="card" class="nt-form-label">Mode de paiement :</label>
             <select id="card" class="nt-form-input nt-form-input--select" (change)="selectCard($event)">
               <option value="none">Choisir une carte de paiement</option>
@@ -216,7 +216,7 @@
               <a (click)="ToggleModal('form_credit_card')">Ajouter une nouvelle carte</a>
             </div>
           </div>
-          <div *ngIf="!listCards || !listCards.length" class="reservation-page__details__form__alert">
+          <div *ngIf="(!listCards || !listCards.length) && !singleUseToken" class="reservation-page__details__form__alert">
             <div class="reservation-page__details__form__alert__content">
               <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__details__form__alert__content__icon" />
               <div class="reservation-page__details__form__alert__content__text">
@@ -225,6 +225,13 @@
             </div>
             <a (click)="ToggleModal('form_credit_card')" class="reservation-page__details__form__alert__button nt-button">
               Ajouter une carte
+            </a>
+          </div>
+          <div *ngIf="singleUseToken" class="reservation-page__details__form__payment__card__single">
+            Votre carte a bien été enregistré.
+
+            <a (click)="setSingleUseToken(null)" class="reservation-page__details__form__payment__card__single__link nt-link">
+              Utiliser une carte de paiment existante
             </a>
           </div>
         </div>

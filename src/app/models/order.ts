@@ -9,6 +9,7 @@ export class Order extends BaseModel {
   transaction_date: string;
   authorization_id: number;
   settlement_id: number;
-  single_use_token: number;
+  single_use_token: string;
+  payment_token: string;
 }
 
