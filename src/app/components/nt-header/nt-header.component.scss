@@ -4,7 +4,7 @@
 .nt-header {
   color: $nt-text;
   height: 100vh;
-  width: 300px;
+  width: 230px;
   overflow-x: hidden;
 
   &__content {
@@ -48,14 +48,14 @@
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    padding: 25px 50px 0 65px;
+    padding: 25px 50px 0 45px;
     margin: 0;
     transition: all $ease-inout-sine 500ms;
     font-size: 11pt;
     border-top: 1px solid #E6DCCF;
 
     &:hover {
-      color: lightgrey;
+      color: $border-calendar;
     }
 
     &__item {
@@ -81,7 +81,7 @@
     flex-direction: column;
 
     &__item {
-      padding: 15px 0 15px 65px;
+      padding: 15px 0 15px 0;
       width: 100%;
       border-top: 1px solid #E6DCCF;
       font-weight: 900;
@@ -89,6 +89,7 @@
       text-decoration: none;
       display: flex;
       align-items: center;
+      justify-content: center;
 
       &:last-child {
         border-bottom: 1px solid #E6DCCF;
