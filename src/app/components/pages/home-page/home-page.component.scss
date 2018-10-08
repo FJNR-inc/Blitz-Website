@@ -50,7 +50,7 @@
     &__text {
       flex: 1;
       padding: 60px;
-      background-color: $nt-12;
+      background-color: $nt-11;
       color: $nt-text;
       text-align: center;
 
@@ -72,9 +72,10 @@
       }
 
       &__content {
-        font-size: 40px;
+        font-size: 32px;
         font-weight: 300;
         margin-top: 60px;
+        line-height: 44px;
       }
 
       &__button {
