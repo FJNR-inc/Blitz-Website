@@ -1,242 +1,249 @@
 @import "../../../../assets/scss/_theme.scss";
 
 .reservation-page {
-  display: flex;
-  background-color: white;
 
-  &__reservation {
-    flex: 1;
-    padding: 30px;
+  &__header {
+    margin: 40px;
     display: flex;
-    justify-content: space-around;
 
-    margin-top: 50px;
+    &__details {
+      flex: 1;
+      padding: 30px;
+      background-color: $nt-2;
 
-    &__calendar {
-      flex: 2;
-      padding: 0 20px 20px 20px;
-
-      &__actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        color: $border-calendar;
-
-        &__button {
-          display: flex;
-          align-items: center;
-          text-decoration: none;
-
-          &__icon {
-            width: 25px;
-            margin: 0 15px;
-            color: $border-calendar;
-          }
-        }
-
-        &__title {
-          display: flex;
-          justify-content: center;
-          text-transform: uppercase;
-          font-size: 14px;
-          font-weight: 600;
-          color: $border-calendar;
-        }
+      &__title {
+        font-size: 22px;
+        font-weight: 900;
+        text-transform: uppercase;
       }
 
-      &__legend {
-        display: flex;
-        margin-top: 25px;
+      &__text {
+        margin-top: 20px;
+      }
+
+      &__list {
+        list-style-type: none;
+        padding: 20px 0 0 0;
+        margin: 0;
+        text-align: left;
 
         &__item {
-          margin-right: 20px;
           display: flex;
-
-          &__text {
-            opacity: 0.6;
-            font-size: 10px;
-          }
-
-          &__color {
-            border-radius: 50%;
-            width: 10px;
-            height: 10px;
-            min-width: 10px;
-            min-height: 10px;
-            margin-right: 5px;
-          }
-        }
-      }
-    }
-  }
-
-  &__details{
-    padding: 30px;
-    background-color: $nt-3;
-    color: $nt-text;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-left: 1px solid $nt-0;
-    max-width: 500px;
-
-    &__title {
-      font-size: 30px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    &__text {
-      margin-top: 20px;
-    }
-
-    &__list {
-      list-style-type: none;
-      padding: 20px 0 0 0;
-      margin: 0;
-      text-align: left;
-
-      &__item {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-top: 20px;
-
-        &__icon {
-          width: 40px;
-          margin-right: 20px;
-        }
-
-        &__label {
-          line-height: 25px;
-        }
-      }
-    }
-
-    &__form {
-      &__alert {
-        background-color: $nt-7;
-        padding: 20px;
-        margin-top: 30px;
-
-        &__content {
-          display: flex;
+          justify-content: flex-start;
           align-items: center;
+          margin-top: 20px;
 
           &__icon {
-            width: 25px;
+            width: 40px;
             margin-right: 20px;
           }
 
-          &__text {
-            flex: 1;
-            line-height: 1.3em;
+          &__label {
+            line-height: 25px;
           }
-        }
-
-        &__button {
-          width: 100%;
-          margin-top: 30px;
-        }
-      }
-
-      &__ticket {
-        background-color: $nt-4;
-        padding: 20px 30px 20px 30px;
-        margin-top: 30px;
-
-        &__title {
-          font-size: 0.8em;
-          font-weight: 600;
-          border-bottom: 1px solid $nt-text;
-          text-transform: uppercase;
-          padding-bottom: 5px;
-          margin: 20px 0;
-        }
-
-        &__total {
-          text-align: right;
-          font-size: 1.2em;
-          font-weight: 400;
-          line-height: 1.5em;
-        }
-
-        &__line {
-          display: flex;
-          justify-content: space-between;
-          padding: 10px 0;
-
-          &__title:first-letter {
-            text-transform: capitalize;
-          }
-
-          &__actions {
-            width: 14px;
-          }
-        }
-      }
-
-      &__infos {
-        margin: 30px 0 0 0;
-        padding: 0;
-        list-style-type: none;
-
-        &__item {
-          padding: 5px 0;
-          color: $nt-9;
-
-          &--success {
-            color: $nt-12;
-          }
-
-          &__icon {
-            width: 14px;
-          }
-        }
-      }
-
-      &__payment {
-        margin-top: 30px;
-
-        &__card {
-          background-color: $nt-4;
-          padding: 5px 20px 30px 20px;
-
-          &__single {
-            margin: 30px 0 0 0;
-
-            &__link {
-              margin: 30px 0 0 0;
-            }
-          }
-        }
-
-        &__button {
-          margin-top: 20px;
-          width: 100%;
         }
       }
     }
 
     &__picture {
-      &__title {
-        text-transform: uppercase;
-        font-weight: 500;
-        font-size: 18px;
-        text-align: center;
-        display: block;
-        margin: 20px 0;
-      }
-
-      &__image {
-        width: 100%;
-      }
+      flex: 1;
+      background-size: cover;
+      background-position: center;
+      min-height: 400px;
     }
 
     &__map {
-      width: 100%;
-      margin-top: 20px;
+      flex: 1;
+      background-image: url('assets/images/map_espace.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 400px;
+    }
+  }
+
+  &__content {
+    background-color: white;
+    display: flex;
+
+    &__reservation {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      justify-content: space-around;
+
+      margin-top: 50px;
+
+      &__calendar {
+        flex: 2;
+        padding: 0 20px 20px 20px;
+
+        &__actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 30px;
+          color: $border-calendar;
+
+          &__button {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+
+            &__icon {
+              width: 25px;
+              margin: 0 15px;
+              color: $border-calendar;
+            }
+          }
+
+          &__title {
+            display: flex;
+            justify-content: center;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 600;
+            color: $border-calendar;
+          }
+        }
+
+        &__legend {
+          display: flex;
+          margin-top: 25px;
+
+          &__item {
+            margin-right: 20px;
+            display: flex;
+
+            &__text {
+              opacity: 0.6;
+              font-size: 10px;
+            }
+
+            &__color {
+              border-radius: 50%;
+              width: 10px;
+              height: 10px;
+              min-width: 10px;
+              min-height: 10px;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    &__details{
+      padding: 30px;
+      color: $nt-text;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 500px;
+
+      &__form {
+        &__alert {
+          background-color: $nt-7;
+          padding: 20px;
+          margin-top: 30px;
+
+          &__content {
+            display: flex;
+            align-items: center;
+
+            &__icon {
+              width: 25px;
+              margin-right: 20px;
+            }
+
+            &__text {
+              flex: 1;
+              line-height: 1.3em;
+            }
+          }
+
+          &__button {
+            width: 100%;
+            margin-top: 30px;
+          }
+        }
+
+        &__ticket {
+          background-color: $nt-4;
+          padding: 20px 30px 20px 30px;
+          margin-top: 30px;
+
+          &__title {
+            font-size: 0.8em;
+            font-weight: 600;
+            border-bottom: 1px solid $nt-text;
+            text-transform: uppercase;
+            padding-bottom: 5px;
+            margin: 20px 0;
+          }
+
+          &__total {
+            text-align: right;
+            font-size: 1.2em;
+            font-weight: 400;
+            line-height: 1.5em;
+          }
+
+          &__line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+
+            &__title:first-letter {
+              text-transform: capitalize;
+            }
+
+            &__actions {
+              width: 14px;
+            }
+          }
+        }
+
+        &__infos {
+          margin: 30px 0 0 0;
+          padding: 0;
+          list-style-type: none;
+
+          &__item {
+            padding: 5px 0;
+            color: $nt-9;
+
+            &--success {
+              color: $nt-12;
+            }
+
+            &__icon {
+              width: 14px;
+            }
+          }
+        }
+
+        &__payment {
+          margin-top: 30px;
+
+          &__card {
+            background-color: $nt-4;
+            padding: 5px 20px 30px 20px;
+
+            &__single {
+              margin: 30px 0 0 0;
+
+              &__link {
+                margin: 30px 0 0 0;
+              }
+            }
+          }
+
+          &__button {
+            margin-top: 20px;
+            width: 100%;
+          }
+        }
+      }
     }
   }
 }
@@ -282,10 +289,16 @@
 
 @media only screen and (max-width: 1000px) {
   .reservation-page {
-    flex-direction: column;
+    &__header {
+      flex-direction: column;
+    }
 
-    &__details {
-      max-width: 100%;
+    &__content {
+      flex-direction: column;
+
+      &__details {
+        max-width: 100%;
+      }
     }
   }
 }
@@ -293,13 +306,15 @@
 @media only screen and (max-width: 700px) {
   .reservation-page {
 
-    &__reservation {
-      padding: 30px 0;
+    &__content {
+      &__reservation {
+        padding: 30px 0;
 
-      &__calendar {
-        &__actions {
-          &__title {
-            font-size: 0.6em;
+        &__calendar {
+          &__actions {
+            &__title {
+              font-size: 0.6em;
+            }
           }
         }
       }
