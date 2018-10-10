@@ -34,6 +34,7 @@ import { OrderLine } from '../../../models/orderLine';
 import {ProfileService} from '../../../services/profile.service';
 import {environment} from '../../../../environments/environment';
 import {NotificationsService} from 'angular2-notifications';
+import {TaxeUtil} from '../../../utils/taxe';
 
 
 declare let paysafe: any;
@@ -589,5 +590,17 @@ export class ReservationPageComponent implements OnInit {
 
   isPaymentButtonDisabled() {
     return !this.canFinalizePayment() || this.waitAPI;
+  }
+
+  getTotalTPS() {
+    return TaxeUtil.getTPS(this.totalPrice);
+  }
+
+  getTotalTVQ() {
+    return TaxeUtil.getTVQ(this.totalPrice);
+  }
+
+  getTotalWithTaxes() {
+    return this.totalPrice + this.getTotalTPS() + this.getTotalTVQ();
   }
 }

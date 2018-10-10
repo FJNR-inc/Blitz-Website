@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Membership} from '../../../models/membership';
+import {TaxeUtil} from '../../../utils/taxe';
 
 @Component({
   selector: 'app-membership-summary',
@@ -41,7 +42,7 @@ export class MembershipSummaryComponent implements OnInit {
 
   getTPS() {
     if (this.membership) {
-      return Number((this.membership.price * 0.05).toFixed(2));
+      return TaxeUtil.getTPS(this.membership.price);
     } else {
       return 0;
     }
@@ -49,7 +50,7 @@ export class MembershipSummaryComponent implements OnInit {
 
   getTVQ() {
     if (this.membership) {
-      return Number((this.membership.price * 0.099750).toFixed(2));
+      return TaxeUtil.getTVQ(this.membership.price);
     } else {
       return 0;
     }

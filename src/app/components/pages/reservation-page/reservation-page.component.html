@@ -141,12 +141,38 @@
               </a>
             </div>
           </div>
-          <div class="reservation-page__content__details__form__ticket__title">
-            Total
-          </div>
-          <div class="reservation-page__content__details__form__ticket__total">
-            {{ totalTicket }} bloc(s) prépayé(s)<br/>
-            {{ totalPrice }} $CAN
+          <div>
+            <div class="reservation-page__content__details__form__ticket__title">
+              Total
+            </div>
+            <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
+              <div class="reservation-page__content__details__form__ticket__line__title">
+                Sous-Total
+              </div>
+              <div>
+                {{ totalPrice }} $CAN
+              </div>
+            </div>
+            <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
+              <div class="reservation-page__content__details__form__ticket__line__title">
+                TPS
+              </div>
+              <div>
+                {{getTotalTPS()}} $CAN
+              </div>
+            </div>
+            <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
+              <div class="reservation-page__content__details__form__ticket__line__title">
+                TVQ
+              </div>
+              <div>
+                {{getTotalTVQ()}} $CAN
+              </div>
+            </div>
+            <div class="reservation-page__content__details__form__ticket__total">
+              {{ totalTicket }} bloc(s) prépayé(s)<br/>
+              {{ getTotalWithTaxes() }} $CAN
+            </div>
           </div>
         </div>
 
@@ -184,7 +210,7 @@
             <label for="membership" class="nt-form-label">Type de membership :</label>
             <select [(ngModel)]="currentMembership" name="membership" id="membership" class="nt-form-input nt-form-input--select">
               <option *ngFor="let membership of listMembership" value="{{membership.id}}">
-                {{ membership.name }} - {{ membership.price }}$CAN
+                {{ membership.name }} - {{ membership.price }}$CAN +txs
               </option>
             </select>
           </div>
@@ -206,7 +232,7 @@
             <label for="package" class="nt-form-label">Forfaits :</label>
             <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="nt-form-input nt-form-input--select">
               <option *ngFor="let package of listReservationPackage" value="{{package.id}}">
-                {{ package.reservations }} bloc(s) - {{ package.price }}$CAN
+                {{ package.reservations }} bloc(s) - {{ package.price }}$CAN +txs
               </option>
             </select>
           </div>
