@@ -15,6 +15,6 @@ export class DateUtil {
       hour: '2-digit',
       minute: '2-digit'
     };
-    return date.toLocaleString('fr-CA', options);
+    return date.toLocaleString('fr-CA', options).replace(/ /g, '');
   }
 }
