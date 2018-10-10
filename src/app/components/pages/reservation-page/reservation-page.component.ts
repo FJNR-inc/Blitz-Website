@@ -420,7 +420,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   finalizeTransaction() {
-    if (this.isPaymentButtonDisabled) {
+    if (this.isPaymentButtonDisabled()) {
       this.ToggleModal('payment_button_disabled');
     } else {
       this.generateOrder();
