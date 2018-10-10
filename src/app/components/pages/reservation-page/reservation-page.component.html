@@ -96,7 +96,7 @@
           <div class="reservation-page__content__details__form__alert__content">
             <img class="reservation-page__content__details__form__alert__content__icon" src="../../../../assets/images/icons/icon_attention.svg"/>
             <p class="reservation-page__content__details__form__alert__content__text">
-              Pour réserver un bloc d'heure dans un espace de travail
+              Pour réserver un bloc de rédaction dans un espace de travail
               vous devez d'abord <a (click)="goToLoginPage()">vous connecter</a> ou
               bien vous <a routerLink="/register">créer un profil</a>.
             </p>
@@ -194,13 +194,13 @@
             Vous n'avez pas suffisament de blocs prépayés.
           </li>
         </ul>
-        <a *ngIf="user && !wantToBuyPackage && !needToBuyPackage()" (click)="askToBuyPackage()" class="nt-link">Acheter des blocs d'heures prépayés</a>
+        <a *ngIf="user && !wantToBuyPackage && !needToBuyPackage()" (click)="askToBuyPackage()" class="nt-link">Acheter des blocs de rédaction prépayés</a>
 
         <form class="reservation-page__content__details__form__alert" *ngIf="needToBuyMembership()">
           <div class="reservation-page__content__details__form__alert__content">
             <img class="reservation-page__content__details__form__alert__content__icon" src="../../../../assets/images/icons/icon_attention.svg"/>
             <div class="reservation-page__content__details__form__alert__content__text">
-              Les blocs d'heure de cet espace de travail
+              Les blocs de rédaction de cet espace de travail
               nécessitent un membership actif pour être
               réservées. Veuillez sélectionner un type
               de membership à acheter.
@@ -345,6 +345,6 @@
     Il semblerait que vous ne soyez pas totalement prêt pour "{{getLabelFinalizeButton()}}".
     </p>
   <p>
-    Vous devez d'abord sélectionner un bloc d'heure, un forfait ou bien un membership et si nécessaire une carte de paiement.
+    Vous devez d'abord sélectionner un bloc de rédaction, un forfait ou bien un membership et si nécessaire une carte de paiement.
   </p>
 </app-nt-modal>
