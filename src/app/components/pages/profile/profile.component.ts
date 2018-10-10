@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
   listReservations: TimeSlot[] = [];
   listFutureReservations: TimeSlot[] = [];
   totalPastReservations = 0;
+  totalFutureReservations = 0;
   listCards: Card[];
   listWorkplaces: Workplace[];
   errors: string[];
@@ -95,8 +96,9 @@ export class ProfileComponent implements OnInit {
         );
         for ( const timeslot of reservations ) {
           if (timeslot.getEndDate() < new Date()) {
-            this.totalPastReservations += 1;
+            this.totalPastReservations += 4;
           } else {
+            this.totalFutureReservations += 4;
             this.listFutureReservations.push(timeslot);
           }
           this.listReservations.push(timeslot);

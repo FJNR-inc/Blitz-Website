@@ -155,8 +155,8 @@
           </p>
         </div>
         <div class="profile-page__content__right__stats__future">
-          <p class="profile-page__content__right__stats__future__number" *ngIf="listFutureReservations">
-            {{listFutureReservations.length}}
+          <p class="profile-page__content__right__stats__future__number" *ngIf="totalFutureReservations">
+            {{totalFutureReservations}}
             <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__stats__future__number__icon"/>
           </p>
           <p class="profile-page__content__right__stats__future__text">
@@ -206,7 +206,7 @@
                 {{reservation.getStartTime()}} à {{reservation.getEndTime()}}
               </td>
               <td>
-                {{reservation.price}}
+                4
               </td>
             </tr>
           </tbody>
