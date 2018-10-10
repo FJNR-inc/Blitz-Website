@@ -565,4 +565,16 @@ export class ReservationPageComponent implements OnInit {
   askToBuyPackage() {
     this.wantToBuyPackage = true;
   }
+
+  getLabelFinalizeButton() {
+    if (this.totalPrice && this.totalTicket) {
+      return 'Payer & Réserver';
+    } else if (this.totalPrice) {
+      return 'Payer';
+    } else if (this.totalTicket){
+      return 'Réserver';
+    } else {
+      return 'Finaliser';
+    }
+  }
 }

@@ -253,7 +253,7 @@
             </div>
           </div>
           <button type="submit" (click)="generateOrder()" class="reservation-page__content__details__form__payment__button nt-button" [disabled]="!canFinalizePayment() || waitAPI">
-            Payer
+            {{ getLabelFinalizeButton() }}
           </button>
         </form>
       </div>
