@@ -61,6 +61,7 @@ export class ReservationPageComponent implements OnInit {
 
   workplace: Workplace;
   listTimeSlots: TimeSlot[];
+  listReservedTimeslot: TimeSlot[] = null;
   listMembership: Membership[];
   listReservationPackage: ReservationPackage[];
   listCards: Card[];
@@ -155,18 +156,35 @@ export class ReservationPageComponent implements OnInit {
     this.refreshListMembership();
   }
 
+
   refreshProfile() {
     if (this.authenticationService.isAuthenticated()) {
       this.profileService.get().subscribe(
         profile => {
           this.authenticationService.setProfile(profile);
           this.user = new User(profile);
+          this.refreshListReservedTimeSlot();
           this.refreshListCard();
           this.refreshListReservationPackage();
         }
       );
     } else {
+      this.refreshListReservedTimeSlot();
       this.refreshListReservationPackage();
+    }
+  }
+
+  refreshListReservedTimeSlot() {
+    if (this.user) {
+      this.timeSlotService.list([{'name': 'user', 'value': this.user.id}]).subscribe(
+        timeslots => {
+          this.listReservedTimeslot = timeslots.results.map(
+            t => new TimeSlot(t)
+          );
+        }
+      );
+    } else {
+      this.listReservedTimeslot = [];
     }
   }
 
@@ -602,5 +620,13 @@ export class ReservationPageComponent implements OnInit {
 
   getTotalWithTaxes() {
     return this.totalPrice + this.getTotalTPS() + this.getTotalTVQ();
+  }
+
+  needToShowTutorial() {
+    if (isNull(this.listReservedTimeslot)) {
+      return false;
+    } else {
+      return this.listReservedTimeslot.length === 0;
+    }
   }
 }

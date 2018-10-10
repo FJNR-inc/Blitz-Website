@@ -15,13 +15,13 @@ export class NtModalComponent implements OnInit {
   @Input() maxWidth = '95%';
   @Input() activated = true;
   @Input() autoClose = false;
+  @Input() show = false;
 
   @ViewChild('modalContent') modalContent;
 
   @Output() button1: EventEmitter<any> = new EventEmitter();
   @Output() button2: EventEmitter<any> = new EventEmitter();
 
-  show = false;
   isModalInformation: boolean;
   isModalForm: boolean;
 

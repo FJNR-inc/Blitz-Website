@@ -350,3 +350,22 @@
     Vous devez d'abord sélectionner un bloc de rédaction, un forfait ou bien un membership et si nécessaire une carte de paiement.
   </p>
 </app-nt-modal>
+
+<app-nt-modal name="reservation_tutorial"
+              button2Label="J'ai compris!"
+              maxWidth="600px"
+              [autoClose]="true"
+              [show]="needToShowTutorial()">
+  <p class="modal-reservation__text">
+    Pour réserver un bloc de rédaction à l'espace Thèsez-Vous:
+  </p>
+  <ol>
+    <li>Devenir membre</li>
+    <li>Acheter un lot de blocs prépayés</li>
+    <li>Sélectionner les blocs de rédaction de mon choix</li>
+    <li>Réserver!</li>
+  </ol>
+  <p class="modal-reservation__text">
+    *Le premier bloc de rédaction est gratuit, mais il faut tout de même se créer un compte!
+  </p>
+</app-nt-modal>
