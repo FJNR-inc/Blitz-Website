@@ -26,7 +26,7 @@ export class LoginPageComponent {
     private profileService: ProfileService,
     private activatedRoute: ActivatedRoute
   ) {
-    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/profile';
     this.loginForm = this.formBuilder.group(
       {
         login: null,
