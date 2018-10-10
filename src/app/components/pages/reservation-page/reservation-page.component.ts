@@ -309,8 +309,10 @@ export class ReservationPageComponent implements OnInit {
 
   addToCart(timeSlot) {
     if (this.authenticationService.isAuthenticated()) {
+      if (this.selectedTimeSlots.length === 0) {
+        this.scroll('cart');
+      }
       this.selectedTimeSlots.push(timeSlot);
-      this.scroll('cart');
       this.totalTicket += Number(timeSlot.price);
       for (const event of this.events) {
         if (event.id === timeSlot.id) {
