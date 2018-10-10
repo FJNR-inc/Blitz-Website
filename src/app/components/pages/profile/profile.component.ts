@@ -12,6 +12,8 @@ import { MyModalService } from '../../../services/my-modal/my-modal.service';
 import { Card } from '../../../models/card';
 import { CardService } from '../../../services/card.service';
 import {Time} from '@angular/common';
+import {WorkplaceService} from '../../../services/workplace.service';
+import {Workplace} from '../../../models/workplace';
 
 @Component({
   selector: 'app-profile',
@@ -37,6 +39,7 @@ export class ProfileComponent implements OnInit {
   listReservations: TimeSlot[] = [];
   totalPastReservations = 0;
   listCards: Card[];
+  listWorkplaces: Workplace[];
   errors: string[];
 
   constructor(private profileService: ProfileService,
@@ -47,7 +50,8 @@ export class ProfileComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,
-              private cardService: CardService) { }
+              private cardService: CardService,
+              private workplaceService: WorkplaceService) { }
 
   ngOnInit() {
     this.refreshProfile();
@@ -74,6 +78,7 @@ export class ProfileComponent implements OnInit {
         );
         this.refreshReservation();
         this.refreshListCard();
+        this.refreshListWorkplace();
         this.resetForm();
       }
     );
@@ -101,6 +106,16 @@ export class ProfileComponent implements OnInit {
       cards => {
         if (cards.results.length >= 1) {
           this.listCards = cards.results[0].cards.map(c => new Card(c));
+        }
+      }
+    );
+  }
+
+  refreshListWorkplace() {
+    this.workplaceService.list().subscribe(
+      workplaces => {
+        if (workplaces.results.length >= 1) {
+          this.listWorkplaces = workplaces.results.map(w => new Workplace(w));
         }
       }
     );
