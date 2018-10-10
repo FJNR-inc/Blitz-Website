@@ -51,12 +51,12 @@
     <div class="nt-header__content__right">
       <div class="nt-header__actions">
         <a *ngIf="!isAuthenticated()" (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item">Devenir membre</a>
-        <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/profile" class="nt-header__actions__item">
+        <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/profile" class="nt-header__actions__item nt-header__actions__item--responsive">
           <img class="nt-header__actions__item__icon" src="../../../assets/images/icons/icon_membre.svg" />
           <span>Mon profil</span>
         </a>
         <a *ngIf="!isAuthenticated()" (click)="closeHeader()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--responsive">Se connecter</a>
-        <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/logout" class="nt-header__actions__item nt-header__actions__item--responsive">Se déconnecter</a>
+        <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/logout" class="nt-header__actions__item">Se déconnecter</a>
         <a (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item nt-header__actions__item--closed">
           <img src="../../../assets/images/icons/icon_communaute.svg" />
         </a>
