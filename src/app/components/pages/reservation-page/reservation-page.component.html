@@ -245,7 +245,7 @@
 
         <form class="reservation-page__content__details__form__payment" *ngIf="user">
           <div class="reservation-page__content__details__form__payment__card form-group" *ngIf="needToUseCard()">
-            <div *ngIf="listCards && listCards.length && !singleUseToken">
+            <div class="reservation-page__content__details__form__alert reservation-page__content__details__form__alert--warning" *ngIf="listCards && listCards.length && !singleUseToken">
               <label for="card" class="nt-form-label">Mode de paiement :</label>
               <select id="card" class="nt-form-input nt-form-input--select" (change)="selectCard($event)">
                 <option value="none">Choisir une carte de paiement</option>
@@ -257,7 +257,7 @@
                 <a (click)="ToggleModal('form_credit_card')">Ajouter une nouvelle carte</a>
               </div>
             </div>
-            <div *ngIf="(!listCards || !listCards.length) && !singleUseToken" class="reservation-page__content__details__form__alert">
+            <div *ngIf="(!listCards || !listCards.length) && !singleUseToken" class="reservation-page__content__details__form__alert reservation-page__content__details__form__alert--warning">
               <div class="reservation-page__content__details__form__alert__content">
                 <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__content__details__form__alert__content__icon" />
                 <div class="reservation-page__content__details__form__alert__content__text">
