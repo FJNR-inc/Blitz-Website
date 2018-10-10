@@ -165,7 +165,7 @@
             Vous n'avez pas suffisament de blocs prépayés.
           </li>
         </ul>
-        <a *ngIf="!wantToBuyPackage" (click)="askToBuyPackage()" class="nt-link">Acheter des blocs d'heures prépayés</a>
+        <a *ngIf="!wantToBuyPackage && !needToBuyPackage()" (click)="askToBuyPackage()" class="nt-link">Acheter des blocs d'heures prépayés</a>
 
         <form class="reservation-page__content__details__form__alert" *ngIf="needToBuyMembership()">
           <div class="reservation-page__content__details__form__alert__content">
