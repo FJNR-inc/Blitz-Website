@@ -43,7 +43,7 @@
   </div>
   <div class="reservation-page__content">
     <div class="reservation-page__content__reservation">
-      <div class="reservation-page__content__reservation__calendar">
+      <div class="reservation-page__content__reservation__calendar" id="calendar">
         <div class="reservation-page__content__reservation__calendar__actions">
           <a class="reservation-page__content__reservation__calendar__actions__button"
              mwlCalendarPreviousView
@@ -108,9 +108,9 @@
           <div class="reservation-page__content__details__form__ticket__title">
             Panier
           </div>
-          <div *ngIf="selectedTimeSlots.length === 0">
-            Aucun bloc d'heure sélectionné.
-          </div>
+          <a *ngIf="selectedTimeSlots.length === 0" class="nt-link" (click)="scroll('calendar')">
+            Sélectionner un bloc de rédaction
+          </a>
           <div *ngFor="let timeslot of selectedTimeSlots" class="reservation-page__content__details__form__ticket__line">
             <div class="reservation-page__content__details__form__ticket__line__title">
               {{ timeslot.getStartDay() }} - {{ timeslot.getStartTime() }} à {{ timeslot.getEndTime() }}

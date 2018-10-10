@@ -295,10 +295,18 @@
   .reservation-page {
     &__header {
       flex-direction: column;
+
+      &__picture {
+        display: none;
+      }
+
+      &__map {
+        display: none;
+      }
     }
 
     &__content {
-      flex-direction: column;
+      flex-direction: column-reverse;
 
       &__details {
         max-width: 100%;
