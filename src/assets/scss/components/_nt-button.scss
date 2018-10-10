@@ -30,9 +30,14 @@
     }
   }
 
-  &:disabled {
+  &:disabled, &--disabled{
     background-color: $nt-0;
     color: grey;
-    cursor: not-allowed;
+
+    &:hover {
+      color: grey;
+      background-color: $nt-0;
+      cursor: not-allowed;
+    }
   }
 }

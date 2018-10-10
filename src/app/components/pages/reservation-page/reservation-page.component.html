@@ -252,7 +252,7 @@
               {{ error }}
             </div>
           </div>
-          <button type="submit" (click)="generateOrder()" class="reservation-page__content__details__form__payment__button nt-button" [disabled]="!canFinalizePayment() || waitAPI">
+          <button type="submit" (click)="finalizeTransaction()" class="reservation-page__content__details__form__payment__button nt-button" [ngClass]="{'nt-button--disabled': isPaymentButtonDisabled()}">
             {{ getLabelFinalizeButton() }}
           </button>
         </form>
@@ -299,9 +299,24 @@
   <h1 class="nt-title">
     Oups..
   </h1>
-  <p>
+  <p class="modal-reservation__text">
     Quelqu'un a été plus rapide que vous pour réserver et
     certaines places ne sont plus disponibles,
     nous venons de mettre à jour votre panier!
+  </p>
+</app-nt-modal>
+
+<app-nt-modal name="payment_button_disabled"
+              button2Label="J'ai compris!"
+              maxWidth="600px"
+              [autoClose]="true">
+  <h1 class="nt-title">
+    Oups..
+  </h1>
+  <p class="modal-reservation__text">
+    Il semblerait que vous ne soyez pas totalement prêt pour "{{getLabelFinalizeButton()}}".
+    </p>
+  <p>
+    Vous devez d'abord sélectionner un bloc d'heure, un forfait ou bien un membership et si nécessaire une carte de paiement.
   </p>
 </app-nt-modal>

@@ -291,6 +291,12 @@
   }
 }
 
+.modal-reservation {
+  &__text {
+    margin-top: 20px;
+  }
+}
+
 @media only screen and (max-width: 1000px) {
   .reservation-page {
     &__header {

@@ -419,6 +419,13 @@ export class ReservationPageComponent implements OnInit {
     this.paymentToken = token;
   }
 
+  finalizeTransaction() {
+    if (this.isPaymentButtonDisabled) {
+      this.ToggleModal('payment_button_disabled');
+    } else {
+      this.generateOrder();
+    }
+  }
   generateOrder() {
     this.waitAPI = true;
     const newOrder = new Order(
@@ -578,5 +585,9 @@ export class ReservationPageComponent implements OnInit {
     } else {
       return 'Finaliser';
     }
+  }
+
+  isPaymentButtonDisabled() {
+    return !this.canFinalizePayment() || this.waitAPI;
   }
 }
