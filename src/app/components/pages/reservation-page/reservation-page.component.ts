@@ -580,7 +580,7 @@ export class ReservationPageComponent implements OnInit {
       return 'Payer & Réserver';
     } else if (this.totalPrice) {
       return 'Payer';
-    } else if (this.totalTicket){
+    } else if (this.totalTicket) {
       return 'Réserver';
     } else {
       return 'Finaliser';
