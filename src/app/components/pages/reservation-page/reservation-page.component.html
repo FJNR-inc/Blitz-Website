@@ -166,6 +166,7 @@
             Vous n'avez pas suffisament de blocs prépayés.
           </li>
         </ul>
+        <a *ngIf="!wantToBuyPackage" (click)="askToBuyPackage()" class="nt-link">Acheter des blocs d'heures prépayés</a>
 
         <form class="reservation-page__content__details__form__alert" *ngIf="needToBuyMembership()">
           <div class="reservation-page__content__details__form__alert__content">
@@ -192,8 +193,8 @@
           </button>
         </form>
 
-        <form class="reservation-page__content__details__form__alert" *ngIf="needToBuyPackage() && user">
-          <div class="reservation-page__content__details__form__alert__content">
+        <form class="reservation-page__content__details__form__alert" [ngClass]="{'reservation-page__content__details__form__alert--warning': this.needToBuyPackage()}" *ngIf="showPackageSection() && user">
+          <div class="reservation-page__content__details__form__alert__content" *ngIf="needToBuyPackage()">
             <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__content__details__form__alert__content__icon" />
             <div class="reservation-page__content__details__form__alert__content__text">
               Il vous manque {{ totalTicket - user.tickets }} bloc(s) prépayé(s) de plus que ceux disponibles sur votre profil.

@@ -142,9 +142,13 @@
 
       &__form {
         &__alert {
-          background-color: $nt-7;
+          background-color: $nt-4;
           padding: 20px;
           margin-top: 30px;
+
+          &--warning {
+            background-color: $nt-7;
+          }
 
           &__content {
             display: flex;

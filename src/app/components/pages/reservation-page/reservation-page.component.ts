@@ -132,6 +132,7 @@ export class ReservationPageComponent implements OnInit {
 
   waitPaysafe = false;
   waitAPI = false;
+  wantToBuyPackage = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
@@ -492,6 +493,14 @@ export class ReservationPageComponent implements OnInit {
     return false;
   }
 
+  showPackageSection() {
+    if (this.wantToBuyPackage) {
+      return true;
+    } else {
+      return this.needToBuyPackage();
+    }
+  }
+
   needToBuyMembership() {
     const neverHadMembership = this.user && !this.user.membership;
     let expiredMembership = false;
@@ -551,5 +560,9 @@ export class ReservationPageComponent implements OnInit {
     } else {
       this.setPaymentToken(null);
     }
+  }
+
+  askToBuyPackage() {
+    this.wantToBuyPackage = true;
   }
 }
