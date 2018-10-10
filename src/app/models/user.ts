@@ -32,7 +32,12 @@ export class User extends BaseModel {
       const endMembership = new Date(this.membership_end);
       const now = Date.now();
       const delta = endMembership.getTime() - now;
-      return Math.ceil(delta / 86400000);
+      const result = Math.ceil(delta / 86400000);
+      if (result >= 0) {
+        return result;
+      } else {
+        return 0;
+      }
     } else {
       return 0;
     }

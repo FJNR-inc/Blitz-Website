@@ -50,7 +50,7 @@
     </div>
     <div class="nt-header__content__right">
       <div class="nt-header__actions">
-        <a *ngIf="!isAuthenticated()" (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item">Devenir membre</a>
+        <a *ngIf="!isAuthenticated() || (user && user.getTimeBeforeEndMembership() <= 0)" (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item">Devenir membre</a>
         <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/profile" class="nt-header__actions__item nt-header__actions__item--responsive">
           <img class="nt-header__actions__item__icon" src="../../../assets/images/icons/icon_membre.svg" />
           <span>Mon profil</span>
