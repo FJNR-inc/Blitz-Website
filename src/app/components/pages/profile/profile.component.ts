@@ -37,10 +37,13 @@ export class ProfileComponent implements OnInit {
   };
 
   listReservations: TimeSlot[] = [];
+  listFutureReservations: TimeSlot[] = [];
   totalPastReservations = 0;
   listCards: Card[];
   listWorkplaces: Workplace[];
   errors: string[];
+
+  displayAll = false;
 
   constructor(private profileService: ProfileService,
               private authenticationService: AuthenticationService,
@@ -94,11 +97,24 @@ export class ProfileComponent implements OnInit {
           if (timeslot.getEndDate() < new Date()) {
             this.totalPastReservations += 1;
           } else {
-            this.listReservations.push(timeslot);
+            this.listFutureReservations.push(timeslot);
           }
+          this.listReservations.push(timeslot);
         }
       }
     );
+  }
+
+  getDisplayedReservation() {
+    if (this.displayAll) {
+      return this.listReservations;
+    } else {
+      return this.listFutureReservations;
+    }
+  }
+
+  setDisplayAll(value) {
+    this.displayAll = value;
   }
 
   refreshListCard() {
