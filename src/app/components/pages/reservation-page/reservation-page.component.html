@@ -107,9 +107,12 @@
           <div class="reservation-page__content__details__form__ticket__title">
             Panier
           </div>
-          <a *ngIf="selectedTimeSlots.length === 0" class="nt-link" (click)="scroll('calendar')">
+          <a *ngIf="selectedTimeSlots.length === 0" class="reservation-page__content__details__form__ticket__helper reservation-page__content__details__form__ticket__helper--responsive nt-link" (click)="scroll('calendar')">
             Sélectionner un bloc de rédaction
           </a>
+          <span *ngIf="selectedTimeSlots.length === 0" class="reservation-page__content__details__form__ticket__helper">
+            Sélectionner un bloc de rédaction
+          </span>
           <div *ngFor="let timeslot of selectedTimeSlots" class="reservation-page__content__details__form__ticket__line">
             <div class="reservation-page__content__details__form__ticket__line__title">
               {{ timeslot.getStartDay() }} - {{ timeslot.getStartTime() }} à {{ timeslot.getEndTime() }}
