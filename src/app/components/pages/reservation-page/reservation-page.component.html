@@ -97,7 +97,7 @@
           <div class="reservation-page__content__details__form__alert__content">
             <img class="reservation-page__content__details__form__alert__content__icon" src="../../../../assets/images/icons/icon_attention.svg"/>
             <p class="reservation-page__content__details__form__alert__content__text">
-              Pour réserver une plage horaire dans un espace de travail
+              Pour réserver un bloc d'heure dans un espace de travail
               vous devez d'abord <a (click)="goToLoginPage()">vous connecter</a> ou
               bien vous <a routerLink="/register">créer un profil</a>.
             </p>
@@ -109,7 +109,7 @@
             Panier
           </div>
           <div *ngIf="selectedTimeSlots.length === 0">
-            Aucune plage horaire sélectionnée.
+            Aucun bloc d'heure sélectionné.
           </div>
           <div *ngFor="let timeslot of selectedTimeSlots" class="reservation-page__content__details__form__ticket__line">
             <div class="reservation-page__content__details__form__ticket__line__title">
@@ -121,7 +121,7 @@
           </div>
           <div *ngFor="let package of selectedPackages" class="reservation-page__content__details__form__ticket__line">
             <div class="reservation-page__content__details__form__ticket__line__title">
-              {{ package.name }} - {{ package.reservations }} ticket(s) - {{ package.price }}$
+              {{ package.name }} - {{ package.reservations }} bloc(s) - {{ package.price }}$
             </div>
             <div class="reservation-page__content__details__form__ticket__line__actions">
               <a (click)="removePackageFromCart(package)">
@@ -143,7 +143,7 @@
             Total
           </div>
           <div class="reservation-page__content__details__form__ticket__total">
-            {{ totalTicket }} ticket(s)<br/>
+            {{ totalTicket }} bloc(s) prépayé(s)<br/>
             {{ totalPrice }} $CAN
           </div>
         </div>
@@ -159,11 +159,11 @@
           </li>
           <li *ngIf="!needToBuyPackage() && getNumberOfTicket()" class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item--success">
             <img src="../../../../assets/images/icons/icon_check.svg" class="reservation-page__content__details__form__infos__item__icon">
-            Il vous reste {{ getNumberOfTicket() - totalTicket }} ticket(s) disponible(s).
+            Il vous reste {{ getNumberOfTicket() - totalTicket }} bloc(s) prépayé(s).
           </li>
           <li *ngIf="needToBuyPackage()" class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item">
             <img src="../../../../assets/images/icons/icon_exit.svg" class="reservation-page__content__details__form__infos__item__icon">
-            Vous n'avez pas suffisament de tickets.
+            Vous n'avez pas suffisament de blocs prépayés.
           </li>
         </ul>
 
@@ -171,7 +171,7 @@
           <div class="reservation-page__content__details__form__alert__content">
             <img class="reservation-page__content__details__form__alert__content__icon" src="../../../../assets/images/icons/icon_attention.svg"/>
             <div class="reservation-page__content__details__form__alert__content__text">
-              Les plages horaires de cet espace de travail
+              Les blocs d'heure de cet espace de travail
               nécessitent un membership actif pour être
               réservées. Veuillez sélectionner un type
               de membership à acheter.
@@ -196,14 +196,14 @@
           <div class="reservation-page__content__details__form__alert__content">
             <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__content__details__form__alert__content__icon" />
             <div class="reservation-page__content__details__form__alert__content__text">
-              Il vous manque {{ totalTicket - user.tickets }} ticket(s) de plus que ceux disponibles sur votre profil.
+              Il vous manque {{ totalTicket - user.tickets }} bloc(s) prépayé(s) de plus que ceux disponibles sur votre profil.
             </div>
           </div>
           <div class="form-group">
             <label for="package" class="nt-form-label">Forfaits :</label>
             <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="nt-form-input nt-form-input--select">
               <option *ngFor="let package of listReservationPackage" value="{{package.id}}">
-                {{ package.reservations }} ticket(s) - {{ package.price }}$CAN
+                {{ package.reservations }} bloc(s) - {{ package.price }}$CAN
               </option>
             </select>
           </div>
