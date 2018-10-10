@@ -83,6 +83,7 @@ import { NtModalComponent } from './components/nt-modal/nt-modal.component';
 import { NtHeaderComponent } from './components/nt-header/nt-header.component';
 import { TermsComponent } from './components/modal/terms/terms.component';
 import { NtTopComponent } from './components/nt-top/nt-top.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 registerLocaleData(localeFr);
 
@@ -366,6 +367,7 @@ const appRoutes = [
     NtHeaderComponent,
     TermsComponent,
     NtTopComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

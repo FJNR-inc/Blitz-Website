@@ -1,0 +1,10 @@
+.loader-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  &__image {
+    height: 130px;
+  }
+}
