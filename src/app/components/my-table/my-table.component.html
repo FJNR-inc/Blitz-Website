@@ -80,7 +80,7 @@
       </a>
       <a *ngIf="settings.removeButton"
          class="my-table__table__line__cell--actions__remove"
-         (click)="confirmRemove(item)">
+         (click)="remove(item)">
         <i class="fa fa-trash actionnable"></i>
       </a>
     </td>
@@ -98,7 +98,8 @@
               typeModal="danger"
               title="Supprimer ?"
               button2Label="Supprimer"
-              (button2)="remove()"
-              maxWidth="600px">
+              (button2)="remove(null, true)"
+              maxWidth="600px"
+              [autoClose]="true">
   Êtes-vous vraiment sûr de vouloir supprimer ?
 </app-nt-modal>

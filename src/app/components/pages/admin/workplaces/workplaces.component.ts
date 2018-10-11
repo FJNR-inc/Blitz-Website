@@ -19,6 +19,7 @@ export class WorkplacesComponent implements OnInit {
   workplaceForm: FormGroup;
   workplaceErrors: string[];
   selectedWorkplaceUrl: string;
+  workplaceInDeletion: any = null;
 
   settings = {
     title: 'Espaces de travail',
@@ -37,6 +38,8 @@ export class WorkplacesComponent implements OnInit {
       }
     ]
   };
+
+  securityOnDeletion = '';
 
   constructor(private workplaceService: WorkplaceService,
               private myModalService: MyModalService,
@@ -81,7 +84,7 @@ export class WorkplacesComponent implements OnInit {
   OpenModalCreateWorkplace() {
     this.workplaceForm.reset();
     this.selectedWorkplaceUrl = null;
-    this.toogleModal('form_workplaces', 'Créer un espace de travail', 'Créer l\'espace');
+    this.toggleModal('form_workplaces', 'Créer un espace de travail', 'Créer l\'espace');
   }
 
   redirectToWorkplace(id = null) {
@@ -94,19 +97,31 @@ export class WorkplacesComponent implements OnInit {
     this.router.navigate([url]);
   }
 
-  removeWorkplace(item) {
-    this.workplaceService.remove(item).subscribe(
-      data => {
-        this.notificationService.success('Supprimé', 'L\'espace de travail a bien été supprimé.');
-        this.refreshWorkplaceList();
-      },
-      err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+  removeWorkplace(item = null, force = false) {
+    if (!item && !this.workplaceInDeletion) {
+      console.error('No one timeslot given in argument');
+    } else {
+      if (item) {
+        this.workplaceInDeletion = item;
       }
-    );
+      if (!force) {
+        this.securityOnDeletion = '';
+        this.toggleModal('validation_deletion', 'Attention!', 'Supprimer l\'espace');
+      } else {
+        this.workplaceService.remove(this.workplaceInDeletion).subscribe(
+          data => {
+            this.notificationService.success('Supprimé', 'L\'espace de travail a bien été supprimé.');
+            this.refreshWorkplaceList();
+          },
+          err => {
+            this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+          }
+        );
+      }
+    }
   }
 
-  toogleModal(name, title = '', button2 = '') {
+  toggleModal(name, title = '', button2 = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
@@ -127,7 +142,7 @@ export class WorkplacesComponent implements OnInit {
         data => {
           this.notificationService.success('Ajouté');
           this.refreshWorkplaceList();
-          this.toogleModal('form_workplaces');
+          this.toggleModal('form_workplaces');
         },
         err => {
           if (err.error.non_field_errors) {
@@ -180,6 +195,14 @@ export class WorkplacesComponent implements OnInit {
           }
         }
       );
+    }
+  }
+
+  isSecurityOnDeletionValid() {
+    if (this.workplaceInDeletion) {
+      return this.workplaceInDeletion.name === this.securityOnDeletion;
+    } else {
+      return false;
     }
   }
 }

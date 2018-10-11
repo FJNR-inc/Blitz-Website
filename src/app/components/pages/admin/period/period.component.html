@@ -79,3 +79,24 @@
     </div>
   </form>
 </app-nt-modal>
+
+<app-nt-modal name="validation_deletion"
+              typeModal="success"
+              (button2)="removeTimeslot(null, true)"
+              maxWidth="600px"
+              [autoClose]="true"
+              [activated]="isSecurityOnDeletionValid()">
+  <p>
+    Une ou plusieurs personnes on déjà réservé ce bloc de rédaction.
+  </p>
+  <p>
+    En supprimant ce bloc de rédaction vous entrainez des remboursements ainsi que des courriels
+    d'excuses auprès de tous les utilisateurs ayant déjà réservé ce bloc de rédaction.
+  </p>
+  <div class="align-top">
+    <input id="securityCheckbox" type="checkbox" [(ngModel)]="securityOnDeletion" />
+    <label class="nt-form-label" for="securityCheckbox">
+      Je me suis renseigné sur les conséquences de mon acte et en prend l'entière responsabilité
+    </label>
+  </div>
+</app-nt-modal>

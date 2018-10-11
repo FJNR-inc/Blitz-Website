@@ -12,6 +12,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Input() settings: any;
   @Input() data: any;
   @Input() filters: any[];
+  @Input() confirmationOnDeletion = true;
 
   @Output() selectItem: EventEmitter<any> = new EventEmitter();
   @Output() editItem: EventEmitter<any> = new EventEmitter();
@@ -97,23 +98,24 @@ export class MyTableComponent implements OnInit, OnChanges {
     this.changePage.emit(index);
   }
 
-  confirmRemove(item) {
-    this.selectedItem = item;
-
-    const modal = this.myModalService.get(this.deleteModalName);
-
-    if (!modal) {
-      console.error('No modal named %s', this.deleteModalName);
-      return;
+  remove(item = null, force = false) {
+    if (item) {
+      this.selectedItem = item;
     }
 
-    modal.toggle();
-  }
+    if (this.confirmationOnDeletion && !force) {
 
-  remove() {
-    this.removeItem.emit(this.selectedItem);
-    const modal = this.myModalService.get(this.deleteModalName);
-    modal.toggle();
+      const modal = this.myModalService.get(this.deleteModalName);
+
+      if (!modal) {
+        console.error('No modal named %s', this.deleteModalName);
+        return;
+      }
+
+      modal.toggle();
+    } else {
+      this.removeItem.emit(this.selectedItem);
+    }
   }
 
   add() {

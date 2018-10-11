@@ -45,11 +45,14 @@ export class PeriodComponent implements OnInit {
         title: 'Date de fin'
       },
       {
-        name: 'number_of_reservations',
+        name: 'display_reservations',
         title: 'Nombre de reservations'
       }
     ]
   };
+
+  timeslotInDeletion: any = null;
+  securityOnDeletion: false;
 
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
@@ -116,7 +119,7 @@ export class PeriodComponent implements OnInit {
     this.resetForm();
     this.timeslotForm.controls['period'].setValue(this.period.url);
     this.selectedTimeslot = null;
-    this.toogleModal('form_timeslots', 'Ajouter une plage horaire', 'Créer');
+    this.toggleModal('form_timeslots', 'Ajouter une plage horaire', 'Créer');
   }
 
   OpenModalEditTimeslot(item) {
@@ -129,7 +132,7 @@ export class PeriodComponent implements OnInit {
       }
     }
     this.selectedTimeslot = item;
-    this.toogleModal('form_timeslots', 'Éditer une plage horaire', 'Éditer');
+    this.toggleModal('form_timeslots', 'Éditer une plage horaire', 'Éditer');
   }
 
   submitTimeslot() {
@@ -148,7 +151,7 @@ export class PeriodComponent implements OnInit {
             data => {
               this.notificationService.success('Modifié');
               this.refreshTimeslotList();
-              this.toogleModal('form_timeslots');
+              this.toggleModal('form_timeslots');
             },
             err => {
               if (err.error.non_field_errors) {
@@ -172,7 +175,7 @@ export class PeriodComponent implements OnInit {
           data => {
             this.notificationService.success('Ajouté');
             this.refreshTimeslotList();
-            this.toogleModal('form_timeslots');
+            this.toggleModal('form_timeslots');
           },
           err => {
             if (err.error.non_field_errors) {
@@ -194,19 +197,30 @@ export class PeriodComponent implements OnInit {
     }
   }
 
-  removeTimeslot(item) {
-    this.timeslotService.remove(item).subscribe(
-      data => {
-        this.notificationService.success('Supprimé', 'La plage horaire a bien été supprimé.');
-        this.refreshTimeslotList();
-      },
-      err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+  removeTimeslot(item = null, force = false) {
+    if (!item && !this.timeslotInDeletion) {
+      console.error('No one timeslot given in argument');
+    } else {
+      if (item) {
+        this.timeslotInDeletion = item;
       }
-    );
+      if (this.timeslotInDeletion.number_of_reservations > 0 && !force) {
+        this.toggleModal('validation_deletion', 'Attention!', 'Rembourser & Contacter');
+      } else {
+        this.timeslotService.remove(this.timeslotInDeletion).subscribe(
+          data => {
+            this.notificationService.success('Supprimé', 'Le bloc de rédaction a bien été supprimé.');
+            this.refreshTimeslotList();
+          },
+          err => {
+            this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+          }
+        );
+      }
+    }
   }
 
-  toogleModal(name, title = '', button2 = '') {
+  toggleModal(name, title = '', button2 = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
@@ -226,7 +240,8 @@ export class PeriodComponent implements OnInit {
       url: timeslot.url,
       start_time: timeslot.getStartDay() + ' - ' + timeslot.getStartTime(),
       end_time: timeslot.getStartDay() + ' - ' + timeslot.getEndTime(),
-      number_of_reservations: timeslot.users.length + ' / ' + totalPlace
+      display_reservations: timeslot.users.length + ' / ' + totalPlace,
+      number_of_reservations: timeslot.users.length
     };
   }
 
@@ -236,5 +251,9 @@ export class PeriodComponent implements OnInit {
 
   changePage(index: number) {
     this.refreshTimeslotList(index);
+  }
+
+  isSecurityOnDeletionValid() {
+    return this.securityOnDeletion;
   }
 }
