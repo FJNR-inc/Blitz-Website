@@ -10,7 +10,7 @@ body {
   color: $nt-text;
 }
 
-*, ::after, ::before {
+*:not(fa, fas, fab), ::after, ::before {
   box-sizing: border-box;
   outline:none;
   font-family: 'Nunito Sans', sans-serif;

@@ -25,7 +25,7 @@ export class OrganizationsPageComponent implements OnInit {
     clickable: true,
     addButton: true,
     editButton: true,
-    removeButton: true,
+    removeButton: false,
     previous: false,
     next: false,
     numberOfPage: 0,

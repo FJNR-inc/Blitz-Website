@@ -4,9 +4,6 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-admin-layout',
   template: `
     <div id="container">
-      <div id="header">
-        <app-header></app-header>
-      </div>
       <div id="content">
         <div class="left-nav">
           <span class="left-nav__header">

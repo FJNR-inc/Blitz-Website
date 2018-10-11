@@ -25,7 +25,7 @@ export class OrganizationComponent implements OnInit {
     title: '',
     addButton: true,
     editButton: true,
-    removeButton: true,
+    removeButton: false,
     columns: [
       {
         name: 'name',
