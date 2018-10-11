@@ -31,12 +31,6 @@ $color-success-background-hover: darken($color-success-background, 50%);
 $color-success-text: #155724;
 $color-success-text-hover: white;
 
-$color-warning-border: #FFEEBA;
-$color-warning-background: #FFF3CD;
-$color-warning-background-hover: darken($color-warning-background, 50%);
-$color-warning-text: #88680a;
-$color-warning-text-hover: white;
-
 $color-grey: #4b4b4b;
 $color-grey-dark: #1b1b1b;
 
@@ -76,3 +70,9 @@ $nt-background-color-dark: #F7B64B;
 $nt-text: #142823;
 $nt-background-danger: #B16E3C;
 $border-calendar: #899592;
+
+$color-warning-border: #FFEEBA;
+$color-warning-background: $nt-5;
+$color-warning-background-hover: darken($color-warning-background, 50%);
+$color-warning-text: $nt-text;
+$color-warning-text-hover: white;

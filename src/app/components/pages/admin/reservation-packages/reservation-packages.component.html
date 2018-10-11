@@ -44,7 +44,7 @@
     </div>
     <div class="form-group">
       <label for="reservationPackageMemberships" class="nt-form-label">Membership admis:</label>
-      <select formControlName="exclusive_memberships" id="reservationPackageMemberships" class="nt-form-input" (change)="addMembership($event.target.value)">
+      <select formControlName="exclusive_memberships" id="reservationPackageMemberships" class="nt-form-input nt-form-input--select" (change)="addMembership($event.target.value)">
         <option value="none">Tous</option>
         <option *ngFor="let membership of listMemberships" value="{{membership.url}}">
           {{ membership.name }}
@@ -60,8 +60,10 @@
       </div>
     </div>
     <div class="form-group">
-      <input formControlName="available" type="checkbox" id="reservationPackageAvailable" class="nt-form-input" />
-      <label for="reservationPackageAvailable">Disponible*</label>
+      <div class="align-center">
+        <input formControlName="available" type="checkbox" id="reservationPackageAvailable" />
+        <label for="reservationPackageAvailable">Disponible*</label>
+      </div>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of reservationPackageForm.controls['available'].getError('apiError')">
         {{ errorMessage }}
