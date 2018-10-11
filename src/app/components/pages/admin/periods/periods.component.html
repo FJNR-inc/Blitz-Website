@@ -11,16 +11,17 @@
   </div>
 </div>
 
-<app-my-modal name="form_periods"
+<app-nt-modal name="form_periods"
               typeModal="success"
-              (button2)="submitPeriod()">
+              (button2)="submitPeriod()"
+              maxWidth="600px">
   <form [formGroup]="periodForm">
     <div *ngFor="let error of periodErrors" class="alert alert--danger">
       {{ error }}
     </div>
     <div class="form-group">
-      <label for="periodName" class="form-label">Nom :</label>
-      <input formControlName="name" type="text" id="periodName" class="form-input" />
+      <label for="periodName" class="nt-form-label">Nom :</label>
+      <input formControlName="name" type="text" id="periodName" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of periodForm.controls['name'].getError('apiError')">
         {{ errorMessage }}
@@ -28,9 +29,9 @@
     </div>
 
     <div class="form-group" *ngIf="!selectedPeriodUrl">
-      <label for="start_date" class="form-label">Début de la période:</label>
+      <label for="start_date" class="nt-form-label">Début de la période:</label>
       <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
-             formControlName="start_date" class="form-input"
+             formControlName="start_date" class="nt-form-input"
              id="start_date">
       <owl-date-time #dt_start [firstDayOfWeek]="1"></owl-date-time>
       <div class="form-text form-text--right form-text--danger"
@@ -40,9 +41,9 @@
     </div>
 
     <div class="form-group" *ngIf="!selectedPeriodUrl">
-      <label for="end_date" class="form-label">Fin de la ériode:</label>
+      <label for="end_date" class="nt-form-label">Fin de la ériode:</label>
       <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
-             formControlName="end_date" class="form-input"
+             formControlName="end_date" class="nt-form-input"
              id="end_date">
       <owl-date-time #dt_end [firstDayOfWeek]="1"></owl-date-time>
       <div class="form-text form-text--right form-text--danger"
@@ -52,8 +53,8 @@
     </div>
 
     <div class="form-group" *ngIf="!selectedPeriodUrl">
-      <label for="workplace" class="form-label">Espace de travail:</label>
-      <select formControlName="workplace" class="form-input" id="workplace">
+      <label for="workplace" class="nt-form-label">Espace de travail:</label>
+      <select formControlName="workplace" class="nt-form-input nt-form-input--select" id="workplace">
         <option *ngFor="let workplace of listWorkplaces" value="{{workplace.url}}">{{ workplace.name }}</option>
       </select>
       <div class="form-text form-text--right form-text--danger"
@@ -63,12 +64,14 @@
     </div>
 
     <div class="form-group">
-      <label for="is_active">Activer la période: </label>
-      <input formControlName="is_active" type="checkbox" id="is_active">
+      <div class="align-center">
+        <input formControlName="is_active" type="checkbox" id="is_active">
+        <label for="is_active">Activer la période</label>
+      </div>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of periodForm.controls['is_active'].getError('apiError')">
         {{ errorMessage}}
       </div>
     </div>
   </form>
-</app-my-modal>
+</app-nt-modal>

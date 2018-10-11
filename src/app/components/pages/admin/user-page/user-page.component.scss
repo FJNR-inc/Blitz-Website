@@ -2,7 +2,7 @@
 
 .user-page {
   &__header {
-    background-color: $color-main;
+    background-color: $nt-7;
     min-height: 200px;
     display: flex;
     justify-content: space-between;
@@ -21,6 +21,10 @@
           font-size: 10px;
           margin-left: 10px;
         }
+      }
+
+      &__email {
+        margin-top: 20px;
       }
 
       &__university {

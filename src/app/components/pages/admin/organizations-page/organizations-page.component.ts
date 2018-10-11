@@ -22,6 +22,7 @@ export class OrganizationsPageComponent implements OnInit {
 
   settings = {
     title: 'Universités',
+    noDataText: 'Aucune université pour le moment',
     clickable: true,
     addButton: true,
     editButton: true,

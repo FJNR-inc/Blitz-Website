@@ -3,23 +3,9 @@
 .footer {
   display: flex;
   flex-direction: column;
-  background-color: $color-main;
+  background-color: $nt-4;
   padding: 20px;
-  color: white;
+  color: $nt-text;
   text-align: center;
-
-  &__links {
-    margin-bottom: 10px;
-
-    &__link {
-      padding: 3px 10px;
-      color: white;
-      text-decoration: none;
-
-      &:hover {
-        color: white;
-        border-bottom: 1px solid white;
-      }
-    }
-  }
+  border-top: 1px solid $border-calendar;
 }

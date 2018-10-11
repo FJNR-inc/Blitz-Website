@@ -26,6 +26,7 @@ export class PeriodsComponent implements OnInit {
 
   settings = {
     title: 'Périodes de réservation',
+    noDataText: 'Aucune périodes de réservation pour le moment',
     clickable: true,
     addButton: true,
     editButton: true,

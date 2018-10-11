@@ -1,6 +1,6 @@
 <div class="admin-period-page" *ngIf="period">
   <div class="admin-period-page__title">
-    <h2>{{ period.name }}</h2>
+    <h2 class="nt-title">{{ period.name }}</h2>
   </div>
   Début de la période: {{ period.getStartDay() }}<br/>
   Fin de la période: {{ period.getEndDay()}}
@@ -11,23 +11,25 @@
                   (addButton)="OpenModalCreateTimeslot()"
                   (editItem)="OpenModalEditTimeslot($event)"
                   (removeItem)="removeTimeslot($event)"
+                  (changePage)="changePage($event)"
                   (selectItem)="goToTimeslot($event)">
     </app-my-table>
   </div>
 </div>
 
-<app-my-modal name="form_timeslots"
+<app-nt-modal name="form_timeslots"
               typeModal="success"
-              (button2)="submitTimeslot()">
+              (button2)="submitTimeslot()"
+              maxWidth="600px">
   <form [formGroup]="timeslotForm">
     <div *ngFor="let error of timeslotErrors" class="alert alert--danger">
       {{ error }}
     </div>
 
     <div class="form-group">
-      <label for="start_time" class="form-label">Début de la plage horaire:</label>
+      <label for="start_time" class="nt-form-label">Début de la plage horaire:</label>
       <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
-             formControlName="start_time" class="form-input"
+             formControlName="start_time" class="nt-form-input"
              id="start_time">
       <owl-date-time #dt_start [firstDayOfWeek]="1"></owl-date-time>
       <div class="form-text form-text--right form-text--danger"
@@ -37,9 +39,9 @@
     </div>
 
     <div class="form-group">
-      <label for="end_time" class="form-label">Fin de la plage horaire:</label>
+      <label for="end_time" class="nt-form-label">Fin de la plage horaire:</label>
       <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
-             formControlName="end_time" class="form-input"
+             formControlName="end_time" class="nt-form-input"
              id="end_time">
       <owl-date-time #dt_end [firstDayOfWeek]="1"></owl-date-time>
       <div class="form-text form-text--right form-text--danger"
@@ -54,10 +56,10 @@
         d'explication sera envoyé aux membres ayant subit une annulation.
       </div>
       <div class="form-group">
-        <label for="force_update" class="form-label">
+        <label for="force_update" class="nt-form-label">
           Message d'explication qui sera envoyé aux membres subissant une annulation:
         </label>
-        <textarea formControlName="custom_message" class="form-input form-input--textarea" id="custom_message">
+        <textarea formControlName="custom_message" class="nt-form-input nt-form-input--textarea" id="custom_message">
         </textarea>
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of timeslotForm.controls['custom_message'].getError('apiError')">
@@ -65,7 +67,7 @@
         </div>
       </div>
       <div class="form-group">
-        <input formControlName="force_update" class="form-input" id="force_update" type="checkbox">
+        <input formControlName="force_update" class="nt-form-input" id="force_update" type="checkbox">
         <label for="force_update">
           Je comprends les répercutions de cette modification.
         </label>
@@ -76,4 +78,4 @@
       </div>
     </div>
   </form>
-</app-my-modal>
+</app-nt-modal>

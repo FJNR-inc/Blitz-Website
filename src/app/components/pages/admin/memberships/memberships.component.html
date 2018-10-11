@@ -9,36 +9,37 @@
   </div>
 </div>
 
-<app-my-modal name="form_memberships"
+<app-nt-modal name="form_memberships"
               class="modal-memberships"
               typeModal="success"
-              (button2)="submitMembership()">
+              (button2)="submitMembership()"
+              maxWidth="600px">
   <form [formGroup]="membershipForm" *ngIf="membershipForm">
     <div *ngFor="let error of membershipErrors" class="alert alert--danger">
       {{ error }}
     </div>
     <div class="form-group">
-      <label for="membershipName" class="form-label">Nom*:</label>
-      <input formControlName="name" type="text" id="membershipName" class="form-input" />
+      <label for="membershipName" class="nt-form-label">Nom*:</label>
+      <input formControlName="name" type="text" id="membershipName" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of membershipForm.controls['name'].getError('apiError')">
         {{ errorMessage }}
       </div>
     </div>
     <div class="form-group">
-      <label for="membershipPrice" class="form-label">Prix*:</label>
-      <input formControlName="price" type="text" id="membershipPrice" class="form-input" />
+      <label for="membershipPrice" class="nt-form-label">Prix*:</label>
+      <input formControlName="price" type="text" id="membershipPrice" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of membershipForm.controls['price'].getError('apiError')">
         {{ errorMessage }}
       </div>
     </div>
     <div class="form-group">
-      <label for="membershipLevel" class="form-label">Niveau d'étude requis:</label>
+      <label for="membershipLevel" class="nt-form-label">Niveau d'étude requis:</label>
       <select formControlName="academic_levels"
               type="text"
               id="membershipLevel"
-              class="form-input"
+              class="nt-form-input"
               (click)="changeAcademicLevel($event)"
               multiple>
         <option *ngFor="let level of listAcademicLevels" value="{{level.url}}">
@@ -55,12 +56,14 @@
       dans ce niveau d'étude pourront bénéficier de ce type de membership.
     </div>
     <div class="form-group">
-      <input formControlName="available" type="checkbox" id="membershipAvailable" class="form-input" />
-      <label for="membershipAvailable">Disponible*</label>
+      <div class="align-center">
+        <input formControlName="available" type="checkbox" id="membershipAvailable" />
+        <label for="membershipAvailable">Disponible*</label>
+      </div>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of membershipForm.controls['available'].getError('apiError')">
         {{ errorMessage }}
       </div>
     </div>
   </form>
-</app-my-modal>
+</app-nt-modal>

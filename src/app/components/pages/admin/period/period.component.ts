@@ -25,12 +25,16 @@ export class PeriodComponent implements OnInit {
   selectedTimeslot: any = null;
 
   settings = {
-    title: 'Liste des plages horaires:',
-    noDataText: 'Aucune plage horaire pour le moment',
+    title: 'Liste des blocs de rédaction:',
+    noDataText: 'Aucun bloc de rédaction pour le moment',
     addButton: true,
     editButton: true,
     removeButton: true,
     clickable: true,
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
     columns: [
       {
         name: 'start_time',
@@ -91,9 +95,14 @@ export class PeriodComponent implements OnInit {
     }
   }
 
-  refreshTimeslotList() {
-    this.timeslotService.list([{'name': 'period', 'value': this.period.id}]).subscribe(
+  refreshTimeslotList(page = 1, limit = 20) {
+    this.timeslotService.list([{'name': 'period', 'value': this.period.id}], limit, limit * (page - 1)).subscribe(
       timeslots => {
+        this.settings.numberOfPage = Math.ceil(timeslots.count / limit);
+        this.settings.page = page;
+        this.settings.previous = !isNull(timeslots.previous);
+        this.settings.next = !isNull(timeslots.next);
+
         this.listTimeslots = timeslots.results.map(t => new TimeSlot(t));
         this.listAdaptedTimeslots = [];
         for (const timeslot of this.listTimeslots) {
@@ -211,16 +220,21 @@ export class PeriodComponent implements OnInit {
   }
 
   timeslotAdapter(timeslot) {
+    const totalPlace = timeslot.places_remaining + timeslot.users.length;
     return {
       id: timeslot.id,
       url: timeslot.url,
       start_time: timeslot.getStartDay() + ' - ' + timeslot.getStartTime(),
       end_time: timeslot.getStartDay() + ' - ' + timeslot.getEndTime(),
-      number_of_reservations: timeslot.users.length
+      number_of_reservations: timeslot.users.length + ' / ' + totalPlace
     };
   }
 
   goToTimeslot(event) {
     this.router.navigate(['/admin/timeslot/' + event.id]);
+  }
+
+  changePage(index: number) {
+    this.refreshTimeslotList(index);
   }
 }

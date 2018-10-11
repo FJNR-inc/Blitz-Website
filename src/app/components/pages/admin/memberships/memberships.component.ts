@@ -26,6 +26,7 @@ export class MembershipsComponent implements OnInit {
 
   settings = {
     title: 'Memberships',
+    noDataText: 'Aucun membership pour le moment',
     addButton: true,
     editButton: true,
     previous: false,

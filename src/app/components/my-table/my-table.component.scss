@@ -37,7 +37,7 @@
     font-size: 14px;
     width: 100%;
 
-    border: 1px solid $color-main;
+    border: 1px solid $border-calendar;
     border-collapse: collapse;
 
     &--full-width {
@@ -50,7 +50,7 @@
         text-align: left;
         font-weight: bold;
         padding: 10px;
-        background-color: $color-main;
+        background-color: $nt-7;
         color: white;
 
         &--actions {
@@ -68,7 +68,7 @@
     }
 
     &__line {
-      background-color: $color-background-main;
+      background-color: $nt-background-color-light;
 
       &:nth-child(odd) {
         background-color: white;
@@ -105,7 +105,7 @@
       &--clickable {
         &:hover {
           cursor: pointer;
-          background-color: $color-hover-main;
+          background-color: $nt-4;
         }
       }
     }
@@ -115,8 +115,8 @@
     text-align: right;
 
     &__page {
-      background-color: $color-main;
-      border: 1px solid $color-main;
+      background-color: $nt-text;
+      border: 1px solid $nt-text;
       padding: 5px;
       color: white;
       margin-left: 5px;
@@ -127,9 +127,9 @@
       cursor: pointer;
 
       &.active {
-        color: $color-main;
+        color: $nt-text;
         background-color: white;
-        border: 1px solid $color-main;
+        border: 1px solid $nt-text;
       }
 
       &.disabled {

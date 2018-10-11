@@ -28,6 +28,7 @@ export class AcademicsPageComponent implements OnInit {
 
   settingsLevel = {
     title: 'Niveaux d\'études',
+    noDataText: 'Aucune niveau d\'étude pour le moment',
     addButton: true,
     editButton: true,
     previous: false,
@@ -44,6 +45,7 @@ export class AcademicsPageComponent implements OnInit {
 
   settingsField = {
     title: 'Domaines d\'études',
+    noDataText: 'Aucun domaine d\'étude pour le moment',
     addButton: true,
     editButton: true,
     previous: false,

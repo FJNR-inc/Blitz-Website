@@ -25,6 +25,7 @@ export class ReservationPackagesComponent implements OnInit {
 
   settings = {
     title: 'Forfaits',
+    noDataText: 'Aucun forfait pour le moment',
     addButton: true,
     editButton: true,
     previous: false,

@@ -9,18 +9,19 @@
 
 .left-nav {
   width: 250px;
-  border-right: 1px solid lightgrey;
+  border-right: 1px solid $border-calendar;
   height: 100%;
   box-sizing: border-box;
+  background-color: $nt-4;
 
   &__header {
     display: block;
     box-sizing: border-box;
     padding: 10px;
     width: 100%;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid $border-calendar;
     text-align: center;
-    color: $color-main;
+    color: $nt-text;
     font-weight: 900;
   }
 
@@ -29,14 +30,13 @@
     box-sizing: border-box;
     padding: 10px;
     width: 100%;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid $border-calendar;
     transition: all $ease-inout-sine 200ms;
     color: black;
     text-decoration: none;
 
     &:hover {
-      background-color: $color-main;
-      color: white;
+      background-color: $nt-7;
     }
   }
 }

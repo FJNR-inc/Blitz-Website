@@ -22,7 +22,8 @@ export class OrganizationComponent implements OnInit {
   selectedDomainUrl: string;
 
   settings = {
-    title: '',
+    title: 'Nom de domaine',
+    noDataText: 'Aucun nom de domaine pour le moment',
     addButton: true,
     editButton: true,
     removeButton: false,
@@ -78,7 +79,6 @@ export class OrganizationComponent implements OnInit {
     this.organizationService.get(this.organizationId).subscribe(
       data => {
         this.organization = new Organization(data);
-        this.settings.title = this.organization.name;
       }
     );
   }

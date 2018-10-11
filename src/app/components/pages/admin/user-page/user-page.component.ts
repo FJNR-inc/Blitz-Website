@@ -78,9 +78,11 @@ export class UserPageComponent implements OnInit {
   refreshListCard() {
     this.cardService.list([{'name': 'owner', 'value': this.user.id}]).subscribe(
       cards => {
-        this.listCards = cards.results.map(
-          c => this.cardAdapter(new Card(c))
-        );
+        if (cards.results.length >= 1) {
+          this.listCards = cards.results[0].cards.map(
+            c => this.cardAdapter(new Card(c))
+          );
+        }
       }
     );
   }

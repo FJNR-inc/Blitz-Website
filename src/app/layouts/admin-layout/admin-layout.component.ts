@@ -9,10 +9,6 @@ import { Component, OnInit } from '@angular/core';
           <span class="left-nav__header">
             Administration
           </span>
-          <a href="" class="left-nav__item">
-            <i class="fas fa-chart-area"></i>
-            Général
-          </a>
           <a routerLink="/admin/users" class="left-nav__item">
             <i class="fa fa-users"></i>
             Utilisateurs

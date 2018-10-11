@@ -1,14 +1,14 @@
 .button {
   padding: 5px 10px;
-  color: $color-main;
+  color: $nt-text;
   background-color: white;
-  border: 1px solid $color-main;
+  border: 1px solid $nt-text;
   border-radius: 15px;
   text-decoration: none;
   display: inline-block;
 
   &:hover {
-    background-color: $color-main;
+    background-color: $nt-text;
     color: white;
     cursor: pointer;
   }

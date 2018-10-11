@@ -9,6 +9,7 @@ import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Picture } from '../../../../models/picture';
 import { PictureService } from '../../../../services/picture.service';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-workplace',
@@ -33,7 +34,12 @@ export class WorkplaceComponent implements OnInit {
   };
 
   settings = {
-    title: 'Plages horaires',
+    title: 'Blocs de rédaction',
+    noDataText: 'Aucun bloc de rédaction pour le moment',
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
     columns: [
       {
         name: 'day',
@@ -87,13 +93,7 @@ export class WorkplaceComponent implements OnInit {
     this.workplaceService.get(this.workplaceId).subscribe(
       data => {
         this.workplace = new Workplace(data);
-        this.timeSlotService.list([{'name': 'workplace', 'value': this.workplaceId}]).subscribe(
-          timeslots => {
-            this.listTimeslots = timeslots.results.map(
-              t => this.timeSlotAdapter(new TimeSlot(t))
-            );
-          }
-        );
+        this.refreshTimeslotList();
         this.pictureService.list([{'name': 'workplace', 'value': this.workplaceId}]).subscribe(
           pictures => {
             this.listPictures = pictures.results.map(
@@ -107,6 +107,25 @@ export class WorkplaceComponent implements OnInit {
               });
             }
           }
+        );
+      }
+    );
+  }
+
+  changePage(index: number) {
+    this.refreshTimeslotList(index);
+  }
+
+  refreshTimeslotList(page = 1, limit = 20) {
+    this.timeSlotService.list([{'name': 'workplace', 'value': this.workplaceId}], limit, limit * (page - 1)).subscribe(
+      timeslots => {
+        this.settings.numberOfPage = Math.ceil(timeslots.count / limit);
+        this.settings.page = page;
+        this.settings.previous = !isNull(timeslots.previous);
+        this.settings.next = !isNull(timeslots.next);
+
+        this.listTimeslots = timeslots.results.map(
+          t => this.timeSlotAdapter(new TimeSlot(t))
         );
       }
     );
@@ -165,7 +184,7 @@ export class WorkplaceComponent implements OnInit {
     this.workplaceForm.controls['city'].setValue(this.workplace.city);
     this.workplaceForm.controls['state_province'].setValue(this.workplace.state_province);
     this.workplaceForm.controls['country'].setValue(this.workplace.country);
-    this.toogleModal('form_workplaces', 'Editer un espace de travail', 'Editer');
+    this.toogleModal('form_workplaces', 'Éditer un espace de travail', 'Éditer l\'espace');
   }
 
   toogleModal(name, title = '', button2 = '') {

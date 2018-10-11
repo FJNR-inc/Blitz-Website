@@ -9,41 +9,42 @@
   </div>
 </div>
 
-<app-my-modal name="form_reservation_packages"
+<app-nt-modal name="form_reservation_packages"
               class="modal-reservation-packages"
               typeModal="success"
-              (button2)="submitReservationPackage()">
+              (button2)="submitReservationPackage()"
+              maxWidth="600px">
   <form [formGroup]="reservationPackageForm" *ngIf="reservationPackageForm">
     <div *ngFor="let error of reservationPackageErrors" class="alert alert--danger">
       {{ error }}
     </div>
     <div class="form-group">
-      <label for="reservationPackageName" class="form-label">Nom*:</label>
-      <input formControlName="name" type="text" id="reservationPackageName" class="form-input" />
+      <label for="reservationPackageName" class="nt-form-label">Nom*:</label>
+      <input formControlName="name" type="text" id="reservationPackageName" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of reservationPackageForm.controls['name'].getError('apiError')">
         {{ errorMessage }}
       </div>
     </div>
     <div class="form-group">
-      <label for="reservationPackagePrice" class="form-label">Prix*:</label>
-      <input formControlName="price" type="text" id="reservationPackagePrice" class="form-input" />
+      <label for="reservationPackagePrice" class="nt-form-label">Prix*:</label>
+      <input formControlName="price" type="text" id="reservationPackagePrice" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of reservationPackageForm.controls['price'].getError('apiError')">
         {{ errorMessage }}
       </div>
     </div>
     <div class="form-group">
-      <label for="reservationPackageReservations" class="form-label">Nombre de réservations*:</label>
-      <input formControlName="reservations" type="text" id="reservationPackageReservations" class="form-input" />
+      <label for="reservationPackageReservations" class="nt-form-label">Nombre de réservations*:</label>
+      <input formControlName="reservations" type="text" id="reservationPackageReservations" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of reservationPackageForm.controls['reservations'].getError('apiError')">
         {{ errorMessage }}
       </div>
     </div>
     <div class="form-group">
-      <label for="reservationPackageMemberships" class="form-label">Membership admis:</label>
-      <select formControlName="exclusive_memberships" id="reservationPackageMemberships" class="form-input" (change)="addMembership($event.target.value)">
+      <label for="reservationPackageMemberships" class="nt-form-label">Membership admis:</label>
+      <select formControlName="exclusive_memberships" id="reservationPackageMemberships" class="nt-form-input" (change)="addMembership($event.target.value)">
         <option value="none">Tous</option>
         <option *ngFor="let membership of listMemberships" value="{{membership.url}}">
           {{ membership.name }}
@@ -59,7 +60,7 @@
       </div>
     </div>
     <div class="form-group">
-      <input formControlName="available" type="checkbox" id="reservationPackageAvailable" class="form-input" />
+      <input formControlName="available" type="checkbox" id="reservationPackageAvailable" class="nt-form-input" />
       <label for="reservationPackageAvailable">Disponible*</label>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of reservationPackageForm.controls['available'].getError('apiError')">
@@ -67,4 +68,4 @@
       </div>
     </div>
   </form>
-</app-my-modal>
+</app-nt-modal>

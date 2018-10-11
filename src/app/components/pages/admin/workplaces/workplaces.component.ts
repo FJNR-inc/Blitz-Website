@@ -22,6 +22,7 @@ export class WorkplacesComponent implements OnInit {
 
   settings = {
     title: 'Espaces de travail',
+    noDataText: 'Aucun espace de travail pour le moment',
     addButton: true,
     removeButton: true,
     clickable: true,
@@ -80,7 +81,7 @@ export class WorkplacesComponent implements OnInit {
   OpenModalCreateWorkplace() {
     this.workplaceForm.reset();
     this.selectedWorkplaceUrl = null;
-    this.toogleModal('form_workplaces', 'Créer un espace de travail', 'Créer');
+    this.toogleModal('form_workplaces', 'Créer un espace de travail', 'Créer l\'espace');
   }
 
   redirectToWorkplace(id = null) {

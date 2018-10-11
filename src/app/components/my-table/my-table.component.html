@@ -1,6 +1,6 @@
 <div class="my-table__actions">
   <div>
-    <h2 class="my-table__actions__title" *ngIf="settings.title">
+    <h2 class="my-table__actions__title nt-title" *ngIf="settings.title">
       {{settings.title}}
     </h2>
   </div>
@@ -94,10 +94,11 @@
      [ngClass]="{'active': page.active, 'disabled': page.index == null}">{{ page.name }}</button>
 </div>
 
-<app-my-modal name="{{deleteModalName}}"
+<app-nt-modal name="{{deleteModalName}}"
               typeModal="danger"
               title="Supprimer ?"
               button2Label="Supprimer"
-              (button2)="remove()">
+              (button2)="remove()"
+              maxWidth="600px">
   Êtes-vous vraiment sûr de vouloir supprimer ?
-</app-my-modal>
+</app-nt-modal>
