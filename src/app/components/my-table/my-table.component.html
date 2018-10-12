@@ -50,9 +50,12 @@
       Actions
     </th>
   </tr>
-  <tr *ngIf="data && data.length === 0" class="my-table__table__no-data">
+  <tr class="my-table__table__no-data" *ngIf="!data || data.length === 0">
     <td [colSpan]="getNumberOfColumns()" class="my-table__table__no-data__cell">
-      {{settings.noDataText}}
+      <span *ngIf="data && data.length === 0">
+        {{settings.noDataText}}
+      </span>
+      <img *ngIf="!data" class="my-table__table__no-data__cell__image" src="../../../assets/images/tv_loading.gif"/>
     </td>
   </tr>
   <tr *ngFor="let item of data"

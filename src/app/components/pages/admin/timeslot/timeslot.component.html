@@ -2,12 +2,13 @@
 
 <div class="admin-timeslot-page" *ngIf="timeslot">
   <div class="admin-timeslot-page__title">
-    <h2 class="nt-title">Plage horaire #{{ timeslot.id }}</h2>
+    <h2 class="nt-title">Bloc de rédaction #{{ timeslot.id }}</h2>
   </div>
-  Plage horaire allant :<br/>
-  du <b>{{ timeslot.getStartDay() }}</b> a <b>{{ timeslot.getStartTime() }}</b><br/>
-  au <b>{{ timeslot.getStartDay() }}</b> a <b>{{ timeslot.getEndTime() }}</b>.
-
+  <ul>
+    <li>Début du bloc de rédaction: {{ timeslot.getStartDay() }} a {{ timeslot.getStartTime() }}</li>
+    <li>Fin du bloc de rédaction: {{ timeslot.getStartDay() }} a {{ timeslot.getEndTime() }}.</li>
+    <li>Espace de travail: <a routerLink="/admin/workplaces/{{timeslot.workplace.id}}">{{ timeslot.workplace.name }}</a></li>
+  </ul>
   <div class="admin-timeslot-page__table">
     <app-my-table [settings]="settings"
                   [data]="timeslot.users"

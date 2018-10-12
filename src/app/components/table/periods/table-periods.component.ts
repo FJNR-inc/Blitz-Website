@@ -111,6 +111,10 @@ export class TablePeriodsComponent implements OnInit {
     );
   }
 
+  changePage(index: number) {
+    this.refreshPeriodList(index);
+  }
+
   OpenModalCreatePeriod() {
     this.periodErrors = [];
     this.periodForm.reset();

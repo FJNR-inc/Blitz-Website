@@ -82,6 +82,8 @@ export class UserPageComponent implements OnInit {
           this.listCards = cards.results[0].cards.map(
             c => this.cardAdapter(new Card(c))
           );
+        } else {
+          this.listCards = [];
         }
       }
     );
