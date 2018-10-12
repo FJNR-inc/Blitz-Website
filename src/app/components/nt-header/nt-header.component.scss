@@ -6,8 +6,11 @@
   height: 100vh;
   width: 230px;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 
   &__content {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -25,7 +28,7 @@
     &__toggle {
       width: 20px;
       height: 20px;
-      margin-right: 40px;
+      margin-right: 20px;
       display: block;
       text-decoration: none;
 
@@ -36,6 +39,7 @@
 
     &__logo {
       display: block;
+      height: 30px;
       flex: 1;
 
       &__image {
@@ -111,6 +115,7 @@
     justify-content: center;
     margin-top: 30px;
     transition: all $ease-inout-sine 500ms;
+    margin-bottom: 30px;
 
     &:hover {
       & path {
@@ -212,6 +217,7 @@
     padding: 10px 30px;
     overflow-y: hidden;
     display: flex;
+    flex-direction: row;
     align-items: center;
     width: 100%;
     transition: none;
