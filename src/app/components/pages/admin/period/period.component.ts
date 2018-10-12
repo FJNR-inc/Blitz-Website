@@ -234,13 +234,12 @@ export class PeriodComponent implements OnInit {
   }
 
   timeslotAdapter(timeslot) {
-    const totalPlace = timeslot.places_remaining + timeslot.users.length;
     return {
       id: timeslot.id,
       url: timeslot.url,
       start_time: timeslot.getStartDay() + ' - ' + timeslot.getStartTime(),
       end_time: timeslot.getStartDay() + ' - ' + timeslot.getEndTime(),
-      display_reservations: timeslot.users.length + ' / ' + totalPlace,
+      display_reservations: timeslot.users.length + ' / ' + timeslot.workplace.seats,
       number_of_reservations: timeslot.users.length
     };
   }
