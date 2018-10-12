@@ -6,14 +6,12 @@ paragraph (p) or list (ul, ol)
 body {
   margin: 0;
   font-family: 'Nunito Sans', sans-serif;
-  // font: 14px 'Roboto', sans-serif;
   color: $nt-text;
 }
 
-*:not(fa, fas, fab), ::after, ::before {
+*, ::after, ::before {
   box-sizing: border-box;
   outline:none;
-  font-family: 'Nunito Sans', sans-serif;
 }
 
 a {
