@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MyModalService } from '../../../../services/my-modal/my-modal.service';
-import { NotificationsService } from 'angular2-notifications';
-import { Router } from '@angular/router';
-import { Period } from '../../../../models/period';
-import { PeriodService } from '../../../../services/period.service';
-import { Workplace } from '../../../../models/workplace';
-import { WorkplaceService } from '../../../../services/workplace.service';
-import { isNull } from 'util';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Period} from '../../../models/period';
+import {isNull} from 'util';
+import {PeriodService} from '../../../services/period.service';
+import {MyModalService} from '../../../services/my-modal/my-modal.service';
+import {NotificationsService} from 'angular2-notifications';
+import {Router} from '@angular/router';
+import {Workplace} from '../../../models/workplace';
+import {WorkplaceService} from '../../../services/workplace.service';
 
 @Component({
-  selector: 'app-periods',
-  templateUrl: './periods.component.html',
-  styleUrls: ['./periods.component.scss']
+  selector: 'app-table-periods',
+  templateUrl: './table-periods.component.html',
+  styleUrls: ['./table-periods.component.scss']
 })
-export class PeriodsComponent implements OnInit {
+export class TablePeriodsComponent implements OnInit {
+
+  @Input() workplace: Workplace = null;
 
   listPeriods: Period[];
   listAdaptedPeriods: any[];
@@ -79,12 +81,21 @@ export class PeriodsComponent implements OnInit {
     );
   }
 
-  changePage(index: number) {
-    this.refreshPeriodList(index);
+  refreshWorkplaceList() {
+    this.workplaceService.list().subscribe(
+      workplaces => {
+        this.listWorkplaces = workplaces.results.map(w => new Workplace(w));
+      }
+    );
   }
 
   refreshPeriodList(page = 1, limit = 20) {
-    this.periodService.list(limit, limit * (page - 1)).subscribe(
+    let filter = null;
+    if (this.workplace) {
+      filter = [{'name': 'workplace', 'value': this.workplace.id}];
+    }
+    console.log(filter);
+    this.periodService.list(filter, limit, limit * (page - 1)).subscribe(
       periods => {
         this.settings.numberOfPage = Math.ceil(periods.count / limit);
         this.settings.page = page;
@@ -100,15 +111,8 @@ export class PeriodsComponent implements OnInit {
     );
   }
 
-  refreshWorkplaceList() {
-    this.workplaceService.list().subscribe(
-      workplaces => {
-        this.listWorkplaces = workplaces.results.map(w => new Workplace(w));
-      }
-    );
-  }
-
   OpenModalCreatePeriod() {
+    this.periodErrors = [];
     this.periodForm.reset();
     this.periodForm.controls['is_active'].setValue(false);
     this.periodForm.controls['price'].setValue(1);
@@ -117,6 +121,7 @@ export class PeriodsComponent implements OnInit {
   }
 
   OpenModalEditPeriod(item) {
+    this.periodErrors = [];
     for (const period of this.listPeriods) {
       if (period.id === item.id) {
         this.periodForm.controls['name'].setValue(period.name);
@@ -132,6 +137,9 @@ export class PeriodsComponent implements OnInit {
   }
 
   submitPeriod() {
+    if ( this.workplace ) {
+      this.periodForm.controls['workplace'].setValue(this.workplace.url);
+    }
     if ( this.periodForm.valid ) {
       if (this.selectedPeriodUrl) {
         this.periodService.update(this.selectedPeriodUrl, this.periodForm.value).subscribe(

@@ -27,13 +27,8 @@
                   [uploadedFiles]="listPicturesAdapted"
                   [style]="customStyle"></image-upload>
   </div>
-  <div class="admin-workplace-page__timeslots">
-    <div>
-      <app-my-table [settings]="settings"
-                    [data]="listTimeslots"
-                    (changePage)="changePage($event)">
-      </app-my-table>
-    </div>
+  <div class="admin-workplace-page__periods">
+    <app-table-periods [workplace]="workplace"></app-table-periods>
   </div>
 </div>
 

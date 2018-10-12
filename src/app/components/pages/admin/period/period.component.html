@@ -1,3 +1,5 @@
+<app-loader *ngIf="!period"></app-loader>
+
 <div class="admin-period-page" *ngIf="period">
   <div class="admin-period-page__title">
     <h2 class="nt-title">{{ period.name }}</h2>

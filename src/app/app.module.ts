@@ -50,7 +50,6 @@ import { AuthenticatedDirective } from './directives/authenticated.directive';
 import { Error403Component } from './components/error-403/error-403.component';
 import { OrganizationComponent } from './components/pages/admin/organization/organization.component';
 import { DomainService } from './services/domain.service';
-import { PeriodsComponent } from './components/pages/admin/periods/periods.component';
 import { PeriodService } from './services/period.service';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { PeriodComponent } from './components/pages/admin/period/period.component';
@@ -84,6 +83,7 @@ import { NtHeaderComponent } from './components/nt-header/nt-header.component';
 import { TermsComponent } from './components/modal/terms/terms.component';
 import { NtTopComponent } from './components/nt-top/nt-top.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import {TablePeriodsComponent} from './components/table/periods/table-periods.component';
 
 registerLocaleData(localeFr);
 
@@ -270,14 +270,6 @@ const appRoutes = [
         ]
       },
       {
-        path: 'admin/periods',
-        component: PeriodsComponent,
-        canActivate: [
-          CanActivateViaAuthGuard,
-          CanAccessAdminPanelGuard,
-        ]
-      },
-      {
         path: 'admin/periods/:id',
         component: PeriodComponent,
         canActivate: [
@@ -346,7 +338,6 @@ const appRoutes = [
     AuthenticatedDirective,
     Error403Component,
     OrganizationComponent,
-    PeriodsComponent,
     PeriodComponent,
     MembershipsComponent,
     ReservationPackagesComponent,
@@ -368,6 +359,7 @@ const appRoutes = [
     TermsComponent,
     NtTopComponent,
     LoaderComponent,
+    TablePeriodsComponent
   ],
   imports: [
     BrowserModule,

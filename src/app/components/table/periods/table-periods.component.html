@@ -1,15 +1,11 @@
-<div class="admin-periods-page">
-  <div class="admin-periods-page__table">
-    <app-my-table [settings]="settings"
-                  [data]="listAdaptedPeriods"
-                  (addButton)="OpenModalCreatePeriod()"
-                  (editItem)="OpenModalEditPeriod($event)"
-                  (removeItem)="removePeriod($event)"
-                  (selectItem)="goToPeriod($event)"
-                  (changePage)="changePage($event)">
-    </app-my-table>
-  </div>
-</div>
+<app-my-table [settings]="settings"
+              [data]="listAdaptedPeriods"
+              (addButton)="OpenModalCreatePeriod()"
+              (editItem)="OpenModalEditPeriod($event)"
+              (removeItem)="removePeriod($event)"
+              (selectItem)="goToPeriod($event)"
+              (changePage)="changePage($event)">
+</app-my-table>
 
 <app-nt-modal name="form_periods"
               typeModal="success"
@@ -41,7 +37,7 @@
     </div>
 
     <div class="form-group" *ngIf="!selectedPeriodUrl">
-      <label for="end_date" class="nt-form-label">Fin de la ériode:</label>
+      <label for="end_date" class="nt-form-label">Fin de la période:</label>
       <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
              formControlName="end_date" class="nt-form-input"
              id="end_date">
@@ -52,7 +48,7 @@
       </div>
     </div>
 
-    <div class="form-group" *ngIf="!selectedPeriodUrl">
+    <div class="form-group" *ngIf="!selectedPeriodUrl && !workplace">
       <label for="workplace" class="nt-form-label">Espace de travail:</label>
       <select formControlName="workplace" class="nt-form-input nt-form-input--select" id="workplace">
         <option *ngFor="let workplace of listWorkplaces" value="{{workplace.url}}">{{ workplace.name }}</option>

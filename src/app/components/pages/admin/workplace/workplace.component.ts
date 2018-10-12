@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import { Workplace } from '../../../../models/workplace';
 import { WorkplaceService } from '../../../../services/workplace.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TimeSlot } from '../../../../models/timeSlot';
-import { TimeSlotService } from '../../../../services/time-slot.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Picture } from '../../../../models/picture';
 import { PictureService } from '../../../../services/picture.service';
-import { isNull } from 'util';
+import {PeriodService} from '../../../../services/period.service';
 
 @Component({
   selector: 'app-workplace',
@@ -20,7 +18,6 @@ export class WorkplaceComponent implements OnInit {
 
   workplaceId: number;
   workplace: Workplace;
-  listTimeslots: TimeSlot[];
   listPictures: Picture[];
   listPicturesAdapted: any[] = [];
 
@@ -33,36 +30,9 @@ export class WorkplaceComponent implements OnInit {
     },
   };
 
-  settings = {
-    title: 'Blocs de rédaction',
-    noDataText: 'Aucun bloc de rédaction pour le moment',
-    previous: false,
-    next: false,
-    numberOfPage: 0,
-    page: 0,
-    columns: [
-      {
-        name: 'day',
-        title: 'Jour'
-      },
-      {
-        name: 'start',
-        title: 'Début'
-      },
-      {
-        name: 'end',
-        title: 'Fin'
-      },
-      {
-        name: 'price',
-        title: 'Prix'
-      }
-    ]
-  };
-
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
-              private timeSlotService: TimeSlotService,
+              private periodService: PeriodService,
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,
               private notificationService: NotificationsService,
@@ -93,7 +63,6 @@ export class WorkplaceComponent implements OnInit {
     this.workplaceService.get(this.workplaceId).subscribe(
       data => {
         this.workplace = new Workplace(data);
-        this.refreshTimeslotList();
         this.pictureService.list([{'name': 'workplace', 'value': this.workplaceId}]).subscribe(
           pictures => {
             this.listPictures = pictures.results.map(
@@ -110,35 +79,6 @@ export class WorkplaceComponent implements OnInit {
         );
       }
     );
-  }
-
-  changePage(index: number) {
-    this.refreshTimeslotList(index);
-  }
-
-  refreshTimeslotList(page = 1, limit = 20) {
-    this.timeSlotService.list([{'name': 'workplace', 'value': this.workplaceId}], limit, limit * (page - 1)).subscribe(
-      timeslots => {
-        this.settings.numberOfPage = Math.ceil(timeslots.count / limit);
-        this.settings.page = page;
-        this.settings.previous = !isNull(timeslots.previous);
-        this.settings.next = !isNull(timeslots.next);
-
-        this.listTimeslots = timeslots.results.map(
-          t => this.timeSlotAdapter(new TimeSlot(t))
-        );
-      }
-    );
-  }
-
-  timeSlotAdapter(timeSlot) {
-    return {
-      id: timeSlot.id,
-      day: timeSlot.getStartDay(),
-      start: timeSlot.getStartTime(),
-      end: timeSlot.getEndTime(),
-      price: timeSlot.price
-    };
   }
 
   onUploadFinished(event) {
