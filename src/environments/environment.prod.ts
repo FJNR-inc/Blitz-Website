@@ -25,5 +25,6 @@ export const environment = {
     pictures: '/pictures',
     cards: '/payment_profiles',
     orders: '/orders',
+    reservations: '/reservations',
   }
 };

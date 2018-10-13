@@ -1,6 +1,6 @@
 import BaseModel from './baseModel';
-import { User } from './user';
 import { DateUtil } from '../utils/date';
+import {Workplace} from './workplace';
 
 export class TimeSlot extends BaseModel {
   url: string;
@@ -11,6 +11,7 @@ export class TimeSlot extends BaseModel {
   end_time: string;
   users: string[];
   places_remaining: number;
+  workplace: Workplace;
 
   getEndDate() {
     return new Date(this.end_time);

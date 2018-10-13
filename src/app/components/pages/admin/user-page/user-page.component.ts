@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
 import { User } from '../../../../models/user';
-import { TimeSlotService } from '../../../../services/time-slot.service';
 import { TimeSlot } from '../../../../models/timeSlot';
 import { Card } from '../../../../models/card';
 import { CardService } from '../../../../services/card.service';
+import {ReservationService} from '../../../../services/reservation.service';
 
 @Component({
   selector: 'app-user-page',
@@ -24,6 +24,10 @@ export class UserPageComponent implements OnInit {
       {
         name: 'start_event',
         title: 'Plage horaire'
+      },
+      {
+        name: 'workplace_name',
+        title: 'Lieu'
       }
     ]
   };
@@ -34,7 +38,7 @@ export class UserPageComponent implements OnInit {
     columns: [
       {
         name: 'number',
-        title: 'Numero de carte'
+        title: 'Numéro de carte'
       },
       {
         name: 'expiry_date',
@@ -49,7 +53,7 @@ export class UserPageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
-              private timeSlotService: TimeSlotService,
+              private reservationService: ReservationService,
               private router: Router,
               private cardService: CardService) { }
 
@@ -66,7 +70,7 @@ export class UserPageComponent implements OnInit {
   }
 
   refreshReservation() {
-    this.timeSlotService.list([{'name': 'user', 'value': this.user.id}]).subscribe(
+    this.reservationService.list([{'name': 'user', 'value': this.user.id}]).subscribe(
       timeslots => {
         this.listReservations = timeslots.results.map(
           t => this.reservationAdapter(new TimeSlot(t))
@@ -90,16 +94,18 @@ export class UserPageComponent implements OnInit {
   }
 
   reservationAdapter(reservation) {
+    const timeslot = new TimeSlot(reservation.timeslot_details);
     let detail = '';
-    detail += reservation.getStartDay();
+    detail += timeslot.getStartDay();
     detail += ' (';
-    detail += reservation.getStartTime();
+    detail += timeslot.getStartTime();
     detail += ' - ';
-    detail += reservation.getEndTime() + ')';
+    detail += timeslot.getEndTime() + ')';
 
     return {
-      id: reservation.id,
+      id: timeslot.id,
       start_event: detail,
+      workplace_name: timeslot.workplace.name,
     };
   }
 

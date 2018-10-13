@@ -84,6 +84,7 @@ import { TermsComponent } from './components/modal/terms/terms.component';
 import { NtTopComponent } from './components/nt-top/nt-top.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import {TablePeriodsComponent} from './components/table/periods/table-periods.component';
+import {ReservationService} from './services/reservation.service';
 
 registerLocaleData(localeFr);
 
@@ -401,6 +402,7 @@ const appRoutes = [
     PictureService,
     CardService,
     OrderService,
+    ReservationService,
   ],
   bootstrap: [AppComponent]
 })

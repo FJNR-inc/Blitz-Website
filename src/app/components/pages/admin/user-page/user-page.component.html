@@ -36,9 +36,6 @@
   <div class="user-page__reservations">
     <app-my-table [settings]="settings"
                   [data]="listReservations"
-                  (addButton)="OpenModalCreateDomain()"
-                  (editItem)="OpenModalEditDomain($event)"
-                  (removeItem)="removeDomain($event)"
                   (selectItem)="goToTimeslot($event)">
     </app-my-table>
   </div>
