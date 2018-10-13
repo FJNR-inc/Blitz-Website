@@ -29,7 +29,7 @@
     </div>
 
     <div class="form-group">
-      <label for="start_time" class="nt-form-label">Début de la plage horaire:</label>
+      <label for="start_time" class="nt-form-label">Début du bloc de rédaction:</label>
       <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
              formControlName="start_time" class="nt-form-input"
              id="start_time">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-group">
-      <label for="end_time" class="nt-form-label">Fin de la plage horaire:</label>
+      <label for="end_time" class="nt-form-label">Fin du bloc de rédaction:</label>
       <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
              formControlName="end_time" class="nt-form-input"
              id="end_time">
@@ -52,10 +52,13 @@
       </div>
     </div>
     <div *ngIf="selectedTimeslot && selectedTimeslot.number_of_reservations > 0">
-      <div class="alert alert--danger">
-        Si vous modifier cette plage horaire toutes les réservations
-        déja effectué seront annulé et remboursé et un message
-        d'explication sera envoyé aux membres ayant subit une annulation.
+      <div class="nt-alert nt-alert--danger">
+        <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
+        <div class="nt-alert__content">
+          Si vous modifier ce bloc de rédaction toutes les réservations
+          déja effectué seront annulé et remboursé et un message
+          d'explication sera envoyé aux membres ayant subit une annulation.
+        </div>
       </div>
       <div class="form-group">
         <label for="force_update" class="nt-form-label">
@@ -69,7 +72,7 @@
         </div>
       </div>
       <div class="form-group">
-        <input formControlName="force_update" class="nt-form-input" id="force_update" type="checkbox">
+        <input formControlName="force_update" id="force_update" type="checkbox">
         <label for="force_update">
           Je comprends les répercutions de cette modification.
         </label>

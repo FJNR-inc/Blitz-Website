@@ -11,7 +11,7 @@
   </ul>
   <div class="admin-timeslot-page__table">
     <app-my-table [settings]="settings"
-                  [data]="timeslot.users"
+                  [data]="listReservations"
                   (selectItem)="goToUser($event)">
     </app-my-table>
   </div>

@@ -144,7 +144,7 @@ export class PeriodComponent implements OnInit {
       if (this.selectedTimeslot) {
         if (this.selectedTimeslot.number_of_reservations > 0 && value.force_update === false) {
           this.timeslotForm.controls['force_update'].setErrors({
-            apiError: ['Vous devez comprendre les repercutions de cet acte avant de valider!']
+            apiError: ['Vous devez comprendre les répercutions de cet acte avant de valider!']
           });
         } else {
           this.timeslotService.update(this.selectedTimeslot.url, value).subscribe(
@@ -239,8 +239,8 @@ export class PeriodComponent implements OnInit {
       url: timeslot.url,
       start_time: timeslot.getStartDay() + ' - ' + timeslot.getStartTime(),
       end_time: timeslot.getStartDay() + ' - ' + timeslot.getEndTime(),
-      display_reservations: timeslot.users.length + ' / ' + timeslot.workplace.seats,
-      number_of_reservations: timeslot.users.length
+      display_reservations: timeslot.reservations.length + ' / ' + timeslot.workplace.seats,
+      number_of_reservations: timeslot.reservations.length
     };
   }
 

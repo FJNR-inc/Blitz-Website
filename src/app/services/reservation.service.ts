@@ -41,6 +41,9 @@ export class ReservationService extends GlobalService {
         if (filter.name === 'user') {
           params = params.set('user', filter.value);
         }
+        if (filter.name === 'timeslot') {
+          params = params.set('timeslot', filter.value);
+        }
       }
     }
     return this.http.get<any>(
