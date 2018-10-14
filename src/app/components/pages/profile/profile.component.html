@@ -187,26 +187,38 @@
               <th>
                 <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__blocs__table__header__icon" />
               </th>
+              <th>
+                Annuler
+              </th>
             </tr>
           </thead>
-          <tbody *ngIf="getDisplayedReservation()">
+          <tbody *ngIf="getDisplayedReservation()" class="profile-page__content__right__blocs__table__body">
             <tr *ngFor="let reservation of getDisplayedReservation()">
               <td>
-                {{reservation.getStartDay()}}
+                {{reservation.timeslot_details.getStartDay()}}
               </td>
               <td>
                 <p>
-                  {{reservation.workplace.name}}
+                  {{reservation.timeslot_details.workplace.name}}
                 </p>
-                {{reservation.workplace.address_line1}}<br/>
-                <span *ngIf="reservation.workplace.address_line2">{{reservation.workplace.address_line2}}<br/></span>
-                {{reservation.workplace.city}}, {{reservation.workplace.state_province}} {{reservation.workplace.postal_code}}
+                {{reservation.timeslot_details.workplace.address_line1}}<br/>
+                <span *ngIf="reservation.timeslot_details.workplace.address_line2">
+                  {{reservation.timeslot_details.workplace.address_line2}}<br/>
+                </span>
+                {{reservation.timeslot_details.workplace.city}}, {{reservation.timeslot_details.workplace.state_province}} {{reservation.timeslot_details.workplace.postal_code}}
               </td>
               <td>
-                {{reservation.getStartTime()}} à {{reservation.getEndTime()}}
+                {{reservation.timeslot_details.getStartTime()}} à {{reservation.timeslot_details.getEndTime()}}
               </td>
               <td>
                 4
+              </td>
+              <td>
+                <a (click)="askToCancelReservation(reservation)">
+                  <img src="assets/images/icons/icon_exit.svg"
+                       alt="Annuler"
+                       class="profile-page__content__right__blocs__table__body__icon"/>
+                </a>
               </td>
             </tr>
           </tbody>
@@ -232,5 +244,20 @@
   </p>
   <p>
     Êtes-vous vraiment sûr de vouloir désactiver votre profil ?
+  </p>
+</app-nt-modal>
+
+<app-nt-modal name="form_cancel_reservation"
+              typeModal="danger"
+              title="Annuler ma réservation"
+              button2Label="Annuler ma réservation"
+              (button2)="cancelReservation()"
+              maxWidth="600px"
+              [autoClose]="true">
+  <p>
+    L'annulation de votre réservation est un acte important et irréversible, de plus, vous ne recevrez aucun remboursement.
+  </p>
+  <p>
+    Êtes-vous vraiment sûr de vouloir annuler votre réservation ?
   </p>
 </app-nt-modal>

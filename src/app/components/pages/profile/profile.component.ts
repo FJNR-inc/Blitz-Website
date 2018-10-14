@@ -14,6 +14,8 @@ import { CardService } from '../../../services/card.service';
 import {Time} from '@angular/common';
 import {WorkplaceService} from '../../../services/workplace.service';
 import {Workplace} from '../../../models/workplace';
+import {Reservation} from '../../../models/reservation';
+import {ReservationService} from '../../../services/reservation.service';
 
 @Component({
   selector: 'app-profile',
@@ -36,8 +38,8 @@ export class ProfileComponent implements OnInit {
     ]
   };
 
-  listReservations: TimeSlot[] = [];
-  listFutureReservations: TimeSlot[] = [];
+  listReservations: Reservation[] = [];
+  listFutureReservations: Reservation[] = [];
   totalPastReservations = 0;
   totalFutureReservations = 0;
   listCards: Card[];
@@ -45,6 +47,8 @@ export class ProfileComponent implements OnInit {
   errors: string[];
 
   displayAll = false;
+
+  reservationInCancelation: Reservation = null;
 
   constructor(private profileService: ProfileService,
               private authenticationService: AuthenticationService,
@@ -55,7 +59,8 @@ export class ProfileComponent implements OnInit {
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,
               private cardService: CardService,
-              private workplaceService: WorkplaceService) { }
+              private workplaceService: WorkplaceService,
+              private reservationService: ReservationService) { }
 
   ngOnInit() {
     this.refreshProfile();
@@ -89,19 +94,35 @@ export class ProfileComponent implements OnInit {
   }
 
   refreshReservation() {
-    this.timeSlotService.list([{'name': 'user', 'value': this.profile.id}]).subscribe(
-      timeslots => {
-        const reservations = timeslots.results.map(
-          t => new TimeSlot(t)
+    const filters = [
+      {
+        'name': 'user',
+        'value': this.profile.id
+      },
+      {
+        'name': 'is_active',
+        'value': true
+      }
+    ];
+    this.reservationService.list(filters).subscribe(
+      reservations => {
+        const listReservations = reservations.results.map(
+          r => new Reservation(r)
         );
-        for ( const timeslot of reservations ) {
-          if (timeslot.getEndDate() < new Date()) {
+
+        this.totalPastReservations = 0;
+        this.totalFutureReservations = 0;
+        this.listReservations = [];
+        this.listFutureReservations = [];
+
+        for ( const reservation of listReservations ) {
+          if (reservation.timeslot_details.getEndDate() < new Date()) {
             this.totalPastReservations += 4;
           } else {
             this.totalFutureReservations += 4;
-            this.listFutureReservations.push(timeslot);
+            this.listFutureReservations.push(reservation);
           }
-          this.listReservations.push(timeslot);
+          this.listReservations.push(reservation);
         }
       }
     );
@@ -201,5 +222,22 @@ export class ProfileComponent implements OnInit {
       return;
     }
     modal.toggle();
+  }
+
+  askToCancelReservation(reservation) {
+    this.reservationInCancelation = reservation;
+    this.toogleModal('form_cancel_reservation');
+  }
+
+  cancelReservation() {
+    this.reservationService.update(this.reservationInCancelation.url, new Reservation({'is_active': false})).subscribe(
+      data => {
+        this.notificationService.success('Annulé', 'Le bloc de rédaction a bien été annulé.');
+        this.refreshReservation();
+      },
+      err => {
+        this.notificationService.error('Erreur', 'Échec de la tentative d\'annulation.');
+      }
+    );
   }
 }

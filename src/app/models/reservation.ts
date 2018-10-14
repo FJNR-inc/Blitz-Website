@@ -10,5 +10,15 @@ export class Reservation extends BaseModel {
   user: string;
   user_details: User;
   is_active: boolean;
+
+  constructor(data: Object = {}) {
+    super(data);
+    if (data.hasOwnProperty('timeslot_details')) {
+      this.timeslot_details = new TimeSlot(data['timeslot_details']);
+    }
+    if (data.hasOwnProperty('user_details')) {
+      this.user_details = new User(data['user_details']);
+    }
+  }
 }
 

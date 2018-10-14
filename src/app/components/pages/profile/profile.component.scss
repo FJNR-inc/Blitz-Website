@@ -210,6 +210,14 @@
             }
           }
 
+          &__body {
+            vertical-align: center;
+
+            &__icon {
+              width: 20px;
+            }
+          }
+
           & td, th {
             border: 1px solid $border-calendar;
             padding: 15px;
@@ -306,7 +314,7 @@
         &__blocs {
           &__table {
             & td, th {
-              padding: 5px;
+              padding: 2px;
             }
           }
         }
