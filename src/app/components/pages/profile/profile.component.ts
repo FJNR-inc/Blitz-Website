@@ -230,7 +230,7 @@ export class ProfileComponent implements OnInit {
   }
 
   cancelReservation() {
-    this.reservationService.update(this.reservationInCancelation.url, new Reservation({'is_active': false})).subscribe(
+    this.reservationService.remove(this.reservationInCancelation).subscribe(
       data => {
         this.notificationService.success('Annulé', 'Le bloc de rédaction a bien été annulé.');
         this.refreshReservation();
