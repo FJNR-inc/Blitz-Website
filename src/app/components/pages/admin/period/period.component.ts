@@ -99,7 +99,7 @@ export class PeriodComponent implements OnInit {
   }
 
   refreshTimeslotList(page = 1, limit = 20) {
-    this.timeslotService.list([{'name': 'period', 'value': this.period.id}], limit, limit * (page - 1)).subscribe(
+    this.timeslotService.list([{'name': 'period', 'value': this.period.id}], limit, limit * (page - 1), 'start_time').subscribe(
       timeslots => {
         this.settings.numberOfPage = Math.ceil(timeslots.count / limit);
         this.settings.page = page;
