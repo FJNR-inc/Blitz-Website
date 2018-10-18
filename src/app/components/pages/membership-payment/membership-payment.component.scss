@@ -36,21 +36,35 @@
       font-size: 11pt;
 
       &__item {
+        margin: 0 2px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
         &--main {
           flex: 1;
           text-align: center;
-          margin-right: 30px;
         }
       }
     }
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   .membership-payment-page {
     padding: 20px;
 
     &__form {
+
+      &__expiration {
+        flex-direction: column;
+      }
+
       &__actions {
         flex-direction: column-reverse;
         align-items: start;
@@ -58,7 +72,11 @@
         &__item {
           margin-top: 20px;
           width: 100%;
-          text-align: left;
+          text-align: center;
+
+          &--main {
+            text-align: left;
+          }
         }
       }
     }

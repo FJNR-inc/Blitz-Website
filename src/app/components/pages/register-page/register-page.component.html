@@ -34,7 +34,7 @@
       </div>
       <div class="form-group">
         <label for="university" class="nt-form-label">Université d'appartenance actuelle*:</label>
-        <select formControlName="university" id="university" class="nt-form-input" (change)="changeUniversity()">
+        <select formControlName="university" id="university" class="nt-form-input nt-form-input--select" (change)="changeUniversity()">
           <option value="none">Je n'appartiens pas/plus à une université</option>
           <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
             {{ organization.name }}
@@ -47,7 +47,7 @@
       </div>
       <div class="form-group" *ngIf="selectedUniversity">
         <label for="study_level" class="nt-form-label">Statut principal*:</label>
-        <select formControlName="academic_level" id="study_level" class="nt-form-input">
+        <select formControlName="academic_level" id="study_level" class="nt-form-input nt-form-input--select">
           <option value="none"></option>
           <option value="{{ level.name }}" *ngFor="let level of listAcademicLevels">
             {{ level.name }}
@@ -60,7 +60,7 @@
       </div>
       <div class="form-group" *ngIf="selectedUniversity">
         <label for="study_field" class="nt-form-label">Domaine d'études ou d'enseignement principal*:</label>
-        <select formControlName="academic_field" id="study_field" class="nt-form-input">
+        <select formControlName="academic_field" id="study_field" class="nt-form-input nt-form-input--select">
           <option value="none"></option>
           <option value="{{ field.name }}" *ngFor="let field of listAcademicFields">
             {{ field.name }}
@@ -91,11 +91,11 @@
         </div>
       </div>
       <div class="register-page__form__content__form__inline">
-        <div>
+        <div class="register-page__form__content__form__inline__dates form-group">
           <label for="birthday_day" class="nt-form-label">Date de naissance*:</label>
           <div class="form-group form-group--multiple">
             <div class="form-group__item">
-              <select formControlName="birth_day" id="birthday_day" class="nt-form-input">
+              <select formControlName="birth_day" id="birthday_day" class="nt-form-input nt-form-input--select">
                 <option value="" disabled="disabled">Jour</option>
                 <option value="01">1</option>
                 <option value="02">2</option>
@@ -135,10 +135,10 @@
               </div>
             </div>
             <div class="form-group__item">
-              <select formControlName="birth_month" id="birthday_month" class="nt-form-input">
+              <select formControlName="birth_month" id="birthday_month" class="nt-form-input nt-form-input--select">
                 <option value="" disabled="disabled">Mois</option>
                 <option value="01">Janvier</option>
-                <option value="02">Fevrier</option>
+                <option value="02">Février</option>
                 <option value="03">Mars</option>
                 <option value="04">Avril</option>
                 <option value="05">Mai</option>
@@ -148,7 +148,7 @@
                 <option value="09">Septembre</option>
                 <option value="10">Octobre</option>
                 <option value="11">Novembre</option>
-                <option value="12">Decembre</option>
+                <option value="12">Décembre</option>
               </select>
               <div class="form-text form-text--right form-text--danger"
                    *ngFor="let errorMessage of registerForm.controls['birth_month'].getError('apiError')">
@@ -156,7 +156,7 @@
               </div>
             </div>
             <div class="form-group__item">
-              <select formControlName="birth_year" id="birthday_year" class="nt-form-input">
+              <select formControlName="birth_year" id="birthday_year" class="nt-form-input nt-form-input--select">
                 <option value="" disabled="disabled">Année</option>
                 <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
               </select>
@@ -167,9 +167,9 @@
             </div>
           </div>
         </div>
-        <div class="register-page__form__content__form__inline__gender">
+        <div class="register-page__form__content__form__inline__gender form-group">
           <label for="gender" class="nt-form-label">Genre*:</label>
-          <select formControlName="gender" id="gender" class="nt-form-input">
+          <select formControlName="gender" id="gender" class="nt-form-input nt-form-input--select">
             <option value="A">Je ne souhaite pas m'identifier</option>
             <option value="M">Homme</option>
             <option value="F">Femme</option>

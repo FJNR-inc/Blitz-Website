@@ -94,7 +94,7 @@
         </div>
       </div>
       <div class="membership-register-page__form__content__form__inline">
-        <div>
+        <div class="membership-register-page__form__content__form__inline__dates form-group">
           <label for="birthday_day" class="nt-form-label">Date de naissance*:</label>
           <div class="form-group form-group--multiple">
             <div class="form-group__item">
@@ -141,7 +141,7 @@
               <select formControlName="birth_month" id="birthday_month" class="nt-form-input">
                 <option value="" disabled="disabled">Mois</option>
                 <option value="01">Janvier</option>
-                <option value="02">Fevrier</option>
+                <option value="02">Février</option>
                 <option value="03">Mars</option>
                 <option value="04">Avril</option>
                 <option value="05">Mai</option>
@@ -151,7 +151,7 @@
                 <option value="09">Septembre</option>
                 <option value="10">Octobre</option>
                 <option value="11">Novembre</option>
-                <option value="12">Decembre</option>
+                <option value="12">Décembre</option>
               </select>
               <div class="form-text form-text--right form-text--danger"
                    *ngFor="let errorMessage of registerForm.controls['birth_month'].getError('apiError')">
@@ -170,7 +170,7 @@
             </div>
           </div>
         </div>
-        <div class="membership-register-page__form__content__form__inline__gender">
+        <div class="membership-register-page__form__content__form__inline__gender form-group">
           <label for="gender" class="nt-form-label">Genre*:</label>
           <select formControlName="gender" id="gender" class="nt-form-input">
             <option value="A">Je ne souhaite pas m'identifier</option>

@@ -94,6 +94,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 14px;
 
       &:last-child {
         border-bottom: 1px solid #E6DCCF;
@@ -119,7 +120,7 @@
 
     &:hover {
       & path {
-        fill: lightgrey;
+        fill: $border-calendar;
       }
     }
 

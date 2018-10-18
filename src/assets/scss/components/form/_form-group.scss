@@ -8,6 +8,10 @@
   &__item {
     flex: 1;
 
+    & > .nt-form-label {
+      margin-top: 40px;
+    }
+
     & + .form-group__item {
       margin-left: 10px;
     }

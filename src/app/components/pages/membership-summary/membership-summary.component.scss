@@ -52,10 +52,19 @@
     font-size: 11pt;
 
     &__item {
+      margin: 0 2px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
       &--main {
         flex: 1;
         text-align: center;
-        margin: 0 40px;
       }
     }
   }
@@ -71,8 +80,11 @@
 
       &__item {
         margin-top: 20px;
+        width: 100%;
+        text-align: center;
 
         &--main {
+          text-align: left;
           margin: 20px 0;
         }
       }

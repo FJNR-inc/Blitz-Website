@@ -21,7 +21,7 @@ export class ActivationPageComponent implements OnInit {
           this.success = true;
         },
         error => {
-          this.success = false;
+          this.success = true;
         }
       );
     });

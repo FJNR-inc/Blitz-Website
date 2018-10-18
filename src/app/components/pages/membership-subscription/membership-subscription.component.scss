@@ -19,7 +19,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
-    font-size: 16pt;
+    font-size: 14pt;
 
     &__spacer {
       flex: 1;
@@ -45,6 +45,7 @@
     margin-top: 40px;
     font-size: 9pt;
   }
+
   &__actions {
     margin-top: 40px;
     display: flex;
@@ -53,8 +54,15 @@
     font-size: 11pt;
 
     &__item {
-      margin-top: 20px;
-      width: 100%;
+      margin: 0 2px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
 
       &--main {
         flex: 1;
@@ -70,11 +78,16 @@
 
     &__actions {
       flex-direction: column-reverse;
+      align-items: start;
 
       &__item {
         margin-top: 20px;
         width: 100%;
-        text-align: left;
+        text-align: center;
+
+        &--main {
+          text-align: left;
+        }
       }
     }
   }
