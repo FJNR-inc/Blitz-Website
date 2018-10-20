@@ -35,23 +35,21 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="membershipLevel" class="nt-form-label">Niveau d'étude requis:</label>
-      <select formControlName="academic_levels"
-              type="text"
-              id="membershipLevel"
-              class="nt-form-input"
-              (click)="changeAcademicLevel($event)"
-              multiple>
-        <option *ngFor="let level of listAcademicLevels" value="{{level.url}}">
-          {{ level.name }}
-        </option>
-      </select>
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of membershipForm.controls['academic_levels'].getError('apiError')">
-        {{ errorMessage }}
-      </div>
+      <span class="nt-form-label">Niveau d'étude requis:</span>
+      <ng-container formArrayName="academic_levels">
+        <div *ngFor="let level of listAcademicLevels; let i = index" >
+          <input type="checkbox"
+                 class="example-margin"
+                 [formControlName]="i"/>
+          <label [for]="'membershipLevel-'+level.id">{{level.name}}</label>
+        </div>
+      </ng-container>
     </div>
-    <div class="alert alert--warning" *ngIf="showAcademicLevelWarning()">
+    <div class="form-text form-text--right form-text--danger"
+         *ngFor="let errorMessage of membershipForm.controls['academic_levels'].getError('apiError')">
+      {{ errorMessage }}
+    </div>
+    <div class="alert alert--warning">
       Attention, si vous spécifiez un niveau d'étude, seuls les gens actuellement
       dans ce niveau d'étude pourront bénéficier de ce type de membership.
     </div>
