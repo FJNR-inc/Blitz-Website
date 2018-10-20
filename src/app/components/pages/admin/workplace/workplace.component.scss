@@ -37,45 +37,8 @@
   &__pictures {
     padding: 20px;
 
-    &__list {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: start;
-
-      &__button {
-        height: 100px;
-        width: 250px;
-        margin: 10px;
-      }
-
-      &__picture {
-        position: relative;
-
-        & img {
-          max-height: 100px;
-          max-width: 250px;
-          margin: 10px;
-        }
-
-        &__remove {
-          position: absolute;
-          top:0;
-          right: 0;
-          background-color: $color-danger-text;
-          border: 2px solid $color-danger-text;
-          color: white;
-          border-radius: 50%;
-          line-height: 25px;
-          width: 29px;
-          text-align: center;
-          justify-content: center;
-
-          &:hover {
-            background-color: white;
-            color: $color-danger-text;
-          }
-        }
-      }
+    &__uploader {
+      margin-top: 20px;
     }
   }
 

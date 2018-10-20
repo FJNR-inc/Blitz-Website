@@ -18,14 +18,12 @@
   </div>
   <div class="admin-workplace-page__pictures" *ngIf="listPictures">
     <h2 class="nt-title">Photo de l'espace</h2>
-    <image-upload [url]=""
-                  buttonCaption="Selectionner une photo"
-                  dropBoxMessage="ou glissez votre image ici"
-                  clearButtonCaption=""
-                  (uploadFinished)="onUploadFinished($event)"
-                  (removed)="onRemoved($event)"
-                  [uploadedFiles]="listPicturesAdapted"
-                  [style]="customStyle"></image-upload>
+    <div class="admin-workplace-page__pictures__uploader">
+      <app-file-upload (newFile)="onUploadFinished($event)"
+                       (deleteFile)="onRemoved($event)"
+                       [files]="listPictures">
+      </app-file-upload>
+    </div>
   </div>
   <div class="admin-workplace-page__periods">
     <app-table-periods [workplace]="workplace"></app-table-periods>

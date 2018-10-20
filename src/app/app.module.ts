@@ -85,6 +85,7 @@ import { NtTopComponent } from './components/nt-top/nt-top.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import {TablePeriodsComponent} from './components/table/periods/table-periods.component';
 import {ReservationService} from './services/reservation.service';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 registerLocaleData(localeFr);
 
@@ -360,7 +361,8 @@ const appRoutes = [
     TermsComponent,
     NtTopComponent,
     LoaderComponent,
-    TablePeriodsComponent
+    TablePeriodsComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

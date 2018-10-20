@@ -1,0 +1,41 @@
+@import "../../../assets/scss/theme";
+
+.file-upload-component {
+  border: 5px dashed lightgrey;
+
+  &__gallery {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &__item {
+      position: relative;
+
+      &__preview {
+        max-height: 150px;
+        max-width: 150px;
+        margin: 10px;
+      }
+
+      &__delete {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        font-size: 15px;
+        background-color: $color-danger-text;
+        color: white;
+        border-radius: 50%;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__actions {
+    margin: 30px 10px 10px 10px;
+  }
+}

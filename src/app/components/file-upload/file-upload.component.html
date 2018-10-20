@@ -1,0 +1,32 @@
+<div class="file-upload-component">
+  <div class="file-upload-component__gallery">
+    <div class="file-upload-component__gallery__item"
+         *ngFor="let file of files">
+      <img [src]="file.picture"
+           class="file-upload-component__gallery__item__preview" />
+      <a class="file-upload-component__gallery__item__delete"
+         (click)="onFileDeletion(file)">
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+  </div>
+
+  <div draggable="true" class="file-upload-component__actions {{dragAreaClass}}">
+      <a class="nt-button" (click)="file.click()" >
+        Ajouter une photo
+      </a>
+      Ou Drag & Drop pour ajouter une photo
+
+      <input type="file"
+             #file
+             [multiple]="(maxFiles > 1)"
+             (change) = "onFileChange($event)"
+             style="display:none" />
+  </div>
+
+  <div class="row error" *ngIf="errors.length > 0">
+    <ul>
+      <li *ngFor="let err of errors">{{err}}</li>
+    </ul>
+  </div>
+</div>

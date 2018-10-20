@@ -24,12 +24,6 @@ export class WorkplaceComponent implements OnInit {
   workplaceForm: FormGroup;
   errors: string[];
 
-  customStyle = {
-    clearButton: {
-      'display': 'none'
-    },
-  };
-
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
               private periodService: PeriodService,
@@ -63,50 +57,55 @@ export class WorkplaceComponent implements OnInit {
     this.workplaceService.get(this.workplaceId).subscribe(
       data => {
         this.workplace = new Workplace(data);
-        this.pictureService.list([{'name': 'workplace', 'value': this.workplaceId}]).subscribe(
-          pictures => {
-            this.listPictures = pictures.results.map(
-              p => new Picture(p)
-            );
-            this.listPicturesAdapted = [];
-            for (const picture of this.listPictures) {
-              this.listPicturesAdapted.push({
-                'fileName': picture.name,
-                'url': picture.picture
-              });
-            }
-          }
+        this.refreshListPictures();
+      }
+    );
+  }
+
+  refreshListPictures() {
+    this.pictureService.list([{'name': 'workplace', 'value': this.workplaceId}]).subscribe(
+      pictures => {
+        this.listPictures = pictures.results.map(
+          p => new Picture(p)
         );
+        this.listPicturesAdapted = [];
+        for (const picture of this.listPictures) {
+          this.listPicturesAdapted.push({
+            'fileName': picture.name,
+            'url': picture.picture
+          });
+        }
       }
     );
   }
 
   onUploadFinished(event) {
     const newPicture = new Picture({
-      picture: event.file,
-      name: event.file.name,
+      picture: event,
+      name: event.name,
       workplace: this.workplace.url
     });
     this.pictureService.create(newPicture).subscribe(
       data => {
         this.listPictures.push(new Picture(data));
-        this.notificationService.success('Ajouté');
+        this.notificationService.success('Ajouté', 'La photo a bien été ajouté.');
       },
       err => {
-        this.notificationService.error('Erreur');
+        this.notificationService.error('Erreur', 'Échec de la tentative d\'ajout.');
       }
     );
   }
 
   onRemoved(event) {
     for (const picture of this.listPictures) {
-      if (picture.name === event.file.name) {
+      if (picture.name === event.name) {
         this.pictureService.remove(picture).subscribe(
           data => {
             this.notificationService.success('Supprimé', 'La photo a bien été supprimé.');
+            this.refreshListPictures();
           },
           err => {
-            this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+            this.notificationService.error('Erreur', 'Échec de la tentative de suppression.');
           }
         );
       }
