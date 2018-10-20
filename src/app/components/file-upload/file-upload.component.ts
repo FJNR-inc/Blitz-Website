@@ -10,7 +10,7 @@ import {Picture} from '../../models/picture';
 export class FileUploadComponent implements OnInit {
   errors: Array<string> = [];
   dragAreaClass = 'dragarea';
-  @Input() fileExt = 'JPG, GIF, PNG';
+  @Input() fileExt = 'JPG, PNG';
   @Input() maxFiles = 5;
   @Input() maxSize = 5; // 5MB
   @Input() files: Picture;
@@ -77,7 +77,7 @@ export class FileUploadComponent implements OnInit {
   private isValidFiles(files) {
     // Check Number of files
     if (files.length > this.maxFiles) {
-      this.errors.push('Error: At a time you can upload only ' + this.maxFiles + ' files');
+      this.errors.push('Erreur: Vous ne pouvez télécharger que ' + this.maxFiles + ' fichiers à la fois');
       return;
     }
     this.isValidFileExtension(files);
@@ -96,7 +96,7 @@ export class FileUploadComponent implements OnInit {
       // Check the extension exists
       const exists = extensions.includes(ext);
       if (!exists) {
-        this.errors.push('Error (Extension): ' + files[i].name);
+        this.errors.push('Erreur: L\'extension de ce fichier n\'est pas supportée -> ' + files[i].name);
       }
       // Check file size
       this.isValidFileSize(files[i]);
@@ -108,7 +108,7 @@ export class FileUploadComponent implements OnInit {
     const fileSizeinMB = file.size / (1024 * 1000);
     const size = Math.round(fileSizeinMB * 100) / 100; // convert upto 2 decimal place
     if (size > this.maxSize) {
-      this.errors.push('Error (File Size): ' + file.name + ': exceed file size limit of ' + this.maxSize + 'MB ( ' + size + 'MB )');
+      this.errors.push('Erreur: Le fichier ' + file.name + ' excède la taille maximum de ' + this.maxSize + 'MB ( ' + size + 'MB )');
     }
   }
 }

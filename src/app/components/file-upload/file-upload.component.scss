@@ -38,4 +38,20 @@
   &__actions {
     margin: 30px 10px 10px 10px;
   }
+
+  &__errors {
+    width: 100%;
+    margin-top: 20px;
+    background-color: $color-danger-background;
+    color: $color-danger-text;
+
+    &__list {
+      list-style-type: none;
+
+      &__item {
+        padding: 5px;
+        margin-top: 0 2px;
+      }
+    }
+  }
 }
