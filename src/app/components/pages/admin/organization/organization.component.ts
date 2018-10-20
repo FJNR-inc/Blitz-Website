@@ -25,7 +25,6 @@ export class OrganizationComponent implements OnInit {
     title: 'Nom de domaine',
     noDataText: 'Aucun nom de domaine pour le moment',
     addButton: true,
-    editButton: true,
     removeButton: false,
     columns: [
       {
