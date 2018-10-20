@@ -39,8 +39,8 @@
       <ng-container formArrayName="academic_levels">
         <div *ngFor="let level of listAcademicLevels; let i = index" >
           <input type="checkbox"
-                 class="example-margin"
-                 [formControlName]="i"/>
+                 [formControlName]="i"
+                 [id]="'membershipLevel-'+level.id"/>
           <label [for]="'membershipLevel-'+level.id">{{level.name}}</label>
         </div>
       </ng-container>

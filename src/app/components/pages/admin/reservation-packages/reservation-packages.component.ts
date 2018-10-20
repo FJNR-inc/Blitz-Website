@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationPackage } from '../../../../models/reservationPackage';
 import { ReservationPackageService } from '../../../../services/reservation-package.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { NotificationsService } from 'angular2-notifications';
 import { isNull } from 'util';
@@ -62,16 +62,27 @@ export class ReservationPackagesComponent implements OnInit {
   ngOnInit() {
     this.refreshReservationPackageList();
     this.refreshMembershipList();
+  }
 
+  initForm(membershipsSelected) {
     this.reservationPackageForm = this.formBuilder.group(
       {
         name: null,
         price: null,
         reservations: null,
-        exclusive_memberships: 'none',
+        exclusive_memberships: this.formBuilder.array([]),
         available: null,
       }
     );
+
+    const formArray = this.reservationPackageForm.get('exclusive_memberships') as FormArray;
+    for (const level of this.listMemberships) {
+      let value = false;
+      if (membershipsSelected.indexOf(level.url) > -1) {
+        value = true;
+      }
+      formArray.push(new FormControl(value));
+    }
   }
 
   changePage(index: number) {
@@ -98,13 +109,14 @@ export class ReservationPackagesComponent implements OnInit {
     this.membershipService.list().subscribe(
       memberships => {
         this.listMemberships = memberships.results.map(m => new Membership(m));
+        this.initForm([]);
       }
     );
   }
 
   OpenModalCreateReservationPackage() {
+    this.initForm([]);
     this.reservationPackageForm.reset();
-    this.reservationPackageForm.controls['exclusive_memberships'].setValue('none');
     this.reservationPackageForm.controls['available'].setValue(false);
     this.selectedReservationPackageUrl = null;
     this.toogleModal('form_reservation_packages', 'Ajouter un forfait', 'Créer');
@@ -113,15 +125,11 @@ export class ReservationPackagesComponent implements OnInit {
   OpenModalEditReservationPackage(item) {
     for (const reservationPackage of this.listReservationPackages) {
       if (reservationPackage.id === item.id) {
+        this.initForm(reservationPackage.exclusive_memberships);
         this.reservationPackageForm.controls['name'].setValue(reservationPackage.name);
         this.reservationPackageForm.controls['price'].setValue(reservationPackage.price);
         this.reservationPackageForm.controls['reservations'].setValue(reservationPackage.reservations);
         this.reservationPackageForm.controls['available'].setValue(reservationPackage.available);
-        if (reservationPackage['exclusive_memberships'].length === 0) {
-          this.reservationPackageForm.controls['exclusive_memberships'].setValue('none');
-        } else {
-          this.reservationPackageForm.controls['exclusive_memberships'].setValue(reservationPackage.exclusive_memberships[0]);
-        }
         this.selectedReservationPackageUrl = item.url;
         this.toogleModal('form_reservation_packages', 'Éditer un forfait', 'Éditer');
       }
@@ -131,13 +139,14 @@ export class ReservationPackagesComponent implements OnInit {
   submitReservationPackage() {
     if ( this.reservationPackageForm.valid ) {
       const reservationPackage = this.reservationPackageForm.value;
-
-      if (this.reservationPackageForm.controls['exclusive_memberships'].value === 'none') {
-        reservationPackage['exclusive_memberships'] = [];
-      } else {
-        reservationPackage['exclusive_memberships'] = [
-          this.reservationPackageForm.controls['exclusive_memberships'].value
-        ];
+      const formArray = this.reservationPackageForm.get('exclusive_memberships') as FormArray;
+      reservationPackage['exclusive_memberships'] = [];
+      let index = 0;
+      for (const control of formArray.controls) {
+        if (control.value) {
+          reservationPackage['exclusive_memberships'].push(this.listMemberships[index].url);
+        }
+        index++;
       }
 
       if (this.selectedReservationPackageUrl) {
@@ -232,22 +241,5 @@ export class ReservationPackagesComponent implements OnInit {
       reservations: reservationPackage.reservations,
       available: reservationPackage.available,
     };
-  }
-
-  showMembershipWarning() {
-    if (this.reservationPackageForm) {
-      for (const membership of this.listMemberships) {
-        if (membership.url === this.reservationPackageForm.value['exclusive_memberships']) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  addMembership(url) {
-    if (this.reservationPackageForm) {
-      this.reservationPackageForm.controls['exclusive_memberships'].setValue(url);
-    }
   }
 }

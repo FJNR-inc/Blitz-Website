@@ -43,21 +43,23 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="reservationPackageMemberships" class="nt-form-label">Membership admis:</label>
-      <select formControlName="exclusive_memberships" id="reservationPackageMemberships" class="nt-form-input nt-form-input--select" (change)="addMembership($event.target.value)">
-        <option value="none">Tous</option>
-        <option *ngFor="let membership of listMemberships" value="{{membership.url}}">
-          {{ membership.name }}
-        </option>
-      </select>
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of reservationPackageForm.controls['exclusive_memberships'].getError('apiError')">
-        {{ errorMessage }}
-      </div>
-      <div class="alert alert--warning" *ngIf="showMembershipWarning()">
-        Attention, si vous spécifiez un type de membership, seuls les gens disposant
-        actuellement de ce type de membership pourront bénéficier de ce forfait.
-      </div>
+      <span class="nt-form-label">Membership admis:</span>
+      <ng-container formArrayName="exclusive_memberships">
+        <div *ngFor="let membership of listMemberships; let i = index" >
+          <input type="checkbox"
+                 [formControlName]="i"
+                 [id]="'membership-'+membership.id"/>
+          <label [for]="'membership-'+membership.id">{{membership.name}}</label>
+        </div>
+      </ng-container>
+    </div>
+    <div class="form-text form-text--right form-text--danger"
+         *ngFor="let errorMessage of reservationPackageForm.controls['exclusive_memberships'].getError('apiError')">
+      {{ errorMessage }}
+    </div>
+    <div class="alert alert--warning">
+      Attention, si vous spécifiez un type de membership, seuls les gens disposant
+      actuellement de ce type de membership pourront bénéficier de ce forfait.
     </div>
     <div class="form-group">
       <div class="align-center">
