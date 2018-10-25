@@ -13,6 +13,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() filters: any[];
   @Input() confirmationOnDeletion = true;
+  @Input() limitChoices: number[] = null;
 
   @Output() selectItem: EventEmitter<any> = new EventEmitter();
   @Output() editItem: EventEmitter<any> = new EventEmitter();
@@ -20,6 +21,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Output() addButton: EventEmitter<any> = new EventEmitter();
   @Output() changePage: EventEmitter<any> = new EventEmitter();
   @Output() updateFilters: EventEmitter<any> = new EventEmitter();
+  @Output() updateLimit: EventEmitter<any> = new EventEmitter();
 
   selectedItem: any;
   uuid: string;
@@ -156,5 +158,9 @@ export class MyTableComponent implements OnInit, OnChanges {
 
   applyFilters() {
     this.updateFilters.emit(this.selectionnedFilters);
+  }
+
+  changeLimit(newLimit) {
+    this.updateLimit.emit(newLimit);
   }
 }

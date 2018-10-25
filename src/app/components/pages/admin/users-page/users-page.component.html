@@ -5,7 +5,9 @@
                   [filters]="filters"
                   (selectItem)="selectUser($event)"
                   (changePage)="changePage($event)"
-                  (updateFilters)="updateFilters($event)">
+                  (updateFilters)="updateFilters($event)"
+                  [limitChoices]="limitChoices"
+                  (updateLimit)="changeLimit($event)">
     </app-my-table>
   </div>
 </div>

@@ -79,6 +79,10 @@ export class UsersPageComponent implements OnInit {
     ]
   };
 
+  limitChoices = [10, 20, 100, 1000];
+  limit = 20;
+  page = 1;
+
   constructor(private userService: UserService,
               private router: Router) { }
 
@@ -87,10 +91,17 @@ export class UsersPageComponent implements OnInit {
   }
 
   changePage(index: number) {
-    this.refreshUserList(index);
+    this.page = index;
+    this.refreshUserList();
   }
 
-  refreshUserList(page = 1, limit = 20) {
+  changeLimit(event) {
+    this.limit = event;
+    this.page = 1;
+    this.refreshUserList();
+  }
+
+  refreshUserList(page = this.page, limit = this.limit) {
     this.userService.list(this.userFilters, limit, limit * (page - 1)).subscribe(
       users => {
         this.settings.numberOfPage = Math.ceil(users.count / limit);

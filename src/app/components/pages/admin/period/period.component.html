@@ -14,7 +14,9 @@
                   (editItem)="OpenModalEditTimeslot($event)"
                   (removeItem)="removeTimeslot($event)"
                   (changePage)="changePage($event)"
-                  (selectItem)="goToTimeslot($event)">
+                  (selectItem)="goToTimeslot($event)"
+                  [limitChoices]="limitChoices"
+                  (updateLimit)="changeLimit($event)">
     </app-my-table>
   </div>
 </div>

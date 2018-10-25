@@ -55,6 +55,10 @@ export class PeriodComponent implements OnInit {
   securityOnDeletion: false;
   messageOnDeletion = '';
 
+  limitChoices = [10, 20, 100, 1000];
+  limit = 20;
+  page = 1;
+
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
               private notificationService: NotificationsService,
@@ -99,7 +103,7 @@ export class PeriodComponent implements OnInit {
     }
   }
 
-  refreshTimeslotList(page = 1, limit = 20) {
+  refreshTimeslotList(page = this.page, limit = this.limit) {
     this.timeslotService.list([{'name': 'period', 'value': this.period.id}], limit, limit * (page - 1), 'start_time').subscribe(
       timeslots => {
         this.settings.numberOfPage = Math.ceil(timeslots.count / limit);
@@ -250,7 +254,14 @@ export class PeriodComponent implements OnInit {
   }
 
   changePage(index: number) {
-    this.refreshTimeslotList(index);
+    this.page = index;
+    this.refreshTimeslotList();
+  }
+
+  changeLimit(newLimit) {
+    this.limit = newLimit;
+    this.page = 1;
+    this.refreshTimeslotList();
   }
 
   isSecurityOnDeletionValid() {

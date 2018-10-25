@@ -89,13 +89,20 @@
     </td>
   </tr>
 </table>
-<div class="my-table__pagination">
-  <button *ngFor="let page of pagination"
-     (click)="goToPage(page.index)"
-     class="my-table__pagination__page"
-     [disabled]="page.index == null"
-     [ngClass]="{'active': page.active, 'disabled': page.index == null}">{{ page.name }}</button>
+<div class="my-table__footer">
+  <div class="my-table__footer__pagination">
+    <button *ngFor="let page of pagination"
+            (click)="goToPage(page.index)"
+            class="my-table__footer__pagination__page"
+            [disabled]="page.index == null"
+            [ngClass]="{'active': page.active, 'disabled': page.index == null}">{{ page.name }}</button>
+  </div>
+  <div class="my-table__footer__limits" *ngIf="limitChoices">
+    <span class="my-table__footer__limits__title">Objets par page: </span>
+    <a class="my-table__footer__limits__choice" *ngFor="let limit of limitChoices" (click)="changeLimit(limit)">{{limit}}</a>
+  </div>
 </div>
+
 
 <app-nt-modal name="{{deleteModalName}}"
               typeModal="danger"
