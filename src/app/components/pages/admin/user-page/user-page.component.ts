@@ -6,6 +6,7 @@ import { TimeSlot } from '../../../../models/timeSlot';
 import { Card } from '../../../../models/card';
 import { CardService } from '../../../../services/card.service';
 import {ReservationService} from '../../../../services/reservation.service';
+import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 
 @Component({
   selector: 'app-user-page',
@@ -28,6 +29,15 @@ export class UserPageComponent implements OnInit {
       {
         name: 'workplace_name',
         title: 'Lieu'
+      },
+      {
+        name: 'is_active',
+        title: 'Active',
+        type: 'boolean'
+      },
+      {
+        name: 'cancelation_reason_long',
+        title: 'Raison'
       }
     ]
   };
@@ -55,7 +65,8 @@ export class UserPageComponent implements OnInit {
               private userService: UserService,
               private reservationService: ReservationService,
               private router: Router,
-              private cardService: CardService) { }
+              private cardService: CardService,
+              private myModalService: MyModalService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -102,11 +113,25 @@ export class UserPageComponent implements OnInit {
     detail += ' - ';
     detail += timeslot.getEndTime() + ')';
 
-    return {
+    const reservationAdapted = {
       id: timeslot.id,
       start_event: detail,
       workplace_name: timeslot.workplace.name,
+      is_active: reservation.is_active,
+      cancelation_reason: reservation.cancelation_reason
     };
+
+    if (reservation.cancelation_reason === 'TM') {
+      reservationAdapted['cancelation_reason_long'] = 'Plage horaire modifié';
+    } else if (reservation.cancelation_reason === 'U') {
+      reservationAdapted['cancelation_reason_long'] = 'Annulé par l\'utilisateur';
+    } else if (reservation.cancelation_reason === 'TD') {
+      reservationAdapted['cancelation_reason_long'] = 'Plage horaire supprimé';
+    } else {
+      reservationAdapted['cancelation_reason_long'] = '-';
+    }
+
+    return reservationAdapted;
   }
 
   cardAdapter(card: Card) {
@@ -118,6 +143,21 @@ export class UserPageComponent implements OnInit {
   }
 
   goToTimeslot(event) {
-    this.router.navigate(['/admin/timeslot/' + event.id]);
+    if (event.cancelation_reason !== 'TD') {
+      this.router.navigate(['/admin/timeslot/' + event.id]);
+    } else {
+      this.toggleModal('timeslot_deleted');
+    }
+  }
+
+  toggleModal(name) {
+    const modal = this.myModalService.get(name);
+
+    if (!modal) {
+      console.error('No modal named %s', name);
+      return;
+    }
+
+    modal.toggle();
   }
 }

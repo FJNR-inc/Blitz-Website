@@ -33,6 +33,15 @@ export class TimeslotComponent implements OnInit {
       {
         name: 'email',
         title: 'Courriel',
+      },
+      {
+        name: 'is_active',
+        title: 'Active',
+        type: 'boolean'
+      },
+      {
+        name: 'cancelation_reason',
+        title: 'Raison'
       }
     ]
   };
@@ -70,11 +79,21 @@ export class TimeslotComponent implements OnInit {
   reservationAdapter(reservation) {
     const user = new User(reservation.user_details);
 
-    return {
+    const reservationAdapted = {
       id: user.id,
       first_name: user.first_name,
       last_name: user.last_name,
-      email: user.email
+      email: user.email,
+      is_active: reservation.is_active,
     };
+
+    if (reservation.cancelation_reason === 'TM') {
+      reservationAdapted['cancelation_reason'] = 'Plage horaire modifié';
+    } else if (reservation.cancelation_reason === 'U') {
+      reservationAdapted['cancelation_reason'] = 'Annulé par l\'utilisateur';
+    } else {
+      reservationAdapted['cancelation_reason'] = '-';
+    }
+    return reservationAdapted;
   }
 }
