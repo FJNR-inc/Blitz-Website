@@ -7,6 +7,9 @@
   Début de la période: {{ period.getStartDay() }}<br/>
   Fin de la période: {{ period.getEndDay()}}
 
+  <a class="admin-period-page__display-link nt-link" *ngIf="displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(false)">Afficher les anciens blocs de rédaction</a>
+  <a class="admin-period-page__display-link nt-link" *ngIf="!displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(true)">Cacher les anciens blocs de rédaction</a>
+
   <div class="admin-period-page__table">
     <app-my-table [settings]="settings"
                   [data]="listAdaptedTimeslots"

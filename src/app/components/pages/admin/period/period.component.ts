@@ -59,6 +59,8 @@ export class PeriodComponent implements OnInit {
   limit = 20;
   page = 1;
 
+  displayOnlyFutureTimeslot = true;
+
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
               private notificationService: NotificationsService,
@@ -103,8 +105,22 @@ export class PeriodComponent implements OnInit {
     }
   }
 
-  refreshTimeslotList(page = this.page, limit = this.limit) {
-    this.timeslotService.list([{'name': 'period', 'value': this.period.id}], limit, limit * (page - 1), 'start_time').subscribe(
+  refreshTimeslotList(onlyFuture = this.displayOnlyFutureTimeslot, page = this.page, limit = this.limit) {
+    const filters: {name: string, value: any}[] = [
+      {
+        'name': 'period',
+        'value': this.period.id
+      }
+    ];
+
+    if (onlyFuture) {
+      filters.push({
+        'name': 'start_time__gte',
+        'value': new Date().toISOString(),
+      });
+    }
+
+    this.timeslotService.list(filters, limit, limit * (page - 1), 'start_time').subscribe(
       timeslots => {
         this.settings.numberOfPage = Math.ceil(timeslots.count / limit);
         this.settings.page = page;
@@ -266,5 +282,10 @@ export class PeriodComponent implements OnInit {
 
   isSecurityOnDeletionValid() {
     return this.securityOnDeletion;
+  }
+
+  setDisplayOnlyFutureTimeslot(value) {
+    this.displayOnlyFutureTimeslot = value;
+    this.refreshTimeslotList();
   }
 }
