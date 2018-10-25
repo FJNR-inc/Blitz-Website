@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
 import { Period } from '../models/period';
+import {TimeSlot} from '../models/timeSlot';
 
 @Injectable()
 export class PeriodService extends GlobalService {
@@ -58,11 +59,18 @@ export class PeriodService extends GlobalService {
     );
   }
 
-  remove(period: Period): Observable<any> {
+  remove(period: Period, force = false, message = ''): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.delete<any>(
+    return this.http.request<any>(
+      'delete',
       period.url,
-      {headers: headers}
+      {
+        body: {
+          'force_delete': force,
+          'custom_message': message
+        },
+        headers: headers
+      }
     );
   }
 }

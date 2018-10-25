@@ -98,6 +98,10 @@
     En supprimant ce bloc de rédaction vous entrainez des remboursements ainsi que des courriels
     d'excuses auprès de tous les utilisateurs ayant déjà réservé ce bloc de rédaction.
   </p>
+  <div class="form-group">
+    <label class="nt-form-label">Message explicatif pour les utilisateurs:</label>
+    <textarea [(ngModel)]="messageOnDeletion" class="nt-form-input nt-form-input--textarea"></textarea>
+  </div>
   <div class="align-top">
     <input id="securityCheckbox" type="checkbox" [(ngModel)]="securityOnDeletion" />
     <label class="nt-form-label" for="securityCheckbox">

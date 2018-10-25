@@ -71,3 +71,30 @@
     </div>
   </form>
 </app-nt-modal>
+
+<app-nt-modal name="validation_deletion"
+              typeModal="success"
+              (button2)="removePeriod(null, true)"
+              maxWidth="600px"
+              [autoClose]="true"
+              [activated]="isSecurityOnDeletionValid()">
+  <p>
+    Supprimer une période de rédaction peux avoir de lourde conséquence sur les
+    utilisateurs de l'espace et toutes les données saisies dans le système.
+  </p>
+  <p>
+    En supprimant cette période de rédaction vous entrainez potentiellement des remboursements
+    ainsi que des courriels d'excuses auprès de tous les utilisateurs ayant déjà réservé des
+    blocs de rédactions.
+  </p>
+  <div class="form-group">
+    <label class="nt-form-label">Message explicatif pour les utilisateurs:</label>
+    <textarea [(ngModel)]="messageOnDeletion" class="nt-form-input nt-form-input--textarea"></textarea>
+  </div>
+  <div class="align-top">
+    <input id="securityCheckbox" type="checkbox" [(ngModel)]="securityOnDeletion" />
+    <label class="nt-form-label" for="securityCheckbox">
+      Je me suis renseigné sur les conséquences de mon acte et en prend l'entière responsabilité
+    </label>
+  </div>
+</app-nt-modal>

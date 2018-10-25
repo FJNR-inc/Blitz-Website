@@ -70,11 +70,18 @@ export class TimeSlotService extends GlobalService {
     );
   }
 
-  remove(timeslot: TimeSlot): Observable<any> {
+  remove(timeslot: TimeSlot, force = false, message = ''): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.delete<any>(
+    return this.http.request<any>(
+      'delete',
       timeslot.url,
-      {headers: headers}
+      {
+        body: {
+          'force_delete': force,
+          'custom_message': message
+        },
+        headers: headers
+      }
     );
   }
 }

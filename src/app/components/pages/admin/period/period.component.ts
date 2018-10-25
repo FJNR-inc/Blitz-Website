@@ -53,6 +53,7 @@ export class PeriodComponent implements OnInit {
 
   timeslotInDeletion: any = null;
   securityOnDeletion: false;
+  messageOnDeletion = '';
 
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
@@ -207,7 +208,7 @@ export class PeriodComponent implements OnInit {
       if (this.timeslotInDeletion.number_of_reservations > 0 && !force) {
         this.toggleModal('validation_deletion', 'Attention!', 'Rembourser & Contacter');
       } else {
-        this.timeslotService.remove(this.timeslotInDeletion).subscribe(
+        this.timeslotService.remove(this.timeslotInDeletion, force, this.messageOnDeletion).subscribe(
           data => {
             this.notificationService.success('Supprimé', 'Le bloc de rédaction a bien été supprimé.');
             this.refreshTimeslotList();

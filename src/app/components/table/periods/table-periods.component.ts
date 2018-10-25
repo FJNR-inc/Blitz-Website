@@ -58,6 +58,10 @@ export class TablePeriodsComponent implements OnInit {
     ]
   };
 
+  periodInDeletion: any = null;
+  securityOnDeletion: false;
+  messageOnDeletion = '';
+
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
               private notificationService: NotificationsService,
@@ -121,7 +125,7 @@ export class TablePeriodsComponent implements OnInit {
     this.periodForm.controls['is_active'].setValue(false);
     this.periodForm.controls['price'].setValue(1);
     this.selectedPeriodUrl = null;
-    this.toogleModal('form_periods', 'Ajouter une période', 'Créer');
+    this.toggleModal('form_periods', 'Ajouter une période', 'Créer');
   }
 
   OpenModalEditPeriod(item) {
@@ -135,7 +139,7 @@ export class TablePeriodsComponent implements OnInit {
         this.periodForm.controls['is_active'].setValue(period.is_active);
         this.periodForm.controls['price'].setValue(period.price);
         this.selectedPeriodUrl = period.url;
-        this.toogleModal('form_periods', 'Éditer une période', 'Éditer');
+        this.toggleModal('form_periods', 'Éditer une période', 'Éditer');
       }
     }
   }
@@ -150,7 +154,7 @@ export class TablePeriodsComponent implements OnInit {
           data => {
             this.notificationService.success('Modifié');
             this.refreshPeriodList();
-            this.toogleModal('form_periods');
+            this.toggleModal('form_periods');
           },
           err => {
             if (err.error.non_field_errors) {
@@ -188,7 +192,7 @@ export class TablePeriodsComponent implements OnInit {
           data => {
             this.notificationService.success('Ajouté');
             this.refreshPeriodList();
-            this.toogleModal('form_periods');
+            this.toggleModal('form_periods');
           },
           err => {
             if (err.error.non_field_errors) {
@@ -225,19 +229,30 @@ export class TablePeriodsComponent implements OnInit {
     }
   }
 
-  removePeriod(item) {
-    this.periodService.remove(item).subscribe(
-      data => {
-        this.notificationService.success('Supprimé', 'La période a bien été supprimé.');
-        this.refreshPeriodList();
-      },
-      err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+  removePeriod(item = null, force = false) {
+    if (!item && !this.periodInDeletion) {
+      console.error('No one timeslot given in argument');
+    } else {
+      if (item) {
+        this.periodInDeletion = item;
       }
-    );
+      if (!force) {
+        this.toggleModal('validation_deletion', 'Attention!', 'Rembourser & Contacter');
+      } else {
+        this.periodService.remove(this.periodInDeletion, force, this.messageOnDeletion).subscribe(
+          data => {
+            this.notificationService.success('Supprimé', 'La période a bien été supprimé.');
+            this.refreshPeriodList();
+          },
+          err => {
+            this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+          }
+        );
+      }
+    }
   }
 
-  toogleModal(name, title = '', button2 = '') {
+  toggleModal(name, title = '', button2 = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
@@ -263,5 +278,9 @@ export class TablePeriodsComponent implements OnInit {
 
   goToPeriod(event) {
     this.router.navigate(['/admin/periods/' + event.id]);
+  }
+
+  isSecurityOnDeletionValid() {
+    return this.securityOnDeletion;
   }
 }
