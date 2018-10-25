@@ -1,0 +1,56 @@
+.icon-calendar {
+  width: 200px;
+  margin-top: 20px;
+
+  &__header {
+    background-color: indianred;
+    border-radius: 20px 20px 0 0;
+    height: 50px;
+    position: relative;
+
+    &__clip {
+      position: absolute;
+      width: 20px;
+      height: 30px;
+      background-color: #4b4b4b;
+      border-radius: 15px;
+
+      &--left {
+        top: -10px;
+        left: 20px;
+      }
+
+      &--right {
+        top: -10px;
+        right: 20px;
+      }
+    }
+  }
+
+  &__content {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0 0 20px 20px;
+
+    &__month{
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: 900;
+      margin: 10px 0;
+    }
+
+    &__day {
+      font-weight: 900;
+      font-size: 50px;
+      margin: 15px 0;
+    }
+
+    &__day-long {
+      font-weight: 900;
+      font-size: 12px;
+      margin: 10px 0;
+    }
+  }
+}

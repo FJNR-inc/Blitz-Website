@@ -2,13 +2,55 @@
 
 <div class="admin-period-page" *ngIf="period">
   <div class="admin-period-page__title">
-    <h2 class="nt-title">{{ period.name }}</h2>
+    <h2 class="nt-title">Période de rédaction / {{ period.name }}</h2>
   </div>
-  Début de la période: {{ period.getStartDay() }}<br/>
-  Fin de la période: {{ period.getEndDay()}}
 
-  <a class="admin-period-page__display-link nt-link" *ngIf="displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(false)">Afficher les anciens blocs de rédaction</a>
-  <a class="admin-period-page__display-link nt-link" *ngIf="!displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(true)">Cacher les anciens blocs de rédaction</a>
+  <div class="admin-period-page__header">
+    <div>
+      <a class="admin-period-page__display-link nt-button" *ngIf="displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(false)">Afficher les anciens blocs de rédaction</a>
+      <a class="admin-period-page__display-link nt-button" *ngIf="!displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(true)">Cacher les anciens blocs de rédaction</a>
+    </div>
+
+    <div class="admin-period-page__header__dates">
+      <div class="admin-period-page__header__dates__item icon-calendar">
+        <div class="icon-calendar__header">
+          <div class="icon-calendar__header__clip icon-calendar__header__clip--left"></div>
+          <div class="icon-calendar__header__clip icon-calendar__header__clip--right"></div>
+        </div>
+        <div class="icon-calendar__content">
+          <div class="icon-calendar__content__month">
+            {{period.getStartMonthName()}}
+          </div>
+          <div class="icon-calendar__content__day">
+            {{period.getStartDate()}}
+          </div>
+          <div class="icon-calendar__content__day-long">
+            {{period.getStartDayName()}}
+          </div>
+        </div>
+      </div>
+
+      <i class="admin-period-page__header__dates__item admin-period-page__header__dates__item--arrow fas fa-angle-double-right"></i>
+
+      <div class="admin-period-page__header__dates__item icon-calendar">
+        <div class="icon-calendar__header">
+          <div class="icon-calendar__header__clip icon-calendar__header__clip--left"></div>
+          <div class="icon-calendar__header__clip icon-calendar__header__clip--right"></div>
+        </div>
+        <div class="icon-calendar__content">
+          <div class="icon-calendar__content__month">
+            {{period.getEndMonthName()}}
+          </div>
+          <div class="icon-calendar__content__day">
+            {{period.getEndDate()}}
+          </div>
+          <div class="icon-calendar__content__day-long">
+            {{period.getEndDayName()}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="admin-period-page__table">
     <app-my-table [settings]="settings"

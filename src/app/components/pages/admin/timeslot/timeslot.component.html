@@ -2,7 +2,7 @@
 
 <div class="admin-timeslot-page" *ngIf="timeslot">
   <div class="admin-timeslot-page__title">
-    <h2 class="nt-title">Bloc de rédaction #{{ timeslot.id }}</h2>
+    <h2 class="nt-title">Bloc de rédaction / #{{ timeslot.id }}</h2>
   </div>
   <ul>
     <li>Début du bloc de rédaction: {{ timeslot.getStartDay() }} a {{ timeslot.getStartTime() }}</li>

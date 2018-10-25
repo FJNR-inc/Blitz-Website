@@ -19,4 +19,28 @@ export class Period extends BaseModel {
   getEndDay() {
     return DateUtil.formatDay(new Date(this.end_date));
   }
+
+  getStartDate() {
+    return DateUtil.getDate(new Date(this.start_date));
+  }
+
+  getEndDate() {
+    return DateUtil.getDate(new Date(this.end_date));
+  }
+
+  getStartDayName() {
+    return DateUtil.getLongDay(new Date(this.start_date));
+  }
+
+  getEndDayName() {
+    return DateUtil.getLongDay(new Date(this.end_date));
+  }
+
+  getStartMonthName() {
+    return DateUtil.getLongMonth(new Date(this.start_date));
+  }
+
+  getEndMonthName() {
+    return DateUtil.getLongMonth(new Date(this.end_date));
+  }
 }
