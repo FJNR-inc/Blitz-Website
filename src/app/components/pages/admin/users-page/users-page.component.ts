@@ -102,6 +102,7 @@ export class UsersPageComponent implements OnInit {
   }
 
   refreshUserList(page = this.page, limit = this.limit) {
+    this.resetUserData();
     this.userService.list(this.userFilters, limit, limit * (page - 1)).subscribe(
       users => {
         this.settings.numberOfPage = Math.ceil(users.count / limit);
@@ -145,5 +146,9 @@ export class UsersPageComponent implements OnInit {
         this.userFilters.push(newFilter);
     }
     this.refreshUserList();
+  }
+
+  resetUserData() {
+    this.listUsers = null;
   }
 }

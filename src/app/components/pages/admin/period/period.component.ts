@@ -106,6 +106,7 @@ export class PeriodComponent implements OnInit {
   }
 
   refreshTimeslotList(onlyFuture = this.displayOnlyFutureTimeslot, page = this.page, limit = this.limit) {
+    this.resetTimeslotData();
     const filters: {name: string, value: any}[] = [
       {
         'name': 'period',
@@ -287,5 +288,10 @@ export class PeriodComponent implements OnInit {
   setDisplayOnlyFutureTimeslot(value) {
     this.displayOnlyFutureTimeslot = value;
     this.refreshTimeslotList();
+  }
+
+  resetTimeslotData() {
+    this.listAdaptedTimeslots = null;
+    this.listTimeslots = null;
   }
 }
