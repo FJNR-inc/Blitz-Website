@@ -1,3 +1,5 @@
+<app-loader *ngIf="!profile"></app-loader>
+
 <div class="profile-page" *ngIf="profile">
   <h1 class="profile-page__title">
     Bonjour {{ profile.first_name }},
@@ -71,12 +73,20 @@
           {{ profile.membership.price }}$ / année
         </p>
       </div>
+      <div class="profile-page__content__left__box" *ngIf="!profile.membership">
+        <p class="profile-page__content__left__box__text">
+          Aucun abonnement
+        </p>
+        <p class="profile-page__content__left__box__sub-text">
+          <a class="nt-link" routerLink="/membership/intro">Devenez membre</a>
+        </p>
+      </div>
 
       <h2 class="profile-page__sub-title">
         Mode de paiement
       </h2>
 
-      <div class="profile-page__content__left__cards">
+      <div class="profile-page__content__left__cards" *ngIf="listCards && listCards.length">
         <div class="profile-page__content__left__cards__card" *ngFor="let card of listCards">
           <div class="profile-page__content__left__cards__card__title">
             Numéro de carte
@@ -93,6 +103,13 @@
                 {{ card.card_expiry.month }} / {{ card.card_expiry.year }}
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-page__content__left__cards" *ngIf="!listCards || listCards && !listCards.length">
+        <div class="profile-page__content__left__cards__card">
+          <div class="profile-page__content__left__cards__card__title">
+            Aucun mode de paiement pourt le moment
           </div>
         </div>
       </div>
@@ -155,7 +172,7 @@
           </p>
         </div>
         <div class="profile-page__content__right__stats__future">
-          <p class="profile-page__content__right__stats__future__number" *ngIf="totalFutureReservations">
+          <p class="profile-page__content__right__stats__future__number">
             {{totalFutureReservations}}
             <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__stats__future__number__icon"/>
           </p>
