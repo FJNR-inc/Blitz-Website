@@ -217,7 +217,7 @@
             </select>
           </div>
           <button (click)="addMembership()"
-                  type="submit"
+                  type="button"
                   class="reservation-page__content__details__form__alert__button nt-button">
             Ajouter au panier
           </button>
@@ -238,7 +238,7 @@
               </option>
             </select>
           </div>
-          <button (click)="addPackage()" type="submit" class="reservation-page__content__details__form__alert__button nt-button">
+          <button (click)="addPackage()" type="button" class="reservation-page__content__details__form__alert__button nt-button">
             Ajouter au panier
           </button>
         </form>
@@ -282,7 +282,7 @@
               {{ error }}
             </div>
           </div>
-          <button type="submit" (click)="finalizeTransaction()" class="reservation-page__content__details__form__payment__button nt-button" [ngClass]="{'nt-button--disabled': isPaymentButtonDisabled()}">
+          <button type="button" (click)="finalizeTransaction()" class="reservation-page__content__details__form__payment__button nt-button" [ngClass]="{'nt-button--disabled': isPaymentButtonDisabled()}">
             {{ getLabelFinalizeButton() }}
           </button>
         </form>

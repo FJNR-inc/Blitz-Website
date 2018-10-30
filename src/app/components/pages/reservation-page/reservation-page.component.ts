@@ -490,7 +490,7 @@ export class ReservationPageComponent implements OnInit {
     this.orderService.create(newOrder).subscribe(
       response => {
         this.waitAPI = false;
-        this.notificationService.success('Réservation effectué', 'Bravo!');
+        this.notificationService.success('Achat effectué', 'Bravo!');
         this.router.navigate(['/profile']);
       }, err => {
         this.waitAPI = false;
