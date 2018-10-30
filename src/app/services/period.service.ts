@@ -61,14 +61,16 @@ export class PeriodService extends GlobalService {
 
   remove(period: Period, force = false, message = ''): Observable<any> {
     const headers = this.getHeaders();
+    const body = {};
+    if ( force ) {
+      body['force_delete'] = force;
+      body['custom_message'] = message;
+    }
     return this.http.request<any>(
       'delete',
       period.url,
       {
-        body: {
-          'force_delete': force,
-          'custom_message': message
-        },
+        body: body,
         headers: headers
       }
     );

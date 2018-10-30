@@ -46,6 +46,10 @@ export class MyModalComponent implements OnInit {
     this.errorMessage = value;
   }
 
+  close() {
+    this.show = false;
+  }
+
   toggle() {
     this.show = !this.show;
 

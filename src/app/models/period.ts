@@ -11,6 +11,7 @@ export class Period extends BaseModel {
   is_active: boolean;
   workplace: Workplace[];
   price: number;
+  total_reservations: number;
 
   getStartDay() {
     return DateUtil.formatDay(new Date(this.start_date));

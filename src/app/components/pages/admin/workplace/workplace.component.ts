@@ -98,7 +98,7 @@ export class WorkplaceComponent implements OnInit {
 
   onRemoved(event) {
     for (const picture of this.listPictures) {
-      if (picture.name === event.name) {
+      if (picture.id === event.id) {
         this.pictureService.remove(picture).subscribe(
           data => {
             this.notificationService.success('Supprimé', 'La photo a bien été supprimé.');

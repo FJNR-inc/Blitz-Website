@@ -236,12 +236,15 @@ export class TablePeriodsComponent implements OnInit {
       if (item) {
         this.periodInDeletion = item;
       }
-      if (!force) {
+      if (!force && this.periodInDeletion.total_reservations > 0) {
         this.toggleModal('validation_deletion', 'Attention!', 'Rembourser & Contacter');
       } else {
+        console.log(force);
+        console.log(this.periodInDeletion.total_reservations);
         this.periodService.remove(this.periodInDeletion, force, this.messageOnDeletion).subscribe(
           data => {
             this.notificationService.success('Supprimé', 'La période a bien été supprimé.');
+            this.myModalService.get('validation_deletion').close();
             this.refreshPeriodList();
           },
           err => {
@@ -272,7 +275,8 @@ export class TablePeriodsComponent implements OnInit {
       name: period.name,
       start_date: period.getStartDay(),
       end_date: period.getEndDay(),
-      is_active: period.is_active
+      is_active: period.is_active,
+      total_reservations: period.total_reservations
     };
   }
 
