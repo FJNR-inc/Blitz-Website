@@ -25,7 +25,6 @@ export class WorkplacesComponent implements OnInit {
     title: 'Espaces de travail',
     noDataText: 'Aucun espace de travail pour le moment',
     addButton: true,
-    removeButton: true,
     clickable: true,
     previous: false,
     next: false,
