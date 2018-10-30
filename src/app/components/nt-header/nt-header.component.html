@@ -46,6 +46,11 @@
             Blogue
           </a>
         </li>
+        <li class="nt-header__nav__item" *ngIf="isAdmin()">
+          <a routerLink="/admin/users">
+            Adminitration
+          </a>
+        </li>
       </ul>
     </div>
     <div class="nt-header__content__right">

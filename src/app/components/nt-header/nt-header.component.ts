@@ -41,4 +41,8 @@ export class NtHeaderComponent implements OnInit {
   isAuthenticated() {
     return this.authenticationService.isAuthenticated();
   }
+
+  isAdmin() {
+    return this.authenticationService.isAdmin();
+  }
 }

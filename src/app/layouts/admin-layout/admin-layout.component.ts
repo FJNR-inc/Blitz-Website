@@ -33,6 +33,10 @@ import { Component, OnInit } from '@angular/core';
             <i class="fas fa-hand-holding-usd"></i>
             Forfaits
           </a>
+          <a routerLink="/" class="left-nav__item">
+            <i class="fas fa-door-open"></i>
+            Retour au site
+          </a>
         </div>
         <div id="main">
           <router-outlet></router-outlet>

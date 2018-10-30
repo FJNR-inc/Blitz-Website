@@ -256,7 +256,9 @@ export class ReservationPageComponent implements OnInit {
     this.reservationPackageService.list(filters).subscribe(
       reservationPackages => {
         this.listReservationPackage = reservationPackages.results.map(r => new ReservationPackage(r));
-        this.currentPackage = this.listReservationPackage[0].id;
+        if (this.listReservationPackage.length) {
+          this.currentPackage = this.listReservationPackage[0].id;
+        }
       }
     );
   }
