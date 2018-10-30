@@ -21,6 +21,14 @@ export class Period extends BaseModel {
     return DateUtil.formatDay(new Date(this.end_date));
   }
 
+  getStartYear() {
+    return DateUtil.getYear(new Date(this.start_date));
+  }
+
+  getEndYear() {
+    return DateUtil.getYear(new Date(this.end_date));
+  }
+
   getStartDate() {
     return DateUtil.getDate(new Date(this.start_date));
   }

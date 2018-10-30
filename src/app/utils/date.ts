@@ -71,4 +71,8 @@ export class DateUtil {
   static getDate(date) {
     return date.getDate();
   }
+
+  static getYear(date) {
+    return date.getFullYear();
+  }
 }

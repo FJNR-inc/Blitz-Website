@@ -31,5 +31,21 @@ export class TimeSlot extends BaseModel {
     const date = new Date(this.end_time);
     return DateUtil.formatTime(date);
   }
+
+  getStartDate() {
+    return DateUtil.getDate(new Date(this.start_time));
+  }
+
+  getStartDayName() {
+    return DateUtil.getLongDay(new Date(this.start_time));
+  }
+
+  getStartMonthName() {
+    return DateUtil.getLongMonth(new Date(this.start_time));
+  }
+
+  getStartYear() {
+    return DateUtil.getYear(new Date(this.start_time));
+  }
 }
 
