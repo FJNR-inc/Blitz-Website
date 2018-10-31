@@ -1,4 +1,4 @@
-<div class="modal-component" (click)="clickOverlay($event)" [hidden]="!show">
+<div class="modal-component" (click)="clickOverlay($event)" [style.display]="!show ? 'none' : 'block'">
   <div class="modal-component__content">
     <div class="modal-component__content__reveal" [style.width]="maxWidth">
       <div class="modal-component__content__reveal__header">
