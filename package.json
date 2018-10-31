@@ -26,10 +26,12 @@
     "angular-calendar": "^0.24.1",
     "angular2-image-upload": "^1.0.0-rc.1",
     "angular2-notifications": "^1.0.4",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "ng-pick-datetime": "^5.2.6",
     "rxjs": "^6.3.1",
     "rxjs-compat": "^6.3.1",
+    "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
