@@ -34,10 +34,12 @@ app-membership {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
 
       &__title {
         font-weight: bold;
         font-size: 12pt;
+        max-width: 80%;
       }
 
       &__number {

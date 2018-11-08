@@ -1,33 +1,32 @@
 <div class="activation-page">
   <div *ngIf="success === null">
     <h2 class="nt-title">
-      Activation du profil en cours...
+      {{ 'activation.pending' | translate }}
     </h2>
   </div>
   <div *ngIf="success === false">
     <h2 class="nt-title">
-      Impossible d'activer le profil.
+      {{ 'activation.fail_title' | translate }}
     </h2>
     <div class="activation-page__sub-title">
-      Vérifiez que le profil n'ait pas déjà été activé, si ce n'est
-      pas le cas n'hésitez pas à contacter l'équipe d'administration.
+      {{ 'activation.fail_text' | translate }}
     </div>
     <div class="activation-page__button">
       <a class="nt-link" routerLink="/login">
-        Se rendre sur la page de connexion
+        {{ 'activation.fail_button' | translate }}
       </a>
     </div>
   </div>
   <div *ngIf="success">
     <h2 class="nt-title">
-      Votre profil est activé!
+      {{ 'activation.success_title' | translate }}
     </h2>
     <div class="activation-page__sub-title">
-      Vous pouvez maintenant vous connecter à la plateforme.
+      {{ 'activation.success_text' | translate }}
     </div>
     <div class="activation-page__button">
       <a routerLink="/login" class="nt-link">
-        Se rendre sur la page de connexion
+        {{ 'activation.success_button' | translate }}
       </a>
     </div>
   </div>

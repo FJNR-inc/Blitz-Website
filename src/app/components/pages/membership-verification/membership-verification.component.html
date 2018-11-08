@@ -1,20 +1,19 @@
 <div class="membership-verification-page">
   <div class="membership-verification-page__nav">
-    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+    <app-nt-wizzard [active]="menuActive"></app-nt-wizzard>
   </div>
   <div class="membership-verification-page__content">
     <div>
       <h2 class="nt-title">
-        Vérification
+        {{ 'membership-verification.title' | translate }}
       </h2>
     </div>
     <div class="membership-verification-page__content__text">
       <p>
-        Veuillez consulter votre messagerie afin de confirmer votre
-        adresse courriel.
+        {{ 'membership-verification.text_1' | translate }}
       </p>
       <p>
-        Attention! Votre inscription n'est pas encore completée.
+        {{ 'membership-verification.text_2' | translate }}
       </p>
     </div>
   </div>

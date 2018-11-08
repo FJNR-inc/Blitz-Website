@@ -9,27 +9,6 @@ import {Router} from '@angular/router';
 })
 export class MembershipVerificationComponent implements OnInit {
 
-  menu = [
-    {
-      'name': 'Informations'
-    },
-    {
-      'name': 'Vérification'
-    },
-    {
-      'name': 'Confirmation'
-    },
-    {
-      'name': 'Abonnement'
-    },
-    {
-      'name': 'Résumé'
-    },
-    {
-      'name': 'Paiement'
-    }
-  ];
-
   menuActive = 1;
 
   constructor(private authenticationService: AuthenticationService,

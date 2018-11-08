@@ -7,7 +7,27 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class NtWizzardComponent implements OnInit {
 
-  @Input() items: any[];
+  @Input() items: any[] = [
+    {
+      'name': 'Informations'
+    },
+    {
+      'name': 'Vérification'
+    },
+    {
+      'name': 'Confirmation'
+    },
+    {
+      'name': 'Abonnement'
+    },
+    {
+      'name': 'Résumé'
+    },
+    {
+      'name': 'Paiement'
+    }
+  ];
+
   @Input() active: number;
 
   constructor() { }

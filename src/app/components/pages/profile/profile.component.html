@@ -2,13 +2,13 @@
 
 <div class="profile-page" *ngIf="profile">
   <h1 class="profile-page__title">
-    Bonjour {{ profile.first_name }},
+    {{ 'profile.welcome' | translate }} {{ profile.first_name }},
   </h1>
 
   <div class="profile-page__content">
     <div class="profile-page__content__left">
       <h2 class="profile-page__sub-title">
-        Informations personnelles
+        {{ 'profile.personal_informations' | translate }}
       </h2>
 
       <form (submit)="submitProfile()" [formGroup]="userForm" *ngIf="userForm">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="form-group">
-          <label for="first_name" class="nt-form-label">Nom:</label>
+          <label for="first_name" class="nt-form-label">{{ 'shared.form.last_name' | translate }}:</label>
           <input formControlName="first_name" class="nt-form-input" id="first_name" type="text">
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of userForm.controls['first_name'].getError('apiError')">
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="last_name" class="nt-form-label">Prenom:</label>
+          <label for="last_name" class="nt-form-label">{{ 'shared.form.first_name' | translate }}:</label>
           <input formControlName="last_name" class="nt-form-input" id="last_name" type="text">
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of userForm.controls['last_name'].getError('apiError')">
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="birthdate" class="nt-form-label">Date de naissance:</label>
+          <label for="birthdate" class="nt-form-label">{{ 'shared.form.birthdate' | translate }}:</label>
           <input [owlDateTimeTrigger]="dt_end"
                  [owlDateTime]="dt_end"
                  formControlName="birthdate"
@@ -46,23 +46,23 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="gender" class="nt-form-label">Genre:</label>
+          <label for="gender" class="nt-form-label">{{ 'shared.form.gender' | translate }}:</label>
           <select formControlName="gender" id="gender" class="nt-form-input">
-            <option value="A">Je ne souhaite pas m'identifie</option>
-            <option value="M">Homme</option>
-            <option value="F">Femme</option>
-            <option value="T">Trans</option>
+            <option value="A">{{ 'shared.form.gender_none' | translate }}</option>
+            <option value="M">{{ 'shared.form.gender_male' | translate }}</option>
+            <option value="F">{{ 'shared.form.gender_female' | translate }}</option>
+            <option value="T">{{ 'shared.form.gender_no_binary' | translate }}</option>
           </select>
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of userForm.controls['gender'].getError('apiError')">
             {{ errorMessage}}
           </div>
         </div>
-        <button type="submit" class="nt-button">Sauvegarder</button>
+        <button type="submit" class="nt-button">{{ 'shared.buttons.save' | translate }}</button>
       </form>
 
       <h2 class="profile-page__sub-title">
-        Abonnement
+        {{ 'profile.subscription' | translate }}
       </h2>
 
       <div class="profile-page__content__left__box" *ngIf="profile.membership">
@@ -70,26 +70,26 @@
           {{ profile.membership.name }}
         </p>
         <p class="profile-page__content__left__box__sub-text">
-          {{ profile.membership.price }}$ / année
+          {{ profile.membership.price }}$ / {{ 'shared.common.year' | translate }}
         </p>
       </div>
       <div class="profile-page__content__left__box" *ngIf="!profile.membership">
         <p class="profile-page__content__left__box__text">
-          Aucun abonnement
+          {{ 'profile.no_subscriptions' | translate }}
         </p>
         <p class="profile-page__content__left__box__sub-text">
-          <a class="nt-link" routerLink="/membership/intro">Devenez membre</a>
+          <a class="nt-link" routerLink="/membership/intro">{{ 'shared.buttons.become_member' | translate }}Devenez membre</a>
         </p>
       </div>
 
       <h2 class="profile-page__sub-title">
-        Mode de paiement
+        {{ 'profile.payment_mode' | translate }}
       </h2>
 
       <div class="profile-page__content__left__cards" *ngIf="listCards && listCards.length">
         <div class="profile-page__content__left__cards__card" *ngFor="let card of listCards">
           <div class="profile-page__content__left__cards__card__title">
-            Numéro de carte
+            {{ 'shared.form.card_number' | translate }}
           </div>
           <div class="profile-page__content__left__cards__card__number">
             **** **** **** {{ card.last_digits }}
@@ -97,7 +97,7 @@
           <div class="profile-page__content__left__cards__card__bottom">
             <div>
               <div class="profile-page__content__left__cards__card__title">
-                Date d'expiration
+                {{ 'shared.form.expiration_date' | translate }}
               </div>
               <div class="profile-page__content__left__cards__card__number">
                 {{ card.card_expiry.month }} / {{ card.card_expiry.year }}
@@ -109,26 +109,22 @@
       <div class="profile-page__content__left__cards" *ngIf="!listCards || listCards && !listCards.length">
         <div class="profile-page__content__left__cards__card">
           <div class="profile-page__content__left__cards__card__title">
-            Aucun mode de paiement pourt le moment
+            {{ 'profile.no_payment_mode' | translate }}
           </div>
         </div>
       </div>
 
       <h2 class="profile-page__sub-title">
-        Désactivation
+        {{ 'profile.deactivation' | translate }}
       </h2>
 
       <div class="profile-page__content__left__account">
         <div class="profile-page__content__left__account__content">
-          <p>Si vous désactivez votre profil:</p>
-          <ul>
-            <li>Vous ne pourrez plus vous connecter sur ce site</li>
-            <li>Vos réservations seront annulées automatiquement</li>
-            <li>Certaines de vos informations personnelles pourraient être supprimés</li>
-          </ul>
+          <div [innerHTML]="'profile.deactivation_card.text' | translate">
+          </div>
 
           <a class="nt-link profile-page__content__left__account__content__link" appMyModalOpen='form_deactivate_account'>
-            Désactiver mon profil
+            {{ 'profile.deactivation_card.link' | translate }}
           </a>
         </div>
       </div>
@@ -140,10 +136,10 @@
             {{ profile.tickets}}
           </p>
           <div class="profile-page__content__right__top__box__text">
-            bloc(s) prépayé(s)
+            {{ 'profile.prepaid_bloc' | translate }}
           </div>
           <p class="profile-page__content__right__top__box__sub-text">
-            pour réserver à l'Espace
+            {{ 'profile.prepaid_bloc_subtext' | translate }}
           </p>
         </div>
         <div class="profile-page__content__right__top__box profile-page__content__right__top__box--main">
@@ -151,10 +147,10 @@
             {{ profile.getTimeBeforeEndMembership() }}
           </p>
           <div class="profile-page__content__right__top__box__text">
-            jour(s) restant(s)
+            {{ 'profile.remaining_days' | translate }}
           </div>
           <p class="profile-page__content__right__top__box__sub-text">
-            à votre membership
+            {{ 'profile.remaining_days_subtext' | translate }}
           </p>
         </div>
       </div>
@@ -165,10 +161,10 @@
             <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__stats__done__number__icon"/>
           </p>
           <p class="profile-page__content__right__stats__done__text">
-            Accomplie(s)
+            {{ 'profile.accomplished' | translate }}
           </p>
           <p class="profile-page__content__right__stats__done__sub-text">
-            jusqu'à maintenant
+            {{ 'profile.accomplished_subtext' | translate }}
           </p>
         </div>
         <div class="profile-page__content__right__stats__future">
@@ -177,35 +173,35 @@
             <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__stats__future__number__icon"/>
           </p>
           <p class="profile-page__content__right__stats__future__text">
-            Prévue(s)
+            {{ 'profile.planned' | translate }}
           </p>
           <p class="profile-page__content__right__stats__future__sub-text">
-            à votre horaire
+            {{ 'profile.planned_subtext' | translate }}
           </p>
         </div>
       </div>
       <div class="profile-page__content__right__blocs">
         <h2 class="profile-page__sub-title">
-          Mes blocs de rédaction
+          {{ 'profile.list_blocs_title' | translate }}
         </h2>
 
         <table class="profile-page__content__right__blocs__table">
           <thead class="profile-page__content__right__blocs__table__header">
             <tr>
               <th>
-                Date
+                {{ 'shared.common.date' | translate }}
               </th>
               <th>
-                Espace
+                {{ 'shared.common.space' | translate }}
               </th>
               <th>
-                Heures
+                {{ 'shared.common.hours' | translate }}
               </th>
               <th>
                 <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__blocs__table__header__icon" />
               </th>
               <th>
-                Annuler
+                {{ 'shared.common.cancel' | translate }}
               </th>
             </tr>
           </thead>
@@ -225,7 +221,7 @@
                 {{reservation.timeslot_details.workplace.city}}, {{reservation.timeslot_details.workplace.state_province}} {{reservation.timeslot_details.workplace.postal_code}}
               </td>
               <td>
-                {{reservation.timeslot_details.getStartTime()}} à {{reservation.timeslot_details.getEndTime()}}
+                {{reservation.timeslot_details.getStartTime()}} {{ 'shared.common.to' | translate }} {{reservation.timeslot_details.getEndTime()}}
               </td>
               <td>
                 4
@@ -241,10 +237,15 @@
           </tbody>
         </table>
         <a class="profile-page__content__right__blocs__action" routerLink="/reservation/{{listWorkplaces[0].id}}" *ngIf="listWorkplaces">
-          <img src="../../../../assets/images/icons/icon_plus.svg" class="profile-page__content__right__blocs__action__icon"/> Ajouter des blocs de rédaction
+          <img src="../../../../assets/images/icons/icon_plus.svg" class="profile-page__content__right__blocs__action__icon"/>
+          {{ 'profile.add_blocs' | translate }}
         </a>
-        <a *ngIf="!displayAll" class="profile-page__content__right__blocs__link nt-link" (click)="setDisplayAll(true)">Afficher mes anciens blocs de rédaction</a>
-        <a *ngIf="displayAll" class="profile-page__content__right__blocs__link nt-link" (click)="setDisplayAll(false)">Cacher mes anciens blocs de rédaction</a>
+        <a *ngIf="!displayAll" class="profile-page__content__right__blocs__link nt-link" (click)="setDisplayAll(true)">
+          {{ 'profile.display_old_blocs' | translate }}
+        </a>
+        <a *ngIf="displayAll" class="profile-page__content__right__blocs__link nt-link" (click)="setDisplayAll(false)">
+          {{ 'profile.hide_old_blocs' | translate }}
+        </a>
       </div>
     </div>
   </div>
@@ -252,29 +253,30 @@
 
 <app-nt-modal name="form_deactivate_account"
               typeModal="danger"
-              title="Désactiver mon profil"
-              button2Label="Désactiver"
+              title="{{ 'profile.deactivate_profile' | translate }}"
+              button2Label="{{ 'shared.buttons.deactivate' | translate }}"
               (button2)="deactivateAccount()"
               maxWidth="600px">
   <p>
-    La désactivation de votre profil est un acte important et irréversible.
+    {{ 'profile.deactivate_profile_text_1' | translate }}
   </p>
   <p>
-    Êtes-vous vraiment sûr de vouloir désactiver votre profil ?
+    {{ 'profile.deactivate_profile_text_2' | translate }}
   </p>
 </app-nt-modal>
 
 <app-nt-modal name="form_cancel_reservation"
               typeModal="danger"
-              title="Annuler ma réservation"
-              button2Label="Annuler ma réservation"
+              title="{{ 'profile.cancel_reservation' | translate }}"
+              button2Label="{{ 'profile.cancel_reservation_button' | translate }}"
               (button2)="cancelReservation()"
               maxWidth="600px"
               [autoClose]="true">
   <p>
-    L'annulation de votre réservation est un acte important et irréversible, de plus, vous ne recevrez aucun remboursement.
+    {{ 'profile.cancel_reservation_text_1' | translate }}
+
   </p>
   <p>
-    Êtes-vous vraiment sûr de vouloir annuler votre réservation ?
+    {{ 'profile.cancel_reservation_text_2' | translate }}
   </p>
 </app-nt-modal>

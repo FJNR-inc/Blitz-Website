@@ -1,8 +1,12 @@
 <div class="nt-top">
   <img src="../../../assets/images/logo_general.svg" class="nt-top__logo" />
   <div class="nt-top__right">
-    <a *ngIf="!isAuthenticated()"  routerLink="/login" class="nt-top__right__item nt-top__right__item--link">Se connecter</a>
-    <a *ngIf="isAuthenticated()"  routerLink="/logout" class="nt-top__right__item nt-top__right__item--link">Se déconnecter</a>
+    <a *ngIf="!isAuthenticated()" routerLink="/login" class="nt-top__right__item nt-top__right__item--link">
+      {{ 'shared.buttons.log_in' | translate }}
+    </a>
+    <a *ngIf="isAuthenticated()" routerLink="/logout" class="nt-top__right__item nt-top__right__item--link">
+      {{ 'shared.buttons.log_out' | translate }}
+    </a>
     <a *ngIf="isAuthenticated() && user" class="nt-top__right__item nt-top__right__item--profile" routerLink="/profile">
       <img src="../../../assets/images/icons/icon_membre.svg" class="nt-top__right__item__icon" />
       {{user.first_name}} {{user.last_name}}

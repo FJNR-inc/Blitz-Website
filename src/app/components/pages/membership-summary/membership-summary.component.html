@@ -1,15 +1,15 @@
 <div class="membership-summary-page">
   <div class="membership-summary-page__nav">
-    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+    <app-nt-wizzard [active]="menuActive"></app-nt-wizzard>
   </div>
   <div class="membership-summary-page__title">
     <h2 class="nt-title">
-      Résumé
+      {{ 'membership-summary.title' | translate }}
     </h2>
   </div>
   <div class="membership-summary-page__title">
     <h2 class="nt-title nt-title--secondary">
-      Abonnement
+      {{ 'membership-summary.subscription' | translate }}
     </h2>
   </div>
   <div class="membership-summary-page__form" *ngIf="membership">
@@ -23,12 +23,12 @@
   </div>
   <div class="membership-summary-page__title">
     <h2 class="nt-title nt-title--secondary">
-      Total
+      {{ 'membership-summary.sub_total' | translate }}
     </h2>
   </div>
   <div class="membership-summary-page__form">
     <div>
-      TPS
+      {{ 'shared.taxes.TPS' | translate }}
     </div>
     <div class="membership-summary-page__form__spacer"></div>
     <div>
@@ -37,7 +37,7 @@
   </div>
   <div class="membership-summary-page__form">
     <div>
-      TVQ
+      {{ 'shared.taxes.TVQ' | translate }}
     </div>
     <div class="membership-summary-page__form__spacer"></div>
     <div>
@@ -46,7 +46,7 @@
   </div>
   <div class="membership-summary-page__form membership-summary-page__form--total">
     <div>
-      Total
+      {{ 'membership-summary.total' | translate }}
     </div>
     <div class="membership-summary-page__form__spacer"></div>
     <div>
@@ -55,14 +55,14 @@
   </div>
   <div class="membership-summary-page__actions">
     <div class="membership-summary-page__actions__item membership-summary-page__actions__item--main">
-      <a routerLink="/" class="nt-link">Annuler</a>
+      <a routerLink="/" class="nt-link">{{ 'shared.buttons.cancel' | translate }}</a>
     </div>
     <div>
       <a routerLink="/membership/subscription" class="membership-summary-page__actions__item nt-button nt-button--reverse">
-        Précédent
+        {{ 'shared.buttons.previous' | translate }}
       </a>
       <a routerLink="/membership/payment" type="submit" class="membership-summary-page__actions__item nt-button">
-        Confirmer
+        {{ 'shared.buttons.confirm' | translate }}
       </a>
     </div>
   </div>

@@ -1,0 +1,307 @@
+{
+  "activation": {
+    "fail_button": "",
+    "fail_text": "",
+    "fail_title": "",
+    "pending": "",
+    "success_button": "",
+    "success_text": "",
+    "success_title": ""
+  },
+  "forgot-password-confirmation": {
+    "text": "",
+    "title": ""
+  },
+  "forgot-password": {
+    "email": "",
+    "title": ""
+  },
+  "login": {
+    "link_to_forgot_password": "",
+    "link_to_register": "",
+    "title": ""
+  },
+  "membership-confirmation": {
+    "fail_button": "",
+    "fail_text": "",
+    "fail_title": "",
+    "success_text_1": "",
+    "success_text_2": "",
+    "success_title": ""
+  },
+  "membership-intro": {
+    "cancel_button": "",
+    "link": "",
+    "start_button": "",
+    "text": "",
+    "title": ""
+  },
+  "membership-register": {
+    "academic_field": "",
+    "academic_level": "",
+    "birthdate": "",
+    "cancel_button": "",
+    "day": "",
+    "first_name": "",
+    "info_domain_name": "",
+    "last_name": "",
+    "link_to_login": "",
+    "month": "",
+    "title": "",
+    "university": "",
+    "university_none": "",
+    "year": ""
+  },
+  "membership-subscription": {
+    "alredy_member_1": "",
+    "alredy_member_2": "",
+    "link-to-homepage": "",
+    "link-to-subscriptions-infos": "",
+    "text_1": "",
+    "text_2": "",
+    "text_3": "",
+    "title": ""
+  },
+  "membership-summary": {
+    "sub_total": "",
+    "subscription": "",
+    "title": "",
+    "total": ""
+  },
+  "membership-verification": {
+    "text_1": "",
+    "text_2": "",
+    "title": ""
+  },
+  "membership": {
+    "card_text_1": "",
+    "card_text_2": "",
+    "card_text_3": "",
+    "launching_price": "",
+    "text_promo_1": "",
+    "until": ""
+  },
+  "nt-header": {
+    "about": "",
+    "administration": "",
+    "blog": "",
+    "home": "",
+    "my_profile": "",
+    "nav": "",
+    "research": "",
+    "retreat": "",
+    "space": ""
+  },
+  "profile": {
+    "accomplished": "",
+    "accomplished_subtext": "",
+    "add_blocs": "",
+    "cancel_reservation": "",
+    "cancel_reservation_button": "",
+    "cancel_reservation_text_1": "",
+    "cancel_reservation_text_2": "",
+    "deactivate_profile": "",
+    "deactivate_profile_text_1": "",
+    "deactivate_profile_text_2": "",
+    "deactivation": "",
+    "deactivation_card": {
+      "link": "",
+      "text": ""
+    },
+    "display_old_blocs": "",
+    "hide_old_blocs": "",
+    "list_blocs_title": "",
+    "no_payment_mode": "",
+    "no_subscriptions": "",
+    "payment_mode": "",
+    "personal_informations": "",
+    "planned": "",
+    "planned_subtext": "",
+    "prepaid_bloc": "",
+    "prepaid_bloc_subtext": "",
+    "remaining_days": "",
+    "remaining_days_subtext": "",
+    "subscription": "",
+    "welcome": ""
+  },
+  "register-confirmation": {
+    "link": "",
+    "text": "",
+    "title": ""
+  },
+  "register": {
+    "title": ""
+  },
+  "reservation": {
+    "add_card": "",
+    "add_new_card": "",
+    "add_to_card": "",
+    "bloc(s)": "",
+    "bloc_prepayed": "",
+    "buy_prepayed_blocs": "",
+    "card_is_saved": "",
+    "cart": "",
+    "choose_payment_mode": "",
+    "coffee_free": "",
+    "how_to": {
+      "list_1": "",
+      "list_2": "",
+      "list_3": "",
+      "list_4": "",
+      "text_1": "",
+      "text_2": "",
+      "title": ""
+    },
+    "info_need_membership": "",
+    "info_need_package": "",
+    "membership_active": "",
+    "membership_inactive": "",
+    "membership_required": "",
+    "need_to_login_1": "",
+    "need_to_login_2": "",
+    "need_to_login_3": "",
+    "need_to_login_4": "",
+    "no_bloc_prepayed": "",
+    "no_card": "",
+    "no_place": {
+      "text": "",
+      "title": ""
+    },
+    "payment_disabled": {
+      "text": "",
+      "title": ""
+    },
+    "payment_mode": "",
+    "seat_available": "",
+    "select_a_bloc": "",
+    "sub_total": "",
+    "total": "",
+    "use_existing_card": ""
+  },
+  "reset-password": {
+    "title": ""
+  },
+  "shared": {
+    "buttons": {
+      "add": "",
+      "become_member": "",
+      "cancel": "",
+      "confirm": "",
+      "create_profile": "",
+      "deactivate": "",
+      "log_in": "",
+      "log_out": "",
+      "next": "",
+      "previous": "",
+      "reset": "",
+      "save": "",
+      "search": "",
+      "understood": ""
+    },
+    "common": {
+      "cancel": "",
+      "date": "",
+      "day": "",
+      "hours": "",
+      "membership": "",
+      "month": "",
+      "space": "",
+      "to": "",
+      "year": ""
+    },
+    "form": {
+      "academic_field": "",
+      "academic_level": "",
+      "birthdate": "",
+      "card_number": "",
+      "email": "",
+      "errors": {
+        "forgot_fields": ""
+      },
+      "expiration_date": "",
+      "first_name": "",
+      "gender": "",
+      "gender_female": "",
+      "gender_male": "",
+      "gender_no_binary": "",
+      "gender_none": "",
+      "info_domain_name": "",
+      "last_name": "",
+      "password": "",
+      "password_confirmation": "",
+      "type_membership": "",
+      "type_package": "",
+      "university": "",
+      "university_email": "",
+      "university_none": ""
+    },
+    "month": {
+      "april": "",
+      "august": "",
+      "december": "",
+      "february": "",
+      "january": "",
+      "july": "",
+      "june": "",
+      "march": "",
+      "may": "",
+      "november": "",
+      "october": "",
+      "september": ""
+    },
+    "taxes": {
+      "TPS": "",
+      "TVQ": ""
+    }
+  },
+  "terms": {
+    "acceptation_text": "",
+    "alert_text": "",
+    "legal": {
+      "introduction": "",
+      "section_1": "",
+      "section_10": "",
+      "section_11": "",
+      "section_12": "",
+      "section_13": "",
+      "section_2": "",
+      "section_3": "",
+      "section_4": "",
+      "section_5": "",
+      "section_6": "",
+      "section_7": "",
+      "section_8": "",
+      "section_9_content": "",
+      "section_9_intro": "",
+      "short_1": "",
+      "short_10": "",
+      "short_11": "",
+      "short_12": "",
+      "short_13": "",
+      "short_2": "",
+      "short_3": "",
+      "short_4": "",
+      "short_5": "",
+      "short_6": "",
+      "short_7": "",
+      "short_8": "",
+      "short_9": "",
+      "short_title": "",
+      "title": "",
+      "title_1": "",
+      "title_10": "",
+      "title_11": "",
+      "title_12": "",
+      "title_13": "",
+      "title_2": "",
+      "title_3": "",
+      "title_4": "",
+      "title_5": "",
+      "title_6": "",
+      "title_7": "",
+      "title_8": "",
+      "title_9": ""
+    },
+    "title": ""
+  }
+}

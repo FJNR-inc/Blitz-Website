@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
 import {User} from '../../models/user';
 import {ProfileService} from '../../services/profile.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-nt-header',
@@ -14,7 +15,8 @@ export class NtHeaderComponent implements OnInit {
   user: User = null;
 
   constructor(private authenticationService: AuthenticationService,
-              private profileService: ProfileService) { }
+              private profileService: ProfileService,
+              private translate: TranslateService) { }
 
   ngOnInit() {
     if (this.isAuthenticated()) {
@@ -44,5 +46,9 @@ export class NtHeaderComponent implements OnInit {
 
   isAdmin() {
     return this.authenticationService.isAdmin();
+  }
+
+  changeLanguage(language: string) {
+    this.translate.use(language);
   }
 }

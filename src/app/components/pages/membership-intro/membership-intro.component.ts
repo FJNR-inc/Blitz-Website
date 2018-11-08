@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-membership-intro',
@@ -7,30 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MembershipIntroComponent implements OnInit {
 
-  menu = [
-    {
-      'name': 'Informations'
-    },
-    {
-      'name': 'Vérification'
-    },
-    {
-      'name': 'Confirmation'
-    },
-    {
-      'name': 'Abonnement'
-    },
-    {
-      'name': 'Résumé'
-    },
-    {
-      'name': 'Paiement'
-    }
-  ];
-
   menuActive = null;
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
 
   ngOnInit() {
   }

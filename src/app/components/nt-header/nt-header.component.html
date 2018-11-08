@@ -13,55 +13,63 @@
   <div class="nt-header__content">
     <div class="nt-header__content__left">
       <div class="nt-header__nav nt-header__nav--closed">
-        Menu
+        {{ 'nt-header.nav' | translate }}
       </div>
       <ul class="nt-header__nav">
         <li class="nt-header__nav__item">
           <a (click)="closeHeader()" href="http://www.thesez-vous.com/">
-            Accueil
+            {{ 'nt-header.home' | translate }}
           </a>
         </li>
         <li class="nt-header__nav__item">
           <a href="http://www.thesez-vous.com/agrave-propos.html">
-            À propos
+            {{ 'nt-header.about' | translate }}
           </a>
         </li>
         <li class="nt-header__nav__item">
           <a href="http://www.thesez-vous.com/retraite.html">
-            Retraites
+            {{ 'nt-header.retreat' | translate }}
           </a>
         </li>
         <li class="nt-header__nav__item">
           <a href="http://www.thesez-vous.com/espace.html">
-            Espace
+            {{ 'nt-header.space' | translate }}
           </a>
         </li>
         <li class="nt-header__nav__item">
           <a href="http://www.thesez-vous.com/recherche.html">
-            Recherche
+            {{ 'nt-header.research' | translate }}
           </a>
         </li>
         <li class="nt-header__nav__item">
           <a href="http://www.thesez-vous.com/blogue.html">
-            Blogue
+            {{ 'nt-header.blog' | translate }}
           </a>
         </li>
         <li class="nt-header__nav__item" *ngIf="isAdmin()">
           <a routerLink="/admin/users">
-            Adminitration
+            {{ 'nt-header.administration' | translate }}
           </a>
         </li>
       </ul>
     </div>
     <div class="nt-header__content__right">
       <div class="nt-header__actions">
-        <a *ngIf="!isAuthenticated() || (user && user.getTimeBeforeEndMembership() <= 0)" (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item">Devenir membre</a>
+        <a *ngIf="!isAuthenticated() || (user && user.getTimeBeforeEndMembership() <= 0)" (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item">
+          {{ 'shared.buttons.become_member' | translate }}
+        </a>
         <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/profile" class="nt-header__actions__item nt-header__actions__item--responsive">
           <img class="nt-header__actions__item__icon" src="../../../assets/images/icons/icon_membre.svg" />
-          <span>Mon profil</span>
+          <span>
+            {{ 'nt-header.my_profile' | translate }}
+          </span>
         </a>
-        <a *ngIf="!isAuthenticated()" (click)="closeHeader()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--responsive">Se connecter</a>
-        <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/logout" class="nt-header__actions__item">Se déconnecter</a>
+        <a *ngIf="!isAuthenticated()" (click)="closeHeader()" routerLink="/login" class="nt-header__actions__item nt-header__actions__item--responsive">
+          {{ 'shared.buttons.log_in' | translate }}
+        </a>
+        <a *ngIf="isAuthenticated()" (click)="closeHeader()" routerLink="/logout" class="nt-header__actions__item">
+          {{ 'shared.buttons.log_out' | translate }}
+        </a>
         <a (click)="closeHeader()" routerLink="/membership/intro" class="nt-header__actions__item nt-header__actions__item--closed">
           <img src="../../../assets/images/icons/icon_communaute.svg" />
         </a>
@@ -86,6 +94,11 @@
         <a href="https://www.linkedin.com/company/thesezvous">
           <svg class="nt-header__socials__item" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326.25 326.25"><defs><style>.cls-1{fill:#142823;}</style></defs><title>Plan de travail 15 copie 3</title><path class="cls-1" d="M37.32,49.91V267.13a20,20,0,0,0,20,20H274.61a20,20,0,0,0,20-20V49.86a20,20,0,0,0-20-20H57.38A20.06,20.06,0,0,0,37.32,49.91ZM113.14,249H75.5V126.34h37.64ZM95.46,109.12c-12,.54-22.31-9.08-22.92-21.45C72,76.05,81.37,66.22,93.68,65.57c12.08-.65,22.56,9.05,23.12,21.37C117.33,98.73,107.88,108.55,95.46,109.12ZM256.73,247.21v1.73H218.9v-1.56q0-31.62-.06-63.25c0-5.58-.37-11.13-2.31-16.44-2.58-7.09-7.73-10.88-15.19-11.27a37.41,37.41,0,0,0-9.33.64c-7,1.45-11.34,6-13.64,12.69a47.8,47.8,0,0,0-2.26,15.57q-.06,30.62,0,61.24v1.69H137.56V126.32h36.37v16.62c.53-.48.88-.66,1-.94,6.5-11.12,16.54-16.85,28.94-18.75a57.06,57.06,0,0,1,24.47,1.67c11.31,3.22,19,10.48,23.31,21.36A67,67,0,0,1,256.13,167c.41,6.5.55,13,.57,19.55C256.77,206.8,256.73,227,256.73,247.21Z"/></svg>
         </a>
+      </div>
+
+      <div class="nt-header__languages">
+        <a class="nt-header__languages__item" (click)="changeLanguage('en')">EN</a>
+        <a class="nt-header__languages__item" (click)="changeLanguage('fr')">FR</a>
       </div>
     </div>
   </div>

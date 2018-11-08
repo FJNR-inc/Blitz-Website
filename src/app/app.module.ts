@@ -16,7 +16,7 @@ import { ForgotPasswordPageComponent } from './components/pages/forgot-password-
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { ReservationPageComponent } from './components/pages/reservation-page/reservation-page.component';
 import { CalendarModule } from 'angular-calendar';
 import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
@@ -86,8 +86,14 @@ import { LoaderComponent } from './components/loader/loader.component';
 import {TablePeriodsComponent} from './components/table/periods/table-periods.component';
 import {ReservationService} from './services/reservation.service';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 registerLocaleData(localeFr);
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 const appRoutes = [
   {
@@ -379,6 +385,13 @@ const appRoutes = [
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     ImageUploadModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     CanActivateViaAuthGuard,

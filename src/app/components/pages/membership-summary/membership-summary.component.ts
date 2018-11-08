@@ -9,27 +9,6 @@ import {TaxeUtil} from '../../../utils/taxe';
 })
 export class MembershipSummaryComponent implements OnInit {
 
-  menu = [
-    {
-      'name': 'Informations'
-    },
-    {
-      'name': 'Vérification'
-    },
-    {
-      'name': 'Confirmation'
-    },
-    {
-      'name': 'Abonnement'
-    },
-    {
-      'name': 'Résumé'
-    },
-    {
-      'name': 'Paiement'
-    }
-  ];
-
   menuActive = 4;
 
   membership: Membership = null;

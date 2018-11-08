@@ -20,19 +20,19 @@
         <li class="reservation-page__header__details__list__item">
           <img class="reservation-page__header__details__list__item__icon" src="../../../../assets/images/icons/icon_membre.svg" />
           <span class="reservation-page__header__details__list__item__label">
-            Membership requis
+            {{'reservation.membership_required' | translate}}
           </span>
         </li>
         <li class="reservation-page__header__details__list__item">
           <img class="reservation-page__header__details__list__item__icon" src="../../../../assets/images/icons/icon_chair.svg" />
           <span class="reservation-page__header__details__list__item__label">
-            {{workplace.seats}} places disponibles
+            {{workplace.seats}} {{'reservation.seat_available' | translate}}
           </span>
         </li>
         <li class="reservation-page__header__details__list__item">
           <img class="reservation-page__header__details__list__item__icon" src="../../../../assets/images/icons/icon_coffee.svg" />
           <span class="reservation-page__header__details__list__item__label">
-            Café inclus
+            {{'reservation.coffee_free' | translate}}
           </span>
         </li>
       </ul>
@@ -53,7 +53,7 @@
              (viewDateChange)="activeDayIsOpen = false">
             <img class="reservation-page__content__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_left_arrow.svg"/>
             <span>
-            Précédent
+            {{'shared.buttons.previous' | translate}}
           </span>
           </a>
           <h2 class="reservation-page__content__reservation__calendar__actions__title">
@@ -65,7 +65,7 @@
              [(viewDate)]="viewDate"
              (viewDateChange)="activeDayIsOpen = false">
           <span>
-            Suivant
+            {{'shared.buttons.next' | translate}}
           </span>
             <img class="reservation-page__content__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_right_arrow.svg"/>
           </a>
@@ -98,22 +98,27 @@
           <div class="reservation-page__content__details__form__alert__content">
             <img class="reservation-page__content__details__form__alert__content__icon" src="../../../../assets/images/icons/icon_attention.svg"/>
             <p class="reservation-page__content__details__form__alert__content__text">
-              Pour réserver un bloc de rédaction dans un espace de travail
-              vous devez d'abord <a (click)="goToLoginPage()">vous connecter</a> ou
-              bien vous <a routerLink="/register">créer un profil</a>.
+              {{'reservation.need_to_login_1' | translate}}
+              <a (click)="goToLoginPage()">{{'reservation.need_to_login_2' | translate}}</a>
+              {{'reservation.need_to_login_3' | translate}}
+              <a routerLink="/register">{{'reservation.need_to_login_4' | translate}}</a>.
             </p>
           </div>
-          <a (click)="goToLoginPage()" class="reservation-page__content__details__form__alert__button nt-button">Se connecter</a>
+          <a (click)="goToLoginPage()" class="reservation-page__content__details__form__alert__button nt-button">
+            {{'shared.buttons.log_in' | translate}}
+          </a>
         </div>
         <div class="reservation-page__content__details__form__ticket" *ngIf="user" id="cart">
           <div class="reservation-page__content__details__form__ticket__title">
-            Panier
+            {{'reservation.cart' | translate}}
           </div>
-          <a *ngIf="selectedTimeSlots.length === 0" class="reservation-page__content__details__form__ticket__helper reservation-page__content__details__form__ticket__helper--responsive nt-link" (click)="scroll('calendar')">
-            Sélectionner un bloc de rédaction
+          <a *ngIf="selectedTimeSlots.length === 0"
+             class="reservation-page__content__details__form__ticket__helper reservation-page__content__details__form__ticket__helper--responsive nt-link"
+             (click)="scroll('calendar')">
+            {{'reservation.select_a_bloc' | translate}}
           </a>
           <span *ngIf="selectedTimeSlots.length === 0" class="reservation-page__content__details__form__ticket__helper">
-            Sélectionner un bloc de rédaction
+            {{'reservation.select_a_bloc' | translate}}
           </span>
           <div *ngFor="let timeslot of selectedTimeSlots" class="reservation-page__content__details__form__ticket__line">
             <div class="reservation-page__content__details__form__ticket__line__title">
@@ -135,7 +140,7 @@
           </div>
           <div *ngIf="selectedMembership" class="reservation-page__content__details__form__ticket__line">
             <div class="reservation-page__content__details__form__ticket__line__title">
-              Membership {{ selectedMembership.name }} - {{ selectedMembership.price }}$
+              {{'shared.common.membership' | translate}} {{ selectedMembership.name }} - {{ selectedMembership.price }}$
             </div>
             <div class="reservation-page__content__details__form__ticket__line__actions">
               <a (click)="removeMembershipFromCart()">
@@ -145,11 +150,11 @@
           </div>
           <div>
             <div class="reservation-page__content__details__form__ticket__title">
-              Total
+              {{'reservation.total' | translate}}
             </div>
             <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
               <div class="reservation-page__content__details__form__ticket__line__title">
-                Sous-Total
+                {{'reservation.sub_total' | translate}}
               </div>
               <div>
                 {{ totalPrice }} $CAN
@@ -157,7 +162,7 @@
             </div>
             <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
               <div class="reservation-page__content__details__form__ticket__line__title">
-                TPS
+                {{'shared.taxes.TPS' | translate}}
               </div>
               <div>
                 {{getTotalTPS()}} $CAN
@@ -165,51 +170,56 @@
             </div>
             <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
               <div class="reservation-page__content__details__form__ticket__line__title">
-                TVQ
+                {{'shared.taxes.TVQ' | translate}}
               </div>
               <div>
                 {{getTotalTVQ()}} $CAN
               </div>
             </div>
             <div class="reservation-page__content__details__form__ticket__total">
-              {{ totalTicket }} bloc(s) prépayé(s)<br/>
+              {{ totalTicket }} {{'reservation.bloc_prepayed' | translate}}<br/>
               {{ getTotalWithTaxes() }} $CAN
             </div>
           </div>
         </div>
 
         <ul class="reservation-page__content__details__form__infos" *ngIf="user && (user.membership || user.tickets > totalTicket)">
-          <li *ngIf="!needToBuyMembership()" class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item--success">
+          <li *ngIf="!needToBuyMembership()"
+              class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item--success">
             <img src="../../../../assets/images/icons/icon_check.svg" class="reservation-page__content__details__form__infos__item__icon">
-            Votre membership est encore valide.
+            {{'reservation.membership_active' | translate}}.
           </li>
-          <li *ngIf="needToBuyMembership()" class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item">
+          <li *ngIf="needToBuyMembership()"
+              class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item">
             <img src="../../../../assets/images/icons/icon_exit.svg" class="reservation-page__content__details__form__infos__item__icon">
-            Votre n'avez pas de membership actif.
+            {{'reservation.membership_inactive' | translate}}
           </li>
-          <li *ngIf="!needToBuyPackage() && getNumberOfTicket()" class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item--success">
+          <li *ngIf="!needToBuyPackage() && getNumberOfTicket()"
+              class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item--success">
             <img src="../../../../assets/images/icons/icon_check.svg" class="reservation-page__content__details__form__infos__item__icon">
-            Il vous reste {{ getNumberOfTicket() - totalTicket }} bloc(s) prépayé(s).
+            Il vous reste {{ getNumberOfTicket() - totalTicket }} {{'reservation.bloc_prepayed' | translate}}.
           </li>
-          <li *ngIf="needToBuyPackage()" class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item">
+          <li *ngIf="needToBuyPackage()"
+              class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item">
             <img src="../../../../assets/images/icons/icon_exit.svg" class="reservation-page__content__details__form__infos__item__icon">
-            Vous n'avez pas suffisament de blocs prépayés.
+            {{'reservation.no_bloc_prepayed' | translate}}
           </li>
         </ul>
-        <a *ngIf="user && !wantToBuyPackage && !needToBuyPackage()" (click)="askToBuyPackage()" class="reservation-page__content__details__form__link-packages nt-link">Acheter des blocs de rédaction prépayés</a>
+        <a *ngIf="user && !wantToBuyPackage && !needToBuyPackage()"
+           (click)="askToBuyPackage()"
+           class="reservation-page__content__details__form__link-packages nt-link">
+          {{'reservation.buy_prepayed_blocs' | translate}}
+        </a>
 
         <form class="reservation-page__content__details__form__alert" *ngIf="needToBuyMembership()">
           <div class="reservation-page__content__details__form__alert__content">
             <img class="reservation-page__content__details__form__alert__content__icon" src="../../../../assets/images/icons/icon_attention.svg"/>
             <div class="reservation-page__content__details__form__alert__content__text">
-              Les blocs de rédaction de cet espace de travail
-              nécessitent un membership actif pour être
-              réservées. Veuillez sélectionner un type
-              de membership à acheter.
+              {{'reservation.info_need_membership' | translate}}
             </div>
           </div>
           <div class="form-group">
-            <label for="membership" class="nt-form-label">Type de membership :</label>
+            <label for="membership" class="nt-form-label">{{'shared.form.type_membership' | translate}}:</label>
             <select [(ngModel)]="currentMembership" name="membership" id="membership" class="nt-form-input nt-form-input--select">
               <option *ngFor="let membership of listMembership" value="{{membership.id}}">
                 {{ membership.name }} - {{ membership.price }}$CAN +txs
@@ -219,7 +229,7 @@
           <button (click)="addMembership()"
                   type="button"
                   class="reservation-page__content__details__form__alert__button nt-button">
-            Ajouter au panier
+            {{'reservation.add_to_card' | translate}}
           </button>
         </form>
 
@@ -227,52 +237,52 @@
           <div class="reservation-page__content__details__form__alert__content" *ngIf="needToBuyPackage()">
             <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__content__details__form__alert__content__icon" />
             <div class="reservation-page__content__details__form__alert__content__text">
-              Il vous manque {{ totalTicket - user.tickets }} bloc(s) prépayé(s) de plus que ceux disponibles sur votre profil.
+              {{'reservation.info_need_package' | translate}}
             </div>
           </div>
           <div class="form-group">
-            <label for="package" class="nt-form-label">Forfaits :</label>
+            <label for="package" class="nt-form-label">{{'shared.form.type_package' | translate}}:</label>
             <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="nt-form-input nt-form-input--select">
               <option *ngFor="let package of listReservationPackage" value="{{package.id}}">
-                {{ package.reservations }} bloc(s) - {{ package.price }}$CAN +txs
+                {{ package.reservations }} {{'reservation.bloc(s)' | translate}} - {{ package.price }}$CAN +txs
               </option>
             </select>
           </div>
           <button (click)="addPackage()" type="button" class="reservation-page__content__details__form__alert__button nt-button">
-            Ajouter au panier
+            {{'reservation.add_to_card' | translate}}
           </button>
         </form>
 
         <form class="reservation-page__content__details__form__payment" *ngIf="user">
           <div class="reservation-page__content__details__form__payment__card form-group" *ngIf="needToUseCard()">
             <div class="reservation-page__content__details__form__alert reservation-page__content__details__form__alert--warning" *ngIf="listCards && listCards.length && !singleUseToken">
-              <label for="card" class="nt-form-label">Mode de paiement :</label>
+              <label for="card" class="nt-form-label">{{'reservation.payment_mode' | translate}}:</label>
               <select id="card" class="nt-form-input nt-form-input--select" (change)="selectCard($event)">
-                <option value="none">Choisir une carte de paiement</option>
+                <option value="none">{{'reservation.choose_payment_mode' | translate}}</option>
                 <option value="{{card.payment_token}}" *ngFor="let card of listCards">
                   **** **** **** {{card.last_digits}} ({{card.card_expiry.month}}/{{card.card_expiry.year}})
                 </option>
               </select>
               <div class="form-text form-text--right">
-                <a (click)="ToggleModal('form_credit_card')">Ajouter une nouvelle carte</a>
+                <a (click)="ToggleModal('form_credit_card')">{{'reservation.add_new_card' | translate}}</a>
               </div>
             </div>
             <div *ngIf="(!listCards || !listCards.length) && !singleUseToken" class="reservation-page__content__details__form__alert reservation-page__content__details__form__alert--warning">
               <div class="reservation-page__content__details__form__alert__content">
                 <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__content__details__form__alert__content__icon" />
                 <div class="reservation-page__content__details__form__alert__content__text">
-                  Vous n'avez pas de carte de paiement enregistré pour le moment.
+                  {{'reservation.no_card' | translate}}.
                 </div>
               </div>
               <a (click)="ToggleModal('form_credit_card')" class="reservation-page__content__details__form__alert__button nt-button">
-                Ajouter une carte
+                {{'reservation.add_card' | translate}}
               </a>
             </div>
             <div *ngIf="singleUseToken" class="reservation-page__content__details__form__payment__card__single">
-              Votre carte a bien été enregistré.
+              {{'reservation.card_is_saved' | translate}}.
 
               <a (click)="setSingleUseToken(null)" class="reservation-page__content__details__form__payment__card__single__link nt-link">
-                Utiliser une carte de paiment existante
+                {{'reservation.use_existing_card' | translate}}
               </a>
             </div>
           </div>
@@ -293,25 +303,25 @@
 
 <app-nt-modal name="form_credit_card"
               class="modal-credit-card"
-              button2Label="Ajouter"
+              button2Label="{{'shared.buttons.add' | translate}}"
               typeModal="success"
               (button2)="addCard()"
               [activated]="!waitPaysafe"
               maxWidth="600px">
   <h1 class="nt-title">
-    Ajouter une carte
+    {{'reservation.add_card' | translate}}
   </h1>
   <form class="modal-credit-card__form">
     <div *ngFor="let errorMessage of errorModal" class="nt-alert nt-alert--danger">
       {{ errorMessage }}
     </div>
     <div class="form-group">
-      <label for="card-number" class="nt-form-label">Numéro de la carte*:</label>
+      <label for="card-number" class="nt-form-label">{{'shared.form.card_number' | translate}}*:</label>
       <div id="card-number" class="modal-credit-card__form__field"></div>
     </div>
     <div class="modal-credit-card__form__expiration">
       <div class="form-group modal-credit-card__form__expiration__item">
-        <label for="expiration-date" class="nt-form-label">Date d'expiration*:</label>
+        <label for="expiration-date" class="nt-form-label">{{'shared.form.expiration_date' | translate}}*:</label>
         <div id="expiration-date" class="modal-credit-card__form__field"></div>
       </div>
       <div class="form-group modal-credit-card__form__expiration__item">
@@ -323,50 +333,44 @@
 </app-nt-modal>
 
 <app-nt-modal name="no_places"
-              button2Label="J'ai compris!"
+              button2Label="{{'shared.buttons.understood' | translate}}"
               maxWidth="600px"
               [autoClose]="true">
   <h1 class="nt-title">
-    Oups..
+    {{'reservation.no_place.title' | translate}}
   </h1>
   <p class="modal-reservation__text">
-    Quelqu'un a été plus rapide que vous pour réserver et
-    certaines places ne sont plus disponibles,
-    nous venons de mettre à jour votre panier!
+    {{'reservation.no_place.text' | translate}}
   </p>
 </app-nt-modal>
 
 <app-nt-modal name="payment_button_disabled"
-              button2Label="J'ai compris!"
+              button2Label="{{'shared.buttons.understood' | translate}}"
               maxWidth="600px"
               [autoClose]="true">
   <h1 class="nt-title">
-    Oups..
+    {{'reservation.payment_disabled.title' | translate}}
   </h1>
-  <p class="modal-reservation__text">
-    Il semblerait que vous ne soyez pas totalement prêt pour "{{getLabelFinalizeButton()}}".
-    </p>
-  <p>
-    Vous devez d'abord sélectionner un bloc de rédaction, un forfait ou bien un membership et si nécessaire une carte de paiement.
-  </p>
+  <div class="modal-reservation__text" [innerHTML]="'reservation.payment_disabled.text' | translate">
+  </div>
 </app-nt-modal>
 
 <app-nt-modal name="reservation_tutorial"
-              button2Label="J'ai compris!"
+              button2Label="{{'shared.buttons.understood' | translate}}"
               maxWidth="600px"
-              title="Comment réserver?"
+              title="{{'reservation.how_to.title' | translate}}"
               [autoClose]="true"
               [show]="needToShowTutorial()">
   <p class="modal-reservation__text">
-    Pour réserver un bloc de rédaction à l'espace Thèsez-Vous:
+    {{'reservation.how_to.text_1' | translate}}:
   </p>
   <ol>
-    <li>Devenir membre</li>
-    <li>Acheter un lot de blocs prépayés</li>
-    <li>Sélectionner les blocs de rédaction de mon choix</li>
-    <li>Réserver!</li>
+    <li>{{'reservation.how_to.list_1' | translate}}</li>
+    <li>{{'reservation.how_to.list_2' | translate}}</li>
+    <li>{{'reservation.how_to.list_3' | translate}}</li>
+    <li>{{'reservation.how_to.list_4' | translate}}</li>
   </ol>
   <p class="modal-reservation__text">
-    *Le premier bloc de rédaction est gratuit, mais il faut tout de même se créer un compte!
+    {{'reservation.how_to.text_2' | translate}}
   </p>
 </app-nt-modal>

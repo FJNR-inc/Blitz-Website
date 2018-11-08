@@ -19,28 +19,6 @@ import {AuthenticationService} from '../../../services/authentication.service';
 })
 export class MembershipRegisterComponent implements OnInit {
 
-
-  menu = [
-    {
-      'name': 'Informations'
-    },
-    {
-      'name': 'Vérification'
-    },
-    {
-      'name': 'Confirmation'
-    },
-    {
-      'name': 'Abonnement'
-    },
-    {
-      'name': 'Résumé'
-    },
-    {
-      'name': 'Paiement'
-    }
-  ];
-
   menuActive = 0;
 
   registerForm: FormGroup;

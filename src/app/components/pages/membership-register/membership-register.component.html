@@ -1,12 +1,12 @@
 <div class="membership-register-page">
   <div class="membership-register-page__nav">
-    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+    <app-nt-wizzard [active]="menuActive"></app-nt-wizzard>
   </div>
   <form (submit)="submit()" class="membership-register-page__form" [formGroup]="registerForm">
     <div class="membership-register-page__form__content__header">
       <div>
         <h2 class="nt-title">
-          Informations
+          {{ 'membership-register.title' | translate }}
         </h2>
       </div>
     </div>
@@ -19,7 +19,7 @@
       </div>
       <div class="form-group form-group--multiple">
         <div class="form-group__item">
-          <label for="firstname" class="nt-form-label">Prénom*:</label>
+          <label for="firstname" class="nt-form-label">{{ 'membership-register.first_name' | translate }}*:</label>
           <input formControlName="first_name" type="text" id="firstname" class="nt-form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['first_name'].getError('apiError')">
@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="form-group__item">
-          <label for="lastname" class="nt-form-label">Nom de famille*:</label>
+          <label for="lastname" class="nt-form-label">{{ 'membership-register.last_name' | translate }}*:</label>
           <input formControlName="last_name" type="text" id="lastname" class="nt-form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['last_name'].getError('apiError')">
@@ -36,9 +36,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="university" class="nt-form-label">Université d'appartenance actuelle*:</label>
+        <label for="university" class="nt-form-label">{{ 'membership-register.university' | translate }}*:</label>
         <select formControlName="university" id="university" class="nt-form-input" (change)="changeUniversity()">
-          <option value="none">Je n'appartiens pas/plus à une université</option>
+          <option value="none">{{ 'membership-register.university_none' | translate }}</option>
           <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
             {{ organization.name }}
           </option>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="form-group" *ngIf="selectedUniversity">
-        <label for="study_level" class="nt-form-label">Statut principal*:</label>
+        <label for="study_level" class="nt-form-label">{{ 'membership-register.academic_level' | translate }}*:</label>
         <select formControlName="academic_level" id="study_level" class="nt-form-input">
           <option value="none"></option>
           <option value="{{ level.name }}" *ngFor="let level of listAcademicLevels">
@@ -62,7 +62,7 @@
         </div>
       </div>
       <div class="form-group" *ngIf="selectedUniversity">
-        <label for="study_field" class="nt-form-label">Domaine d'études ou d'enseignement principal*:</label>
+        <label for="study_field" class="nt-form-label">{{ 'membership-register.academic_field' | translate }}*:</label>
         <select formControlName="academic_field" id="study_field" class="nt-form-input">
           <option value="none"></option>
           <option value="{{ field.name }}" *ngFor="let field of listAcademicFields">
@@ -75,8 +75,8 @@
         </div>
       </div>
       <div class="form-group">
-        <label *ngIf="selectedUniversity" for="email" class="nt-form-label">Adresse courriel universitaire*:</label>
-        <label *ngIf="!selectedUniversity" for="email" class="nt-form-label">Adresse courriel*:</label>
+        <label *ngIf="selectedUniversity" for="email" class="nt-form-label">{{ 'shared.form.university_email' | translate }}*:</label>
+        <label *ngIf="!selectedUniversity" for="email" class="nt-form-label">{{ 'shared.form.email' | translate }}*:</label>
         <input formControlName="email" type="email" id="email" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
@@ -84,7 +84,7 @@
         </div>
         <div class="nt-alert"  *ngIf="selectedUniversity">
           <div class="alert__content">
-            Voici la liste des noms de domaines autorisés pour cette université:
+            {{ 'membership-register.info_domain_name' | translate }}:
             <ul>
               <li *ngFor="let domain of selectedUniversity.domains">
                 {{ domain.example }}
@@ -95,11 +95,11 @@
       </div>
       <div class="membership-register-page__form__content__form__inline">
         <div class="membership-register-page__form__content__form__inline__dates form-group">
-          <label for="birthday_day" class="nt-form-label">Date de naissance*:</label>
+          <label for="birthday_day" class="nt-form-label">{{ 'membership-register.birthdate' | translate }}*:</label>
           <div class="form-group form-group--multiple">
             <div class="form-group__item">
               <select formControlName="birth_day" id="birthday_day" class="nt-form-input">
-                <option value="" disabled="disabled">Jour</option>
+                <option value="" disabled="disabled">{{ 'membership-register.day' | translate }}</option>
                 <option value="01">1</option>
                 <option value="02">2</option>
                 <option value="03">3</option>
@@ -139,19 +139,19 @@
             </div>
             <div class="form-group__item">
               <select formControlName="birth_month" id="birthday_month" class="nt-form-input">
-                <option value="" disabled="disabled">Mois</option>
-                <option value="01">Janvier</option>
-                <option value="02">Février</option>
-                <option value="03">Mars</option>
-                <option value="04">Avril</option>
-                <option value="05">Mai</option>
-                <option value="06">Juin</option>
-                <option value="07">Juillet</option>
-                <option value="08">Aout</option>
-                <option value="09">Septembre</option>
-                <option value="10">Octobre</option>
-                <option value="11">Novembre</option>
-                <option value="12">Décembre</option>
+                <option value="" disabled="disabled">{{ 'membership-register.month' | translate }}</option>
+                <option value="01">{{ 'shared.month.january' | translate }}</option>
+                <option value="02">{{ 'shared.month.february' | translate }}</option>
+                <option value="03">{{ 'shared.month.march' | translate }}</option>
+                <option value="04">{{ 'shared.month.april' | translate }}</option>
+                <option value="05">{{ 'shared.month.may' | translate }}</option>
+                <option value="06">{{ 'shared.month.june' | translate }}</option>
+                <option value="07">{{ 'shared.month.july' | translate }}</option>
+                <option value="08">{{ 'shared.month.august' | translate }}</option>
+                <option value="09">{{ 'shared.month.september' | translate }}</option>
+                <option value="10">{{ 'shared.month.october' | translate }}</option>
+                <option value="11">{{ 'shared.month.november' | translate }}</option>
+                <option value="12">{{ 'shared.month.december' | translate }}</option>
               </select>
               <div class="form-text form-text--right form-text--danger"
                    *ngFor="let errorMessage of registerForm.controls['birth_month'].getError('apiError')">
@@ -160,7 +160,7 @@
             </div>
             <div class="form-group__item">
               <select formControlName="birth_year" id="birthday_year" class="nt-form-input">
-                <option value="" disabled="disabled">Année</option>
+                <option value="" disabled="disabled">{{ 'membership-register.year' | translate }}</option>
                 <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
               </select>
               <div class="form-text form-text--right form-text--danger"
@@ -171,17 +171,17 @@
           </div>
         </div>
         <div class="membership-register-page__form__content__form__inline__gender form-group">
-          <label for="gender" class="nt-form-label">Genre*:</label>
+          <label for="gender" class="nt-form-label">{{ 'shared.form.gender' | translate }}*:</label>
           <select formControlName="gender" id="gender" class="nt-form-input">
-            <option value="A">Je ne souhaite pas m'identifier</option>
-            <option value="M">Homme</option>
-            <option value="F">Femme</option>
-            <option value="T">Non-binaire</option>
+            <option value="A">{{ 'shared.form.gender_none' | translate }}</option>
+            <option value="M">{{ 'shared.form.gender_male' | translate }}</option>
+            <option value="F">{{ 'shared.form.gender_female' | translate }}</option>
+            <option value="T">{{ 'shared.form.gender_no_binary' | translate }}</option>
           </select>
         </div>
       </div>
       <div class="form-group">
-        <label for="password" class="nt-form-label">Mot de passe*:</label>
+        <label for="password" class="nt-form-label">{{ 'shared.form.password' | translate }}*:</label>
         <input formControlName="password" type="password" id="password" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of registerForm.controls['password'].getError('apiError')">
@@ -189,7 +189,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="confirmation" class="nt-form-label">Confirmation du mot de passe*:</label>
+        <label for="confirmation" class="nt-form-label">{{ 'shared.form.password_confirmation' | translate }}*:</label>
         <input formControlName="confirmation" type="password" id="confirmation" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of registerForm.controls['confirmation'].getError('apiError')">
@@ -200,22 +200,22 @@
     <div *ngIf="!registerForm.valid && hasSubmit" class="membership-register-page__form__content__error nt-alert nt-alert--danger">
       <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
       <div class="nt-alert__content">
-        Veuillez remplir tous les champs
+        {{ 'shared.form.errors.forgot_fields' | translate }}
       </div>
     </div>
     <div class="membership-register-page__form__content__link">
-      <a (click)="goToLoginPage()" class="nt-link">Vous êtes deja inscrit.e?</a>
+      <a (click)="goToLoginPage()" class="nt-link">{{ 'membership-register.link_to_login' | translate }}</a>
     </div>
     <div class="membership-register-page__form__content__actions">
       <div class="membership-register-page__form__content__actions__item membership-register-page__form__content__actions__item--main">
-        <a routerLink="/" class="nt-link">Annuler</a>
+        <a routerLink="/" class="nt-link">{{ 'membership-register.cancel_button' | translate }}</a>
       </div>
       <div>
         <a routerLink="/membership/intro" type="submit" class="membership-register-page__form__content__actions__item nt-button nt-button--reverse">
-          Précédent
+          {{ 'shared.buttons.previous' | translate }}
         </a>
         <button type="submit" [disabled]="inProcess" class="membership-register-page__form__content__actions__item nt-button">
-          Suivant
+          {{ 'shared.buttons.next' | translate }}
         </button>
       </div>
     </div>

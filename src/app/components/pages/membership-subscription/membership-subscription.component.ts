@@ -12,27 +12,6 @@ import {User} from '../../../models/user';
 })
 export class MembershipSubscriptionComponent implements OnInit {
 
-  menu = [
-    {
-      'name': 'Informations'
-    },
-    {
-      'name': 'Vérification'
-    },
-    {
-      'name': 'Confirmation'
-    },
-    {
-      'name': 'Abonnement'
-    },
-    {
-      'name': 'Résumé'
-    },
-    {
-      'name': 'Paiement'
-    }
-  ];
-
   menuActive = 3;
   listMemberships: Membership[];
   selectedMembership: Membership = null;

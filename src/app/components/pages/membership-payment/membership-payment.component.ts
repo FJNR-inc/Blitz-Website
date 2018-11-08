@@ -16,27 +16,6 @@ declare let paysafe: any;
 })
 export class MembershipPaymentComponent implements OnInit {
 
-  menu = [
-    {
-      'name': 'Informations'
-    },
-    {
-      'name': 'Vérification'
-    },
-    {
-      'name': 'Confirmation'
-    },
-    {
-      'name': 'Abonnement'
-    },
-    {
-      'name': 'Résumé'
-    },
-    {
-      'name': 'Paiement'
-    }
-  ];
-
   menuActive = 5;
 
   API_KEY = environment.token_paysafe;

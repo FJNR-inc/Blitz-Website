@@ -1,10 +1,10 @@
 <div class="membership-subscription-page">
   <div class="membership-subscription-page__nav">
-    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+    <app-nt-wizzard [active]="menuActive"></app-nt-wizzard>
   </div>
   <div class="membership-subscription-page__title">
     <h2 class="nt-title">
-      Abonnement
+      {{ 'membership-subscription.title' | translate }}
     </h2>
   </div>
   <div *ngIf="profile.getTimeBeforeEndMembership() <= 0">
@@ -33,42 +33,37 @@
       </div>
     </div>
     <div class="nt-card">
-      <p>
-      * Tarif de lancement. Après le 1<sup>er</sup> novembre 2018,
-        le tarif sera de 20$<sup>+txs</sup> pour les étudiant.e.s et postdoctorant.e.s.
+      <p [innerHTML]="'membership-subscription.text_1' | translate">
+
       </p>
-      <p>
-      L'adhésion est valable pour un an à partir de la date d'adhésion
-      et n'est pas remboursable.
-      <p>
-        L'adhésion est automatiquement renouvelée à moins de désistement.
-        Un courriel de rappel est envoyé un mois avant le renouvellement.
-      </p>
+      <p [innerHTML]="'membership-subscription.text_2' | translate"></p>
+      <p [innerHTML]="'membership-subscription.text_3' | translate"></p>
     </div>
     <div class="membership-subscription-page__link">
-      <a href="http://www.thesez-vous.com/membre.html?lang=fr" target="_blank" class="nt-link">En savoir plus sur nos abonnements</a>
+      <a href="http://www.thesez-vous.com/membre.html?lang=fr" target="_blank" class="nt-link">
+        {{ 'membership-subscription.link-to-subscriptions-infos' | translate }}
+      </a>
     </div>
     <div class="membership-subscription-page__actions">
       <div class="membership-subscription-page__actions__item membership-subscription-page__actions__item--main">
-        <a routerLink="/" class="nt-link">Annuler</a>
+        <a routerLink="/" class="nt-link">{{ 'shared.buttons.cancel' | translate }}</a>
       </div>
       <div>
         <button (click)="submit()" type="submit" class="membership-subscription-page__actions__item nt-button">
-          Suivant
+          {{ 'shared.buttons.next' | translate }}
         </button>
       </div>
     </div>
   </div>
   <div *ngIf="profile.getTimeBeforeEndMembership() > 0" >
     <div class="membership-subscription-page__unavailable">
-      Vous avez déjà un membership pour
-      {{ profile.getTimeBeforeEndMembership() }} jour.s. Tant que
-      votre membership n'est pas terminé il vous est impossible
-      (et inutile) d'acheter un nouveau membership.
+      {{ 'membership-subscription.alredy_member_1' | translate }}
+      {{ profile.getTimeBeforeEndMembership() }}
+      {{ 'membership-subscription.alredy_member_2' | translate }}
     </div>
     <div class="membership-subscription-page__actions">
       <div class="membership-subscription-page__actions__item membership-subscription-page__actions__item--main">
-        <a routerLink="/" class="nt-link">Retour à la page d'accueil</a>
+        <a routerLink="/" class="nt-link">{{ 'membership-subscription.link-to-homepage' | translate }}</a>
       </div>
     </div>
   </div>

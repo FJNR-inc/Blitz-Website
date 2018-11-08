@@ -3,37 +3,30 @@
   <div class="membership-page__column2">
     <div class="membership-page__column2__price">
       <span class="membership-page__column2__price__title">
-        Tarif de<br/>
-        lancement
+        {{ 'membership.launching_price' | translate }}
       </span>
       <span class="membership-page__column2__price__number">
         10$<sup>+tx</sup>
       </span>
       <span class="membership-page__column2__price__explanation">
-        jusqu'au<br/>
+        {{ 'membership.until' | translate }}<br/>
         1<sup>er</sup> déc. 2018
       </span>
     </div>
     <div class="membership-page__column2__text">
-      Vous êtes étudiant.e à la maîtrise, au doctorat ou postdoctorant.e?
-      Joignez-vous à la communauté Thèsez-vous en adhérant au membership.
+      {{ 'membership.text_promo_1' | translate }}
     </div>
     <div class="membership-page__column2__button">
-      <a class="nt-button" routerLink="/membership/intro">Devenir membre</a>
+      <a class="nt-button" routerLink="/membership/intro">{{ 'shared.buttons.become_member' | translate }}</a>
     </div>
     <div class="membership-page__column2__link">
       <a href="http://www.thesez-vous.com/membre.html?lang=fr" target="_blank" class="nt-link">Pourquoi devenir membre?</a>
     </div>
     <div class="membership-page__column2__card nt-card">
-      <p>
-        Devenez membre avant le 1<sup>er</sup> décembre 2018 au tarif de 10$<sup>+tx</sup>. (Après le 1<sup>er</sup> décembre, le tarif sera de 20$<sup>+tx</sup>.)
-      </p>
-      <p>
-        L’adhésion est valable pour un an à partir de la date d'adhésion et n’est pas remboursable.
-      </p>
-      <p>
-        L’adhésion est automatiquement renouvelée à moins de désistement. Un courriel de rappel est envoyé un mois avant le renouvellement.
-      </p>
+      <p [innerHTML]="'membership.card_text_1' | translate"></p>
+      <p [innerHTML]="'membership.card_text_2' | translate"></p>
+      <p [innerHTML]="'membership.card_text_3' | translate"></p>
+
       <p class="membership-page__column2__card__important">
         We are in the process of translating this page into English. If this is preventing you from signing up for the retreats, please contact us and we will help you.
       </p>

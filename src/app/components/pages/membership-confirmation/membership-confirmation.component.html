@@ -1,28 +1,28 @@
 <div class="membership-confirmation-page">
   <div class="membership-confirmation-page__nav">
-    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+    <app-nt-wizzard [active]="menuActive"></app-nt-wizzard>
   </div>
   <div class="membership-confirmation-page__content" *ngIf="success">
     <div>
       <h2 class="nt-title">
-        Confirmé
+        {{ 'membership-confirmation.success_title' | translate }}
       </h2>
     </div>
     <div class="membership-confirmation-page__content__text">
       <p>
-        Votre adresse courriel est confirmée.
+        {{ 'membership-confirmation.success_text_1' | translate }}
       </p>
       <p>
-        Attention! Votre inscription n'est pas encore completée.
+        {{ 'membership-confirmation.success_text_2' | translate }}
       </p>
     </div>
     <div class="membership-confirmation-page__content__actions">
       <div class="membership-confirmation-page__content__actions__item membership-confirmation-page__content__actions__item--main">
-        <a routerLink="/" class="nt-link">Annuler</a>
+        <a routerLink="/" class="nt-link">{{ 'shared.buttons.cancel' | translate }}</a>
       </div>
       <div>
         <a routerLink="/membership/subscription" class="membership-confirmation-page__content__actions__item nt-button">
-          Suivant
+          {{ 'shared.buttons.next' | translate }}
         </a>
       </div>
     </div>
@@ -30,17 +30,16 @@
   <div class="membership-confirmation-page__content" *ngIf="success === false">
     <div>
       <h2 class="nt-title">
-        Echec de la confirmation
+        {{ 'membership-confirmation.fail_title' | translate }}
       </h2>
     </div>
     <div class="membership-confirmation-page__content__text">
-      Vérifiez que le profil n'ait pas déjà été activé, si ce n'est
-      pas le cas n'hésitez pas à contacter l'équipe d'administration.
+      {{ 'membership-confirmation.fail_text' | translate }}
     </div>
     <div class="membership-confirmation-page__content__actions">
       <div>
         <a routerLink="/login" class="nt-link">
-          Se rendre sur la page de connexion
+          {{ 'membership-confirmation.fail_button' | translate }}
         </a>
       </div>
     </div>

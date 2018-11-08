@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "extract": "ngx-translate-extract --input ./src --output ./src/assets/i18n/ --clean --sort --format namespaced-json"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +23,8 @@
     "@angular/platform-browser": "^6.1.6",
     "@angular/platform-browser-dynamic": "^6.1.6",
     "@angular/router": "^6.1.6",
+    "@ngx-translate/core": "^10.0.0",
+    "@ngx-translate/http-loader": "^4.0.0",
     "@types/uuid": "^3.4.3",
     "angular-calendar": "^0.24.1",
     "angular2-image-upload": "^1.0.0-rc.1",
@@ -39,6 +42,7 @@
     "@angular/cli": "^6.1.5",
     "@angular/compiler-cli": "^6.1.6",
     "@angular/language-service": "^6.1.6",
+    "@biesbjerg/ngx-translate-extract": "^2.3.4",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",

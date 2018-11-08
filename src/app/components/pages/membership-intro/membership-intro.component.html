@@ -1,26 +1,26 @@
 <div class="membership-intro-page">
   <div class="membership-intro-page__nav">
-    <app-nt-wizzard [items]="menu" [active]="menuActive"></app-nt-wizzard>
+    <app-nt-wizzard [active]="menuActive"></app-nt-wizzard>
   </div>
   <div class="membership-intro-page__content">
     <div>
       <h2 class="nt-title">
-        Inscription
+        {{ 'membership-intro.title' | translate }}
       </h2>
     </div>
     <div class="membership-intro-page__content__text">
-      Suivez attentivement les étapes pour vous abonner à Thèsez-vous.
+      {{ 'membership-intro.text' | translate }}
     </div>
     <div class="membership-intro-page__content__link">
-      <a href="http://www.thesez-vous.com/membre.html?lang=fr" target="_blank" class="nt-link">En savoir plus sur nos abonnements</a>
+      <a href="http://www.thesez-vous.com/membre.html?lang=fr" target="_blank" class="nt-link">{{ 'membership-intro.link' | translate }}</a>
     </div>
     <div class="membership-intro-page__content__actions">
       <div class="membership-intro-page__content__actions__item membership-intro-page__content__actions__item--main">
-        <a routerLink="/" class="nt-link">Annuler</a>
+        <a routerLink="/" class="nt-link">{{ 'membership-intro.cancel_button' | translate }}</a>
       </div>
       <div class="membership-intro-page__content__actions__item">
         <a routerLink="/membership/register" class="nt-button">
-          Commencer
+          {{ 'membership-intro.start_button' | translate }}
         </a>
       </div>
     </div>
