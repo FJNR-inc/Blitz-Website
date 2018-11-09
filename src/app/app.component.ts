@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {environment} from '../environments/environment';
+import {InternationalizationService} from './services/internationalization.service';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +17,17 @@ export class AppComponent {
     preventDuplicates: true,
   };
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService,
+              private internationalizationService: InternationalizationService) {
     // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
+    translate.setDefaultLang(environment.default_language);
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    // translate.use(translate.getBrowserLang());
-    translate.use('fr');
+    if (!InternationalizationService.getLocale(true)) {
+      // if no locale are set in localStorage we detect the default language of the browser
+      this.internationalizationService.setLocale(translate.getBrowserLang());
+    } else {
+      translate.use(InternationalizationService.getLocale());
+    }
   }
 }

@@ -1,11 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import {InternationalizationService} from './internationalization.service';
 
 export default class GlobalService {
 
   getHeaders(contentType: string = 'application/json') {
     const options = {
-      'Accept-Language': environment.default_language
+      'Accept-Language': InternationalizationService.getLocale()
     };
 
     const token = localStorage.getItem('token');
