@@ -132,7 +132,7 @@ export class AcademicsPageComponent implements OnInit {
       if (this.selectedFieldUrl) {
         this.academicFieldService.update(this.selectedFieldUrl, this.fieldForm.value['name']).subscribe(
           data => {
-            this.notificationService.success('Modifié');
+            this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshFieldList();
             this.toogleModal('form_academic_fields');
           },
@@ -150,7 +150,7 @@ export class AcademicsPageComponent implements OnInit {
       } else {
         this.academicFieldService.create(this.fieldForm.value['name']).subscribe(
           data => {
-            this.notificationService.success('Ajouté');
+            this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshFieldList();
             this.toogleModal('form_academic_fields');
           },
@@ -172,11 +172,14 @@ export class AcademicsPageComponent implements OnInit {
   removeField(item) {
     this.academicFieldService.remove(item).subscribe(
       data => {
-        this.notificationService.success('Supprimé', 'Le domaine d\'étude a bien été supprimé.');
+        this.notificationService.success(
+          'shared.notifications.delete_academic_field.title',
+          'shared.notifications.delete_academic_field.content'
+        );
         this.refreshFieldList();
       },
       err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+        this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
       }
     );
   }
@@ -211,7 +214,7 @@ export class AcademicsPageComponent implements OnInit {
       if (this.selectedLevelUrl) {
         this.academicLevelService.update(this.selectedLevelUrl, this.levelForm.value['name']).subscribe(
           data => {
-            this.notificationService.success('Modifié');
+            this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshLevelList();
             this.toogleModal('form_academic_levels');
           },
@@ -229,7 +232,7 @@ export class AcademicsPageComponent implements OnInit {
       } else {
         this.academicLevelService.create(this.levelForm.value['name']).subscribe(
           data => {
-            this.notificationService.success('Ajouté');
+            this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshLevelList();
             this.toogleModal('form_academic_levels');
           },
@@ -251,11 +254,14 @@ export class AcademicsPageComponent implements OnInit {
   removeLevel(item) {
     this.academicLevelService.remove(item).subscribe(
       data => {
-        this.notificationService.success('Supprimé', 'Le niveau d\'étude a bien été supprimé.');
+        this.notificationService.success(
+          'shared.notifications.delete_academic_level.title',
+          'shared.notifications.delete_academic_level.content'
+        );
         this.refreshLevelList();
       },
       err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+        this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
       }
     );
   }

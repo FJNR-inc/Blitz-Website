@@ -88,7 +88,7 @@ export class OrganizationsPageComponent implements OnInit {
       if (this.selectedOrganizationUrl) {
         this.organizationService.update(this.selectedOrganizationUrl, this.organizationForm.value['name']).subscribe(
           data => {
-            this.notificationService.success('Modifié');
+            this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshOrganizationList();
             this.toogleModal('form_organizations');
           },
@@ -106,7 +106,7 @@ export class OrganizationsPageComponent implements OnInit {
       } else {
         this.organizationService.create(this.organizationForm.value['name']).subscribe(
           data => {
-            this.notificationService.success('Ajouté');
+            this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshOrganizationList();
             this.toogleModal('form_organizations');
           },
@@ -128,11 +128,11 @@ export class OrganizationsPageComponent implements OnInit {
   removeOrganization(item) {
     this.organizationService.remove(item).subscribe(
       data => {
-        this.notificationService.success('Supprimé', 'L\'université a bien été supprimé.');
+        this.notificationService.success('shared.notifications.delete_university.title', 'shared.notifications.delete_university.content');
         this.refreshOrganizationList();
       },
       err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+        this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
       }
     );
   }

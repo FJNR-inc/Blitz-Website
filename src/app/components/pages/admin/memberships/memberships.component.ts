@@ -152,7 +152,7 @@ export class MembershipsComponent implements OnInit {
       if (this.selectedMembershipUrl) {
         this.membershipService.update(this.selectedMembershipUrl, membership).subscribe(
           data => {
-            this.notificationService.success('Modifié');
+            this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshMembershipList();
             this.toogleModal('form_memberships');
           },
@@ -185,7 +185,7 @@ export class MembershipsComponent implements OnInit {
       } else {
         this.membershipService.create(membership).subscribe(
           data => {
-            this.notificationService.success('Ajouté');
+            this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshMembershipList();
             this.toogleModal('form_memberships');
           },

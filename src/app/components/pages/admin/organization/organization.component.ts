@@ -101,7 +101,7 @@ export class OrganizationComponent implements OnInit {
       if (this.selectedDomainUrl) {
         this.domainService.update(this.selectedDomainUrl, this.domainForm.value).subscribe(
           data => {
-            this.notificationService.success('Modifié');
+            this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshOrganization();
             this.toogleModal('form_domain');
           },
@@ -124,7 +124,7 @@ export class OrganizationComponent implements OnInit {
       } else {
         this.domainService.create(this.domainForm.value).subscribe(
           data => {
-            this.notificationService.success('Ajouté');
+            this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshOrganization();
             this.toogleModal('form_domain');
           },
@@ -151,11 +151,14 @@ export class OrganizationComponent implements OnInit {
   removeDomain(item) {
     this.domainService.remove(item).subscribe(
       data => {
-        this.notificationService.success('Supprimé', 'Le nom de domaine a bien été supprimé.');
+        this.notificationService.success(
+          'shared.notifications.delete_domain_name.title',
+          'shared.notifications.delete_domain_name.content'
+        );
         this.refreshOrganization();
       },
       err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+        this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
       }
     );
   }

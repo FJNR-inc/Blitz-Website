@@ -46,7 +46,7 @@ export class ResetPasswordPageComponent implements OnInit {
     if ( form.valid ) {
       this.authenticationService.changePassword(this.token, form.value['password']).subscribe(
         data => {
-          this.notificationService.success('Mot de passe réinitialiser', 'Vous pouvez maintenant vous connecter.');
+          this.notificationService.success('shared.notifications.password_reset.title', 'shared.notifications.password_reset.content');
           this.router.navigate(['/']);
         },
         err => {

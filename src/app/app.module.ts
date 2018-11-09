@@ -89,6 +89,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {InternationalizationService} from './services/internationalization.service';
+import {MyNotificationService} from './services/my-notification/my-notification.service';
 
 registerLocaleData(localeFr);
 
@@ -369,7 +370,7 @@ const appRoutes = [
     NtTopComponent,
     LoaderComponent,
     TablePeriodsComponent,
-    FileUploadComponent
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -420,6 +421,7 @@ const appRoutes = [
     OrderService,
     ReservationService,
     InternationalizationService,
+    MyNotificationService,
   ],
   bootstrap: [AppComponent]
 })

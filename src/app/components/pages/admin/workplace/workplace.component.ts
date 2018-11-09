@@ -88,10 +88,10 @@ export class WorkplaceComponent implements OnInit {
     this.pictureService.create(newPicture).subscribe(
       data => {
         this.listPictures.push(new Picture(data));
-        this.notificationService.success('Ajouté', 'La photo a bien été ajouté.');
+        this.notificationService.success('shared.notifications.add_picture.title', 'shared.notifications.add_picture.content');
       },
       err => {
-        this.notificationService.error('Erreur', 'Échec de la tentative d\'ajout.');
+        this.notificationService.error('shared.notifications.fail_add.title', 'shared.notifications.fail_add.content');
       }
     );
   }
@@ -101,11 +101,11 @@ export class WorkplaceComponent implements OnInit {
       if (picture.id === event.id) {
         this.pictureService.remove(picture).subscribe(
           data => {
-            this.notificationService.success('Supprimé', 'La photo a bien été supprimé.');
+            this.notificationService.success('shared.notifications.delete_picture.title', 'shared.notifications.delete_picture.content');
             this.refreshListPictures();
           },
           err => {
-            this.notificationService.error('Erreur', 'Échec de la tentative de suppression.');
+            this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
           }
         );
       }
@@ -148,7 +148,7 @@ export class WorkplaceComponent implements OnInit {
     if ( this.workplaceForm.valid ) {
       this.workplaceService.update(this.workplace.url, value).subscribe(
         data => {
-          this.notificationService.success('Ajouté');
+          this.notificationService.success('shared.notifications.commons.added.title');
           this.refreshWorkplace();
           this.toogleModal('form_workplaces');
         },

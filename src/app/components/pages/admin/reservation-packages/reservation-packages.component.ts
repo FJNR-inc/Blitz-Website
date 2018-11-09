@@ -152,7 +152,7 @@ export class ReservationPackagesComponent implements OnInit {
       if (this.selectedReservationPackageUrl) {
         this.reservationPackageService.update(this.selectedReservationPackageUrl, reservationPackage).subscribe(
           data => {
-            this.notificationService.success('Modifié');
+            this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshReservationPackageList();
             this.toogleModal('form_reservation_packages');
           },
@@ -185,7 +185,7 @@ export class ReservationPackagesComponent implements OnInit {
       } else {
         this.reservationPackageService.create(reservationPackage).subscribe(
           data => {
-            this.notificationService.success('Ajouté');
+            this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshReservationPackageList();
             this.toogleModal('form_reservation_packages');
           },

@@ -152,7 +152,7 @@ export class TablePeriodsComponent implements OnInit {
       if (this.selectedPeriodUrl) {
         this.periodService.update(this.selectedPeriodUrl, this.periodForm.value).subscribe(
           data => {
-            this.notificationService.success('Modifié');
+            this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshPeriodList();
             this.toggleModal('form_periods');
           },
@@ -190,7 +190,7 @@ export class TablePeriodsComponent implements OnInit {
       } else {
         this.periodService.create(this.periodForm.value).subscribe(
           data => {
-            this.notificationService.success('Ajouté');
+            this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshPeriodList();
             this.toggleModal('form_periods');
           },
@@ -243,12 +243,12 @@ export class TablePeriodsComponent implements OnInit {
         console.log(this.periodInDeletion.total_reservations);
         this.periodService.remove(this.periodInDeletion, force, this.messageOnDeletion).subscribe(
           data => {
-            this.notificationService.success('Supprimé', 'La période a bien été supprimé.');
+            this.notificationService.success('shared.notifications.delete_period.title', 'shared.notifications.delete_period.content');
             this.myModalService.get('validation_deletion').close();
             this.refreshPeriodList();
           },
           err => {
-            this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+            this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
           }
         );
       }

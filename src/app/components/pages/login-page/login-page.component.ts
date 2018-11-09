@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { NotificationsService } from 'angular2-notifications';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
+import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-login-page',
@@ -21,7 +22,7 @@ export class LoginPageComponent {
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService,
-    private notificationService: NotificationsService,
+    private notificationService: MyNotificationService,
     private formBuilder: FormBuilder,
     private profileService: ProfileService,
     private activatedRoute: ActivatedRoute
@@ -43,7 +44,7 @@ export class LoginPageComponent {
           this.profileService.get().subscribe(
             profile => {
               this.authenticationService.setProfile(profile);
-              this.notificationService.success('Connecté', 'Bienvenue!');
+              this.notificationService.success('shared.notifications.connected.title', 'shared.notifications.connected.content');
               this.router.navigate([this.returnUrl]);
             }
           );

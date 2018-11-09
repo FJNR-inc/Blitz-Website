@@ -163,11 +163,14 @@ export class ProfileComponent implements OnInit {
   deactivateAccount() {
     this.userService.remove(this.profile).subscribe(
       data => {
-        this.notificationService.success('Désactivé', 'Votre profil a bien été désactivé.');
+        this.notificationService.success(
+          'shared.notifications.deactivate_profile.title',
+          'shared.notifications.deactivate_profile.content'
+        );
         this.router.navigate(['/logout']);
       },
       err => {
-        this.notificationService.error('Erreur', 'Echec de la tentative de désactivation.');
+        this.notificationService.error('shared.notifications.fail_deactivation.title', 'shared.notifications.fail_deactivation.content');
       }
     );
   }
@@ -181,7 +184,7 @@ export class ProfileComponent implements OnInit {
       }
       this.userService.update(this.profile.url, value).subscribe(
         data => {
-          this.notificationService.success('Ajouté');
+          this.notificationService.success('shared.notifications.commons.added.title');
           this.refreshProfile();
           this.toogleModal('form_user');
         },
@@ -232,11 +235,11 @@ export class ProfileComponent implements OnInit {
   cancelReservation() {
     this.reservationService.remove(this.reservationInCancelation).subscribe(
       data => {
-        this.notificationService.success('Annulé', 'Le bloc de rédaction a bien été annulé.');
+        this.notificationService.success('shared.notifications.cancel_bloc.title', 'shared.notifications.cancel_bloc.content');
         this.refreshReservation();
       },
       err => {
-        this.notificationService.error('Erreur', 'Échec de la tentative d\'annulation.');
+        this.notificationService.error('shared.notifications.fail_cancel.title', 'shared.notifications.fail_cancel.content');
       }
     );
   }

@@ -8,6 +8,7 @@ import { TimeSlot } from '../../../../models/timeSlot';
 import { TimeSlotService } from '../../../../services/time-slot.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { isNull } from 'util';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-period',
@@ -63,7 +64,7 @@ export class PeriodComponent implements OnInit {
 
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private timeslotService: TimeSlotService,
               private activatedRoute: ActivatedRoute,
@@ -171,7 +172,7 @@ export class PeriodComponent implements OnInit {
         } else {
           this.timeslotService.update(this.selectedTimeslot.url, value).subscribe(
             data => {
-              this.notificationService.success('Modifié');
+              this.notificationService.success('shared.notifications.commons.updated.title');
               this.refreshTimeslotList();
               this.toggleModal('form_timeslots');
             },
@@ -195,7 +196,7 @@ export class PeriodComponent implements OnInit {
       } else {
         this.timeslotService.create(value).subscribe(
           data => {
-            this.notificationService.success('Ajouté');
+            this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshTimeslotList();
             this.toggleModal('form_timeslots');
           },
@@ -231,11 +232,11 @@ export class PeriodComponent implements OnInit {
       } else {
         this.timeslotService.remove(this.timeslotInDeletion, force, this.messageOnDeletion).subscribe(
           data => {
-            this.notificationService.success('Supprimé', 'Le bloc de rédaction a bien été supprimé.');
+            this.notificationService.success('shared.notifications.delete_bloc.title', 'shared.notifications.delete_bloc.content');
             this.refreshTimeslotList();
           },
           err => {
-            this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+            this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
           }
         );
       }

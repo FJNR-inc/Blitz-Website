@@ -53,8 +53,8 @@
     "year": "Année"
   },
   "membership-subscription": {
-    "alredy_member_1": "Vous avez déjà un membership pour",
-    "alredy_member_2": "jour.s. Tant que votre membership n'est pas terminé il vous est impossible (et inutile) d'acheter un nouveau membership.",
+    "already_member_1": "Vous avez déjà un membership pour",
+    "already_member_2": "jour.s. Tant que votre membership n'est pas terminé il vous est impossible (et inutile) d'acheter un nouveau membership.",
     "link-to-homepage": "Retour à la page d'accueil",
     "link-to-subscriptions-infos": "En savoir plus sur nos abonnements",
     "text_1": "* Tarif de lancement. Après le 1<sup>er</sup> novembre 2018, le tarif sera de 20$<sup>+txs</sup> pour les étudiant.e.s et postdoctorant.e.s.",
@@ -78,6 +78,7 @@
     "card_text_2": "L’adhésion est valable pour un an à partir de la date d'adhésion et n’est pas remboursable.",
     "card_text_3": "L’adhésion est automatiquement renouvelée à moins de désistement. Un courriel de rappel est envoyé un mois avant le renouvellement.",
     "launching_price": "Tarif de lancement",
+    "link": "Pourquoi devenir membre?",
     "text_promo_1": "Vous êtes étudiant.e à la maîtrise, au doctorat ou postdoctorant.e? Joignez-vous à la communauté Thèsez-vous en adhérant au membership.",
     "until": "jusqu'au"
   },
@@ -93,12 +94,12 @@
     "space": "espace"
   },
   "nt-wizzard": {
-    "informations": "Informations",
-    "verification": "Vérification",
     "confirmation": "Confirmation",
+    "informations": "Informations",
+    "payment": "Paiement",
     "subscription": "Abonnement",
     "summary": "Résumé",
-    "payment": "Paiement"
+    "verification": "Vérification"
   },
   "profile": {
     "accomplished": "Accomplie(s)",
@@ -141,18 +142,18 @@
     "title": "Créer mon profil"
   },
   "reservation": {
-    "calendar_legend": {
-      "many_places_availables": "Beaucoup de places disponibles",
-      "half_capacity": "Moins de 50% de places disponibles",
-      "left_some_places": "Presque plus de places disponibles",
-      "no_more_places": "Aucune places disponible"
-    },
     "add_card": "Ajouter une carte",
     "add_new_card": "Ajouter une nouvelle carte",
     "add_to_card": "Ajouter au panier",
     "bloc(s)": "bloc(s)",
     "bloc_prepayed": "bloc(s) prépayé(s)",
     "buy_prepayed_blocs": "Acheter des blocs de rédaction prépayés",
+    "calendar_legend": {
+      "half_capacity": "Moins de 50% de places disponibles",
+      "left_some_places": "Presque plus de places disponibles",
+      "many_places_availables": "Beaucoup de places disponibles",
+      "no_more_places": "Aucune places disponible"
+    },
     "card_is_saved": "Votre carte a bien été enregistré",
     "cart": "panier",
     "choose_payment_mode": "Choisir une carte de paiement",
@@ -224,6 +225,7 @@
       "year": "année"
     },
     "form": {
+      "CVV": "CVV",
       "academic_field": "Domaine d'études ou d'enseignement principal",
       "academic_level": "",
       "birthdate": "Date de naissance",
@@ -247,8 +249,7 @@
       "type_package": "forfait",
       "university": "Université d'appartenance actuelle",
       "university_email": "Adresse courriel universitaire",
-      "university_none": "Je n'appartiens pas/plus à une université",
-      "CVV": "CVV"
+      "university_none": "Je n'appartiens pas/plus à une université"
     },
     "month": {
       "april": "avril",
@@ -263,6 +264,96 @@
       "november": "novembre",
       "october": "octobre",
       "september": "septembre"
+    },
+    "notifications": {
+      "add_picture": {
+        "content": "La photo a bien été ajouté.",
+        "title": "Ajouté"
+      },
+      "cancel_bloc": {
+        "content": "Le bloc de rédaction a bien été annulé.",
+        "title": "Annulé"
+      },
+      "commons": {
+        "added": {
+          "title": "Ajouté"
+        },
+        "updated": {
+          "title": "Modifié"
+        }
+      },
+      "connected": {
+        "content": "Bienvenue!",
+        "title": "Connecté"
+      },
+      "deactivate_profile": {
+        "content": "Votre profil a bien été désactivé.",
+        "title": "Désactivé"
+      },
+      "delete_academic_field": {
+        "content": "Le domaine d'étude a bien été supprimé.",
+        "title": "Supprimé"
+      },
+      "delete_academic_level": {
+        "content": "Le niveau d'étude a bien été supprimé.",
+        "title": "Supprimé"
+      },
+      "delete_bloc": {
+        "content": "Le bloc de rédaction a bien été supprimé.",
+        "title": "Supprimé"
+      },
+      "delete_domain_name": {
+        "content": "Le nom de domaine a bien été supprimé.",
+        "title": "Supprimé"
+      },
+      "delete_period": {
+        "content": "La période a bien été supprimé.",
+        "title": "Supprimé"
+      },
+      "delete_picture": {
+        "content": "La photo a bien été supprimé.",
+        "title": "Supprimé"
+      },
+      "delete_space": {
+        "content": "L'espace de travail a bien été supprimé.",
+        "title": "Supprimé"
+      },
+      "delete_university": {
+        "content": "L'université a bien été supprimé.",
+        "title": "Supprimé"
+      },
+      "disconnected": {
+        "content": "À bientôt!",
+        "title": "Déconnecté"
+      },
+      "fail_add": {
+        "content": "Échec de la tentative d'ajout.",
+        "title": "Erreur"
+      },
+      "fail_cancel": {
+        "content": "Échec de la tentative d'annulation.",
+        "title": "Erreur"
+      },
+      "fail_deactivate": {
+        "content": "Echec de la tentative de désactivation.",
+        "title": "Erreur"
+      },
+      "fail_deletion": {
+        "content": "Échec de la tentative de suppression.",
+        "title": "Échec"
+      },
+      "order_done": {
+        "content": "Bravo!",
+        "title": "Achat effectué"
+      },
+      "password_reset": {
+        "content": "Vous pouvez maintenant vous connecter.",
+        "title": "Mot de passe réinitialiser"
+      },
+      "session_expired": {
+        "content": "Votre session à expirer.",
+        "title": "Déconnecté"
+      }
     },
     "taxes": {
       "TPS": "TPS",

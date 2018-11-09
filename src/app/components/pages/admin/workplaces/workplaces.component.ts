@@ -109,11 +109,11 @@ export class WorkplacesComponent implements OnInit {
       } else {
         this.workplaceService.remove(this.workplaceInDeletion).subscribe(
           data => {
-            this.notificationService.success('Supprimé', 'L\'espace de travail a bien été supprimé.');
+            this.notificationService.success('shared.notifications.delete_space.title', 'shared.notifications.delete_space.content');
             this.refreshWorkplaceList();
           },
           err => {
-            this.notificationService.error('Erreur', 'Echec de la tentative de suppression.');
+            this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
           }
         );
       }
@@ -139,7 +139,7 @@ export class WorkplacesComponent implements OnInit {
       value['timezone'] = 'America/Montreal';
       this.workplaceService.create(value).subscribe(
         data => {
-          this.notificationService.success('Ajouté');
+          this.notificationService.success('shared.notifications.commons.added.title');
           this.refreshWorkplaceList();
           this.toggleModal('form_workplaces');
         },
