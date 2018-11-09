@@ -35,6 +35,8 @@ import {ProfileService} from '../../../services/profile.service';
 import {environment} from '../../../../environments/environment';
 import {NotificationsService} from 'angular2-notifications';
 import {TaxeUtil} from '../../../utils/taxe';
+import {InternationalizationService} from '../../../services/internationalization.service';
+import {TranslateService} from '@ngx-translate/core';
 
 
 declare let paysafe: any;
@@ -54,7 +56,7 @@ export class ReservationPageComponent implements OnInit {
   view = 'month';
   viewDate: Date = new Date();
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
-  locale = 'fr';
+  locale = InternationalizationService.getLocale();
   refresh: Subject<any> = new Subject();
   events: CalendarEvent[] = [];
   activeDayIsOpen = false;
@@ -132,6 +134,16 @@ export class ReservationPageComponent implements OnInit {
     }
   ];
 
+  labels: string[] = [
+    'shared.form.card_number',
+    'shared.form.expiration_date',
+    'shared.form.CVV',
+    'reservation.calendar_legend.many_places_availables',
+    'reservation.calendar_legend.half_capacity',
+    'reservation.calendar_legend.left_some_places',
+    'reservation.calendar_legend.no_more_places',
+  ];
+
   waitPaysafe = false;
   waitAPI = false;
   wantToBuyPackage = false;
@@ -147,15 +159,41 @@ export class ReservationPageComponent implements OnInit {
               private cardService: CardService,
               private orderService: OrderService,
               private profileService: ProfileService,
-              private notificationService: NotificationsService) {}
+              private notificationService: NotificationsService,
+              private internationalizationService: InternationalizationService,
+              private translate: TranslateService) {}
 
   ngOnInit() {
     this.initPaysafe();
     this.refreshProfile();
     this.refreshListTimeSlot();
     this.refreshListMembership();
+    this.subscribeToLocaleChange();
+    this.translateStrings();
   }
 
+  translateStrings() {
+    this.translate.get(this.labels).subscribe(
+      (translatedLabels: string) => {
+        this.OPTIONS.fields.cardNumber = translatedLabels['shared.form.card_number'];
+        this.OPTIONS.fields.expiryDate = translatedLabels['shared.form.expiration_date'];
+        this.OPTIONS.fields.cvv = translatedLabels['shared.form.CVV'];
+        this.colors[0].label = translatedLabels['reservation.calendar_legend.many_places_availables'];
+        this.colors[1].label = translatedLabels['reservation.calendar_legend.half_capacity'];
+        this.colors[2].label = translatedLabels['reservation.calendar_legend.left_some_places'];
+        this.colors[3].label = translatedLabels['reservation.calendar_legend.no_more_places'];
+      }
+    );
+  }
+
+  subscribeToLocaleChange() {
+      this.internationalizationService.locale.subscribe(
+        emitedLocale => {
+          this.locale = emitedLocale;
+          this.translateStrings();
+        }
+      );
+  }
 
   refreshProfile() {
     if (this.authenticationService.isAuthenticated()) {

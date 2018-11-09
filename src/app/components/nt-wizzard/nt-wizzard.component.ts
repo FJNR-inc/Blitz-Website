@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-nt-wizzard',
@@ -7,32 +8,43 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class NtWizzardComponent implements OnInit {
 
-  @Input() items: any[] = [
+  items: any[] = [
     {
-      'name': 'Informations'
+      'name': 'nt-wizzard.informations'
     },
     {
-      'name': 'Vérification'
+      'name': 'nt-wizzard.verification'
     },
     {
-      'name': 'Confirmation'
+      'name': 'nt-wizzard.confirmation'
     },
     {
-      'name': 'Abonnement'
+      'name': 'nt-wizzard.subscription'
     },
     {
-      'name': 'Résumé'
+      'name': 'nt-wizzard.summary'
     },
     {
-      'name': 'Paiement'
+      'name': 'nt-wizzard.payment'
     }
   ];
 
   @Input() active: number;
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
+
+  translateItems() {
+    for (const item of this.items) {
+      this.translate.get(item.name).subscribe(
+        (translatedLabel: string) => {
+          item.name = translatedLabel;
+        }
+      );
+    }
+  }
 
   ngOnInit() {
+    this.translateItems();
     if (this.active !== null) {
       let count = 0;
       for (const item of this.items) {

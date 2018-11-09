@@ -57,7 +57,7 @@
           </span>
           </a>
           <h2 class="reservation-page__content__reservation__calendar__actions__title">
-            {{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}
+            {{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}
           </h2>
           <a class="reservation-page__content__reservation__calendar__actions__button"
              mwlCalendarNextView
@@ -80,8 +80,7 @@
             [locale]="locale"
             [activeDayIsOpen]="activeDayIsOpen"
             (dayClicked)="dayClicked($event.day)"
-            (eventClicked)="eventClicked($event.event)"
-            (eventTimesChanged)="eventTimesChanged($event)">
+            (eventClicked)="eventClicked($event.event)">
           </mwl-calendar-month-view>
         </div>
         <div class="reservation-page__content__reservation__calendar__legend">

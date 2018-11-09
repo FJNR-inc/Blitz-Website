@@ -92,6 +92,14 @@
     "retreat": "retraite",
     "space": "espace"
   },
+  "nt-wizzard": {
+    "informations": "Informations",
+    "verification": "Vérification",
+    "confirmation": "Confirmation",
+    "subscription": "Abonnement",
+    "summary": "Résumé",
+    "payment": "Paiement"
+  },
   "profile": {
     "accomplished": "Accomplie(s)",
     "accomplished_subtext": "jusqu'à maintenant",
@@ -133,6 +141,12 @@
     "title": "Créer mon profil"
   },
   "reservation": {
+    "calendar_legend": {
+      "many_places_availables": "Beaucoup de places disponibles",
+      "half_capacity": "Moins de 50% de places disponibles",
+      "left_some_places": "Presque plus de places disponibles",
+      "no_more_places": "Aucune places disponible"
+    },
     "add_card": "Ajouter une carte",
     "add_new_card": "Ajouter une nouvelle carte",
     "add_to_card": "Ajouter au panier",
@@ -233,7 +247,8 @@
       "type_package": "forfait",
       "university": "Université d'appartenance actuelle",
       "university_email": "Adresse courriel universitaire",
-      "university_none": "Je n'appartiens pas/plus à une université"
+      "university_none": "Je n'appartiens pas/plus à une université",
+      "CVV": "CVV"
     },
     "month": {
       "april": "avril",

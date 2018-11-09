@@ -1,5 +1,8 @@
 <ul class="wizard">
-  <li *ngFor="let item of this.items" ui-sref="firstStep" [ngClass]="{'completed': item.completed, 'active': item.actived }">
+  <li *ngFor="let item of this.items"
+      ui-sref="firstStep"
+      [ngClass]="{'completed': item.completed, 'active': item.actived }"
+      [style.maxWidth]="100/this.items.length + '%'">
     <span>{{item.name}}</span>
   </li>
 </ul>

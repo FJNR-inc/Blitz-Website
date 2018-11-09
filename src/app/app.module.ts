@@ -88,6 +88,7 @@ import {ReservationService} from './services/reservation.service';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {InternationalizationService} from './services/internationalization.service';
 
 registerLocaleData(localeFr);
 
@@ -418,6 +419,7 @@ const appRoutes = [
     CardService,
     OrderService,
     ReservationService,
+    InternationalizationService,
   ],
   bootstrap: [AppComponent]
 })

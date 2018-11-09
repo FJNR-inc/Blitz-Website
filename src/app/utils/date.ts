@@ -1,5 +1,7 @@
+import {InternationalizationService} from '../services/internationalization.service';
 
 export class DateUtil {
+
   static formatDay(date) {
     const options = {
       weekday: 'long',
@@ -7,7 +9,9 @@ export class DateUtil {
       month: 'long',
       day: 'numeric'
     };
-    return date.toLocaleDateString('fr-CA', options);
+    const locale = InternationalizationService.getLocale();
+    console.log(locale);
+    return date.toLocaleDateString(locale, options);
   }
 
   static formatTime(date) {
@@ -15,7 +19,8 @@ export class DateUtil {
       hour: '2-digit',
       minute: '2-digit'
     };
-    return date.toLocaleString('fr-CA', options).replace(/ /g, '');
+    const locale = InternationalizationService.getLocale();
+    return date.toLocaleString(locale, options).replace(/ /g, '');
   }
 
   static getLongDay(date) {
