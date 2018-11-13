@@ -7,6 +7,10 @@ import { isNull } from 'util';
 import { AcademicLevel } from '../../../../models/academicLevel';
 import { AcademicLevelService } from '../../../../services/academic-level.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {FormUtil} from '../../../../utils/form';
+import {TranslateService} from '@ngx-translate/core';
+import {InternationalizationService} from '../../../../services/internationalization.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-memberships',
@@ -36,49 +40,106 @@ export class MembershipsComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'Nom'
+        title: 'shared.form.name'
       },
       {
         name: 'price',
-        title: 'Prix'
+        title: 'shared.form.price'
       },
       {
         name: 'available',
-        title: 'Disponible',
+        title: 'shared.form.available',
         type: 'boolean'
       }
     ]
   };
 
+  fields = [
+    {
+      name: 'name_fr',
+      type: 'text',
+      label: 'shared.form.name_in_french'
+    },
+    {
+      name: 'name_en',
+      type: 'text',
+      label: 'shared.form.name_in_english'
+    },
+    {
+      name: 'price',
+      type: 'number',
+      label: 'shared.form.price'
+    },
+    {
+      name: 'academic_levels',
+      type: 'choices',
+      label: 'shared.form.academic_level_required',
+      choices: []
+    },
+    {
+      name: 'alert alert--warning',
+      type: 'alert',
+      label: 'memberships.form.alert_academic_levels'
+    },
+    {
+      name: 'available',
+      type: 'checkbox',
+      label: 'shared.form.available'
+    },
+  ];
+
   constructor(private membershipService: MembershipService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
-              private acdemicLevelService: AcademicLevelService) { }
+              private acdemicLevelService: AcademicLevelService,
+              private translate: TranslateService,
+              private internationalizationService: InternationalizationService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
+    this.translateItems();
     this.refreshMembershipList();
     this.refreshAcademicLevelList();
   }
 
-  initForm(academicLevelsSelected = []) {
-    this.membershipForm = this.formBuilder.group(
-      {
-        name: null,
-        price: null,
-        duration: null,
-        academic_levels: this.formBuilder.array([]),
-        available: null,
-      }
-    );
+  translateItems() {
+    for (const field of this.fields) {
+      this.translate.get(field.label).subscribe(
+        (translatedLabel: string) => {
+          field.label = translatedLabel;
+        }
+      );
+    }
 
-    const formArray = this.membershipForm.get('academic_levels') as FormArray;
-    for (const level of this.listAcademicLevels) {
-      let value = false;
-      if (academicLevelsSelected.indexOf(level.url) > -1) {
-        value = true;
+    for (const column of this.settings.columns) {
+      this.translate.get(column.title).subscribe(
+        (translatedLabel: string) => {
+          column.title = translatedLabel;
+        }
+      );
+    }
+  }
+
+  initForm(academicLevelsSelected = []) {
+    const formUtil = new FormUtil();
+    this.updateFields(academicLevelsSelected);
+    this.membershipForm = formUtil.createFormGroup(this.fields);
+  }
+
+  updateFields(academicLevelsSelected = []) {
+    for (const field of this.fields) {
+      if (field.name === 'academic_levels') {
+        field['choices'] = [];
+        for (const level of this.listAcademicLevels) {
+          const choice = {
+            label: level.name,
+            value: academicLevelsSelected.indexOf(level.url) > -1
+          };
+          field['choices'].push(choice);
+        }
       }
-      formArray.push(new FormControl(value));
     }
   }
 
@@ -114,7 +175,6 @@ export class MembershipsComponent implements OnInit {
   OpenModalCreateMembership() {
     this.initForm([]);
     this.membershipForm.reset();
-    this.membershipForm.controls['duration'].setValue('365 00:00:00');
     this.membershipForm.controls['available'].setValue(false);
 
     this.selectedMembershipUrl = null;
@@ -125,9 +185,9 @@ export class MembershipsComponent implements OnInit {
     for (const membership of this.listMemberships) {
       if (membership.id === item.id) {
         this.initForm(membership.academic_levels);
-        this.membershipForm.controls['name'].setValue(membership.name);
+        this.membershipForm.controls['name_fr'].setValue(membership.name_fr);
+        this.membershipForm.controls['name_en'].setValue(membership.name_en);
         this.membershipForm.controls['price'].setValue(membership.price);
-        this.membershipForm.controls['duration'].setValue(membership.duration);
         this.membershipForm.controls['available'].setValue(membership.available);
 
         this.selectedMembershipUrl = item.url;
@@ -160,26 +220,7 @@ export class MembershipsComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
             }
-            if (err.error.name) {
-              this.membershipForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
-            if (err.error.price) {
-              this.membershipForm.controls['price'].setErrors({
-                apiError: err.error.price
-              });
-            }
-            if (err.error.academic_levels) {
-              this.membershipForm.controls['academic_levels'].setErrors({
-                apiError: err.error.academic_levels
-              });
-            }
-            if (err.error.available) {
-              this.membershipForm.controls['available'].setErrors({
-                apiError: err.error.available
-              });
-            }
+            this.membershipForm = FormUtil.manageFormErrors(this.membershipForm, err);
           }
         );
       } else {
@@ -193,26 +234,7 @@ export class MembershipsComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
             }
-            if (err.error.name) {
-              this.membershipForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
-            if (err.error.price) {
-              this.membershipForm.controls['price'].setErrors({
-                apiError: err.error.price
-              });
-            }
-            if (err.error.academic_levels) {
-              this.membershipForm.controls['academic_levels'].setErrors({
-                apiError: err.error.academic_levels
-              });
-            }
-            if (err.error.available) {
-              this.membershipForm.controls['available'].setErrors({
-                apiError: err.error.available
-              });
-            }
+            this.membershipForm = FormUtil.manageFormErrors(this.membershipForm, err);
           }
         );
       }

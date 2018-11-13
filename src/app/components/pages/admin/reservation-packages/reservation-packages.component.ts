@@ -7,6 +7,7 @@ import { isNull } from 'util';
 import { Membership } from '../../../../models/membership';
 import { MembershipService } from '../../../../services/membership.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {FormUtil} from '../../../../utils/form';
 
 @Component({
   selector: 'app-reservation-packages',
@@ -53,6 +54,46 @@ export class ReservationPackagesComponent implements OnInit {
     ]
   };
 
+  fields = [
+    {
+      name: 'name_fr',
+      type: 'text',
+      label: 'Nom en français'
+    },
+    {
+      name: 'name_en',
+      type: 'text',
+      label: 'Nom en anglais'
+    },
+    {
+      name: 'price',
+      type: 'number',
+      label: 'Prix'
+    },
+    {
+      name: 'reservations',
+      type: 'number',
+      label: 'Nombre de réservations'
+    },
+    {
+      name: 'exclusive_memberships',
+      type: 'choices',
+      label: 'Membership admis',
+      choices: []
+    },
+    {
+      name: 'alert alert--warning',
+      type: 'alert',
+      label: 'Attention, si vous spécifiez un type de membership, seuls les gens disposant ' +
+        'actuellement de ce type de membership pourront bénéficier de ce forfait. '
+    },
+    {
+      name: 'available',
+      type: 'checkbox',
+      label: 'Disponible'
+    },
+  ];
+
   constructor(private reservationPackageService: ReservationPackageService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
@@ -65,23 +106,23 @@ export class ReservationPackagesComponent implements OnInit {
   }
 
   initForm(membershipsSelected) {
-    this.reservationPackageForm = this.formBuilder.group(
-      {
-        name: null,
-        price: null,
-        reservations: null,
-        exclusive_memberships: this.formBuilder.array([]),
-        available: null,
-      }
-    );
+    const formUtil = new FormUtil();
+    this.updateFields(membershipsSelected);
+    this.reservationPackageForm = formUtil.createFormGroup(this.fields);
+  }
 
-    const formArray = this.reservationPackageForm.get('exclusive_memberships') as FormArray;
-    for (const level of this.listMemberships) {
-      let value = false;
-      if (membershipsSelected.indexOf(level.url) > -1) {
-        value = true;
+  updateFields(membershipsSelected = []) {
+    for (const field of this.fields) {
+      if (field.name === 'exclusive_memberships') {
+        field['choices'] = [];
+        for (const membership of this.listMemberships) {
+          const choice = {
+            label: membership.name,
+            value: membershipsSelected.indexOf(membership.url) > -1
+          };
+          field['choices'].push(choice);
+        }
       }
-      formArray.push(new FormControl(value));
     }
   }
 
@@ -126,7 +167,8 @@ export class ReservationPackagesComponent implements OnInit {
     for (const reservationPackage of this.listReservationPackages) {
       if (reservationPackage.id === item.id) {
         this.initForm(reservationPackage.exclusive_memberships);
-        this.reservationPackageForm.controls['name'].setValue(reservationPackage.name);
+        this.reservationPackageForm.controls['name_fr'].setValue(reservationPackage.name_fr);
+        this.reservationPackageForm.controls['name_en'].setValue(reservationPackage.name_en);
         this.reservationPackageForm.controls['price'].setValue(reservationPackage.price);
         this.reservationPackageForm.controls['reservations'].setValue(reservationPackage.reservations);
         this.reservationPackageForm.controls['available'].setValue(reservationPackage.available);
@@ -160,26 +202,7 @@ export class ReservationPackagesComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.reservationPackageErrors = err.error.non_field_errors;
             }
-            if (err.error.name) {
-              this.reservationPackageForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
-            if (err.error.price) {
-              this.reservationPackageForm.controls['price'].setErrors({
-                apiError: err.error.price
-              });
-            }
-            if (err.error.reservations) {
-              this.reservationPackageForm.controls['reservations'].setErrors({
-                apiError: err.error.reservations
-              });
-            }
-            if (err.error.available) {
-              this.reservationPackageForm.controls['available'].setErrors({
-                apiError: err.error.available
-              });
-            }
+            this.reservationPackageForm = FormUtil.manageFormErrors(this.reservationPackageForm, err);
           }
         );
       } else {
@@ -193,26 +216,7 @@ export class ReservationPackagesComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.reservationPackageErrors = err.error.non_field_errors;
             }
-            if (err.error.name) {
-              this.reservationPackageForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
-            if (err.error.price) {
-              this.reservationPackageForm.controls['price'].setErrors({
-                apiError: err.error.price
-              });
-            }
-            if (err.error.reservations) {
-              this.reservationPackageForm.controls['reservations'].setErrors({
-                apiError: err.error.reservations
-              });
-            }
-            if (err.error.available) {
-              this.reservationPackageForm.controls['available'].setErrors({
-                apiError: err.error.available
-              });
-            }
+            this.reservationPackageForm = FormUtil.manageFormErrors(this.reservationPackageForm, err);
           }
         );
       }

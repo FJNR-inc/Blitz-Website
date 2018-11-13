@@ -15,6 +15,7 @@ export class MembershipService extends GlobalService {
   }
 
   create(membership: Membership): Observable<any> {
+    membership.duration = '365 00:00:00';
     const headers = this.getHeaders();
     return this.http.post<any>(
       this.url_memberships,

@@ -14,13 +14,11 @@ export class OrganizationService extends GlobalService {
     super();
   }
 
-  create(name: string): Observable<any> {
+  create(organization: Organization): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
       this.url_organizations,
-      {
-        'name': name
-      },
+      organization,
       {headers: headers}
     );
   }
@@ -44,13 +42,11 @@ export class OrganizationService extends GlobalService {
     );
   }
 
-  update(url: string, name: string): Observable<any> {
+  update(url: string, organization: Organization): Observable<any> {
     const headers = this.getHeaders();
     return this.http.patch<any>(
       url,
-      {
-        'name': name
-      },
+      organization,
       {headers: headers}
     );
   }

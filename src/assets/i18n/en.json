@@ -8,6 +8,26 @@
     "success_text": "",
     "success_title": ""
   },
+  "admin-layout": {
+    "left-nav": {
+      "exit": "",
+      "spaces": "",
+      "studies": "",
+      "title": "",
+      "type_of_memberships": "",
+      "type_of_packages": "",
+      "universities": "",
+      "users": ""
+    }
+  },
+  "nt-wizzard": {
+    "confirmation": "",
+    "informations": "",
+    "payment": "",
+    "subscription": "",
+    "summary": "",
+    "verification": ""
+  },
   "forgot-password-confirmation": {
     "text": "",
     "title": ""
@@ -214,6 +234,9 @@
       "year": ""
     },
     "form": {
+      "name": "name",
+      "price": "price",
+      "available": "available",
       "academic_field": "",
       "academic_level": "",
       "birthdate": "",

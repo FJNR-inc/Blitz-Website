@@ -6,6 +6,8 @@ import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {FormUtil} from '../../../../utils/form';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-organizations-page',
@@ -34,25 +36,54 @@ export class OrganizationsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'Nom'
+        title: 'shared.form.name'
       }
     ]
   };
+
+  fields = [
+    {
+      name: 'name_fr',
+      type: 'text',
+      label: 'shared.form.name_in_french'
+    },
+    {
+      name: 'name_en',
+      type: 'text',
+      label: 'shared.form.name_in_english'
+    }
+  ];
 
   constructor(private organizationService: OrganizationService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translateItems();
     this.refreshOrganizationList();
+    const formUtil = new FormUtil();
+    this.organizationForm = formUtil.createFormGroup(this.fields);
+  }
 
-    this.organizationForm = this.formBuilder.group(
-      {
-        name: null
-      }
-    );
+  translateItems() {
+    for (const field of this.fields) {
+      this.translate.get(field.label).subscribe(
+        (translatedLabel: string) => {
+          field.label = translatedLabel;
+        }
+      );
+    }
+
+    for (const column of this.settings.columns) {
+      this.translate.get(column.title).subscribe(
+        (translatedLabel: string) => {
+          column.title = translatedLabel;
+        }
+      );
+    }
   }
 
   changePage(index: number) {
@@ -78,7 +109,9 @@ export class OrganizationsPageComponent implements OnInit {
   }
 
   OpenModalEditOrganization(item) {
-    this.organizationForm.controls['name'].setValue(item.name);
+    for (const key of Object.keys(this.organizationForm.controls)) {
+      this.organizationForm.controls[key].setValue(item[key]);
+    }
     this.selectedOrganizationUrl = item.url;
     this.toogleModal('form_organizations', 'Éditer une université', 'Éditer');
   }
@@ -86,7 +119,7 @@ export class OrganizationsPageComponent implements OnInit {
   submitOrganization() {
     if ( this.organizationForm.valid ) {
       if (this.selectedOrganizationUrl) {
-        this.organizationService.update(this.selectedOrganizationUrl, this.organizationForm.value['name']).subscribe(
+        this.organizationService.update(this.selectedOrganizationUrl, this.organizationForm.value).subscribe(
           data => {
             this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshOrganizationList();
@@ -96,15 +129,11 @@ export class OrganizationsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.organizationErrors = err.error.non_field_errors;
             }
-            if (err.error.name) {
-              this.organizationForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
+            this.organizationForm = FormUtil.manageFormErrors(this.organizationForm, err);
           }
         );
       } else {
-        this.organizationService.create(this.organizationForm.value['name']).subscribe(
+        this.organizationService.create(this.organizationForm.value).subscribe(
           data => {
             this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshOrganizationList();
@@ -114,11 +143,7 @@ export class OrganizationsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.organizationErrors = err.error.non_field_errors;
             }
-            if (err.error.name) {
-              this.organizationForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
+            this.organizationForm = FormUtil.manageFormErrors(this.organizationForm, err);
           }
         );
       }

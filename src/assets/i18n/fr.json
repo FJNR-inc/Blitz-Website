@@ -8,6 +8,18 @@
     "success_text": "Vous pouvez maintenant vous connecter à la plateforme.",
     "success_title": "Votre profil est activé!"
   },
+  "admin-layout": {
+    "left-nav": {
+      "exit": "Retour au site",
+      "spaces": "Espaces de travail",
+      "studies": "Études",
+      "title": "Administration",
+      "type_of_memberships": "Memberships",
+      "type_of_packages": "Forfaits",
+      "universities": "Universités",
+      "users": "Utilisateurs"
+    }
+  },
   "forgot-password-confirmation": {
     "text": "Verifier vos courriels pour reinitialiser votre mot de passe.",
     "title": "Courriel envoye!"
@@ -35,6 +47,11 @@
     "start_button": "Commencer",
     "text": "Suivez attentivement les étapes pour vous abonner à Thèsez-vous.",
     "title": "Inscription"
+  },
+  "memberships": {
+    "form": {
+      "alert_academic_levels": "Attention, si vous spécifiez un niveau d'étude, seuls les gens actuellement dans ce niveau d'étude pourront bénéficier de ce type de membership."
+    }
   },
   "membership-register": {
     "academic_field": "Domaine d'études ou d'enseignement principal",
@@ -226,12 +243,16 @@
       "year": "année"
     },
     "form": {
+      "name": "nom",
+      "price": "prix",
       "CVV": "CVV",
-      "academic_field": "Domaine d'études ou d'enseignement principal",
-      "academic_level": "",
-      "birthdate": "Date de naissance",
-      "card_number": "Numéro de carte",
-      "email": "Adresse courriel",
+      "academic_field": "domaine d'études ou d'enseignement principal",
+      "academic_level": "status principal",
+      "academic_level_required": "niveau d'étude requis",
+      "available": "disponible",
+      "birthdate": "date de naissance",
+      "card_number": "numéro de carte",
+      "email": "adresse courriel",
       "errors": {
         "forgot_fields": "Veuillez remplir tous les champs"
       },
@@ -244,6 +265,8 @@
       "gender_none": "Je ne souhaite pas m'identifier",
       "info_domain_name": "",
       "last_name": "Nom de famille",
+      "name_in_english": "nom en anglais",
+      "name_in_french": "nom en français",
       "password": "Mot de passe",
       "password_confirmation": "Confirmation du mot de passe",
       "type_membership": "Type de membership",

@@ -14,54 +14,5 @@
               typeModal="success"
               (button2)="submitMembership()"
               maxWidth="600px">
-  <form [formGroup]="membershipForm" *ngIf="membershipForm">
-    <div *ngFor="let error of membershipErrors" class="alert alert--danger">
-      {{ error }}
-    </div>
-    <div class="form-group">
-      <label for="membershipName" class="nt-form-label">Nom*:</label>
-      <input formControlName="name" type="text" id="membershipName" class="nt-form-input" />
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of membershipForm.controls['name'].getError('apiError')">
-        {{ errorMessage }}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="membershipPrice" class="nt-form-label">Prix*:</label>
-      <input formControlName="price" type="text" id="membershipPrice" class="nt-form-input" />
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of membershipForm.controls['price'].getError('apiError')">
-        {{ errorMessage }}
-      </div>
-    </div>
-    <div class="form-group">
-      <span class="nt-form-label">Niveau d'étude requis:</span>
-      <ng-container formArrayName="academic_levels">
-        <div *ngFor="let level of listAcademicLevels; let i = index" >
-          <input type="checkbox"
-                 [formControlName]="i"
-                 [id]="'membershipLevel-'+level.id"/>
-          <label [for]="'membershipLevel-'+level.id">{{level.name}}</label>
-        </div>
-      </ng-container>
-    </div>
-    <div class="form-text form-text--right form-text--danger"
-         *ngFor="let errorMessage of membershipForm.controls['academic_levels'].getError('apiError')">
-      {{ errorMessage }}
-    </div>
-    <div class="alert alert--warning">
-      Attention, si vous spécifiez un niveau d'étude, seuls les gens actuellement
-      dans ce niveau d'étude pourront bénéficier de ce type de membership.
-    </div>
-    <div class="form-group">
-      <div class="align-center">
-        <input formControlName="available" type="checkbox" id="membershipAvailable" />
-        <label for="membershipAvailable">Disponible*</label>
-      </div>
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of membershipForm.controls['available'].getError('apiError')">
-        {{ errorMessage }}
-      </div>
-    </div>
-  </form>
+  <app-form [fields]="fields" [form]="membershipForm" [errors]="membershipErrors"></app-form>
 </app-nt-modal>

@@ -1,0 +1,46 @@
+<app-loader *ngIf="!form"></app-loader>
+
+<form [formGroup]="form" *ngIf="form">
+  <div *ngFor="let error of errors" class="alert alert--danger">
+    {{ error }}
+  </div>
+
+  <div *ngFor="let field of fields">
+    <div class="form-group" *ngIf="field.type === 'text' || field.type === 'password' || field.type === 'number'">
+      <label [for]="field.name" class="nt-form-label">{{field.label}} :</label>
+      <input [formControlName]="field.name" [type]="field.type" [id]="field.name" class="nt-form-input" />
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of form.controls[field.name].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="field.type === 'checkbox'">
+      <label [for]="field.name" class="nt-form-label">{{field.label}} :</label>
+      <div class="align-center">
+        <input type="checkbox" [formControlName]="field.name" [id]="field.name" />
+        <label [for]="field.name" >{{field.label}}</label>
+      </div>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of form.controls[field.name].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div [class]="field.name" *ngIf="field.type === 'alert'">
+      {{ field.label }}
+    </div>
+
+    <div class="form-group" *ngIf="field.type === 'choices'">
+      <span class="nt-form-label">{{field.label}} :</span>
+      <ng-container [formArrayName]="field.name" >
+        <div *ngFor="let choice of field.choices; let i = index" class="align-center">
+          <input type="checkbox"
+                 [formControlName]="i"
+                 [id]="field.name + '-' + i"/>
+          <label [for]="field.name + '-' + i">{{choice.label}}</label>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</form>
