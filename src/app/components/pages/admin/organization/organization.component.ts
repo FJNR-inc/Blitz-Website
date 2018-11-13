@@ -3,9 +3,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Organization } from '../../../../models/organization';
 import { OrganizationService } from '../../../../services/organization.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NotificationsService } from 'angular2-notifications';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { DomainService } from '../../../../services/domain.service';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-organization',
@@ -40,7 +40,7 @@ export class OrganizationComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private organizationService: OrganizationService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private myModalService: MyModalService,
               private domainService: DomainService,
               private formBuilder: FormBuilder) { }

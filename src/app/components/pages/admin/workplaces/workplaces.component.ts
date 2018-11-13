@@ -3,9 +3,9 @@ import { Workplace } from '../../../../models/workplace';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WorkplaceService } from '../../../../services/workplace.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
-import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-workplaces',
@@ -42,7 +42,7 @@ export class WorkplacesComponent implements OnInit {
 
   constructor(private workplaceService: WorkplaceService,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private router: Router) { }
 

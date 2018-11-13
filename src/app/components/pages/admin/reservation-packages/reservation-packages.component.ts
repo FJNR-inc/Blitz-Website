@@ -3,10 +3,10 @@ import { ReservationPackage } from '../../../../models/reservationPackage';
 import { ReservationPackageService } from '../../../../services/reservation-package.service';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
-import { NotificationsService } from 'angular2-notifications';
 import { isNull } from 'util';
 import { Membership } from '../../../../models/membership';
 import { MembershipService } from '../../../../services/membership.service';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-reservation-packages',
@@ -55,7 +55,7 @@ export class ReservationPackagesComponent implements OnInit {
 
   constructor(private reservationPackageService: ReservationPackageService,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private membershipService: MembershipService) { }
 

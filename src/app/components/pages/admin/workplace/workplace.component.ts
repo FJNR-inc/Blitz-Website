@@ -4,10 +4,10 @@ import { Workplace } from '../../../../models/workplace';
 import { WorkplaceService } from '../../../../services/workplace.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
-import { NotificationsService } from 'angular2-notifications';
 import { Picture } from '../../../../models/picture';
 import { PictureService } from '../../../../services/picture.service';
 import {PeriodService} from '../../../../services/period.service';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-workplace',
@@ -29,7 +29,7 @@ export class WorkplaceComponent implements OnInit {
               private periodService: PeriodService,
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private pictureService: PictureService) { }
 
   ngOnInit() {

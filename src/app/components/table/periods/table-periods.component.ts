@@ -4,10 +4,10 @@ import {Period} from '../../../models/period';
 import {isNull} from 'util';
 import {PeriodService} from '../../../services/period.service';
 import {MyModalService} from '../../../services/my-modal/my-modal.service';
-import {NotificationsService} from 'angular2-notifications';
 import {Router} from '@angular/router';
 import {Workplace} from '../../../models/workplace';
 import {WorkplaceService} from '../../../services/workplace.service';
+import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-table-periods',
@@ -64,7 +64,7 @@ export class TablePeriodsComponent implements OnInit {
 
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private router: Router,
               private workplaceService: WorkplaceService) { }

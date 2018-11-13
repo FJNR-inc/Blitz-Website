@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificationsService } from 'angular2-notifications';
 import { AuthenticationService } from '../../../services/authentication.service';
 import {TranslateService} from '@ngx-translate/core';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';

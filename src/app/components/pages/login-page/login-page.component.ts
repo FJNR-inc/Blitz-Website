@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { NotificationsService } from 'angular2-notifications';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';

@@ -33,10 +33,10 @@ import { Order } from '../../../models/order';
 import { OrderLine } from '../../../models/orderLine';
 import {ProfileService} from '../../../services/profile.service';
 import {environment} from '../../../../environments/environment';
-import {NotificationsService} from 'angular2-notifications';
 import {TaxeUtil} from '../../../utils/taxe';
 import {InternationalizationService} from '../../../services/internationalization.service';
 import {TranslateService} from '@ngx-translate/core';
+import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 
 
 declare let paysafe: any;
@@ -159,7 +159,7 @@ export class ReservationPageComponent implements OnInit {
               private cardService: CardService,
               private orderService: OrderService,
               private profileService: ProfileService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private internationalizationService: InternationalizationService,
               private translate: TranslateService) {}
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NotificationsService } from 'angular2-notifications';
+import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-reset-password-page',
@@ -21,7 +21,7 @@ export class ResetPasswordPageComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private formBuilder: FormBuilder,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private router: Router) {
     this.resetForm = this.formBuilder.group(
       {

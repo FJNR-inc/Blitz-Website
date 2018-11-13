@@ -3,10 +3,10 @@ import { Membership } from '../../../../models/membership';
 import { MembershipService } from '../../../../services/membership.service';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
-import { NotificationsService } from 'angular2-notifications';
-import { isNull, isString } from 'util';
+import { isNull } from 'util';
 import { AcademicLevel } from '../../../../models/academicLevel';
 import { AcademicLevelService } from '../../../../services/academic-level.service';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-memberships',
@@ -52,7 +52,7 @@ export class MembershipsComponent implements OnInit {
 
   constructor(private membershipService: MembershipService,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private acdemicLevelService: AcademicLevelService) { }
 

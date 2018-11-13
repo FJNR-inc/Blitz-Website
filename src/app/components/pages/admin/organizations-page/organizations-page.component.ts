@@ -3,9 +3,9 @@ import { Organization } from '../../../../models/organization';
 import { OrganizationService } from '../../../../services/organization.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
-import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-organizations-page',
@@ -41,7 +41,7 @@ export class OrganizationsPageComponent implements OnInit {
 
   constructor(private organizationService: OrganizationService,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private router: Router) { }
 

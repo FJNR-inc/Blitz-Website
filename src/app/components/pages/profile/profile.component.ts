@@ -3,19 +3,17 @@ import { User } from '../../../models/user';
 import { ProfileService } from '../../../services/profile.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { TimeSlotService } from '../../../services/time-slot.service';
-import { TimeSlot } from '../../../models/timeSlot';
 import { UserService } from '../../../services/user.service';
-import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../services/my-modal/my-modal.service';
 import { Card } from '../../../models/card';
 import { CardService } from '../../../services/card.service';
-import {Time} from '@angular/common';
 import {WorkplaceService} from '../../../services/workplace.service';
 import {Workplace} from '../../../models/workplace';
 import {Reservation} from '../../../models/reservation';
 import {ReservationService} from '../../../services/reservation.service';
+import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -54,7 +52,7 @@ export class ProfileComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private timeSlotService: TimeSlotService,
               private userService: UserService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private router: Router,
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,

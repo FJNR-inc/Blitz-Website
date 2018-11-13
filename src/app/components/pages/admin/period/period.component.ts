@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
-import { NotificationsService } from 'angular2-notifications';
 import { Period } from '../../../../models/period';
 import { PeriodService } from '../../../../services/period.service';
 import { TimeSlot } from '../../../../models/timeSlot';

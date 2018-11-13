@@ -4,9 +4,9 @@ import { AcademicLevel } from '../../../../models/academicLevel';
 import { AcademicFieldService } from '../../../../services/academic-field.service';
 import { AcademicLevelService } from '../../../../services/academic-level.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
-import { NotificationsService } from 'angular2-notifications';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { isNull } from 'util';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 
 @Component({
   selector: 'app-academics-page',
@@ -63,7 +63,7 @@ export class AcademicsPageComponent implements OnInit {
   constructor(private academicFieldService: AcademicFieldService,
               private academicLevelService: AcademicLevelService,
               private myModalService: MyModalService,
-              private notificationService: NotificationsService,
+              private notificationService: MyNotificationService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
