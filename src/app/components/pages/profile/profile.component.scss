@@ -10,6 +10,13 @@
     font-weight: 700;
   }
 
+  &__second-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+
   &__sub-title {
     font-size: 0.8em;
     font-weight: 600;
@@ -254,6 +261,10 @@
 @media only screen and (max-width: 1300px) {
   .profile-page {
     &__title {
+      padding-left: 20px;
+    }
+
+    &__second-title {
       padding-left: 20px;
     }
 

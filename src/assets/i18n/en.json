@@ -53,6 +53,8 @@
     "year": ""
   },
   "membership-subscription": {
+    "already_member_1": "",
+    "already_member_2": "",
     "alredy_member_1": "",
     "alredy_member_2": "",
     "link-to-homepage": "",
@@ -78,6 +80,7 @@
     "card_text_2": "",
     "card_text_3": "",
     "launching_price": "",
+    "link": "",
     "text_promo_1": "",
     "until": ""
   },
@@ -121,6 +124,7 @@
     "prepaid_bloc_subtext": "",
     "remaining_days": "",
     "remaining_days_subtext": "",
+    "sub-title": "",
     "subscription": "",
     "welcome": ""
   },
