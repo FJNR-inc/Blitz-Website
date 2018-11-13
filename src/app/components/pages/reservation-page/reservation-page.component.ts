@@ -238,7 +238,7 @@ export class ReservationPageComponent implements OnInit {
               'value': this.workplace.id
             },
             {
-              'name': 'start_time__gte',
+              'name': 'end_time__gte',
               'value': now
             }
           ];

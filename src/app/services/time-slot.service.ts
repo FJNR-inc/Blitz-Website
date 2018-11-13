@@ -53,6 +53,9 @@ export class TimeSlotService extends GlobalService {
         if (filter.name === 'start_time__gte') {
           params = params.set('start_time__gte', filter.value);
         }
+        if (filter.name === 'end_time__gte') {
+          params = params.set('end_time__gte', filter.value);
+        }
       }
     }
     return this.http.get<any>(
