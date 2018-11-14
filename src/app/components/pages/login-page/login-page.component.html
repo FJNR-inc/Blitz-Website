@@ -5,12 +5,8 @@
     </h2>
   </div>
   <form class="login-page__content" (submit)="authenticate(loginForm)" [formGroup]="loginForm">
-    <div *ngFor="let error of errors" class="login-page__content__alert nt-alert nt-alert--danger">
-      <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-      <div class="nt-alert__content">
-        {{ error }}
-      </div>
-    </div>
+    <app-alert *ngIf="errors" [messages]="errors" type="danger"></app-alert>
+
     <div class="form-group">
       <label for="email" class="nt-form-label">{{ 'shared.form.email' | translate }}*:</label>
       <input formControlName="login" name="login" type="email" id="email" class="nt-form-input" />

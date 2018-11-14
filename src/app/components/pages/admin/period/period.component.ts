@@ -16,6 +16,11 @@ import {MyNotificationService} from '../../../../services/my-notification/my-not
 })
 export class PeriodComponent implements OnInit {
 
+  alertMessage = 'Si vous modifier ce bloc de rédaction toutes les ' +
+    'réservations déja effectué seront annulé et remboursé et ' +
+    'un message d\'explication sera envoyé aux membres ayant ' +
+    'subit une annulation.';
+
   period: Period;
   listTimeslots: TimeSlot[];
   listAdaptedTimeslots: any[];

@@ -8,12 +8,7 @@
     </h2>
   </div>
   <form class="membership-payment-page__form">
-    <div *ngFor="let errorMessage of error" class="membership-payment-page__form__alert nt-alert nt-alert--danger">
-      <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-      <div class="nt-alert__content">
-        {{ errorMessage }}
-      </div>
-    </div>
+    <app-alert *ngIf="error" [messages]="error" type="danger" class="membership-payment-page__form__alert"></app-alert>
     <div class="form-group">
       <label for="card-number" class="nt-form-label">Numéro de la carte*:</label>
       <div id="card-number" class="nt-form-input membership-payment-page__form__field"></div>

@@ -82,7 +82,7 @@ export class ReservationPackagesComponent implements OnInit {
       choices: []
     },
     {
-      name: 'alert alert--warning',
+      name: 'warning',
       type: 'alert',
       label: 'Attention, si vous spécifiez un type de membership, seuls les gens disposant ' +
         'actuellement de ce type de membership pourront bénéficier de ce forfait. '

@@ -91,6 +91,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {InternationalizationService} from './services/internationalization.service';
 import {MyNotificationService} from './services/my-notification/my-notification.service';
 import { FormComponent } from './components/shared/form/form.component';
+import { AlertComponent } from './components/shared/alert/alert.component';
 
 registerLocaleData(localeFr);
 
@@ -373,6 +374,7 @@ const appRoutes = [
     TablePeriodsComponent,
     FileUploadComponent,
     FormComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

@@ -285,12 +285,7 @@
               </a>
             </div>
           </div>
-          <div *ngFor="let error of errorOrder" class="nt-alert nt-alert--danger">
-            <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-            <div class="nt-alert__content">
-              {{ error }}
-            </div>
-          </div>
+          <app-alert *ngIf="errorOrder" [messages]="errorOrder" type="danger"></app-alert>
           <button type="button" (click)="finalizeTransaction()" class="reservation-page__content__details__form__payment__button nt-button" [ngClass]="{'nt-button--disabled': isPaymentButtonDisabled()}">
             {{ getLabelFinalizeButton() }}
           </button>
@@ -311,9 +306,7 @@
     {{'reservation.add_card' | translate}}
   </h1>
   <form class="modal-credit-card__form">
-    <div *ngFor="let errorMessage of errorModal" class="nt-alert nt-alert--danger">
-      {{ errorMessage }}
-    </div>
+    <app-alert [messages]="errorModal" type="danger" *ngIf="errorModal"></app-alert>
     <div class="form-group">
       <label for="card-number" class="nt-form-label">{{'shared.form.card_number' | translate}}*:</label>
       <div id="card-number" class="modal-credit-card__form__field"></div>

@@ -46,9 +46,9 @@
       </div>
     </div>
 
-    <div [class]="field.name" *ngIf="field.type === 'alert'">
+    <app-alert [type]="field.name" *ngIf="field.type === 'alert'">
       {{ field.label }}
-    </div>
+    </app-alert>
 
     <div class="form-group" *ngIf="field.type === 'choices'">
       <span class="nt-form-label">{{field.label}} :</span>
@@ -63,10 +63,5 @@
     </div>
   </div>
 
-  <div *ngFor="let error of errors" class="nt-alert nt-alert--danger">
-    <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-    <div class="nt-alert__content">
-      {{ error }}
-    </div>
-  </div>
+  <app-alert *ngIf="errors" type="danger" [messages]="errors"></app-alert>
 </form>

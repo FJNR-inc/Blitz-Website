@@ -284,10 +284,7 @@
     {{ 'terms.acceptation_text' | translate }}
   </p>
 
-  <div *ngIf="!haveReadTerms" class="nt-alert nt-alert--danger">
-    <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-    <div class="nt-alert__content">
+  <app-alert *ngIf="!haveReadTerms" type="danger">
       {{ 'terms.alert_text' | translate }}
-    </div>
-  </div>
+  </app-alert>
 </app-nt-modal>

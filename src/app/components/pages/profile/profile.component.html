@@ -15,9 +15,7 @@
       </h2>
 
       <form (submit)="submitProfile()" [formGroup]="userForm" *ngIf="userForm">
-        <div *ngFor="let error of errors" class="alert alert--danger">
-          {{ error }}
-        </div>
+        <app-alert *ngIf="errors" [messages]="errors" type="danger"></app-alert>
 
         <div class="form-group">
           <label for="first_name" class="nt-form-label">{{ 'shared.form.last_name' | translate }}:</label>

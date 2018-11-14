@@ -77,7 +77,7 @@ export class MembershipsComponent implements OnInit {
       choices: []
     },
     {
-      name: 'alert alert--warning',
+      name: 'warning',
       type: 'alert',
       label: 'memberships.form.alert_academic_levels'
     },

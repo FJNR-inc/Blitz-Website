@@ -3,17 +3,13 @@
     <div class="register-page__form__content__header">
       <div>
         <h2 class="nt-title">
-          {{ 'register.title' | translate }}Créer mon profil
+          {{ 'register.title' | translate }}
         </h2>
       </div>
     </div>
     <div class="register-page__form__content__form">
-      <div *ngFor="let error of errors" class="nt-alert nt-alert--danger">
-        <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-        <div class="nt-alert__content">
-          {{ error }}
-        </div>
-      </div>
+      <app-alert [messages]="errors" type="danger" *ngIf="errors"></app-alert>
+
       <div class="form-group form-group--multiple">
         <div class="form-group__item">
           <label for="firstname" class="nt-form-label">{{ 'shared.form.first_name' | translate }}*:</label>
@@ -79,16 +75,16 @@
              *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
           {{ errorMessage }}
         </div>
-        <div class="nt-alert"  *ngIf="selectedUniversity">
-          <div class="alert__content">
+        <app-alert type="danger" *ngIf="selectedUniversity">
+          <p>
             {{ 'shared.form.info_domain_name' | translate }}:
-            <ul>
-              <li *ngFor="let domain of selectedUniversity.domains">
-                {{ domain.example }}
-              </li>
-            </ul>
-          </div>
-        </div>
+          </p>
+          <ul>
+            <li *ngFor="let domain of selectedUniversity.domains">
+              {{ domain.example }}
+            </li>
+          </ul>
+        </app-alert>
       </div>
       <div class="register-page__form__content__form__inline">
         <div class="register-page__form__content__form__inline__dates form-group">
@@ -194,12 +190,9 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!registerForm.valid && hasSubmit" class="register-page__form__content__error nt-alert nt-alert--danger">
-      <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-      <div class="nt-alert__content">
-        {{ 'shared.form.errors.forgot_fields' | translate }}
-      </div>
-    </div>
+    <app-alert *ngIf="!registerForm.valid && hasSubmit" type="danger" class="register-page__form__content__error">
+      {{ 'shared.form.errors.forgot_fields' | translate }}
+    </app-alert>
     <div class="register-page__form__content__actions">
       <div class="register-page__form__content__actions__item register-page__form__content__actions__main">
         <a routerLink="/login" class="nt-link">{{ 'shared.buttons.log_in' | translate }}</a>

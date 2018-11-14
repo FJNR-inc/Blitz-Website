@@ -1,0 +1,15 @@
+<div class="alert" [ngClass]="{
+    'alert--info': this.type === 'info',
+    'alert--danger': this.type === 'danger',
+    'alert--warning': this.type === 'warning',
+    'alert--success': this.type === 'success'
+  }">
+  <img class="alert__icon" [src]="icons[type]">
+  <div class="alert__content">
+      <div *ngFor="let message of messages">
+        {{ message }}
+      </div>
+
+      <ng-content></ng-content>
+  </div>
+</div>

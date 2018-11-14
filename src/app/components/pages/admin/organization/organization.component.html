@@ -21,9 +21,8 @@
               (button2)="submitDomain()"
               maxWidth="600px">
   <form [formGroup]="domainForm">
-    <div *ngFor="let error of domainErrors" class="alert alert--danger">
-      {{ error }}
-    </div>
+    <app-alert *ngIf="domainErrors" [messages]="domainErrors" type="danger"></app-alert>
+
     <div class="form-group">
       <label for="domainName" class="nt-form-label">Nom de domaine:</label>
       <input formControlName="name" type="text" id="domainName" class="nt-form-input" />

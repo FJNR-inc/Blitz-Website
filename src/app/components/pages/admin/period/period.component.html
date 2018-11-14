@@ -73,9 +73,7 @@
               (button2)="submitTimeslot()"
               maxWidth="600px">
   <form [formGroup]="timeslotForm">
-    <div *ngFor="let error of timeslotErrors" class="alert alert--danger">
-      {{ error }}
-    </div>
+    <app-alert *ngIf="timeslotErrors" [messages]="timeslotErrors" type="danger"></app-alert>
 
     <div class="form-group">
       <label for="start_time" class="nt-form-label">Début du bloc de rédaction:</label>
@@ -101,14 +99,7 @@
       </div>
     </div>
     <div *ngIf="selectedTimeslot && selectedTimeslot.number_of_reservations > 0">
-      <div class="nt-alert nt-alert--danger">
-        <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-        <div class="nt-alert__content">
-          Si vous modifier ce bloc de rédaction toutes les réservations
-          déja effectué seront annulé et remboursé et un message
-          d'explication sera envoyé aux membres ayant subit une annulation.
-        </div>
-      </div>
+      <app-alert type="danger" [messages]="[alertMessage]"></app-alert>
       <div class="form-group">
         <label for="force_update" class="nt-form-label">
           Message d'explication qui sera envoyé aux membres subissant une annulation:

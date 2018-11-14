@@ -8,12 +8,8 @@
     </h2>
   </div>
   <div *ngIf="profile.getTimeBeforeEndMembership() <= 0">
-    <div *ngIf="error" class="nt-alert nt-alert--danger">
-      <img class="nt-alert__icon" src="../../../../assets/images/icons/icon_attention.svg">
-      <div class="nt-alert__content">
-        {{ error }}
-      </div>
-    </div>
+    <app-alert *ngIf="error" type="danger" [messages]="[error]"></app-alert>
+
     <div *ngFor="let membership of listMemberships" class="membership-subscription-page__form" [ngClass]="{'membership-subscription-page__form--disabled': !membershipIsAvailable(membership)}">
       <div>
         <label for="membership-{{ membership.id }}">{{ membership.name }}</label>
