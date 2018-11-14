@@ -43,7 +43,7 @@ Thanks to BrowserStack to help us instantly test regressions,
 reproduce bugs and ensure compatibility for free with the Browserstack's project 
 for open source explorers. 
 
-[![Browserstack Logo](Browserstack-logo.png)](https://browserstack.com)
+[![Browserstack Logo](Browserstack-logo.png)](https://browserstack.com) [![Greenkeeper badge](https://badges.greenkeeper.io/FJNR-inc/Blitz-Website.svg)](https://greenkeeper.io/)
 
 
 
