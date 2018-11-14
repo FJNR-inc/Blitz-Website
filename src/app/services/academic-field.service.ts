@@ -15,13 +15,11 @@ export class AcademicFieldService extends GlobalService {
     super();
   }
 
-  create(name: string): Observable<any> {
+  create(academicField: AcademicField): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
       this.url_academic_fields,
-      {
-        'name': name
-      },
+      academicField,
       {headers: headers}
     );
   }
@@ -37,13 +35,11 @@ export class AcademicFieldService extends GlobalService {
     );
   }
 
-  update(url: string, name: string): Observable<any> {
+  update(url: string, academicField: AcademicField): Observable<any> {
     const headers = this.getHeaders();
     return this.http.patch<any>(
       url,
-      {
-        'name': name
-      },
+      academicField,
       {headers: headers}
     );
   }

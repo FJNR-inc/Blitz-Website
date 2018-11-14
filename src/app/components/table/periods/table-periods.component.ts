@@ -8,6 +8,8 @@ import {Router} from '@angular/router';
 import {Workplace} from '../../../models/workplace';
 import {WorkplaceService} from '../../../services/workplace.service';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
+import {FormUtil} from '../../../utils/form';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-table-periods',
@@ -24,7 +26,7 @@ export class TablePeriodsComponent implements OnInit {
 
   periodForm: FormGroup;
   periodErrors: string[];
-  selectedPeriodUrl: string;
+  selectedPeriod: Period;
 
   settings = {
     title: 'Périodes de réservation',
@@ -40,19 +42,19 @@ export class TablePeriodsComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'Nom'
+        title: 'shared.form.name'
       },
       {
         name: 'start_date',
-        title: 'Date de début'
+        title: 'shared.form.start_date'
       },
       {
         name: 'end_date',
-        title: 'Date de fin'
+        title: 'shared.form.end_date'
       },
       {
         name: 'is_active',
-        title: 'Active',
+        title: 'shared.form.available',
         type: 'boolean'
       }
     ]
@@ -62,27 +64,67 @@ export class TablePeriodsComponent implements OnInit {
   securityOnDeletion: false;
   messageOnDeletion = '';
 
+  fields = [
+    {
+      name: 'name_fr',
+      type: 'text',
+      label: 'shared.form.name_in_french'
+    },
+    {
+      name: 'name_en',
+      type: 'text',
+      label: 'shared.form.name_in_english'
+    },
+    {
+      name: 'start_date',
+      type: 'datetime',
+      label: 'shared.form.start_date'
+    },
+    {
+      name: 'end_date',
+      type: 'datetime',
+      label: 'shared.form.end_date'
+    },
+    {
+      name: 'is_active',
+      type: 'checkbox',
+      label: 'shared.form.available'
+    }
+  ];
+
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private workplaceService: WorkplaceService) { }
+              private workplaceService: WorkplaceService,
+              private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translateItems();
     this.refreshPeriodList();
     this.refreshWorkplaceList();
 
-    this.periodForm = this.formBuilder.group(
-      {
-        name: null,
-        start_date: null,
-        end_date: null,
-        workplace: null,
-        price: null,
-        is_active: false,
-      }
-    );
+    const formUtil = new FormUtil();
+    this.periodForm = formUtil.createFormGroup(this.fields);
+  }
+
+  translateItems() {
+    for (const field of this.fields) {
+      this.translate.get(field.label).subscribe(
+        (translatedLabel: string) => {
+          field.label = translatedLabel;
+        }
+      );
+    }
+
+    for (const column of this.settings.columns) {
+      this.translate.get(column.title).subscribe(
+        (translatedLabel: string) => {
+          column.title = translatedLabel;
+        }
+      );
+    }
   }
 
   refreshWorkplaceList() {
@@ -123,8 +165,7 @@ export class TablePeriodsComponent implements OnInit {
     this.periodErrors = [];
     this.periodForm.reset();
     this.periodForm.controls['is_active'].setValue(false);
-    this.periodForm.controls['price'].setValue(1);
-    this.selectedPeriodUrl = null;
+    this.selectedPeriod = null;
     this.toggleModal('form_periods', 'Ajouter une période', 'Créer');
   }
 
@@ -132,100 +173,66 @@ export class TablePeriodsComponent implements OnInit {
     this.periodErrors = [];
     for (const period of this.listPeriods) {
       if (period.id === item.id) {
-        this.periodForm.controls['name'].setValue(period.name);
+        this.periodForm.controls['name_fr'].setValue(period.name_fr);
+        this.periodForm.controls['name_en'].setValue(period.name_en);
         this.periodForm.controls['start_date'].setValue(period.start_date);
         this.periodForm.controls['end_date'].setValue(period.end_date);
-        this.periodForm.controls['workplace'].setValue(period.workplace);
         this.periodForm.controls['is_active'].setValue(period.is_active);
-        this.periodForm.controls['price'].setValue(period.price);
-        this.selectedPeriodUrl = period.url;
+        this.selectedPeriod = period;
         this.toggleModal('form_periods', 'Éditer une période', 'Éditer');
       }
     }
   }
 
   submitPeriod() {
-    if ( this.workplace ) {
-      this.periodForm.controls['workplace'].setValue(this.workplace.url);
-    }
-    if ( this.periodForm.valid ) {
-      if (this.selectedPeriodUrl) {
-        this.periodService.update(this.selectedPeriodUrl, this.periodForm.value).subscribe(
-          data => {
-            this.notificationService.success('shared.notifications.commons.updated.title');
-            this.refreshPeriodList();
-            this.toggleModal('form_periods');
-          },
-          err => {
-            if (err.error.non_field_errors) {
-              this.periodErrors = err.error.non_field_errors;
-            }
-            if (err.error.name) {
-              this.periodForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
-            if (err.error.start_date) {
-              this.periodForm.controls['start_date'].setErrors({
-                apiError: err.error.start_date
-              });
-            }
-            if (err.error.end_date) {
-              this.periodForm.controls['end_date'].setErrors({
-                apiError: err.error.end_date
-              });
-            }
-            if (err.error.workplace) {
-              this.periodForm.controls['workplace'].setErrors({
-                apiError: err.error.workplace
-              });
-            }
-            if (err.error.is_active) {
-              this.periodForm.controls['is_active'].setErrors({
-                apiError: err.error.is_active
-              });
-            }
+    const request = this.periodForm.value;
+
+    if (this.selectedPeriod) {
+      request['price'] = this.selectedPeriod.price;
+
+      this.periodService.update(this.selectedPeriod.url, request).subscribe(
+        data => {
+          this.notificationService.success('shared.notifications.commons.updated.title');
+          this.refreshPeriodList();
+          this.toggleModal('form_periods');
+        },
+        err => {
+          if (err.error.non_field_errors) {
+            this.periodErrors = err.error.non_field_errors;
+          } else {
+            this.translate.get('shared.form.errors.unknown').subscribe(
+              (translatedLabel: string) => {
+                this.periodErrors =  [translatedLabel];
+              }
+            );
           }
-        );
-      } else {
-        this.periodService.create(this.periodForm.value).subscribe(
-          data => {
-            this.notificationService.success('shared.notifications.commons.updated.title');
-            this.refreshPeriodList();
-            this.toggleModal('form_periods');
-          },
-          err => {
-            if (err.error.non_field_errors) {
-              this.periodErrors = err.error.non_field_errors;
-            }
-            if (err.error.name) {
-              this.periodForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
-            if (err.error.start_date) {
-              this.periodForm.controls['start_date'].setErrors({
-                apiError: err.error.start_date
-              });
-            }
-            if (err.error.end_date) {
-              this.periodForm.controls['end_date'].setErrors({
-                apiError: err.error.end_date
-              });
-            }
-            if (err.error.workplace) {
-              this.periodForm.controls['workplace'].setErrors({
-                apiError: err.error.workplace
-              });
-            }
-            if (err.error.is_active) {
-              this.periodForm.controls['is_active'].setErrors({
-                apiError: err.error.is_active
-              });
-            }
-          }
-        );
+          this.periodForm = FormUtil.manageFormErrors(this.periodForm, err);
+        }
+      );
+    } else {
+      if ( this.workplace ) {
+        request['workplace'] = this.workplace.url;
       }
+      request['price'] = 1;
+      this.periodService.create(request).subscribe(
+        data => {
+          this.notificationService.success('shared.notifications.commons.updated.title');
+          this.refreshPeriodList();
+          this.toggleModal('form_periods');
+        },
+        err => {
+          if (err.error.non_field_errors) {
+            this.periodErrors = err.error.non_field_errors;
+          } else {
+            this.translate.get('shared.form.errors.unknown').subscribe(
+              (translatedLabel: string) => {
+                this.periodErrors =  [translatedLabel];
+              }
+            );
+          }
+          this.periodForm = FormUtil.manageFormErrors(this.periodForm, err);
+        }
+      );
     }
   }
 

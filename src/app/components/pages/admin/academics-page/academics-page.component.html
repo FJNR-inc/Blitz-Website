@@ -21,36 +21,12 @@
               typeModal="success"
               (button2)="submitField()"
               maxWidth="600px">
-  <form [formGroup]="fieldForm">
-    <div *ngFor="let error of fieldErrors" class="alert alert--danger">
-      {{ error }}
-    </div>
-    <div class="form-group">
-      <label for="fieldName" class="nt-form-label">Nom :</label>
-      <input formControlName="name" type="text" id="fieldName" class="nt-form-input" />
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of fieldForm.controls['name'].getError('apiError')">
-        {{ errorMessage }}
-      </div>
-    </div>
-  </form>
+  <app-form [form]="fieldForm" [fields]="academicFieldFields" [errors]="fieldErrors"></app-form>
 </app-nt-modal>
 
 <app-nt-modal name="form_academic_levels"
               typeModal="success"
               (button2)="submitLevel()"
               maxWidth="600px">
-  <form [formGroup]="levelForm">
-    <div *ngFor="let error of levelErrors" class="alert alert--danger">
-      {{ error }}
-    </div>
-    <div class="form-group">
-      <label for="levelName" class="nt-form-label">Nom :</label>
-      <input formControlName="name" type="text" id="levelName" class="nt-form-input" />
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of levelForm.controls['name'].getError('apiError')">
-        {{ errorMessage }}
-      </div>
-    </div>
-  </form>
+  <app-form [form]="levelForm" [fields]="academicLevelFields" [errors]="levelErrors"></app-form>
 </app-nt-modal>

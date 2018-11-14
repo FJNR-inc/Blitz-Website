@@ -6,6 +6,8 @@ export class Period extends BaseModel {
   id: number;
   url: string;
   name: string;
+  name_fr: string;
+  name_en: string;
   start_date: string;
   end_date: string;
   is_active: boolean;

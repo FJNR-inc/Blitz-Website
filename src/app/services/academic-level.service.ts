@@ -15,13 +15,11 @@ export class AcademicLevelService extends GlobalService {
     super();
   }
 
-  create(name: string): Observable<any> {
+  create(academicLevel: AcademicLevel): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
       this.url_academic_levels,
-      {
-        'name': name
-      },
+      academicLevel,
       {headers: headers}
     );
   }
@@ -37,13 +35,11 @@ export class AcademicLevelService extends GlobalService {
     );
   }
 
-  update(url: string, name: string): Observable<any> {
+  update(url: string, academicLevel: AcademicLevel): Observable<any> {
     const headers = this.getHeaders();
     return this.http.patch<any>(
       url,
-      {
-        'name': name
-      },
+      academicLevel,
       {headers: headers}
     );
   }

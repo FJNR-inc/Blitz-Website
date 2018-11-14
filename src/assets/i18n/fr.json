@@ -243,6 +243,22 @@
       "year": "année"
     },
     "form": {
+      "start_date": "Date de début",
+      "end_date": "Date de fin",
+      "seats": "Nombre de places",
+      "postal_code": "Code postal",
+      "city_in_french": "Ville en français",
+      "description_in_french": "Description en français",
+      "country_in_french": "Pays en français",
+      "state_province_in_french": "État en français",
+      "address_line1_in_french": "Ligne d'adresse 1 en français",
+      "address_line2_in_french": "Ligne d'adresse 2 en français",
+      "description_in_english": "Description en anglais",
+      "country_in_english": "Pays en anglais",
+      "city_in_english": "Ville en anglais",
+      "state_province_in_english": "État en anglais",
+      "address_line1_in_english": "Ligne d'adresse 1 en anglais",
+      "address_line2_in_english": "Ligne d'adresse 2 en anglais",
       "name": "nom",
       "price": "prix",
       "CVV": "CVV",
@@ -254,7 +270,8 @@
       "card_number": "numéro de carte",
       "email": "adresse courriel",
       "errors": {
-        "forgot_fields": "Veuillez remplir tous les champs"
+        "forgot_fields": "Veuillez remplir tous les champs",
+        "unknown": "Certains éléments du formulaire sont mal saisis"
       },
       "expiration_date": "Date d'expiration",
       "first_name": "Prénom",

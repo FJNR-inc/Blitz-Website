@@ -8,6 +8,8 @@ import { Picture } from '../../../../models/picture';
 import { PictureService } from '../../../../services/picture.service';
 import {PeriodService} from '../../../../services/period.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {FormUtil} from '../../../../utils/form';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-workplace',
@@ -24,33 +26,117 @@ export class WorkplaceComponent implements OnInit {
   workplaceForm: FormGroup;
   errors: string[];
 
+  workplaceFields = [
+    {
+      name: 'name_fr',
+      type: 'text',
+      label: 'shared.form.name_in_french'
+    },
+    {
+      name: 'name_en',
+      type: 'text',
+      label: 'shared.form.name_in_english'
+    },
+    {
+      name: 'details_fr',
+      type: 'textarea',
+      label: 'shared.form.description_in_french'
+    },
+    {
+      name: 'details_en',
+      type: 'textarea',
+      label: 'shared.form.description_in_english'
+    },
+    {
+      name: 'seats',
+      type: 'number',
+      label: 'shared.form.seats'
+    },
+    {
+      name: 'address_line1_fr',
+      type: 'text',
+      label: 'shared.form.address_line1_in_french'
+    },
+    {
+      name: 'address_line2_fr',
+      type: 'text',
+      label: 'shared.form.address_line2_in_french'
+    },
+    {
+      name: 'address_line1_en',
+      type: 'text',
+      label: 'shared.form.address_line1_in_english'
+    },
+    {
+      name: 'address_line2_en',
+      type: 'text',
+      label: 'shared.form.address_line2_in_english'
+    },
+    {
+      name: 'postal_code',
+      type: 'text',
+      label: 'shared.form.postal_code'
+    },
+    {
+      name: 'city_fr',
+      type: 'text',
+      label: 'shared.form.city_in_french'
+    },
+    {
+      name: 'city_en',
+      type: 'text',
+      label: 'shared.form.city_in_english'
+    },
+    {
+      name: 'state_province_fr',
+      type: 'text',
+      label: 'shared.form.state_province_in_french'
+    },
+    {
+      name: 'state_province_en',
+      type: 'text',
+      label: 'shared.form.state_province_in_english'
+    },
+    {
+      name: 'country_fr',
+      type: 'text',
+      label: 'shared.form.country_in_french'
+    },
+    {
+      name: 'country_en',
+      type: 'text',
+      label: 'shared.form.country_in_english'
+    }
+  ];
+
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
               private periodService: PeriodService,
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
-              private pictureService: PictureService) { }
+              private pictureService: PictureService,
+              private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translateItems();
     this.activatedRoute.params.subscribe((params: Params) => {
       this.workplaceId = params['id'];
       this.refreshWorkplace();
     });
 
-    this.workplaceForm = this.formBuilder.group(
-      {
-        name: null,
-        details: null,
-        seats: null,
-        address_line1: null,
-        address_line2: null,
-        postal_code: null,
-        city: null,
-        state_province: null,
-        country: null,
-      }
-    );
+    const formUtil = new FormUtil();
+    this.workplaceForm = formUtil.createFormGroup(this.workplaceFields);
+  }
+
+  translateItems() {
+    for (const field of this.workplaceFields) {
+      this.translate.get(field.label).subscribe(
+        (translatedLabel: string) => {
+          field.label = translatedLabel;
+        }
+      );
+    }
   }
 
   refreshWorkplace() {
@@ -114,15 +200,23 @@ export class WorkplaceComponent implements OnInit {
 
   OpenModalEditWorkplace() {
     this.workplaceForm.reset();
-    this.workplaceForm.controls['name'].setValue(this.workplace.name);
-    this.workplaceForm.controls['details'].setValue(this.workplace.details);
+    this.workplaceForm.controls['name_fr'].setValue(this.workplace.name_fr);
+    this.workplaceForm.controls['name_en'].setValue(this.workplace.name_en);
+    this.workplaceForm.controls['details_fr'].setValue(this.workplace.details_fr);
+    this.workplaceForm.controls['details_en'].setValue(this.workplace.details_en);
     this.workplaceForm.controls['seats'].setValue(this.workplace.seats);
-    this.workplaceForm.controls['address_line1'].setValue(this.workplace.address_line1);
-    this.workplaceForm.controls['address_line2'].setValue(this.workplace.address_line2);
+    this.workplaceForm.controls['address_line1_fr'].setValue(this.workplace.address_line1_fr);
+    this.workplaceForm.controls['address_line2_fr'].setValue(this.workplace.address_line2_fr);
+    this.workplaceForm.controls['address_line1_en'].setValue(this.workplace.address_line1_en);
+    this.workplaceForm.controls['address_line2_en'].setValue(this.workplace.address_line2_en);
     this.workplaceForm.controls['postal_code'].setValue(this.workplace.postal_code);
-    this.workplaceForm.controls['city'].setValue(this.workplace.city);
-    this.workplaceForm.controls['state_province'].setValue(this.workplace.state_province);
-    this.workplaceForm.controls['country'].setValue(this.workplace.country);
+    this.workplaceForm.controls['city_fr'].setValue(this.workplace.city_fr);
+    this.workplaceForm.controls['city_en'].setValue(this.workplace.city_en);
+    this.workplaceForm.controls['state_province_fr'].setValue(this.workplace.state_province_fr);
+    this.workplaceForm.controls['state_province_en'].setValue(this.workplace.state_province_en);
+    this.workplaceForm.controls['country_fr'].setValue(this.workplace.country_fr);
+    this.workplaceForm.controls['country_en'].setValue(this.workplace.country_en);
+
     this.toogleModal('form_workplaces', 'Éditer un espace de travail', 'Éditer l\'espace');
   }
 
@@ -155,52 +249,14 @@ export class WorkplaceComponent implements OnInit {
         err => {
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
+          } else {
+            this.translate.get('shared.form.errors.unknown').subscribe(
+              (translatedLabel: string) => {
+                this.errors =  [translatedLabel];
+              }
+            );
           }
-          if (err.error.name) {
-            this.workplaceForm.controls['name'].setErrors({
-              apiError: err.error.name
-            });
-          }
-          if (err.error.details) {
-            this.workplaceForm.controls['details'].setErrors({
-              apiError: err.error.details
-            });
-          }
-          if (err.error.seats) {
-            this.workplaceForm.controls['seats'].setErrors({
-              apiError: err.error.seats
-            });
-          }
-          if (err.error.address_line1) {
-            this.workplaceForm.controls['address_line1'].setErrors({
-              apiError: err.error.address_line1
-            });
-          }
-          if (err.error.address_line2) {
-            this.workplaceForm.controls['address_line2'].setErrors({
-              apiError: err.error.address_line2
-            });
-          }
-          if (err.error.postal_code) {
-            this.workplaceForm.controls['postal_code'].setErrors({
-              apiError: err.error.postal_code
-            });
-          }
-          if (err.error.city) {
-            this.workplaceForm.controls['city'].setErrors({
-              apiError: err.error.city
-            });
-          }
-          if (err.error.country) {
-            this.workplaceForm.controls['country'].setErrors({
-              apiError: err.error.country
-            });
-          }
-          if (err.error.state_province) {
-            this.workplaceForm.controls['state_province'].setErrors({
-              apiError: err.error.state_province
-            });
-          }
+          this.workplaceForm = FormUtil.manageFormErrors(this.workplaceForm, err);
         }
       );
     }

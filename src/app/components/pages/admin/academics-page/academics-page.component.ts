@@ -7,6 +7,8 @@ import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {FormUtil} from '../../../../utils/form';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-academics-page',
@@ -38,7 +40,7 @@ export class AcademicsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'Nom'
+        title: 'shared.form.name'
       }
     ]
   };
@@ -55,32 +57,85 @@ export class AcademicsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'Nom'
+        title: 'shared.form.name'
       }
     ]
   };
+
+  academicFieldFields = [
+    {
+      name: 'name_fr',
+      type: 'text',
+      label: 'shared.form.name_in_french'
+    },
+    {
+      name: 'name_en',
+      type: 'text',
+      label: 'shared.form.name_in_english'
+    }
+  ];
+
+  academicLevelFields = [
+    {
+      name: 'name_fr',
+      type: 'text',
+      label: 'shared.form.name_in_french'
+    },
+    {
+      name: 'name_en',
+      type: 'text',
+      label: 'shared.form.name_in_english'
+    }
+  ];
 
   constructor(private academicFieldService: AcademicFieldService,
               private academicLevelService: AcademicLevelService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
-              private formBuilder: FormBuilder) { }
+              private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translateItems();
     this.refreshFieldList();
     this.refreshLevelList();
 
-    this.fieldForm = this.formBuilder.group(
-      {
-        name: null
-      }
-    );
+    const formUtil = new FormUtil();
+    this.fieldForm = formUtil.createFormGroup(this.academicFieldFields);
+    this.levelForm = formUtil.createFormGroup(this.academicLevelFields);
+  }
 
-    this.levelForm = this.formBuilder.group(
-      {
-        name: null
-      }
-    );
+  translateItems() {
+    for (const field of this.academicLevelFields) {
+      this.translate.get(field.label).subscribe(
+        (translatedLabel: string) => {
+          field.label = translatedLabel;
+        }
+      );
+    }
+
+    for (const field of this.academicFieldFields) {
+      this.translate.get(field.label).subscribe(
+        (translatedLabel: string) => {
+          field.label = translatedLabel;
+        }
+      );
+    }
+
+    for (const column of this.settingsField.columns) {
+      this.translate.get(column.title).subscribe(
+        (translatedLabel: string) => {
+          column.title = translatedLabel;
+        }
+      );
+    }
+
+    for (const column of this.settingsLevel.columns) {
+      this.translate.get(column.title).subscribe(
+        (translatedLabel: string) => {
+          column.title = translatedLabel;
+        }
+      );
+    }
   }
 
   changePageLevel(index: number) {
@@ -122,15 +177,20 @@ export class AcademicsPageComponent implements OnInit {
   }
 
   OpenModalEditField(item) {
-    this.fieldForm.controls['name'].setValue(item.name);
-    this.selectedFieldUrl = item.url;
-    this.toogleModal('form_academic_fields', 'Éditer un domaine d\'étude', 'Éditer');
+    for (const field of this.listAcademicFields) {
+      if (item.id === field.id) {
+        this.fieldForm.controls['name_fr'].setValue(field.name_fr);
+        this.fieldForm.controls['name_en'].setValue(field.name_en);
+        this.selectedFieldUrl = item.url;
+        this.toogleModal('form_academic_fields', 'Éditer un domaine d\'étude', 'Éditer');
+      }
+    }
   }
 
   submitField() {
     if ( this.fieldForm.valid ) {
       if (this.selectedFieldUrl) {
-        this.academicFieldService.update(this.selectedFieldUrl, this.fieldForm.value['name']).subscribe(
+        this.academicFieldService.update(this.selectedFieldUrl, this.fieldForm.value).subscribe(
           data => {
             this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshFieldList();
@@ -139,16 +199,18 @@ export class AcademicsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.fieldErrors = err.error.non_field_errors;
+            } else {
+              this.translate.get('shared.form.errors.unknown').subscribe(
+                (translatedLabel: string) => {
+                  this.fieldErrors =  [translatedLabel];
+                }
+              );
             }
-            if (err.error.name) {
-              this.fieldForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
+            this.fieldForm = FormUtil.manageFormErrors(this.fieldForm, err);
           }
         );
       } else {
-        this.academicFieldService.create(this.fieldForm.value['name']).subscribe(
+        this.academicFieldService.create(this.fieldForm.value).subscribe(
           data => {
             this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshFieldList();
@@ -157,12 +219,14 @@ export class AcademicsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.fieldErrors = err.error.non_field_errors;
+            } else {
+              this.translate.get('shared.form.errors.unknown').subscribe(
+                (translatedLabel: string) => {
+                  this.fieldErrors =  [translatedLabel];
+                }
+              );
             }
-            if (err.error.name) {
-              this.fieldForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
+            this.fieldForm = FormUtil.manageFormErrors(this.fieldForm, err);
           }
         );
       }
@@ -204,15 +268,20 @@ export class AcademicsPageComponent implements OnInit {
   }
 
   OpenModalEditLevel(item) {
-    this.levelForm.controls['name'].setValue(item.name);
-    this.selectedLevelUrl = item.url;
-    this.toogleModal('form_academic_levels', 'Éditer un niveau d\'étude', 'Éditer');
+    for (const level of this.listAcademicLevels) {
+      if (item.id === level.id) {
+        this.levelForm.controls['name_fr'].setValue(level.name_fr);
+        this.levelForm.controls['name_en'].setValue(level.name_en);
+        this.selectedLevelUrl = item.url;
+        this.toogleModal('form_academic_levels', 'Éditer un niveau d\'étude', 'Éditer');
+      }
+    }
   }
 
   submitLevel() {
     if ( this.levelForm.valid ) {
       if (this.selectedLevelUrl) {
-        this.academicLevelService.update(this.selectedLevelUrl, this.levelForm.value['name']).subscribe(
+        this.academicLevelService.update(this.selectedLevelUrl, this.levelForm.value).subscribe(
           data => {
             this.notificationService.success('shared.notifications.commons.updated.title');
             this.refreshLevelList();
@@ -221,16 +290,18 @@ export class AcademicsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.levelErrors = err.error.non_field_errors;
+            } else {
+              this.translate.get('shared.form.errors.unknown').subscribe(
+                (translatedLabel: string) => {
+                  this.levelErrors =  [translatedLabel];
+                }
+              );
             }
-            if (err.error.name) {
-              this.levelForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
+            this.levelForm = FormUtil.manageFormErrors(this.levelForm, err);
           }
         );
       } else {
-        this.academicLevelService.create(this.levelForm.value['name']).subscribe(
+        this.academicLevelService.create(this.levelForm.value).subscribe(
           data => {
             this.notificationService.success('shared.notifications.commons.added.title');
             this.refreshLevelList();
@@ -239,12 +310,14 @@ export class AcademicsPageComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.levelErrors = err.error.non_field_errors;
+            } else {
+              this.translate.get('shared.form.errors.unknown').subscribe(
+                (translatedLabel: string) => {
+                  this.levelErrors =  [translatedLabel];
+                }
+              );
             }
-            if (err.error.name) {
-              this.levelForm.controls['name'].setErrors({
-                apiError: err.error.name
-              });
-            }
+            this.levelForm = FormUtil.manageFormErrors(this.levelForm, err);
           }
         );
       }

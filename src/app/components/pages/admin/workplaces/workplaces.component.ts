@@ -6,6 +6,8 @@ import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {TranslateService} from '@ngx-translate/core';
+import {FormUtil} from '../../../../utils/form';
 
 @Component({
   selector: 'app-workplaces',
@@ -33,36 +35,129 @@ export class WorkplacesComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'Nom'
+        title: 'shared.form.name'
       }
     ]
   };
 
   securityOnDeletion = '';
 
+  fields = [
+    {
+      name: 'name_fr',
+      type: 'text',
+      label: 'shared.form.name_in_french'
+    },
+    {
+      name: 'name_en',
+      type: 'text',
+      label: 'shared.form.name_in_english'
+    },
+    {
+      name: 'details_fr',
+      type: 'textarea',
+      label: 'shared.form.description_in_french'
+    },
+    {
+      name: 'details_en',
+      type: 'textarea',
+      label: 'shared.form.description_in_english'
+    },
+    {
+      name: 'seats',
+      type: 'number',
+      label: 'shared.form.seats'
+    },
+    {
+      name: 'address_line1_fr',
+      type: 'text',
+      label: 'shared.form.address_line1_in_french'
+    },
+    {
+      name: 'address_line2_fr',
+      type: 'text',
+      label: 'shared.form.address_line2_in_french'
+    },
+    {
+      name: 'address_line1_en',
+      type: 'text',
+      label: 'shared.form.address_line1_in_english'
+    },
+    {
+      name: 'address_line2_en',
+      type: 'text',
+      label: 'shared.form.address_line2_in_english'
+    },
+    {
+      name: 'postal_code',
+      type: 'text',
+      label: 'shared.form.postal_code'
+    },
+    {
+      name: 'city_fr',
+      type: 'text',
+      label: 'shared.form.city_in_french'
+    },
+    {
+      name: 'city_en',
+      type: 'text',
+      label: 'shared.form.city_in_english'
+    },
+    {
+      name: 'state_province_fr',
+      type: 'text',
+      label: 'shared.form.state_province_in_french'
+    },
+    {
+      name: 'state_province_en',
+      type: 'text',
+      label: 'shared.form.state_province_in_english'
+    },
+    {
+      name: 'country_fr',
+      type: 'text',
+      label: 'shared.form.country_in_french'
+    },
+    {
+      name: 'country_en',
+      type: 'text',
+      label: 'shared.form.country_in_english'
+    }
+  ];
+
   constructor(private workplaceService: WorkplaceService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translateItems();
     this.refreshWorkplaceList();
 
-    this.workplaceForm = this.formBuilder.group(
-      {
-        name: null,
-        details: null,
-        seats: null,
-        address_line1: null,
-        address_line2: '',
-        postal_code: null,
-        city: null,
-        state_province: null,
-        country: null,
-      }
-    );
+    const formUtil = new FormUtil();
+    this.workplaceForm = formUtil.createFormGroup(this.fields);
   }
+
+  translateItems() {
+    for (const field of this.fields) {
+      this.translate.get(field.label).subscribe(
+        (translatedLabel: string) => {
+          field.label = translatedLabel;
+        }
+      );
+    }
+
+    for (const column of this.settings.columns) {
+      this.translate.get(column.title).subscribe(
+        (translatedLabel: string) => {
+          column.title = translatedLabel;
+        }
+      );
+    }
+  }
+
 
   changePage(index: number) {
     this.refreshWorkplaceList(index);
@@ -146,52 +241,14 @@ export class WorkplacesComponent implements OnInit {
         err => {
           if (err.error.non_field_errors) {
             this.workplaceErrors = err.error.non_field_errors;
+          } else {
+            this.translate.get('shared.form.errors.unknown').subscribe(
+              (translatedLabel: string) => {
+                this.workplaceErrors =  [translatedLabel];
+              }
+            );
           }
-          if (err.error.name) {
-            this.workplaceForm.controls['name'].setErrors({
-              apiError: err.error.name
-            });
-          }
-          if (err.error.details) {
-            this.workplaceForm.controls['details'].setErrors({
-              apiError: err.error.details
-            });
-          }
-          if (err.error.seats) {
-            this.workplaceForm.controls['seats'].setErrors({
-              apiError: err.error.seats
-            });
-          }
-          if (err.error.address_line1) {
-            this.workplaceForm.controls['address_line1'].setErrors({
-              apiError: err.error.address_line1
-            });
-          }
-          if (err.error.address_line2) {
-            this.workplaceForm.controls['address_line2'].setErrors({
-              apiError: err.error.address_line2
-            });
-          }
-          if (err.error.postal_code) {
-            this.workplaceForm.controls['postal_code'].setErrors({
-              apiError: err.error.postal_code
-            });
-          }
-          if (err.error.city) {
-            this.workplaceForm.controls['city'].setErrors({
-              apiError: err.error.city
-            });
-          }
-          if (err.error.country) {
-            this.workplaceForm.controls['country'].setErrors({
-              apiError: err.error.country
-            });
-          }
-          if (err.error.state_province) {
-            this.workplaceForm.controls['state_province'].setErrors({
-              apiError: err.error.state_province
-            });
-          }
+          this.workplaceForm = FormUtil.manageFormErrors(this.workplaceForm, err);
         }
       );
     }
