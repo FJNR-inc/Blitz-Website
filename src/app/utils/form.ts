@@ -9,12 +9,10 @@ export class FormUtil {
 
   static manageFormErrors(form: FormGroup, errors) {
     for (const key of Object.keys(form.controls)) {
-      if (form[key].type !== 'alert') {
-        if (errors.error[key]) {
-          form.controls[key].setErrors({
-            apiError: errors.error[key]
-          });
-        }
+      if (errors.error[key]) {
+        form.controls[key].setErrors({
+          apiError: errors.error[key]
+        });
       }
     }
 

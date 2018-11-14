@@ -219,6 +219,12 @@ export class MembershipsComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
+            } else {
+              this.translate.get('shared.form.errors.unknown').subscribe(
+                (translatedLabel: string) => {
+                  this.membershipErrors =  [translatedLabel];
+                }
+              );
             }
             this.membershipForm = FormUtil.manageFormErrors(this.membershipForm, err);
           }
@@ -233,6 +239,12 @@ export class MembershipsComponent implements OnInit {
           err => {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
+            } else {
+              this.translate.get('shared.form.errors.unknown').subscribe(
+                (translatedLabel: string) => {
+                  this.membershipErrors =  [translatedLabel];
+                }
+              );
             }
             this.membershipForm = FormUtil.manageFormErrors(this.membershipForm, err);
           }
