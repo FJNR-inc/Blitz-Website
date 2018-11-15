@@ -63,5 +63,5 @@
     </div>
   </div>
 
-  <app-alert *ngIf="errors" type="danger" [messages]="errors"></app-alert>
+  <app-alert *ngIf="errors && errors.length" type="danger" [messages]="errors"></app-alert>
 </form>
