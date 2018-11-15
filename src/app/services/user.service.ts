@@ -52,7 +52,7 @@ export class UserService extends GlobalService {
     );
   }
 
-  list(filters: {name: string, comparator: string, value: any}[] = null, limit = 100, offset = 0): Observable<any> {
+  list(filters: {name: string, value: any}[] = null, limit = 100, offset = 0): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();
     params = params.set('limit', limit.toString());
@@ -65,16 +65,8 @@ export class UserService extends GlobalService {
           name = 'first_name';
         } else if (filter.name === 'last_name') {
           name = 'last_name';
-        }
-
-        let comparator = '';
-        if (filter.value === null) {
-          comparator = 'is_null';
-        } else if ( filter.comparator === 'contain') {
-          comparator = 'contains';
-        }
-        if (name && comparator) {
-          name += '__' + comparator;
+        } else if (filter.name === 'membership') {
+          name = 'membership';
         }
 
         if (name) {
