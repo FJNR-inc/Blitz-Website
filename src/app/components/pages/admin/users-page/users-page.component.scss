@@ -1,6 +1,12 @@
 .admin-users-page {
   padding: 20px;
 
+  &__filters {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+  }
+
   &__actions {
     display: flex;
     justify-content: space-between;

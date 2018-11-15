@@ -3,6 +3,8 @@ import { User } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
+import {Membership} from '../../../../models/membership';
+import {MembershipService} from '../../../../services/membership.service';
 
 @Component({
   selector: 'app-users-page',
@@ -12,6 +14,7 @@ import { isNull } from 'util';
 export class UsersPageComponent implements OnInit {
 
   listUsers: User[];
+  listMemberships: Membership[];
   userFilters = [];
 
   filters = [
@@ -46,7 +49,6 @@ export class UsersPageComponent implements OnInit {
   ];
 
   settings = {
-    title: 'Utilisateurs',
     noDataText: 'Aucun utilisateur pour le moment',
     allowFiltering: false,
     clickable: true,
@@ -84,10 +86,12 @@ export class UsersPageComponent implements OnInit {
   page = 1;
 
   constructor(private userService: UserService,
-              private router: Router) { }
+              private router: Router,
+              private membershipService: MembershipService) { }
 
   ngOnInit() {
     this.refreshUserList();
+    this.refreshMembershipList();
   }
 
   changePage(index: number) {
@@ -114,6 +118,14 @@ export class UsersPageComponent implements OnInit {
     );
   }
 
+  refreshMembershipList() {
+    this.membershipService.list().subscribe(
+      memberships => {
+        this.listMemberships = memberships.results.map(o => new Membership(o));
+      }
+    );
+  }
+
   userAdapter(users) {
     const usersAdapted = [];
     for (let user of users) {
@@ -134,24 +146,6 @@ export class UsersPageComponent implements OnInit {
     this.router.navigate(['/admin/users/' + user.id]);
   }
 
-  updateSearchFilter(newSearch) {
-    let update = false;
-    for (const filter of this.userFilters) {
-      if (filter.name === 'search') {
-        filter.value = newSearch;
-        update = true;
-      }
-    }
-    if (!update) {
-      const newFilter = {
-        name: 'search',
-        value: newSearch
-      };
-      this.userFilters.push(newFilter);
-    }
-    this.refreshUserList();
-  }
-
   updateFilters(filters) {
     this.userFilters = [];
 
@@ -163,6 +157,25 @@ export class UsersPageComponent implements OnInit {
         };
         this.userFilters.push(newFilter);
     }
+    this.refreshUserList();
+  }
+
+  updateFilter(name, value) {
+    let update = false;
+    for (const filter of this.userFilters) {
+      if (filter.name === name) {
+        filter.value = value;
+        update = true;
+      }
+    }
+    if (!update) {
+      const newFilter = {
+        name: name,
+        value: value
+      };
+      this.userFilters.push(newFilter);
+    }
+    console.log(this.userFilters);
     this.refreshUserList();
   }
 

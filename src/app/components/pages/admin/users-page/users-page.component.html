@@ -1,10 +1,22 @@
 <div class="admin-users-page">
+  <h1 class="nt-title">Utilisateurs</h1>
+
+  <div class="admin-users-page__filters">
+    <div class="form-group">
+      <label class="nt-form-label">Type de membership:</label>
+      <select class="nt-form-input nt-form-input--select" (change)="updateFilter('membership', $event.target.value)">
+        <option value="">Aucun membership</option>
+        <option *ngFor="let membership of listMemberships" [value]="membership.id">{{membership.name}}</option>
+      </select>
+    </div>
+  </div>
+
   <div class="admin-users-page__table">
     <app-my-table [settings]="settings"
                   [data]="listUsers"
                   [filters]="filters"
                   [useSearchBar]="true"
-                  (searchBar)="updateSearchFilter($event)"
+                  (searchBar)="updateFilter('search', $event)"
                   (selectItem)="selectUser($event)"
                   (changePage)="changePage($event)"
                   (updateFilters)="updateFilters($event)"
