@@ -134,6 +134,24 @@ export class UsersPageComponent implements OnInit {
     this.router.navigate(['/admin/users/' + user.id]);
   }
 
+  updateSearchFilter(newSearch) {
+    let update = false;
+    for (const filter of this.userFilters) {
+      if (filter.name === 'search') {
+        filter.value = newSearch;
+        update = true;
+      }
+    }
+    if (!update) {
+      const newFilter = {
+        name: 'search',
+        value: newSearch
+      };
+      this.userFilters.push(newFilter);
+    }
+    this.refreshUserList();
+  }
+
   updateFilters(filters) {
     this.userFilters = [];
 

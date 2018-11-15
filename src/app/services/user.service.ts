@@ -67,6 +67,8 @@ export class UserService extends GlobalService {
           name = 'last_name';
         } else if (filter.name === 'membership') {
           name = 'membership';
+        } else if (filter.name === 'search') {
+          name = 'search';
         }
 
         if (name) {

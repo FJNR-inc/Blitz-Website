@@ -13,6 +13,31 @@
     }
   }
 
+  &__searchbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    &__icon {
+      height: 30px;
+      padding: 10px;
+      font-size: 10px;
+      background-color: $nt-7;
+      color: white;
+      border: solid grey;
+      border-width: 1px 0 1px 1px;
+    }
+
+    &__input {
+      background-color: white;
+      width: 100%;
+      border: solid grey;
+      border-width: 1px 1px 1px 0;
+      height: 30px;
+      color: $nt-text;
+      padding-left: 10px;
+    }
+  }
   &__filters {
     padding: 5px 0;
     text-align: right;

@@ -11,6 +11,13 @@
     </a>
   </div>
 </div>
+
+<div class="my-table__searchbar" *ngIf="useSearchBar">
+  <span class="my-table__searchbar__icon">
+    <i class="fas fa-search"></i>
+  </span>
+  <input [(ngModel)]="searchBarText" class="my-table__searchbar__input" (keypress)="changeSearch()" type="text" placeholder="Rechercher..."/>
+</div>
 <div class="my-table__filters" *ngIf="settings.allowFiltering">
   <label for="new_filter">Ajouter un filtre: </label>
   <select id="new_filter" (change)="addFilter($event.target.value)">

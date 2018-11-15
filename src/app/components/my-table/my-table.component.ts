@@ -14,6 +14,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Input() filters: any[];
   @Input() confirmationOnDeletion = true;
   @Input() limitChoices: number[] = null;
+  @Input() useSearchBar: false;
 
   @Output() selectItem: EventEmitter<any> = new EventEmitter();
   @Output() editItem: EventEmitter<any> = new EventEmitter();
@@ -22,12 +23,17 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Output() changePage: EventEmitter<any> = new EventEmitter();
   @Output() updateFilters: EventEmitter<any> = new EventEmitter();
   @Output() updateLimit: EventEmitter<any> = new EventEmitter();
+  @Output() searchBar: EventEmitter<any> = new EventEmitter();
 
   selectedItem: any;
   uuid: string;
   deleteModalName: string;
   pagination = [];
   selectionnedFilters = [];
+
+  typingTimer;
+  doneTypingInterval = 1500;
+  searchBarText: string;
 
   constructor(private myModalService: MyModalService) { }
 
@@ -162,5 +168,15 @@ export class MyTableComponent implements OnInit, OnChanges {
 
   changeLimit(newLimit) {
     this.updateLimit.emit(newLimit);
+  }
+
+  changeSearch() {
+    clearTimeout(this.typingTimer);
+    this.typingTimer = setTimeout(
+      () => {
+        this.searchBar.emit(this.searchBarText);
+      },
+      this.doneTypingInterval
+    );
   }
 }
