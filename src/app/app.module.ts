@@ -93,6 +93,7 @@ import {MyNotificationService} from './services/my-notification/my-notification.
 import { FormComponent } from './components/shared/form/form.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { ExportComponent } from './components/pages/admin/export/export.component';
+import {OrderLineService} from './services/order-line.service';
 
 registerLocaleData(localeFr);
 
@@ -433,6 +434,7 @@ const appRoutes = [
     PictureService,
     CardService,
     OrderService,
+    OrderLineService,
     ReservationService,
     InternationalizationService,
     MyNotificationService,

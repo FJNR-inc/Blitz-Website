@@ -10,6 +10,7 @@ import {ReservationService} from '../../../../services/reservation.service';
 import {AcademicFieldService} from '../../../../services/academic-field.service';
 import {AcademicLevelService} from '../../../../services/academic-level.service';
 import {WorkplaceService} from '../../../../services/workplace.service';
+import {OrderLineService} from '../../../../services/order-line.service';
 
 @Component({
   selector: 'app-export',
@@ -28,7 +29,8 @@ export class ExportComponent implements OnInit {
               private reservationService: ReservationService,
               private academicFieldService: AcademicFieldService,
               private academicLevelService: AcademicLevelService,
-              private workplaceService: WorkplaceService) { }
+              private workplaceService: WorkplaceService,
+              private orderLineService: OrderLineService) { }
 
   ngOnInit() {
   }
@@ -115,6 +117,14 @@ export class ExportComponent implements OnInit {
 
   exportWorkplace() {
     this.workplaceService.export().subscribe(
+      data => {
+        this.downloadFile(data);
+      }
+    );
+  }
+
+  exportOrderLine() {
+    this.orderLineService.export().subscribe(
       data => {
         this.downloadFile(data);
       }
