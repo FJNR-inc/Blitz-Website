@@ -7,6 +7,7 @@ import { Card } from '../../../../models/card';
 import { CardService } from '../../../../services/card.service';
 import {ReservationService} from '../../../../services/reservation.service';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
+import {Workplace} from '../../../../models/workplace';
 
 @Component({
   selector: 'app-user-page',
@@ -106,6 +107,7 @@ export class UserPageComponent implements OnInit {
 
   reservationAdapter(reservation) {
     const timeslot = new TimeSlot(reservation.timeslot_details);
+    const workplace = new Workplace(timeslot.workplace);
     let detail = '';
     detail += timeslot.getStartDay();
     detail += ' (';
@@ -116,7 +118,7 @@ export class UserPageComponent implements OnInit {
     const reservationAdapted = {
       id: timeslot.id,
       start_event: detail,
-      workplace_name: timeslot.workplace.name,
+      workplace_name: workplace.name,
       is_active: reservation.is_active,
       cancelation_reason: reservation.cancelation_reason
     };

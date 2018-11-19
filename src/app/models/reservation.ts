@@ -10,6 +10,7 @@ export class Reservation extends BaseModel {
   user: string;
   user_details: User;
   is_active: boolean;
+  is_present: boolean;
 
   constructor(data: Object = {}) {
     super(data);

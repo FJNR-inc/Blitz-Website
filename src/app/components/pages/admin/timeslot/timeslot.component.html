@@ -41,7 +41,26 @@
   <div class="admin-timeslot-page__table">
     <app-my-table [settings]="settings"
                   [data]="listReservations"
-                  (selectItem)="goToUser($event)">
+                  (selectItem)="goToUser($event)"
+                  (editItem)="editReservation($event)">
     </app-my-table>
   </div>
 </div>
+
+<app-nt-modal name="reservation_edition"
+              typeModal="success"
+              maxWidth="600px"
+              title="Modifier une présence"
+              button2Label="Modifier la présence"
+              (button2)="submitReservation()">
+
+  <label for='presence' class="nt-form-label" *ngIf="selectedReservation">
+    Est-ce que {{selectedReservation.first_name}} {{selectedReservation.last_name}} était
+    présent dans l'espace lors du bloc de rédaction ?
+  </label>
+  <select [(ngModel)]="presence" id='presence' class="nt-form-input nt-form-input--select">
+    <option value="true">Oui</option>
+    <option value="false">Non</option>
+  </select>
+</app-nt-modal>
+
