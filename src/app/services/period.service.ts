@@ -10,6 +10,7 @@ import {TimeSlot} from '../models/timeSlot';
 export class PeriodService extends GlobalService {
 
   url_periods = environment.url_base_api + environment.paths_api.periods;
+  url_periods_export = environment.url_base_api + environment.paths_api.periods_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -74,5 +75,15 @@ export class PeriodService extends GlobalService {
         headers: headers
       }
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_periods_export,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

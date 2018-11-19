@@ -9,6 +9,7 @@ import { Reservation } from '../models/reservation';
 export class ReservationService extends GlobalService {
 
   url_reservations = environment.url_base_api + environment.paths_api.reservations;
+  url_reservations_export = environment.url_base_api + environment.paths_api.reservations_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -70,5 +71,15 @@ export class ReservationService extends GlobalService {
       reservation.url,
       {headers: headers}
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_reservations_export,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

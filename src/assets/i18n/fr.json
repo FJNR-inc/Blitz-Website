@@ -11,6 +11,7 @@
   "admin-layout": {
     "left-nav": {
       "exit": "Retour au site",
+      "export": "Export",
       "spaces": "Espaces de travail",
       "studies": "Études",
       "title": "Administration",

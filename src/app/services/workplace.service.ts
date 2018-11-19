@@ -10,6 +10,7 @@ import { Workplace } from '../models/workplace';
 export class WorkplaceService extends GlobalService {
 
   url_workplaces = environment.url_base_api + environment.paths_api.workplaces;
+  url_workplaces_export = environment.url_base_api + environment.paths_api.workplaces_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -58,5 +59,15 @@ export class WorkplaceService extends GlobalService {
       workplace,
       {headers: headers}
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_workplaces_export,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

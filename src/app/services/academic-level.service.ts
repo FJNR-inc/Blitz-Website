@@ -10,6 +10,7 @@ import { AcademicLevel } from '../models/academicLevel';
 export class AcademicLevelService extends GlobalService {
 
   url_academic_levels = environment.url_base_api + environment.paths_api.academic_levels;
+  url_academic_levels_export = environment.url_base_api + environment.paths_api.academic_levels_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -50,5 +51,15 @@ export class AcademicLevelService extends GlobalService {
       level.url,
       {headers: headers}
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_academic_levels_export,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

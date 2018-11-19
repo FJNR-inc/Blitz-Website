@@ -9,6 +9,7 @@ import { Membership } from '../models/membership';
 export class MembershipService extends GlobalService {
 
   url_memberships = environment.url_base_api + environment.paths_api.memberships;
+  url_memberships_export = environment.url_base_api + environment.paths_api.memberships_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -74,5 +75,15 @@ export class MembershipService extends GlobalService {
       membership.url,
       {headers: headers}
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_memberships_export,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

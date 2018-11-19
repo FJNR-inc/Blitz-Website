@@ -9,6 +9,7 @@ import { TimeSlot } from '../models/timeSlot';
 export class TimeSlotService extends GlobalService {
 
   url_time_slots = environment.url_base_api + environment.paths_api.time_slots;
+  url_time_slots_export = environment.url_base_api + environment.paths_api.time_slots_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -86,5 +87,15 @@ export class TimeSlotService extends GlobalService {
         headers: headers
       }
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_time_slots_export,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

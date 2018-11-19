@@ -9,6 +9,7 @@ import { Order } from '../models/order';
 export class OrderService extends GlobalService {
 
   url_orders = environment.url_base_api + environment.paths_api.orders;
+  url_orders_export = environment.url_base_api + environment.paths_api.orders_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -21,5 +22,15 @@ export class OrderService extends GlobalService {
       order,
       {headers: headers}
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_orders_export,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

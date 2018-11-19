@@ -10,6 +10,7 @@ import { AcademicField } from '../models/academicField';
 export class AcademicFieldService extends GlobalService {
 
   url_academic_fields = environment.url_base_api + environment.paths_api.academic_fields;
+  url_academic_fields_export = environment.url_base_api + environment.paths_api.academic_fields_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -50,5 +51,15 @@ export class AcademicFieldService extends GlobalService {
       field.url,
       {headers: headers}
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_academic_fields_export,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

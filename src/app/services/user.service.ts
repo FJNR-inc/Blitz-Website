@@ -11,6 +11,7 @@ export class UserService extends GlobalService {
 
   url_users = environment.url_base_api + environment.paths_api.users;
   url_activation = environment.url_base_api + environment.paths_api.activation;
+  url_users_export = environment.url_base_api + environment.paths_api.users_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -106,5 +107,15 @@ export class UserService extends GlobalService {
       user.url,
       {headers: headers}
     );
+  }
+
+  export(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_users_export,
+       {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

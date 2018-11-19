@@ -92,6 +92,7 @@ import {InternationalizationService} from './services/internationalization.servi
 import {MyNotificationService} from './services/my-notification/my-notification.service';
 import { FormComponent } from './components/shared/form/form.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
+import { ExportComponent } from './components/pages/admin/export/export.component';
 
 registerLocaleData(localeFr);
 
@@ -313,6 +314,14 @@ const appRoutes = [
           CanAccessAdminPanelGuard,
         ]
       },
+      {
+        path: 'admin/export',
+        component: ExportComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
     ]
   }
 ];
@@ -375,6 +384,7 @@ const appRoutes = [
     FileUploadComponent,
     FormComponent,
     AlertComponent,
+    ExportComponent,
   ],
   imports: [
     BrowserModule,

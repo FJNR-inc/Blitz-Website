@@ -35,6 +35,10 @@ import {InternationalizationService} from '../../services/internationalization.s
               <i class="fas fa-hand-holding-usd"></i>
               {{ 'admin-layout.left-nav.type_of_packages' | translate }}
             </a>
+            <a routerLink="/admin/export" class="left-nav__content__item">
+              <i class="fas fa-file-export"></i>
+              {{ 'admin-layout.left-nav.export' | translate }}
+            </a>
             <a routerLink="/" class="left-nav__content__item">
               <i class="fas fa-door-open"></i>
               {{ 'admin-layout.left-nav.exit' | translate }}
