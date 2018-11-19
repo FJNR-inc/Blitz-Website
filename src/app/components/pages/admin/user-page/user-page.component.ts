@@ -37,6 +37,11 @@ export class UserPageComponent implements OnInit {
         type: 'boolean'
       },
       {
+        name: 'is_present',
+        title: 'Present',
+        type: 'boolean'
+      },
+      {
         name: 'cancelation_reason_long',
         title: 'Raison'
       }
@@ -120,6 +125,7 @@ export class UserPageComponent implements OnInit {
       start_event: detail,
       workplace_name: workplace.name,
       is_active: reservation.is_active,
+      is_present: reservation.is_present,
       cancelation_reason: reservation.cancelation_reason
     };
 
