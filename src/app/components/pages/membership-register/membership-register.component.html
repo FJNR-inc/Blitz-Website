@@ -31,9 +31,20 @@
           </div>
         </div>
       </div>
+      <app-alert type="warning">
+        <p>
+          Pour devenir membre, il faut absolument utiliser son courriel universitaire. C’est la seule façon de
+          savoir que vous êtes étudiant.e.
+        </p>
+        <p>
+          Faites attention et assurez-vous que cette adresse est la bonne. La plupart des bogues arrivent, car il y
+          a une erreur dans l’adresse inscrite au formulaire. Prenez 2min pour valider votre adresse avant de
+          vous inscrire ;-)
+        </p>
+      </app-alert>
       <div class="form-group">
         <label for="university" class="nt-form-label">{{ 'membership-register.university' | translate }}*:</label>
-        <select formControlName="university" id="university" class="nt-form-input" (change)="changeUniversity()">
+        <select formControlName="university" id="university" class="nt-form-input nt-form-input--select" (change)="changeUniversity()">
           <option value="none">{{ 'membership-register.university_none' | translate }}</option>
           <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
             {{ organization.name }}
@@ -46,7 +57,7 @@
       </div>
       <div class="form-group" *ngIf="selectedUniversity">
         <label for="study_level" class="nt-form-label">{{ 'membership-register.academic_level' | translate }}*:</label>
-        <select formControlName="academic_level" id="study_level" class="nt-form-input">
+        <select formControlName="academic_level" id="study_level" class="nt-form-input nt-form-input--select">
           <option value="none"></option>
           <option value="{{ level.name }}" *ngFor="let level of listAcademicLevels">
             {{ level.name }}
@@ -59,7 +70,7 @@
       </div>
       <div class="form-group" *ngIf="selectedUniversity">
         <label for="study_field" class="nt-form-label">{{ 'membership-register.academic_field' | translate }}*:</label>
-        <select formControlName="academic_field" id="study_field" class="nt-form-input">
+        <select formControlName="academic_field" id="study_field" class="nt-form-input nt-form-input--select">
           <option value="none"></option>
           <option value="{{ field.name }}" *ngFor="let field of listAcademicFields">
             {{ field.name }}
@@ -94,7 +105,7 @@
           <label for="birthday_day" class="nt-form-label">{{ 'membership-register.birthdate' | translate }}*:</label>
           <div class="form-group form-group--multiple">
             <div class="form-group__item">
-              <select formControlName="birth_day" id="birthday_day" class="nt-form-input">
+              <select formControlName="birth_day" id="birthday_day" class="nt-form-input nt-form-input--select">
                 <option value="" disabled="disabled">{{ 'membership-register.day' | translate }}</option>
                 <option value="01">1</option>
                 <option value="02">2</option>
@@ -134,7 +145,7 @@
               </div>
             </div>
             <div class="form-group__item">
-              <select formControlName="birth_month" id="birthday_month" class="nt-form-input">
+              <select formControlName="birth_month" id="birthday_month" class="nt-form-input nt-form-input--select">
                 <option value="" disabled="disabled">{{ 'membership-register.month' | translate }}</option>
                 <option value="01">{{ 'shared.month.january' | translate }}</option>
                 <option value="02">{{ 'shared.month.february' | translate }}</option>
@@ -155,7 +166,7 @@
               </div>
             </div>
             <div class="form-group__item">
-              <select formControlName="birth_year" id="birthday_year" class="nt-form-input">
+              <select formControlName="birth_year" id="birthday_year" class="nt-form-input nt-form-input--select">
                 <option value="" disabled="disabled">{{ 'membership-register.year' | translate }}</option>
                 <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
               </select>
@@ -168,7 +179,7 @@
         </div>
         <div class="membership-register-page__form__content__form__inline__gender form-group">
           <label for="gender" class="nt-form-label">{{ 'shared.form.gender' | translate }}*:</label>
-          <select formControlName="gender" id="gender" class="nt-form-input">
+          <select formControlName="gender" id="gender" class="nt-form-input nt-form-input--select">
             <option value="A">{{ 'shared.form.gender_none' | translate }}</option>
             <option value="M">{{ 'shared.form.gender_male' | translate }}</option>
             <option value="F">{{ 'shared.form.gender_female' | translate }}</option>

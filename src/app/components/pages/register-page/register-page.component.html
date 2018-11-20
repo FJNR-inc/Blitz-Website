@@ -28,6 +28,17 @@
           </div>
         </div>
       </div>
+      <app-alert type="warning">
+        <p>
+          Pour devenir membre, il faut absolument utiliser son courriel universitaire. C’est la seule façon de
+          savoir que vous êtes étudiant.e.
+        </p>
+        <p>
+          Faites attention et assurez-vous que cette adresse est la bonne. La plupart des bogues arrivent, car il y
+          a une erreur dans l’adresse inscrite au formulaire. Prenez 2min pour valider votre adresse avant de
+          vous inscrire ;-)
+        </p>
+      </app-alert>
       <div class="form-group">
         <label for="university" class="nt-form-label">{{ 'shared.form.university' | translate }}*:</label>
         <select formControlName="university" id="university" class="nt-form-input nt-form-input--select" (change)="changeUniversity()">
