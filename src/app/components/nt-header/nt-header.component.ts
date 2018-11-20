@@ -13,6 +13,7 @@ export class NtHeaderComponent implements OnInit {
 
   isOpen = false;
   user: User = null;
+  locale: string;
 
   constructor(private authenticationService: AuthenticationService,
               private profileService: ProfileService,
@@ -30,6 +31,7 @@ export class NtHeaderComponent implements OnInit {
         }
       );
     }
+    this.getCurrentLanguage();
   }
 
   toggleHeader() {
@@ -50,5 +52,18 @@ export class NtHeaderComponent implements OnInit {
 
   changeLanguage(language: string) {
     this.internationalizationService.setLocale(language);
+  }
+
+  getCurrentLanguage() {
+    this.locale = InternationalizationService.getLocale();
+    this.subscribeToLocaleChange();
+  }
+
+  subscribeToLocaleChange() {
+    this.internationalizationService.locale.subscribe(
+      emitedLocale => {
+        this.locale = emitedLocale;
+      }
+    );
   }
 }

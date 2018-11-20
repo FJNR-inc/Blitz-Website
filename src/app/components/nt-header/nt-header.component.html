@@ -97,8 +97,10 @@
       </div>
 
       <div class="nt-header__languages">
-        <a class="nt-header__languages__item" (click)="changeLanguage('en')">EN</a>
-        <a class="nt-header__languages__item" (click)="changeLanguage('fr')">FR</a>
+        <a class="nt-header__languages__item" (click)="changeLanguage('en')" *ngIf="locale === 'fr'">English</a>
+        <a class="nt-header__languages__item" (click)="changeLanguage('fr')" *ngIf="locale === 'en'">Français</a>
+        <a class="nt-header__languages__item nt-header__languages__item--responsive" (click)="changeLanguage('en')" *ngIf="locale === 'fr'">EN</a>
+        <a class="nt-header__languages__item nt-header__languages__item--responsive" (click)="changeLanguage('fr')" *ngIf="locale === 'en'">FR</a>
       </div>
     </div>
   </div>
