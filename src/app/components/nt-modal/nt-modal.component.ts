@@ -11,7 +11,8 @@ export class NtModalComponent implements OnInit {
   @Input() name: string;
   @Input() title: string;
   @Input() typeModal: string;
-  @Input() button2Label: string;
+  @Input() button1Label: string = null;
+  @Input() button2Label: string = null;
   @Input() maxWidth = '95%';
   @Input() activated = true;
   @Input() autoClose = false;
@@ -72,7 +73,9 @@ export class NtModalComponent implements OnInit {
 
   clickButton1(): void {
     this.button1.emit(null);
-    this.toggle();
+    if (this.autoClose) {
+      this.toggle();
+    }
   }
 
   clickButton2(): void {
@@ -82,4 +85,19 @@ export class NtModalComponent implements OnInit {
     }
   }
 
+  getLabelButton1() {
+    if (this.button1Label) {
+      return this.button1Label;
+    } else {
+      return 'Oui';
+    }
+  }
+
+  getLabelButton2() {
+    if (this.button2Label) {
+      return this.button2Label;
+    } else {
+      return 'Non';
+    }
+  }
 }

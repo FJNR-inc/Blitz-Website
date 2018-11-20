@@ -19,7 +19,6 @@ export class TimeslotComponent implements OnInit {
   timeslot: TimeSlot;
   listReservations: Reservation[];
   selectedReservation: any;
-  presence: boolean;
   errors: string[];
 
   settings = {
@@ -112,13 +111,12 @@ export class TimeslotComponent implements OnInit {
   }
 
   editReservation(reservation) {
-    this.presence = null;
     this.selectedReservation = reservation;
     this.toggleModal('reservation_edition');
   }
 
-  submitReservation() {
-    const value = new Reservation({'is_present': this.presence});
+  submitReservation(is_present) {
+    const value = new Reservation({'is_present': is_present});
     this.reservationService.update(this.selectedReservation.url, value).subscribe(
       data => {
         this.toggleModal('reservation_edition');

@@ -48,19 +48,15 @@
 </div>
 
 <app-nt-modal name="reservation_edition"
-              typeModal="success"
+              typeModal="boolean"
               maxWidth="600px"
               title="Modifier une présence"
-              button2Label="Modifier la présence"
-              (button2)="submitReservation()">
+              (button1)="submitReservation(true)"
+              (button2)="submitReservation(false)">
 
-  <label for='presence' class="nt-form-label" *ngIf="selectedReservation">
+  <p *ngIf="selectedReservation">
     Est-ce que {{selectedReservation.first_name}} {{selectedReservation.last_name}} était
     présent dans l'espace lors du bloc de rédaction ?
-  </label>
-  <select [(ngModel)]="presence" id='presence' class="nt-form-input nt-form-input--select">
-    <option value="true">Oui</option>
-    <option value="false">Non</option>
-  </select>
+  </p>
 </app-nt-modal>
 

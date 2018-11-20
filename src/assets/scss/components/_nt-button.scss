@@ -41,4 +41,24 @@
       cursor: not-allowed;
     }
   }
+
+  &--success {
+    background-color: $button-success-background;
+    color: $button-success-text;
+
+    &:hover {
+      color: darken($button-success-text, 10);
+      background-color: darken($button-success-background, 10);
+    }
+  }
+
+  &--danger {
+    background-color: $button-danger-background;
+    color: $button-danger-text;
+
+    &:hover {
+      color: darken($button-danger-text, 10);
+      background-color: darken($button-danger-background, 10);
+    }
+  }
 }
