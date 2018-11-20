@@ -23,9 +23,12 @@
   <form [formGroup]="domainForm">
     <app-alert *ngIf="domainErrors" [messages]="domainErrors" type="danger"></app-alert>
 
+    <app-alert type="warning">
+      Attention: le nom de domaine n'est que la partie situé après l'arobase (@) dans une adresse courriel.
+    </app-alert>
     <div class="form-group">
       <label for="domainName" class="nt-form-label">Nom de domaine:</label>
-      <input formControlName="name" type="text" id="domainName" class="nt-form-input" />
+      <input formControlName="name" type="text" id="domainName" class="nt-form-input" placeholder="etsmtl.ca"/>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of domainForm.controls['name'].getError('apiError')">
         {{ errorMessage }}
@@ -33,7 +36,7 @@
     </div>
     <div class="form-group">
       <label for="domainExample" class="nt-form-label">Exemple :</label>
-      <input formControlName="example" type="text" id="domainExample" class="nt-form-input" />
+      <input formControlName="example" type="text" id="domainExample" class="nt-form-input" placeholder="prenom.nom.1@ens.etsmtl.ca"/>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of domainForm.controls['example'].getError('apiError')">
         {{ errorMessage }}
