@@ -22,6 +22,9 @@ export class AppComponent {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang(environment.default_language);
 
+    // todo: This section is working but we wait english translation for the moment
+    this.internationalizationService.setLocale('fr');
+    /*****************
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     if (!InternationalizationService.getLocale(true)) {
       // if no locale are set in localStorage we detect the default language of the browser
@@ -29,5 +32,6 @@ export class AppComponent {
     } else {
       translate.use(InternationalizationService.getLocale());
     }
+     ****************/
   }
 }
