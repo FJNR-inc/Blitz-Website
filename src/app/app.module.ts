@@ -94,6 +94,8 @@ import { FormComponent } from './components/shared/form/form.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { ExportComponent } from './components/pages/admin/export/export.component';
 import {OrderLineService} from './services/order-line.service';
+import {CustomPaymentsService} from './services/custom-payments.service';
+import { PaysafeFormComponent } from './components/shared/paysafe-form/paysafe-form.component';
 
 registerLocaleData(localeFr);
 
@@ -386,6 +388,7 @@ const appRoutes = [
     FormComponent,
     AlertComponent,
     ExportComponent,
+    PaysafeFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -438,6 +441,7 @@ const appRoutes = [
     ReservationService,
     InternationalizationService,
     MyNotificationService,
+    CustomPaymentsService,
   ],
   bootstrap: [AppComponent]
 })

@@ -43,5 +43,6 @@ export const environment = {
     orderLines_export: '/order_lines/export',
     reservations: '/reservations',
     reservations_export: '/reservations/export',
+    custom_payments: '/custom_payments',
   }
 };

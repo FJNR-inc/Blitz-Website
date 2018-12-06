@@ -1,0 +1,23 @@
+<form class="paysafe-form" (submit)="getToken()">
+  <app-alert type="danger" [messages]="error" *ngIf="error"></app-alert>
+  <div [ngStyle]="{'visibility: hidden;': waitPaysafe}">
+    <div class="form-group">
+      <label for="card-number" class="nt-form-label">{{'shared.form.card_number' | translate}}*:</label>
+      <div id="card-number" class="nt-form-input"></div>
+    </div>
+    <div class="paysafe-form__expiration">
+      <div class="form-group paysafe-form__expiration__item">
+        <label for="expiration-date" class="nt-form-label">{{'shared.form.expiration_date' | translate}}*:</label>
+        <div id="expiration-date" class="nt-form-input"></div>
+      </div>
+      <div class="form-group paysafe-form__expiration__item">
+        <label for="cvv" class="nt-form-label">CVV*:</label>
+        <div id="cvv" class="nt-form-input"></div>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="nt-button nt-button--full-width" [disabled]="waitPaysafe">
+    Vérifier la carte
+  </button>
+</form>

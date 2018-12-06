@@ -17,7 +17,7 @@
             {{ getLabelButton1() }}
           </button>
           <button [disabled]="!activated"
-                  class="modal-component__content__reveal__content__buttons__button nt-button"
+                  class="modal-component__content__reveal__content__buttons__button nt-button nt-button--full-width"
                   (click)="clickButton2()"
                   [ngClass]="{'nt-button--danger': typeModal === 'boolean'}">
             {{ getLabelButton2() }}

@@ -8,6 +8,13 @@ import { CardService } from '../../../../services/card.service';
 import {ReservationService} from '../../../../services/reservation.service';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 import {Workplace} from '../../../../models/workplace';
+import {CustomPaymentsService} from '../../../../services/custom-payments.service';
+import {CustomPayment} from '../../../../models/customPayment';
+import {FormUtil} from '../../../../utils/form';
+import {FormGroup} from '@angular/forms';
+import {NotificationsService} from 'angular2-notifications';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-page',
@@ -63,16 +70,60 @@ export class UserPageComponent implements OnInit {
     ]
   };
 
+  settingsCustomPayment = {
+    noDataText: 'Aucun paiement personalisé pour le moment',
+    title: 'Custom payments',
+    addButton: true,
+    columns: [
+      {
+        name: 'name',
+        title: 'Name'
+      },
+      {
+        name: 'price',
+        title: 'Price'
+      },
+      {
+        name: 'details',
+        title: 'details'
+      }
+    ]
+  };
 
   listReservations: any[];
   listCards: Card[];
+  listCustomPayments: CustomPayment[];
+
+  customPaymentForm: FormGroup;
+  customPaymentErrors: string[];
+  singleUseToken: string;
+  customPaymentFields = [
+    {
+      name: 'price',
+      type: 'number',
+      label: 'Price'
+    },
+    {
+      name: 'name',
+      type: 'text',
+      label: 'Name'
+    },
+    {
+      name: 'details',
+      type: 'textarea',
+      label: 'Details'
+    }
+  ];
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private reservationService: ReservationService,
               private router: Router,
               private cardService: CardService,
-              private myModalService: MyModalService) { }
+              private myModalService: MyModalService,
+              private customPaymentService: CustomPaymentsService,
+              private notificationService: MyNotificationService,
+              private translate: TranslateService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -81,9 +132,16 @@ export class UserPageComponent implements OnInit {
           this.user = new User(data);
           this.refreshReservation();
           this.refreshListCard();
+          this.refreshListCustomPayment();
         }
       );
     });
+    this.initFormCustomPayment();
+  }
+
+  initFormCustomPayment() {
+    const formUtil = new FormUtil();
+    this.customPaymentForm = formUtil.createFormGroup(this.customPaymentFields);
   }
 
   refreshReservation() {
@@ -105,6 +163,18 @@ export class UserPageComponent implements OnInit {
           );
         } else {
           this.listCards = [];
+        }
+      }
+    );
+  }
+
+  refreshListCustomPayment() {
+    this.customPaymentService.list([{'name': 'user', 'value': this.user.id}]).subscribe(
+      customPayments => {
+        if (customPayments.results.length >= 1) {
+          this.listCustomPayments = customPayments.results.map(c => new CustomPayment(c));
+        } else {
+          this.listCustomPayments = [];
         }
       }
     );
@@ -167,5 +237,41 @@ export class UserPageComponent implements OnInit {
     }
 
     modal.toggle();
+  }
+
+  openModalCustomPayment() {
+    this.singleUseToken = null;
+    this.initFormCustomPayment();
+    this.myModalService.get('add_custom_payment').toggle();
+  }
+
+  createCustomPayment() {
+    const value = this.customPaymentForm.value;
+    value['user'] = this.user.url;
+    value['single_use_token'] = this.singleUseToken;
+
+    this.customPaymentService.create(value).subscribe(
+      data => {
+        this.notificationService.success('shared.notifications.commons.added.title');
+        this.refreshListCustomPayment();
+        this.myModalService.get('add_custom_payment').toggle();
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.customPaymentErrors = err.error.non_field_errors;
+        } else {
+          this.translate.get('shared.form.errors.unknown').subscribe(
+            (translatedLabel: string) => {
+              this.customPaymentErrors =  [translatedLabel];
+            }
+          );
+        }
+        this.customPaymentForm = FormUtil.manageFormErrors(this.customPaymentForm, err);
+      }
+    );
+  }
+
+  setSingleUseToken(singleUseToken) {
+    this.singleUseToken = singleUseToken;
   }
 }

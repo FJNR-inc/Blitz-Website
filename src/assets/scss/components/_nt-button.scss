@@ -20,6 +20,10 @@
     cursor: pointer;
   }
 
+  &--full-width {
+    width: 100%;
+  }
+
   &--reverse {
     background-color: transparent;
     color: $nt-text;

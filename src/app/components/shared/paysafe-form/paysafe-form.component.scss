@@ -1,0 +1,16 @@
+@import '../../../../assets/scss/theme';
+
+.paysafe-form {
+  &__expiration {
+    display: flex;
+    align-content: space-between;
+
+    &__item {
+      width: 100%;
+
+      & + .paysafe-form__expiration__item {
+        padding-left: 10px;
+      }
+    }
+  }
+}

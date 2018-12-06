@@ -44,6 +44,12 @@
                   [data]="listCards">
     </app-my-table>
   </div>
+  <div class="user-page__custom-payments">
+    <app-my-table [settings]="settingsCustomPayment"
+                  [data]="listCustomPayments"
+                  (addButton)="openModalCustomPayment()">
+    </app-my-table>
+  </div>
 </div>
 
 <app-nt-modal name="timeslot_deleted"
@@ -55,4 +61,18 @@
   <p>
     La réservation que vous venez de sélectionner a été annulé car la plage horaire a été supprimé. Nous ne pouvons donc pas vous rediriger vers ladite plage horaire.
   </p>
+</app-nt-modal>
+
+<app-nt-modal name="add_custom_payment"
+              typeModal="success"
+              maxWidth="600px"
+              title="Add a custom payment"
+              button2Label="Add the custom payment"
+              [activated]="singleUseToken"
+              (button2)="createCustomPayment()">
+    <app-form *ngIf="singleUseToken" [form]="customPaymentForm" [fields]="customPaymentFields" [errors]="customPaymentErrors"></app-form>
+    <div *ngIf="!singleUseToken">
+      <app-alert type="info" [messages]="['These informations of payment will not be saved for future usages.']"></app-alert>
+      <app-paysafe-form (singleUseToken)="setSingleUseToken($event)"></app-paysafe-form>
+    </div>
 </app-nt-modal>
