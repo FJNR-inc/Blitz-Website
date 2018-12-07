@@ -12,45 +12,13 @@
     </div>
 
     <div class="admin-period-page__header__dates">
-      <div class="admin-period-page__header__dates__item icon-calendar">
-        <div class="icon-calendar__header">
-          {{period.getStartYear()}}
-          <div class="icon-calendar__header__clip icon-calendar__header__clip--left"></div>
-          <div class="icon-calendar__header__clip icon-calendar__header__clip--right"></div>
-        </div>
-        <div class="icon-calendar__content">
-          <div class="icon-calendar__content__month">
-            {{period.getStartMonthName()}}
-          </div>
-          <div class="icon-calendar__content__day">
-            {{period.getStartDate()}}
-          </div>
-          <div class="icon-calendar__content__day-long">
-            {{period.getStartDayName()}}
-          </div>
-        </div>
-      </div>
+      <app-calendar-icon class="admin-period-page__header__dates__item" [date]="period.start_date">
+      </app-calendar-icon>
 
       <i class="admin-period-page__header__dates__item admin-period-page__header__dates__item--arrow fas fa-angle-double-right"></i>
 
-      <div class="admin-period-page__header__dates__item icon-calendar">
-        <div class="icon-calendar__header">
-          {{period.getEndYear()}}
-          <div class="icon-calendar__header__clip icon-calendar__header__clip--left"></div>
-          <div class="icon-calendar__header__clip icon-calendar__header__clip--right"></div>
-        </div>
-        <div class="icon-calendar__content">
-          <div class="icon-calendar__content__month">
-            {{period.getEndMonthName()}}
-          </div>
-          <div class="icon-calendar__content__day">
-            {{period.getEndDate()}}
-          </div>
-          <div class="icon-calendar__content__day-long">
-            {{period.getEndDayName()}}
-          </div>
-        </div>
-      </div>
+      <app-calendar-icon class="admin-period-page__header__dates__item" [date]="period.end_date">
+      </app-calendar-icon>
     </div>
   </div>
 

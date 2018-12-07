@@ -95,6 +95,7 @@ import { ExportComponent } from './components/pages/admin/export/export.componen
 import {OrderLineService} from './services/order-line.service';
 import {CustomPaymentsService} from './services/custom-payments.service';
 import { PaysafeFormComponent } from './components/shared/paysafe-form/paysafe-form.component';
+import { CalendarIconComponent } from './components/shared/calendar-icon/calendar-icon.component';
 
 registerLocaleData(localeFr);
 
@@ -387,6 +388,7 @@ const appRoutes = [
     AlertComponent,
     ExportComponent,
     PaysafeFormComponent,
+    CalendarIconComponent,
   ],
   imports: [
     BrowserModule,

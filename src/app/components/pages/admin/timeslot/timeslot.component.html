@@ -9,24 +9,8 @@
       <a class="ng-link" routerLink="/admin/workplaces/{{ timeslot.workplace.id }}">Retour à l'espace de travail</a>
     </div>
     <div class="admin-timeslot-page__header__date">
-      <div class="admin-timeslot-page__header__date__item icon-calendar">
-        <div class="icon-calendar__header">
-          {{timeslot.getStartYear()}}
-          <div class="icon-calendar__header__clip icon-calendar__header__clip--left"></div>
-          <div class="icon-calendar__header__clip icon-calendar__header__clip--right"></div>
-        </div>
-        <div class="icon-calendar__content">
-          <div class="icon-calendar__content__month">
-            {{timeslot.getStartMonthName()}}
-          </div>
-          <div class="icon-calendar__content__day">
-            {{timeslot.getStartDate()}}
-          </div>
-          <div class="icon-calendar__content__day-long">
-            {{timeslot.getStartDayName()}}
-          </div>
-        </div>
-      </div>
+      <app-calendar-icon class="admin-timeslot-page__header__date__item" [date]="timeslot.start_time">
+      </app-calendar-icon>
       <div class="admin-timeslot-page__header__date__item admin-timeslot-page__header__date__item--times">
         <div class="admin-timeslot-page__header__date__item--times__hours">
           {{timeslot.getStartTime()}}
