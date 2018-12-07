@@ -1,0 +1,24 @@
+<div class="design-documentation">
+  <h1 class="nt-title">Design documentation</h1>
+
+  <app-design-documentation-section title="nt-button"
+                                    [description]="descriptionNtButton"
+                                    [usage]="usageNtButton"
+                                    [innerHtml]="usageNtButton">
+  </app-design-documentation-section>
+
+  <app-design-documentation-section title="nt-alert"
+                                    [description]="descriptionAlert"
+                                    [usage]="usageAlert">
+    <app-alert type="danger" [messages]="messages"></app-alert>
+    <app-alert type="info" [messages]="messages"></app-alert>
+    <app-alert type="warning" [messages]="messages"></app-alert>
+    <app-alert type="success" [messages]="messages"></app-alert>
+  </app-design-documentation-section>
+
+  <app-design-documentation-section title="calendar-icon"
+                                    [description]="descriptionCalendarIcon"
+                                    [usage]="usageCalendarIcon">
+      <app-calendar-icon [date]="date"></app-calendar-icon>
+  </app-design-documentation-section>
+</div>

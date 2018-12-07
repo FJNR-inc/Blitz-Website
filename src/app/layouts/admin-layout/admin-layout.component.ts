@@ -39,6 +39,10 @@ import {InternationalizationService} from '../../services/internationalization.s
               <i class="fas fa-file-export"></i>
               {{ 'admin-layout.left-nav.export' | translate }}
             </a>
+            <a routerLink="/admin/documentation" class="left-nav__content__item">
+              <i class="fas fa-book"></i>
+              {{ 'admin-layout.left-nav.documentation' | translate }}
+            </a>
             <a routerLink="/" class="left-nav__content__item">
               <i class="fas fa-door-open"></i>
               {{ 'admin-layout.left-nav.exit' | translate }}

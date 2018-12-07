@@ -96,6 +96,8 @@ import {OrderLineService} from './services/order-line.service';
 import {CustomPaymentsService} from './services/custom-payments.service';
 import { PaysafeFormComponent } from './components/shared/paysafe-form/paysafe-form.component';
 import { CalendarIconComponent } from './components/shared/calendar-icon/calendar-icon.component';
+import { DesignDocumentationComponent } from './components/pages/admin/design-documentation/design-documentation.component';
+import { DesignDocumentationSectionComponent } from './components/pages/admin/design-documentation/design-documentation-section/design-documentation-section.component';
 
 registerLocaleData(localeFr);
 
@@ -229,6 +231,14 @@ const appRoutes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
+      {
+        path: 'admin/documentation',
+        component: DesignDocumentationComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
       {
         path: 'admin/users',
         component: UsersPageComponent,
@@ -389,6 +399,8 @@ const appRoutes = [
     ExportComponent,
     PaysafeFormComponent,
     CalendarIconComponent,
+    DesignDocumentationComponent,
+    DesignDocumentationSectionComponent,
   ],
   imports: [
     BrowserModule,

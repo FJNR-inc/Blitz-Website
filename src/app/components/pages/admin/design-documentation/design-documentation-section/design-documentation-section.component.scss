@@ -1,0 +1,30 @@
+.design-documentation-section {
+  border-top: 2px solid grey;
+  padding: 20px 0;
+  margin-top: 20px;
+
+  &__title {
+    font-size: 25px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    margin-bottom: 20px;
+    background-color: lightgrey;
+    padding: 20px;
+
+    &__title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+  }
+
+  &__usage {
+    display: block;
+    background-color: lightgrey;
+    margin: 20px 0;
+    padding: 20px;
+  }
+}

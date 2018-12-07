@@ -18,7 +18,8 @@
       "type_of_memberships": "Memberships",
       "type_of_packages": "Forfaits",
       "universities": "Universités",
-      "users": "Utilisateurs"
+      "users": "Utilisateurs",
+      "documentation": "Documentation"
     }
   },
   "forgot-password-confirmation": {
