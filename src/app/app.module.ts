@@ -30,7 +30,6 @@ import { MyHttpInterceptor } from './my-http-interceptor';
 import { UserPageComponent } from './components/pages/admin/user-page/user-page.component';
 import { OrganizationsPageComponent } from './components/pages/admin/organizations-page/organizations-page.component';
 import { AcademicsPageComponent } from './components/pages/admin/academics-page/academics-page.component';
-import { MyModalComponent } from './components/my-modal/my-modal.component';
 import { MyModalService } from './services/my-modal/my-modal.service';
 import { RegisterConfirmationPageComponent } from './components/pages/register-confirmation-page/register-confirmation-page.component';
 import { ActivationPageComponent } from './components/pages/activation-page/activation-page.component';
@@ -351,7 +350,6 @@ const appRoutes = [
     UserPageComponent,
     OrganizationsPageComponent,
     AcademicsPageComponent,
-    MyModalComponent,
     RegisterConfirmationPageComponent,
     ActivationPageComponent,
     ForgotPasswordConfirmationPageComponent,
