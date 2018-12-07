@@ -121,7 +121,7 @@ export class PeriodComponent implements OnInit {
 
     if (onlyFuture) {
       filters.push({
-        'name': 'start_time__gte',
+        'name': 'end_time__gte',
         'value': new Date().toISOString(),
       });
     }
