@@ -11,6 +11,17 @@
       </div>
     </div>
 
+    <div class="form-group" *ngIf="field.type === 'select'">
+      <label [for]="field.name" class="nt-form-label">{{field.label}} :</label>
+      <select [formControlName]="field.name" [id]="field.name" class="nt-form-input nt-form-input--select">
+        <option *ngFor="let choice of field.choices" [value]="choice.value">{{choice.label}}</option>
+      </select>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of form.controls[field.name].getError('apiError')">
+        {{ errorMessage }}
+      </div>
+    </div>
+
     <div class="form-group" *ngIf="field.type === 'datetime'">
       <label [for]="field.name" class="nt-form-label">{{field.label}} :</label>
       <input [owlDateTimeTrigger]="dt_start"
@@ -19,6 +30,20 @@
              class="nt-form-input"
              [id]="field.name">
       <owl-date-time #dt_start [firstDayOfWeek]="1"></owl-date-time>
+      <div class="form-text form-text--right form-text--danger"
+           *ngFor="let errorMessage of form.controls[field.name].getError('apiError')">
+        {{ errorMessage}}
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="field.type === 'date'">
+      <label [for]="field.name" class="nt-form-label">{{field.label}} :</label>
+      <input [owlDateTimeTrigger]="dt_start"
+             [owlDateTime]="dt_start"
+             [formControlName]="field.name"
+             class="nt-form-input"
+             [id]="field.name">
+      <owl-date-time #dt_start pickerType="calendar" [firstDayOfWeek]="1"></owl-date-time>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of form.controls[field.name].getError('apiError')">
         {{ errorMessage}}
