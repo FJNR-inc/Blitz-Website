@@ -24,6 +24,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class UserPageComponent implements OnInit {
 
   user: User;
+  id: number;
 
   settings = {
     noDataText: 'Aucune réservation pour le moment',
@@ -115,6 +116,49 @@ export class UserPageComponent implements OnInit {
     }
   ];
 
+  userForm: FormGroup;
+  userErrors: string[];
+  userFields = [
+    {
+      name: 'first_name',
+      type: 'text',
+      label: 'First name'
+    },
+    {
+      name: 'last_name',
+      type: 'text',
+      label: 'Last name'
+    },
+    {
+      name: 'birthdate',
+      type: 'date',
+      label: 'Birth date'
+    },
+    {
+      name: 'gender',
+      type: 'select',
+      label: 'Gender',
+      choices: [
+        {
+          label: 'Je ne souhaite pas m\'identifier',
+          value: 'A'
+        },
+        {
+          label: 'Homme',
+          value: 'M'
+        },
+        {
+          label: 'Femme',
+          value: 'F'
+        },
+        {
+          label: 'Non-binaire',
+          value: 'T'
+        }
+      ]
+    }
+  ];
+
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private reservationService: ReservationService,
@@ -127,21 +171,32 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.userService.get(params['id']).subscribe(
-        data => {
-          this.user = new User(data);
-          this.refreshReservation();
-          this.refreshListCard();
-          this.refreshListCustomPayment();
-        }
-      );
+      this.id = params['id'];
+      this.refreshUser();
     });
     this.initFormCustomPayment();
+    this.initFormUser();
   }
 
   initFormCustomPayment() {
     const formUtil = new FormUtil();
     this.customPaymentForm = formUtil.createFormGroup(this.customPaymentFields);
+  }
+
+  initFormUser() {
+    const formUtil = new FormUtil();
+    this.userForm = formUtil.createFormGroup(this.userFields);
+  }
+
+  refreshUser() {
+    this.userService.get(this.id).subscribe(
+      data => {
+        this.user = new User(data);
+        this.refreshReservation();
+        this.refreshListCard();
+        this.refreshListCustomPayment();
+      }
+    );
   }
 
   refreshReservation() {
@@ -245,6 +300,15 @@ export class UserPageComponent implements OnInit {
     this.myModalService.get('add_custom_payment').toggle();
   }
 
+  openModalUserEdition() {
+    this.initFormUser();
+    this.userForm.controls['first_name'].setValue(this.user.first_name);
+    this.userForm.controls['last_name'].setValue(this.user.last_name);
+    this.userForm.controls['birthdate'].setValue(this.user.getBirthdate());
+    this.userForm.controls['gender'].setValue(this.user.gender);
+    this.myModalService.get('edit_user').toggle();
+  }
+
   createCustomPayment() {
     const value = this.customPaymentForm.value;
     value['user'] = this.user.url;
@@ -267,6 +331,31 @@ export class UserPageComponent implements OnInit {
           );
         }
         this.customPaymentForm = FormUtil.manageFormErrors(this.customPaymentForm, err);
+      }
+    );
+  }
+
+  editUser() {
+    const value = this.userForm.value;
+    value['birthdate'] = this.userForm.controls['birthdate'].value.toISOString().substr(0, 10);
+
+    this.userService.update(this.user.url, value).subscribe(
+      data => {
+        this.notificationService.success('shared.notifications.commons.updated.title');
+        this.refreshUser();
+        this.myModalService.get('edit_user').toggle();
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.userErrors = err.error.non_field_errors;
+        } else {
+          this.translate.get('shared.form.errors.unknown').subscribe(
+            (translatedLabel: string) => {
+              this.userErrors =  [translatedLabel];
+            }
+          );
+        }
+        this.userForm = FormUtil.manageFormErrors(this.userForm, err);
       }
     );
   }

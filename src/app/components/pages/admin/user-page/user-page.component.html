@@ -33,6 +33,12 @@
       </div>
     </div>
   </div>
+  <div class="user-page__navbar">
+    <a class="button" (click)="openModalUserEdition()">
+      <i class="fas fa-pencil-alt"></i>
+      Éditer l'utilisateur
+    </a>
+  </div>
   <div class="user-page__reservations">
     <app-my-table [settings]="settings"
                   [data]="listReservations"
@@ -75,4 +81,13 @@
       <app-alert type="info" [messages]="['These informations of payment will not be saved for future usages.']"></app-alert>
       <app-paysafe-form (singleUseToken)="setSingleUseToken($event)"></app-paysafe-form>
     </div>
+</app-nt-modal>
+
+<app-nt-modal name="edit_user"
+              typeModal="success"
+              maxWidth="600px"
+              title="Edit user"
+              button2Label="Edit the user"
+              (button2)="editUser()">
+  <app-form [form]="userForm" [fields]="userFields" [errors]="userErrors"></app-form>
 </app-nt-modal>

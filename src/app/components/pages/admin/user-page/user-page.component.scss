@@ -51,6 +51,13 @@
     }
   }
 
+  &__navbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: lightgrey;
+  }
+
   &__reservations {
     padding: 20px;
   }
