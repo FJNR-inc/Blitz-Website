@@ -96,6 +96,7 @@ import {OrderLineService} from './services/order-line.service';
 import {CustomPaymentsService} from './services/custom-payments.service';
 import { PaysafeFormComponent } from './components/shared/paysafe-form/paysafe-form.component';
 import { CalendarIconComponent } from './components/shared/calendar-icon/calendar-icon.component';
+import { NtHeaderSubComponent } from './components/nt-header/nt-header-sub/nt-header-sub.component';
 
 registerLocaleData(localeFr);
 
@@ -389,6 +390,7 @@ const appRoutes = [
     ExportComponent,
     PaysafeFormComponent,
     CalendarIconComponent,
+    NtHeaderSubComponent,
   ],
   imports: [
     BrowserModule,
