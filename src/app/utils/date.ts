@@ -80,4 +80,19 @@ export class DateUtil {
   static getYear(date) {
     return date.getFullYear();
   }
+
+  static getDateInterval(start_date, end_date) {
+    let dateInterval = '';
+    dateInterval += DateUtil.getDate(start_date);
+    dateInterval += ' ';
+    dateInterval += DateUtil.getLongMonth(start_date);
+    dateInterval += ' au ';
+    dateInterval += DateUtil.getDate(end_date);
+    dateInterval += ' ';
+    dateInterval += DateUtil.getLongMonth(end_date);
+    dateInterval += ' ';
+    dateInterval += DateUtil.getYear(end_date);
+
+    return dateInterval;
+  }
 }

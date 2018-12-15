@@ -1,0 +1,110 @@
+<div class="retirement-cart">
+  <div class="retirement-cart__step">
+    <div class="retirement-cart__step__title">
+      <div class="retirement-cart__step__title__text nt-title">
+        1. Connexion
+      </div>
+      <div class="retirement-cart__step__title__action">
+        <img class="retirement-cart__step__title__action__icon"
+           [src]="getIconForStep(1)" alt="Incomplet" />
+      </div>
+    </div>
+    <div class="retirement-cart__step__content" *ngIf="currentStep===1">
+      <app-alert type="text-warning">
+        Vous devez être connecté.e pour vous inscrire à une ou des retraite(s).
+      </app-alert>
+      <app-login-form (isConnected)="defineCurrentStep()" [centered]="true" [registerLink]="true"></app-login-form>
+    </div>
+  </div>
+
+  <div class="retirement-cart__step">
+    <div class="retirement-cart__step__title">
+      <div class="retirement-cart__step__title__text nt-title">
+        2. Membership
+      </div>
+      <div class="retirement-cart__step__title__action">
+        <img class="retirement-cart__step__title__action__icon"
+             [src]="getIconForStep(2)" alt="Incomplet" />
+      </div>
+    </div>
+    <div class="retirement-cart__step__content" *ngIf="currentStep===2">
+      <app-alert type="text-warning">
+        Vous devez être membre de Thèsez-vous pour vous inscrire à une ou des retraite(s).
+      </app-alert>
+      <p class="retirement-cart__step__content__section">
+        *Il est toujours possible de s'inscrire à une retraite de rédaction sans être membre de
+        Thèsez-vous à un tarif plus élevé, il suffit de communiquer directement avec nous à
+        <a href="mailto:info@thesez-vous.com">info@thesez-vous.com</a>.
+      </p>
+      <div class="retirement-cart__step__content__section form-group">
+        <label class="nt-form-label">
+          Membership:
+          <app-icon-info link="http://www.thesez-vous.com/bourses-et-financement.html"></app-icon-info>
+        </label>
+        <select class="nt-form-input nt-form-input--select" [(ngModel)]="selectedMembership">
+          <option value="" disabled>Sélectionner un membership</option>
+          <option *ngFor="let membership of memberships" [value]="membership.id">{{membership.name}}</option>
+        </select>
+      </div>
+      <p class="retirement-cart__step__content__section">
+        <button class="nt-button" (click)="selectMembership()" [disabled]="!selectedMembership">Devenir membre</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="retirement-cart__step">
+    <div class="retirement-cart__step__title">
+      <div class="retirement-cart__step__title__text nt-title">
+        3. Informations complémentaires
+      </div>
+      <div class="retirement-cart__step__title__action">
+        <img class="retirement-cart__step__title__action__icon"
+             [src]="getIconForStep(3)" alt="Incomplet" />
+      </div>
+    </div>
+    <div class="retirement-cart__step__content" *ngIf="currentStep===3">
+      <app-alert type="text-warning">
+        Vous devez répondre aux questions suivantes pour compléter vos informations personnelles et vous inscrire à une ou des retraite(s).
+      </app-alert>
+
+      <app-form [form]="personalInformationForm" [fields]="personalInformationFields" [errors]="personalInformationErrors"></app-form>
+
+      <button class="retirement-cart__step__content__section nt-button" (click)="submitPersonalInformation()">Enregistrer</button>
+    </div>
+  </div>
+
+  <div class="retirement-cart__step">
+    <div class="retirement-cart__step__title">
+      <div class="retirement-cart__step__title__text nt-title">
+        4. Bourse
+      </div>
+      <div class="retirement-cart__step__title__action">
+        <img class="retirement-cart__step__title__action__icon"
+             [src]="getIconForStep(4)" alt="Incomplet" />
+      </div>
+    </div>
+    <div class="retirement-cart__step__content" *ngIf="currentStep===4">
+
+      <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>
+
+      <button class="retirement-cart__step__content__section nt-button" (click)="submitUniversityInformation()">Appliquer</button>
+    </div>
+  </div>
+
+  <div class="retirement-cart__step retirement-cart__step--no-border">
+    <div class="retirement-cart__step__title">
+      <div class="retirement-cart__step__title__text nt-title">
+        5. Panier
+      </div>
+    </div>
+    <div class="retirement-cart__step__content" *ngIf="cart.isEmpty()">
+      Aucune retraite sélectionnée.
+    </div>
+    <div class="retirement-cart__step__content" *ngIf="!cart.isEmpty()">
+      <app-cart-summary [cart]="cart"></app-cart-summary>
+      <div class="retirement-cart__step__content__section">
+        <button class="nt-button">Payer</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -61,7 +61,7 @@ export class DesignDocumentationComponent implements OnInit {
 
     <!-- Warning -->
     <app-alert type="warning" [messages]="messages"></app-alert>
-    
+
     <!-- Success -->
     <app-alert type="success" [messages]="messages"></app-alert>
   `;

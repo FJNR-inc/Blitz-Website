@@ -39,5 +39,6 @@ export const environment = {
     reservations: '/reservations',
     reservations_export: '/reservations/export',
     custom_payments: '/custom_payments',
+    retirements: '/retirement/retirements/',
   }
 };

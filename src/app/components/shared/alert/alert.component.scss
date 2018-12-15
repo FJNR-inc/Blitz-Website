@@ -6,7 +6,6 @@
   color: $nt-text;
   background-color: $nt-background-color;
   border-radius: 2px;
-  margin-top: 20px;
   display: flex;
   align-items: center;
 
@@ -33,6 +32,12 @@
     background-color: $nt-background-danger;
     border-color: $nt-background-danger;
     color: $nt-text;
+  }
+
+  &--text-warning {
+    background: none;
+    color: $nt-9;
+    padding: 0;
   }
 
   &--warning {

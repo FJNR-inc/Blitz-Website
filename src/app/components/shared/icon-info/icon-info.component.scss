@@ -1,0 +1,14 @@
+@import '../../assets/scss/theme';
+
+app-icon-info {
+  display: inline;
+}
+
+.icon-info {
+  display: inline;
+
+  &__icon {
+    display: inline;
+    width: $line-height-normal;
+  }
+}

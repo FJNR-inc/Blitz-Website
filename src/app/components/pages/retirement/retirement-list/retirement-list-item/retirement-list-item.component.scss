@@ -1,0 +1,63 @@
+@import '../../assets/scss/theme';
+
+.retirement-list-item {
+  border-top: 1px solid $border-calendar;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+
+  &__title {
+    padding: 20px;
+  }
+
+  &__description {
+    padding: 20px;
+    line-height: 1.5rem;
+
+    &__more {
+      margin-top: 20px;
+
+      &__button {
+        margin-top: 30px;
+        display: block;
+      }
+
+      &__link {
+        margin-top: 20px;
+        display: block;
+      }
+    }
+  }
+
+  &__action {
+    padding: 20px;
+
+    &__icon {
+      width: 30px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .retirement-list-item {
+    &__title {
+      padding: 20px 10px;
+    }
+
+    &__description {
+      padding: 10px;
+    }
+
+    &__action {
+      padding: 10px;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .retirement-list-item {
+    &__title {
+      font-size: 20px;
+    }
+  }
+}

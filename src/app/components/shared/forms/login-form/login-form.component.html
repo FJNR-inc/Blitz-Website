@@ -1,0 +1,7 @@
+<div class="login-form" [ngClass]="{'login-form--centered': centered}">
+  <app-form [form]="loginForm" [fields]="loginFields" [errors]="loginErrors"></app-form>
+  <div class="login-form__actions">
+    <button (click)="submitForm()" class="login-form__actions__button nt-button">Se connecter</button>
+    <a class="login-form__actions__link nt-link" routerLink="/register">Vous n'avez pas encore de compte?</a>
+  </div>
+</div>

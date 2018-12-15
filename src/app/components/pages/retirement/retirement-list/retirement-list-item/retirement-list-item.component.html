@@ -1,0 +1,39 @@
+<div class="retirement-list-item">
+  <div class="retirement-list-item__title nt-title">
+    {{retirement.name}}
+  </div>
+  <div class="retirement-list-item__description">
+    {{retirement.address_line1}}<br/>
+    {{retirement.getDateInterval()}}<br/>
+    {{retirement.seats}} place(s) disponible(s)
+
+    <div *ngIf="showDetails" class="retirement-list-item__description__more">
+      Début: {{retirement.start_time}}<br/>
+      Fin: {{retirement.end_time}},<br/>
+      Temps: La fin de semaine<br/>
+      Animation: {{retirement.activity_language}}<br/>
+      Particularités: Aucune<br/>
+      Tarif: {{retirement.price}}$CAN<br/>
+
+      <a class="retirement-list-item__description__more__button nt-button"
+         *ngIf="isAvailable()"
+         (click)="addToCart(retirement)">
+        Ajouter au panier
+      </a>
+      <a class="retirement-list-item__description__more__button nt-button"
+         *ngIf="!isAvailable()">
+        S'inscrire à la liste d'attente
+      </a>
+
+      <a class="retirement-list-item__description__more__link nt-link">
+        En savoir plus
+      </a>
+    </div>
+  </div>
+  <div class="retirement-list-item__action">
+    <a (click)="toogleDetails()">
+      <img *ngIf="!showDetails" class="retirement-list-item__action__icon" src="../../assets/images/icons/icon_plus.svg" alt="Voir plus" />
+      <img *ngIf="showDetails" class="retirement-list-item__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="Voir moins" />
+    </a>
+  </div>
+</div>

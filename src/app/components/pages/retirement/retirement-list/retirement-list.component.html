@@ -1,0 +1,18 @@
+<div class="retirement-list">
+  <div class="retirement-list__header">
+    <div class="retirement-list__header__title nt-title">
+      Liste des retraites disponibles
+    </div>
+    <div class="retirement-list__header__description">
+      Une retraite inclut hébergement, repas, ateliers et plein d'autres surprises.
+    </div>
+    <a class="retirement-list__header__link nt-link">
+      En savoir plus
+    </a>
+  </div>
+  <div *ngFor="let retirement of retirements">
+    <app-retirement-list-item [retirement]="retirement">
+
+    </app-retirement-list-item>
+  </div>
+</div>

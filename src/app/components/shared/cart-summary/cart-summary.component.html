@@ -1,0 +1,63 @@
+<div class="cart-summary">
+  <div class="cart-summary__items">
+    <div *ngFor="let membership of cart.memberships" class="cart-summary__items__item">
+      <div class="cart-summary__items__item__name">
+        {{membership.name}}
+      </div>
+      <div class="cart-summary__items__item__price">
+        {{membership.price}} $CAN
+      </div>
+      <div class="cart-summary__items__item__action">
+        <img (click)="removeMembershipFromCart(membership)" class="cart-summary__items__item__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+      </div>
+    </div>
+
+    <div *ngFor="let retirement of cart.retirements" class="cart-summary__items__item">
+      <div class="cart-summary__items__item__name">
+        {{retirement.name}}
+      </div>
+      <div class="cart-summary__items__item__price">
+        {{retirement.price}} $CAN
+      </div>
+      <div class="cart-summary__items__item__action">
+        <a (click)="removeRetirementFromCart(retirement)">
+          <img class="cart-summary__items__item__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="cart-summary__taxes">
+    <div class="cart-summary__taxes__line cart-summary__taxes__line--main">
+      <div class="cart-summary__taxes__line__name">
+        Sous-total
+      </div>
+      <div class="cart-summary__taxes__line__price">
+        {{ cart.getSubTotal() }} $CAN
+      </div>
+    </div>
+    <div class="cart-summary__taxes__line">
+      <div class="cart-summary__taxes__line__name">
+        TPS
+      </div>
+      <div class="cart-summary__taxes__line__price">
+        {{ cart.getTPS() }} $CAN
+      </div>
+    </div>
+    <div class="cart-summary__taxes__line">
+      <div class="cart-summary__taxes__line__name">
+        TVQ
+      </div>
+      <div class="cart-summary__taxes__line__price">
+        {{ cart.getTVQ() }} $CAN
+      </div>
+    </div>
+    <div class="cart-summary__taxes__line cart-summary__taxes__line--main">
+      <div class="cart-summary__taxes__line__name">
+        Total
+      </div>
+      <div class="cart-summary__taxes__line__price">
+        {{ cart.getTotal() }} $CAN
+      </div>
+    </div>
+  </div>
+</div>

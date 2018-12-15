@@ -96,8 +96,20 @@ import {OrderLineService} from './services/order-line.service';
 import {CustomPaymentsService} from './services/custom-payments.service';
 import { PaysafeFormComponent } from './components/shared/paysafe-form/paysafe-form.component';
 import { CalendarIconComponent } from './components/shared/calendar-icon/calendar-icon.component';
+// tslint:disable-next-line:max-line-length
 import { DesignDocumentationComponent } from './components/pages/admin/design-documentation/design-documentation.component';
 import { DesignDocumentationSectionComponent } from './components/pages/admin/design-documentation/design-documentation-section/design-documentation-section.component';
+import { RetirementReservationComponent } from './components/pages/retirement/retirement-reservation/retirement-reservation.component';
+import { RetirementTutorialComponent } from './components/pages/retirement/retirement-tutorial/retirement-tutorial.component';
+import { RetirementListComponent } from './components/pages/retirement/retirement-list/retirement-list.component';
+import { RetirementCartComponent } from './components/pages/retirement/retirement-cart/retirement-cart.component';
+// tslint:disable-next-line:max-line-length
+import { RetirementListItemComponent } from './components/pages/retirement/retirement-list/retirement-list-item/retirement-list-item.component';
+import { LoginFormComponent } from './components/shared/forms/login-form/login-form.component';
+import { IconInfoComponent } from './components/shared/icon-info/icon-info.component';
+import {MyCartService} from './services/my-cart/my-cart.service';
+import {RetirementService} from './services/retirement.service';
+import { CartSummaryComponent } from './components/shared/cart-summary/cart-summary.component';
 
 registerLocaleData(localeFr);
 
@@ -121,6 +133,10 @@ const appRoutes = [
       {
         path: 'reservation/:id',
         component: ReservationPageComponent,
+      },
+      {
+        path: 'retirements',
+        component: RetirementReservationComponent,
       },
       {
         path: 'profile',
@@ -401,6 +417,14 @@ const appRoutes = [
     CalendarIconComponent,
     DesignDocumentationComponent,
     DesignDocumentationSectionComponent,
+    RetirementReservationComponent,
+    RetirementTutorialComponent,
+    RetirementListComponent,
+    RetirementCartComponent,
+    RetirementListItemComponent,
+    LoginFormComponent,
+    IconInfoComponent,
+    CartSummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -454,6 +478,8 @@ const appRoutes = [
     InternationalizationService,
     MyNotificationService,
     CustomPaymentsService,
+    MyCartService,
+    RetirementService,
   ],
   bootstrap: [AppComponent]
 })
