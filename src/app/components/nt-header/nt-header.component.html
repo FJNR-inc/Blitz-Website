@@ -1,21 +1,30 @@
-<div class="nt-header">
+<div class="nt-header" [ngClass]="{'nt-header--closed' : curentSecondLevel}">
 
-  <div class="nt-header__main" [ngClass]="{'nt-header__main--no-border-right' : selectedNav}">
+  <div class="nt-header__main"
+       [ngClass]="{'nt-header__main--no-border-right' : selectedNav}">
+
     <div class="nt-header__main__title">
-      <img class="nt-header__main__title__logo"
-           src="../../../assets/images/logo_general.svg"/>
+      <div class="nt-header__main__title__logo"></div>
     </div>
 
 
-    <div class="nt-header__main__nav">
+    <div *ngIf="!curentSecondLevel"
+         class="nt-header__main__nav">
       <div *ngFor="let navItem of nav"
-         class="nt-header__main__nav__item"
-         [ngClass]="{'nt-header__main__nav__item--active' : selectedNav === navItem && isNavClicked,
+           class="nt-header__main__nav__item"
+           [ngClass]="{'nt-header__main__nav__item--active' : selectedNav === navItem && isNavClicked,
          'nt-header__main__nav__item--clickable' : navItem.url}"
-         (mouseenter)="enterNav(navItem)"
-         (mouseleave)="clearNav()"
-         (click)="clickNav(navItem)">
+           (mouseenter)="enterNav(navItem)"
+           (mouseleave)="clearNav()"
+           (click)="clickNav(navItem)">
         {{ navItem.label }}
+      </div>
+    </div>
+
+    <div class="nt-header__main__nav "
+         *ngIf="curentSecondLevel">
+      <div class="nt-header__main__nav__closed">
+        MENU
       </div>
     </div>
 
@@ -33,20 +42,51 @@
 
     <div class="nt-header__main__actions">
       <a routerLink="/membership/intro"
-         class="nt-header__main__actions__item">devenir membre</a>
+         class="nt-header__main__actions__item ">
+        <div *ngIf="!curentSecondLevel">
+          devenir membre
+        </div>
+
+        <div class="nt-header__main__actions__item__logo nt-header__main__actions__item__logo--profile"></div>
+
+      </a>
+
       <a routerLink="/login"
-         class="nt-header__main__actions__item">se connecter</a>
+         class="nt-header__main__actions__item">
+        <div *ngIf="!curentSecondLevel">
+          se connecter
+        </div>
+        <div class="nt-header__main__actions__item__logo nt-header__main__actions__item__logo--login"></div>
+
+      </a>
+
       <a *ngIf="locale === 'fr'" (click)="changeLanguage('en')"
-         class="nt-header__main__actions__item">english</a>
+         class="nt-header__main__actions__item">
+        <div *ngIf="!curentSecondLevel">
+          english
+        </div>
+        <div *ngIf="curentSecondLevel">
+          en
+        </div>
+      </a>
+
       <a *ngIf="locale === 'en'" (click)="changeLanguage('fr')"
-         class="nt-header__main__actions__item">français</a>
+         class="nt-header__main__actions__item">
+        <div *ngIf="!curentSecondLevel">
+          français
+        </div>
+        <div *ngIf="!curentSecondLevel">
+          fr
+        </div>
+      </a>
     </div>
   </div>
 
   <app-nt-header-sub class="nt-header__sub"
-                     *ngIf="selectedNav && selectedNav.nav"
+                     *ngIf="(selectedNav && selectedNav.nav)"
                      [title]="selectedNav.label"
-                     [nav]="selectedNav.nav">
+                     [nav]="selectedNav.nav"
+                     [currentNav]="curentSecondLevel">
   </app-nt-header-sub>
 
 </div>

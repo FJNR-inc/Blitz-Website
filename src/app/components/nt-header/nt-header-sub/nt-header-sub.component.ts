@@ -10,6 +10,7 @@ export class NtHeaderSubComponent implements OnInit {
 
   @Input() title: string;
   @Input() nav;
+  @Input() currentNav;
 
   constructor(private router: Router) { }
 

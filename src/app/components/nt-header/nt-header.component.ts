@@ -19,6 +19,10 @@ export class NtHeaderComponent implements OnInit {
   selectedNav;
   isNavClicked = false;
 
+  curentFirstLevel;
+  curentSecondLevel;
+
+
   socials = [
     {
       icon: 'images/icons/icon_facebook.svg',
@@ -90,7 +94,7 @@ export class NtHeaderComponent implements OnInit {
         }, {
           label: 'Retraites sur mesure',
           url: '',
-          router_url: ''
+          router_url: '/profile3'
         }, {
           label: 'Bourses et financement',
           url: 'http://www.thesez-vous.com/bourses-et-financement.html\n',
@@ -156,7 +160,7 @@ export class NtHeaderComponent implements OnInit {
         }, {
           label: 'Portraits',
           url: 'http://www.thesez-vous.com/portrait.html',
-          router_url: ''
+          router_url: '/profile2'
         }, {
           label: 'Devenir membre',
           url: 'https://www.thesez-vous.org/register',
@@ -181,6 +185,10 @@ export class NtHeaderComponent implements OnInit {
       label: 'Contact',
       url: 'http://www.thesez-vous.com/contact.html',
       router_url: '',
+    }, {
+      label: 'Profile',
+      url: '',
+      router_url: '/profile',
     }
   ];
 
@@ -203,6 +211,9 @@ export class NtHeaderComponent implements OnInit {
       );
     }
     this.getCurrentLanguage();
+
+    this.getCurrentNav();
+
   }
 
   toggleHeader() {
@@ -253,8 +264,8 @@ export class NtHeaderComponent implements OnInit {
   clickNav(nav) {
 
     if (nav.url) {
-        this.router.navigate(nav.url);
-    }else {
+      this.router.navigate(nav.url);
+    } else {
 
       if (nav === this.isNavClicked) {
         this.isNavClicked = false;
@@ -266,6 +277,31 @@ export class NtHeaderComponent implements OnInit {
     }
   }
 
+  getCurrentNav() {
+
+    const url = this.router.url;
+    this.curentFirstLevel = null;
+    this.curentSecondLevel = null;
+
+    this.nav.forEach(firstLevel => {
+      if (firstLevel.router_url) {
+        if (firstLevel.router_url === url) {
+          this.curentFirstLevel = firstLevel;
+          this.selectedNav = firstLevel;
+        }
+      } else if (firstLevel.nav) {
+        firstLevel.nav.forEach(secondLevel => {
+          if (secondLevel.router_url) {
+            if (secondLevel.router_url === url) {
+              this.curentFirstLevel = firstLevel;
+              this.curentSecondLevel = secondLevel;
+              this.selectedNav = firstLevel;
+            }
+          }
+        });
+      }
+    });
+  }
 
 
 }

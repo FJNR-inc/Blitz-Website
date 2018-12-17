@@ -128,6 +128,20 @@ const appRoutes = [
           CanActivateViaAuthGuard,
         ]
       },
+      {
+        path: 'profile2',
+        component: ProfileComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'profile3',
+        component: ProfileComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
     ]
   },
   {

@@ -4,6 +4,67 @@
 
   display: flex;
   flex-direction: row;
+  position: absolute;
+  top: 0;
+
+    &--closed {
+      .nt-header {
+        &__main {
+          width: 100px;
+
+          &__title {
+            padding: 20px;
+
+            &__logo {
+              background-image: url('../../../assets/images/icons/icon_attention.svg');
+            }
+          }
+
+          &__nav {
+            flex-direction: row;
+            padding-top: 0px;
+            align-items: center;
+            justify-content: center;
+          }
+
+          &__socials {
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
+
+            &__item {
+              &__icon {
+                height: 30px;
+                margin: 10px 0;
+              }
+            }
+          }
+
+          &__actions {
+            &__item {
+              height: 40px;
+              padding: 10px;
+
+              &__logo {
+                display: block;
+                height: 100%;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center;
+                &--profile {
+                  background-image: url('../../../assets/images/icons/icon_membre.svg');
+                }
+
+                &--login {
+                  background-image: url('../../../assets/images/icons/icon_right_arrow.svg');
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
 
   &__main {
     display: flex;
@@ -14,7 +75,7 @@
     background-color: $nt-2;
     border-right: 1px solid $color-grey-border;
 
-    &--no-border-right{
+    &--no-border-right {
       border-right: none;
     }
 
@@ -22,7 +83,22 @@
       padding: 40px;
       height: 130px;
       border-bottom: 1px solid $color-grey-border;
+
+      display: flex;
+      flex-direction:column;
+      justify-content:center;
+      align-content:center;
       text-align: center;
+
+
+      &__logo {
+        display: block;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        background-image: url('../../../assets/images/logo_general.svg');
+      }
 
     }
 
@@ -31,6 +107,11 @@
       display: flex;
       flex-direction: column;
       padding-top: 40px;
+
+      &__closed {
+
+        transform: rotate(270deg);
+      }
 
       &__item {
         width: 100%;
@@ -83,7 +164,13 @@
 
       &__item {
         width: 100%;
+
+        display: flex;
+        justify-content:center;
+        align-content:center;
+        flex-direction:column;
         text-align: center;
+
         font-weight: 600;
         padding: 20px;
         text-transform: uppercase;
