@@ -1,0 +1,45 @@
+@import "../../../../assets/scss/theme";
+
+.nt-header-sub {
+  width: 250px;
+  height: 100vh;
+  background-color: $nt-14;
+  color: $nt-2;
+  text-transform: uppercase;
+
+  &__title {
+    padding: 40px;
+    height: 130px;
+
+    font-weight: 700;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__nav {
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-top: 40px;
+
+    &__item {
+
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+
+      &:hover {
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      &--active {
+        font-weight: 900;
+      }
+    }
+  }
+}

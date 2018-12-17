@@ -110,6 +110,7 @@ import { IconInfoComponent } from './components/shared/icon-info/icon-info.compo
 import {MyCartService} from './services/my-cart/my-cart.service';
 import {RetirementService} from './services/retirement.service';
 import { CartSummaryComponent } from './components/shared/cart-summary/cart-summary.component';
+import { NtHeaderSubComponent } from './components/nt-header/nt-header-sub/nt-header-sub.component';
 
 registerLocaleData(localeFr);
 
@@ -140,6 +141,20 @@ const appRoutes = [
       },
       {
         path: 'profile',
+        component: ProfileComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'profile2',
+        component: ProfileComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'profile3',
         component: ProfileComponent,
         canActivate: [
           CanActivateViaAuthGuard,
@@ -425,6 +440,7 @@ const appRoutes = [
     LoginFormComponent,
     IconInfoComponent,
     CartSummaryComponent,
+    NtHeaderSubComponent,
   ],
   imports: [
     BrowserModule,

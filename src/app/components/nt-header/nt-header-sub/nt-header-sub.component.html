@@ -1,0 +1,16 @@
+<div class="nt-header-sub">
+
+  <div class="nt-header-sub__title">
+    {{ title }}
+  </div>
+
+  <div class="nt-header-sub__nav">
+    <div *ngFor="let navItem of nav"
+         class="nt-header-sub__nav__item"
+         [ngClass]="{'nt-header-sub__nav__item--active' : navItem === currentNav}"
+         (click)="clickNav(navItem)">
+      {{ navItem.label }}
+    </div>
+  </div>
+
+</div>
