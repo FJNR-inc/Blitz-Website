@@ -1,4 +1,4 @@
-<div class="nt-header-sub">
+<div class="nt-header-sub" [ngClass]="{'nt-header-sub--hover': hover}" *ngIf="nav">
 
   <div class="nt-header-sub__title">
     {{ title }}
@@ -6,10 +6,27 @@
 
   <div class="nt-header-sub__nav">
     <div *ngFor="let navItem of nav"
-         class="nt-header-sub__nav__item"
-         [ngClass]="{'nt-header-sub__nav__item--active' : navItem === currentNav}"
+         class="nt-header-sub__nav__item">
+      <a *ngIf="navItem.url"
+         class="nt-header-sub__nav__item__link"
+         [ngClass]="{
+            'nt-header-sub__nav__item__link--active' : selectedNav === navItem,
+            'nt-header-sub__nav__item__link--button' : navItem.type === 'button'
+            }"
+         [href]="navItem.url"
+         (click)="clickNav(navItem)"
+         target="_blank">
+        {{ navItem.label }}
+      </a>
+      <a *ngIf="!navItem.url"
+         class="nt-header-sub__nav__item__link"
+         [ngClass]="{
+            'nt-header-sub__nav__item__link--active' : selectedNav === navItem,
+            'nt-header-sub__nav__item__link--button' : navItem.type === 'button'
+          }"
          (click)="clickNav(navItem)">
-      {{ navItem.label }}
+        {{ navItem.label }}
+      </a>
     </div>
   </div>
 

@@ -19,9 +19,12 @@ export class NtHeaderComponent implements OnInit {
   selectedNav;
   isNavClicked = false;
 
+  // Actual position
   curentFirstLevel;
   curentSecondLevel;
 
+  // Expand or not the main part of the nav
+  showNav = true;
 
   socials = [
     {
@@ -72,7 +75,7 @@ export class NtHeaderComponent implements OnInit {
           label: 'Besoin d’aide?',
           url: 'http://www.thesez-vous.com/besoin-daide.html',
           router_url: ''
-        },
+        }
       ]
     }, {
       label: 'Retraites',
@@ -128,8 +131,8 @@ export class NtHeaderComponent implements OnInit {
           router_url: ''
         }, {
           label: 'Réserver',
-          url: 'https://www.thesez-vous.org/reservation/1',
-          router_url: ''
+          url: '',
+          router_url: '/reservation/1'
         }
       ]
     }, {
@@ -160,11 +163,12 @@ export class NtHeaderComponent implements OnInit {
         }, {
           label: 'Portraits',
           url: 'http://www.thesez-vous.com/portrait.html',
-          router_url: '/profile2'
+          router_url: ''
         }, {
           label: 'Devenir membre',
-          url: 'https://www.thesez-vous.org/register',
-          router_url: ''
+          url: '',
+          router_url: '/register',
+          type: 'button'
         }
       ]
     }, {
@@ -259,24 +263,44 @@ export class NtHeaderComponent implements OnInit {
     if (!this.isNavClicked) {
       this.selectedNav = null;
     }
+    if (this.curentSecondLevel) {
+      this.showNav = false;
+    }
   }
 
-  clickNav(nav) {
-
-    if (nav.url) {
-      this.router.navigate(nav.url);
+  clickNav(nav, secondLevel = false) {
+    if (nav.router_url) {
+      if (secondLevel) {
+        this.curentSecondLevel = secondLevel;
+        this.curentFirstLevel = this.selectedNav;
+      }
+      this.router.navigate([nav.router_url]);
     } else {
-
-      if (nav === this.isNavClicked) {
-        this.isNavClicked = false;
+      if (!nav.nav) {
         this.selectedNav = null;
+        this.isNavClicked = false;
       } else {
-        this.isNavClicked = true;
-        this.selectedNav = nav;
+        if (nav === this.selectedNav && this.isNavClicked) {
+          this.isNavClicked = false;
+          this.selectedNav = null;
+        } else {
+          this.isNavClicked = true;
+          this.selectedNav = nav;
+        }
       }
     }
   }
 
+  goToRoot() {
+    this.curentFirstLevel = null;
+    this.curentSecondLevel = null;
+    this.selectedNav = null;
+    this.router.navigate(['/']);
+  }
+
+  /**
+   * Analyse current url to check if it's part of the navbar and update the navbar display
+   */
   getCurrentNav() {
 
     const url = this.router.url;
@@ -287,7 +311,6 @@ export class NtHeaderComponent implements OnInit {
       if (firstLevel.router_url) {
         if (firstLevel.router_url === url) {
           this.curentFirstLevel = firstLevel;
-          this.selectedNav = firstLevel;
         }
       } else if (firstLevel.nav) {
         firstLevel.nav.forEach(secondLevel => {
@@ -295,7 +318,7 @@ export class NtHeaderComponent implements OnInit {
             if (secondLevel.router_url === url) {
               this.curentFirstLevel = firstLevel;
               this.curentSecondLevel = secondLevel;
-              this.selectedNav = firstLevel;
+              this.showNav = false;
             }
           }
         });
@@ -303,5 +326,31 @@ export class NtHeaderComponent implements OnInit {
     });
   }
 
+  openNav() {
+    this.showNav = true;
+  }
 
+  getFirstLevelTitle() {
+    if (this.selectedNav) {
+      return this.selectedNav.label;
+    } else if (this.curentFirstLevel) {
+      return this.curentFirstLevel.label;
+    } else {
+      return null;
+    }
+  }
+
+  getSecondLevel() {
+    if (this.selectedNav) {
+      if (this.selectedNav.nav) {
+        return this.selectedNav.nav;
+      } else {
+        return null;
+      }
+    } else if (this.curentSecondLevel) {
+      return this.curentFirstLevel.nav;
+    } else {
+      return null;
+    }
+  }
 }

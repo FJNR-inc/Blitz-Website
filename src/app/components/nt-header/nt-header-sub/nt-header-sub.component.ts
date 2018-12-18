@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,7 +10,9 @@ export class NtHeaderSubComponent implements OnInit {
 
   @Input() title: string;
   @Input() nav;
-  @Input() currentNav;
+  @Input() hover = false;
+
+  @Output() itemClicked: EventEmitter<any> = new EventEmitter();
 
   constructor(private router: Router) { }
 
@@ -18,9 +20,8 @@ export class NtHeaderSubComponent implements OnInit {
   }
 
   clickNav(nav) {
-
-    if (nav.url) {
-      this.router.navigate(nav.url);
+    if (nav.router_url) {
+      this.itemClicked.emit(nav);
     }
   }
 

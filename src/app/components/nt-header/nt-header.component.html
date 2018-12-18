@@ -1,28 +1,44 @@
-<div class="nt-header" [ngClass]="{'nt-header--closed' : curentSecondLevel}">
+<div class="nt-header" [ngClass]="{'nt-header--closed' : !showNav}" (mouseleave)="clearNav()">
 
   <div class="nt-header__main"
-       [ngClass]="{'nt-header__main--no-border-right' : selectedNav}">
+       [ngClass]="{'nt-header__main--no-border-right' : selectedNav}"
+       (mouseenter)="openNav()">
 
     <div class="nt-header__main__title">
-      <div class="nt-header__main__title__logo"></div>
+      <a class="nt-header__main__title__logo" (click)="goToRoot()"></a>
     </div>
 
 
-    <div *ngIf="!curentSecondLevel"
+    <div *ngIf="showNav"
          class="nt-header__main__nav">
       <div *ngFor="let navItem of nav"
-           class="nt-header__main__nav__item"
-           [ngClass]="{'nt-header__main__nav__item--active' : selectedNav === navItem && isNavClicked,
-         'nt-header__main__nav__item--clickable' : navItem.url}"
            (mouseenter)="enterNav(navItem)"
-           (mouseleave)="clearNav()"
+           class="nt-header__main__nav__item">
+        <a *ngIf="navItem.url"
+           class="nt-header__main__nav__item__link"
+           [ngClass]="{
+            'nt-header__main__nav__item__link--active' : selectedNav === navItem,
+            'nt-header__main__nav__item__link--clickable' : navItem.url
+            }"
+           [href]="navItem.url"
+           (click)="clickNav(navItem)"
+           target="_blank">
+          {{ navItem.label }}
+        </a>
+        <a *ngIf="!navItem.url"
+           class="nt-header__main__nav__item__link"
+           [ngClass]="{
+          'nt-header__main__nav__item__link--active' : selectedNav === navItem,
+          'nt-header__main__nav__item__link--clickable' : navItem.url
+          }"
            (click)="clickNav(navItem)">
-        {{ navItem.label }}
+          {{ navItem.label }}
+        </a>
       </div>
     </div>
 
     <div class="nt-header__main__nav "
-         *ngIf="curentSecondLevel">
+         *ngIf="!showNav">
       <div class="nt-header__main__nav__closed">
         MENU
       </div>
@@ -43,7 +59,7 @@
     <div class="nt-header__main__actions">
       <a routerLink="/membership/intro"
          class="nt-header__main__actions__item ">
-        <div *ngIf="!curentSecondLevel">
+        <div *ngIf="showNav">
           devenir membre
         </div>
 
@@ -53,7 +69,7 @@
 
       <a routerLink="/login"
          class="nt-header__main__actions__item">
-        <div *ngIf="!curentSecondLevel">
+        <div *ngIf="showNav">
           se connecter
         </div>
         <div class="nt-header__main__actions__item__logo nt-header__main__actions__item__logo--login"></div>
@@ -62,20 +78,20 @@
 
       <a *ngIf="locale === 'fr'" (click)="changeLanguage('en')"
          class="nt-header__main__actions__item">
-        <div *ngIf="!curentSecondLevel">
+        <div *ngIf="showNav">
           english
         </div>
-        <div *ngIf="curentSecondLevel">
+        <div *ngIf="!showNav">
           en
         </div>
       </a>
 
       <a *ngIf="locale === 'en'" (click)="changeLanguage('fr')"
          class="nt-header__main__actions__item">
-        <div *ngIf="!curentSecondLevel">
+        <div *ngIf="showNav">
           français
         </div>
-        <div *ngIf="!curentSecondLevel">
+        <div *ngIf="!showNav">
           fr
         </div>
       </a>
@@ -83,10 +99,9 @@
   </div>
 
   <app-nt-header-sub class="nt-header__sub"
-                     *ngIf="(selectedNav && selectedNav.nav)"
-                     [title]="selectedNav.label"
-                     [nav]="selectedNav.nav"
-                     [currentNav]="curentSecondLevel">
+                     [title]="getFirstLevelTitle()"
+                     [nav]="getSecondLevel()"
+                     [hover]="showNav"
+                     (itemClicked)="clickNav($event, true)">
   </app-nt-header-sub>
-
 </div>

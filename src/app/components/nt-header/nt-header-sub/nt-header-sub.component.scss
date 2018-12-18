@@ -1,11 +1,15 @@
 @import "../../../../assets/scss/theme";
 
 .nt-header-sub {
-  width: 250px;
+  width: 300px;
   height: 100vh;
   background-color: $nt-14;
   color: $nt-2;
   text-transform: uppercase;
+
+  &--hover {
+    position: absolute;
+  }
 
   &__title {
     padding: 40px;
@@ -20,25 +24,31 @@
   }
 
   &__nav {
-
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex: 1;
-    padding-top: 40px;
 
     &__item {
+      &__link {
+        font-size: 14px;
+        display: inline-block;
+        text-decoration: none;
+        text-align: center;
+        padding: 15px;
 
-      width: 100%;
-      text-align: center;
-      padding: 20px;
+        &:hover {
+          font-weight: 900;
+          cursor: pointer;
+        }
 
-      &:hover {
-        font-weight: 900;
-        cursor: pointer;
-      }
+        &--active {
+          font-weight: 900;
+        }
 
-      &--active {
-        font-weight: 900;
+        &--button {
+          border: 1px solid;
+        }
       }
     }
   }
