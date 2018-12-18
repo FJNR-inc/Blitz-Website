@@ -32,3 +32,32 @@
     }
   }
 }
+
+@media only screen and (max-width: 1500px) {
+  .retirement-tutorial {
+    padding: 40px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .retirement-tutorial {
+
+    &__content {
+      line-height: 1rem;
+      font-size: 1rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .retirement-tutorial {
+
+    &__actions {
+      flex-direction: column;
+
+      &__next {
+        margin: 20px 0;
+      }
+    }
+  }
+}

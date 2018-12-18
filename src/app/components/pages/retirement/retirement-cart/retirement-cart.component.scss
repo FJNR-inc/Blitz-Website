@@ -48,3 +48,9 @@
     overflow-y: visible;
   }
 }
+
+@media only screen and (max-width: 430px) {
+  .retirement-cart {
+    padding: 10px;
+  }
+}
