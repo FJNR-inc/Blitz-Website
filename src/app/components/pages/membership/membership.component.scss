@@ -8,7 +8,6 @@ app-membership {
   display: flex;
   min-height: 100vh;
   padding: 50px;
-  background-color: $nt-background-color;
 
   &__column1 {
     flex: 1;
@@ -25,33 +24,6 @@ app-membership {
     display: flex;
     align-items: center;
     padding-left: 50px;
-
-    &__price {
-      border: 1px solid $nt-text;
-      border-radius: 50%;
-      width: 200px;
-      height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      &__title {
-        font-weight: bold;
-        font-size: 12pt;
-        max-width: 80%;
-      }
-
-      &__number {
-        font-weight: bold;
-        font-size: 36.5pt;
-        padding: 10px;
-      }
-
-      &__explanation {
-        font-size: 13pt;
-      }
-    }
 
     &__text {
       margin-top: 40px;

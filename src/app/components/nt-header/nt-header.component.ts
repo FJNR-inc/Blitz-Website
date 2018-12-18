@@ -77,7 +77,8 @@ export class NtHeaderComponent implements OnInit {
         }, {
           label: 'Besoin d’aide?',
           url: 'http://www.thesez-vous.com/besoin-daide.html',
-          router_url: ''
+          router_url: '',
+          type: 'button'
         }
       ]
     }, {
@@ -94,14 +95,6 @@ export class NtHeaderComponent implements OnInit {
           url: 'http://www.thesez-vous.com/questcequuneretraite.html',
           router_url: ''
         }, {
-          label: 'Retraites urbaine',
-          url: '',
-          router_url: ''
-        }, {
-          label: 'Retraites sur mesure',
-          url: '',
-          router_url: '/profile3'
-        }, {
           label: 'Bourses et financement',
           url: 'http://www.thesez-vous.com/bourses-et-financement.html\n',
           router_url: ''
@@ -111,8 +104,9 @@ export class NtHeaderComponent implements OnInit {
           router_url: ''
         }, {
           label: 'S’inscrire',
-          url: 'http://www.thesez-vous.com/inscription.html',
-          router_url: ''
+          url: '',
+          router_url: '/retirements',
+          type: 'button'
         }
       ]
     }, {
@@ -135,7 +129,8 @@ export class NtHeaderComponent implements OnInit {
         }, {
           label: 'Réserver',
           url: '',
-          router_url: '/reservation/1'
+          router_url: '/reservation/1',
+          type: 'button'
         }
       ]
     }, {
@@ -192,10 +187,6 @@ export class NtHeaderComponent implements OnInit {
       label: 'Contact',
       url: 'http://www.thesez-vous.com/contact.html',
       router_url: '',
-    }, {
-      label: 'Profile',
-      url: '',
-      router_url: '/profile',
     }
   ];
 
