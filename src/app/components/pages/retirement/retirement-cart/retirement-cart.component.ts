@@ -56,7 +56,7 @@ export class RetirementCartComponent implements OnInit {
     {
       name: 'matricule',
       type: 'text',
-      label: 'Code permanent ou matricule'
+      label: 'Matricule ou code permanent'
     },
     {
       name: 'text-warning',

@@ -37,7 +37,13 @@ export class RetirementService extends GlobalService {
     let params = new HttpParams();
     params = params.set('limit', limit.toString());
     params = params.set('offset', offset.toString());
-
+    if (filters != null) {
+      for (const filter of filters) {
+        if (filter.name === 'is_active') {
+          params = params.set('is_active', filter.value);
+        }
+      }
+    }
     return this.http.get<any>(
       this.url_retirements,
       {headers: headers, params: params}

@@ -20,7 +20,7 @@ export class RetirementListComponent implements OnInit {
   }
 
   refreshRetirements() {
-    this.retirementService.list().subscribe(
+    this.retirementService.list([{'name': 'is_active', 'value': true}]).subscribe(
       data => {
         this.retirements = data.results.map(r => new Retirement(r));
       }
