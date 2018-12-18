@@ -280,7 +280,7 @@ export class NtHeaderComponent implements OnInit {
   clickNav(nav, secondLevel = false) {
     if (nav.router_url) {
       if (secondLevel) {
-        this.curentSecondLevel = secondLevel;
+        this.curentSecondLevel = nav;
         this.curentFirstLevel = this.selectedNav;
       } else {
         this.curentSecondLevel = null;
@@ -364,6 +364,16 @@ export class NtHeaderComponent implements OnInit {
       }
     } else if (this.curentSecondLevel) {
       return this.curentFirstLevel.nav;
+    } else {
+      return null;
+    }
+  }
+
+  getSelectedSecondLevel() {
+    if (this.selectedNav) {
+      return this.selectedNav;
+    } else if (this.curentSecondLevel) {
+      return this.curentSecondLevel;
     } else {
       return null;
     }

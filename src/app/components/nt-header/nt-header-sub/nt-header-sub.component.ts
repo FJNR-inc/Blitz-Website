@@ -11,6 +11,7 @@ export class NtHeaderSubComponent implements OnInit {
   @Input() title: string;
   @Input() nav;
   @Input() hover = false;
+  @Input() selectedNav;
 
   @Output() itemClicked: EventEmitter<any> = new EventEmitter();
 
