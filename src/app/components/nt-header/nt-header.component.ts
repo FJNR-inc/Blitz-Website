@@ -26,6 +26,9 @@ export class NtHeaderComponent implements OnInit {
   // Expand or not the main part of the nav
   showNav = true;
 
+  // Expand or not the responsive content
+  isResponsiveOpened = false;
+
   socials = [
     {
       icon: 'images/icons/icon_facebook.svg',
@@ -259,6 +262,12 @@ export class NtHeaderComponent implements OnInit {
     }
   }
 
+  leaveNav() {
+    if (!this.isNavClicked) {
+      this.selectedNav = null;
+    }
+  }
+
   clearNav() {
     if (!this.isNavClicked) {
       this.selectedNav = null;
@@ -273,10 +282,15 @@ export class NtHeaderComponent implements OnInit {
       if (secondLevel) {
         this.curentSecondLevel = secondLevel;
         this.curentFirstLevel = this.selectedNav;
+      } else {
+        this.curentSecondLevel = null;
       }
+      this.isResponsiveOpened = false;
+      this.selectedNav = null;
       this.router.navigate([nav.router_url]);
     } else {
       if (!nav.nav) {
+        this.isResponsiveOpened = false;
         this.selectedNav = null;
         this.isNavClicked = false;
       } else {
@@ -292,6 +306,7 @@ export class NtHeaderComponent implements OnInit {
   }
 
   goToRoot() {
+    this.isResponsiveOpened = false;
     this.curentFirstLevel = null;
     this.curentSecondLevel = null;
     this.selectedNav = null;
@@ -352,5 +367,9 @@ export class NtHeaderComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  toggleResponsiveNav() {
+    this.isResponsiveOpened = !this.isResponsiveOpened;
   }
 }
