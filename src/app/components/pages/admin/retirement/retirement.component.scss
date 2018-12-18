@@ -1,0 +1,36 @@
+@import '../../../../../assets/scss/theme';
+
+.admin-retirement-page {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    background-color: $nt-7;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 20px;
+
+
+    &__name {
+      font-weight: 900;
+      font-size: 30px;
+      display: flex;
+      align-items: flex-start;
+
+      &__edit {
+        font-size: 10px;
+        margin-left: 10px;
+      }
+    }
+
+    &__informations {
+      margin-top: 10px;
+    }
+
+    &__details {
+      text-align: justify;
+    }
+  }
+}

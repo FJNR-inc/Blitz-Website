@@ -111,6 +111,8 @@ import {MyCartService} from './services/my-cart/my-cart.service';
 import {RetirementService} from './services/retirement.service';
 import { CartSummaryComponent } from './components/shared/cart-summary/cart-summary.component';
 import { NtHeaderSubComponent } from './components/nt-header/nt-header-sub/nt-header-sub.component';
+import { RetirementsComponent } from './components/pages/admin/retirements/retirements.component';
+import { RetirementComponent } from './components/pages/admin/retirement/retirement.component';
 
 registerLocaleData(localeFr);
 
@@ -345,6 +347,22 @@ const appRoutes = [
         ]
       },
       {
+        path: 'admin/retirements',
+        component: RetirementsComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
+        path: 'admin/retirements/:id',
+        component: RetirementComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
         path: 'admin/export',
         component: ExportComponent,
         canActivate: [
@@ -427,6 +445,8 @@ const appRoutes = [
     IconInfoComponent,
     CartSummaryComponent,
     NtHeaderSubComponent,
+    RetirementsComponent,
+    RetirementComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+<app-loader *ngIf="!retirement"></app-loader>
+
+<div class="admin-retirement-page" *ngIf="retirement">
+  <div class="admin-retirement-page__header">
+    <div class="admin-retirement-page__header__name">
+      {{ retirement.name }}
+      <a class="admin-retirement-page__header__name__edit button" (click)="OpenModalEditRetirement()">
+        <i class="fas fa-pencil-alt"></i> Éditer les informations generale
+      </a>
+    </div>
+    <div class="admin-retirement-page__header__informations">
+      <i class="fas fa-location-arrow"></i> {{ retirement.getAddress() }}<br/>
+    </div>
+    <div class="admin-retirement-page__header__informations">
+      <i class="fas fa-building"></i> {{ retirement.seats }} places disponibles
+    </div>
+    <p class="admin-retirement-page__header__details">
+      {{ retirement.details }}
+    </p>
+  </div>
+</div>
+
+<app-nt-modal name="form_retirements"
+              typeModal="success"
+              (button2)="submitRetirement()"
+              maxWidth="600px">
+  <app-form [form]="retirementForm" [fields]="retirementFields" [errors]="errors"></app-form>
+</app-nt-modal>

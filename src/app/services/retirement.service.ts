@@ -3,6 +3,8 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
+import {Retirement} from '../models/retirement';
+import {Workplace} from '../models/workplace';
 
 @Injectable()
 export class RetirementService extends GlobalService {
@@ -11,6 +13,23 @@ export class RetirementService extends GlobalService {
 
   constructor(public http: HttpClient) {
     super();
+  }
+
+  create(retirement: Retirement): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      this.url_retirements,
+      retirement,
+      {headers: headers}
+    );
+  }
+
+  get(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_retirements + '/' + id,
+      {headers: headers}
+    );
   }
 
   list(filters: {name: string, value: any}[] = null, limit = 100, offset = 0): Observable<any> {
@@ -22,6 +41,23 @@ export class RetirementService extends GlobalService {
     return this.http.get<any>(
       this.url_retirements,
       {headers: headers, params: params}
+    );
+  }
+
+  update(url: string, retirement: Retirement): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.patch<any>(
+      url,
+      retirement,
+      {headers: headers}
+    );
+  }
+
+  remove(retirement: Retirement): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(
+      retirement.url,
+      {headers: headers}
     );
   }
 }

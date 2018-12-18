@@ -43,6 +43,10 @@ import {InternationalizationService} from '../../services/internationalization.s
               <i class="fas fa-book"></i>
               {{ 'admin-layout.left-nav.documentation' | translate }}
             </a>
+            <a routerLink="/admin/retirements" class="left-nav__content__item">
+              <i class="fas fa-place-of-worship"></i>
+              {{ 'admin-layout.left-nav.retirements' | translate }}
+            </a>
             <a routerLink="/" class="left-nav__content__item">
               <i class="fas fa-door-open"></i>
               {{ 'admin-layout.left-nav.exit' | translate }}
