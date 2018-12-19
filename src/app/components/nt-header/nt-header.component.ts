@@ -3,7 +3,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 import {User} from '../../models/user';
 import {ProfileService} from '../../services/profile.service';
 import {InternationalizationService} from '../../services/internationalization.service';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-nt-header',
@@ -48,7 +48,7 @@ export class NtHeaderComponent implements OnInit {
       alt: 'LinkedIn'
     }];
 
-  nav = [
+  nav: any[] = [
     {
       label: 'à propos',
       url: '',
@@ -106,7 +106,8 @@ export class NtHeaderComponent implements OnInit {
           label: 'S’inscrire',
           url: '',
           router_url: '/retirements',
-          type: 'button'
+          type: 'button',
+          keepClose: true
         }
       ]
     }, {
@@ -212,14 +213,11 @@ export class NtHeaderComponent implements OnInit {
 
     this.getCurrentNav();
 
-  }
-
-  toggleHeader() {
-    this.isOpen = !this.isOpen;
-  }
-
-  closeHeader() {
-    this.isOpen = false;
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.getCurrentNav();
+      }
+    });
   }
 
   isAuthenticated() {
@@ -270,14 +268,6 @@ export class NtHeaderComponent implements OnInit {
 
   clickNav(nav, secondLevel = false) {
     if (nav.router_url) {
-      if (secondLevel) {
-        this.curentSecondLevel = nav;
-        this.curentFirstLevel = this.selectedNav;
-      } else {
-        this.curentSecondLevel = null;
-      }
-      this.isResponsiveOpened = false;
-      this.selectedNav = null;
       this.router.navigate([nav.router_url]);
     } else {
       if (!nav.nav) {
@@ -294,14 +284,6 @@ export class NtHeaderComponent implements OnInit {
         }
       }
     }
-  }
-
-  goToRoot() {
-    this.isResponsiveOpened = false;
-    this.curentFirstLevel = null;
-    this.curentSecondLevel = null;
-    this.selectedNav = null;
-    this.router.navigate(['/']);
   }
 
   /**
@@ -322,9 +304,10 @@ export class NtHeaderComponent implements OnInit {
         firstLevel.nav.forEach(secondLevel => {
           if (secondLevel.router_url) {
             if (secondLevel.router_url === url) {
+
+              this.showNav = false;
               this.curentFirstLevel = firstLevel;
               this.curentSecondLevel = secondLevel;
-              this.showNav = false;
             }
           }
         });
@@ -354,7 +337,12 @@ export class NtHeaderComponent implements OnInit {
         return null;
       }
     } else if (this.curentSecondLevel) {
-      return this.curentFirstLevel.nav;
+
+      if (this.curentSecondLevel.keepClose) {
+        return null;
+      } else {
+        return this.curentFirstLevel.nav;
+      }
     } else {
       return null;
     }
