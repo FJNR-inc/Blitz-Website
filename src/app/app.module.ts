@@ -113,6 +113,8 @@ import { CartSummaryComponent } from './components/shared/cart-summary/cart-summ
 import { NtHeaderSubComponent } from './components/nt-header/nt-header-sub/nt-header-sub.component';
 import { RetirementsComponent } from './components/pages/admin/retirements/retirements.component';
 import { RetirementComponent } from './components/pages/admin/retirement/retirement.component';
+import {RetirementReservationService} from './services/retirement-reservation.service';
+import { TableRetirementReservationsComponent } from './components/table/table-retirement-reservations/table-retirement-reservations.component';
 
 registerLocaleData(localeFr);
 
@@ -447,6 +449,7 @@ const appRoutes = [
     NtHeaderSubComponent,
     RetirementsComponent,
     RetirementComponent,
+    TableRetirementReservationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -502,6 +505,7 @@ const appRoutes = [
     CustomPaymentsService,
     MyCartService,
     RetirementService,
+    RetirementReservationService,
   ],
   bootstrap: [AppComponent]
 })

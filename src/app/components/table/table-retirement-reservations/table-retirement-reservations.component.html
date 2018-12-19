@@ -1,0 +1,17 @@
+<app-my-table [settings]="settings"
+              [data]="listAdaptedRetirementReservations"
+              (selectItem)="goTo($event)"
+              (changePage)="changePage($event)">
+</app-my-table>
+
+<app-nt-modal name="retirement_deleted"
+              typeModal="success"
+              maxWidth="600px"
+              title="Retraite supprimé"
+              button2Label="J'ai compris!"
+              [autoClose]="true">
+  <p>
+    La réservation que vous venez de sélectionner a été annulé car la retraite a été supprimé.
+    Nous ne pouvons donc pas vous rediriger vers ladite retraite.
+  </p>
+</app-nt-modal>

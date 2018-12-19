@@ -18,6 +18,9 @@
       {{ retirement.details }}
     </p>
   </div>
+
+  <app-table-retirement-reservations class="admin-retirement-page__reservations" [retirement]="retirement">
+  </app-table-retirement-reservations>
 </div>
 
 <app-nt-modal name="form_retirements"

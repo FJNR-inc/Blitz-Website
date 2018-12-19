@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
 import {Retirement} from '../models/retirement';
-import {Workplace} from '../models/workplace';
 
 @Injectable()
 export class RetirementService extends GlobalService {

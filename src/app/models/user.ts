@@ -52,5 +52,9 @@ export class User extends BaseModel {
     const offset = date.getTimezoneOffset();
     return new Date(date.getTime() + offset * 60000);
   }
+
+  getFullName() {
+    return this.first_name + ' ' + this.last_name;
+  }
 }
 

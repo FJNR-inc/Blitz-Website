@@ -50,6 +50,12 @@
                   [data]="listCards">
     </app-my-table>
   </div>
+
+  <div class="user-page__retirement-reservations">
+    <app-table-retirement-reservations [user]="user">
+    </app-table-retirement-reservations>
+  </div>
+
   <div class="user-page__custom-payments">
     <app-my-table [settings]="settingsCustomPayment"
                   [data]="listCustomPayments"
