@@ -114,6 +114,7 @@ import { NtHeaderSubComponent } from './components/nt-header/nt-header-sub/nt-he
 import { RetirementsComponent } from './components/pages/admin/retirements/retirements.component';
 import { RetirementComponent } from './components/pages/admin/retirement/retirement.component';
 import {RetirementReservationService} from './services/retirement-reservation.service';
+// tslint:disable-next-line:max-line-length
 import { TableRetirementReservationsComponent } from './components/table/table-retirement-reservations/table-retirement-reservations.component';
 
 registerLocaleData(localeFr);
