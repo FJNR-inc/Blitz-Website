@@ -268,6 +268,9 @@ export class NtHeaderComponent implements OnInit {
 
   clickNav(nav, secondLevel = false) {
     if (nav.router_url) {
+      if (secondLevel) {
+        this.isResponsiveOpened = false;
+      }
       this.router.navigate([nav.router_url]);
     } else {
       if (!nav.nav) {
