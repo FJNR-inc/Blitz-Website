@@ -132,11 +132,12 @@
   <div class="nt-header-responsive__header">
     <div class="nt-header-responsive__header__item">
       <a (click)="toggleResponsiveNav()">
-        <img class="nt-header-responsive__header__item__icon" src="../../../assets/images/icons/icon_exit.svg" alt="Toggle" />
+        <img *ngIf="!isResponsiveOpened" class="nt-header-responsive__header__item__icon" src="../../../assets/images/icons/icon_burger.svg" alt="Open menu" />
+        <img *ngIf="isResponsiveOpened" class="nt-header-responsive__header__item__icon" src="../../../assets/images/icons/icon_exit.svg" alt="Close menu" />
       </a>
     </div>
     <div class="nt-header-responsive__header__item">
-      <a (click)="goToRoot()">
+      <a routerLink="/">
         <img class="nt-header-responsive__header__item__icon" src="../../../assets/images/logo_general.svg" alt="Thesez-vous" />
       </a>
     </div>

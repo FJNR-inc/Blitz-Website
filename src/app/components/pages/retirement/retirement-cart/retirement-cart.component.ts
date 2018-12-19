@@ -24,6 +24,7 @@ export class RetirementCartComponent implements OnInit {
   cart: Cart;
 
   personalInformationForm: FormGroup;
+  personalInformationFormIsValid = false;
   personalInformationErrors: string[];
   personalInformationFields = [
     {
@@ -46,6 +47,7 @@ export class RetirementCartComponent implements OnInit {
 
 
   universityForm: FormGroup;
+  universityFormIsValid = false;
   universityErrors: string[];
   universityFields = [
     {
@@ -83,7 +85,6 @@ export class RetirementCartComponent implements OnInit {
     this.cartService.cart.subscribe(
       emitedCart => {
         this.cart = emitedCart;
-        console.log(this.cart);
       }
     );
   }
@@ -106,8 +107,14 @@ export class RetirementCartComponent implements OnInit {
   defineCurrentStep() {
     if ( !this.authenticationService.isAuthenticated() ) {
       this.currentStep = 1;
-    } else {
+    } else if ( !this.authenticationService.getProfile().getTimeBeforeEndMembership() ) {
       this.currentStep = 2;
+    } else if ( !this.personalInformationFormIsValid ) {
+      this.currentStep = 3;
+    } else if ( !this.universityFormIsValid ) {
+      this.currentStep = 4;
+    } else {
+      this.currentStep = 5;
     }
   }
 
@@ -134,17 +141,19 @@ export class RetirementCartComponent implements OnInit {
       for ( const membership of this.memberships ) {
         if (membership.id === Number(this.selectedMembership)) {
           this.cartService.addMembership(membership);
-          this.currentStep += 1;
+          this.defineCurrentStep();
         }
       }
     }
   }
 
   submitPersonalInformation() {
-    this.currentStep += 1;
+    this.personalInformationFormIsValid = true;
+    this.defineCurrentStep();
   }
 
   submitUniversityInformation() {
-    this.currentStep += 1;
+    this.universityFormIsValid = true;
+    this.defineCurrentStep();
   }
 }
