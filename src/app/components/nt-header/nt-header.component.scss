@@ -131,14 +131,7 @@
           }
 
           &__socials {
-            flex-direction: column;
-            align-items: center;
-            margin: 40px 0;
-
-            &__item {
-              margin: 10px 0;
-              text-decoration: none;
-            }
+            display: none;
           }
 
           &__actions {
