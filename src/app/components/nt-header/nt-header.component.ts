@@ -31,19 +31,19 @@ export class NtHeaderComponent implements OnInit {
 
   socials = [
     {
-      icon: 'images/icons/icon_facebook.svg',
+      icon: 'icon icon-facebook icon--2x',
       url: 'https://facebook.com/thesezvous/',
       alt: 'Facebook'
     }, {
-      icon: 'images/icons/icon_insta.svg',
+      icon: 'icon icon-instagram icon--2x',
       url: 'https://www.instagram.com/thesezvous',
       alt: 'Instagram'
     }, {
-      icon: 'images/icons/icon_twitter.svg',
+      icon: 'icon icon-twitter icon--2x',
       url: 'https://twitter.com/ThesezVous',
       alt: 'Twitter'
     }, {
-      icon: 'images/icons/icon_linkedin.svg',
+      icon: 'icon icon-linkedin icon--2x',
       url: 'https://www.linkedin.com/company/thesezvous',
       alt: 'LinkedIn'
     }];

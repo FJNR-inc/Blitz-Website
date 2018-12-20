@@ -98,9 +98,9 @@ export class RetirementCartComponent implements OnInit {
 
   getIconForStep(id: number) {
     if ( this.currentStep <= id ) {
-      return '../../assets/images/icons/icon_exit.svg';
+      return 'icon icon-times-circle-reverse icon--2x icon--danger';
     } else {
-      return '../../assets/images/icons/icon_check.svg';
+      return 'icon icon-check-circle-reverse icon--2x icon--success';
     }
   }
 

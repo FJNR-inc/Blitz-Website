@@ -49,9 +49,7 @@
       <a *ngFor="let social of socials"
          [href]="social.url"
          class="nt-header__main__socials__item">
-        <img class="nt-header__main__socials__item__icon"
-             [src]="'../../../assets/' + social.icon"
-             [alt]="social.alt"/>
+        <i [class]="social.icon"></i>
       </a>
     </div>
 
@@ -64,7 +62,7 @@
           devenir membre
         </div>
 
-        <div class="nt-header__main__actions__item__logo nt-header__main__actions__item__logo--profile"></div>
+        <i *ngIf="!showNav" class="icon icon-profile icon--2x"></i>
       </a>
 
       <a routerLink="/profile"
@@ -74,7 +72,7 @@
           mon profil
         </div>
 
-        <div class="nt-header__main__actions__item__logo nt-header__main__actions__item__logo--profile"></div>
+        <i *ngIf="!showNav" class="icon icon-profile icon--2x"></i>
       </a>
 
       <a routerLink="/login"
@@ -83,7 +81,7 @@
         <div *ngIf="showNav">
           se connecter
         </div>
-        <div class="nt-header__main__actions__item__logo nt-header__main__actions__item__logo--login"></div>
+        <i *ngIf="!showNav" class="icon icon-login icon--2x"></i>
       </a>
 
       <a routerLink="/logout"
@@ -92,7 +90,7 @@
         <div *ngIf="showNav">
           se déconnecter
         </div>
-        <div class="nt-header__main__actions__item__logo nt-header__main__actions__item__logo--login"></div>
+        <i *ngIf="!showNav" class="icon icon-logout icon--2x"></i>
       </a>
 
       <a *ngIf="locale === 'fr'" (click)="changeLanguage('en')"
@@ -226,9 +224,7 @@
       <a *ngFor="let social of socials"
          [href]="social.url"
          class="nt-header-responsive__socials__item">
-        <img class="nt-header-responsive__socials__item__icon"
-             [src]="'../../../assets/' + social.icon"
-             [alt]="social.alt"/>
+        <i [class]="social.icon"></i>
       </a>
     </div>
   </div>

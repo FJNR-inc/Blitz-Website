@@ -31,9 +31,9 @@
     </div>
   </div>
   <div class="retirement-list-item__action">
-    <a (click)="toogleDetails()">
-      <img *ngIf="!showDetails" class="retirement-list-item__action__icon" src="../../assets/images/icons/icon_plus.svg" alt="Voir plus" />
-      <img *ngIf="showDetails" class="retirement-list-item__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="Voir moins" />
+    <a (click)="toogleDetails()" class="retirement-list-item__action__item">
+      <i *ngIf="!showDetails" class="icon icon-plus icon--5x"></i>
+      <i *ngIf="showDetails" class="icon icon-times icon--5x"></i>
     </a>
   </div>
 </div>

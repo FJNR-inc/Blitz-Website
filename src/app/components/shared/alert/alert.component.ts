@@ -11,8 +11,8 @@ export class AlertComponent implements OnInit {
   @Input() messages: string[];
 
   icons = {
-    'warning': '../../../../assets/images/icons/icon_attention.svg',
-    'text-warning': '../../../../assets/images/icons/icon_attention.svg',
+    'warning': 'icon icon-warning icon--5x',
+    'text-warning': 'icon icon-warning icon--5x icon--danger',
     'success': '../../../../assets/images/icons/icon_check.svg',
     'danger': '../../../../assets/images/icons/icon_attention.svg',
     'info': '../../../../assets/images/icons/icon_tomato.svg'
@@ -21,5 +21,9 @@ export class AlertComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getIcon() {
+    return this.icons[this.type];
   }
 }

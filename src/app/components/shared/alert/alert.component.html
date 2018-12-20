@@ -5,7 +5,7 @@
     'alert--text-warning': type === 'text-warning',
     'alert--success': type === 'success'
   }">
-  <img class="alert__icon" [src]="icons[type]">
+  <i [class]="'alert__icon ' + getIcon()"></i>
   <div class="alert__content">
       <div *ngFor="let message of messages">
         {{ message }}
