@@ -16,6 +16,8 @@ import {ReservationService} from '../../../services/reservation.service';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 import {RetirementReservationService} from '../../../services/retirement-reservation.service';
 import {RetirementReservation} from '../../../models/retirementReservation';
+import {Retirement} from '../../../models/retirement';
+import {RetirementService} from '../../../services/retirement.service';
 
 @Component({
   selector: 'app-profile',
@@ -48,6 +50,9 @@ export class ProfileComponent implements OnInit {
   totalPastRetirementReservations = 0;
   totalFutureRetirementReservations = 0;
 
+  listRetirements: Retirement[];
+  selectedRetirement: Retirement;
+
   listCards: Card[];
   listWorkplaces: Workplace[];
   errors: string[];
@@ -70,7 +75,8 @@ export class ProfileComponent implements OnInit {
               private cardService: CardService,
               private workplaceService: WorkplaceService,
               private reservationService: ReservationService,
-              private retirementReservationService: RetirementReservationService) { }
+              private retirementReservationService: RetirementReservationService,
+              private retirementService: RetirementService) { }
 
   ngOnInit() {
     this.refreshProfile();
@@ -100,6 +106,27 @@ export class ProfileComponent implements OnInit {
         this.refreshListCard();
         this.refreshListWorkplace();
         this.resetForm();
+      }
+    );
+  }
+
+  refreshRetirements() {
+    const now = new Date().toISOString();
+    const filters = [
+      {
+        'name': 'is_active',
+        'value': true
+      },
+      {
+        'name': 'end_time__gte',
+        'value': now
+      }
+    ];
+    this.retirementService.list(filters).subscribe(
+      reservations => {
+        this.listRetirements = reservations.results.map(
+          r => new Retirement(r)
+        );
       }
     );
   }
@@ -318,5 +345,38 @@ export class ProfileComponent implements OnInit {
     } else {
       this.retirementReservationOpen = id;
     }
+  }
+
+  openModalExchangeRetirementReservation(selectedRetirement) {
+    this.selectedRetirement = selectedRetirement;
+    this.refreshRetirements();
+    this.toogleModal('form_exchange_retirement');
+  }
+
+  openModalCancelRetirementReservation(selectedRetirement) {
+    this.selectedRetirement = selectedRetirement;
+    this.toogleModal('form_cancel_reservation_retirement');
+  }
+
+  getChoicesExchangeRetirement() {
+    if (this.listRetirements) {
+      const list = [];
+      for (const retirement of this.listRetirements) {
+        if (retirement.id !== this.selectedRetirement.id) {
+          list.push(retirement);
+        }
+      }
+      return list;
+    } else {
+      return [];
+    }
+  }
+
+  exchangeRetirement() {
+    this.toogleModal('form_exchange_retirement');
+  }
+
+  cancelRetirement() {
+    this.toogleModal('form_cancel_reservation_retirement');
   }
 }

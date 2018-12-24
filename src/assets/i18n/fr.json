@@ -155,7 +155,16 @@
     "remaining_days_subtext": "à votre membership",
     "sub-title": "Numéro de membre",
     "subscription": "Abonnement",
-    "welcome": "Bonjour"
+    "welcome": "Bonjour",
+    "exchange_reservation_retirement_text": "À plus de 14 jours d'une retraite, vous pouvez échanger s'il reste des places à une retraite.",
+    "exchange_reservation_retirement_title_actual": "Retraite actuelle",
+    "exchange_reservation_retirement_title_new": "Nouvelle retraite",
+    "exchange_reservation_retirement_title": "Échange de retraite",
+    "exchange_reservation_retirement_button_confirm": "Échanger",
+    "cancel_reservation_retirement": "Annuler l'inscription à la retraite",
+    "cancel_reservation_retirement_text_1": "Des frais de gestion de 10% sont applicables. Le ou la participant.e ayant annulé sera remboursé uniquement si son annulation a eu lieu plus de 7 jours ouvrables précédant le début de la retraite.",
+    "cancel_reservation_retirement_text_2": "Êtes-vous certain.e de vouloir annuler votre inscription à cette retraite?",
+    "cancel_reservation_retirement_button": "Annuler l'inscription"
   },
   "register-confirmation": {
     "link": "Retour a la page d'accueil",

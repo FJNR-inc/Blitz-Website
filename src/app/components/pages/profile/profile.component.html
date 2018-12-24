@@ -292,10 +292,12 @@
               <a class="profile-page__content__right__retirement-reservations__list__item__actions__item">
                 <i class="icon icon-form icon--3x"></i>
               </a>
-              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item">
+              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
+                 (click)="openModalExchangeRetirementReservation(retirementReservation.retirement_details)">
                 <i class="icon icon-transfer icon--3x"></i>
               </a>
-              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item">
+              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
+                 (click)="openModalCancelRetirementReservation(retirementReservation.retirement_details)">
                 <i class="icon icon-times icon--3x"></i>
               </a>
             </div>
@@ -344,4 +346,63 @@
   <p>
     {{ 'profile.cancel_reservation_text_2' | translate }}
   </p>
+</app-nt-modal>
+
+<app-nt-modal name="form_exchange_retirement"
+              typeModal="danger"
+              title="{{ 'profile.exchange_reservation_retirement_title' | translate }}"
+              button2Label="{{ 'profile.exchange_reservation_retirement_button_confirm' | translate }}"
+              (button2)="exchangeRetirement()"
+              maxWidth="600px"
+              class="form-exchange-retirement">
+  <div *ngIf="selectedRetirement">
+    <p>
+      {{ 'profile.exchange_reservation_retirement_text' | translate }}
+    </p>
+
+    <h2 class="form-exchange-retirement__title">
+      {{ 'profile.exchange_reservation_retirement_title_actual' | translate }}
+    </h2>
+
+    <select [disabled]="true" class="nt-form-input nt-form-input--select">
+      <option>{{ selectedRetirement.name }} - {{ selectedRetirement.getStartTime() }}</option>
+    </select>
+
+    <div class="form-exchange-retirement__icon">
+      <i class="icon icon-transfer icon--5x"></i>
+    </div>
+
+    <h2 class="form-exchange-retirement__title">
+      {{ 'profile.exchange_reservation_retirement_title_new' | translate }}
+    </h2>
+
+    <select class="nt-form-input nt-form-input--select">
+      <option *ngFor="let retirement of getChoicesExchangeRetirement()">
+        {{ retirement.name }} - {{ selectedRetirement.getStartTime() }}
+      </option>
+    </select>
+  </div>
+</app-nt-modal>
+
+<app-nt-modal name="form_cancel_reservation_retirement"
+              typeModal="danger"
+              title="{{ 'profile.cancel_reservation_retirement' | translate }}"
+              button2Label="{{ 'profile.cancel_reservation_retirement_button' | translate }}"
+              (button2)="cancelRetirement()"
+              maxWidth="600px">
+  <div *ngIf="selectedRetirement" class="form-cancel-reservation-retirement">
+    <p>
+      {{ 'profile.cancel_reservation_retirement_text_1' | translate }}
+
+    </p>
+
+    <div class="form-cancel-reservation-retirement__retirement">
+      {{ selectedRetirement.name }}<br/>
+      {{ selectedRetirement.details }}<br/>
+      {{ selectedRetirement.getDateInterval() }}
+    </div>
+    <p>
+      {{ 'profile.cancel_reservation_retirement_text_2' | translate }}
+    </p>
+  </div>
 </app-nt-modal>

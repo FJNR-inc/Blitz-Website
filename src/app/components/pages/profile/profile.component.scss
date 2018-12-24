@@ -359,6 +359,28 @@
   }
 }
 
+.form-exchange-retirement {
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: $font-size-normal;
+    margin-top: 20px;
+  }
+
+  &__icon {
+    text-align: center;
+    margin-top: 20px;
+  }
+}
+
+.form-cancel-reservation-retirement {
+  &__retirement {
+    border: 1px solid $border-calendar;
+    padding: 20px;
+    margin: 20px 0;
+  }
+}
 @media only screen and (max-width: 1300px) {
   .profile-page {
     &__title {
