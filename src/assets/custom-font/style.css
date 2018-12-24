@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icon-tv';
-  src:  url('fonts/icon-tv.eot?6on2vg');
-  src:  url('fonts/icon-tv.eot?6on2vg#iefix') format('embedded-opentype'),
-  url('fonts/icon-tv.ttf?6on2vg') format('truetype'),
-  url('fonts/icon-tv.woff?6on2vg') format('woff'),
-  url('fonts/icon-tv.svg?6on2vg#icon-tv') format('svg');
+  src:  url('fonts/icon-tv.eot?vw04gk');
+  src:  url('fonts/icon-tv.eot?vw04gk#iefix') format('embedded-opentype'),
+  url('fonts/icon-tv.ttf?vw04gk') format('truetype'),
+  url('fonts/icon-tv.woff?vw04gk') format('woff'),
+  url('fonts/icon-tv.svg?vw04gk#icon-tv') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-envelope:before {
+  content: "\e91e";
+}
+.icon-send:before {
+  content: "\e91f";
+}
+.icon-trash:before {
+  content: "\e920";
+}
+.icon-caret-down:before {
+  content: "\e921";
+}
+.icon-transfer:before {
+  content: "\e922";
+}
+.icon-info-circle-reverse:before {
+  content: "\e923";
+}
+.icon-form:before {
+  content: "\e924";
+}
 .icon-warning:before {
   content: "\e91a";
 }
@@ -42,7 +63,7 @@
 .icon-twitter:before {
   content: "\e912";
 }
-.icon-info-circle-reverse:before {
+.icon-danger-circle-reverse:before {
   content: "\e900";
 }
 .icon-question-circle:before {
@@ -63,7 +84,7 @@
 .icon-profile:before {
   content: "\e906";
 }
-.icon-info-circle:before {
+.icon-danger-circle:before {
   content: "\e907";
 }
 .icon-question-circle-reverse:before {

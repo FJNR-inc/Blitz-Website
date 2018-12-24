@@ -2,6 +2,10 @@ import {InternationalizationService} from '../services/internationalization.serv
 
 export class DateUtil {
 
+  static formatDayAndTime(date) {
+    return this.formatDay(date) + ' - ' + this.formatTime(date);
+  }
+
   static formatDay(date) {
     const options = {
       weekday: 'long',

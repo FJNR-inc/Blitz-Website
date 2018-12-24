@@ -14,6 +14,8 @@ import {Workplace} from '../../../models/workplace';
 import {Reservation} from '../../../models/reservation';
 import {ReservationService} from '../../../services/reservation.service';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
+import {RetirementReservationService} from '../../../services/retirement-reservation.service';
+import {RetirementReservation} from '../../../models/retirementReservation';
 
 @Component({
   selector: 'app-profile',
@@ -40,13 +42,22 @@ export class ProfileComponent implements OnInit {
   listFutureReservations: Reservation[] = [];
   totalPastReservations = 0;
   totalFutureReservations = 0;
+
+  listRetirementReservations: RetirementReservation[];
+  listFutureRetirementReservations: RetirementReservation[];
+  totalPastRetirementReservations = 0;
+  totalFutureRetirementReservations = 0;
+
   listCards: Card[];
   listWorkplaces: Workplace[];
   errors: string[];
 
   displayAll = false;
+  displayAllRetirementReservation = false;
 
   reservationInCancelation: Reservation = null;
+
+  retirementReservationOpen: number;
 
   constructor(private profileService: ProfileService,
               private authenticationService: AuthenticationService,
@@ -58,7 +69,8 @@ export class ProfileComponent implements OnInit {
               private myModalService: MyModalService,
               private cardService: CardService,
               private workplaceService: WorkplaceService,
-              private reservationService: ReservationService) { }
+              private reservationService: ReservationService,
+              private retirementReservationService: RetirementReservationService) { }
 
   ngOnInit() {
     this.refreshProfile();
@@ -84,6 +96,7 @@ export class ProfileComponent implements OnInit {
           emitedProfile => this.profile = new User(emitedProfile)
         );
         this.refreshReservation();
+        this.refreshRetirementReservation();
         this.refreshListCard();
         this.refreshListWorkplace();
         this.resetForm();
@@ -126,6 +139,41 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  refreshRetirementReservation() {
+    const filters = [
+      {
+        'name': 'user',
+        'value': this.profile.id
+      },
+      {
+        'name': 'is_active',
+        'value': true
+      }
+    ];
+    this.retirementReservationService.list(filters).subscribe(
+      retirementReservations => {
+        const listRetirementReservations = retirementReservations.results.map(
+          r => new RetirementReservation(r)
+        );
+
+        this.totalPastRetirementReservations = 0;
+        this.totalFutureRetirementReservations = 0;
+        this.listRetirementReservations = [];
+        this.listFutureRetirementReservations = [];
+
+        for ( const retirementReservation of listRetirementReservations ) {
+          if (retirementReservation.retirement_details.getEndDate() < new Date()) {
+            this.totalPastRetirementReservations += 20;
+          } else {
+            this.totalFutureRetirementReservations += 20;
+            this.listFutureRetirementReservations.push(retirementReservation);
+          }
+          this.listRetirementReservations.push(retirementReservation);
+        }
+      }
+    );
+  }
+
   getDisplayedReservation() {
     if (this.displayAll) {
       return this.listReservations;
@@ -134,8 +182,22 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  getDisplayedRetirementReservation() {
+    if (this.displayAllRetirementReservation) {
+      return this.listRetirementReservations;
+    } else if (this.listFutureRetirementReservations) {
+      return this.listFutureRetirementReservations;
+    } else {
+      return false;
+    }
+  }
+
   setDisplayAll(value) {
     this.displayAll = value;
+  }
+
+  setDisplayAllRetirementReservation(value) {
+    this.displayAllRetirementReservation = value;
   }
 
   refreshListCard() {
@@ -240,5 +302,21 @@ export class ProfileComponent implements OnInit {
         this.notificationService.error('shared.notifications.fail_cancel.title', 'shared.notifications.fail_cancel.content');
       }
     );
+  }
+
+  getTotalEarnTomatoes() {
+    return this.totalPastReservations + this.totalPastRetirementReservations;
+  }
+
+  getTotalFutureTomatoes() {
+    return this.totalFutureReservations + this.totalFutureRetirementReservations;
+  }
+
+  openRetirementReservation(id: number) {
+    if (this.retirementReservationOpen === id) {
+      this.retirementReservationOpen = null;
+    } else {
+      this.retirementReservationOpen = id;
+    }
   }
 }

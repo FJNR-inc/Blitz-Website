@@ -12,3 +12,50 @@
     padding-bottom: 5px;
   }
 }
+
+.title {
+
+  &--1 {
+    font-size: 100pt;
+    line-height: 120pt;
+    font-weight: bold;
+  }
+
+  &--2 {
+    font-size: 60pt;
+    line-height: 72pt;
+    font-weight: bold;
+  }
+
+  &--3 {
+    font-size: 40pt;
+    line-height: 48pt;
+    font-weight: bold;
+  }
+
+  &--4 {
+    font-size: 30pt;
+    line-height: 36pt;
+    font-weight: bold;
+  }
+
+  &--5 {
+    font-size: 20pt;
+    line-height: 24pt;
+    font-weight: bold;
+  }
+
+  &--6 {
+    font-size: 18pt;
+    line-height: 28pt;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  &--7 {
+    font-size: 15pt;
+    line-height: 25pt;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

@@ -71,5 +71,23 @@ export class Retirement extends BaseModel {
   getDateInterval() {
     return DateUtil.getDateInterval(new Date(this.start_time), new Date(this.end_time));
   }
+
+  getStartDate() {
+    return new Date(this.end_time);
+  }
+
+  getEndDate() {
+    return new Date(this.end_time);
+  }
+
+  getStartTime() {
+    const date = new Date(this.start_time);
+    return DateUtil.formatDayAndTime(date);
+  }
+
+  getEndTime() {
+    const date = new Date(this.end_time);
+    return DateUtil.formatDayAndTime(date);
+  }
 }
 

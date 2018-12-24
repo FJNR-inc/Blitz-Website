@@ -25,6 +25,8 @@ export class RetirementReservationService extends GlobalService {
           params = params.set('user', filter.value);
         } else if (filter.name === 'retirement') {
           params = params.set('retirement', filter.value);
+        } else if (filter.name === 'is_active') {
+          params = params.set('is_active', filter.value);
         }
       }
     }

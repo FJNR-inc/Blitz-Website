@@ -158,7 +158,7 @@
       <div class="profile-page__content__right__stats">
         <div class="profile-page__content__right__stats__done">
           <p class="profile-page__content__right__stats__done__number">
-            {{totalPastReservations}}
+            {{ getTotalEarnTomatoes() }}
             <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__stats__done__number__icon"/>
           </p>
           <p class="profile-page__content__right__stats__done__text">
@@ -170,7 +170,7 @@
         </div>
         <div class="profile-page__content__right__stats__future">
           <p class="profile-page__content__right__stats__future__number">
-            {{totalFutureReservations}}
+            {{ getTotalFutureTomatoes() }}
             <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-page__content__right__stats__future__number__icon"/>
           </p>
           <p class="profile-page__content__right__stats__future__text">
@@ -238,7 +238,7 @@
           </tbody>
         </table>
         <a class="profile-page__content__right__blocs__action" routerLink="/reservation/{{listWorkplaces[0].id}}" *ngIf="listWorkplaces">
-          <img src="../../../../assets/images/icons/icon_plus.svg" class="profile-page__content__right__blocs__action__icon"/>
+          <i class="icon icon-plus icon--2x"></i>
           {{ 'profile.add_blocs' | translate }}
         </a>
         <a *ngIf="!displayAll" class="profile-page__content__right__blocs__link nt-link" (click)="setDisplayAll(true)">
@@ -246,6 +246,70 @@
         </a>
         <a *ngIf="displayAll" class="profile-page__content__right__blocs__link nt-link" (click)="setDisplayAll(false)">
           {{ 'profile.hide_old_blocs' | translate }}
+        </a>
+      </div>
+      <div class="profile-page__content__right__retirement-reservations">
+        <h2 class="profile-page__sub-title">
+          {{ 'profile.list_retirement_reservations_title' | translate }}
+        </h2>
+
+        <div class="profile-page__content__right__retirement-reservations__list profile-page__content__right__retirement-reservations__list--loading" *ngIf="!getDisplayedRetirementReservation()">
+          <app-loader></app-loader>
+        </div>
+        <div class="profile-page__content__right__retirement-reservations__list profile-page__content__right__retirement-reservations__list--empty" *ngIf="getDisplayedRetirementReservation().length === 0">
+          Aucune retraite prévue
+        </div>
+        <div class="profile-page__content__right__retirement-reservations__list" *ngIf="getDisplayedRetirementReservation().length">
+          <div class="profile-page__content__right__retirement-reservations__list__item"
+               *ngFor="let retirementReservation of getDisplayedRetirementReservation()"
+               (click)="openRetirementReservation(retirementReservation.id)">
+            <div class="profile-page__content__right__retirement-reservations__list__item__title">
+              <div class="profile-page__content__right__retirement-reservations__list__item__title__text">
+                {{ retirementReservation.retirement_details.name }}
+              </div>
+
+              <div *ngIf="retirementReservationOpen === retirementReservation.id" class="profile-page__content__right__retirement-reservations__list__item__title__tomatoes">
+                20 <i class="icon icon-tomato icon--3x"></i>
+              </div>
+            </div>
+            <div class="profile-page__content__right__retirement-reservations__list__item__description">
+              <p>
+                {{ retirementReservation.retirement_details.details }}
+              </p>
+              <p>
+                {{ retirementReservation.retirement_details.getDateInterval() }}
+              </p>
+              <div class="profile-page__content__right__retirement-reservations__list__item__description__more" *ngIf="retirementReservationOpen === retirementReservation.id">
+                <b>Début:</b> {{retirementReservation.retirement_details.getStartTime()}}<br/>
+                <b>Fin:</b> {{retirementReservation.retirement_details.getEndTime()}}<br/>
+                <b>Temps:</b> La fin de semaine<br/>
+                <b>Animation:</b> {{retirementReservation.retirement_details.activity_language}}<br/>
+                <b>Particularités:</b> Aucune<br/>
+                <b>Tarif:</b> {{retirementReservation.retirement_details.price}}$CAN<br/>
+              </div>
+            </div>
+            <div class="profile-page__content__right__retirement-reservations__list__item__actions">
+              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item">
+                <i class="icon icon-form icon--3x"></i>
+              </a>
+              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item">
+                <i class="icon icon-transfer icon--3x"></i>
+              </a>
+              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item">
+                <i class="icon icon-times icon--3x"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <a class="profile-page__content__right__retirement-reservations__action" routerLink="/retirements">
+          <i class="icon icon-plus icon--2x"></i>
+          {{ 'profile.add_retirement_reservations' | translate }}
+        </a>
+        <a *ngIf="!displayAllRetirementReservation" class="profile-page__content__right__retirement-reservations__link nt-link" (click)="setDisplayAllRetirementReservation(true)">
+          {{ 'profile.display_old_retirement_reservations' | translate }}
+        </a>
+        <a *ngIf="displayAllRetirementReservation" class="profile-page__content__right__retirement-reservations__link nt-link" (click)="setDisplayAllRetirementReservation(false)">
+          {{ 'profile.hide_old_retirement_reservations' | translate }}
         </a>
       </div>
     </div>
