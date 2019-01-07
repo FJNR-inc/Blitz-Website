@@ -1,0 +1,27 @@
+<div class="card-payment">
+  <div class="card-payment__content">
+    <div class="card-payment__content__title">
+      <div class="card-payment__content__title__text">
+        Mode de paiement
+      </div>
+      <div class="card-payment__content__title__icon">
+        <i *ngIf="!cartContainPaymentMethod()" class="icon icon-times-circle-reverse icon--3x icon--danger"></i>
+        <i *ngIf="cartContainPaymentMethod()" class="icon icon-check-circle-reverse icon--3x icon--success"></i>
+      </div>
+    </div>
+    <div>
+      <select [(ngModel)]="paymentCard" class="nt-form-input nt-form-input--select" (change)="setCard()">
+        <option disabled value="">Choisir une carte de paiement</option>
+        <option *ngFor="let card of listCards" [value]="card.payment_token">
+          **** **** **** {{ card.last_digits }} ({{card.card_expiry.month}}/{{card.card_expiry.year}})
+        </option>
+      </select>
+    </div>
+    <div class="card-payment__content__form" *ngIf="displayFormNewCard">
+      <app-paysafe-form (singleUseToken)="setSingleUseToken($event)"></app-paysafe-form>
+    </div>
+  </div>
+  <a class="card-payment__action" *ngIf="!displayFormNewCard" (click)="toggleFormNewCard()">
+    <i class="icon icon-plus icon--3x"></i> Ajouter une carte
+  </a>
+</div>

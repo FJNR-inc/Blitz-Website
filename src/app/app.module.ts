@@ -116,6 +116,7 @@ import { RetirementComponent } from './components/pages/admin/retirement/retirem
 import {RetirementReservationService} from './services/retirement-reservation.service';
 // tslint:disable-next-line:max-line-length
 import { TableRetirementReservationsComponent } from './components/table/table-retirement-reservations/table-retirement-reservations.component';
+import { CartPaymentComponent } from './components/shared/cart-payment/cart-payment.component';
 
 registerLocaleData(localeFr);
 
@@ -451,6 +452,7 @@ const appRoutes = [
     RetirementsComponent,
     RetirementComponent,
     TableRetirementReservationsComponent,
+    CartPaymentComponent,
   ],
   imports: [
     BrowserModule,

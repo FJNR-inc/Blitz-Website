@@ -30,4 +30,12 @@ export class RetirementListItemComponent implements OnInit {
   addToCart(retirement) {
     this.cartService.addRetirement(retirement);
   }
+
+  removeFromCart(retirement) {
+    this.cartService.removeRetirement(retirement.id);
+  }
+
+  isInCart(retirement) {
+    return this.cartService.contain(retirement);
+  }
 }

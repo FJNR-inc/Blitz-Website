@@ -8,6 +8,7 @@ import {FormUtil} from '../../../../utils/form';
 import {Cart} from '../../../../models/cart';
 import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 import {AuthenticationService} from '../../../../services/authentication.service';
+import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 
 @Component({
   selector: 'app-retirement-cart',
@@ -17,6 +18,7 @@ import {AuthenticationService} from '../../../../services/authentication.service
 export class RetirementCartComponent implements OnInit {
 
   currentStep: number;
+  stepOpened: number[] = [];
 
   memberships: Membership[];
   selectedMembership = null;
@@ -80,11 +82,13 @@ export class RetirementCartComponent implements OnInit {
 
   constructor(private cartService: MyCartService,
               private membershipService: MembershipService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private myModalService: MyModalService) {
     this.cart = this.cartService.getCart();
     this.cartService.cart.subscribe(
       emitedCart => {
         this.cart = emitedCart;
+        this.defineCurrentStep();
       }
     );
   }
@@ -98,16 +102,16 @@ export class RetirementCartComponent implements OnInit {
 
   getIconForStep(id: number) {
     if ( this.currentStep <= id ) {
-      return 'icon icon-times-circle-reverse icon--2x icon--danger';
+      return 'icon icon-times-circle-reverse icon--3x icon--danger';
     } else {
-      return 'icon icon-check-circle-reverse icon--2x icon--success';
+      return 'icon icon-check-circle-reverse icon--3x icon--success';
     }
   }
 
   defineCurrentStep() {
     if ( !this.authenticationService.isAuthenticated() ) {
       this.currentStep = 1;
-    } else if ( !this.authenticationService.getProfile().getTimeBeforeEndMembership() ) {
+    } else if ( !this.haveMembership() ) {
       this.currentStep = 2;
     } else if ( !this.personalInformationFormIsValid ) {
       this.currentStep = 3;
@@ -116,6 +120,20 @@ export class RetirementCartComponent implements OnInit {
     } else {
       this.currentStep = 5;
     }
+  }
+
+  haveMembership() {
+    if (this.authenticationService.getProfile().getTimeBeforeEndMembership()) {
+      return true;
+    } else if (this.cartService.containMembership()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  havePaymentMethod() {
+    return this.cartService.containPaymentMethod();
   }
 
   initPersonalInformationForm() {
@@ -155,5 +173,22 @@ export class RetirementCartComponent implements OnInit {
   submitUniversityInformation() {
     this.universityFormIsValid = true;
     this.defineCurrentStep();
+  }
+
+  openModalSummaryPayment() {
+    this.myModalService.get('summary_payment').toggle();
+  }
+
+  toggleStep(stepId: number) {
+    const index = this.stepOpened.indexOf(stepId);
+    if (index > -1) {
+      this.stepOpened.splice(index, 1);
+    } else {
+      this.stepOpened.push(stepId);
+    }
+  }
+
+  isAuthenticated() {
+    return this.authenticationService.isAuthenticated();
   }
 }

@@ -13,7 +13,7 @@ export class AlertComponent implements OnInit {
   icons = {
     'warning': 'icon icon-warning icon--5x',
     'text-warning': 'icon icon-warning icon--5x icon--danger',
-    'success': '../../../../assets/images/icons/icon_check.svg',
+    'success': 'icon icon-check-circle-reverse icon--5x icon--success',
     'danger': '../../../../assets/images/icons/icon_attention.svg',
     'info': '../../../../assets/images/icons/icon_tomato.svg'
   };

@@ -1,6 +1,14 @@
 @import '../../../../assets/scss/theme';
 
 .cart-summary {
+
+  &__title {
+    font-weight: 900;
+    text-transform: uppercase;
+    border-bottom: 1px solid $border-calendar;
+    padding: 10px;
+  }
+
   &__items {
     display: flex;
     flex-direction: column;
@@ -17,15 +25,19 @@
 
       &__name {
         flex: 1;
-        padding: 20px;
+        padding: 10px;
       }
 
       &__price {
-        padding: 20px;
+        padding: 10px;
       }
 
       &__action {
-        padding: 20px;
+        padding: 10px;
+
+        &:hover {
+          cursor: pointer;
+        }
 
         &__icon {
           width: 20px;

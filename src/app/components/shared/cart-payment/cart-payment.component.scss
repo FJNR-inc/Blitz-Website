@@ -1,0 +1,40 @@
+@import '../../../../assets/scss/theme';
+
+.card-payment {
+  &__content {
+    border: 1px solid $border-calendar;
+    padding: 20px;
+
+    &__title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &__text {
+        font-size: 20px;
+        font-weight: 900;
+      }
+    }
+
+    &__form {
+      margin-top: 20px;
+    }
+  }
+
+  &__action {
+    border: solid $border-calendar;
+    border-width: 0 1px 1px 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $nt-14;
+      color: white;
+    }
+  }
+}

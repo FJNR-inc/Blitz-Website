@@ -8,20 +8,25 @@
     {{retirement.seats}} place(s) disponible(s)
 
     <div *ngIf="showDetails" class="retirement-list-item__description__more">
-      Début: {{retirement.start_time}}<br/>
-      Fin: {{retirement.end_time}},<br/>
-      Temps: La fin de semaine<br/>
-      Animation: {{retirement.activity_language}}<br/>
-      Particularités: Aucune<br/>
-      Tarif: {{retirement.price}}$CAN<br/>
+      <b>Début:</b> {{retirement.getStartTime()}}<br/>
+      <b>Fin:</b> {{retirement.getEndTime()}},<br/>
+      <b>Temps:</b> La fin de semaine<br/>
+      <b>Animation:</b> {{retirement.activity_language}}<br/>
+      <b>Particularités:</b> Aucune<br/>
+      <b>Tarif:</b> {{retirement.price}}$CAN<br/>
 
       <a class="retirement-list-item__description__more__button nt-button"
-         *ngIf="isAvailable()"
+         *ngIf="isAvailable() && !isInCart(retirement)"
          (click)="addToCart(retirement)">
         Ajouter au panier
       </a>
+      <a class="retirement-list-item__description__more__button nt-button nt-button--danger"
+         *ngIf="isInCart(retirement)"
+         (click)="removeFromCart(retirement)">
+        Retirer du panier
+      </a>
       <a class="retirement-list-item__description__more__button nt-button"
-         *ngIf="!isAvailable()">
+         *ngIf="!isAvailable() && !isInCart(retirement)">
         S'inscrire à la liste d'attente
       </a>
 

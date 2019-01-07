@@ -1,6 +1,6 @@
 <div class="retirement-cart">
   <div class="retirement-cart__step">
-    <div class="retirement-cart__step__title">
+    <div class="retirement-cart__step__title" (click)="toggleStep(1)">
       <div class="retirement-cart__step__title__text nt-title">
         1. Connexion
       </div>
@@ -8,16 +8,21 @@
         <i [class]="getIconForStep(1)"></i>
       </div>
     </div>
-    <div class="retirement-cart__step__content" *ngIf="currentStep===1">
-      <app-alert type="text-warning">
-        Vous devez être connecté.e pour vous inscrire à une ou des retraite(s).
-      </app-alert>
-      <app-login-form (isConnected)="defineCurrentStep()" [centered]="true" [registerLink]="true"></app-login-form>
+    <div class="retirement-cart__step__content" *ngIf="currentStep===1 || stepOpened.indexOf(1) > -1">
+      <div *ngIf="!isAuthenticated()">
+        <app-alert type="text-warning">
+          Vous devez être connecté.e pour vous inscrire à une ou des retraite(s).
+        </app-alert>
+        <app-login-form (isConnected)="defineCurrentStep()" [centered]="true" [registerLink]="true"></app-login-form>
+      </div>
+      <div *ngIf="isAuthenticated()">
+        <app-alert type="success">Vous êtes bien connecté</app-alert>
+      </div>
     </div>
   </div>
 
   <div class="retirement-cart__step">
-    <div class="retirement-cart__step__title">
+    <div class="retirement-cart__step__title" (click)="toggleStep(2)">
       <div class="retirement-cart__step__title__text nt-title">
         2. Membership
       </div>
@@ -25,9 +30,12 @@
         <i [class]="getIconForStep(2)"></i>
       </div>
     </div>
-    <div class="retirement-cart__step__content" *ngIf="currentStep===2">
-      <app-alert type="text-warning">
+    <div class="retirement-cart__step__content" *ngIf="currentStep===2 || stepOpened.indexOf(2) > -1">
+      <app-alert type="text-warning" *ngIf="!haveMembership()">
         Vous devez être membre de Thèsez-vous pour vous inscrire à une ou des retraite(s).
+      </app-alert>
+      <app-alert type="success" *ngIf="haveMembership()">
+        Vous avez déjà choisi un membership.
       </app-alert>
       <p class="retirement-cart__step__content__section">
         *Il est toujours possible de s'inscrire à une retraite de rédaction sans être membre de
@@ -37,21 +45,23 @@
       <div class="retirement-cart__step__content__section form-group">
         <label class="nt-form-label">
           Membership:
-          <app-icon-info link="http://www.thesez-vous.com/bourses-et-financement.html"></app-icon-info>
+          <a target="_blank" href="http://www.thesez-vous.com/membre.html">
+            <i class="icon icon-question-circle-reverse icon--2x"></i>
+          </a>
         </label>
-        <select class="nt-form-input nt-form-input--select" [(ngModel)]="selectedMembership">
+        <select class="nt-form-input nt-form-input--select" [(ngModel)]="selectedMembership" [disabled]="haveMembership()">
           <option value="" disabled>Sélectionner un membership</option>
           <option *ngFor="let membership of memberships" [value]="membership.id">{{membership.name}}</option>
         </select>
       </div>
       <p class="retirement-cart__step__content__section">
-        <button class="nt-button" (click)="selectMembership()" [disabled]="!selectedMembership">Devenir membre</button>
+        <button class="nt-button" (click)="selectMembership()" [disabled]="!selectedMembership || haveMembership()">Devenir membre</button>
       </p>
     </div>
   </div>
 
   <div class="retirement-cart__step">
-    <div class="retirement-cart__step__title">
+    <div class="retirement-cart__step__title" (click)="toggleStep(3)">
       <div class="retirement-cart__step__title__text nt-title">
         3. Informations complémentaires
       </div>
@@ -59,7 +69,7 @@
         <i [class]="getIconForStep(3)"></i>
       </div>
     </div>
-    <div class="retirement-cart__step__content" *ngIf="currentStep===3">
+    <div class="retirement-cart__step__content" *ngIf="currentStep===3 || stepOpened.indexOf(3) > -1">
       <app-alert type="text-warning">
         Vous devez répondre aux questions suivantes pour compléter vos informations personnelles et vous inscrire à une ou des retraite(s).
       </app-alert>
@@ -71,15 +81,18 @@
   </div>
 
   <div class="retirement-cart__step">
-    <div class="retirement-cart__step__title">
+    <div class="retirement-cart__step__title" (click)="toggleStep(4)">
       <div class="retirement-cart__step__title__text nt-title">
         4. Bourse
+        <a target="_blank" href="http://www.thesez-vous.com/bourses-et-financement.html">
+          <i class="icon icon-question-circle-reverse icon--5x"></i>
+        </a>
       </div>
       <div class="retirement-cart__step__title__action">
         <i [class]="getIconForStep(4)"></i>
       </div>
     </div>
-    <div class="retirement-cart__step__content" *ngIf="currentStep===4">
+    <div class="retirement-cart__step__content" *ngIf="currentStep===4 || stepOpened.indexOf(4) > -1">
 
       <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>
 
@@ -99,8 +112,21 @@
     <div class="retirement-cart__step__content" *ngIf="!cart.isEmpty()">
       <app-cart-summary [cart]="cart"></app-cart-summary>
       <div class="retirement-cart__step__content__section">
-        <button class="nt-button">Payer</button>
+        <app-cart-payment></app-cart-payment>
+      </div>
+      <div class="retirement-cart__step__content__section">
+        <button class="nt-button" [disabled]="this.currentStep !== 5 && havePaymentMethod()" (click)="openModalSummaryPayment()">Payer</button>
       </div>
     </div>
   </div>
 </div>
+
+<app-nt-modal name="summary_payment"
+              button2Label="Confirmer"
+              maxWidth="600px"
+              title="Paiement"
+              [autoClose]="true">
+  <div class="modal-summary-payment">
+    <app-cart-summary [cart]="cart"></app-cart-summary>
+  </div>
+</app-nt-modal>

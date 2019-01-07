@@ -11,8 +11,6 @@ export class RetirementListComponent implements OnInit {
 
   retirements: Retirement[];
 
-  retirementsInCart = [];
-
   constructor(private retirementService: RetirementService) { }
 
   ngOnInit() {
@@ -20,14 +18,21 @@ export class RetirementListComponent implements OnInit {
   }
 
   refreshRetirements() {
-    this.retirementService.list([{'name': 'is_active', 'value': true}]).subscribe(
+    const now = new Date().toISOString();
+    const filters = [
+      {
+        'name': 'is_active',
+        'value': true
+      },
+      {
+        'name': 'end_time__gte',
+        'value': now
+      }
+    ];
+    this.retirementService.list(filters).subscribe(
       data => {
         this.retirements = data.results.map(r => new Retirement(r));
       }
     );
-  }
-
-  addToCart(retirement) {
-    this.retirementsInCart.push(retirement);
   }
 }

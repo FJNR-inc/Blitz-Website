@@ -1,6 +1,9 @@
 <div class="cart-summary">
+  <div class="cart-summary__title">
+    Panier
+  </div>
   <div class="cart-summary__items">
-    <div *ngFor="let membership of cart.memberships" class="cart-summary__items__item">
+    <div *ngFor="let membership of cart.getMemberships()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__name">
         {{membership.name}}
       </div>
@@ -12,7 +15,7 @@
       </div>
     </div>
 
-    <div *ngFor="let retirement of cart.retirements" class="cart-summary__items__item">
+    <div *ngFor="let retirement of cart.getRetirements()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__name">
         {{retirement.name}}
       </div>

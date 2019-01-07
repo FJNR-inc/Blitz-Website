@@ -21,76 +21,98 @@ export class MyCartService {
   reset() {
     const cart = new Cart();
     this.setCart(cart);
-  }
-
-  getCart() {
-    let cart = JSON.parse(localStorage.getItem(this.localStorageName));
-    if ( cart ) {
-      cart = new Cart(cart);
-    } else {
-      this.reset();
-    }
     return cart;
   }
 
-  setCart(cart) {
+  getCart() {
+    const cart = JSON.parse(localStorage.getItem(this.localStorageName));
+    if ( cart !== undefined ) {
+      return new Cart(cart);
+    } else {
+      return this.reset();
+    }
+  }
+
+  contain(product: Retirement|TimeSlot|Membership) {
+    const cart = this.getCart();
+
+    for (const retirement of cart.getRetirements()) {
+      if (retirement.url === product.url) {
+        return true;
+      }
+    }
+
+    for (const timeslot of cart.getTimeslots()) {
+      if (timeslot.url === product.url) {
+        return true;
+      }
+    }
+
+    for (const membership of cart.getMemberships()) {
+      if (membership.url === product.url) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  containMembership() {
+    const cart = this.getCart();
+    if (cart.getMemberships().length) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  setCart(cart: Cart) {
     localStorage.setItem(this.localStorageName, JSON.stringify(cart));
     this.cart.emit(cart);
   }
 
   addMembership(membership: Membership) {
     const cart = this.getCart();
-
-    cart['memberships'].push(membership);
-
+    cart.addMembership(membership);
     this.setCart(cart);
   }
 
   removeMembership(membershipId: number) {
     const cart = this.getCart();
-
-    let index = 0;
-    for (const membership of cart.memberships) {
-      if (membership.id === membershipId) {
-        cart['memberships'].splice(index, 1);
-        break;
-      }
-      index += 1;
-    }
-
+    cart.removeMembership(membershipId);
     this.setCart(cart);
   }
 
   addRetirement(retirement: Retirement) {
     const cart = this.getCart();
-
-    cart['retirements'].push(retirement);
-
+    cart.addRetirement(retirement);
     this.setCart(cart);
   }
 
   removeRetirement(retirementId: number) {
     const cart = this.getCart();
-
-    let index = 0;
-    for (const retirement of cart.retirements) {
-      if (retirement.id === retirementId) {
-        cart['retirements'].splice(index, 1);
-        break;
-      }
-      index += 1;
-    }
-
+    cart.removeRetirement(retirementId);
     this.setCart(cart);
   }
 
   addPaymentToken(token, isNew = false) {
     const cart = this.getCart();
-
     if (isNew) {
-      cart['single_use_token'] = token;
+      cart.setSingleUseToken(token);
     } else {
-      cart['payment_token'] = token;
+      cart.setPaymentToken(token);
     }
+    this.setCart(cart);
+  }
+
+  removePaymentToken() {
+    const cart = this.getCart();
+    cart.removePaymentToken();
+    this.setCart(cart);
+  }
+
+  containPaymentMethod() {
+    const cart = this.getCart();
+    return cart.containPaymentMethod();
   }
 }

@@ -3,16 +3,18 @@
 .retirement-list-item {
   border-top: 1px solid $border-calendar;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-start;
 
   &__title {
     padding: 20px;
+    flex: 1;
   }
 
   &__description {
     padding: 20px;
     line-height: 1.5rem;
+    flex: 2;
 
     &__more {
       margin-top: 20px;
