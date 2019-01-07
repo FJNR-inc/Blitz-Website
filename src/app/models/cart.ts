@@ -2,6 +2,8 @@ import {Membership} from './membership';
 import {Retirement} from './retirement';
 import {TimeSlot} from './timeSlot';
 import {TaxeUtil} from '../utils/taxe';
+import {Order} from './order';
+import {OrderLine} from './orderLine';
 
 export class Cart {
   _memberships: Membership[] = [];
@@ -151,5 +153,50 @@ export class Cart {
     total += TaxeUtil.getTVQ(subTotal);
 
     return total;
+  }
+
+  generateOrder(): Order {
+    const newOrder = new Order(
+      {
+        'order_lines': [],
+      }
+    );
+    if (this._single_use_token) {
+      newOrder['single_use_token'] = this._single_use_token;
+    } else if (this._payment_token) {
+      newOrder['payment_token'] = this._payment_token;
+    }
+    if (this._memberships) {
+      for (const membership of this._memberships) {
+        newOrder['order_lines'].push(new OrderLine({
+            'content_type': 'membership',
+            'object_id': membership.id,
+            'quantity': 1,
+          })
+        );
+      }
+    }
+    if (this._retirements) {
+      for (const retirement of this._retirements) {
+        newOrder['order_lines'].push(new OrderLine({
+            'content_type': 'retirement',
+            'object_id': retirement.id,
+            'quantity': 1,
+          })
+        );
+      }
+    }
+    if (this._timeslots) {
+      for (const timeslot of this._timeslots) {
+        newOrder['order_lines'].push(new OrderLine({
+            'content_type': 'timeslot',
+            'object_id': timeslot.id,
+            'quantity': 1,
+          })
+        );
+      }
+    }
+
+    return newOrder;
   }
 }
