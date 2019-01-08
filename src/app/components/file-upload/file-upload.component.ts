@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { PictureService } from '../../services/picture.service';
 import {Picture} from '../../models/picture';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,7 +9,7 @@ import {Picture} from '../../models/picture';
   styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent implements OnInit {
-  errors: Array<string> = [];
+  errors: Array<any> = [];
   dragAreaClass = 'dragarea';
   @Input() fileExt = 'JPG, PNG';
   @Input() maxFiles = 5;
@@ -77,7 +78,9 @@ export class FileUploadComponent implements OnInit {
   private isValidFiles(files) {
     // Check Number of files
     if (files.length > this.maxFiles) {
-      this.errors.push('Erreur: Vous ne pouvez télécharger que ' + this.maxFiles + ' fichiers à la fois');
+      this.errors.push(
+        _('file-upload.errors.number_of_files') + ': ' + + this.maxFiles.toString()
+      );
       return;
     }
     this.isValidFileExtension(files);
@@ -96,7 +99,8 @@ export class FileUploadComponent implements OnInit {
       // Check the extension exists
       const exists = extensions.includes(ext);
       if (!exists) {
-        this.errors.push('Erreur: L\'extension de ce fichier n\'est pas supportée -> ' + files[i].name);
+        this.errors.push(
+          _('file-upload.errors.extensions') + ': ' + + files[i].name);
       }
       // Check file size
       this.isValidFileSize(files[i]);
@@ -108,7 +112,9 @@ export class FileUploadComponent implements OnInit {
     const fileSizeinMB = file.size / (1024 * 1000);
     const size = Math.round(fileSizeinMB * 100) / 100; // convert upto 2 decimal place
     if (size > this.maxSize) {
-      this.errors.push('Erreur: Le fichier ' + file.name + ' excède la taille maximum de ' + this.maxSize + 'MB ( ' + size + 'MB )');
+      this.errors.push(
+        _('file-upload.errors.max_size') + ': ' + file.name
+      );
     }
   }
 }

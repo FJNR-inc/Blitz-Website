@@ -53,7 +53,9 @@
         </select>
       </div>
       <p class="retirement-cart__step__content__section">
-        <button class="nt-button" (click)="selectMembership()" [disabled]="!selectedMembership || haveMembership()">{{ 'Devenir membre' | translate }}</button>
+        <button class="nt-button" (click)="selectMembership()" [disabled]="!selectedMembership || haveMembership()">
+          {{ 'retirement-cart.membership.save' | translate }}
+        </button>
       </p>
     </div>
   </div>
@@ -74,7 +76,9 @@
 
       <app-form [form]="personalInformationForm" [fields]="personalInformationFields" [errors]="personalInformationErrors"></app-form>
 
-      <button class="retirement-cart__step__content__section nt-button" (click)="submitPersonalInformation()">{{ 'Enregistrer' | translate }}</button>
+      <button class="retirement-cart__step__content__section nt-button" (click)="submitPersonalInformation()">
+        {{ 'retirement-cart.infos.save' | translate }}
+      </button>
     </div>
   </div>
 
@@ -94,7 +98,9 @@
 
       <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>
 
-      <button class="retirement-cart__step__content__section nt-button" (click)="submitUniversityInformation()">{{ 'Appliquer' | translate }}</button>
+      <button class="retirement-cart__step__content__section nt-button" (click)="submitUniversityInformation()">
+        {{ 'retirement-cart.grants.apply' | translate }}
+      </button>
     </div>
   </div>
 
@@ -113,7 +119,9 @@
         <app-cart-payment></app-cart-payment>
       </div>
       <div class="retirement-cart__step__content__section">
-        <button class="nt-button" [disabled]="this.currentStep !== 5 && havePaymentMethod()" (click)="openModalSummaryPayment()">{{ 'Payer' | translate }}</button>
+        <button class="nt-button" [disabled]="this.currentStep !== 5 && havePaymentMethod()" (click)="openModalSummaryPayment()">
+          {{ 'retirement-cart.pay' | translate }}
+        </button>
       </div>
     </div>
   </div>

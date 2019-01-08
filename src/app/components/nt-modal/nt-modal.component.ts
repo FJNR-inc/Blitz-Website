@@ -10,9 +10,9 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 export class NtModalComponent implements OnInit {
 
   @Input() name: string;
-  @Input() title: string;
+  @Input() title;
   @Input() typeModal: string;
-  @Input() button1Label: string = null;
+  @Input() button1Label = null;
   @Input() button2Label = null;
   @Input() maxWidth = '95%';
   @Input() activated = true;
@@ -90,7 +90,7 @@ export class NtModalComponent implements OnInit {
     if (this.button1Label) {
       return this.button1Label;
     } else {
-      return _('Oui');
+      return _('shared.yes');
     }
   }
 
@@ -98,7 +98,7 @@ export class NtModalComponent implements OnInit {
     if (this.button2Label) {
       return this.button2Label;
     } else {
-      return _('Non');
+      return _('shared.no');
     }
   }
 }

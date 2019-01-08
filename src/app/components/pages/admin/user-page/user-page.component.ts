@@ -12,9 +12,10 @@ import {CustomPaymentsService} from '../../../../services/custom-payments.servic
 import {CustomPayment} from '../../../../models/customPayment';
 import {FormUtil} from '../../../../utils/form';
 import {FormGroup} from '@angular/forms';
-import {NotificationsService} from 'angular2-notifications';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {TranslateService} from '@ngx-translate/core';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {Reservation} from '../../../../models/reservation';
 
 @Component({
   selector: 'app-user-page',
@@ -26,67 +27,76 @@ export class UserPageComponent implements OnInit {
   user: User;
   id: number;
 
+  timeslotDeletedModalTitle = _('user-page.modal_timeslot_deleted.title');
+  timeslotDeletedModalButtonLabel = _('user-page.modal_timeslot_deleted.button');
+
+  customPaymentModalTitle = _('user-page.modal_add_custom_payment.title');
+  customPaymentModalButtonLabel = _('user-page.modal_add_custom_payment.button');
+
+  editUserModalTitle = _('user-page.modal_edit_user.title');
+  editUserModalButtonLabel = _('user-page.modal_edit_user.button');
+
   settings = {
-    noDataText: 'Aucune réservation pour le moment',
+    noDataText: _('user-page.no_reservation'),
     clickable: true,
-    title: 'Réservations',
+    title: _('user-page.reservations'),
     columns: [
       {
         name: 'start_event',
-        title: 'Plage horaire'
+        title: _('shared.common.bloc')
       },
       {
         name: 'workplace_name',
-        title: 'Lieu'
+        title: _('shared.common.place')
       },
       {
         name: 'is_active',
-        title: 'Active',
+        title: _('shared.common.active'),
         type: 'boolean'
       },
       {
         name: 'is_present',
-        title: 'Present',
+        title: _('shared.common.present'),
         type: 'boolean'
       },
       {
         name: 'cancelation_reason_long',
-        title: 'Raison'
+        title: _('shared.common.reason')
       }
     ]
   };
 
   settingsCard = {
-    noDataText: 'Aucune carte de paiement pour le moment',
-    title: 'Cartes de paiements',
+    noDataText: _('user-page.no_payment_card'),
+    title: _('user-page.payment_card'),
     columns: [
       {
         name: 'number',
-        title: 'Numéro de carte'
+        title: _('shared.common.card_number')
       },
       {
         name: 'expiry_date',
-        title: 'Date d\'expiration'
+        title: _('shared.common.expiration_date')
       }
     ]
   };
 
   settingsCustomPayment = {
-    noDataText: 'Aucun paiement personalisé pour le moment',
-    title: 'Custom payments',
+    noDataText: _('user-page.no_custom_payment'),
+    title:  _('user-page.custom_payment'),
     addButton: true,
     columns: [
       {
         name: 'name',
-        title: 'Name'
+        title: _('shared.common.name')
       },
       {
         name: 'price',
-        title: 'Price'
+        title: _('shared.common.price')
       },
       {
         name: 'details',
-        title: 'details'
+        title: _('shared.common.details')
       }
     ]
   };
@@ -102,17 +112,17 @@ export class UserPageComponent implements OnInit {
     {
       name: 'price',
       type: 'number',
-      label: 'Price'
+      label: _('shared.common.price')
     },
     {
       name: 'name',
       type: 'text',
-      label: 'Name'
+      label: _('shared.common.name')
     },
     {
       name: 'details',
       type: 'textarea',
-      label: 'Details'
+      label: _('shared.common.details')
     }
   ];
 
@@ -122,37 +132,37 @@ export class UserPageComponent implements OnInit {
     {
       name: 'first_name',
       type: 'text',
-      label: 'First name'
+      label: _('shared.common.first_name')
     },
     {
       name: 'last_name',
       type: 'text',
-      label: 'Last name'
+      label: _('shared.common.last_name')
     },
     {
       name: 'birthdate',
       type: 'date',
-      label: 'Birth date'
+      label: _('shared.common.birth_date')
     },
     {
       name: 'gender',
       type: 'select',
-      label: 'Gender',
+      label: _('shared.common.gender'),
       choices: [
         {
-          label: 'Je ne souhaite pas m\'identifier',
+          label: _('shared.form.gender_none'),
           value: 'A'
         },
         {
-          label: 'Homme',
+          label: _('shared.form.gender_male'),
           value: 'M'
         },
         {
-          label: 'Femme',
+          label: _('shared.form.gender_female'),
           value: 'F'
         },
         {
-          label: 'Non-binaire',
+          label: _('shared.form.gender_no_binary'),
           value: 'T'
         }
       ]
@@ -201,9 +211,9 @@ export class UserPageComponent implements OnInit {
 
   refreshReservation() {
     this.reservationService.list([{'name': 'user', 'value': this.user.id}]).subscribe(
-      timeslots => {
-        this.listReservations = timeslots.results.map(
-          t => this.reservationAdapter(new TimeSlot(t))
+      reservations => {
+        this.listReservations = reservations.results.map(
+          r => this.reservationAdapter(new Reservation(r))
         );
       }
     );
@@ -245,26 +255,15 @@ export class UserPageComponent implements OnInit {
     detail += ' - ';
     detail += timeslot.getEndTime() + ')';
 
-    const reservationAdapted = {
+    return {
       id: timeslot.id,
       start_event: detail,
       workplace_name: workplace.name,
       is_active: reservation.is_active,
       is_present: reservation.is_present,
-      cancelation_reason: reservation.cancelation_reason
+      cancelation_reason: reservation.cancelation_reason,
+      reservation_cancelation: reservation.getCancelationReasonLabel()
     };
-
-    if (reservation.cancelation_reason === 'TM') {
-      reservationAdapted['cancelation_reason_long'] = 'Plage horaire modifié';
-    } else if (reservation.cancelation_reason === 'U') {
-      reservationAdapted['cancelation_reason_long'] = 'Annulé par l\'utilisateur';
-    } else if (reservation.cancelation_reason === 'TD') {
-      reservationAdapted['cancelation_reason_long'] = 'Plage horaire supprimé';
-    } else {
-      reservationAdapted['cancelation_reason_long'] = '-';
-    }
-
-    return reservationAdapted;
   }
 
   cardAdapter(card: Card) {
@@ -316,7 +315,9 @@ export class UserPageComponent implements OnInit {
 
     this.customPaymentService.create(value).subscribe(
       data => {
-        this.notificationService.success('shared.notifications.commons.added.title');
+        this.notificationService.success(
+          _('shared.notifications.commons.added.title')
+        );
         this.refreshListCustomPayment();
         this.myModalService.get('add_custom_payment').toggle();
       },
@@ -324,11 +325,7 @@ export class UserPageComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.customPaymentErrors = err.error.non_field_errors;
         } else {
-          this.translate.get('shared.form.errors.unknown').subscribe(
-            (translatedLabel: string) => {
-              this.customPaymentErrors =  [translatedLabel];
-            }
-          );
+          this.customPaymentErrors =  ['shared.form.errors.unknown'];
         }
         this.customPaymentForm = FormUtil.manageFormErrors(this.customPaymentForm, err);
       }
@@ -341,7 +338,9 @@ export class UserPageComponent implements OnInit {
 
     this.userService.update(this.user.url, value).subscribe(
       data => {
-        this.notificationService.success('shared.notifications.commons.updated.title');
+        this.notificationService.success(
+          _('shared.notifications.commons.updated.title')
+        );
         this.refreshUser();
         this.myModalService.get('edit_user').toggle();
       },
@@ -349,11 +348,7 @@ export class UserPageComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.userErrors = err.error.non_field_errors;
         } else {
-          this.translate.get('shared.form.errors.unknown').subscribe(
-            (translatedLabel: string) => {
-              this.userErrors =  [translatedLabel];
-            }
-          );
+          this.userErrors =  ['shared.form.errors.unknown'];
         }
         this.userForm = FormUtil.manageFormErrors(this.userForm, err);
       }

@@ -8,6 +8,7 @@ import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../../utils/form';
 import {TranslateService} from '@ngx-translate/core';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-organizations-page',
@@ -23,8 +24,8 @@ export class OrganizationsPageComponent implements OnInit {
   selectedOrganizationUrl: string;
 
   settings = {
-    title: 'Universités',
-    noDataText: 'Aucune université pour le moment',
+    title: _('organizations.title'),
+    noDataText: _('organizations.no_organization'),
     clickable: true,
     addButton: true,
     editButton: true,
@@ -36,7 +37,7 @@ export class OrganizationsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'shared.form.name'
+        title: _('shared.form.name')
       }
     ]
   };
@@ -45,12 +46,12 @@ export class OrganizationsPageComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: 'shared.form.name_in_french'
+      label: _('shared.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: 'shared.form.name_in_english'
+      label: _('shared.form.name_in_english')
     }
   ];
 
@@ -58,32 +59,12 @@ export class OrganizationsPageComponent implements OnInit {
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
-              private router: Router,
-              private translate: TranslateService) { }
+              private router: Router) { }
 
   ngOnInit() {
-    this.translateItems();
     this.refreshOrganizationList();
     const formUtil = new FormUtil();
     this.organizationForm = formUtil.createFormGroup(this.fields);
-  }
-
-  translateItems() {
-    for (const field of this.fields) {
-      this.translate.get(field.label).subscribe(
-        (translatedLabel: string) => {
-          field.label = translatedLabel;
-        }
-      );
-    }
-
-    for (const column of this.settings.columns) {
-      this.translate.get(column.title).subscribe(
-        (translatedLabel: string) => {
-          column.title = translatedLabel;
-        }
-      );
-    }
   }
 
   changePage(index: number) {
@@ -105,7 +86,11 @@ export class OrganizationsPageComponent implements OnInit {
   OpenModalCreateOrganization() {
     this.organizationForm.reset();
     this.selectedOrganizationUrl = null;
-    this.toogleModal('form_organizations', 'Ajouter une université', 'Créer');
+    this.toogleModal(
+      'form_organizations',
+      _('organizations.create_organization_modal.title'),
+      _('organizations.create_organization_modal.button')
+    );
   }
 
   OpenModalEditOrganization(item) {
@@ -113,7 +98,11 @@ export class OrganizationsPageComponent implements OnInit {
       this.organizationForm.controls[key].setValue(item[key]);
     }
     this.selectedOrganizationUrl = item.url;
-    this.toogleModal('form_organizations', 'Éditer une université', 'Éditer');
+    this.toogleModal(
+      'form_organizations',
+      _('organizations.edit_organization_modal.title'),
+      _('organizations.edit_organization_modal.button')
+    );
   }
 
   submitOrganization() {
@@ -121,7 +110,9 @@ export class OrganizationsPageComponent implements OnInit {
       if (this.selectedOrganizationUrl) {
         this.organizationService.update(this.selectedOrganizationUrl, this.organizationForm.value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.updated.title');
+            this.notificationService.success(
+              _('shared.notifications.commons.updated.title')
+            );
             this.refreshOrganizationList();
             this.toogleModal('form_organizations');
           },
@@ -135,7 +126,9 @@ export class OrganizationsPageComponent implements OnInit {
       } else {
         this.organizationService.create(this.organizationForm.value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.added.title');
+            this.notificationService.success(
+              _('shared.notifications.commons.added.title')
+            );
             this.refreshOrganizationList();
             this.toogleModal('form_organizations');
           },
@@ -153,16 +146,22 @@ export class OrganizationsPageComponent implements OnInit {
   removeOrganization(item) {
     this.organizationService.remove(item).subscribe(
       data => {
-        this.notificationService.success('shared.notifications.delete_university.title', 'shared.notifications.delete_university.content');
+        this.notificationService.success(
+          _('shared.notifications.delete_university.title'),
+          _('shared.notifications.delete_university.content')
+        );
         this.refreshOrganizationList();
       },
       err => {
-        this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
+        this.notificationService.error(
+          _('shared.notifications.fail_deletion.title'),
+          _('shared.notifications.fail_deletion.content')
+        );
       }
     );
   }
 
-  toogleModal(name, title = '', button2 = '') {
+  toogleModal(name, title: string | string[] = '', button2: string | string[] = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {

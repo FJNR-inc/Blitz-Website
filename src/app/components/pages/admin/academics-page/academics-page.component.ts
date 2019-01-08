@@ -9,6 +9,7 @@ import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../../utils/form';
 import {TranslateService} from '@ngx-translate/core';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-academics-page',
@@ -29,8 +30,8 @@ export class AcademicsPageComponent implements OnInit {
   selectedLevelUrl: string;
 
   settingsLevel = {
-    title: 'Niveaux d\'études',
-    noDataText: 'Aucune niveau d\'étude pour le moment',
+    title: _('academics-page.level_of_study'),
+    noDataText: _('academics-page.no_level_of_study'),
     addButton: true,
     editButton: true,
     previous: false,
@@ -40,14 +41,14 @@ export class AcademicsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'shared.form.name'
+        title: _('shared.form.name')
       }
     ]
   };
 
   settingsField = {
-    title: 'Domaines d\'études',
-    noDataText: 'Aucun domaine d\'étude pour le moment',
+    title: _('academics-page.field_of_study'),
+    noDataText: _('academics-page.no_field_of_study'),
     addButton: true,
     editButton: true,
     previous: false,
@@ -57,7 +58,7 @@ export class AcademicsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'shared.form.name'
+        title: _('shared.form.name')
       }
     ]
   };
@@ -66,12 +67,12 @@ export class AcademicsPageComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: 'shared.form.name_in_french'
+      label: _('shared.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: 'shared.form.name_in_english'
+      label: _('shared.form.name_in_english')
     }
   ];
 
@@ -79,63 +80,27 @@ export class AcademicsPageComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: 'shared.form.name_in_french'
+      label: _('shared.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: 'shared.form.name_in_english'
+      label: _('shared.form.name_in_english')
     }
   ];
 
   constructor(private academicFieldService: AcademicFieldService,
               private academicLevelService: AcademicLevelService,
               private myModalService: MyModalService,
-              private notificationService: MyNotificationService,
-              private translate: TranslateService) { }
+              private notificationService: MyNotificationService) { }
 
   ngOnInit() {
-    this.translateItems();
     this.refreshFieldList();
     this.refreshLevelList();
 
     const formUtil = new FormUtil();
     this.fieldForm = formUtil.createFormGroup(this.academicFieldFields);
     this.levelForm = formUtil.createFormGroup(this.academicLevelFields);
-  }
-
-  translateItems() {
-    for (const field of this.academicLevelFields) {
-      this.translate.get(field.label).subscribe(
-        (translatedLabel: string) => {
-          field.label = translatedLabel;
-        }
-      );
-    }
-
-    for (const field of this.academicFieldFields) {
-      this.translate.get(field.label).subscribe(
-        (translatedLabel: string) => {
-          field.label = translatedLabel;
-        }
-      );
-    }
-
-    for (const column of this.settingsField.columns) {
-      this.translate.get(column.title).subscribe(
-        (translatedLabel: string) => {
-          column.title = translatedLabel;
-        }
-      );
-    }
-
-    for (const column of this.settingsLevel.columns) {
-      this.translate.get(column.title).subscribe(
-        (translatedLabel: string) => {
-          column.title = translatedLabel;
-        }
-      );
-    }
   }
 
   changePageLevel(index: number) {
@@ -173,7 +138,11 @@ export class AcademicsPageComponent implements OnInit {
   OpenModalCreateField() {
     this.fieldForm.reset();
     this.selectedFieldUrl = null;
-    this.toogleModal('form_academic_fields', 'Ajouter un domaine d\'étude', 'Créer');
+    this.toogleModal(
+      'form_academic_fields',
+      _('academics-page.create_field_study_modal.title'),
+      _('academics-page.create_field_study_modal.button')
+    );
   }
 
   OpenModalEditField(item) {
@@ -182,7 +151,11 @@ export class AcademicsPageComponent implements OnInit {
         this.fieldForm.controls['name_fr'].setValue(field.name_fr);
         this.fieldForm.controls['name_en'].setValue(field.name_en);
         this.selectedFieldUrl = item.url;
-        this.toogleModal('form_academic_fields', 'Éditer un domaine d\'étude', 'Éditer');
+        this.toogleModal(
+          'form_academic_fields',
+          _('academics-page.edit_field_study_modal.title'),
+          _('academics-page.edit_field_study_modal.button')
+        );
       }
     }
   }
@@ -200,11 +173,7 @@ export class AcademicsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.fieldErrors = err.error.non_field_errors;
             } else {
-              this.translate.get('shared.form.errors.unknown').subscribe(
-                (translatedLabel: string) => {
-                  this.fieldErrors =  [translatedLabel];
-                }
-              );
+              this.fieldErrors =  ['shared.form.errors.unknown'];
             }
             this.fieldForm = FormUtil.manageFormErrors(this.fieldForm, err);
           }
@@ -220,11 +189,7 @@ export class AcademicsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.fieldErrors = err.error.non_field_errors;
             } else {
-              this.translate.get('shared.form.errors.unknown').subscribe(
-                (translatedLabel: string) => {
-                  this.fieldErrors =  [translatedLabel];
-                }
-              );
+              this.fieldErrors =  ['shared.form.errors.unknown'];
             }
             this.fieldForm = FormUtil.manageFormErrors(this.fieldForm, err);
           }
@@ -248,7 +213,7 @@ export class AcademicsPageComponent implements OnInit {
     );
   }
 
-  toogleModal(name, title = '', button2 = '') {
+  toogleModal(name, title: string | string[] = '', button2: string | string[] = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
@@ -291,11 +256,7 @@ export class AcademicsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.levelErrors = err.error.non_field_errors;
             } else {
-              this.translate.get('shared.form.errors.unknown').subscribe(
-                (translatedLabel: string) => {
-                  this.levelErrors =  [translatedLabel];
-                }
-              );
+              this.levelErrors =  ['shared.form.errors.unknown'];
             }
             this.levelForm = FormUtil.manageFormErrors(this.levelForm, err);
           }
@@ -311,11 +272,7 @@ export class AcademicsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.levelErrors = err.error.non_field_errors;
             } else {
-              this.translate.get('shared.form.errors.unknown').subscribe(
-                (translatedLabel: string) => {
-                  this.levelErrors =  [translatedLabel];
-                }
-              );
+              this.levelErrors =  ['shared.form.errors.unknown'];
             }
             this.levelForm = FormUtil.manageFormErrors(this.levelForm, err);
           }

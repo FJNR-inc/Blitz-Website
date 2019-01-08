@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { TimeSlot } from '../../../../models/timeSlot';
 import { TimeSlotService } from '../../../../services/time-slot.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {Card} from '../../../../models/card';
 import {ReservationService} from '../../../../services/reservation.service';
 import {Reservation} from '../../../../models/reservation';
 import {User} from '../../../../models/user';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
-import {FormUtil} from '../../../../utils/form';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-timeslot',
@@ -24,34 +23,34 @@ export class TimeslotComponent implements OnInit {
   settings = {
     clickable: true,
     editButton: true,
-    noDataText: 'Aucune réservation pour le moment',
-    title: 'Liste des réservations:',
+    noDataText: _('timeslot.no_reservation'),
+    title: _('timeslot.list_reservations'),
     columns: [
       {
         name: 'first_name',
-        title: 'Prénom'
+        title: _('shared.common.first_name')
       },
       {
         name: 'last_name',
-        title: 'Nom'
+        title: _('shared.common.last_name')
       },
       {
         name: 'email',
-        title: 'Courriel',
+        title: _('shared.common.email'),
       },
       {
         name: 'is_active',
-        title: 'Active',
+        title: _('shared.common.active'),
         type: 'boolean'
       },
       {
         name: 'is_present',
-        title: 'Present',
+        title: _('shared.common.present'),
         type: 'boolean'
       },
       {
         name: 'cancelation_reason',
-        title: 'Raison'
+        title: _('shared.common.reason')
       }
     ]
   };
@@ -90,7 +89,7 @@ export class TimeslotComponent implements OnInit {
   reservationAdapter(reservation) {
     const user = new User(reservation.user_details);
 
-    const reservationAdapted = {
+    return {
       id: user.id,
       url: reservation.url,
       first_name: user.first_name,
@@ -98,16 +97,8 @@ export class TimeslotComponent implements OnInit {
       email: user.email,
       is_active: reservation.is_active,
       is_present: reservation.is_present,
+      cancelation_reason: reservation.getCancelationReasonLabel()
     };
-
-    if (reservation.cancelation_reason === 'TM') {
-      reservationAdapted['cancelation_reason'] = 'Plage horaire modifié';
-    } else if (reservation.cancelation_reason === 'U') {
-      reservationAdapted['cancelation_reason'] = 'Annulé par l\'utilisateur';
-    } else {
-      reservationAdapted['cancelation_reason'] = '-';
-    }
-    return reservationAdapted;
   }
 
   editReservation(reservation) {

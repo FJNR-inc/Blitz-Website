@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { DomainService } from '../../../../services/domain.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-organization',
@@ -22,18 +23,18 @@ export class OrganizationComponent implements OnInit {
   selectedDomainUrl: string;
 
   settings = {
-    title: 'Nom de domaine',
-    noDataText: 'Aucun nom de domaine pour le moment',
+    title: _('organization.domain_name'),
+    noDataText: _('organization.no_domain_name'),
     addButton: true,
     removeButton: false,
     columns: [
       {
         name: 'name',
-        title: 'Nom de domaine'
+        title:  _('organization.domain_name')
       },
       {
         name: 'example',
-        title: 'Exemple'
+        title:  _('organization.example')
       }
     ]
   };
@@ -85,7 +86,11 @@ export class OrganizationComponent implements OnInit {
   OpenModalCreateDomain() {
     this.resetForm();
     this.selectedDomainUrl = null;
-    this.toogleModal('form_domain', 'Ajouter un nom de domaine', 'Créer');
+    this.toogleModal(
+      'form_domain',
+      _('organization.create_domain_modal.title'),
+      _('organization.create_domain_modal.button')
+    );
   }
 
   OpenModalEditDomain(item) {
@@ -93,7 +98,11 @@ export class OrganizationComponent implements OnInit {
     this.domainForm.controls['name'].setValue(item.name);
     this.domainForm.controls['example'].setValue(item.example);
     this.selectedDomainUrl = item.url;
-    this.toogleModal('form_domain', 'Éditer un nom de domaine', 'Éditer');
+    this.toogleModal(
+      'form_domain',
+      _('organization.edit_domain_modal.title'),
+      _('organization.edit_domain_modal.button')
+    );
   }
 
   submitDomain() {
@@ -101,7 +110,9 @@ export class OrganizationComponent implements OnInit {
       if (this.selectedDomainUrl) {
         this.domainService.update(this.selectedDomainUrl, this.domainForm.value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.updated.title');
+            this.notificationService.success(
+              _('shared.notifications.commons.updated.title')
+            );
             this.refreshOrganization();
             this.toogleModal('form_domain');
           },
@@ -124,7 +135,9 @@ export class OrganizationComponent implements OnInit {
       } else {
         this.domainService.create(this.domainForm.value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.added.title');
+            this.notificationService.success(
+              _('shared.notifications.commons.added.title')
+            );
             this.refreshOrganization();
             this.toogleModal('form_domain');
           },
@@ -152,18 +165,21 @@ export class OrganizationComponent implements OnInit {
     this.domainService.remove(item).subscribe(
       data => {
         this.notificationService.success(
-          'shared.notifications.delete_domain_name.title',
-          'shared.notifications.delete_domain_name.content'
+          _('shared.notifications.delete_domain_name.title'),
+          _('shared.notifications.delete_domain_name.content')
         );
         this.refreshOrganization();
       },
       err => {
-        this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
+        this.notificationService.error(
+          _('shared.notifications.fail_deletion.title'),
+          _('shared.notifications.fail_deletion.content')
+        );
       }
     );
   }
 
-  toogleModal(name, title = '', button2 = '') {
+  toogleModal(name, title: string | string[] = '', button2: string | string[] = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {

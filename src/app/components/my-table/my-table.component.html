@@ -1,12 +1,12 @@
 <div class="my-table__actions">
   <div>
     <h2 class="my-table__actions__title nt-title" *ngIf="settings.title">
-      {{settings.title}}
+      {{ settings.title | translate }}
     </h2>
   </div>
   <div>
     <a class="button" *ngIf="settings.addButton" (click)="add()">
-      Ajouter
+      {{ 'my-table.actions.add' | translate }}
       <i class="fas fa-plus"></i>
     </a>
   </div>
@@ -16,17 +16,17 @@
   <span class="my-table__searchbar__icon">
     <i class="fas fa-search"></i>
   </span>
-  <input [(ngModel)]="searchBarText" class="my-table__searchbar__input" (keypress)="changeSearch()" type="text" placeholder="Rechercher..."/>
+  <input [(ngModel)]="searchBarText" class="my-table__searchbar__input" (keypress)="changeSearch()" type="text" placeholder="..."/>
 </div>
 <div class="my-table__filters" *ngIf="settings.allowFiltering">
-  <label for="new_filter">Ajouter un filtre: </label>
+  <label for="new_filter">{{ 'my-table.filter.add_a_filter' | translate }}: </label>
   <select id="new_filter" (change)="addFilter($event.target.value)">
     <option value=""></option>
     <option *ngFor="let filter of filters" value="{{filter.name}}">{{filter.display}}</option>
   </select>
   <div class="my-table__filters__filter" *ngFor="let filter of selectionnedFilters">
     <div>
-      {{filter.display}}
+      {{ filter.display }}
     </div>
     <div>
       <select [(ngModel)]="filter.comparator">
@@ -40,27 +40,27 @@
   <div class="my-table__filters__actions" *ngIf="selectionnedFilters.length">
     <button (click)="resetFilters()">
       <i class="fas fa-sync-alt"></i>
-      Reinitialiser
+      {{ 'my-table.filter.reset' | translate }}
     </button>
     <button (click)="applyFilters()">
       <i class="fas fa-filter"></i>
-      Filtrer
+      {{ 'my-table.filter.execute' | translate }}
     </button>
   </div>
 </div>
 <table class="my-table__table">
   <tr class="my-table__table__header">
     <th *ngFor="let column of settings.columns" class="my-table__table__header__column">
-      {{ column.title }}
+      {{ column.title | translate }}
     </th>
     <th *ngIf="displayActionColumn()" class="my-table__table__header__column my-table__table__header__column--actions">
-      Actions
+      {{ 'my-table.actions' | translate }}
     </th>
   </tr>
   <tr class="my-table__table__no-data" *ngIf="!data || data.length === 0">
     <td [colSpan]="getNumberOfColumns()" class="my-table__table__no-data__cell">
       <span *ngIf="data && data.length === 0">
-        {{settings.noDataText}}
+        {{settings.noDataText | translate }}
       </span>
       <img *ngIf="!data" class="my-table__table__no-data__cell__image" src="../../../assets/images/tv_loading.gif"/>
     </td>
@@ -78,7 +78,7 @@
         <i class="fa fa-times" style="color: darkred;"></i>
       </span>
       <span *ngIf="column.type !== 'boolean'">
-        {{ item[column.name] }}
+        {{ item[column.name] | translate }}
       </span>
     </td>
     <td class="my-table__table__line__cell my-table__table__line__cell--actions"
@@ -105,7 +105,9 @@
             [ngClass]="{'active': page.active, 'disabled': page.index == null}">{{ page.name }}</button>
   </div>
   <div class="my-table__footer__limits" *ngIf="limitChoices">
-    <span class="my-table__footer__limits__title">Objets par page: </span>
+    <span class="my-table__footer__limits__title">
+      {{ 'my-table.objects_by_page' | translate }}:
+    </span>
     <a class="my-table__footer__limits__choice" *ngFor="let limit of limitChoices" (click)="changeLimit(limit)">{{limit}}</a>
   </div>
 </div>
@@ -118,5 +120,5 @@
               (button2)="remove(null, true)"
               maxWidth="600px"
               [autoClose]="true">
-  Êtes-vous vraiment sûr de vouloir supprimer ?
+  {{ 'my-table.delete_modal.text' | translate }}
 </app-nt-modal>

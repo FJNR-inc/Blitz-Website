@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {MyNotificationService} from './services/my-notification/my-notification.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Injectable()
 export class MyHttpInterceptor implements HttpInterceptor {
@@ -26,8 +27,8 @@ export class MyHttpInterceptor implements HttpInterceptor {
             localStorage.removeItem('token');
             localStorage.removeItem('userProfile');
             this.notificationService.error(
-              'shared.notifications.session_expired.title',
-              'shared.notifications.session_expired.content'
+              _('shared.notifications.session_expired.title'),
+              _('shared.notifications.session_expired.content')
             );
             this.router.navigate(['/login']);
           }

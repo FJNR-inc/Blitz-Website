@@ -8,6 +8,7 @@ import { Membership } from '../../../../models/membership';
 import { MembershipService } from '../../../../services/membership.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../../utils/form';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-reservation-packages',
@@ -25,8 +26,8 @@ export class ReservationPackagesComponent implements OnInit {
   selectedReservationPackageUrl: string;
 
   settings = {
-    title: 'Forfaits',
-    noDataText: 'Aucun forfait pour le moment',
+    title: _('reservation-packages.package'),
+    noDataText: _('reservation-packages.no_package'),
     addButton: true,
     editButton: true,
     previous: false,
@@ -36,19 +37,19 @@ export class ReservationPackagesComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'Nom'
+        title: _('shared.common.name')
       },
       {
         name: 'price',
-        title: 'Prix'
+        title: _('shared.common.price')
       },
       {
         name: 'reservations',
-        title: 'Nombre de réservations'
+        title: _('shared.common.number_of_reservation')
       },
       {
         name: 'available',
-        title: 'Disponible',
+        title: _('shared.common.available'),
         type: 'boolean'
       }
     ]
@@ -58,39 +59,38 @@ export class ReservationPackagesComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: 'Nom en français'
+      label: _('shared.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: 'Nom en anglais'
+      label: _('shared.form.name_in_english')
     },
     {
       name: 'price',
       type: 'number',
-      label: 'Prix'
+      label: _('shared.form.price')
     },
     {
       name: 'reservations',
       type: 'number',
-      label: 'Nombre de réservations'
+      label: _('shared.form.number_of_reservation')
     },
     {
       name: 'exclusive_memberships',
       type: 'choices',
-      label: 'Membership admis',
+      label: _('shared.form.membership_allowed'),
       choices: []
     },
     {
       name: 'warning',
       type: 'alert',
-      label: 'Attention, si vous spécifiez un type de membership, seuls les gens disposant ' +
-        'actuellement de ce type de membership pourront bénéficier de ce forfait. '
+      label: _('reservation-package.labels.alert_limitation_membership')
     },
     {
       name: 'available',
       type: 'checkbox',
-      label: 'Disponible'
+      label: _('shared.form.available'),
     },
   ];
 
@@ -160,7 +160,11 @@ export class ReservationPackagesComponent implements OnInit {
     this.reservationPackageForm.reset();
     this.reservationPackageForm.controls['available'].setValue(false);
     this.selectedReservationPackageUrl = null;
-    this.toogleModal('form_reservation_packages', 'Ajouter un forfait', 'Créer');
+    this.toogleModal(
+      'form_reservation_packages',
+      _('reservation-package.create_reservation_package_modal.title'),
+      _('reservation-package.create_reservation_package_modal.button')
+    );
   }
 
   OpenModalEditReservationPackage(item) {
@@ -173,7 +177,11 @@ export class ReservationPackagesComponent implements OnInit {
         this.reservationPackageForm.controls['reservations'].setValue(reservationPackage.reservations);
         this.reservationPackageForm.controls['available'].setValue(reservationPackage.available);
         this.selectedReservationPackageUrl = item.url;
-        this.toogleModal('form_reservation_packages', 'Éditer un forfait', 'Éditer');
+        this.toogleModal(
+          'form_reservation_packages',
+          _('reservation-package.edit_reservation_package_modal.title'),
+          _('reservation-package.edit_reservation_package_modal.button')
+        );
       }
     }
   }
@@ -194,7 +202,9 @@ export class ReservationPackagesComponent implements OnInit {
       if (this.selectedReservationPackageUrl) {
         this.reservationPackageService.update(this.selectedReservationPackageUrl, reservationPackage).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.updated.title');
+            this.notificationService.success(
+              _('shared.notifications.commons.updated.title')
+            );
             this.refreshReservationPackageList();
             this.toogleModal('form_reservation_packages');
           },
@@ -208,7 +218,9 @@ export class ReservationPackagesComponent implements OnInit {
       } else {
         this.reservationPackageService.create(reservationPackage).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.added.title');
+            this.notificationService.success(
+              _('shared.notifications.commons.added.title')
+            );
             this.refreshReservationPackageList();
             this.toogleModal('form_reservation_packages');
           },
@@ -223,7 +235,7 @@ export class ReservationPackagesComponent implements OnInit {
     }
   }
 
-  toogleModal(name, title = '', button2 = '') {
+  toogleModal(name, title: string | string[] = '', button2: string | string[] = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {

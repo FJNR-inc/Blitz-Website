@@ -8,6 +8,7 @@ import {RetirementReservationService} from '../../../services/retirement-reserva
 import {RetirementReservation} from '../../../models/retirementReservation';
 import {Retirement} from '../../../models/retirement';
 import {User} from '../../../models/user';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-table-retirement-reservations',
@@ -23,8 +24,8 @@ export class TableRetirementReservationsComponent implements OnInit {
   listAdaptedRetirementReservations: any[];
 
   settings = {
-    title: 'Réservation à la retraite',
-    noDataText: 'Aucune réservation pour le moment.',
+    title: _('table-retirement-reservation.title_table'),
+    noDataText: _('table-retirement-reservation.no_reservation'),
     clickable: true,
     previous: false,
     next: false,
@@ -33,25 +34,25 @@ export class TableRetirementReservationsComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'shared.form.name'
+        title: _('shared.common.name')
       },
       {
         name: 'is_present',
-        title: 'shared.form.is_present',
+        title: _('shared.common.present'),
         type: 'boolean'
       },
       {
         name: 'is_active',
-        title: 'shared.form.is_canceled',
+        title: _('shared.common.canceled'),
         type: 'boolean'
       },
       {
         name: 'cancelation_reason',
-        title: 'shared.form.cancelation_reason'
+        title: _('shared.common.reason')
       },
       {
         name: 'cancelation_action',
-        title: 'shared.form.cancelation_action'
+        title: _('shared.common.action')
       }
     ]
   };
@@ -59,22 +60,10 @@ export class TableRetirementReservationsComponent implements OnInit {
   constructor(private retirementReservationService: RetirementReservationService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
-              private router: Router,
-              private translate: TranslateService) { }
+              private router: Router) { }
 
   ngOnInit() {
-    this.translateItems();
     this.refreshPeriodList();
-  }
-
-  translateItems() {
-    for (const column of this.settings.columns) {
-      this.translate.get(column.title).subscribe(
-        (translatedLabel: string) => {
-          column.title = translatedLabel;
-        }
-      );
-    }
   }
 
   refreshPeriodList(page = 1, limit = 20) {

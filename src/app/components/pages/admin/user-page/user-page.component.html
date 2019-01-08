@@ -10,7 +10,7 @@
         <i class="fas fa-envelope"></i> {{ user.email }}<br/>
       </div>
       <div class="user-page__header__informations__email" *ngIf="user.is_superuser">
-        <i class="fas fa-user-shield"></i> Administrateur
+        <i class="fas fa-user-shield"></i> {{ 'shared.common.administrator' | translate }}
       </div>
       <div class="user-page__header__informations__university" *ngIf="user.university">
         {{ user.university.name }}<br/>
@@ -22,21 +22,21 @@
         <div class="user-page__header__right__status__main">
           {{user.tickets || 0}}
         </div>
-        ticket(s) disponible(s)
+        {{ 'user-page.tickets_available' | translate }}
       </div>
       <div class="user-page__header__right__status" *ngIf="user.membership_end">
         <div class="user-page__header__right__status__main">
           {{ user.getTimeBeforeEndMembership() }}
         </div>
-        jours restants<br/>
-        (Membership {{ user.membership.name }})
+        {{ 'user-page.remaining_days' | translate }}<br/>
+        ({{ 'shared.common.membership' | translate }} {{ user.membership.name }})
       </div>
     </div>
   </div>
   <div class="user-page__navbar">
     <a class="button" (click)="openModalUserEdition()">
       <i class="fas fa-pencil-alt"></i>
-      Éditer l'utilisateur
+      {{ 'user-page.button_edit_user' | translate }}
     </a>
   </div>
   <div class="user-page__reservations">
@@ -67,24 +67,24 @@
 <app-nt-modal name="timeslot_deleted"
               typeModal="success"
               maxWidth="600px"
-              title="Plage horaire supprimé"
-              button2Label="J'ai compris!"
+              [title]="timeslotDeletedModalTitle"
+              [button2Label]="timeslotDeletedModalButtonLabel"
               [autoClose]="true">
   <p>
-    La réservation que vous venez de sélectionner a été annulé car la plage horaire a été supprimé. Nous ne pouvons donc pas vous rediriger vers ladite plage horaire.
+    {{ 'user-page.modal_timeslot_deleted.text' | translate }}
   </p>
 </app-nt-modal>
 
 <app-nt-modal name="add_custom_payment"
               typeModal="success"
               maxWidth="600px"
-              title="Add a custom payment"
-              button2Label="Add the custom payment"
+              [title]="customPaymentModalTitle"
+              [button2Label]="customPaymentModalButtonLabel"
               [activated]="singleUseToken"
               (button2)="createCustomPayment()">
     <app-form *ngIf="singleUseToken" [form]="customPaymentForm" [fields]="customPaymentFields" [errors]="customPaymentErrors"></app-form>
     <div *ngIf="!singleUseToken">
-      <app-alert type="info" [messages]="['These informations of payment will not be saved for future usages.']"></app-alert>
+      <app-alert type="info">{{ 'user-page.modal_add_custom_payment.alert' | translate }}</app-alert>
       <app-paysafe-form (singleUseToken)="setSingleUseToken($event)"></app-paysafe-form>
     </div>
 </app-nt-modal>
@@ -92,8 +92,8 @@
 <app-nt-modal name="edit_user"
               typeModal="success"
               maxWidth="600px"
-              title="Edit user"
-              button2Label="Edit the user"
+              [title]="editUserModalTitle"
+              [button2Label]="editUserModalButtonLabel"
               (button2)="editUser()">
   <app-form [form]="userForm" [fields]="userFields" [errors]="userErrors"></app-form>
 </app-nt-modal>

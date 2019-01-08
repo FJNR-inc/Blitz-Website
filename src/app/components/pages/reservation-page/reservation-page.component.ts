@@ -101,33 +101,33 @@ export class ReservationPageComponent implements OnInit {
   singleUseToken: string = null;
   paymentToken: string = null;
   private paysafeInstance: any;
-  errorModal: string[];
-  errorOrder: string[];
+  errorModal;
+  errorOrder;
 
   colors = [
     {
-      'label': _('Beaucoup de places disponibles'),
+      'label': _('reservation-page.colors.lot_of_places_available'),
       'color': {
         primary: '#2A7358',
         secondary: '#2A7358'
       }
     },
     {
-      'label': _('Moins de 50% de places disponibles'),
+      'label': _('reservation-page.colors.less_than_50_percent'),
       'color': {
         primary: '#FFB415',
         secondary: '#FFB415'
       }
     },
     {
-      'label': _('Presque plus de places disponibles'),
+      'label': _('reservation-page.colors.almost_no_places_available'),
       'color': {
         primary: '#D95219',
         secondary: '#D95219'
       }
     },
     {
-      'label': _('Aucune places disponible'),
+      'label': _('reservation-page.colors.no_places_available'),
       'color': {
         primary: '#E6DCCF',
         secondary: '#E6DCCF'
@@ -151,8 +151,7 @@ export class ReservationPageComponent implements OnInit {
               private orderService: OrderService,
               private profileService: ProfileService,
               private notificationService: MyNotificationService,
-              private internationalizationService: InternationalizationService,
-              private translate: TranslateService) {}
+              private internationalizationService: InternationalizationService) {}
 
   ngOnInit() {
     this.initPaysafe();
@@ -426,12 +425,12 @@ export class ReservationPageComponent implements OnInit {
     this.waitPaysafe = true;
     if (!instance.paysafeInstance) {
       console.error('No instance Paysafe');
-      this.errorModal = ['Nos services bancaires semblent éprouver quelques difficultés, veuillez recommencer.'];
+      this.errorModal = [_('reservation-page.payment_service_hs')];
       this.waitPaysafe = false;
     } else {
       instance.paysafeInstance.tokenize((paysafeInstance: any, error: any, result: any) => {
         if (error) {
-          this.errorModal = ['Ces informations bancaires sont invalides'];
+          this.errorModal = [_('reservation-page.invalid_card_info')];
           console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
           this.waitPaysafe = false;
         } else {
@@ -503,7 +502,10 @@ export class ReservationPageComponent implements OnInit {
     this.orderService.create(newOrder).subscribe(
       response => {
         this.waitAPI = false;
-        this.notificationService.success('shared.notifications.order_done.title', 'shared.notifications.order_done.content');
+        this.notificationService.success(
+          _('shared.notifications.order_done.title'),
+          _('shared.notifications.order_done.content')
+        );
         this.router.navigate(['/profile']);
       }, err => {
         this.waitAPI = false;
@@ -512,7 +514,7 @@ export class ReservationPageComponent implements OnInit {
           this.ToggleModal('no_places');
           this.refreshListTimeSlot();
         } else {
-          this.errorOrder = ['Impossible de finaliser le paiement. Veuillez réessayer.'];
+          this.errorOrder = [_('reservation-page.error_in_payment')];
         }
       }
     );
@@ -611,13 +613,13 @@ export class ReservationPageComponent implements OnInit {
 
   getLabelFinalizeButton() {
     if (this.totalPrice && this.totalTicket) {
-      return _('Payer & Réserver');
+      return _('reservation-page.finalize_button.pay_and_reserve');
     } else if (this.totalPrice) {
-      return _('Payer');
+      return _('reservation-page.finalize_button.pay');
     } else if (this.totalTicket) {
-      return _('Réserver');
+      return _('reservation-page.finalize_button.reserve');
     } else {
-      return _('Finaliser');
+      return _('reservation-page.finalize_button.finalize');
     }
   }
 

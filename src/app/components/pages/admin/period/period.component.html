@@ -2,13 +2,17 @@
 
 <div class="admin-period-page" *ngIf="period">
   <div class="admin-period-page__title">
-    <h2 class="nt-title">Période de rédaction / {{ period.name }}</h2>
+    <h2 class="nt-title">{{ 'period.period_of_redaction' | translate }} / {{ period.name }}</h2>
   </div>
 
   <div class="admin-period-page__header">
     <div>
-      <a class="admin-period-page__display-link nt-button" *ngIf="displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(false)">Afficher les anciens blocs de rédaction</a>
-      <a class="admin-period-page__display-link nt-button" *ngIf="!displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(true)">Cacher les anciens blocs de rédaction</a>
+      <a class="admin-period-page__display-link nt-button" *ngIf="displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(false)">
+        {{ 'period.display_old_bloc' | translate }}
+      </a>
+      <a class="admin-period-page__display-link nt-button" *ngIf="!displayOnlyFutureTimeslot" (click)="setDisplayOnlyFutureTimeslot(true)">
+        {{ 'period.hide_old_bloc' | translate }}
+      </a>
     </div>
 
     <div class="admin-period-page__header__dates">
@@ -100,20 +104,21 @@
               [autoClose]="true"
               [activated]="isSecurityOnDeletionValid()">
   <p>
-    Une ou plusieurs personnes on déjà réservé ce bloc de rédaction.
+    {{ 'period.validation_deletion_modal.text_1' | translate }}
   </p>
   <p>
-    En supprimant ce bloc de rédaction vous entrainez des remboursements ainsi que des courriels
-    d'excuses auprès de tous les utilisateurs ayant déjà réservé ce bloc de rédaction.
+    {{ 'period.validation_deletion_modal.text_2' | translate }}
   </p>
   <div class="form-group">
-    <label class="nt-form-label">Message explicatif pour les utilisateurs:</label>
+    <label class="nt-form-label">
+      {{ 'period.validation_deletion_modal.labels.custom_message' | translate }}:
+    </label>
     <textarea [(ngModel)]="messageOnDeletion" class="nt-form-input nt-form-input--textarea"></textarea>
   </div>
   <div class="align-top">
     <input id="securityCheckbox" type="checkbox" [(ngModel)]="securityOnDeletion" />
     <label class="nt-form-label" for="securityCheckbox">
-      Je me suis renseigné sur les conséquences de mon acte et en prend l'entière responsabilité
+      {{ 'period.validation_deletion_modal.checkbox_security' | translate }}
     </label>
   </div>
 </app-nt-modal>

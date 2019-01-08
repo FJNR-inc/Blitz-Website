@@ -8,7 +8,7 @@
   <i [class]="'alert__icon ' + getIcon()"></i>
   <div class="alert__content">
       <div *ngFor="let message of messages">
-        {{ message }}
+        {{ message | translate }}
       </div>
 
       <ng-content></ng-content>

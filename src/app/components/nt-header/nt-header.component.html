@@ -40,7 +40,7 @@
     <div class="nt-header__main__nav "
          *ngIf="!showNav">
       <div class="nt-header__main__nav__closed">
-        {{ 'MENU' | translate }}
+        {{ 'header.nav.title' | translate }}
       </div>
     </div>
 
@@ -59,7 +59,7 @@
          class="nt-header__main__actions__item "
          *ngIf="!isAuthenticated()">
         <div *ngIf="showNav">
-          {{ 'devenir membre' | translate }}
+          {{ 'header.become_member' | translate }}
         </div>
 
         <i *ngIf="!showNav" class="icon icon-profile icon--2x"></i>
@@ -69,7 +69,7 @@
          class="nt-header__main__actions__item "
          *ngIf="isAuthenticated()">
         <div *ngIf="showNav">
-          {{ 'mon profil' | translate }}
+          {{ 'header.profile' | translate }}
         </div>
 
         <i *ngIf="!showNav" class="icon icon-profile icon--2x"></i>
@@ -79,7 +79,7 @@
          class="nt-header__main__actions__item"
          *ngIf="!isAuthenticated()">
         <div *ngIf="showNav">
-          {{ 'se connecter' | translate }}
+          {{ 'header.login' | translate }}
         </div>
         <i *ngIf="!showNav" class="icon icon-login icon--2x"></i>
       </a>
@@ -88,7 +88,7 @@
          class="nt-header__main__actions__item"
          *ngIf="isAuthenticated()">
         <div *ngIf="showNav">
-          {{ 'se déconnecter' | translate }}
+          {{ 'header.logout' | translate }}
         </div>
         <i *ngIf="!showNav" class="icon icon-logout icon--2x"></i>
       </a>
@@ -151,25 +151,25 @@
       <a routerLink="/membership/intro"
          class="nt-header-responsive__actions__item "
          *ngIf="!isAuthenticated()">
-          {{ 'devenir membre' | translate }}
+          {{ 'header.become_member' | translate }}
       </a>
 
       <a routerLink="/profile"
          class="nt-header-responsive__actions__item "
          *ngIf="isAuthenticated()">
-          {{ 'mon profil' | translate }}
+          {{ 'header.profile' | translate }}
       </a>
 
       <a routerLink="/login"
          class="nt-header-responsive__actions__item"
          *ngIf="!isAuthenticated()">
-          {{ 'se connecter' | translate }}
+          {{ 'header.login' | translate }}
        </a>
 
       <a routerLink="/logout"
          class="nt-header-responsive__actions__item"
          *ngIf="isAuthenticated()">
-          {{ 'se déconnecter' | translate }}
+          {{ 'header.logout' | translate }}
       </a>
 
       <a *ngIf="locale === 'fr'" (click)="changeLanguage('en')"

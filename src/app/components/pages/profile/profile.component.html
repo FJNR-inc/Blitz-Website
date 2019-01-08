@@ -250,14 +250,14 @@
       </div>
       <div class="profile-page__content__right__retirement-reservations">
         <h2 class="profile-page__sub-title">
-          {{ 'profile.list_retirement_reservations_title' | translate }}
+          {{ 'profile.list_retirement_reservations.title' | translate }}
         </h2>
 
         <div class="profile-page__content__right__retirement-reservations__list profile-page__content__right__retirement-reservations__list--loading" *ngIf="!getDisplayedRetirementReservation()">
           <app-loader></app-loader>
         </div>
         <div class="profile-page__content__right__retirement-reservations__list profile-page__content__right__retirement-reservations__list--empty" *ngIf="getDisplayedRetirementReservation().length === 0">
-          {{ 'Aucune retraite prévue' | translate }}
+          {{ 'profile.list_retirement_reservations.no_reservation' | translate }}
         </div>
         <div class="profile-page__content__right__retirement-reservations__list" *ngIf="getDisplayedRetirementReservation().length">
           <div class="profile-page__content__right__retirement-reservations__list__item"
@@ -280,12 +280,12 @@
                 {{ retirementReservation.retirement_details.getDateInterval() }}
               </p>
               <div class="profile-page__content__right__retirement-reservations__list__item__description__more" *ngIf="retirementReservationOpen === retirementReservation.id">
-                <b>{{ 'Début' | translate }}:</b> {{retirementReservation.retirement_details.getStartTime()}}<br/>
-                <b>{{ 'Fin' | translate }}:</b> {{retirementReservation.retirement_details.getEndTime()}}<br/>
-                <b>{{ 'Temps' | translate }}:</b> #La fin de semaine<br/>
-                <b>{{ 'Animation' | translate }}:</b> {{retirementReservation.retirement_details.activity_language}}<br/>
-                <b>{{ 'Particularités' | translate }}:</b> #Aucune<br/>
-                <b>{{ 'Tarif' | translate }}:</b> {{retirementReservation.retirement_details.price}}$CAN<br/>
+                <b>{{ 'profile.retirements.details.begin' | translate }}:</b> {{retirementReservation.retirement_details.getStartTime()}}<br/>
+                <b>{{ 'profile.retirements.details.end' | translate }}:</b> {{retirementReservation.retirement_details.getEndTime()}}<br/>
+                <b>{{ 'profile.retirements.details.times' | translate }}:</b> #La fin de semaine<br/>
+                <b>{{ 'profile.retirements.details.animation' | translate }}:</b> {{retirementReservation.retirement_details.activity_language}}<br/>
+                <b>{{ 'profile.retirements.particularity' | translate }}:</b> #Aucune<br/>
+                <b>{{ 'profile.retirements.details.price' | translate }}:</b> {{retirementReservation.retirement_details.price}}$CAN<br/>
               </div>
             </div>
             <div class="profile-page__content__right__retirement-reservations__list__item__actions">

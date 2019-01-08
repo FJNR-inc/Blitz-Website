@@ -5,14 +5,14 @@
     <div class="admin-retirement-page__header__name">
       {{ retirement.name }}
       <a class="admin-retirement-page__header__name__edit button" (click)="OpenModalEditRetirement()">
-        <i class="fas fa-pencil-alt"></i> Éditer les informations generale
+        <i class="fas fa-pencil-alt"></i> {{ 'retirement.edit_retirement' | translate }}
       </a>
     </div>
     <div class="admin-retirement-page__header__informations">
       <i class="fas fa-location-arrow"></i> {{ retirement.getAddress() }}<br/>
     </div>
     <div class="admin-retirement-page__header__informations">
-      <i class="fas fa-building"></i> {{ retirement.seats }} places disponibles
+      <i class="fas fa-building"></i> {{ retirement.seats }} {{ 'retirement.place_available' | translate }}
     </div>
     <p class="admin-retirement-page__header__details">
       {{ retirement.details }}

@@ -1,11 +1,11 @@
 <div class="admin-users-page">
-  <h1 class="nt-title">Utilisateurs</h1>
+  <h1 class="nt-title">{{ 'users-pages.users' | translate }}</h1>
 
   <div class="admin-users-page__filters">
     <div class="form-group">
-      <label class="nt-form-label">Type de membership:</label>
+      <label class="nt-form-label">{{ 'users-pages.filter.labels.membership' | translate }}:</label>
       <select class="nt-form-input nt-form-input--select" (change)="updateFilter('membership', $event.target.value)">
-        <option value="">Ne pas filtrer</option>
+        <option value="">{{ 'users-pages.filter.do_not_filter' | translate }}</option>
         <option *ngFor="let membership of listMemberships" [value]="membership.id">{{membership.name}}</option>
       </select>
     </div>

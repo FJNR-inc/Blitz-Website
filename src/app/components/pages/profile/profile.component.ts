@@ -18,6 +18,7 @@ import {RetirementReservationService} from '../../../services/retirement-reserva
 import {RetirementReservation} from '../../../models/retirementReservation';
 import {Retirement} from '../../../models/retirement';
 import {RetirementService} from '../../../services/retirement.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-profile',
@@ -29,9 +30,9 @@ export class ProfileComponent implements OnInit {
   profile: User;
   userForm: FormGroup;
   settings = {
-    noDataText: 'Aucune réservation pour le moment',
+    noDataText: _('profile.no_reservation_for_the_moment'),
     removeButton: true,
-    title: 'Mes réservations',
+    title: _('profile.my_reservation'),
     columns: [
       {
         name: 'start_event',
@@ -251,13 +252,16 @@ export class ProfileComponent implements OnInit {
     this.userService.remove(this.profile).subscribe(
       data => {
         this.notificationService.success(
-          'shared.notifications.deactivate_profile.title',
-          'shared.notifications.deactivate_profile.content'
+          _('shared.notifications.deactivate_profile.title'),
+          _('shared.notifications.deactivate_profile.content')
         );
         this.router.navigate(['/logout']);
       },
       err => {
-        this.notificationService.error('shared.notifications.fail_deactivation.title', 'shared.notifications.fail_deactivation.content');
+        this.notificationService.error(
+          _('shared.notifications.fail_deactivation.title'),
+          _('shared.notifications.fail_deactivation.content')
+        );
       }
     );
   }
@@ -271,7 +275,7 @@ export class ProfileComponent implements OnInit {
       }
       this.userService.update(this.profile.url, value).subscribe(
         data => {
-          this.notificationService.success('shared.notifications.commons.added.title');
+          this.notificationService.success(_('shared.notifications.commons.added.title'));
           this.refreshProfile();
           this.toogleModal('form_user');
         },
@@ -322,11 +326,17 @@ export class ProfileComponent implements OnInit {
   cancelReservation() {
     this.reservationService.remove(this.reservationInCancelation).subscribe(
       data => {
-        this.notificationService.success('shared.notifications.cancel_bloc.title', 'shared.notifications.cancel_bloc.content');
+        this.notificationService.success(
+          _('shared.notifications.cancel_bloc.title'),
+          _('shared.notifications.cancel_bloc.content')
+        );
         this.refreshReservation();
       },
       err => {
-        this.notificationService.error('shared.notifications.fail_cancel.title', 'shared.notifications.fail_cancel.content');
+        this.notificationService.error(
+          _('shared.notifications.fail_cancel_bloc.title'),
+          _('shared.notifications.fail_cancel_bloc.content')
+        );
       }
     );
   }

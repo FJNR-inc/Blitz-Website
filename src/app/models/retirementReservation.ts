@@ -2,7 +2,7 @@ import BaseModel from './baseModel';
 import {User} from './user';
 import {Retirement} from './retirement';
 import {OrderLine} from './orderLine';
-import {TimeSlot} from './timeSlot';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 export class RetirementReservation extends BaseModel {
   url: string;
@@ -30,23 +30,23 @@ export class RetirementReservation extends BaseModel {
 
   getCancelationReasonLabel() {
     if (this.cancelation_reason === 'U') {
-      return 'User cancelation';
+      return _('retirement-reservation-model.cancelation_reason.user_cancelation');
     }
     if (this.cancelation_reason === 'RD') {
-      return 'Retirement have been deleted';
+      return _('retirement-reservation-model.cancelation_reason.retirement_deleted');
     }
     if (this.cancelation_reason === 'RM') {
-      return 'Retirement have been modified';
+      return _('retirement-reservation-model.cancelation_reason.retirement_updated');
     }
     return null;
   }
 
   getCancelationActionLabel() {
     if (this.cancelation_action === 'R') {
-      return 'Refund';
+      return _('retirement-reservation-model.cancelation_action.refund');
     }
     if (this.cancelation_action === 'E') {
-      return 'Exchange';
+      return _('retirement-reservation-model.cancelation_action.exchange');
     }
     return null;
   }

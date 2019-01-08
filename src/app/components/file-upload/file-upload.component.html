@@ -13,9 +13,9 @@
 
   <div draggable="true" class="file-upload-component__actions {{dragAreaClass}}">
       <a class="nt-button" (click)="file.click()" >
-        Ajouter une photo
+        {{ 'file-upload.add_picture' | translate }}
       </a>
-      Ou Drag & Drop pour ajouter une photo
+      {{ 'file-upload.or_drag_and_drop' | translate }}
 
       <input type="file"
              #file
@@ -26,7 +26,7 @@
 
   <div class="file-upload-component__errors" *ngIf="errors.length > 0">
     <ul class="file-upload-component__errors__list">
-      <li class="file-upload-component__errors__list__item" *ngFor="let err of errors">{{err}}</li>
+      <li class="file-upload-component__errors__list__item" *ngFor="let err of errors">{{ err | translate }}</li>
     </ul>
   </div>
 </div>

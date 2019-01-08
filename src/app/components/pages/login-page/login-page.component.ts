@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-login-page',
@@ -43,7 +44,10 @@ export class LoginPageComponent {
           this.profileService.get().subscribe(
             profile => {
               this.authenticationService.setProfile(profile);
-              this.notificationService.success('shared.notifications.connected.title', 'shared.notifications.connected.content');
+              this.notificationService.success(
+              _('shared.notifications.connected.title'),
+                _('shared.notifications.connected.content')
+              );
               this.router.navigate([this.returnUrl]);
             }
           );

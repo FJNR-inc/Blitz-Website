@@ -8,6 +8,7 @@ import { TimeSlotService } from '../../../../services/time-slot.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-period',
@@ -16,10 +17,7 @@ import {MyNotificationService} from '../../../../services/my-notification/my-not
 })
 export class PeriodComponent implements OnInit {
 
-  alertMessage = 'Si vous modifier ce bloc de rédaction toutes les ' +
-    'réservations déja effectué seront annulé et remboursé et ' +
-    'un message d\'explication sera envoyé aux membres ayant ' +
-    'subit une annulation.';
+  alertMessage = _('period.edit_timeslot_modal.alert_security');
 
   period: Period;
   listTimeslots: TimeSlot[];
@@ -30,8 +28,8 @@ export class PeriodComponent implements OnInit {
   selectedTimeslot: any = null;
 
   settings = {
-    title: 'Liste des blocs de rédaction:',
-    noDataText: 'Aucun bloc de rédaction pour le moment',
+    title: _('period.list_of_redaction_bloc'),
+    noDataText: _('period.no_bloc'),
     addButton: true,
     editButton: true,
     removeButton: true,
@@ -43,15 +41,15 @@ export class PeriodComponent implements OnInit {
     columns: [
       {
         name: 'start_time',
-        title: 'Date de début'
+        title: _('period.labels.begin_date')
       },
       {
         name: 'end_time',
-        title: 'Date de fin'
+        title: _('period.labels.end_date')
       },
       {
         name: 'display_reservations',
-        title: 'Nombre de reservations'
+        title: _('period.labels.number_of_reservations')
       }
     ]
   };
@@ -146,7 +144,11 @@ export class PeriodComponent implements OnInit {
     this.resetForm();
     this.timeslotForm.controls['period'].setValue(this.period.url);
     this.selectedTimeslot = null;
-    this.toggleModal('form_timeslots', 'Ajouter une plage horaire', 'Créer');
+    this.toggleModal(
+      'form_timeslots',
+      _('period.createTimeslotModal.title'),
+      _('period.createTimeslotModal.button')
+    );
   }
 
   OpenModalEditTimeslot(item) {
@@ -159,7 +161,11 @@ export class PeriodComponent implements OnInit {
       }
     }
     this.selectedTimeslot = item;
-    this.toggleModal('form_timeslots', 'Éditer une plage horaire', 'Éditer');
+    this.toggleModal(
+      'form_timeslots',
+      _('period.editTimeslotModal.title'),
+      _('period.editTimeslotModal.button')
+    );
   }
 
   submitTimeslot() {
@@ -171,12 +177,14 @@ export class PeriodComponent implements OnInit {
       if (this.selectedTimeslot) {
         if (this.selectedTimeslot.number_of_reservations > 0 && value.force_update === false) {
           this.timeslotForm.controls['force_update'].setErrors({
-            apiError: ['Vous devez comprendre les répercutions de cet acte avant de valider!']
+            apiError: [_('period.warning_force_submit_timeslot')]
           });
         } else {
           this.timeslotService.update(this.selectedTimeslot.url, value).subscribe(
             data => {
-              this.notificationService.success('shared.notifications.commons.updated.title');
+              this.notificationService.success(
+                _('shared.notifications.commons.updated.title')
+              );
               this.refreshTimeslotList();
               this.toggleModal('form_timeslots');
             },
@@ -200,7 +208,9 @@ export class PeriodComponent implements OnInit {
       } else {
         this.timeslotService.create(value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.added.title');
+            this.notificationService.success(
+              _('shared.notifications.commons.added.title')
+            );
             this.refreshTimeslotList();
             this.toggleModal('form_timeslots');
           },
@@ -232,22 +242,32 @@ export class PeriodComponent implements OnInit {
         this.timeslotInDeletion = item;
       }
       if (this.timeslotInDeletion.number_of_reservations > 0 && !force) {
-        this.toggleModal('validation_deletion', 'Attention!', 'Rembourser & Contacter');
+        this.toggleModal(
+          'validation_deletion',
+          _('period.validation_deletion_modal.title'),
+          _('period.validation_deletion_modal.button')
+        );
       } else {
         this.timeslotService.remove(this.timeslotInDeletion, force, this.messageOnDeletion).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.delete_bloc.title', 'shared.notifications.delete_bloc.content');
+            this.notificationService.success(
+              _('shared.notifications.delete_bloc.title'),
+              _('shared.notifications.delete_bloc.content')
+            );
             this.refreshTimeslotList();
           },
           err => {
-            this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
+            this.notificationService.error(
+              _('shared.notifications.fail_deletion_bloc.title'),
+              _('shared.notifications.fail_deletion_bloc.content')
+            );
           }
         );
       }
     }
   }
 
-  toggleModal(name, title = '', button2 = '') {
+  toggleModal(name, title: string | string[] = '', button2: string | string[] = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {

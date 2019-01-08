@@ -9,7 +9,7 @@ import {Workplace} from '../../../models/workplace';
 import {WorkplaceService} from '../../../services/workplace.service';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../utils/form';
-import {TranslateService} from '@ngx-translate/core';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-table-periods',
@@ -29,8 +29,8 @@ export class TablePeriodsComponent implements OnInit {
   selectedPeriod: Period;
 
   settings = {
-    title: 'Périodes de réservation',
-    noDataText: 'Aucune périodes de réservation pour le moment',
+    title: _('table-periods.periods'),
+    noDataText: _('table-periods.no_period'),
     clickable: true,
     addButton: true,
     editButton: true,
@@ -42,19 +42,19 @@ export class TablePeriodsComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'shared.form.name'
+        title: _('shared.form.name')
       },
       {
         name: 'start_date',
-        title: 'shared.form.start_date'
+        title: _('shared.form.start_date')
       },
       {
         name: 'end_date',
-        title: 'shared.form.end_date'
+        title: _('shared.form.end_date')
       },
       {
         name: 'is_active',
-        title: 'shared.form.available',
+        title: _('shared.form.available'),
         type: 'boolean'
       }
     ]
@@ -68,27 +68,27 @@ export class TablePeriodsComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: 'shared.form.name_in_french'
+      label: _('shared.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: 'shared.form.name_in_english'
+      label: _('shared.form.name_in_english')
     },
     {
       name: 'start_date',
       type: 'datetime',
-      label: 'shared.form.start_date'
+      label: _('shared.form.start_date')
     },
     {
       name: 'end_date',
       type: 'datetime',
-      label: 'shared.form.end_date'
+      label: _('shared.form.end_date')
     },
     {
       name: 'is_active',
       type: 'checkbox',
-      label: 'shared.form.available'
+      label: _('shared.form.available')
     }
   ];
 
@@ -97,34 +97,14 @@ export class TablePeriodsComponent implements OnInit {
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private workplaceService: WorkplaceService,
-              private translate: TranslateService) { }
+              private workplaceService: WorkplaceService) { }
 
   ngOnInit() {
-    this.translateItems();
     this.refreshPeriodList();
     this.refreshWorkplaceList();
 
     const formUtil = new FormUtil();
     this.periodForm = formUtil.createFormGroup(this.fields);
-  }
-
-  translateItems() {
-    for (const field of this.fields) {
-      this.translate.get(field.label).subscribe(
-        (translatedLabel: string) => {
-          field.label = translatedLabel;
-        }
-      );
-    }
-
-    for (const column of this.settings.columns) {
-      this.translate.get(column.title).subscribe(
-        (translatedLabel: string) => {
-          column.title = translatedLabel;
-        }
-      );
-    }
   }
 
   refreshWorkplaceList() {
@@ -166,7 +146,11 @@ export class TablePeriodsComponent implements OnInit {
     this.periodForm.reset();
     this.periodForm.controls['is_active'].setValue(false);
     this.selectedPeriod = null;
-    this.toggleModal('form_periods', 'Ajouter une période', 'Créer');
+    this.toggleModal(
+      'form_periods',
+      _('table-period.create_period_modal.title'),
+      _('table-period.create_period_modal.button')
+    );
   }
 
   OpenModalEditPeriod(item) {
@@ -179,7 +163,11 @@ export class TablePeriodsComponent implements OnInit {
         this.periodForm.controls['end_date'].setValue(period.end_date);
         this.periodForm.controls['is_active'].setValue(period.is_active);
         this.selectedPeriod = period;
-        this.toggleModal('form_periods', 'Éditer une période', 'Éditer');
+        this.toggleModal(
+          'form_periods',
+          _('table-period.edit_period_modal.title'),
+          _('table-period.edit_period_modal.button')
+        );
       }
     }
   }
@@ -192,7 +180,9 @@ export class TablePeriodsComponent implements OnInit {
 
       this.periodService.update(this.selectedPeriod.url, request).subscribe(
         data => {
-          this.notificationService.success('shared.notifications.commons.updated.title');
+          this.notificationService.success(
+            _('shared.notifications.commons.updated.title')
+          );
           this.refreshPeriodList();
           this.toggleModal('form_periods');
         },
@@ -200,11 +190,7 @@ export class TablePeriodsComponent implements OnInit {
           if (err.error.non_field_errors) {
             this.periodErrors = err.error.non_field_errors;
           } else {
-            this.translate.get('shared.form.errors.unknown').subscribe(
-              (translatedLabel: string) => {
-                this.periodErrors =  [translatedLabel];
-              }
-            );
+            this.periodErrors =  ['shared.form.errors.unknown'];
           }
           this.periodForm = FormUtil.manageFormErrors(this.periodForm, err);
         }
@@ -216,7 +202,9 @@ export class TablePeriodsComponent implements OnInit {
       request['price'] = 1;
       this.periodService.create(request).subscribe(
         data => {
-          this.notificationService.success('shared.notifications.commons.updated.title');
+          this.notificationService.success(
+            _('shared.notifications.commons.updated.title')
+          );
           this.refreshPeriodList();
           this.toggleModal('form_periods');
         },
@@ -224,11 +212,7 @@ export class TablePeriodsComponent implements OnInit {
           if (err.error.non_field_errors) {
             this.periodErrors = err.error.non_field_errors;
           } else {
-            this.translate.get('shared.form.errors.unknown').subscribe(
-              (translatedLabel: string) => {
-                this.periodErrors =  [translatedLabel];
-              }
-            );
+            this.periodErrors =  ['shared.form.errors.unknown'];
           }
           this.periodForm = FormUtil.manageFormErrors(this.periodForm, err);
         }
@@ -262,7 +246,7 @@ export class TablePeriodsComponent implements OnInit {
     }
   }
 
-  toggleModal(name, title = '', button2 = '') {
+  toggleModal(name, title: string | string[] = '', button2: string | string[] = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {

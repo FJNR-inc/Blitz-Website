@@ -33,18 +33,18 @@ export class RetirementCartComponent implements OnInit {
     {
       name: 'city',
       type: 'select',
-      label: _('Ville de résidence'),
+      label: _('retirement-cart.labels.city'),
       choices: []
     },
     {
       name: 'phone',
       type: 'text',
-      label: _('Téléphone')
+      label: _('retirement-cart.labels.phone')
     },
     {
       name: 'other',
       type: 'textarea',
-      label: _('Restrictions alimentaires ou autres')
+      label: _('retirement-cart.labels.restrictions')
     }
   ];
 
@@ -56,28 +56,27 @@ export class RetirementCartComponent implements OnInit {
     {
       name: 'coupon_code',
       type: 'text',
-      label: _('Code pour accéder à une bourse')
+      label: _('retirement-cart.labels.grant_code')
     },
     {
       name: 'matricule',
       type: 'text',
-      label: _('Matricule ou code permanent')
+      label: _('retirement-cart.labels.matricule')
     },
     {
       name: 'text-warning',
       type: 'alert',
-      label: _('Vous devez répondre aux questions suivantes pour compléter ' +
-        'vos informations personnelles et vous inscrire à une ou des retraite(s).')
+      label: _('retirement-cart.labels.personnal_infos')
     },
     {
       name: 'faculty',
       type: 'text',
-      label: _('Faculté')
+      label: _('retirement-cart.labels.faculty')
     },
     {
       name: 'program_code',
       type: 'text',
-      label: _('Code du programme')
+      label: _('retirement-cart.labels.program_code')
     }
   ];
 

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { isNull } from 'util';
 import {Membership} from '../../../../models/membership';
 import {MembershipService} from '../../../../services/membership.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-users-page',
@@ -49,7 +50,7 @@ export class UsersPageComponent implements OnInit {
   ];
 
   settings = {
-    noDataText: 'Aucun utilisateur pour le moment',
+    noDataText: _('users-page.no_users'),
     allowFiltering: false,
     clickable: true,
     previous: false,
@@ -59,23 +60,23 @@ export class UsersPageComponent implements OnInit {
     columns: [
       {
         name: 'first_name',
-        title: 'Prénom'
+        title: _('shared.common.first_name')
       },
       {
         name: 'last_name',
-        title: 'Nom'
+        title: _('shared.common.last_name')
       },
       {
         name: 'email',
-        title: 'Courriel'
+        title: _('shared.common.email')
       },
       {
         name: 'university',
-        title: 'Université'
+        title: _('shared.common.university')
       },
       {
         name: 'is_active',
-        title: 'Actif',
+        title: _('shared.common.active'),
         type: 'boolean'
       }
     ]

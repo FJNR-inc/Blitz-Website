@@ -11,6 +11,7 @@ import {FormUtil} from '../../../../utils/form';
 import {TranslateService} from '@ngx-translate/core';
 import {InternationalizationService} from '../../../../services/internationalization.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-memberships',
@@ -29,8 +30,8 @@ export class MembershipsComponent implements OnInit {
   selectedMembershipUrl: string;
 
   settings = {
-    title: 'Memberships',
-    noDataText: 'Aucun membership pour le moment',
+    title: _('memberships.memberships'),
+    noDataText: _('memberships.no_membership'),
     addButton: true,
     editButton: true,
     previous: false,
@@ -40,15 +41,15 @@ export class MembershipsComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: 'shared.form.name'
+        title: _('shared.form.name')
       },
       {
         name: 'price',
-        title: 'shared.form.price'
+        title: _('shared.form.price')
       },
       {
         name: 'available',
-        title: 'shared.form.available',
+        title: _('shared.form.available'),
         type: 'boolean'
       }
     ]
@@ -58,33 +59,33 @@ export class MembershipsComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: 'shared.form.name_in_french'
+      label: _('shared.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: 'shared.form.name_in_english'
+      label: _('shared.form.name_in_english')
     },
     {
       name: 'price',
       type: 'number',
-      label: 'shared.form.price'
+      label: _('shared.form.price')
     },
     {
       name: 'academic_levels',
       type: 'choices',
-      label: 'shared.form.academic_level_required',
+      label: _('shared.form.academic_level_required'),
       choices: []
     },
     {
       name: 'warning',
       type: 'alert',
-      label: 'memberships.form.alert_academic_levels'
+      label: _('memberships.form.alert_academic_levels')
     },
     {
       name: 'available',
       type: 'checkbox',
-      label: 'shared.form.available'
+      label: _('shared.form.available')
     },
   ];
 
@@ -92,34 +93,11 @@ export class MembershipsComponent implements OnInit {
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
-              private acdemicLevelService: AcademicLevelService,
-              private translate: TranslateService,
-              private internationalizationService: InternationalizationService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) { }
+              private acdemicLevelService: AcademicLevelService) { }
 
   ngOnInit() {
-    this.translateItems();
     this.refreshMembershipList();
     this.refreshAcademicLevelList();
-  }
-
-  translateItems() {
-    for (const field of this.fields) {
-      this.translate.get(field.label).subscribe(
-        (translatedLabel: string) => {
-          field.label = translatedLabel;
-        }
-      );
-    }
-
-    for (const column of this.settings.columns) {
-      this.translate.get(column.title).subscribe(
-        (translatedLabel: string) => {
-          column.title = translatedLabel;
-        }
-      );
-    }
   }
 
   initForm(academicLevelsSelected = []) {
@@ -212,7 +190,7 @@ export class MembershipsComponent implements OnInit {
       if (this.selectedMembershipUrl) {
         this.membershipService.update(this.selectedMembershipUrl, membership).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.updated.title');
+            this.notificationService.success(_('shared.notifications.commons.updated.title'));
             this.refreshMembershipList();
             this.toogleModal('form_memberships');
           },
@@ -220,11 +198,7 @@ export class MembershipsComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
             } else {
-              this.translate.get('shared.form.errors.unknown').subscribe(
-                (translatedLabel: string) => {
-                  this.membershipErrors =  [translatedLabel];
-                }
-              );
+              this.membershipErrors =  ['shared.form.errors.unknown'];
             }
             this.membershipForm = FormUtil.manageFormErrors(this.membershipForm, err);
           }
@@ -232,7 +206,7 @@ export class MembershipsComponent implements OnInit {
       } else {
         this.membershipService.create(membership).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.added.title');
+            this.notificationService.success(_('shared.notifications.commons.added.title'));
             this.refreshMembershipList();
             this.toogleModal('form_memberships');
           },
@@ -240,11 +214,7 @@ export class MembershipsComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
             } else {
-              this.translate.get('shared.form.errors.unknown').subscribe(
-                (translatedLabel: string) => {
-                  this.membershipErrors =  [translatedLabel];
-                }
-              );
+              this.membershipErrors =  ['shared.form.errors.unknown'];
             }
             this.membershipForm = FormUtil.manageFormErrors(this.membershipForm, err);
           }

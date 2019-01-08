@@ -20,22 +20,21 @@
               maxWidth="600px"
               [activated]="isSecurityOnDeletionValid()">
   <p>
-    Supprimer une période de rédaction peux avoir de lourde conséquence sur les
-    utilisateurs de l'espace et toutes les données saisies dans le système.
+    {{ 'table-periods.validation_deletion_modal.text_1'| translate }}
   </p>
   <p>
-    En supprimant cette période de rédaction vous entrainez potentiellement des remboursements
-    ainsi que des courriels d'excuses auprès de tous les utilisateurs ayant déjà réservé des
-    blocs de rédactions.
+    {{ 'table-periods.validation_deletion_modal.text_2'| translate }}
   </p>
   <div class="form-group">
-    <label class="nt-form-label">Message explicatif pour les utilisateurs:</label>
+    <label class="nt-form-label">
+      {{ 'table-periods.validation_deletion_modal.labels.custom_message'| translate }}:
+    </label>
     <textarea [(ngModel)]="messageOnDeletion" class="nt-form-input nt-form-input--textarea"></textarea>
   </div>
   <div class="align-top">
     <input id="securityCheckbox" type="checkbox" [(ngModel)]="securityOnDeletion" />
     <label class="nt-form-label" for="securityCheckbox">
-      Je me suis renseigné sur les conséquences de mon acte et en prend l'entière responsabilité
+      {{ 'table-periods.validation_deletion_modal.labels.checkbox_security'| translate }}
     </label>
   </div>
 </app-nt-modal>

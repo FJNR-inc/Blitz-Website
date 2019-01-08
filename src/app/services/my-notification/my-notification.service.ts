@@ -8,7 +8,7 @@ export class MyNotificationService {
   constructor(private notificationService: NotificationsService,
               private translate: TranslateService) { }
 
-  success(title: string, content: string = null) {
+  success(title, content = null) {
     const labels = [title];
 
     if (content) {
@@ -31,7 +31,7 @@ export class MyNotificationService {
     );
   }
 
-  error(title: string, content: string = null) {
+  error(title, content = null) {
     const labels = [title];
 
     if (content) {
