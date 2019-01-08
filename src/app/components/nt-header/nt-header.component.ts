@@ -4,6 +4,8 @@ import {User} from '../../models/user';
 import {ProfileService} from '../../services/profile.service';
 import {InternationalizationService} from '../../services/internationalization.service';
 import {NavigationEnd, Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-nt-header',
@@ -50,60 +52,60 @@ export class NtHeaderComponent implements OnInit {
 
   nav: any[] = [
     {
-      label: 'à propos',
+      label: _('À propos'),
       url: '',
       router_url: '',
       nav: [
         {
-          label: 'Mission',
+          label: _('Mission'),
           url: 'http://www.thesez-vous.com/agrave-propos.html',
           router_url: ''
         }, {
-          label: 'Historique',
+          label: _('Historique'),
           url: 'http://www.thesez-vous.com/historique.html',
           router_url: ''
         }, {
-          label: 'Équipe',
+          label: _('Équipe'),
           url: 'http://www.thesez-vous.com/equipe.html',
           router_url: ''
         }, {
-          label: 'Revue de presse',
+          label: _('Revue de presse'),
           url: 'http://www.thesez-vous.com/revue-de-presse.html',
           router_url: ''
         }, {
-          label: 'Prix et distinctions',
+          label: _('Prix et distinctions'),
           url: 'http://www.thesez-vous.com/prix-et-distinctions.html',
           router_url: ''
         }, {
-          label: 'Besoin d’aide?',
+          label: _('Besoin d’aide?'),
           url: 'http://www.thesez-vous.com/besoin-daide.html',
           router_url: '',
           type: 'button'
         }
       ]
     }, {
-      label: 'Retraites',
+      label: _('Retraites'),
       url: '',
       router_url: '',
       nav: [
         {
-          label: 'Qu’est-ce?',
+          label: _('Qu\'est-ce?'),
           url: 'http://www.thesez-vous.com/questcequuneretraite.html',
           router_url: ''
         }, {
-          label: 'Retraites hors ville',
+          label: _('Retraites hors ville'),
           url: 'http://www.thesez-vous.com/questcequuneretraite.html',
           router_url: ''
         }, {
-          label: 'Bourses et financement',
+          label: _('Bourses et financement'),
           url: 'http://www.thesez-vous.com/bourses-et-financement.html\n',
           router_url: ''
         }, {
-          label: 'Partenariat SBL',
+          label: _('Partenariat SBL'),
           url: 'http://www.thesez-vous.com/sbl.html',
           router_url: ''
         }, {
-          label: 'S’inscrire',
+          label: _('S\'inscrire'),
           url: '',
           router_url: '/retirements',
           type: 'button',
@@ -111,81 +113,81 @@ export class NtHeaderComponent implements OnInit {
         }
       ]
     }, {
-      label: 'Espace',
+      label: _('Espace'),
       url: '',
       router_url: '',
       nav: [
         {
-          label: 'Qu’est-ce?',
+          label: _('Qu\'est-ce?'),
           url: '',
           router_url: ''
         }, {
-          label: 'Fonctionnement',
+          label: _('Fonctionnement'),
           url: 'http://www.thesez-vous.com/inscriptionespace.html',
           router_url: ''
         }, {
-          label: 'Programmation',
+          label: _('Programmation'),
           url: 'http://www.thesez-vous.com/espace.html',
           router_url: ''
         }, {
-          label: 'Réserver',
+          label: _('Réserver'),
           url: '',
           router_url: '/reservation/1',
           type: 'button'
         }
       ]
     }, {
-      label: 'Membership',
+      label: _('Membership'),
       url: '',
       router_url: '',
       nav: [
         {
-          label: 'Étudiant',
+          label: _('Étudiant'),
           url: 'http://www.thesez-vous.com/membre-etudiant.html',
           router_url: ''
         }, {
-          label: 'Professeur',
+          label: _('Professeur'),
           url: 'http://www.thesez-vous.com/membreprof.html',
           router_url: ''
         }, {
-          label: 'Allié',
+          label: _('Allié'),
           url: 'http://www.thesez-vous.com/membreallie.html',
           router_url: ''
         }, {
-          label: 'Communauté',
+          label: _('Communauté'),
           url: 'http://www.thesez-vous.com/communaute.html',
           router_url: ''
         }, {
-          label: 'Termes et conditions',
+          label: _('Termes et conditions'),
           url: 'http://www.thesez-vous.com/termes-et-conditions.html',
           router_url: ''
         }, {
-          label: 'Portraits',
+          label: _('Portraits'),
           url: 'http://www.thesez-vous.com/portrait.html',
           router_url: ''
         }, {
-          label: 'Devenir membre',
+          label: _('Devenir membre'),
           url: '',
           router_url: '/register',
           type: 'button'
         }
       ]
     }, {
-      label: 'Ambassadeur.trices',
+      label: _('Ambassadeur.trices'),
       url: 'http://www.thesez-vous.com/reseau.html',
       router_url: '',
 
     }, {
-      label: 'Actualité',
+      label: _('Actualité'),
       url: 'http://www.thesez-vous.com/blogue.html',
       router_url: '',
 
     }, {
-      label: 'BiblioThèse',
+      label: _('BiblioThèse'),
       url: 'http://www.thesez-vous.com/bibliothese.html',
       router_url: '',
     }, {
-      label: 'Contact',
+      label: _('Contact'),
       url: 'http://www.thesez-vous.com/contact.html',
       router_url: '',
     }
@@ -194,7 +196,8 @@ export class NtHeaderComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
               private profileService: ProfileService,
               private internationalizationService: InternationalizationService,
-              private router: Router) {
+              private router: Router,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {

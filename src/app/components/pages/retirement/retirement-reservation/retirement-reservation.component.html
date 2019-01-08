@@ -1,7 +1,7 @@
 <div class="retirement-reservation">
   <div class="retirement-reservation__title">
     <div class="retirement-reservation__title__text">
-    Inscription aux retraites
+    {{ 'retirement-reservation.title' | translate }}
     </div>
   </div>
   <div class="retirement-reservation__content">
@@ -10,10 +10,10 @@
     <div *ngIf="!displayTutorial" class="retirement-reservation__content__list">
       <div class="retirement-reservation__content__list__go-to-cart" *ngIf="currentView === 'list'">
         <div>
-          1 retraite(s) sélectionnée(s)
+          1 {{ 'retirement-reservation.selected_retirement' | translate }}
         </div>
         <button class="nt-button" (click)="changeCurrentView('cart')">
-          Voir le panier
+          {{ 'retirement-reservation.see_cart' | translate }}
         </button>
       </div>
 
@@ -21,7 +21,7 @@
         <a class="retirement-reservation__content__list__go-to-list__link nt-link" (click)="changeCurrentView('list')">
           <img class="retirement-reservation__content__list__go-to-list__link__icon" src="../../assets/images/icons/icon_left_arrow.svg">
 
-          Retour aux choix
+          {{ 'retirement-reservation.back_to_list' | translate }}
         </a>
       </div>
 

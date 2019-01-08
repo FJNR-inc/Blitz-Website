@@ -1,13 +1,13 @@
 <div class="retirement-list">
   <div class="retirement-list__header">
     <div class="retirement-list__header__title nt-title">
-      Liste des retraites disponibles
+      {{ 'retirement-list.list_of_retirements' | translate }}
     </div>
     <div class="retirement-list__header__description">
-      Une retraite inclut hébergement, repas, ateliers et plein d'autres surprises.
+      {{ 'retirement-list.details' | translate }}
     </div>
     <a class="retirement-list__header__link nt-link">
-      En savoir plus
+      {{ 'retirement-list.know_more' | translate }}
     </a>
   </div>
   <div *ngFor="let retirement of retirements">

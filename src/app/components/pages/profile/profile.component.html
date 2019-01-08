@@ -257,7 +257,7 @@
           <app-loader></app-loader>
         </div>
         <div class="profile-page__content__right__retirement-reservations__list profile-page__content__right__retirement-reservations__list--empty" *ngIf="getDisplayedRetirementReservation().length === 0">
-          Aucune retraite prévue
+          {{ 'Aucune retraite prévue' | translate }}
         </div>
         <div class="profile-page__content__right__retirement-reservations__list" *ngIf="getDisplayedRetirementReservation().length">
           <div class="profile-page__content__right__retirement-reservations__list__item"
@@ -280,12 +280,12 @@
                 {{ retirementReservation.retirement_details.getDateInterval() }}
               </p>
               <div class="profile-page__content__right__retirement-reservations__list__item__description__more" *ngIf="retirementReservationOpen === retirementReservation.id">
-                <b>Début:</b> {{retirementReservation.retirement_details.getStartTime()}}<br/>
-                <b>Fin:</b> {{retirementReservation.retirement_details.getEndTime()}}<br/>
-                <b>Temps:</b> La fin de semaine<br/>
-                <b>Animation:</b> {{retirementReservation.retirement_details.activity_language}}<br/>
-                <b>Particularités:</b> Aucune<br/>
-                <b>Tarif:</b> {{retirementReservation.retirement_details.price}}$CAN<br/>
+                <b>{{ 'Début' | translate }}:</b> {{retirementReservation.retirement_details.getStartTime()}}<br/>
+                <b>{{ 'Fin' | translate }}:</b> {{retirementReservation.retirement_details.getEndTime()}}<br/>
+                <b>{{ 'Temps' | translate }}:</b> #La fin de semaine<br/>
+                <b>{{ 'Animation' | translate }}:</b> {{retirementReservation.retirement_details.activity_language}}<br/>
+                <b>{{ 'Particularités' | translate }}:</b> #Aucune<br/>
+                <b>{{ 'Tarif' | translate }}:</b> {{retirementReservation.retirement_details.price}}$CAN<br/>
               </div>
             </div>
             <div class="profile-page__content__right__retirement-reservations__list__item__actions">

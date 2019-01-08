@@ -37,6 +37,7 @@ import {TaxeUtil} from '../../../utils/taxe';
 import {InternationalizationService} from '../../../services/internationalization.service';
 import {TranslateService} from '@ngx-translate/core';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 
 declare let paysafe: any;
@@ -85,15 +86,15 @@ export class ReservationPageComponent implements OnInit {
     fields: {
       cardNumber: {
         selector: '#card-number',
-        placeholder: 'Numéro de carte'
+        placeholder: '1234 1234 1234 1234'
       },
       expiryDate: {
         selector: '#expiration-date',
-        placeholder: 'Date d\'expiration (Mois/Année)'
+        placeholder: 'MM/AA'
       },
       cvv: {
         selector: '#cvv',
-        placeholder: 'CVV'
+        placeholder: '123'
       }
     }
   };
@@ -105,43 +106,33 @@ export class ReservationPageComponent implements OnInit {
 
   colors = [
     {
-      'label': 'Beaucoup de places disponibles',
+      'label': _('Beaucoup de places disponibles'),
       'color': {
         primary: '#2A7358',
         secondary: '#2A7358'
       }
     },
     {
-      'label': 'Moins de 50% de places disponibles',
+      'label': _('Moins de 50% de places disponibles'),
       'color': {
         primary: '#FFB415',
         secondary: '#FFB415'
       }
     },
     {
-      'label': 'Presque plus de places disponibles',
+      'label': _('Presque plus de places disponibles'),
       'color': {
         primary: '#D95219',
         secondary: '#D95219'
       }
     },
     {
-      'label': 'Aucune places disponible',
+      'label': _('Aucune places disponible'),
       'color': {
         primary: '#E6DCCF',
         secondary: '#E6DCCF'
       }
     }
-  ];
-
-  labels: string[] = [
-    'shared.form.card_number',
-    'shared.form.expiration_date',
-    'shared.form.CVV',
-    'reservation.calendar_legend.many_places_availables',
-    'reservation.calendar_legend.half_capacity',
-    'reservation.calendar_legend.left_some_places',
-    'reservation.calendar_legend.no_more_places',
   ];
 
   waitPaysafe = false;
@@ -169,28 +160,12 @@ export class ReservationPageComponent implements OnInit {
     this.refreshListTimeSlot();
     this.refreshListMembership();
     this.subscribeToLocaleChange();
-    this.translateStrings();
-  }
-
-  translateStrings() {
-    this.translate.get(this.labels).subscribe(
-      (translatedLabels: string) => {
-        this.OPTIONS.fields.cardNumber = translatedLabels['shared.form.card_number'];
-        this.OPTIONS.fields.expiryDate = translatedLabels['shared.form.expiration_date'];
-        this.OPTIONS.fields.cvv = translatedLabels['shared.form.CVV'];
-        this.colors[0].label = translatedLabels['reservation.calendar_legend.many_places_availables'];
-        this.colors[1].label = translatedLabels['reservation.calendar_legend.half_capacity'];
-        this.colors[2].label = translatedLabels['reservation.calendar_legend.left_some_places'];
-        this.colors[3].label = translatedLabels['reservation.calendar_legend.no_more_places'];
-      }
-    );
   }
 
   subscribeToLocaleChange() {
       this.internationalizationService.locale.subscribe(
         emitedLocale => {
           this.locale = emitedLocale;
-          this.translateStrings();
         }
       );
   }
@@ -636,13 +611,13 @@ export class ReservationPageComponent implements OnInit {
 
   getLabelFinalizeButton() {
     if (this.totalPrice && this.totalTicket) {
-      return 'Payer & Réserver';
+      return _('Payer & Réserver');
     } else if (this.totalPrice) {
-      return 'Payer';
+      return _('Payer');
     } else if (this.totalTicket) {
-      return 'Réserver';
+      return _('Réserver');
     } else {
-      return 'Finaliser';
+      return _('Finaliser');
     }
   }
 

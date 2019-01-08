@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 import {MyModalService} from '../../../services/my-modal/my-modal.service';
 import {User} from '../../../models/user';
 import {AuthenticationService} from '../../../services/authentication.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-membership-register',
@@ -167,7 +168,7 @@ export class MembershipRegisterComponent implements OnInit {
       return;
     }
 
-    modal.button2Label = 'Accepter';
+    modal.button2Label = _('terms.button');
     modal.toggle();
   }
 

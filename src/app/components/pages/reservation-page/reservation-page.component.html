@@ -86,7 +86,7 @@
         <div class="reservation-page__content__reservation__calendar__legend">
           <div class="reservation-page__content__reservation__calendar__legend__item" *ngFor="let color of colors">
             <div class="reservation-page__content__reservation__calendar__legend__item__color" [style.background-color]="color.color.primary"></div>
-            <span class="reservation-page__content__reservation__calendar__legend__item__text">{{ color.label }}</span>
+            <span class="reservation-page__content__reservation__calendar__legend__item__text">{{ color.label | translate }}</span>
           </div>
         </div>
       </div>
@@ -196,7 +196,7 @@
           <li *ngIf="!needToBuyPackage() && getNumberOfTicket()"
               class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item--success">
             <img src="../../../../assets/images/icons/icon_check.svg" class="reservation-page__content__details__form__infos__item__icon">
-            Il vous reste {{ getNumberOfTicket() - totalTicket }} {{'reservation.bloc_prepayed' | translate}}.
+            {{'reservation.n_bloc_prepayed' | translate:{'numberOfTicket': getNumberOfTicket() - totalTicket} }}.
           </li>
           <li *ngIf="needToBuyPackage()"
               class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item">
@@ -287,7 +287,7 @@
           </div>
           <app-alert *ngIf="errorOrder" [messages]="errorOrder" type="danger"></app-alert>
           <button type="button" (click)="finalizeTransaction()" class="reservation-page__content__details__form__payment__button nt-button" [ngClass]="{'nt-button--disabled': isPaymentButtonDisabled()}">
-            {{ getLabelFinalizeButton() }}
+            {{ getLabelFinalizeButton() | translate }}
           </button>
         </form>
       </div>

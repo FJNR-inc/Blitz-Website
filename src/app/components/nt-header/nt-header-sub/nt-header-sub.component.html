@@ -1,7 +1,7 @@
 <div class="nt-header-sub" [ngClass]="{'nt-header-sub--hover': hover}" *ngIf="nav">
 
   <div class="nt-header-sub__title">
-    {{ title }}
+    {{ title | translate }}
   </div>
 
   <div class="nt-header-sub__nav">
@@ -16,7 +16,7 @@
          [href]="navItem.url"
          (click)="clickNav(navItem)"
          target="_blank">
-        {{ navItem.label }}
+        {{ navItem.label | translate }}
       </a>
       <a *ngIf="!navItem.url"
          class="nt-header-sub__nav__item__link"
@@ -25,7 +25,7 @@
             'nt-header-sub__nav__item__link--button' : navItem.type === 'button'
           }"
          (click)="clickNav(navItem)">
-        {{ navItem.label }}
+        {{ navItem.label | translate }}
       </a>
     </div>
   </div>

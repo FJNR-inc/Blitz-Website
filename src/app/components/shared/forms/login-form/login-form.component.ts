@@ -6,6 +6,7 @@ import {ProfileService} from '../../../../services/profile.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-login-form',
@@ -20,12 +21,12 @@ export class LoginFormComponent implements OnInit {
     {
       name: 'username',
       type: 'text',
-      label: 'Adresse courriel'
+      label: _('Adresse courriel')
     },
     {
       name: 'password',
       type: 'password',
-      label: 'Mot de passe'
+      label: _('Mot de passe')
     }
   ];
 

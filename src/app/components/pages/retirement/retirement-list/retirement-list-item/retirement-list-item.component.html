@@ -5,33 +5,33 @@
   <div class="retirement-list-item__description">
     {{retirement.address_line1}}<br/>
     {{retirement.getDateInterval()}}<br/>
-    {{retirement.seats}} place(s) disponible(s)
+    {{retirement.seats}} {{ 'retirement-list-item.place_availables' | translate }}
 
     <div *ngIf="showDetails" class="retirement-list-item__description__more">
-      <b>Début:</b> {{retirement.getStartTime()}}<br/>
-      <b>Fin:</b> {{retirement.getEndTime()}},<br/>
-      <b>Temps:</b> La fin de semaine<br/>
-      <b>Animation:</b> {{retirement.activity_language}}<br/>
-      <b>Particularités:</b> Aucune<br/>
-      <b>Tarif:</b> {{retirement.price}}$CAN<br/>
+      <b>{{ 'retirement-list-item.begin' | translate }}:</b> {{retirement.getStartTime()}}<br/>
+      <b>{{ 'retirement-list-item.end' | translate }}:</b> {{retirement.getEndTime()}},<br/>
+      <b>{{ 'retirement-list-item.times' | translate }}:</b> #La fin de semaine<br/>
+      <b>{{ 'retirement-list-item.animation' | translate }}:</b> {{retirement.activity_language}}<br/>
+      <b>{{ 'retirement-list-item.particularity' | translate }}:</b> #Aucune<br/>
+      <b>{{ 'retirement-list-item.price' | translate }}:</b> {{retirement.price}}$CAN<br/>
 
       <a class="retirement-list-item__description__more__button nt-button"
          *ngIf="isAvailable() && !isInCart(retirement)"
          (click)="addToCart(retirement)">
-        Ajouter au panier
+        {{ 'retirement-list-item.add_to_card' | translate }}
       </a>
       <a class="retirement-list-item__description__more__button nt-button nt-button--danger"
          *ngIf="isInCart(retirement)"
          (click)="removeFromCart(retirement)">
-        Retirer du panier
+        {{ 'retirement-list-item.remove_from_cart' | translate }}
       </a>
       <a class="retirement-list-item__description__more__button nt-button"
          *ngIf="!isAvailable() && !isInCart(retirement)">
-        S'inscrire à la liste d'attente
+        {{ 'retirement-list-item.register_to_waiting_list' | translate }}
       </a>
 
       <a class="retirement-list-item__description__more__link nt-link">
-        En savoir plus
+        {{ 'retirement-list-item.know_more' | translate }}
       </a>
     </div>
   </div>

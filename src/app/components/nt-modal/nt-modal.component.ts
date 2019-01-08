@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MyModalService } from '../../services/my-modal/my-modal.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-nt-modal',
@@ -12,7 +13,7 @@ export class NtModalComponent implements OnInit {
   @Input() title: string;
   @Input() typeModal: string;
   @Input() button1Label: string = null;
-  @Input() button2Label: string = null;
+  @Input() button2Label = null;
   @Input() maxWidth = '95%';
   @Input() activated = true;
   @Input() autoClose = false;
@@ -89,7 +90,7 @@ export class NtModalComponent implements OnInit {
     if (this.button1Label) {
       return this.button1Label;
     } else {
-      return 'Oui';
+      return _('Oui');
     }
   }
 
@@ -97,7 +98,7 @@ export class NtModalComponent implements OnInit {
     if (this.button2Label) {
       return this.button2Label;
     } else {
-      return 'Non';
+      return _('Non');
     }
   }
 }

@@ -14,13 +14,13 @@
                   class="modal-component__content__reveal__content__buttons__button nt-button"
                   (click)="clickButton1()"
                   [ngClass]="{'nt-button--success': typeModal === 'boolean'}">
-            {{ getLabelButton1() }}
+            {{ getLabelButton1() | translate }}
           </button>
           <button [disabled]="!activated"
                   class="modal-component__content__reveal__content__buttons__button nt-button nt-button--full-width"
                   (click)="clickButton2()"
                   [ngClass]="{'nt-button--danger': typeModal === 'boolean'}">
-            {{ getLabelButton2() }}
+            {{ getLabelButton2() | translate }}
           </button>
         </div>
       </div>

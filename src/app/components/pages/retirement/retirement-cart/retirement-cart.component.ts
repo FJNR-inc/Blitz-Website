@@ -9,6 +9,7 @@ import {Cart} from '../../../../models/cart';
 import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-retirement-cart',
@@ -32,18 +33,18 @@ export class RetirementCartComponent implements OnInit {
     {
       name: 'city',
       type: 'select',
-      label: 'Ville de résidence',
+      label: _('Ville de résidence'),
       choices: []
     },
     {
       name: 'phone',
       type: 'text',
-      label: 'Téléphone'
+      label: _('Téléphone')
     },
     {
       name: 'other',
       type: 'textarea',
-      label: 'Restrictions alimentaires ou autres'
+      label: _('Restrictions alimentaires ou autres')
     }
   ];
 
@@ -55,28 +56,28 @@ export class RetirementCartComponent implements OnInit {
     {
       name: 'coupon_code',
       type: 'text',
-      label: 'Code pour accéder à une bourse'
+      label: _('Code pour accéder à une bourse')
     },
     {
       name: 'matricule',
       type: 'text',
-      label: 'Matricule ou code permanent'
+      label: _('Matricule ou code permanent')
     },
     {
       name: 'text-warning',
       type: 'alert',
-      label: 'Vous devez répondre aux questions suivantes pour compléter vos ' +
-        'informations personnelles et vous inscrire à une ou des retraite(s).'
+      label: _('Vous devez répondre aux questions suivantes pour compléter ' +
+        'vos informations personnelles et vous inscrire à une ou des retraite(s).')
     },
     {
       name: 'faculty',
       type: 'text',
-      label: 'Faculté'
+      label: _('Faculté')
     },
     {
       name: 'program_code',
       type: 'text',
-      label: 'Code du programme'
+      label: _('Code du programme')
     }
   ];
 

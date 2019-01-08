@@ -23,7 +23,7 @@
            [href]="navItem.url"
            (click)="clickNav(navItem)"
            target="_blank">
-          {{ navItem.label }}
+          {{ navItem.label | translate }}
         </a>
         <a *ngIf="!navItem.url"
            class="nt-header__main__nav__item__link"
@@ -32,7 +32,7 @@
           'nt-header__main__nav__item__link--clickable' : navItem.url
           }"
            (click)="clickNav(navItem)">
-          {{ navItem.label }}
+          {{ navItem.label | translate }}
         </a>
       </div>
     </div>
@@ -40,7 +40,7 @@
     <div class="nt-header__main__nav "
          *ngIf="!showNav">
       <div class="nt-header__main__nav__closed">
-        MENU
+        {{ 'MENU' | translate }}
       </div>
     </div>
 
@@ -59,7 +59,7 @@
          class="nt-header__main__actions__item "
          *ngIf="!isAuthenticated()">
         <div *ngIf="showNav">
-          devenir membre
+          {{ 'devenir membre' | translate }}
         </div>
 
         <i *ngIf="!showNav" class="icon icon-profile icon--2x"></i>
@@ -69,7 +69,7 @@
          class="nt-header__main__actions__item "
          *ngIf="isAuthenticated()">
         <div *ngIf="showNav">
-          mon profil
+          {{ 'mon profil' | translate }}
         </div>
 
         <i *ngIf="!showNav" class="icon icon-profile icon--2x"></i>
@@ -79,7 +79,7 @@
          class="nt-header__main__actions__item"
          *ngIf="!isAuthenticated()">
         <div *ngIf="showNav">
-          se connecter
+          {{ 'se connecter' | translate }}
         </div>
         <i *ngIf="!showNav" class="icon icon-login icon--2x"></i>
       </a>
@@ -88,7 +88,7 @@
          class="nt-header__main__actions__item"
          *ngIf="isAuthenticated()">
         <div *ngIf="showNav">
-          se déconnecter
+          {{ 'se déconnecter' | translate }}
         </div>
         <i *ngIf="!showNav" class="icon icon-logout icon--2x"></i>
       </a>
@@ -151,25 +151,25 @@
       <a routerLink="/membership/intro"
          class="nt-header-responsive__actions__item "
          *ngIf="!isAuthenticated()">
-          devenir membre
+          {{ 'devenir membre' | translate }}
       </a>
 
       <a routerLink="/profile"
          class="nt-header-responsive__actions__item "
          *ngIf="isAuthenticated()">
-          mon profil
+          {{ 'mon profil' | translate }}
       </a>
 
       <a routerLink="/login"
          class="nt-header-responsive__actions__item"
          *ngIf="!isAuthenticated()">
-          se connecter
+          {{ 'se connecter' | translate }}
        </a>
 
       <a routerLink="/logout"
          class="nt-header-responsive__actions__item"
          *ngIf="isAuthenticated()">
-          se déconnecter
+          {{ 'se déconnecter' | translate }}
       </a>
 
       <a *ngIf="locale === 'fr'" (click)="changeLanguage('en')"
@@ -191,13 +191,13 @@
          [href]="navItem.url"
          (click)="clickNav(navItem)"
          target="_blank">
-        {{ navItem.label }}
+        {{ navItem.label | translate }}
       </a>
       <a *ngIf="!navItem.url"
          class="nt-header-responsive__nav__item__link"
          [ngClass]="{'nt-header-responsive__nav__item__link--active': selectedNav === navItem}"
          (click)="clickNav(navItem)">
-        {{ navItem.label }}
+        {{ navItem.label | translate }}
       </a>
 
       <div class="nt-header-responsive__nav__item__sub" *ngIf="navItem.nav"
@@ -209,12 +209,12 @@
              [href]="subNavItem.url"
              (click)="clickNav(subNavItem, true)"
              target="_blank">
-            {{ subNavItem.label }}
+            {{ subNavItem.label | translate }}
           </a>
           <a *ngIf="!subNavItem.url"
              class="nt-header-responsive__nav__item__sub__item__link"
              (click)="clickNav(subNavItem, true)">
-            {{ subNavItem.label }}
+            {{ subNavItem.label | translate }}
           </a>
         </div>
       </div>

@@ -101,6 +101,10 @@
     "text_promo_1": "Vous êtes étudiant.e à la maîtrise, au doctorat ou postdoctorant.e? Joignez-vous à la communauté Thèsez-vous en adhérant au membership.",
     "until": "jusqu'au"
   },
+  "header": {
+    "about": "à propos",
+    "mission": "Mission"
+  },
   "nt-header": {
     "about": "à propos",
     "administration": "administration",
@@ -180,6 +184,7 @@
     "add_to_card": "Ajouter au panier",
     "bloc(s)": "bloc(s)",
     "bloc_prepayed": "bloc(s) prépayé(s)",
+    "n_bloc_prepayed": "Il vous reste {{numberOfTicket}} bloc(s) prépayé(s)",
     "buy_prepayed_blocs": "Acheter des blocs de rédaction prépayés",
     "calendar_legend": {
       "half_capacity": "Moins de 50% de places disponibles",

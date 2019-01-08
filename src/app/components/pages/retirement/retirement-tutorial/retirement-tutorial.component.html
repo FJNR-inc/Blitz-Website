@@ -1,31 +1,31 @@
 <div class="retirement-tutorial">
   <div class="retirement-tutorial__title nt-title">
-    Inscription
+    {{ 'retirement-tutorial.inscription' | translate }}
   </div>
   <div class="retirement-tutorial__content">
     <p>
-      Suivez attentivement les étapes pour vous inscrire à une ou des retraite(s).
+      {{ 'retirement-tutorial.introduction' | translate }}
     </p>
 
     <ol class="retirement-tutorial__content__list">
-      <li>S'assurer d'être connecté à votre compte.</li>
-      <li>S'assurer d'être membre Thèsez-vous.</li>
-      <li>Entrer les informations complémentaires à l'inscription aux retraites.</li>
-      <li>Choisir la ou les retraite(s) auxquelles vous voulez participer.</li>
-      <li>Inscrire le code qui vous donne accès à une bourse, si applicable.</li>
-      <li>Accepter les termes et conditions et confirmer le paiement.</li>
-      <li>Remplir les questions spécifiques aux retraites, le cas échéant.</li>
+      <li>{{ 'retirement-tutorial.text_1' | translate }}</li>
+      <li>{{ 'retirement-tutorial.text_2' | translate }}</li>
+      <li>{{ 'retirement-tutorial.text_3' | translate }}</li>
+      <li>{{ 'retirement-tutorial.text_4' | translate }}</li>
+      <li>{{ 'retirement-tutorial.text_5' | translate }}</li>
+      <li>{{ 'retirement-tutorial.text_6' | translate }}</li>
+      <li>{{ 'retirement-tutorial.text_7' | translate }}</li>
     </ol>
   </div>
   <a class="retirement-tutorial__link nt-link" target="_blank" routerLink="/profile">
-    Une retraite Thèsez-vous, c'est quoi?
+    {{ 'retirement-tutorial.link' | translate }}
   </a>
   <div class="retirement-tutorial__actions">
     <a class="retirement-tutorial__actions__next nt-button" (click)="closeTutorial()">
-      Commencer
+      {{ 'retirement-tutorial.next' | translate }}
     </a>
     <a class="retirement-tutorial__actions__cancel nt-link" routerLink="/">
-      Retour à l'accueil
+      {{ 'retirement-tutorial.cancel' | translate }}
     </a>
   </div>
 </div>
