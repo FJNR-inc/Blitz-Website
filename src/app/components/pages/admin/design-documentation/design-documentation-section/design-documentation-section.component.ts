@@ -14,9 +14,7 @@ export class DesignDocumentationSectionComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.title);
-  }
+  ngOnInit() {}
 
   sanitize(code) {
     code = code.replace(/&/g, '&amp;');

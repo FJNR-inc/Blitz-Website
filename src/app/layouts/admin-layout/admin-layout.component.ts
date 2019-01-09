@@ -47,6 +47,10 @@ import {InternationalizationService} from '../../services/internationalization.s
               <i class="fas fa-place-of-worship"></i>
               {{ 'admin-layout.left-nav.retirements' | translate }}
             </a>
+            <a routerLink="/admin/coupons" class="left-nav__content__item">
+              <i class="fas fa-ticket-alt"></i>
+              {{ 'admin-layout.left-nav.coupons' | translate }}
+            </a>
             <a routerLink="/" class="left-nav__content__item">
               <i class="fas fa-door-open"></i>
               {{ 'admin-layout.left-nav.exit' | translate }}

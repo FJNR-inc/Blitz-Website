@@ -69,7 +69,6 @@ export class FileUploadComponent implements OnInit {
     }
 
     for (const file of files) {
-      console.log(file);
       this.newFile.emit(file);
     }
   }

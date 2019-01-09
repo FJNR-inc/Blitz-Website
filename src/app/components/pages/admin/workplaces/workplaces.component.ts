@@ -6,7 +6,6 @@ import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
-import {TranslateService} from '@ngx-translate/core';
 import {FormUtil} from '../../../../utils/form';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 

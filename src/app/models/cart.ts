@@ -103,7 +103,6 @@ export class Cart {
   }
 
   containPaymentMethod() {
-    console.log(this);
     if (this._single_use_token) {
       return true;
     } else if (this._payment_token) {

@@ -176,7 +176,6 @@ export class UsersPageComponent implements OnInit {
       };
       this.userFilters.push(newFilter);
     }
-    console.log(this.userFilters);
     this.refreshUserList();
   }
 

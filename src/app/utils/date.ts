@@ -14,7 +14,6 @@ export class DateUtil {
       day: 'numeric'
     };
     const locale = InternationalizationService.getLocale();
-    console.log(locale);
     return date.toLocaleDateString(locale, options);
   }
 

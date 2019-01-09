@@ -117,6 +117,8 @@ import {RetirementReservationService} from './services/retirement-reservation.se
 // tslint:disable-next-line:max-line-length
 import { TableRetirementReservationsComponent } from './components/table/table-retirement-reservations/table-retirement-reservations.component';
 import { CartPaymentComponent } from './components/shared/cart-payment/cart-payment.component';
+import {CouponService} from './services/coupon.service';
+import { CouponsComponent } from './components/pages/admin/coupons/coupons.component';
 
 registerLocaleData(localeFr);
 
@@ -311,6 +313,14 @@ const appRoutes = [
         ]
       },
       {
+        path: 'admin/coupons',
+        component: CouponsComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
         path: 'admin/workplaces/:id',
         component: WorkplaceComponent,
         canActivate: [
@@ -453,6 +463,7 @@ const appRoutes = [
     RetirementComponent,
     TableRetirementReservationsComponent,
     CartPaymentComponent,
+    CouponsComponent,
   ],
   imports: [
     BrowserModule,
@@ -509,6 +520,7 @@ const appRoutes = [
     MyCartService,
     RetirementService,
     RetirementReservationService,
+    CouponService,
   ],
   bootstrap: [AppComponent]
 })

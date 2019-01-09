@@ -120,7 +120,6 @@ export class TablePeriodsComponent implements OnInit {
     if (this.workplace) {
       filter = [{'name': 'workplace', 'value': this.workplace.id}];
     }
-    console.log(filter);
     this.periodService.list(filter, limit, limit * (page - 1)).subscribe(
       periods => {
         this.settings.numberOfPage = Math.ceil(periods.count / limit);
@@ -230,8 +229,6 @@ export class TablePeriodsComponent implements OnInit {
       if (!force && this.periodInDeletion.total_reservations > 0) {
         this.toggleModal('validation_deletion', 'Attention!', 'Rembourser & Contacter');
       } else {
-        console.log(force);
-        console.log(this.periodInDeletion.total_reservations);
         this.periodService.remove(this.periodInDeletion, force, this.messageOnDeletion).subscribe(
           data => {
             this.notificationService.success('shared.notifications.delete_period.title', 'shared.notifications.delete_period.content');

@@ -1,0 +1,19 @@
+<div class="admin-coupons-page">
+  <div class="admin-coupons-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="listCoupons"
+                  (addButton)="OpenModalCreateCoupon()"
+                  (removeItem)="removeCoupon($event)"
+                  (selectItem)="redirectToCoupon($event.id)"
+                  (changePage)="changePage($event)"
+                  [confirmationOnDeletion]="false">
+    </app-my-table>
+  </div>
+</div>
+
+<app-nt-modal name="form_coupons"
+              typeModal="success"
+              (button2)="submitCoupon()"
+              maxWidth="600px">
+  <app-form [form]="couponForm" [fields]="fields" [errors]="couponErrors"></app-form>
+</app-nt-modal>

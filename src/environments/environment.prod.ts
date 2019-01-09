@@ -41,5 +41,6 @@ export const environment = {
     custom_payments: '/custom_payments',
     retirements: '/retirement/retirements',
     retirementReservations: '/retirement/reservations',
+    coupons: '/coupons',
   }
 };

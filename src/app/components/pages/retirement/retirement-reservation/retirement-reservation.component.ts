@@ -19,7 +19,6 @@ export class RetirementReservationComponent implements OnInit {
     this.cartService.cart.subscribe(
       emitedCart => {
         this.cart = emitedCart;
-        console.log(this.cart);
       }
     );
   }
