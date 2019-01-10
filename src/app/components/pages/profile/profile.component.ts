@@ -52,7 +52,8 @@ export class ProfileComponent implements OnInit {
   totalFutureRetirementReservations = 0;
 
   listRetirements: Retirement[];
-  selectedRetirement: Retirement;
+  selectedRetirementReservation: RetirementReservation;
+  errorCancelationRetirementReservation = null;
 
   listCards: Card[];
   listWorkplaces: Workplace[];
@@ -357,14 +358,15 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  openModalExchangeRetirementReservation(selectedRetirement) {
-    this.selectedRetirement = selectedRetirement;
+  openModalExchangeRetirementReservation(selectedRetirementReservation) {
+    this.selectedRetirementReservation = selectedRetirementReservation;
     this.refreshRetirements();
     this.toogleModal('form_exchange_retirement');
   }
 
-  openModalCancelRetirementReservation(selectedRetirement) {
-    this.selectedRetirement = selectedRetirement;
+  openModalCancelRetirementReservation(selectedRetirementReservation) {
+    this.errorCancelationRetirementReservation = null;
+    this.selectedRetirementReservation = selectedRetirementReservation;
     this.toogleModal('form_cancel_reservation_retirement');
   }
 
@@ -372,7 +374,7 @@ export class ProfileComponent implements OnInit {
     if (this.listRetirements) {
       const list = [];
       for (const retirement of this.listRetirements) {
-        if (retirement.id !== this.selectedRetirement.id) {
+        if (retirement.id !== this.selectedRetirementReservation.retirement_details.id) {
           list.push(retirement);
         }
       }
@@ -387,6 +389,22 @@ export class ProfileComponent implements OnInit {
   }
 
   cancelRetirement() {
-    this.toogleModal('form_cancel_reservation_retirement');
+    this.retirementReservationService.remove(this.selectedRetirementReservation).subscribe(
+      data => {
+        this.notificationService.success(
+          _('shared.notifications.cancel_retirement_reservation.title'),
+          _('shared.notifications.cancel_retirement_reservation.content')
+        );
+        this.refreshRetirementReservation();
+        this.toogleModal('form_cancel_reservation_retirement');
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.errorCancelationRetirementReservation = err.error.non_field_errors;
+        } else {
+          this.errorCancelationRetirementReservation = [_('shared.alert.errors.unknown')];
+        }
+      }
+    );
   }
 }

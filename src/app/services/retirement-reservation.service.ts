@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
 import {Retirement} from '../models/retirement';
+import {RetirementReservation} from '../models/retirementReservation';
 
 @Injectable()
 export class RetirementReservationService extends GlobalService {
@@ -33,6 +34,14 @@ export class RetirementReservationService extends GlobalService {
     return this.http.get<any>(
       this.url_retirement_reservation,
       {headers: headers, params: params}
+    );
+  }
+
+  remove(retirementReservation: RetirementReservation): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(
+      retirementReservation.url,
+      {headers: headers}
     );
   }
 }

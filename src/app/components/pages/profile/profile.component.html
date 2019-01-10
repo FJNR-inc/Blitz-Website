@@ -292,16 +292,16 @@
               <a *ngIf="retirementReservation.retirement_details.form_url" class="profile-page__content__right__retirement-reservations__list__item__actions__item" target="_blank" [href]="retirementReservation.retirement_details.form_url">
                 <i class="icon icon-form icon--3x"></i>
               </a>
+              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
+                 (click)="openModalCancelRetirementReservation(retirementReservation)">
+                <i class="icon icon-times icon--3x"></i>
+              </a>
               <!---
               HIDDEN FOR THE FIRST ITERATION
 
               <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
-                 (click)="openModalExchangeRetirementReservation(retirementReservation.retirement_details)">
+                 (click)="openModalExchangeRetirementReservation(retirementReservation)">
                 <i class="icon icon-transfer icon--3x"></i>
-              </a>
-              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
-                 (click)="openModalCancelRetirementReservation(retirementReservation.retirement_details)">
-                <i class="icon icon-times icon--3x"></i>
               </a>
               -->
             </div>
@@ -359,7 +359,7 @@
               (button2)="exchangeRetirement()"
               maxWidth="600px"
               class="form-exchange-retirement">
-  <div *ngIf="selectedRetirement">
+  <div *ngIf="selectedRetirementReservation">
     <p>
       {{ 'profile.exchange_reservation_retirement_text' | translate }}
     </p>
@@ -369,7 +369,7 @@
     </h2>
 
     <select [disabled]="true" class="nt-form-input nt-form-input--select">
-      <option>{{ selectedRetirement.name }} - {{ selectedRetirement.getStartTime() }}</option>
+      <option>{{ selectedRetirementReservation.retirement_details.name }} - {{ selectedRetirementReservation.retirement_details.getStartTime() }}</option>
     </select>
 
     <div class="form-exchange-retirement__icon">
@@ -382,7 +382,7 @@
 
     <select class="nt-form-input nt-form-input--select">
       <option *ngFor="let retirement of getChoicesExchangeRetirement()">
-        {{ retirement.name }} - {{ selectedRetirement.getStartTime() }}
+        {{ selectedRetirementReservation.retirement_details.name }} - {{ selectedRetirementReservation.retirement_details.getStartTime() }}
       </option>
     </select>
   </div>
@@ -394,19 +394,21 @@
               button2Label="{{ 'profile.cancel_reservation_retirement_button' | translate }}"
               (button2)="cancelRetirement()"
               maxWidth="600px">
-  <div *ngIf="selectedRetirement" class="form-cancel-reservation-retirement">
+  <div *ngIf="selectedRetirementReservation" class="form-cancel-reservation-retirement">
     <p>
-      {{ 'profile.cancel_reservation_retirement_text_1' | translate }}
+      {{ 'profile.cancel_reservation_retirement_text_1' | translate:{'rate': selectedRetirementReservation.retirement_details.refund_rate, 'delay_max': selectedRetirementReservation.retirement_details.min_day_refund} }}
 
     </p>
 
     <div class="form-cancel-reservation-retirement__retirement">
-      {{ selectedRetirement.name }}<br/>
-      {{ selectedRetirement.details }}<br/>
-      {{ selectedRetirement.getDateInterval() }}
+      {{ selectedRetirementReservation.retirement_details.name }}<br/>
+      {{ selectedRetirementReservation.retirement_details.details }}<br/>
+      {{ selectedRetirementReservation.retirement_details.getDateInterval() }}
     </div>
     <p>
       {{ 'profile.cancel_reservation_retirement_text_2' | translate }}
     </p>
+
+    <app-alert type="danger" [messages]="errorCancelationRetirementReservation" *ngIf="errorCancelationRetirementReservation"></app-alert>
   </div>
 </app-nt-modal>
