@@ -191,7 +191,7 @@
       direction: rtl;
 
       &__closed {
-
+        text-transform: uppercase;
         transform: rotate(270deg);
       }
 
