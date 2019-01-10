@@ -11,6 +11,8 @@ import {DateUtil} from '../../../../../utils/date';
 export class RetirementListItemComponent implements OnInit {
 
   @Input() retirement: Retirement;
+  @Input() reserved = false;
+
   showDetails = false;
 
   constructor(private cartService: MyCartService) { }
@@ -27,15 +29,27 @@ export class RetirementListItemComponent implements OnInit {
     return this.retirement.users.length < this.retirement.seats;
   }
 
-  addToCart(retirement) {
-    this.cartService.addRetirement(retirement);
+  userCanAddToCart() {
+    return !this.reserved && this.isAvailable() && !this.isInCart();
   }
 
-  removeFromCart(retirement) {
-    this.cartService.removeRetirement(retirement.id);
+  userCanRemoveFromCart() {
+    return this.isInCart();
   }
 
-  isInCart(retirement) {
-    return this.cartService.contain(retirement);
+  userCanSubscribeToWaitingList() {
+    return !this.reserved && !this.isAvailable();
+  }
+
+  addToCart() {
+    this.cartService.addRetirement(this.retirement);
+  }
+
+  removeFromCart() {
+    this.cartService.removeRetirement(this.retirement.id);
+  }
+
+  isInCart() {
+    return this.cartService.contain(this.retirement);
   }
 }

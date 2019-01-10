@@ -42,6 +42,9 @@ export class Retirement extends BaseModel {
   users: User[];
   exclusive_memberships: Membership[];
   is_active: boolean;
+  form_url: string;
+  email_content: string;
+  accessibility: boolean;
 
   constructor(data: Object = {}) {
     super(data);

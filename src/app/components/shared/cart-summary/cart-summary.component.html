@@ -17,7 +17,8 @@
 
     <div *ngFor="let retirement of cart.getRetirements()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__name">
-        {{retirement.name}}
+        {{ retirement.name }}<br/>
+        {{ retirement.getDateInterval() }}
       </div>
       <div class="cart-summary__items__item__price">
         {{retirement.price}} $CAN
@@ -26,6 +27,19 @@
         <a (click)="removeRetirementFromCart(retirement)">
           <img class="cart-summary__items__item__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
         </a>
+      </div>
+    </div>
+  </div>
+  <div class="cart-summary__coupons" *ngIf="cart.getCoupons().length">
+    <div *ngFor="let coupon of cart.getCoupons()" class="cart-summary__coupons__coupon">
+      <div class="cart-summary__coupons__coupon__code">
+        {{coupon.code}}
+      </div>
+      <div class="cart-summary__coupons__coupon__price" *ngIf="coupon.value">
+        {{coupon.value}} $CAN
+      </div>
+      <div class="cart-summary__coupons__coupon__action">
+        <img (click)="removeCouponFromCart(coupon)" class="cart-summary__coupons__coupon__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
       </div>
     </div>
   </div>

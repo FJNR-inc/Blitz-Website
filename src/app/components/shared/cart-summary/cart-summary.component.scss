@@ -46,6 +46,45 @@
     }
   }
 
+  &__coupons {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid $border-calendar;
+    margin-top: 30px;
+
+    &__coupon {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid $border-calendar;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &__code {
+        flex: 1;
+        padding: 10px;
+        color: $nt-10;
+      }
+
+      &__price {
+        padding: 10px;
+      }
+
+      &__action {
+        padding: 10px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &__icon {
+          width: 20px;
+        }
+      }
+    }
+  }
+
   &__taxes {
 
     &__line {

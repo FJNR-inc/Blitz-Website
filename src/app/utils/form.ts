@@ -19,6 +19,18 @@ export class FormUtil {
     return form;
   }
 
+  static isCompleted(form: FormGroup, fields) {
+    for (const field of fields) {
+      if (field.type !== 'alert') {
+        if (!form.controls[field.name].value) {
+          console.log(form.controls[field.name].value);
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   constructor() { }
 
   createFormGroup(fields) {

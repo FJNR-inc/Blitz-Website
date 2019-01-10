@@ -16,19 +16,22 @@
       <b>{{ 'retirement-list-item.price' | translate }}:</b> {{retirement.price}}$CAN<br/>
 
       <a class="retirement-list-item__description__more__button nt-button"
-         *ngIf="isAvailable() && !isInCart(retirement)"
+         *ngIf="userCanAddToCart()"
          (click)="addToCart(retirement)">
         {{ 'retirement-list-item.add_to_card' | translate }}
       </a>
       <a class="retirement-list-item__description__more__button nt-button nt-button--danger"
-         *ngIf="isInCart(retirement)"
+         *ngIf="userCanRemoveFromCart()"
          (click)="removeFromCart(retirement)">
         {{ 'retirement-list-item.remove_from_cart' | translate }}
       </a>
       <a class="retirement-list-item__description__more__button nt-button"
-         *ngIf="!isAvailable() && !isInCart(retirement)">
+         *ngIf="userCanSubscribeToWaitingList()">
         {{ 'retirement-list-item.register_to_waiting_list' | translate }}
       </a>
+      <app-alert class="retirement-list-item__description__more__alert" *ngIf="reserved" type="success">
+        {{ 'retirement-list-item.already_reserved' | translate }}
+      </app-alert>
 
       <a class="retirement-list-item__description__more__link nt-link">
         {{ 'retirement-list-item.know_more' | translate }}

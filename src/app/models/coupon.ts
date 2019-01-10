@@ -4,6 +4,7 @@ import {DateUtil} from '../utils/date';
 export class Coupon extends BaseModel {
   id: number;
   url: string;
+  code: string;
   applicable_product_types: string;
   value: string;
   max_use: string;

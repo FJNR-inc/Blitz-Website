@@ -5,6 +5,7 @@ import {Membership} from '../../models/membership';
 import {Retirement} from '../../models/retirement';
 import {TimeSlot} from '../../models/timeSlot';
 import {Cart} from '../../models/cart';
+import {Coupon} from '../../models/coupon';
 
 
 @Injectable({
@@ -77,9 +78,21 @@ export class MyCartService {
     this.setCart(cart);
   }
 
+  addCoupon(coupon: Coupon) {
+    const cart = this.getCart();
+    cart.addCoupon(coupon);
+    this.setCart(cart);
+  }
+
   removeMembership(membershipId: number) {
     const cart = this.getCart();
     cart.removeMembership(membershipId);
+    this.setCart(cart);
+  }
+
+  removeCoupon(couponCode: string) {
+    const cart = this.getCart();
+    cart.removeCoupon(couponCode);
     this.setCart(cart);
   }
 

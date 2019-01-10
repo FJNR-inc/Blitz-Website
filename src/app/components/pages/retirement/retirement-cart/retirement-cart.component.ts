@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {Order} from '../../../../models/order';
 import {MyCartService} from '../../../../services/my-cart/my-cart.service';
 import {MembershipService} from '../../../../services/membership.service';
 import {Membership} from '../../../../models/membership';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../../../../utils/form';
 import {Cart} from '../../../../models/cart';
-import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {OrderService} from '../../../../services/order.service';
+import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
+import {Router} from '@angular/router';
+import {UserService} from '../../../../services/user.service';
+import {User} from '../../../../models/user';
+import {Coupon} from '../../../../models/coupon';
 
 @Component({
   selector: 'app-retirement-cart',
@@ -19,22 +23,33 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 export class RetirementCartComponent implements OnInit {
 
   currentStep: number;
-  stepOpened: number[] = [];
+  stepOpened: number[] = [4];
 
   memberships: Membership[];
   selectedMembership = null;
 
+  waitAPI = false;
+  errorOrder;
+
   cart: Cart;
 
   personalInformationForm: FormGroup;
-  personalInformationFormIsValid = false;
   personalInformationErrors: string[];
   personalInformationFields = [
     {
       name: 'city',
       type: 'select',
       label: _('retirement-cart.labels.city'),
-      choices: []
+      choices: [
+        {
+          label: 'Montréal',
+          value: 'Montreal'
+        },
+        {
+          label: 'Toronto',
+          value: 'Toronto'
+        }
+      ]
     },
     {
       name: 'phone',
@@ -42,7 +57,7 @@ export class RetirementCartComponent implements OnInit {
       label: _('retirement-cart.labels.phone')
     },
     {
-      name: 'other',
+      name: 'personnal_restrictions',
       type: 'textarea',
       label: _('retirement-cart.labels.restrictions')
     }
@@ -50,7 +65,6 @@ export class RetirementCartComponent implements OnInit {
 
 
   universityForm: FormGroup;
-  universityFormIsValid = false;
   universityErrors: string[];
   universityFields = [
     {
@@ -59,7 +73,7 @@ export class RetirementCartComponent implements OnInit {
       label: _('retirement-cart.labels.grant_code')
     },
     {
-      name: 'matricule',
+      name: 'student_number',
       type: 'text',
       label: _('retirement-cart.labels.matricule')
     },
@@ -74,7 +88,7 @@ export class RetirementCartComponent implements OnInit {
       label: _('retirement-cart.labels.faculty')
     },
     {
-      name: 'program_code',
+      name: 'academic_program_code',
       type: 'text',
       label: _('retirement-cart.labels.program_code')
     }
@@ -83,12 +97,17 @@ export class RetirementCartComponent implements OnInit {
   constructor(private cartService: MyCartService,
               private membershipService: MembershipService,
               private authenticationService: AuthenticationService,
-              private myModalService: MyModalService) {
+              private myModalService: MyModalService,
+              private orderService: OrderService,
+              private notificationService: MyNotificationService,
+              private router: Router,
+              private userService: UserService) {
     this.cart = this.cartService.getCart();
     this.cartService.cart.subscribe(
       emitedCart => {
         this.cart = emitedCart;
         this.defineCurrentStep();
+        console.log(this.cart.getCoupons());
       }
     );
   }
@@ -113,10 +132,8 @@ export class RetirementCartComponent implements OnInit {
       this.currentStep = 1;
     } else if ( !this.haveMembership() ) {
       this.currentStep = 2;
-    } else if ( !this.personalInformationFormIsValid ) {
+    } else if ( !this.personalInformationFormIsValid() ) {
       this.currentStep = 3;
-    } else if ( !this.universityFormIsValid ) {
-      this.currentStep = 4;
     } else {
       this.currentStep = 5;
     }
@@ -132,6 +149,11 @@ export class RetirementCartComponent implements OnInit {
     }
   }
 
+  personalInformationFormIsValid() {
+    const profile = this.authenticationService.getProfile();
+    return !!(profile.phone && profile.personnal_restrictions && profile.city);
+  }
+
   havePaymentMethod() {
     return this.cartService.containPaymentMethod();
   }
@@ -139,6 +161,10 @@ export class RetirementCartComponent implements OnInit {
   initPersonalInformationForm() {
     const formUtil = new FormUtil();
     this.personalInformationForm = formUtil.createFormGroup(this.personalInformationFields);
+    const profile = this.authenticationService.getProfile();
+    this.personalInformationForm.controls['city'].setValue(profile.city);
+    this.personalInformationForm.controls['phone'].setValue(profile.phone);
+    this.personalInformationForm.controls['personnal_restrictions'].setValue(profile.personnal_restrictions);
   }
 
   initUniversityForm() {
@@ -166,16 +192,56 @@ export class RetirementCartComponent implements OnInit {
   }
 
   submitPersonalInformation() {
-    this.personalInformationFormIsValid = true;
-    this.defineCurrentStep();
+    const value = this.personalInformationForm.value;
+    const profile = this.authenticationService.getProfile();
+    this.userService.update(profile.url, value).subscribe(
+      user => {
+        this.authenticationService.setProfile(user);
+        this.defineCurrentStep();
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.personalInformationErrors = err.error.non_field_errors;
+        } else {
+          this.personalInformationErrors =  ['shared.form.errors.unknown'];
+        }
+        this.personalInformationForm = FormUtil.manageFormErrors(this.personalInformationForm, err);
+      }
+    );
   }
 
   submitUniversityInformation() {
-    this.universityFormIsValid = true;
-    this.defineCurrentStep();
+    const value = new User({
+      academic_program_code: this.universityForm.controls['academic_program_code'].value,
+      faculty: this.universityForm.controls['faculty'].value,
+      student_number: this.universityForm.controls['student_number'].value
+    });
+
+    const profile = this.authenticationService.getProfile();
+    this.userService.update(profile.url, value).subscribe(
+      user => {
+        this.authenticationService.setProfile(user);
+        this.defineCurrentStep();
+        this.cartService.addCoupon(
+          new Coupon({
+              code: this.universityForm.controls['coupon_code'].value
+            }
+          )
+        );
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.universityErrors = err.error.non_field_errors;
+        } else {
+          this.universityErrors =  ['shared.form.errors.unknown'];
+        }
+        this.universityForm = FormUtil.manageFormErrors(this.universityForm, err);
+      }
+    );
   }
 
   openModalSummaryPayment() {
+    this.errorOrder = null;
     this.myModalService.get('summary_payment').toggle();
   }
 
@@ -190,5 +256,31 @@ export class RetirementCartComponent implements OnInit {
 
   isAuthenticated() {
     return this.authenticationService.isAuthenticated();
+  }
+
+  submitOrder() {
+    const order = this.cart.generateOrder();
+
+    this.orderService.create(order).subscribe(
+      response => {
+        this.waitAPI = false;
+        this.notificationService.success(
+          _('shared.notifications.order_done.title'),
+          _('shared.notifications.order_done.content')
+        );
+        this.router.navigate(['/profile']);
+      }, err => {
+        this.waitAPI = false;
+        if (err.error.non_field_errors) {
+          this.errorOrder = err.error.non_field_errors;
+        } else {
+          this.errorOrder = [_('shared.form.errors.unknown')];
+        }
+      }
+    );
+  }
+
+  canAddAGrant() {
+    return FormUtil.isCompleted(this.universityForm, this.universityFields);
   }
 }

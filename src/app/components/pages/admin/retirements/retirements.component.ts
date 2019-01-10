@@ -47,117 +47,132 @@ export class RetirementsComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('shared.form.retirement.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('shared.form.retirement.name_in_english')
     },
     {
       name: 'details_fr',
       type: 'textarea',
-      label: _('shared.form.description_in_french')
+      label: _('shared.form.retirement.description_in_french')
     },
     {
       name: 'details_en',
       type: 'textarea',
-      label: _('shared.form.description_in_english')
+      label: _('shared.form.retirement.description_in_english')
     },
     {
       name: 'seats',
       type: 'number',
-      label: _('shared.form.seats')
+      label: _('shared.form.retirement.seats')
     },
     {
       name: 'price',
       type: 'number',
-      label: _('shared.form.price')
+      label: _('shared.form.retirement.price')
     },
     {
       name: 'start_time',
       type: 'datetime',
-      label: _('shared.form.start_time')
+      label: _('shared.form.retirement.start_time')
     },
     {
       name: 'end_time',
       type: 'datetime',
-      label: _('shared.form.end_time')
+      label: _('shared.form.retirement.end_time')
+    },
+    {
+      name: 'form_url',
+      type: 'textarea',
+      label: _('shared.form.retirement.form_url')
+    },
+    {
+      name: 'email_content',
+      type: 'textarea',
+      label: _('shared.form.retirement.email_content')
     },
     {
       name: 'min_day_refund',
       type: 'number',
-      label: _('shared.form.min_day_refund')
+      label: _('shared.form.retirement.min_day_refund')
     },
     {
       name: 'min_day_exchange',
       type: 'number',
-      label: _('shared.form.min_day_exchange')
+      label: _('shared.form.retirement.min_day_exchange')
     },
     {
       name: 'refund_rate',
       type: 'number',
-      label: _('shared.form.refund_rate')
+      label: _('shared.form.retirement.refund_rate')
     },
     {
       name: 'address_line1_fr',
       type: 'text',
-      label: _('shared.form.address_line1_in_french')
+      label: _('shared.form.retirement.address_line1_in_french')
     },
     {
       name: 'address_line2_fr',
       type: 'text',
-      label: _('shared.form.address_line2_in_french')
+      label: _('shared.form.retirement.address_line2_in_french')
     },
     {
       name: 'address_line1_en',
       type: 'text',
-      label: _('shared.form.address_line1_in_english')
+      label: _('shared.form.retirement.address_line1_in_english')
     },
     {
       name: 'address_line2_en',
       type: 'text',
-      label: _('shared.form.address_line2_in_english')
+      label: _('shared.form.retirement.address_line2_in_english')
     },
     {
       name: 'postal_code',
       type: 'text',
-      label: _('shared.form.postal_code')
+      label: _('shared.form.retirement.postal_code')
     },
     {
       name: 'city_fr',
       type: 'text',
-      label: _('shared.form.city_in_french')
+      label: _('shared.form.retirement.city_in_french')
     },
     {
       name: 'city_en',
       type: 'text',
-      label: _('shared.form.city_in_english')
+      label: _('shared.form.retirement.city_in_english')
     },
     {
       name: 'state_province_fr',
       type: 'text',
-      label: _('shared.form.state_province_in_french')
+      label: _('shared.form.retirement.state_province_in_french')
     },
     {
       name: 'state_province_en',
       type: 'text',
-      label: _('shared.form.state_province_in_english')
+      label: _('shared.form.retirement.state_province_in_english')
     },
     {
       name: 'country_fr',
       type: 'text',
-      label: _('shared.form.country_in_french')
+      label: _('shared.form.retirement.country_in_french')
     },
     {
       name: 'country_en',
       type: 'text',
-      label: _('shared.form.country_in_english')
+      label: _('shared.form.retirement.country_in_english')
+    },
+    {
+      name: 'accessibility',
+      type: 'checkbox',
+      label: _('shared.form.retirement.accessibility')
     },
     {
       name: 'is_active',
       type: 'checkbox',
-      label: _('shared.form.available')
+      label: _('shared.form.retirement.available')
     }
   ];
 

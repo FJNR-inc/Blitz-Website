@@ -18,6 +18,11 @@ export class User extends BaseModel {
   membership: any;
   membership_end: string;
   tickets: number;
+  personnal_restrictions: string;
+  city: string;
+  student_number: string;
+  faculty: string;
+  academic_program_code: string;
 
   getUniversity() {
     if (this.university) {

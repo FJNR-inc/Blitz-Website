@@ -27,7 +27,6 @@ export class CouponsComponent implements OnInit {
     title: _('coupons.coupons'),
     noDataText: _('coupons.no_coupons'),
     addButton: true,
-    clickable: false,
     previous: false,
     next: false,
     numberOfPage: 0,

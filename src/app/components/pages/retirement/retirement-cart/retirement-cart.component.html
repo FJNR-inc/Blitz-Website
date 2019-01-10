@@ -31,32 +31,35 @@
       </div>
     </div>
     <div class="retirement-cart__step__content" *ngIf="currentStep===2 || stepOpened.indexOf(2) > -1">
-      <app-alert type="text-warning" *ngIf="!haveMembership()">
-        {{ 'retirement-cart.membership.warning' | translate }}
-      </app-alert>
+      <div *ngIf="!haveMembership()">
+        <app-alert type="text-warning">
+          {{ 'retirement-cart.membership.warning' | translate }}
+        </app-alert>
+
+        <p class="retirement-cart__step__content__section">
+          *{{ 'retirement-cart.membership.details' | translate }} <a href="mailto:info@thesez-vous.com">info@thesez-vous.com</a>.
+        </p>
+        <div class="retirement-cart__step__content__section form-group">
+          <label class="nt-form-label">
+            {{ 'retirement-cart.membership.labels.membership' | translate }}:
+            <a target="_blank" href="http://www.thesez-vous.com/membre.html">
+              <i class="icon icon-question-circle-reverse icon--2x"></i>
+            </a>
+          </label>
+          <select class="nt-form-input nt-form-input--select" [(ngModel)]="selectedMembership" [disabled]="haveMembership()">
+            <option value="" disabled>{{ 'retirement-cart.membership.placeholders.membership' | translate }}</option>
+            <option *ngFor="let membership of memberships" [value]="membership.id">{{membership.name}}</option>
+          </select>
+        </div>
+        <p class="retirement-cart__step__content__section">
+          <button class="nt-button" (click)="selectMembership()" [disabled]="!selectedMembership || haveMembership()">
+            {{ 'retirement-cart.membership.save' | translate }}
+          </button>
+        </p>
+      </div>
       <app-alert type="success" *ngIf="haveMembership()">
         {{ 'retirement-cart.membership.success' | translate }}
       </app-alert>
-      <p class="retirement-cart__step__content__section">
-        *{{ 'retirement-cart.membership.details' | translate }} <a href="mailto:info@thesez-vous.com">info@thesez-vous.com</a>.
-      </p>
-      <div class="retirement-cart__step__content__section form-group">
-        <label class="nt-form-label">
-          {{ 'retirement-cart.membership.labels.membership' | translate }}:
-          <a target="_blank" href="http://www.thesez-vous.com/membre.html">
-            <i class="icon icon-question-circle-reverse icon--2x"></i>
-          </a>
-        </label>
-        <select class="nt-form-input nt-form-input--select" [(ngModel)]="selectedMembership" [disabled]="haveMembership()">
-          <option value="" disabled>{{ 'retirement-cart.membership.placeholders.membership' | translate }}</option>
-          <option *ngFor="let membership of memberships" [value]="membership.id">{{membership.name}}</option>
-        </select>
-      </div>
-      <p class="retirement-cart__step__content__section">
-        <button class="nt-button" (click)="selectMembership()" [disabled]="!selectedMembership || haveMembership()">
-          {{ 'retirement-cart.membership.save' | translate }}
-        </button>
-      </p>
     </div>
   </div>
 
@@ -70,8 +73,11 @@
       </div>
     </div>
     <div class="retirement-cart__step__content" *ngIf="currentStep===3 || stepOpened.indexOf(3) > -1">
-      <app-alert type="text-warning">
+      <app-alert type="text-warning" *ngIf="!personalInformationFormIsValid()">
         {{ 'retirement-cart.infos.warning' | translate }}
+      </app-alert>
+      <app-alert type="success" *ngIf="personalInformationFormIsValid()">
+        {{ 'retirement-cart.infos.success' | translate }}
       </app-alert>
 
       <app-form [form]="personalInformationForm" [fields]="personalInformationFields" [errors]="personalInformationErrors"></app-form>
@@ -90,17 +96,21 @@
           <i class="icon icon-question-circle-reverse icon--5x"></i>
         </a>
       </div>
-      <div class="retirement-cart__step__title__action">
-        <i [class]="getIconForStep(4)"></i>
-      </div>
     </div>
-    <div class="retirement-cart__step__content" *ngIf="currentStep===4 || stepOpened.indexOf(4) > -1">
+    <div class="retirement-cart__step__content" *ngIf="currentStep===5 && stepOpened.indexOf(4) > -1">
+      <div *ngIf="!cart.getCoupons().length">
+        <p>
+          {{ 'retirement-cart.grants.info_intro' | translate }}
+        </p>
+        <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>
 
-      <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>
-
-      <button class="retirement-cart__step__content__section nt-button" (click)="submitUniversityInformation()">
-        {{ 'retirement-cart.grants.apply' | translate }}
-      </button>
+        <button class="retirement-cart__step__content__section nt-button" [disabled]="!canAddAGrant()" (click)="submitUniversityInformation()">
+          {{ 'retirement-cart.grants.apply' | translate }}
+        </button>
+      </div>
+      <app-alert type="success" *ngIf="cart.getCoupons().length">
+        {{ 'retirement-cart.grants.success' | translate }}
+      </app-alert>
     </div>
   </div>
 
@@ -119,7 +129,7 @@
         <app-cart-payment></app-cart-payment>
       </div>
       <div class="retirement-cart__step__content__section">
-        <button class="nt-button" [disabled]="this.currentStep !== 5 && havePaymentMethod()" (click)="openModalSummaryPayment()">
+        <button class="nt-button" [disabled]="this.currentStep !== 5 || !havePaymentMethod()" (click)="openModalSummaryPayment()">
           {{ 'retirement-cart.pay' | translate }}
         </button>
       </div>
@@ -131,8 +141,9 @@
               button2Label="Confirmer"
               maxWidth="600px"
               title="Paiement"
-              [autoClose]="true">
+              (button2)="submitOrder()">
   <div class="modal-summary-payment">
     <app-cart-summary [cart]="cart"></app-cart-summary>
+    <app-alert type="danger" [messages]="errorOrder" *ngIf="errorOrder"></app-alert>
   </div>
 </app-nt-modal>

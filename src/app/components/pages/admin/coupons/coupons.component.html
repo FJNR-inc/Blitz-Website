@@ -3,8 +3,6 @@
     <app-my-table [settings]="settings"
                   [data]="listCoupons"
                   (addButton)="OpenModalCreateCoupon()"
-                  (removeItem)="removeCoupon($event)"
-                  (selectItem)="redirectToCoupon($event.id)"
                   (changePage)="changePage($event)"
                   [confirmationOnDeletion]="false">
     </app-my-table>

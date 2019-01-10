@@ -11,7 +11,7 @@
     </a>
   </div>
   <div *ngFor="let retirement of retirements">
-    <app-retirement-list-item [retirement]="retirement">
+    <app-retirement-list-item [retirement]="retirement" [reserved]="isAlreadyReserved(retirement)">
 
     </app-retirement-list-item>
   </div>

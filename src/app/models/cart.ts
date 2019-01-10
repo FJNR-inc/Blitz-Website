@@ -4,12 +4,13 @@ import {TimeSlot} from './timeSlot';
 import {TaxeUtil} from '../utils/taxe';
 import {Order} from './order';
 import {OrderLine} from './orderLine';
+import {Coupon} from './coupon';
 
 export class Cart {
   _memberships: Membership[] = [];
   _retirements: Retirement[] = [];
   _timeslots: TimeSlot[] = [];
-  _coupons: string[] = [];
+  _coupons: Coupon[] = [];
   _single_use_token: string;
   _payment_token: string;
 
@@ -42,6 +43,13 @@ export class Cart {
           }
         );
       }
+      if (data.hasOwnProperty('_coupons')) {
+        data['_coupons'].map(
+          t => {
+            this._coupons.push(new Coupon(t));
+          }
+        );
+      }
     }
   }
 
@@ -55,6 +63,10 @@ export class Cart {
 
   getMemberships() {
     return this._memberships;
+  }
+
+  getCoupons() {
+    return this._coupons;
   }
 
   setSingleUseToken(token: string) {
@@ -74,6 +86,10 @@ export class Cart {
 
   addRetirement(retirement: Retirement) {
     this._retirements.push(retirement);
+  }
+
+  addCoupon(coupon: Coupon) {
+    this._coupons.push(coupon);
   }
 
   addMembership(membership: Membership) {
@@ -96,6 +112,17 @@ export class Cart {
     for (const membership of this._memberships) {
       if (membership.id === membershipId) {
         this._memberships.splice(index, 1);
+        break;
+      }
+      index += 1;
+    }
+  }
+
+  removeCoupon(couponCode: string) {
+    let index = 0;
+    for (const coupon of this._coupons) {
+      if (coupon.code === couponCode) {
+        this._coupons.splice(index, 1);
         break;
       }
       index += 1;
@@ -194,6 +221,13 @@ export class Cart {
           })
         );
       }
+    }
+    console.error(this._coupons.length);
+    console.error(this._coupons.length);
+
+    if (this._coupons.length > 0) {
+      console.error('add coupon to order');
+      newOrder['coupon'] = this._coupons[0].code;
     }
 
     return newOrder;
