@@ -10,9 +10,9 @@
     <div *ngIf="showDetails" class="retirement-list-item__description__more">
       <b>{{ 'retirement-list-item.begin' | translate }}:</b> {{retirement.getStartTime()}}<br/>
       <b>{{ 'retirement-list-item.end' | translate }}:</b> {{retirement.getEndTime()}},<br/>
-      <b>{{ 'retirement-list-item.times' | translate }}:</b> #La fin de semaine<br/>
-      <b>{{ 'retirement-list-item.animation' | translate }}:</b> {{retirement.activity_language}}<br/>
-      <b>{{ 'retirement-list-item.particularity' | translate }}:</b> #Aucune<br/>
+      <span *ngIf="retirement.getActivityLanguageLabel()">
+        <b>{{ 'retirement-list-item.animation' | translate }}:</b> {{ retirement.getActivityLanguageLabel() | translate }}<br/>
+      </span>
       <b>{{ 'retirement-list-item.price' | translate }}:</b> {{retirement.price}}$CAN<br/>
 
       <a class="retirement-list-item__description__more__button nt-button"

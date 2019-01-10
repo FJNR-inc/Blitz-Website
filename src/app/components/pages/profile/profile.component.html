@@ -282,16 +282,19 @@
               <div class="profile-page__content__right__retirement-reservations__list__item__description__more" *ngIf="retirementReservationOpen === retirementReservation.id">
                 <b>{{ 'profile.retirements.details.begin' | translate }}:</b> {{retirementReservation.retirement_details.getStartTime()}}<br/>
                 <b>{{ 'profile.retirements.details.end' | translate }}:</b> {{retirementReservation.retirement_details.getEndTime()}}<br/>
-                <b>{{ 'profile.retirements.details.times' | translate }}:</b> #La fin de semaine<br/>
-                <b>{{ 'profile.retirements.details.animation' | translate }}:</b> {{retirementReservation.retirement_details.activity_language}}<br/>
-                <b>{{ 'profile.retirements.particularity' | translate }}:</b> #Aucune<br/>
+                <span *ngIf="retirementReservation.retirement_details.getActivityLanguageLabel()">
+                  <b>{{ 'profile.retirements.details.animation' | translate }}:</b> {{retirementReservation.retirement_details.getActivityLanguageLabel() | translate }}<br/>
+                </span>
                 <b>{{ 'profile.retirements.details.price' | translate }}:</b> {{retirementReservation.retirement_details.price}}$CAN<br/>
               </div>
             </div>
             <div class="profile-page__content__right__retirement-reservations__list__item__actions">
-              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item">
+              <a *ngIf="retirementReservation.retirement_details.form_url" class="profile-page__content__right__retirement-reservations__list__item__actions__item" target="_blank" [href]="retirementReservation.retirement_details.form_url">
                 <i class="icon icon-form icon--3x"></i>
               </a>
+              <!---
+              HIDDEN FOR THE FIRST ITERATION
+
               <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
                  (click)="openModalExchangeRetirementReservation(retirementReservation.retirement_details)">
                 <i class="icon icon-transfer icon--3x"></i>
@@ -300,6 +303,7 @@
                  (click)="openModalCancelRetirementReservation(retirementReservation.retirement_details)">
                 <i class="icon icon-times icon--3x"></i>
               </a>
+              -->
             </div>
           </div>
         </div>

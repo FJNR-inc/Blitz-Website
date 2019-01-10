@@ -2,6 +2,7 @@ import BaseModel from './baseModel';
 import {User} from './user';
 import {Membership} from './membership';
 import {DateUtil} from '../utils/date';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 export class Retirement extends BaseModel {
   id: number;
@@ -91,6 +92,18 @@ export class Retirement extends BaseModel {
   getEndTime() {
     const date = new Date(this.end_time);
     return DateUtil.formatDayAndTime(date);
+  }
+
+  getActivityLanguageLabel() {
+    if (this.activity_language === 'B') {
+      return _('shared.form.retirement.activity_language.choices.bilingual');
+    } else if (this.activity_language === 'FR') {
+      return _('shared.form.retirement.activity_language.choices.french');
+    } else if (this.activity_language === 'EN') {
+      return _('shared.form.retirement.activity_language.choices.english');
+    } else {
+      return null;
+    }
   }
 }
 

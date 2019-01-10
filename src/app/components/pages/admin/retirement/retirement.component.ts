@@ -34,6 +34,25 @@ export class RetirementComponent implements OnInit {
       label: _('shared.form.retirement.name_in_english')
     },
     {
+      name: 'activity_language',
+      type: 'select',
+      label: _('shared.form.retirement.activity_language'),
+      choices: [
+        {
+          label: _('shared.form.retirement.activity_language.choices.english'),
+          value: 'EN'
+        },
+        {
+          label: _('shared.form.retirement.activity_language.choices.french'),
+          value: 'FR'
+        },
+        {
+          label: _('shared.form.retirement.activity_language.choices.bilingual'),
+          value: 'B'
+        }
+      ]
+    },
+    {
       name: 'details_fr',
       type: 'textarea',
       label: _('shared.form.retirement.description_in_french')
