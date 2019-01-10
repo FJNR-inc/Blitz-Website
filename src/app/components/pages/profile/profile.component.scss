@@ -319,6 +319,7 @@
               display: flex;
               flex-direction: row;
               justify-content: space-between;
+              font-size: 20px;
 
               &__item {
                 margin-right: 10px;
@@ -400,12 +401,6 @@
 
       &__right {
         padding: 20px 20px;
-
-        &__blocs {
-          &__action {
-            font-size: 0.9em;
-          }
-        }
       }
     }
   }
@@ -473,6 +468,27 @@
                 order: 2;
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .profile-page {
+
+    &__content {
+      &__right {
+        &__blocs {
+          &__action {
+            font-size: 0.7em;
+          }
+        }
+
+        &__retirement-reservations {
+          &__action {
+            font-size: 0.7em;
           }
         }
       }
