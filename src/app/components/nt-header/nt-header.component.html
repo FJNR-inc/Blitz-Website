@@ -93,7 +93,7 @@
         <i *ngIf="!showNav" class="icon icon-logout icon--2x"></i>
       </a>
 
-      <a *ngIf="locale === 'fr'" (click)="changeLanguage('en')"
+      <a *ngIf="multilingual_activated && locale === 'fr'" (click)="changeLanguage('en')"
          class="nt-header__main__actions__item">
         <div *ngIf="showNav">
           english
@@ -103,7 +103,7 @@
         </div>
       </a>
 
-      <a *ngIf="locale === 'en'" (click)="changeLanguage('fr')"
+      <a *ngIf="multilingual_activated && locale === 'en'" (click)="changeLanguage('fr')"
          class="nt-header__main__actions__item">
         <div *ngIf="showNav">
           français
@@ -172,12 +172,12 @@
           {{ 'header.logout' | translate }}
       </a>
 
-      <a *ngIf="locale === 'fr'" (click)="changeLanguage('en')"
+      <a *ngIf="multilingual_activated && locale === 'fr'" (click)="changeLanguage('en')"
          class="nt-header-responsive__actions__item">
           english
       </a>
 
-      <a *ngIf="locale === 'en'" (click)="changeLanguage('fr')"
+      <a *ngIf="multilingual_activated && locale === 'en'" (click)="changeLanguage('fr')"
          class="nt-header-responsive__actions__item">
           français
       </a>

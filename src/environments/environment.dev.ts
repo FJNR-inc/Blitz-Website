@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   default_language: 'fr',
+  multilingual_activated: false,
   url_base_api: 'https://api-dev.thesez-vous.org',
   environment_paysafe: 'TEST',
   // tslint:disable-next-line:max-line-length

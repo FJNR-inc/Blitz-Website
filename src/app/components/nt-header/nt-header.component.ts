@@ -6,6 +6,7 @@ import {InternationalizationService} from '../../services/internationalization.s
 import {NavigationEnd, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-nt-header',
@@ -192,6 +193,8 @@ export class NtHeaderComponent implements OnInit {
       router_url: '',
     }
   ];
+
+  multilingual_activated = environment.multilingual_activated;
 
   constructor(private authenticationService: AuthenticationService,
               private profileService: ProfileService,

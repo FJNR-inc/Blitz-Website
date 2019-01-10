@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   default_language: 'fr',
+  multilingual_activated: true,
   url_base_api: 'http://localhost:8000',
   environment_paysafe: 'TEST',
   // tslint:disable-next-line:max-line-length
