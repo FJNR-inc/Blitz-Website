@@ -10,12 +10,12 @@
       {{ 'retirement-list.know_more' | translate }}
     </a>
   </div>
+  <app-loader *ngIf="!retirements"></app-loader>
   <div *ngFor="let retirement of retirements">
     <app-retirement-list-item [retirement]="retirement"
                               [reserved]="isAlreadyReserved(retirement)"
                               [inQueue]="isAlreadyInQueue(retirement)"
                               (changed)="refreshContent()">
-
     </app-retirement-list-item>
   </div>
 </div>
