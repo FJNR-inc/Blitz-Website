@@ -26,11 +26,15 @@
         {{ 'retirement-list-item.remove_from_cart' | translate }}
       </a>
       <a class="retirement-list-item__description__more__button nt-button"
-         *ngIf="userCanSubscribeToWaitingList()">
+         *ngIf="userCanSubscribeToWaitingList()"
+         (click)="subscribeToWaitingList()">
         {{ 'retirement-list-item.register_to_waiting_list' | translate }}
       </a>
       <app-alert class="retirement-list-item__description__more__alert" *ngIf="reserved" type="success">
         {{ 'retirement-list-item.already_reserved' | translate }}
+      </app-alert>
+      <app-alert class="retirement-list-item__description__more__alert" *ngIf="inQueue" type="success">
+        {{ 'retirement-list-item.already_in_queue' | translate }}
       </app-alert>
 
       <a class="retirement-list-item__description__more__link nt-link">

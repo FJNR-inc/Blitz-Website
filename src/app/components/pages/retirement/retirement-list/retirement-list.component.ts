@@ -4,6 +4,8 @@ import {Retirement} from '../../../../models/retirement';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {RetirementReservation} from '../../../../models/retirementReservation';
 import {RetirementReservationService} from '../../../../services/retirement-reservation.service';
+import {RetirementWaitingQueueService} from '../../../../services/retirementWaitingQueue.service';
+import {RetirementWaitingQueue} from '../../../../models/retirementWaitingQueue';
 
 @Component({
   selector: 'app-retirement-list',
@@ -14,14 +16,21 @@ export class RetirementListComponent implements OnInit {
 
   retirements: Retirement[];
   retirementReservations: RetirementReservation[];
+  retirementWaitingQueues: RetirementWaitingQueue[];
 
   constructor(private retirementService: RetirementService,
               private authenticationService: AuthenticationService,
-              private retirementReservationService: RetirementReservationService) { }
+              private retirementReservationService: RetirementReservationService,
+              private retirementWaitingQueueService: RetirementWaitingQueueService) { }
 
   ngOnInit() {
+    this.refreshContent();
+  }
+
+  refreshContent() {
     this.refreshRetirements();
     this.refreshRetirementReservations();
+    this.refreshRetirementWaitingQueue();
   }
 
   refreshRetirements() {
@@ -57,9 +66,32 @@ export class RetirementListComponent implements OnInit {
     );
   }
 
+  refreshRetirementWaitingQueue() {
+    const filters = [
+      {
+        'name': 'user',
+        'value': this.authenticationService.getProfile().id
+      }
+    ];
+    this.retirementWaitingQueueService.list(filters).subscribe(
+      data => {
+        this.retirementWaitingQueues = data.results.map(r => new RetirementReservation(r));
+      }
+    );
+  }
+
   isAlreadyReserved(retirement) {
     for (const reservation of this.retirementReservations) {
       if ( reservation.retirement === retirement.url ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isAlreadyInQueue(retirement) {
+    for (const queue of this.retirementWaitingQueues) {
+      if ( queue.retirement === retirement.url ) {
         return true;
       }
     }

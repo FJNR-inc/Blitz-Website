@@ -43,5 +43,6 @@ export const environment = {
     retirements: '/retirement/retirements',
     retirementReservations: '/retirement/reservations',
     coupons: '/coupons',
+    retirement_waiting_queues: '/retirement/wait_queues',
   }
 };

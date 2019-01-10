@@ -1,7 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Retirement} from '../../../../../models/retirement';
 import {MyCartService} from '../../../../../services/my-cart/my-cart.service';
-import {DateUtil} from '../../../../../utils/date';
+import {RetirementWaitingQueueService} from '../../../../../services/retirementWaitingQueue.service';
+import {RetirementWaitingQueue} from '../../../../../models/retirementWaitingQueue';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {MyNotificationService} from '../../../../../services/my-notification/my-notification.service';
+import {AuthenticationService} from '../../../../../services/authentication.service';
 
 @Component({
   selector: 'app-retirement-list-item',
@@ -12,10 +16,16 @@ export class RetirementListItemComponent implements OnInit {
 
   @Input() retirement: Retirement;
   @Input() reserved = false;
+  @Input() inQueue = false;
+  @Output() changed: EventEmitter<any> = new EventEmitter();
 
   showDetails = false;
 
-  constructor(private cartService: MyCartService) { }
+
+  constructor(private cartService: MyCartService,
+              private retirementWaitingQueueService: RetirementWaitingQueueService,
+              private notificationService: MyNotificationService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -38,7 +48,7 @@ export class RetirementListItemComponent implements OnInit {
   }
 
   userCanSubscribeToWaitingList() {
-    return !this.reserved && !this.isAvailable();
+    return !this.inQueue && !this.reserved && !this.isAvailable();
   }
 
   addToCart() {
@@ -51,5 +61,29 @@ export class RetirementListItemComponent implements OnInit {
 
   isInCart() {
     return this.cartService.contain(this.retirement);
+  }
+
+  subscribeToWaitingList() {
+    const retirementWaitingQueue = new RetirementWaitingQueue(
+      {
+        retirement: this.retirement.url,
+        user: this.authenticationService.getProfile().url
+      }
+    );
+    this.retirementWaitingQueueService.create(retirementWaitingQueue).subscribe(
+      data => {
+        this.notificationService.success(
+          _('retirement-list-item.notifications.subscribe_waiting_list.success.title'),
+          _('retirement-list-item.notifications.subscribe_waiting_list.success.content')
+        );
+        this.changed.emit(true);
+      }, err => {
+        this.notificationService.success(
+          _('retirement-list-item.notifications.subscribe_waiting_list.error.title'),
+          _('retirement-list-item.notifications.subscribe_waiting_list.error.content')
+        );
+        this.changed.emit(true);
+      }
+    );
   }
 }

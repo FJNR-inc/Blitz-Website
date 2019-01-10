@@ -119,6 +119,7 @@ import { TableRetirementReservationsComponent } from './components/table/table-r
 import { CartPaymentComponent } from './components/shared/cart-payment/cart-payment.component';
 import {CouponService} from './services/coupon.service';
 import { CouponsComponent } from './components/pages/admin/coupons/coupons.component';
+import {RetirementWaitingQueueService} from './services/retirementWaitingQueue.service';
 
 registerLocaleData(localeFr);
 
@@ -521,6 +522,7 @@ const appRoutes = [
     RetirementService,
     RetirementReservationService,
     CouponService,
+    RetirementWaitingQueueService
   ],
   bootstrap: [AppComponent]
 })
