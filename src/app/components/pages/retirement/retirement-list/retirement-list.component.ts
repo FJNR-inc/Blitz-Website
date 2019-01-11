@@ -29,8 +29,10 @@ export class RetirementListComponent implements OnInit {
 
   refreshContent() {
     this.refreshRetirements();
-    this.refreshRetirementReservations();
-    this.refreshRetirementWaitingQueue();
+    if (this.authenticationService.isAuthenticated()) {
+      this.refreshRetirementReservations();
+      this.refreshRetirementWaitingQueue();
+    }
   }
 
   refreshRetirements() {
@@ -81,18 +83,22 @@ export class RetirementListComponent implements OnInit {
   }
 
   isAlreadyReserved(retirement) {
-    for (const reservation of this.retirementReservations) {
-      if ( reservation.retirement === retirement.url ) {
-        return true;
+    if ( this.retirementReservations ) {
+      for (const reservation of this.retirementReservations) {
+        if (reservation.retirement === retirement.url) {
+          return true;
+        }
       }
     }
     return false;
   }
 
   isAlreadyInQueue(retirement) {
-    for (const queue of this.retirementWaitingQueues) {
-      if ( queue.retirement === retirement.url ) {
-        return true;
+    if ( this.retirementWaitingQueues ) {
+      for (const queue of this.retirementWaitingQueues) {
+        if (queue.retirement === retirement.url) {
+          return true;
+        }
       }
     }
     return false;

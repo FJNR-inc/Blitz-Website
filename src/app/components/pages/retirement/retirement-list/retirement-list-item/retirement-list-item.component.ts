@@ -40,15 +40,15 @@ export class RetirementListItemComponent implements OnInit {
   }
 
   userCanAddToCart() {
-    return !this.reserved && this.isAvailable() && !this.isInCart();
+    return this.authenticationService.isAuthenticated() && !this.reserved && this.isAvailable() && !this.isInCart();
   }
 
   userCanRemoveFromCart() {
-    return this.isInCart();
+    return this.authenticationService.isAuthenticated() && this.isInCart();
   }
 
   userCanSubscribeToWaitingList() {
-    return !this.inQueue && !this.reserved && !this.isAvailable();
+    return this.authenticationService.isAuthenticated() && !this.inQueue && !this.reserved && !this.isAvailable();
   }
 
   addToCart() {
