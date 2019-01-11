@@ -13,7 +13,7 @@
         <app-alert type="text-warning">
           {{ 'retirement-cart.connexion.warning' | translate }}
         </app-alert>
-        <app-login-form (isConnected)="defineCurrentStep()" [centered]="true" [registerLink]="true"></app-login-form>
+        <app-login-form [centered]="true" [registerLink]="true"></app-login-form>
       </div>
       <div *ngIf="isAuthenticated()">
         <app-alert type="success">{{ 'retirement-cart.connexion.success' | translate }}</app-alert>

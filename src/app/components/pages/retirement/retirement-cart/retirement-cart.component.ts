@@ -107,7 +107,11 @@ export class RetirementCartComponent implements OnInit {
       emitedCart => {
         this.cart = emitedCart;
         this.defineCurrentStep();
-        console.log(this.cart.getCoupons());
+      }
+    );
+    this.authenticationService.profile.subscribe(
+      emitedProfile => {
+        this.defineCurrentStep();
       }
     );
   }
