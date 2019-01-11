@@ -23,7 +23,7 @@ import {Coupon} from '../../../../models/coupon';
 export class RetirementCartComponent implements OnInit {
 
   currentStep: number;
-  stepOpened: number[] = [4];
+  stepOpened: number[] = [];
 
   memberships: Membership[];
   selectedMembership = null;
