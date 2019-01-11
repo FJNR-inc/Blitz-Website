@@ -10,7 +10,7 @@
     <div *ngIf="!displayTutorial" class="retirement-reservation__content__list">
       <div class="retirement-reservation__content__list__go-to-cart" *ngIf="currentView === 'list'">
         <div>
-          1 {{ 'retirement-reservation.selected_retirement' | translate }}
+          {{ cart.getRetirements().length }} {{ 'retirement-reservation.selected_retirement' | translate }}
         </div>
         <button class="nt-button" (click)="changeCurrentView('cart')">
           {{ 'retirement-reservation.see_cart' | translate }}
