@@ -42,12 +42,56 @@ export class RetirementCartComponent implements OnInit {
       label: _('retirement-cart.labels.city'),
       choices: [
         {
+          label: 'Chicoutimi',
+          value: 'Chicoutimi'
+        },
+        {
+          label: 'Gatineau',
+          value: 'Gatineau'
+        },
+        {
+          label: 'Laval',
+          value: 'Laval'
+        },
+        {
+          label: 'Longueuil',
+          value: 'Longueuil'
+        },
+        {
           label: 'Montréal',
           value: 'Montreal'
         },
         {
-          label: 'Toronto',
-          value: 'Toronto'
+          label: 'Ottawa',
+          value: 'Ottawa'
+        },
+        {
+          label: 'Québec',
+          value: 'Québec'
+        },
+        {
+          label: 'Rimouski',
+          value: 'Rimouski'
+        },
+        {
+          label: 'Rouyn Noranda',
+          value: 'Rouyn Noranda'
+        },
+        {
+          label: 'Sherbrooke',
+          value: 'Sherbrooke'
+        },
+        {
+          label: 'St-Jérôme',
+          value: 'St-Jérôme'
+        },
+        {
+          label: 'Trois-Rivière',
+          value: 'Trois-Rivière'
+        },
+        {
+          label: 'Autre',
+          value: 'Autre'
         }
       ]
     },
