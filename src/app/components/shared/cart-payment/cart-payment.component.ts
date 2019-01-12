@@ -3,6 +3,7 @@ import {Card} from '../../../models/card';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {CardService} from '../../../services/card.service';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-cart-payment',
@@ -14,6 +15,7 @@ export class CartPaymentComponent implements OnInit {
   listCards: Card[];
   paymentCard: string;
   displayFormNewCard = false;
+  successAddCardMessage = null;
 
   constructor(private authenticationService: AuthenticationService,
               private cardService: CardService,
@@ -54,6 +56,8 @@ export class CartPaymentComponent implements OnInit {
   }
 
   setSingleUseToken(token) {
+    this.displayFormNewCard = false;
+    this.successAddCardMessage = [_('cart-payment.alert.new_card_added')];
     this.cartService.addPaymentToken(token, true);
   }
 

@@ -75,6 +75,7 @@ export class PaysafeFormComponent implements AfterViewInit {
           this.waitPaysafe = false;
         } else {
           this.singleUseToken.emit(result.token);
+          this.waitPaysafe = false;
         }
       });
     }

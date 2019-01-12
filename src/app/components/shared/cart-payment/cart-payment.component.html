@@ -9,8 +9,10 @@
         <i *ngIf="cartContainPaymentMethod()" class="icon icon-check-circle-reverse icon--3x icon--success"></i>
       </div>
     </div>
-    <div>
-      <select [(ngModel)]="paymentCard" class="nt-form-input nt-form-input--select" (change)="setCard()">
+    <app-alert class="card-payment__content__alert" type="success" [messages]="successAddCardMessage" *ngIf="successAddCardMessage"></app-alert>
+    <div class="card-payment__content__cards">
+      <label for="card">Choisir une carte existante:</label>
+      <select id="card" [(ngModel)]="paymentCard" class="nt-form-input nt-form-input--select" (change)="setCard()">
         <option disabled value="">Choisir une carte de paiement</option>
         <option *ngFor="let card of listCards" [value]="card.payment_token">
           **** **** **** {{ card.last_digits }} ({{card.card_expiry.month}}/{{card.card_expiry.year}})

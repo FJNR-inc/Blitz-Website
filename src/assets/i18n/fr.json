@@ -26,6 +26,7 @@
   "admin-layout.left-nav.type_of_packages": "Forfaits",
   "admin-layout.left-nav.universities": "Universités",
   "admin-layout.left-nav.users": "Utilisateurs",
+  "cart-payment.alert.new_card_added": "Votre nouvelle carte a été vérifié et défini comme moyen de paiement.",
   "coupons.coupons": "Coupons",
   "coupons.create_coupon_modal.button": "Ajouter",
   "coupons.create_coupon_modal.title": "Ajouter un coupon",
