@@ -3,7 +3,10 @@
 .retirement-list {
   border-right: 1px solid $border-calendar;
   height: 100%;
+  max-height: 100vh;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   &__header {
     padding: 40px;
@@ -15,6 +18,10 @@
     &__link {
       margin-top: 20px;
     }
+  }
+
+  &__content {
+    flex: 1;
   }
 }
 
