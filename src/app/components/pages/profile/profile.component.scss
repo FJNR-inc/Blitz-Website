@@ -228,6 +228,10 @@
           & td, th {
             border: 1px solid $border-calendar;
             padding: 15px;
+
+            &:first-letter {
+              text-transform: uppercase;
+            }
           }
         }
 
