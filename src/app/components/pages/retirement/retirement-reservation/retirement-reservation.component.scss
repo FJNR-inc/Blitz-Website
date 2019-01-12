@@ -6,19 +6,26 @@
 
   &__title {
     width: 150px;
-    position: relative;
     display: inline-block;
     background-color: $nt-14;
     color: $nt-2;
 
-    &__text {
-      text-transform: uppercase;
-      font-size: 30px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      white-space: nowrap;
-      transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+    &__top {
+      min-height: 100vh;
+      position: relative;
+
+      &__text {
+        text-transform: uppercase;
+        font-size: 30px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+        width: 100vh;
+        text-align: center;
+        white-space: normal;
+        line-height: 35px;
+      }
     }
   }
 
