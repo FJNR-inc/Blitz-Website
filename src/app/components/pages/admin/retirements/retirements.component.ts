@@ -6,7 +6,6 @@ import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
-import {TranslateService} from '@ngx-translate/core';
 import {FormUtil} from '../../../../utils/form';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
@@ -53,6 +52,11 @@ export class RetirementsComponent implements OnInit {
       name: 'name_en',
       type: 'text',
       label: _('shared.form.retirement.name_in_english')
+    },
+    {
+      name: 'place_name',
+      type: 'text',
+      label: _('shared.form.retirement.place_name')
     },
     {
       name: 'details_fr',

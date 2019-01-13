@@ -499,6 +499,7 @@
   "shared.form.retirement.min_day_refund": "Nombre de jour pour remboursement",
   "shared.form.retirement.name_in_english": "Nom (en)",
   "shared.form.retirement.name_in_french": "Nom (fr)",
+  "shared.form.retirement.place_name": "Nom du lieu",
   "shared.form.retirement.postal_code": "Code postal",
   "shared.form.retirement.price": "Prix",
   "shared.form.retirement.refund_rate": "Taux de remboursement (%)",

@@ -34,6 +34,11 @@ export class RetirementComponent implements OnInit {
       label: _('shared.form.retirement.name_in_english')
     },
     {
+      name: 'place_name',
+      type: 'text',
+      label: _('shared.form.retirement.place_name')
+    },
+    {
       name: 'activity_language',
       type: 'select',
       label: _('shared.form.retirement.activity_language'),
@@ -226,6 +231,7 @@ export class RetirementComponent implements OnInit {
     this.retirementForm.controls['form_url'].setValue(this.retirement.form_url);
     this.retirementForm.controls['email_content'].setValue(this.retirement.email_content);
     this.retirementForm.controls['accessibility'].setValue(this.retirement.accessibility);
+    this.retirementForm.controls['place_name'].setValue(this.retirement.place_name);
 
 
     this.toogleModal(

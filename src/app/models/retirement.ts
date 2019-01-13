@@ -8,6 +8,7 @@ export class Retirement extends BaseModel {
   id: number;
   url: string;
   country: string;
+  place_name: string;
   state_province: string;
   city: string;
   country_en: string;
