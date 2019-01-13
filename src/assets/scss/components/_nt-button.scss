@@ -57,12 +57,13 @@
   }
 
   &--danger {
-    background-color: $button-danger-background;
-    color: $button-danger-text;
+    background-color: $nt-9;
+    border-color: $nt-9;
+    color: white;
 
     &:hover {
-      color: darken($button-danger-text, 10);
-      background-color: darken($button-danger-background, 10);
+      color: $nt-9;
+      background-color: transparent;
     }
   }
 }
