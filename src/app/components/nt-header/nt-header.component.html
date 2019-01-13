@@ -206,6 +206,10 @@
              class="nt-header-responsive__nav__item__sub__item">
           <a *ngIf="subNavItem.url"
              class="nt-header-responsive__nav__item__sub__item__link"
+             [ngClass]="{
+              'nt-header-responsive__nav__item__sub__item__link--active' : selectedNav === subNavItem,
+              'nt-header-responsive__nav__item__sub__item__link--button' : subNavItem.type === 'button'
+              }"
              [href]="subNavItem.url"
              (click)="clickNav(subNavItem, true)"
              target="_blank">
@@ -213,6 +217,10 @@
           </a>
           <a *ngIf="!subNavItem.url"
              class="nt-header-responsive__nav__item__sub__item__link"
+             [ngClass]="{
+              'nt-header-responsive__nav__item__sub__item__link--active' : selectedNav === subNavItem,
+              'nt-header-responsive__nav__item__sub__item__link--button' : subNavItem.type === 'button'
+              }"
              (click)="clickNav(subNavItem, true)">
             {{ subNavItem.label | translate }}
           </a>
