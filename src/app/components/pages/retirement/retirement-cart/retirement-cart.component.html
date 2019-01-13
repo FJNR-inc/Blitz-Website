@@ -76,14 +76,13 @@
       <app-alert type="text-warning" *ngIf="!personalInformationFormIsValid()">
         {{ 'retirement-cart.infos.warning' | translate }}
       </app-alert>
-      <app-alert type="success" *ngIf="personalInformationFormIsValid()">
-        {{ 'retirement-cart.infos.success' | translate }}
-      </app-alert>
+      <app-alert type="success" *ngIf="personalInformationFormIsValid()" [messages]="personnalInformationMessageSuccess"></app-alert>
 
       <app-form [form]="personalInformationForm" [fields]="personalInformationFields" [errors]="personalInformationErrors"></app-form>
 
       <button class="retirement-cart__step__content__section nt-button" (click)="submitPersonalInformation()">
-        {{ 'retirement-cart.infos.save' | translate }}
+        <span *ngIf="!personalInformationFormIsValid()">{{ 'retirement-cart.infos.save' | translate }}</span>
+        <span *ngIf="personalInformationFormIsValid()">{{ 'retirement-cart.infos.update' | translate }}</span>
       </button>
     </div>
   </div>

@@ -35,6 +35,7 @@ export class RetirementCartComponent implements OnInit {
 
   personalInformationForm: FormGroup;
   personalInformationErrors: string[];
+  personnalInformationMessageSuccess = [_('retirement-cart.infos.success')];
   personalInformationFields = [
     {
       name: 'city',
@@ -253,6 +254,7 @@ export class RetirementCartComponent implements OnInit {
     this.userService.update(profile.url, value).subscribe(
       user => {
         this.authenticationService.setProfile(user);
+        this.personnalInformationMessageSuccess = [_('retirement-cart.infos.success_update')];
         this.defineCurrentStep();
       },
       err => {
