@@ -155,15 +155,19 @@ export class RetirementCartComponent implements OnInit {
     );
     this.authenticationService.profile.subscribe(
       emitedProfile => {
-        this.defineCurrentStep();
+        this.refreshData();
       }
     );
   }
 
   ngOnInit() {
+    this.refreshData();
+    this.refreshMembership();
+  }
+
+  refreshData() {
     this.initPersonalInformationForm();
     this.initUniversityForm();
-    this.refreshMembership();
     this.defineCurrentStep();
   }
 
@@ -218,6 +222,10 @@ export class RetirementCartComponent implements OnInit {
   initUniversityForm() {
     const formUtil = new FormUtil();
     this.universityForm = formUtil.createFormGroup(this.universityFields);
+    const profile = this.authenticationService.getProfile();
+    this.universityForm.controls['academic_program_code'].setValue(profile.academic_program_code);
+    this.universityForm.controls['faculty'].setValue(profile.faculty);
+    this.universityForm.controls['student_number'].setValue(profile.student_number);
   }
 
   refreshMembership() {
