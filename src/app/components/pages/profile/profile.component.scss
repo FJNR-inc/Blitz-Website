@@ -33,10 +33,9 @@
 
       &__box {
         flex: 1;
-        background-color: $nt-3;
         padding: 20px;
         margin-top: 20px;
-        border: 1px solid lightgrey;
+        border: 1px solid $border-calendar;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
