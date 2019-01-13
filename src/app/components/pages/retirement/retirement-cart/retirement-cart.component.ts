@@ -117,14 +117,14 @@ export class RetirementCartComponent implements OnInit {
       label: _('retirement-cart.labels.grant_code')
     },
     {
-      name: 'student_number',
-      type: 'text',
-      label: _('retirement-cart.labels.matricule')
-    },
-    {
       name: 'text-warning',
       type: 'alert',
       label: _('retirement-cart.labels.personnal_infos')
+    },
+    {
+      name: 'student_number',
+      type: 'text',
+      label: _('retirement-cart.labels.matricule')
     },
     {
       name: 'faculty',
