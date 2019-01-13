@@ -37,11 +37,13 @@
 
   &:disabled, &--disabled{
     background-color: $nt-0;
+    border-color: $nt-0;
     color: grey;
 
     &:hover {
       color: grey;
       background-color: $nt-0;
+      border-color: $nt-0;
       cursor: not-allowed;
     }
   }
