@@ -548,6 +548,8 @@
   "shared.notifications.delete_space.title": "",
   "shared.notifications.delete_university.content": "",
   "shared.notifications.delete_university.title": "",
+  "shared.notifications.disconnected.content": "Vous êtes maintenant déconnecté.",
+  "shared.notifications.disconnected.title": "Déconnecté!",
   "shared.notifications.fail_add.content": "",
   "shared.notifications.fail_add.title": "",
   "shared.notifications.fail_cancel_bloc.content": "Votre réservation est toujours active",

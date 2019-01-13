@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
 import {TranslateService} from '@ngx-translate/core';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 
 @Component({
@@ -20,8 +21,11 @@ export class LogoutPageComponent {
       data => {
         this.authenticationService.removeToken();
         this.authenticationService.setProfile('');
-        this.notificationService.error('shared.notifications.disconnected.title', 'shared.notifications.disconnected.content');
-        this.router.navigate(['/login']);
+        this.notificationService.error(
+          _('shared.notifications.disconnected.title'),
+          _('shared.notifications.disconnected.content')
+        );
+        this.router.navigate(['/']);
       }
     );
   }
