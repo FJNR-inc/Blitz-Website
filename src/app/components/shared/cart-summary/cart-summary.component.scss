@@ -23,24 +23,34 @@
         border-bottom: none;
       }
 
-      &__name {
+      &__left {
         flex: 1;
-        padding: 10px;
-      }
+        display: flex;
+        justify-content: space-between;
 
-      &__price {
-        padding: 10px;
-      }
-
-      &__action {
-        padding: 10px;
-
-        &:hover {
-          cursor: pointer;
+        &__name {
+          flex: 1;
+          padding: 10px;
         }
 
-        &__icon {
-          width: 20px;
+        &__price {
+          padding: 10px;
+        }
+      }
+
+      &__right {
+        padding: 10px;
+
+        &__action {
+          padding: 10px;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &__icon {
+            width: 20px;
+          }
         }
       }
     }
@@ -105,6 +115,19 @@
 
       &__price {
         padding: 10px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+
+  .cart-summary {
+    &__items {
+      &__item {
+        &__left {
+          flex-direction: column;
+        }
       }
     }
   }

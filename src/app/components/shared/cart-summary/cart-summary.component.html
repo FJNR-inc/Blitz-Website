@@ -4,29 +4,37 @@
   </div>
   <div class="cart-summary__items">
     <div *ngFor="let membership of cart.getMemberships()" class="cart-summary__items__item">
-      <div class="cart-summary__items__item__name">
-        {{membership.name}}
+      <div class="cart-summary__items__item__left">
+        <div class="cart-summary__items__item__left__name">
+          {{membership.name}}
+        </div>
+        <div class="cart-summary__items__item__left__price">
+          {{membership.price}} $CAN
+        </div>
       </div>
-      <div class="cart-summary__items__item__price">
-        {{membership.price}} $CAN
-      </div>
-      <div class="cart-summary__items__item__action">
-        <img (click)="removeMembershipFromCart(membership)" class="cart-summary__items__item__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+      <div class="cart-summary__items__item__right">
+        <div class="cart-summary__items__item__right__action">
+          <img (click)="removeMembershipFromCart(membership)" class="cart-summary__items__item__right__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+        </div>
       </div>
     </div>
 
     <div *ngFor="let retirement of cart.getRetirements()" class="cart-summary__items__item">
-      <div class="cart-summary__items__item__name">
-        {{ retirement.name }}<br/>
-        {{ retirement.getDateInterval() }}
+      <div class="cart-summary__items__item__left">
+        <div class="cart-summary__items__item__left__name">
+          {{ retirement.name }}<br/>
+          {{ retirement.getDateInterval() }}
+        </div>
+        <div class="cart-summary__items__item__left__price">
+          {{retirement.price}} $CAN
+        </div>
       </div>
-      <div class="cart-summary__items__item__price">
-        {{retirement.price}} $CAN
-      </div>
-      <div class="cart-summary__items__item__action">
-        <a (click)="removeRetirementFromCart(retirement)">
-          <img class="cart-summary__items__item__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
-        </a>
+      <div class="cart-summary__items__item__right">
+        <div class="cart-summary__items__item__right__action">
+          <a (click)="removeRetirementFromCart(retirement)">
+            <img class="cart-summary__items__item__right__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+          </a>
+        </div>
       </div>
     </div>
   </div>
