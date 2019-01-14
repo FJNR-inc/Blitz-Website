@@ -93,11 +93,8 @@ export class NtHeaderComponent implements OnInit {
           label: _('header.retirement.what_is_it'),
           url: 'http://www.thesez-vous.com/questcequuneretraite.html',
           router_url: ''
-        }, {
-          label: _('header.retirement.outside'),
-          url: 'http://www.thesez-vous.com/questcequuneretraite.html',
-          router_url: ''
-        }, {
+        },
+        {
           label: _('header.retirement.grants'),
           url: 'http://www.thesez-vous.com/bourses-et-financement.html\n',
           router_url: ''
