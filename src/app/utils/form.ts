@@ -1,6 +1,7 @@
 import {InternationalizationService} from '../services/internationalization.service';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Injectable} from '@angular/core';
+import {isBoolean} from 'util';
 
 @Injectable()
 export class FormUtil {
@@ -44,6 +45,8 @@ export class FormUtil {
         for (const choice of field.choices) {
           formArray.push(new FormControl(choice.value));
         }
+      } else if (field.type === 'checkbox') {
+        form.controls[field.name].setValue(false);
       }
     }
 

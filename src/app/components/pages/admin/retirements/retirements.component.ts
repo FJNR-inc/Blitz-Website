@@ -193,7 +193,10 @@ export class RetirementsComponent implements OnInit {
 
   ngOnInit() {
     this.refreshRetirementList();
+    this.initRetirementForm();
+  }
 
+  initRetirementForm() {
     const formUtil = new FormUtil();
     this.retirementForm = formUtil.createFormGroup(this.fields);
   }
@@ -215,7 +218,7 @@ export class RetirementsComponent implements OnInit {
   }
 
   OpenModalCreateRetirement() {
-    this.retirementForm.reset();
+    this.initRetirementForm();
     this.selectedRetirementUrl = null;
     this.toggleModal(
       'form_retirements',
@@ -282,27 +285,25 @@ export class RetirementsComponent implements OnInit {
   }
 
   submitRetirement() {
-    if ( this.retirementForm.valid ) {
-      const value = this.retirementForm.value;
-      value['timezone'] = 'America/Montreal';
-      this.retirementService.create(value).subscribe(
-        data => {
-          this.notificationService.success(
-            _('shared.notifications.commons.added.title')
-          );
-          this.refreshRetirementList();
-          this.toggleModal('form_retirements');
-        },
-        err => {
-          if (err.error.non_field_errors) {
-            this.retirementErrors = err.error.non_field_errors;
-          } else {
-            this.retirementErrors =  ['shared.form.errors.unknown'];
-          }
-          this.retirementForm = FormUtil.manageFormErrors(this.retirementForm, err);
+    const value = this.retirementForm.value;
+    value['timezone'] = 'America/Montreal';
+    this.retirementService.create(value).subscribe(
+      data => {
+        this.notificationService.success(
+          _('shared.notifications.commons.added.title')
+        );
+        this.refreshRetirementList();
+        this.toggleModal('form_retirements');
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.retirementErrors = err.error.non_field_errors;
+        } else {
+          this.retirementErrors =  ['shared.form.errors.unknown'];
         }
-      );
-    }
+        this.retirementForm = FormUtil.manageFormErrors(this.retirementForm, err);
+      }
+    );
   }
 
   isSecurityOnDeletionValid() {
