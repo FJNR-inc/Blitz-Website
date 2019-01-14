@@ -3,6 +3,7 @@
 .retirement-cart {
   padding: 40px;
   height: 100%;
+  max-height: 100vh;
   overflow-y: auto;
 
   &__step {

@@ -99,6 +99,11 @@
     <div class="retirement-cart__step__content" *ngIf="currentStep===5 && stepOpened.indexOf(4) > -1">
       <div *ngIf="!cart.getCoupons().length">
         <p>
+          <a class="nt-link" target="_blank" href="http://www.thesez-vous.com/bourses-et-financement.html">
+            {{ 'retirement-cart.grants.info_link' | translate }}
+          </a>
+        </p>
+        <p>
           {{ 'retirement-cart.grants.info_intro' | translate }}
         </p>
         <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>

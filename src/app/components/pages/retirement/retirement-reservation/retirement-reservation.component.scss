@@ -83,6 +83,7 @@
       &__list {
         display: flex;
         flex-direction: column;
+        align-items: stretch;
 
         &__go-to-list {
           display: flex;
