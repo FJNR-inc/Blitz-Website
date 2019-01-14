@@ -25,6 +25,10 @@ app-membership {
     align-items: center;
     padding-left: 50px;
 
+    &__title {
+      margin-top: 40px;
+    }
+
     &__text {
       margin-top: 40px;
       max-width: 500px;
