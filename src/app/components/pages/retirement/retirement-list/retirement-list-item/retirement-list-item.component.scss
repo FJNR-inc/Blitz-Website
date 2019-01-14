@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  padding: 20px 40px;
 
   &__title {
     padding: 20px;
@@ -63,6 +64,8 @@
 
 @media only screen and (max-width: 500px) {
   .retirement-list-item {
+    padding: 10px 20px;
+
     &__title {
       font-size: 20px;
     }
