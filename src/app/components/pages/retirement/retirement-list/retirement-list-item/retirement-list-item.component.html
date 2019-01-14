@@ -1,21 +1,23 @@
 <div class="retirement-list-item">
-  <div class="retirement-list-item__title nt-title">
-    {{retirement.name}}
-  </div>
   <div class="retirement-list-item__description">
-    <span *ngIf="retirement.place_name">
-      {{ retirement.place_name }}<br/>
-    </span>
-    <span *ngIf="!retirement.place_name">
-      {{retirement.address_line1}}<br/>
-      <span *ngIf="retirement.address_line2">
-        {{retirement.address_line2}}<br/>
+    <h2 class="nt-title">
+      {{retirement.name}}
+    </h2>
+    <p>
+      <span *ngIf="retirement.place_name">
+        {{ retirement.place_name }}<br/>
       </span>
-      {{retirement.city}}, {{retirement.state_province}}<br/>
-      {{retirement.country}}<br/>
-    </span>
-    {{retirement.getDateInterval()}}<br/>
-    {{retirement.seats}} {{ 'retirement-list-item.place_availables' | translate }}
+      <span *ngIf="!retirement.place_name">
+        {{retirement.address_line1}}<br/>
+        <span *ngIf="retirement.address_line2">
+          {{retirement.address_line2}}<br/>
+        </span>
+        {{retirement.city}}, {{retirement.state_province}}<br/>
+        {{retirement.country}}<br/>
+      </span>
+      {{retirement.getDateInterval()}}<br/>
+      {{retirement.seats}} {{ 'retirement-list-item.place_availables' | translate }}
+    </p>
 
     <div *ngIf="showDetails" class="retirement-list-item__description__more">
       <b>{{ 'retirement-list-item.begin' | translate }}:</b> {{retirement.getStartTime()}}<br/>
