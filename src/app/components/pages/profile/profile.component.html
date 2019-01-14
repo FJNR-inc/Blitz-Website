@@ -394,7 +394,7 @@
               maxWidth="600px">
   <div *ngIf="selectedRetirementReservation" class="form-cancel-reservation-retirement">
     <p>
-      {{ 'profile.cancel_reservation_retirement_text_1' | translate:{'rate': selectedRetirementReservation.retirement_details.refund_rate, 'delay_max': selectedRetirementReservation.retirement_details.min_day_refund} }}
+      {{ 'profile.cancel_reservation_retirement_text_1' | translate:{'rate': 100-selectedRetirementReservation.retirement_details.refund_rate, 'delay_max': selectedRetirementReservation.retirement_details.min_day_refund} }}
 
     </p>
 
