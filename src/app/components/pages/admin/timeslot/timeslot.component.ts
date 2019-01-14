@@ -35,10 +35,6 @@ export class TimeslotComponent implements OnInit {
         title: _('shared.common.last_name')
       },
       {
-        name: 'email',
-        title: _('shared.common.email'),
-      },
-      {
         name: 'is_active',
         title: _('shared.common.active'),
         type: 'boolean'
