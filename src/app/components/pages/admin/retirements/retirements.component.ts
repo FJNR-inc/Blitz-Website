@@ -114,6 +114,11 @@ export class RetirementsComponent implements OnInit {
       label: _('shared.form.retirement.refund_rate')
     },
     {
+      name: 'warning',
+      type: 'alert',
+      label: _('shared.form.retirement.refund_rate_warning')
+    },
+    {
       name: 'address_line1_fr',
       type: 'text',
       label: _('shared.form.retirement.address_line1_in_french')

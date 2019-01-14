@@ -503,6 +503,7 @@
   "shared.form.retirement.postal_code": "Code postal",
   "shared.form.retirement.price": "Prix",
   "shared.form.retirement.refund_rate": "Taux de remboursement (%)",
+  "shared.form.retirement.refund_rate_warning": "Le taux de remboursement correspond au pourcentage remboursé aux utilisateurs en cas d'annulation.",
   "shared.form.retirement.seats": "Nombre de place",
   "shared.form.retirement.start_time": "Début de la retraite",
   "shared.form.retirement.state_province_in_english": "Province (en)",
