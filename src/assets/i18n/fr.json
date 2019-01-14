@@ -208,7 +208,7 @@
   "profile.display_old_blocs": "Afficher mes anciens blocs de rédaction",
   "profile.display_old_retirement_reservations": "Afficher mes anciennes retraite",
   "profile.exchange_reservation_retirement_button_confirm": "Échanger",
-  "profile.exchange_reservation_retirement_text": "À plus de 14 jours d'une retraite, vous pouvez échanger s'il reste des places à une retraite.",
+  "profile.exchange_reservation_retirement_text": "À plus de {{delay_max}} jours d'une retraite, vous pouvez échanger s'il reste des places à une retraite.",
   "profile.exchange_reservation_retirement_title": "Échange de retraite",
   "profile.exchange_reservation_retirement_title_actual": "Retraite actuelle",
   "profile.exchange_reservation_retirement_title_new": "Nouvelle retraite",

@@ -54,6 +54,8 @@ export class ProfileComponent implements OnInit {
   listRetirements: Retirement[];
   selectedRetirementReservation: RetirementReservation;
   errorCancelationRetirementReservation = null;
+  errorExchangeRetirementReservation = null;
+  selectedRetirementForExchange: string;
 
   listCards: Card[];
   listWorkplaces: Workplace[];
@@ -385,7 +387,25 @@ export class ProfileComponent implements OnInit {
   }
 
   exchangeRetirement() {
-    this.toogleModal('form_exchange_retirement');
+    const reservation = new RetirementReservation();
+    reservation.retirement = this.selectedRetirementForExchange;
+    this.retirementReservationService.update(this.selectedRetirementReservation.url, reservation).subscribe(
+      data => {
+        this.notificationService.success(
+          _('shared.notifications.exchange_retirement_reservation.title'),
+          _('shared.notifications.exchange_retirement_reservation.content')
+        );
+        this.refreshRetirementReservation();
+        this.toogleModal('form_exchange_retirement');
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.errorExchangeRetirementReservation = err.error.non_field_errors;
+        } else {
+          this.errorExchangeRetirementReservation = [_('shared.alert.errors.unknown')];
+        }
+      }
+    );
   }
 
   cancelRetirement() {

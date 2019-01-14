@@ -293,17 +293,13 @@
                 <i class="icon icon-form icon--3x"></i>
               </a>
               <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
-                 (click)="openModalCancelRetirementReservation(retirementReservation)">
-                <i class="icon icon-times icon--3x"></i>
-              </a>
-              <!---
-              HIDDEN FOR THE FIRST ITERATION
-
-              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
                  (click)="openModalExchangeRetirementReservation(retirementReservation)">
                 <i class="icon icon-transfer icon--3x"></i>
               </a>
-              -->
+              <a class="profile-page__content__right__retirement-reservations__list__item__actions__item"
+                 (click)="openModalCancelRetirementReservation(retirementReservation)">
+                <i class="icon icon-times icon--3x"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -361,7 +357,7 @@
               class="form-exchange-retirement">
   <div *ngIf="selectedRetirementReservation">
     <p>
-      {{ 'profile.exchange_reservation_retirement_text' | translate }}
+      {{ 'profile.exchange_reservation_retirement_text' | translate:{'delay_max': selectedRetirementReservation.retirement_details.min_day_exchange} }}
     </p>
 
     <h2 class="form-exchange-retirement__title">
@@ -380,11 +376,13 @@
       {{ 'profile.exchange_reservation_retirement_title_new' | translate }}
     </h2>
 
-    <select class="nt-form-input nt-form-input--select">
-      <option *ngFor="let retirement of getChoicesExchangeRetirement()">
-        {{ selectedRetirementReservation.retirement_details.name }} - {{ selectedRetirementReservation.retirement_details.getStartTime() }}
+    <select [(ngModel)]="selectedRetirementForExchange" class="nt-form-input nt-form-input--select" name="retirementForExchange">
+      <option *ngFor="let retirement of getChoicesExchangeRetirement()" [value]="retirement.url">
+        {{ retirement.name }} - {{ retirement.getStartTime() }}
       </option>
     </select>
+
+    <app-alert class="form-exchange-retirement__alert" type="danger" [messages]="errorExchangeRetirementReservation" *ngIf="errorExchangeRetirementReservation"></app-alert>
   </div>
 </app-nt-modal>
 

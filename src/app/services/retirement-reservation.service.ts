@@ -5,6 +5,7 @@ import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
 import {Retirement} from '../models/retirement';
 import {RetirementReservation} from '../models/retirementReservation';
+import {Organization} from '../models/organization';
 
 @Injectable()
 export class RetirementReservationService extends GlobalService {
@@ -41,6 +42,15 @@ export class RetirementReservationService extends GlobalService {
     const headers = this.getHeaders();
     return this.http.delete<any>(
       retirementReservation.url,
+      {headers: headers}
+    );
+  }
+
+  update(url: string, retirementReservation: RetirementReservation): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.patch<any>(
+      url,
+      retirementReservation,
       {headers: headers}
     );
   }
