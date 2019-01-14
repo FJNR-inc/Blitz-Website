@@ -110,6 +110,10 @@
     &__item {
       text-decoration: none;
       margin: 0 10px;
+
+      &> i:hover {
+        color: $nt-0;
+      }
     }
   }
 }
@@ -239,9 +243,17 @@
       justify-content: center;
       margin: 40px 0;
 
+      &:hover {
+        color: lightgrey;
+      }
+
       &__item {
         text-decoration: none;
         margin: 0 10px;
+
+        &:hover {
+          color: $nt-text;
+        }
       }
     }
 
