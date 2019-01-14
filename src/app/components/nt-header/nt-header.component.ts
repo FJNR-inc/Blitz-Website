@@ -261,9 +261,8 @@ export class NtHeaderComponent implements OnInit {
   }
 
   clearNav() {
-    if (!this.isNavClicked) {
-      this.selectedNav = null;
-    }
+    this.isNavClicked = false;
+    this.selectedNav = null;
     if (this.curentSecondLevel) {
       this.showNav = false;
     }
