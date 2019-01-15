@@ -66,6 +66,11 @@
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid $border-calendar;
+      color: $nt-10;
+
+      &--disabled {
+        color: $nt-9;
+      }
 
       &:last-child {
         border-bottom: none;
@@ -74,7 +79,6 @@
       &__code {
         flex: 1;
         padding: 10px;
-        color: $nt-10;
       }
 
       &__price {

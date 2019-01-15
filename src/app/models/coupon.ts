@@ -18,10 +18,6 @@ export class Coupon extends BaseModel {
   applicable_packages: string;
   applicable_memberships: string;
 
-  constructor(data: Object = {}) {
-    super(data);
-  }
-
   getStartTime() {
     const date = new Date(this.start_time);
     return DateUtil.formatDay(date) + ' - ' + DateUtil.formatTime(date);

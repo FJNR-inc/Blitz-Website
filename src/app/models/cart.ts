@@ -5,6 +5,7 @@ import {TaxeUtil} from '../utils/taxe';
 import {Order} from './order';
 import {OrderLine} from './orderLine';
 import {Coupon} from './coupon';
+import {AppliedCoupon} from './appliedCoupon';
 
 export class Cart {
   _memberships: Membership[] = [];
@@ -13,6 +14,7 @@ export class Cart {
   _coupons: Coupon[] = [];
   _single_use_token: string;
   _payment_token: string;
+  _applied_coupons: AppliedCoupon[] = [];
 
   constructor(data: Object = {}) {
     if (data) {
@@ -50,6 +52,13 @@ export class Cart {
           }
         );
       }
+      if (data.hasOwnProperty('_applied_coupons')) {
+        data['_applied_coupons'].map(
+          t => {
+            this._applied_coupons.push(new AppliedCoupon(t));
+          }
+        );
+      }
     }
   }
 
@@ -67,6 +76,10 @@ export class Cart {
 
   getCoupons() {
     return this._coupons;
+  }
+
+  getAppliedCoupons() {
+    return this._applied_coupons;
   }
 
   setSingleUseToken(token: string) {
@@ -89,7 +102,15 @@ export class Cart {
   }
 
   addCoupon(coupon: Coupon) {
-    this._coupons.push(coupon);
+    if (coupon.code) {
+      this._coupons.push(coupon);
+    } else {
+      console.error('Coupon may have a code.');
+    }
+  }
+
+  setAppliedCoupon(coupon: AppliedCoupon[]) {
+    this._applied_coupons = coupon;
   }
 
   addMembership(membership: Membership) {
@@ -222,11 +243,8 @@ export class Cart {
         );
       }
     }
-    console.error(this._coupons.length);
-    console.error(this._coupons.length);
 
     if (this._coupons.length > 0) {
-      console.error('add coupon to order');
       newOrder['coupon'] = this._coupons[0].code;
     }
 

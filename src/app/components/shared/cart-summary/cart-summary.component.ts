@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {Cart} from '../../../models/cart';
+import {Coupon} from '../../../models/coupon';
+import {AppliedCoupon} from '../../../models/appliedCoupon';
 
 @Component({
   selector: 'app-cart-summary',
@@ -26,5 +28,13 @@ export class CartSummaryComponent implements OnInit {
 
   removeCouponFromCart(coupon) {
     this.cartService.removeCoupon(coupon.code);
+  }
+
+  getAppliedCoupon(coupon: Coupon) {
+    for (const appliedCoupon of this.cart.getAppliedCoupons()) {
+      if ( appliedCoupon.coupon.code === coupon.code ) {
+        return appliedCoupon;
+      }
+    }
   }
 }

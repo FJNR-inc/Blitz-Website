@@ -3,7 +3,6 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
-import { Card } from '../models/card';
 
 @Injectable()
 export class CardService extends GlobalService {

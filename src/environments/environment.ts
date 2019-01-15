@@ -41,6 +41,7 @@ export const environment = {
     cards: '/payment_profiles',
     orders: '/orders',
     orders_export: '/orders/export',
+    orders_validate: '/orders/validate_coupon',
     orderLines_export: '/order_lines/export',
     reservations: '/reservations',
     reservations_export: '/reservations/export',

@@ -39,12 +39,17 @@
     </div>
   </div>
   <div class="cart-summary__coupons" *ngIf="cart.getCoupons().length">
-    <div *ngFor="let coupon of cart.getCoupons()" class="cart-summary__coupons__coupon">
+    <div *ngFor="let coupon of cart.getCoupons()" class="cart-summary__coupons__coupon" [ngClass]="{'cart-summary__coupons__coupon--disabled': getAppliedCoupon(coupon).reason}">
       <div class="cart-summary__coupons__coupon__code">
         {{coupon.code}}
+        <p *ngIf="getAppliedCoupon(coupon).reason">
+          {{ getAppliedCoupon(coupon).reason }}
+        </p>
       </div>
-      <div class="cart-summary__coupons__coupon__price" *ngIf="coupon.value">
-        {{coupon.value}} $CAN
+      <div class="cart-summary__coupons__coupon__price">
+        <span *ngIf="!getAppliedCoupon(coupon).reason">
+          {{ getAppliedCoupon(coupon)['value'] }} $CAN
+        </span>
       </div>
       <div class="cart-summary__coupons__coupon__action">
         <img (click)="removeCouponFromCart(coupon)" class="cart-summary__coupons__coupon__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />

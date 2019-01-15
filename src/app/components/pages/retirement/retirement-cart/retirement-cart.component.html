@@ -145,7 +145,8 @@
               button2Label="Confirmer"
               maxWidth="600px"
               title="Paiement"
-              (button2)="submitOrder()">
+              (button2)="submitOrder()"
+              [activated]="!waitAPI">
   <div class="modal-summary-payment">
     <app-cart-summary [cart]="cart"></app-cart-summary>
     <app-alert type="danger" [messages]="errorOrder" *ngIf="errorOrder"></app-alert>

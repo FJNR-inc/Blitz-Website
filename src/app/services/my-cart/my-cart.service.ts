@@ -6,6 +6,7 @@ import {Retirement} from '../../models/retirement';
 import {TimeSlot} from '../../models/timeSlot';
 import {Cart} from '../../models/cart';
 import {Coupon} from '../../models/coupon';
+import {AppliedCoupon} from '../../models/appliedCoupon';
 
 
 @Injectable({
@@ -81,6 +82,12 @@ export class MyCartService {
   addCoupon(coupon: Coupon) {
     const cart = this.getCart();
     cart.addCoupon(coupon);
+    this.setCart(cart);
+  }
+
+  setAppliedCoupon(coupon: AppliedCoupon[]) {
+    const cart = this.getCart();
+    cart.setAppliedCoupon(coupon);
     this.setCart(cart);
   }
 

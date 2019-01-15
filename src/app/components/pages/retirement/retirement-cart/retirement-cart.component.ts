@@ -14,6 +14,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../../services/user.service';
 import {User} from '../../../../models/user';
 import {Coupon} from '../../../../models/coupon';
+import {AppliedCoupon} from '../../../../models/appliedCoupon';
 
 @Component({
   selector: 'app-retirement-cart',
@@ -152,6 +153,23 @@ export class RetirementCartComponent implements OnInit {
       emitedCart => {
         this.cart = emitedCart;
         this.defineCurrentStep();
+        if (this.cart.getCoupons().length) {
+          this.orderService.validate(this.cart.generateOrder()).subscribe(
+            data => {
+              const newAppliedCoupon = new AppliedCoupon(data);
+              newAppliedCoupon['coupon'] = this.cart.getCoupons()[0];
+              this.cart.setAppliedCoupon([newAppliedCoupon]);
+            },
+            err => {
+              const newAppliedCoupon = new AppliedCoupon();
+              newAppliedCoupon['coupon'] = this.cart.getCoupons()[0];
+              if (err.error.non_field_errors) {
+                newAppliedCoupon['reason'] = err.error.non_field_errors;
+              }
+              this.cart.setAppliedCoupon([newAppliedCoupon]);
+            }
+          );
+        }
       }
     );
     this.authenticationService.profile.subscribe(
@@ -274,18 +292,17 @@ export class RetirementCartComponent implements OnInit {
       faculty: this.universityForm.controls['faculty'].value,
       student_number: this.universityForm.controls['student_number'].value
     });
+    const newCoupon = new Coupon({
+        code: this.universityForm.controls['coupon_code'].value
+      }
+    );
 
     const profile = this.authenticationService.getProfile();
     this.userService.update(profile.url, value).subscribe(
       user => {
         this.authenticationService.setProfile(user);
         this.defineCurrentStep();
-        this.cartService.addCoupon(
-          new Coupon({
-              code: this.universityForm.controls['coupon_code'].value
-            }
-          )
-        );
+        this.cartService.addCoupon(newCoupon);
       },
       err => {
         if (err.error.non_field_errors) {
@@ -318,6 +335,7 @@ export class RetirementCartComponent implements OnInit {
 
   submitOrder() {
     const order = this.cart.generateOrder();
+    this.waitAPI = true;
 
     this.orderService.create(order).subscribe(
       response => {
