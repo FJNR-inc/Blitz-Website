@@ -6,6 +6,7 @@ import {Order} from './order';
 import {OrderLine} from './orderLine';
 import {Coupon} from './coupon';
 import {AppliedCoupon} from './appliedCoupon';
+import {assertPlatform} from '@angular/core';
 
 export class Cart {
   _memberships: Membership[] = [];
@@ -173,7 +174,7 @@ export class Cart {
     return true;
   }
 
-  getSubTotal() {
+  getSubTotal(): string {
     let total = 0;
     for (const membership of this._memberships) {
       total += Number(membership.price);
@@ -181,25 +182,28 @@ export class Cart {
     for (const retirement of this._retirements) {
       total += Number(retirement.price);
     }
-    return total;
+    for (const appliedCoupon of this._applied_coupons) {
+      total -= Number(appliedCoupon.value);
+    }
+    return total.toFixed(2);
   }
 
   getTPS() {
-    return TaxeUtil.getTPS(this.getSubTotal());
+    return TaxeUtil.getTPS(parseFloat(this.getSubTotal()));
   }
 
   getTVQ() {
-    return TaxeUtil.getTVQ(this.getSubTotal());
+    return TaxeUtil.getTVQ(parseFloat(this.getSubTotal()));
   }
 
   getTotal() {
-    const subTotal = this.getSubTotal();
+    const subTotal = parseFloat(this.getSubTotal());
     let total = subTotal;
 
     total += TaxeUtil.getTPS(subTotal);
     total += TaxeUtil.getTVQ(subTotal);
 
-    return total;
+    return total.toFixed(2);
   }
 
   generateOrder(): Order {
