@@ -165,6 +165,8 @@ export class RetirementCartComponent implements OnInit {
               newAppliedCoupon['coupon'] = this.cart.getCoupons()[0];
               if (err.error.non_field_errors) {
                 newAppliedCoupon['reason'] = err.error.non_field_errors;
+              } else if (err.error.coupon) {
+                newAppliedCoupon['reason'] = err.error.coupon[0];
               }
               this.cart.setAppliedCoupon([newAppliedCoupon]);
             }
