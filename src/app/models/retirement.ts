@@ -45,6 +45,8 @@ export class Retirement extends BaseModel {
   exclusive_memberships: Membership[];
   is_active: boolean;
   form_url: string;
+  carpool_url: string;
+  review_url: string;
   email_content: string;
   accessibility: boolean;
 
