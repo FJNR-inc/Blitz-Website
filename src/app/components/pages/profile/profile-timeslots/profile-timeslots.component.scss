@@ -57,3 +57,19 @@
     margin-top: 20px;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .profile-timeslots {
+    &__table {
+      font-size: 0.7em;
+
+      & td, th {
+        padding: 5px;
+      }
+    }
+
+    &__action {
+      font-size: 0.7em;
+    }
+  }
+}

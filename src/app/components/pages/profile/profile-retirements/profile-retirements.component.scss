@@ -101,3 +101,64 @@
     margin-top: 20px;
   }
 }
+
+.form-exchange-retirement {
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: $font-size-normal;
+    margin-top: 20px;
+  }
+
+  &__icon {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  &__alert {
+    display: block;
+    margin-top: 10px;
+  }
+}
+
+.form-cancel-reservation-retirement {
+  &__retirement {
+    border: 1px solid $border-calendar;
+    padding: 20px;
+    margin: 20px 0;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .profile-retirements {
+    &__list {
+      &__item {
+        flex-wrap: wrap;
+        &__title {
+          order: 1;
+          flex: none;
+          align-items: flex-start;
+        }
+
+        &__description {
+          order: 3;
+          flex: none;
+          width: 100%;
+        }
+
+        &__actions {
+          order: 2;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .profile-retirements {
+    &__action {
+      font-size: 0.7em;
+    }
+  }
+}

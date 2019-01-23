@@ -39,7 +39,8 @@
     flex: 1;
     text-align: center;
     padding: 30px;
-    border-left: 1px solid $border-calendar;
+    border: solid $border-calendar;
+    border-width: 0 0 0 1px;
 
     &__number {
       font-size: 45px;
@@ -63,6 +64,16 @@
     &__sub-text {
       margin-top: 10px;
       font-size: 0.8em;
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .profile-tomatoes {
+    flex-direction: column;
+
+    &__future {
+      border-width: 1px 0 0 0;
     }
   }
 }

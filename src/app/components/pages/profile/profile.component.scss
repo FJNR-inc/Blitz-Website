@@ -17,41 +17,12 @@
     margin-top: 20px;
   }
 
-  &__sub-title {
-    font-size: 0.8em;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-top: 40px;
-  }
-
   &__content {
     display: flex;
 
     &__left {
       flex: 1;
       padding: 40px 20px 0 0;
-
-      &__box {
-        flex: 1;
-        padding: 20px;
-        margin-top: 20px;
-        border: 1px solid $border-calendar;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-
-        &__text {
-          font-size: 1.1em;
-          text-transform: uppercase;
-          font-weight: 700;
-        }
-
-        &__sub-text {
-          margin-top: 10px;
-          font-size: 0.8em;
-        }
-      }
 
       &__subscription {
         margin-top: 40px;
@@ -70,13 +41,6 @@
       flex: 1;
       padding: 40px 0 0 20px;
 
-      &__top {
-      }
-
-      &__stats {
-
-      }
-
       &__timeslots {
        margin-top: 40px;
       }
@@ -88,33 +52,6 @@
   }
 }
 
-.form-exchange-retirement {
-
-  &__title {
-    text-transform: uppercase;
-    font-weight: 900;
-    font-size: $font-size-normal;
-    margin-top: 20px;
-  }
-
-  &__icon {
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  &__alert {
-    display: block;
-    margin-top: 10px;
-  }
-}
-
-.form-cancel-reservation-retirement {
-  &__retirement {
-    border: 1px solid $border-calendar;
-    padding: 20px;
-    margin: 20px 0;
-  }
-}
 @media only screen and (max-width: 1300px) {
   .profile-page {
     &__title {
@@ -141,91 +78,7 @@
 
 @media only screen and (max-width: 700px) {
   .profile-page {
-    &__content {
-      &__right {
-        &__top {
-          flex-direction: column;
-
-          &__box {
-            &:last-child {
-              margin: 20px 0;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 700px) {
-  .profile-page {
     padding: 100px 10px;
-
-    &__content {
-
-      &__right {
-        &__stats {
-          flex-direction: column;
-
-          &__future {
-            border-top: 1px solid $border-calendar;
-            border-left: none;
-          }
-        }
-
-        &__blocs {
-          &__table {
-            & td, th {
-              padding: 2px;
-            }
-          }
-        }
-
-        &__retirement-reservations {
-          &__list {
-            &__item {
-              flex-wrap: wrap;
-              &__title {
-                order: 1;
-                flex: none;
-                align-items: flex-start;
-              }
-
-              &__description {
-                order: 3;
-                flex: none;
-                width: 100%;
-              }
-
-              &__actions {
-                order: 2;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .profile-page {
-
-    &__content {
-      &__right {
-        &__blocs {
-          &__action {
-            font-size: 0.7em;
-          }
-        }
-
-        &__retirement-reservations {
-          &__action {
-            font-size: 0.7em;
-          }
-        }
-      }
-    }
   }
 }
 
@@ -240,15 +93,6 @@
 
       &__right {
         padding: 20px 5px;
-        &__blocs {
-          &__table {
-            font-size: 0.7em;
-          }
-
-          &__action {
-            font-size: 0.7em;
-          }
-        }
       }
     }
   }
