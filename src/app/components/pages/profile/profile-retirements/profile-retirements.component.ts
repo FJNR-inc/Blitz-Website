@@ -109,7 +109,7 @@ export class ProfileRetirementsComponent implements OnInit {
     } else if (this.listFutureRetirementReservations) {
       return this.listFutureRetirementReservations;
     } else {
-      return false;
+      return null;
     }
   }
 

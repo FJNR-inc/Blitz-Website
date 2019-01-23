@@ -6,10 +6,10 @@
   <div class="profile-retirements__list profile-retirements__list--loading" *ngIf="!getDisplayedRetirementReservation()">
     <app-loader></app-loader>
   </div>
-  <div class="profile-retirements__list profile-retirements__list--empty" *ngIf="getDisplayedRetirementReservation().length === 0">
+  <div class="profile-retirements__list profile-retirements__list--empty" *ngIf="getDisplayedRetirementReservation() && getDisplayedRetirementReservation().length === 0">
     {{ 'profile.list_retirement_reservations.no_reservation' | translate }}
   </div>
-  <div class="profile-retirements__list" *ngIf="getDisplayedRetirementReservation().length">
+  <div class="profile-retirements__list" *ngIf="getDisplayedRetirementReservation() && getDisplayedRetirementReservation().length">
     <div class="profile-retirements__list__item"
          *ngFor="let retirementReservation of getDisplayedRetirementReservation()"
          (click)="openRetirementReservation(retirementReservation.id)">
