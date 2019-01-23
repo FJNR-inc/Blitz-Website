@@ -28,7 +28,8 @@
       </div>
 
       <app-retirement-list [ngClass]="{'retirement-reservation__content__list__retirements--responsive': currentView === 'list'}"
-                           class="retirement-reservation__content__list__retirements"></app-retirement-list>
+                           class="retirement-reservation__content__list__retirements"
+                           [retirementReservations]="retirementReservations"></app-retirement-list>
       <app-retirement-cart [ngClass]="{'retirement-reservation__content__list__cart--responsive': currentView === 'cart'}"
                            class="retirement-reservation__content__list__cart"></app-retirement-cart>
     </div>

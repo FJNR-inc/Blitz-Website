@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {RetirementService} from '../../../../services/retirement.service';
 import {Retirement} from '../../../../models/retirement';
 import {AuthenticationService} from '../../../../services/authentication.service';
@@ -15,8 +15,9 @@ import {RetirementWaitingQueue} from '../../../../models/retirementWaitingQueue'
 export class RetirementListComponent implements OnInit {
 
   retirements: Retirement[];
-  retirementReservations: RetirementReservation[];
   retirementWaitingQueues: RetirementWaitingQueue[];
+
+  @Input() retirementReservations: RetirementReservation[];
 
   constructor(private retirementService: RetirementService,
               private authenticationService: AuthenticationService,
@@ -30,7 +31,6 @@ export class RetirementListComponent implements OnInit {
   refreshContent() {
     this.refreshRetirements();
     if (this.authenticationService.isAuthenticated()) {
-      this.refreshRetirementReservations();
       this.refreshRetirementWaitingQueue();
     }
   }
@@ -50,20 +50,6 @@ export class RetirementListComponent implements OnInit {
     this.retirementService.list(filters).subscribe(
       data => {
         this.retirements = data.results.map(r => new Retirement(r));
-      }
-    );
-  }
-
-  refreshRetirementReservations() {
-    const filters = [
-      {
-        'name': 'user',
-        'value': this.authenticationService.getProfile().id
-      }
-    ];
-    this.retirementReservationService.list(filters).subscribe(
-      data => {
-        this.retirementReservations = data.results.map(r => new RetirementReservation(r));
       }
     );
   }
