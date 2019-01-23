@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
+import {TimeSlot} from '../models/timeSlot';
 
 @Injectable()
 export class CardService extends GlobalService {
@@ -30,6 +31,17 @@ export class CardService extends GlobalService {
     return this.http.get<any>(
       this.url_cards,
       {headers: headers, params: params}
+    );
+  }
+
+  remove(paymentProfile: number, cardId): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.request<any>(
+      'delete',
+      this.url_cards + '/' + paymentProfile + '/cards/' + cardId,
+      {
+        headers: headers
+      }
     );
   }
 }

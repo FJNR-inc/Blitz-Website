@@ -1,0 +1,86 @@
+<h2 class="title title--8">
+  {{ 'profile.list_blocs_title' | translate }}
+</h2>
+
+<div class="profile-timeslots">
+  <table class="profile-timeslots__table">
+  <thead class="profile-timeslots__table__header">
+  <tr>
+    <th>
+      {{ 'shared.common.date' | translate }}
+    </th>
+    <th>
+      {{ 'shared.common.space' | translate }}
+    </th>
+    <th>
+      {{ 'shared.common.hours' | translate }}
+    </th>
+    <th>
+      <img src="../../../../assets/images/icons/icon_tomato.svg" class="profile-timeslots__table__header__icon" />
+    </th>
+    <th>
+      {{ 'shared.common.cancel' | translate }}
+    </th>
+  </tr>
+  </thead>
+  <tbody *ngIf="getDisplayedReservation()" class="profile-timeslots__table__body">
+  <tr *ngFor="let reservation of getDisplayedReservation()">
+    <td>
+      {{reservation.timeslot_details.getStartDay()}}
+    </td>
+    <td>
+      <p>
+        {{reservation.timeslot_details.workplace.name}}
+      </p>
+      {{reservation.timeslot_details.workplace.address_line1}}<br/>
+      <span *ngIf="reservation.timeslot_details.workplace.address_line2">
+                {{reservation.timeslot_details.workplace.address_line2}}<br/>
+              </span>
+      {{reservation.timeslot_details.workplace.city}}, {{reservation.timeslot_details.workplace.state_province}} {{reservation.timeslot_details.workplace.postal_code}}
+    </td>
+    <td>
+      {{reservation.timeslot_details.getStartTime()}} {{ 'shared.common.to' | translate }} {{reservation.timeslot_details.getEndTime()}}
+    </td>
+    <td>
+      4
+    </td>
+    <td>
+      <a (click)="askToCancelReservation(reservation)">
+        <img src="assets/images/icons/icon_exit.svg"
+             alt="Annuler"
+             class="profile-timeslots__table__body__icon"/>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+  <a class="profile-timeslots__action" routerLink="/reservation/{{listWorkplaces[0].id}}" *ngIf="listWorkplaces">
+    <i class="icon icon-plus icon--2x"></i>
+    {{ 'profile.add_blocs' | translate }}
+  </a>
+
+  <a *ngIf="!displayAll" class="profile-timeslots__link nt-link" (click)="setDisplayAll(true)">
+    {{ 'profile.display_old_blocs' | translate }}
+  </a>
+
+  <a *ngIf="displayAll" class="profile-timeslots__link nt-link" (click)="setDisplayAll(false)">
+    {{ 'profile.hide_old_blocs' | translate }}
+  </a>
+</div>
+
+<app-nt-modal name="form_cancel_reservation"
+              typeModal="danger"
+              title="{{ 'profile.cancel_reservation' | translate }}"
+              button2Label="{{ 'profile.cancel_reservation_button' | translate }}"
+              (button2)="cancelReservation()"
+              maxWidth="600px"
+              [autoClose]="true">
+  <p>
+    {{ 'profile.cancel_reservation_text_1' | translate }}
+
+  </p>
+  <p>
+    {{ 'profile.cancel_reservation_text_2' | translate }}
+  </p>
+</app-nt-modal>

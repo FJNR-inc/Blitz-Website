@@ -53,39 +53,16 @@
         }
       }
 
+      &__subscription {
+        margin-top: 40px;
+      }
+
       &__cards {
-        &__card {
-          border: 1px solid $border-calendar;
-          padding: 20px;
-          margin-top: 20px;
-
-          &__title {
-            font-size: 0.9em;
-            font-weight: 700;
-            text-transform: uppercase;
-          }
-
-          &__number {
-            margin-top: 10px;
-            margin-bottom: 20px;
-          }
-
-          &__bottom {
-            display: flex;
-          }
-        }
+        margin-top: 40px;
       }
 
       &__account {
-        &__content {
-          border: 1px solid $border-calendar;
-          margin-top: 20px;
-          padding: 20px;
-
-          &__link {
-            margin-top: 30px;
-          }
-        }
+        margin-top: 40px;
       }
     }
 
@@ -94,270 +71,18 @@
       padding: 40px 0 0 20px;
 
       &__top {
-        display: flex;
-
-        &__box {
-          flex: 1;
-          background-color: $nt-4;
-          padding: 30px;
-          border: 1px solid lightgrey;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-around;
-          align-items: center;
-
-          &:last-child {
-            margin-left: 20px;
-          }
-
-          &--main {
-            background-color: $nt-8;
-          }
-
-          &__number {
-            font-size: 45px;
-            font-weight: 700;
-          }
-
-          &__text {
-            font-size: 1.1em;
-            text-transform: uppercase;
-            font-weight: 700;
-            text-align: center;
-          }
-
-          &__sub-text {
-            margin-top: 10px;
-            font-size: 0.8em;
-          }
-        }
       }
 
       &__stats {
-        display: flex;
-        border: 1px solid $border-calendar;
-        margin-top: 20px;
 
-        &__done {
-          flex: 2;
-          text-align: center;
-          padding: 30px;
-
-          &__number {
-            font-size: 45px;
-            font-weight: 700;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &__icon {
-              width: 45px;
-              margin-left: 10px;
-            }
-          }
-
-          &__text {
-            font-size: 1.1em;
-            text-transform: uppercase;
-            font-weight: 700;
-          }
-
-          &__sub-text {
-            margin-top: 10px;
-            font-size: 0.8em;
-          }
-        }
-
-        &__future {
-          flex: 1;
-          text-align: center;
-          padding: 30px;
-          border-left: 1px solid $border-calendar;
-
-          &__number {
-            font-size: 45px;
-            font-weight: 700;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &__icon {
-              width: 45px;
-              margin-left: 10px;
-            }
-          }
-
-          &__text {
-            font-size: 1.1em;
-            text-transform: uppercase;
-            font-weight: 700;
-          }
-
-          &__sub-text {
-            margin-top: 10px;
-            font-size: 0.8em;
-          }
-        }
       }
 
-      &__blocs {
-        &__table {
-          border-collapse: collapse;
-          margin-top: 10px;
-          width: 100%;
-          text-align: center;
-
-          &__header {
-            vertical-align: center;
-            font-weight: 600;
-
-            &__icon {
-              width: 25px;
-            }
-          }
-
-          &__body {
-            vertical-align: center;
-
-            &__icon {
-              width: 20px;
-            }
-          }
-
-          & td, th {
-            border: 1px solid $border-calendar;
-            padding: 15px;
-
-            &:first-letter {
-              text-transform: uppercase;
-            }
-          }
-        }
-
-        &__action {
-          font-size: 20px;
-          font-weight: 500;
-          padding: 20px;
-          border-style: solid;
-          border-color: $border-calendar;
-          border-width:  0 1px 1px 1px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-transform: uppercase;
-          text-decoration: none;
-
-          &:hover {
-            background-color: $nt-13;
-            color: white;
-          }
-        }
-
-        &__link {
-          margin-top: 20px;
-        }
+      &__timeslots {
+       margin-top: 40px;
       }
 
-      &__retirement-reservations {
-        &__list {
-          margin-top: 10px;
-          display: flex;
-          flex-direction: column;
-          border: 1px solid $border-calendar;
-
-          &--empty {
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-          }
-
-          &__item {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            border-bottom: 1px solid $border-calendar;
-
-            &:last-child {
-              border: none;
-            }
-
-            &:hover {
-              background-color: $nt-2;
-              cursor: pointer;
-            }
-
-            & > * {
-              margin: 15px;
-            }
-
-            &__title {
-              flex: 1;
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-start;
-              align-items: center;
-
-              &__text {
-                text-transform: uppercase;
-                font-weight: 900;
-              }
-
-              &__tomatoes {
-                flex: 1;
-                margin-top: 30px;
-                display: flex;
-                align-items: center;
-              }
-            }
-
-            &__description {
-              flex: 2;
-
-              &__more {
-                margin-top: 30px;
-              }
-            }
-
-            &__actions {
-              display: flex;
-              flex-direction: row;
-              justify-content: space-between;
-              font-size: 20px;
-
-              &__item {
-                margin-right: 10px;
-                text-decoration: none;
-
-                &:last-child {
-                  margin: 0;
-                }
-              }
-            }
-          }
-        }
-
-        &__action {
-          font-size: 20px;
-          font-weight: 500;
-          padding: 20px;
-          border-style: solid;
-          border-color: $border-calendar;
-          border-width:  0 1px 1px 1px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-transform: uppercase;
-          text-decoration: none;
-
-          &:hover {
-            background-color: $nt-13;
-            color: white;
-          }
-        }
-
-        &__link {
-          margin-top: 20px;
-        }
+      &__retirements {
+        margin-top: 40px;
       }
     }
   }

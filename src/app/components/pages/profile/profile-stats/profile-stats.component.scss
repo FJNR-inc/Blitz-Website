@@ -1,0 +1,41 @@
+@import '../../../../../assets/scss/theme';
+
+.profile-stats {
+  display: flex;
+
+  &__box {
+    flex: 1;
+    background-color: $nt-4;
+    padding: 30px;
+    border: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    &:last-child {
+      margin-left: 20px;
+    }
+
+    &--main {
+      background-color: $nt-8;
+    }
+
+    &__number {
+      font-size: 45px;
+      font-weight: 700;
+    }
+
+    &__text {
+      font-size: 1.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    &__sub-text {
+      margin-top: 10px;
+      font-size: 0.8em;
+    }
+  }
+}

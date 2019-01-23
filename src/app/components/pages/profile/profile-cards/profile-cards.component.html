@@ -1,0 +1,34 @@
+<h2 class="title title--8">
+  {{ 'profile.payment_mode' | translate }}
+</h2>
+
+<div class="profile-cards" *ngIf="listCards && listCards.length">
+  <div class="profile-cards__card" *ngFor="let card of listCards">
+    <a class="profile-cards__card__delete" (click)="deleteCard(card.id)">
+      <i class="icon icon-trash icon--3x"></i>
+    </a>
+    <div class="profile-cards__card__title">
+      {{ 'shared.form.card_number' | translate }}
+    </div>
+    <div class="profile-cards__card__number">
+      **** **** **** {{ card.last_digits }}
+    </div>
+    <div class="profile-cards__card__bottom">
+      <div>
+        <div class="profile-cards__card__title">
+          {{ 'shared.form.expiration_date' | translate }}
+        </div>
+        <div class="profile-cards__card__number">
+          {{ card.card_expiry.month }} / {{ card.card_expiry.year }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="profile-cards" *ngIf="!listCards || listCards && !listCards.length">
+  <div class="profile-cards__card">
+    <div class="profile-cards__card__title">
+      {{ 'profile.no_payment_mode' | translate }}
+    </div>
+  </div>
+</div>

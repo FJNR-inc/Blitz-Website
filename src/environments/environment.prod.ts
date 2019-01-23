@@ -2,6 +2,8 @@ export const environment = {
   production: false,
   default_language: 'fr',
   multilingual_activated: false,
+  tomato_per_timeslot: 4,
+  tomato_per_retirement: 20,
   url_base_api: 'https://api.thesez-vous.org',
   environment_paysafe: 'LIVE',
   // tslint:disable-next-line:max-line-length

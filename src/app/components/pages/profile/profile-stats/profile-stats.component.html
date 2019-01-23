@@ -1,0 +1,24 @@
+<div class="profile-stats">
+  <div class="profile-stats__box">
+    <p class="profile-stats__box__number">
+      {{ profile.tickets}}
+    </p>
+    <div class="profile-stats__box__text">
+      {{ 'profile.prepaid_bloc' | translate }}
+    </div>
+    <p class="profile-stats__box__sub-text">
+      {{ 'profile.prepaid_bloc_subtext' | translate }}
+    </p>
+  </div>
+  <div class="profile-stats__box profile-stats__box--main">
+    <p class="profile-stats__box__number">
+      {{ profile.getTimeBeforeEndMembership() }}
+    </p>
+    <div class="profile-stats__box__text">
+      {{ 'profile.remaining_days' | translate }}
+    </div>
+    <p class="profile-stats__box__sub-text">
+      {{ 'profile.remaining_days_subtext' | translate }}
+    </p>
+  </div>
+</div>

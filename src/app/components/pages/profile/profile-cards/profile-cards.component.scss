@@ -1,0 +1,31 @@
+@import '../../../../../assets/scss/theme';
+
+.profile-cards {
+  &__card {
+    border: 1px solid $border-calendar;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+
+    &__delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    &__title {
+      font-size: 0.9em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    &__number {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    &__bottom {
+      display: flex;
+    }
+  }
+}

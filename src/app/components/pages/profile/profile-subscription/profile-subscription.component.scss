@@ -1,0 +1,23 @@
+@import '../../../../../assets/scss/theme';
+
+.profile-subscription {
+  flex: 1;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid $border-calendar;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  &__text {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  &__sub-text {
+    margin-top: 10px;
+    font-size: 0.8em;
+  }
+}

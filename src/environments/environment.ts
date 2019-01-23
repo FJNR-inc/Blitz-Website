@@ -7,6 +7,8 @@ export const environment = {
   production: false,
   default_language: 'fr',
   multilingual_activated: true,
+  tomato_per_timeslot: 4,
+  tomato_per_retirement: 20,
   url_base_api: 'http://localhost:8000',
   environment_paysafe: 'TEST',
   // tslint:disable-next-line:max-line-length

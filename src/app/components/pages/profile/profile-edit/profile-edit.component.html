@@ -1,0 +1,8 @@
+<div class="profile-edit">
+  <h2 class="title title--8">
+    {{ 'profile.personal_informations' | translate }}
+  </h2>
+
+  <app-form [form]="userForm" [fields]="fields" [errors]="errors"></app-form>
+  <a class="nt-button profile-edit__button" (click)="submitProfile()">Modifier mes informations</a>
+</div>

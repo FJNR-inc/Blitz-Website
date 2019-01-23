@@ -1,0 +1,28 @@
+<h2 class="title title--8">
+  {{ 'profile.deactivation' | translate }}
+</h2>
+
+<div class="profile-deactivate">
+  <div class="profile-deactivate__content">
+    <div [innerHTML]="'profile.deactivation_card.text' | translate">
+    </div>
+
+    <a class="nt-link profile-deactivate__content__link" appMyModalOpen='form_deactivate_account'>
+      {{ 'profile.deactivation_card.link' | translate }}
+    </a>
+  </div>
+</div>
+
+<app-nt-modal name="form_deactivate_account"
+              typeModal="danger"
+              title="{{ 'profile.deactivate_profile' | translate }}"
+              button2Label="{{ 'shared.buttons.deactivate' | translate }}"
+              (button2)="deactivateAccount()"
+              maxWidth="600px">
+  <p>
+    {{ 'profile.deactivate_profile_text_1' | translate }}
+  </p>
+  <p>
+    {{ 'profile.deactivate_profile_text_2' | translate }}
+  </p>
+</app-nt-modal>

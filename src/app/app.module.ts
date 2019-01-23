@@ -120,6 +120,14 @@ import { CartPaymentComponent } from './components/shared/cart-payment/cart-paym
 import {CouponService} from './services/coupon.service';
 import { CouponsComponent } from './components/pages/admin/coupons/coupons.component';
 import {RetirementWaitingQueueService} from './services/retirementWaitingQueue.service';
+import { ProfileCardsComponent } from './components/pages/profile/profile-cards/profile-cards.component';
+import { ProfileDeactivateComponent } from './components/pages/profile/profile-deactivate/profile-deactivate.component';
+import { ProfileSubscriptionComponent } from './components/pages/profile/profile-subscription/profile-subscription.component';
+import { ProfileTimeslotsComponent } from './components/pages/profile/profile-timeslots/profile-timeslots.component';
+import { ProfileRetirementsComponent } from './components/pages/profile/profile-retirements/profile-retirements.component';
+import { ProfileTomatoesComponent } from './components/pages/profile/profile-tomatoes/profile-tomatoes.component';
+import { ProfileStatsComponent } from './components/pages/profile/profile-stats/profile-stats.component';
+import { ProfileEditComponent } from './components/pages/profile/profile-edit/profile-edit.component';
 
 registerLocaleData(localeFr);
 
@@ -465,6 +473,14 @@ const appRoutes = [
     TableRetirementReservationsComponent,
     CartPaymentComponent,
     CouponsComponent,
+    ProfileCardsComponent,
+    ProfileDeactivateComponent,
+    ProfileSubscriptionComponent,
+    ProfileTimeslotsComponent,
+    ProfileRetirementsComponent,
+    ProfileTomatoesComponent,
+    ProfileStatsComponent,
+    ProfileEditComponent,
   ],
   imports: [
     BrowserModule,

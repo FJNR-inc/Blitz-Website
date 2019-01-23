@@ -1,0 +1,13 @@
+@import '../../../../../assets/scss/theme';
+
+.profile-deactivate {
+  &__content {
+    border: 1px solid $border-calendar;
+    margin-top: 20px;
+    padding: 20px;
+
+    &__link {
+      margin-top: 30px;
+    }
+  }
+}
