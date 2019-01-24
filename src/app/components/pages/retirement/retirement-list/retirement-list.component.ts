@@ -6,6 +6,8 @@ import {RetirementReservation} from '../../../../models/retirementReservation';
 import {RetirementReservationService} from '../../../../services/retirement-reservation.service';
 import {RetirementWaitingQueueService} from '../../../../services/retirementWaitingQueue.service';
 import {RetirementWaitingQueue} from '../../../../models/retirementWaitingQueue';
+import {RetirementWaitingQueueNotificationService} from '../../../../services/retirementWaitingQueueNotification.service';
+import {RetirementWaitingQueueNotification} from '../../../../models/retirementWaitingQueueNotification';
 
 @Component({
   selector: 'app-retirement-list',
@@ -16,13 +18,15 @@ export class RetirementListComponent implements OnInit {
 
   retirements: Retirement[];
   retirementWaitingQueues: RetirementWaitingQueue[];
+  retirementWaitingQueueNotifications: RetirementWaitingQueueNotification[];
 
   @Input() retirementReservations: RetirementReservation[];
 
   constructor(private retirementService: RetirementService,
               private authenticationService: AuthenticationService,
               private retirementReservationService: RetirementReservationService,
-              private retirementWaitingQueueService: RetirementWaitingQueueService) { }
+              private retirementWaitingQueueService: RetirementWaitingQueueService,
+              private retirementWaitingQueueNotificationService: RetirementWaitingQueueNotificationService) { }
 
   ngOnInit() {
     this.refreshContent();
@@ -32,6 +36,7 @@ export class RetirementListComponent implements OnInit {
     this.refreshRetirements();
     if (this.authenticationService.isAuthenticated()) {
       this.refreshRetirementWaitingQueue();
+      this.refreshRetirementWaitingQueueNotification();
     }
   }
 
@@ -68,6 +73,20 @@ export class RetirementListComponent implements OnInit {
     );
   }
 
+  refreshRetirementWaitingQueueNotification() {
+    const filters = [
+      {
+        'name': 'user',
+        'value': this.authenticationService.getProfile().id
+      }
+    ];
+    this.retirementWaitingQueueNotificationService.list(filters).subscribe(
+      data => {
+        this.retirementWaitingQueueNotifications = data.results.map(r => new RetirementWaitingQueueNotification(r));
+      }
+    );
+  }
+
   isAlreadyReserved(retirement) {
     if ( this.retirementReservations ) {
       for (const reservation of this.retirementReservations) {
@@ -83,6 +102,17 @@ export class RetirementListComponent implements OnInit {
     if ( this.retirementWaitingQueues ) {
       for (const queue of this.retirementWaitingQueues) {
         if (queue.retirement === retirement.url) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  isNotified(retirement) {
+    if ( this.retirementWaitingQueueNotifications ) {
+      for (const notification of this.retirementWaitingQueueNotifications) {
+        if (notification.retirement === retirement.url) {
           return true;
         }
       }

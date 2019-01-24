@@ -49,6 +49,7 @@ export class Retirement extends BaseModel {
   review_url: string;
   email_content: string;
   accessibility: boolean;
+  reserved_seats: number;
 
   constructor(data: Object = {}) {
     super(data);

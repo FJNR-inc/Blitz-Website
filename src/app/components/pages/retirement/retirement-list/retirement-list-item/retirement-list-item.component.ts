@@ -17,6 +17,7 @@ export class RetirementListItemComponent implements OnInit {
   @Input() retirement: Retirement;
   @Input() reserved = false;
   @Input() inQueue = false;
+  @Input() notified = false;
   @Output() changed: EventEmitter<any> = new EventEmitter();
 
   showDetails = false;
@@ -40,7 +41,10 @@ export class RetirementListItemComponent implements OnInit {
   }
 
   userCanAddToCart() {
-    return this.authenticationService.isAuthenticated() && !this.reserved && this.isAvailable() && !this.isInCart();
+    const seatReservedForMe = this.notified && this.retirement.reserved_seats;
+    const seatAvailableForNormalPeople = this.isAvailable();
+    const seatAvailable = seatAvailableForNormalPeople || seatReservedForMe;
+    return this.authenticationService.isAuthenticated() && !this.reserved && seatAvailable && !this.isInCart();
   }
 
   userCanRemoveFromCart() {

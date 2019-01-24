@@ -52,5 +52,6 @@ export const environment = {
     retirementReservations: '/retirement/reservations',
     coupons: '/coupons',
     retirement_waiting_queues: '/retirement/wait_queues',
+    retirement_waiting_queue_notifications: '/retirement/wait_queue_notifications',
   }
 };

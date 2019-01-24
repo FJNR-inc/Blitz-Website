@@ -128,6 +128,7 @@ import { ProfileRetirementsComponent } from './components/pages/profile/profile-
 import { ProfileTomatoesComponent } from './components/pages/profile/profile-tomatoes/profile-tomatoes.component';
 import { ProfileStatsComponent } from './components/pages/profile/profile-stats/profile-stats.component';
 import { ProfileEditComponent } from './components/pages/profile/profile-edit/profile-edit.component';
+import {RetirementWaitingQueueNotificationService} from './services/retirementWaitingQueueNotification.service';
 
 registerLocaleData(localeFr);
 
@@ -538,7 +539,8 @@ const appRoutes = [
     RetirementService,
     RetirementReservationService,
     CouponService,
-    RetirementWaitingQueueService
+    RetirementWaitingQueueService,
+    RetirementWaitingQueueNotificationService,
   ],
   bootstrap: [AppComponent]
 })

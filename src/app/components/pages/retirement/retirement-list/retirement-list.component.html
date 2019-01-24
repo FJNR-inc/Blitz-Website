@@ -17,6 +17,7 @@
       <app-retirement-list-item [retirement]="retirement"
                                 [reserved]="isAlreadyReserved(retirement)"
                                 [inQueue]="isAlreadyInQueue(retirement)"
+                                [notified]="isNotified(retirement)"
                                 (changed)="refreshContent()">
       </app-retirement-list-item>
     </div>
