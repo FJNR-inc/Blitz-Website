@@ -60,6 +60,10 @@ export class RetirementReservationComponent implements OnInit {
       {
         'name': 'user',
         'value': this.authenticationService.getProfile().id
+      },
+      {
+        'name': 'is_active',
+        'value': true
       }
     ];
     this.retirementReservationService.list(filters).subscribe(

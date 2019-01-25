@@ -50,6 +50,7 @@ export class Retirement extends BaseModel {
   email_content: string;
   accessibility: boolean;
   reserved_seats: number;
+  places_remaining: number;
 
   constructor(data: Object = {}) {
     super(data);

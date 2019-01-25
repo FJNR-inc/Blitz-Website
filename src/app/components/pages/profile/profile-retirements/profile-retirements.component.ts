@@ -142,7 +142,9 @@ export class ProfileRetirementsComponent implements OnInit {
       const list = [];
       for (const retirement of this.listRetirements) {
         if (retirement.id !== this.selectedRetirementReservation.retirement_details.id) {
-          list.push(retirement);
+          if (retirement.places_remaining > 0) {
+            list.push(retirement);
+          }
         }
       }
       return list;
