@@ -43,6 +43,9 @@ export class MembershipService extends GlobalService {
         if (filter.name === 'available') {
           params = params.set('available', filter.value);
         }
+        if (filter.name === 'name') {
+          params = params.set('name', filter.value);
+        }
       }
     }
 

@@ -129,6 +129,8 @@ import { ProfileTomatoesComponent } from './components/pages/profile/profile-tom
 import { ProfileStatsComponent } from './components/pages/profile/profile-stats/profile-stats.component';
 import { ProfileEditComponent } from './components/pages/profile/profile-edit/profile-edit.component';
 import {RetirementWaitingQueueNotificationService} from './services/retirementWaitingQueueNotification.service';
+import {MultiselectModule} from '@rignonnoel/angular-multiselect';
+import { CouponsCreationComponent } from './components/pages/admin/coupons/coupons-creation/coupons-creation.component';
 
 registerLocaleData(localeFr);
 
@@ -324,11 +326,28 @@ const appRoutes = [
       },
       {
         path: 'admin/coupons',
-        component: CouponsComponent,
         canActivate: [
           CanActivateViaAuthGuard,
           CanAccessAdminPanelGuard,
-        ]
+        ],
+        children: [
+          {
+            path: '',
+            component: CouponsComponent,
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ]
+          },
+          {
+            path: 'create',
+            component: CouponsCreationComponent,
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ]
+          }
+        ],
       },
       {
         path: 'admin/workplaces/:id',
@@ -482,6 +501,7 @@ const appRoutes = [
     ProfileTomatoesComponent,
     ProfileStatsComponent,
     ProfileEditComponent,
+    CouponsCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -504,7 +524,8 @@ const appRoutes = [
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    MultiselectModule
   ],
   providers: [
     CanActivateViaAuthGuard,

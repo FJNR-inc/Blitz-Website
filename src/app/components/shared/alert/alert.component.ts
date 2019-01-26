@@ -15,7 +15,7 @@ export class AlertComponent implements OnInit {
     'text-warning': 'icon icon-warning icon--5x icon--danger',
     'success': 'icon icon-check-circle-reverse icon--5x icon--success',
     'danger': '../../../../assets/images/icons/icon_attention.svg',
-    'info': '../../../../assets/images/icons/icon_tomato.svg'
+    'info': 'icon icon-info-circle-reverse icon--5x'
   };
 
   constructor() { }

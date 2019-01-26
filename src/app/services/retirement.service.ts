@@ -41,6 +41,9 @@ export class RetirementService extends GlobalService {
         if (filter.name === 'is_active') {
           params = params.set('is_active', filter.value);
         }
+        if (filter.name === 'name') {
+          params = params.set('name', filter.value);
+        }
         if (filter.name === 'end_time__gte') {
           params = params.set('end_time__gte', filter.value);
         }
