@@ -28,11 +28,19 @@ export class RetirementReservationComponent implements OnInit {
         this.cart = emitedCart;
       }
     );
+
+    this.authenticationService.profile.subscribe(
+      emitedProfile => {
+        this.refreshRetirementReservations();
+      }
+    );
   }
 
   ngOnInit() {
     this.cartService.reset();
-    this.refreshRetirementReservations();
+    if (this.authenticationService.isAuthenticated()) {
+      this.refreshRetirementReservations();
+    }
   }
 
   updateTutorialDisplay(numberOfRetirementReservations) {
