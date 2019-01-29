@@ -346,6 +346,14 @@ const appRoutes = [
               CanActivateViaAuthGuard,
               CanAccessAdminPanelGuard,
             ]
+          },
+          {
+            path: 'edit/:id',
+            component: CouponsCreationComponent,
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ]
           }
         ],
       },

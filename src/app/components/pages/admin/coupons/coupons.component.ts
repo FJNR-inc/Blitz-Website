@@ -21,6 +21,7 @@ export class CouponsComponent implements OnInit {
     title: _('coupons.coupons'),
     noDataText: _('coupons.no_coupons'),
     addButton: true,
+    clickable: true,
     previous: false,
     next: false,
     numberOfPage: 0,
@@ -86,5 +87,9 @@ export class CouponsComponent implements OnInit {
 
   goToCouponCreationPage() {
     this.router.navigate(['/admin/coupons/create']);
+  }
+
+  goToCouponEditionPage(coupon) {
+    this.router.navigate(['/admin/coupons/edit/' + coupon.id]);
   }
 }

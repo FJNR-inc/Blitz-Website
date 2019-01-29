@@ -4,6 +4,7 @@
                   [data]="listCoupons"
                   (addButton)="goToCouponCreationPage()"
                   (changePage)="changePage($event)"
+                  (selectItem)="goToCouponEditionPage($event)"
                   [confirmationOnDeletion]="false">
     </app-my-table>
   </div>

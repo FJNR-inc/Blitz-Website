@@ -1,6 +1,9 @@
 <div class="coupons-creation">
-  <div class="title title--6">
+  <div class="title title--6" *ngIf="!coupon">
     {{ 'coupons-creation.title' | translate }}
+  </div>
+  <div class="title title--6" *ngIf="coupon">
+    {{ 'coupons-creation.title-edition' | translate }}
   </div>
   <app-form [form]="couponForm" [fields]="fields" [errors]="couponErrors"></app-form>
   <app-alert type="info">

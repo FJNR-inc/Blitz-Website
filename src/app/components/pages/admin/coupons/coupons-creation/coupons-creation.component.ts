@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {FormUtil} from '../../../../../utils/form';
 import {FormGroup} from '@angular/forms';
@@ -11,7 +11,8 @@ import {Membership} from '../../../../../models/membership';
 import {MembershipService} from '../../../../../services/membership.service';
 import {ReservationPackage} from '../../../../../models/reservationPackage';
 import {ReservationPackageService} from '../../../../../services/reservation-package.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Coupon} from '../../../../../models/coupon';
 
 @Component({
   selector: 'app-coupons-creation',
@@ -19,8 +20,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./coupons-creation.component.scss']
 })
 export class CouponsCreationComponent implements OnInit {
+  coupon: Coupon;
 
   fields = [
+    {
+      name: 'code',
+      type: 'text',
+      label: _('shared.form.coupon.code')
+    },
     {
       name: 'value',
       type: 'number',
@@ -92,7 +99,8 @@ export class CouponsCreationComponent implements OnInit {
               private notificationService: MyNotificationService,
               private membershipService: MembershipService,
               private packageService: ReservationPackageService,
-              private router: Router) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.refreshRetirementList();
@@ -101,6 +109,21 @@ export class CouponsCreationComponent implements OnInit {
 
     const formUtil = new FormUtil();
     this.couponForm = formUtil.createFormGroup(this.fields);
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.couponService.get(params['id']).subscribe(
+        data => {
+          this.coupon = new Coupon(data);
+          this.couponForm.controls['code'].setValue(this.coupon.code);
+          this.couponForm.controls['value'].setValue(this.coupon.value);
+          this.couponForm.controls['start_time'].setValue(this.coupon.start_time);
+          this.couponForm.controls['end_time'].setValue(this.coupon.end_time);
+          this.couponForm.controls['max_use'].setValue(this.coupon.max_use);
+          this.couponForm.controls['max_use_per_user'].setValue(this.coupon.max_use_per_user);
+          this.couponForm.controls['details'].setValue(this.coupon.details);
+        }
+      );
+    });
   }
 
   refreshRetirementList(search = null) {
