@@ -98,7 +98,7 @@ export class ProfileRetirementsComponent implements OnInit {
         }
 
         this.totalPastTomatoes.emit(this.totalPastRetirementReservations);
-        this.totalFutureTomatoes.emit(this.listFutureRetirementReservations);
+        this.totalFutureTomatoes.emit(this.totalFutureRetirementReservations);
       }
     );
   }
