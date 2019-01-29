@@ -1,0 +1,91 @@
+@import '../../../../../assets/scss/theme';
+
+.profile-coupons {
+  &__list {
+    border: 1px solid $border-calendar;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    flex-direction: column;
+
+    &__empty {
+      margin: 50px 0;
+    }
+
+    &__item {
+      width: 100%;
+      padding: 25px;
+      border-top: 1px solid $border-calendar;
+      position: relative;
+
+      &__send-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      &:first-child {
+        border-top: none;
+      }
+
+      &__title {
+        font-weight: 900;
+        font-size: 1.2em;
+      }
+
+      &__content {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  &__action {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 20px;
+    border-style: solid;
+    border-color: $border-calendar;
+    border-width:  0 1px 1px 1px;
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+
+    &:hover {
+      color: white;
+      background-color: $nt-13;
+    }
+  }
+}
+
+.profile-coupons-modal-send {
+  &__line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__icon {
+      margin-top: 12px;
+      margin-left: 10px;
+    }
+  }
+
+  &__link {
+    margin-top: 20px;
+  }
+
+  &__alert {
+    margin-top: 20px;
+    display: block;
+  }
+
+  &__validation_text {
+    &__list {
+      list-style-type: none;
+    }
+
+    &__link {
+      margin-top: 20px;
+    }
+  }
+}

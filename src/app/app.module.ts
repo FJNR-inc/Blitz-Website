@@ -131,6 +131,7 @@ import { ProfileEditComponent } from './components/pages/profile/profile-edit/pr
 import {RetirementWaitingQueueNotificationService} from './services/retirementWaitingQueueNotification.service';
 import {MultiselectModule} from '@rignonnoel/angular-multiselect';
 import { CouponsCreationComponent } from './components/pages/admin/coupons/coupons-creation/coupons-creation.component';
+import { ProfileCouponsComponent } from './components/pages/profile/profile-coupons/profile-coupons.component';
 
 registerLocaleData(localeFr);
 
@@ -510,6 +511,7 @@ const appRoutes = [
     ProfileStatsComponent,
     ProfileEditComponent,
     CouponsCreationComponent,
+    ProfileCouponsComponent,
   ],
   imports: [
     BrowserModule,

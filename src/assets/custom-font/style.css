@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icon-tv';
-  src:  url('fonts/icon-tv.eot?vw04gk');
-  src:  url('fonts/icon-tv.eot?vw04gk#iefix') format('embedded-opentype'),
-  url('fonts/icon-tv.ttf?vw04gk') format('truetype'),
-  url('fonts/icon-tv.woff?vw04gk') format('woff'),
-  url('fonts/icon-tv.svg?vw04gk#icon-tv') format('svg');
+  src:  url('fonts/icon-tv.eot');
+  src:  url('fonts/icon-tv.eot') format('embedded-opentype'),
+  url('fonts/icon-tv.ttf') format('truetype'),
+  url('fonts/icon-tv.woff') format('woff'),
+  url('fonts/icon-tv.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,11 +24,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-envelope:before {
+.icon-send:before {
   content: "\e91e";
 }
-.icon-send:before {
-  content: "\e91f";
+.icon-envelope:before {
+  content: "\e925";
 }
 .icon-trash:before {
   content: "\e920";

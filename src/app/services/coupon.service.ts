@@ -45,6 +45,9 @@ export class CouponService extends GlobalService {
         if (filter.name === 'end_time__gte') {
           params = params.set('end_time__gte', filter.value);
         }
+        if (filter.name === 'owner') {
+          params = params.set('owner', filter.value);
+        }
       }
     }
     return this.http.get<any>(
@@ -66,6 +69,17 @@ export class CouponService extends GlobalService {
     const headers = this.getHeaders();
     return this.http.delete<any>(
       coupon.url,
+      {headers: headers}
+    );
+  }
+
+  notify(coupon: Coupon, emails: string[]): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      coupon.url + '/notify',
+      {
+        'email_list': emails
+      },
       {headers: headers}
     );
   }
