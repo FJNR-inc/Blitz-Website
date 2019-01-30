@@ -121,6 +121,10 @@ export class CouponsCreationComponent implements OnInit {
           this.couponForm.controls['max_use'].setValue(this.coupon.max_use);
           this.couponForm.controls['max_use_per_user'].setValue(this.coupon.max_use_per_user);
           this.couponForm.controls['details'].setValue(this.coupon.details);
+          this.selectedRetirements = this.setSelectedRetirements();
+          this.selectedPackages = this.setSelectedPackages();
+          this.selectedTypeOfProduct = this.setSelectedTypeOfProduct();
+          this.selectedMemberships = this.setSelectedMemberships();
         }
       );
     });
@@ -159,12 +163,29 @@ export class CouponsCreationComponent implements OnInit {
     );
   }
 
+
+  setSelectedRetirements() {
+    const selectedRetirements = [];
+    for (const retirement of this.coupon.applicable_retirements) {
+      selectedRetirements.push(retirement);
+    }
+    return selectedRetirements;
+  }
+
   getSelectedRetirements() {
     const selectedRetirements = [];
     for (const retirement of this.selectedRetirements) {
       selectedRetirements.push(retirement.url);
     }
     return selectedRetirements;
+  }
+
+  setSelectedMemberships() {
+    const selectedMemberships = [];
+    for (const membership of this.coupon.applicable_memberships) {
+      selectedMemberships.push(membership);
+    }
+    return selectedMemberships;
   }
 
   getSelectedMemberships() {
@@ -175,12 +196,32 @@ export class CouponsCreationComponent implements OnInit {
     return selectedMemberships;
   }
 
+  setSelectedTypeOfProduct() {
+    const selectedTypeOfProduct = [];
+    for (const typeOfProduct of this.coupon.applicable_product_types) {
+      for (const availableTypeOfProduct of this.listTypeOfProduct) {
+        if (availableTypeOfProduct.value === typeOfProduct) {
+          selectedTypeOfProduct.push(availableTypeOfProduct);
+        }
+      }
+    }
+    return selectedTypeOfProduct;
+  }
+
   getSelectedTypeOfProduct() {
     const selectedTypeOfProduct = [];
     for (const typeOfProduct of this.selectedTypeOfProduct) {
       selectedTypeOfProduct.push(typeOfProduct.value);
     }
     return selectedTypeOfProduct;
+  }
+
+  setSelectedPackages() {
+    const selectedPackages = [];
+    for (const packageItem of this.coupon.applicable_packages) {
+      selectedPackages.push(packageItem);
+    }
+    return selectedPackages;
   }
 
   getSelectedPackages() {
@@ -200,22 +241,41 @@ export class CouponsCreationComponent implements OnInit {
       value['applicable_packages'] = this.getSelectedPackages();
       value['applicable_product_types'] = this.getSelectedTypeOfProduct();
 
-      this.couponService.create(value).subscribe(
-        data => {
-          this.notificationService.success(
-            _('shared.notifications.commons.added.title')
-          );
-          this.router.navigate(['/admin/coupons']);
-        },
-        err => {
-          if (err.error.non_field_errors) {
-            this.couponErrors = err.error.non_field_errors;
-          } else {
-            this.couponErrors =  ['shared.form.errors.unknown'];
+      if (this.coupon) {
+        this.couponService.update(this.coupon.url, value).subscribe(
+          data => {
+            this.notificationService.success(
+              _('shared.notifications.commons.update.title')
+            );
+            this.router.navigate(['/admin/coupons']);
+          },
+          err => {
+            if (err.error.non_field_errors) {
+              this.couponErrors = err.error.non_field_errors;
+            } else {
+              this.couponErrors =  ['shared.form.errors.unknown'];
+            }
+            this.couponForm = FormUtil.manageFormErrors(this.couponForm, err);
           }
-          this.couponForm = FormUtil.manageFormErrors(this.couponForm, err);
-        }
-      );
+        );
+      } else {
+        this.couponService.create(value).subscribe(
+          data => {
+            this.notificationService.success(
+              _('shared.notifications.commons.added.title')
+            );
+            this.router.navigate(['/admin/coupons']);
+          },
+          err => {
+            if (err.error.non_field_errors) {
+              this.couponErrors = err.error.non_field_errors;
+            } else {
+              this.couponErrors =  ['shared.form.errors.unknown'];
+            }
+            this.couponForm = FormUtil.manageFormErrors(this.couponForm, err);
+          }
+        );
+      }
     }
   }
 
