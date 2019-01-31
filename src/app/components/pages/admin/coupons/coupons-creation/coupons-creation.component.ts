@@ -245,7 +245,7 @@ export class CouponsCreationComponent implements OnInit {
         this.couponService.update(this.coupon.url, value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.update.title')
+              _('shared.notifications.commons.updated.title')
             );
             this.router.navigate(['/admin/coupons']);
           },

@@ -22,6 +22,7 @@ export class CouponsComponent implements OnInit {
     noDataText: _('coupons.no_coupons'),
     addButton: true,
     clickable: true,
+    removeButton: true,
     previous: false,
     next: false,
     numberOfPage: 0,
@@ -51,7 +52,8 @@ export class CouponsComponent implements OnInit {
   };
 
   constructor(private couponService: CouponService,
-              private router: Router) { }
+              private router: Router,
+              private notificationService: MyNotificationService) { }
 
   ngOnInit() {
     this.refreshCouponList();
@@ -91,5 +93,22 @@ export class CouponsComponent implements OnInit {
 
   goToCouponEditionPage(coupon) {
     this.router.navigate(['/admin/coupons/edit/' + coupon.id]);
+  }
+
+  removeCoupon(coupon) {
+    this.couponService.remove(coupon).subscribe(
+      data => {
+        this.notificationService.success(
+          _('shared.notifications.commons.deleted.title')
+        );
+        this.refreshCouponList();
+      },
+      err => {
+        this.notificationService.error(
+          _('shared.notifications.fail_deletion.title'),
+          _('shared.notifications.fail_deletion.content')
+        );
+      }
+    );
   }
 }
