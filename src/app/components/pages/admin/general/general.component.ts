@@ -27,7 +27,7 @@ export class GeneralComponent implements OnInit {
   }
 
   refreshUserCount() {
-    this.userService.list(null,1).subscribe(
+    this.userService.list(null, 1).subscribe(
       data => {
         this.userCount = data.count;
       }
