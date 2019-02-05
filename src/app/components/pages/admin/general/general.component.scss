@@ -1,0 +1,64 @@
+@import '../../../../../assets/scss/theme';
+
+.admin-general-page {
+  &__stats {
+    display: flex;
+    justify-content: space-between;
+    background-color: $nt-13;
+
+    &__item {
+      text-align: center;
+      border-right: 1px solid $border-calendar;
+      color: white;
+      padding: 20px;
+      flex: 1;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &__number {
+        font-size: 50px;
+        font-weight: 900;
+        margin-bottom: 20px;
+      }
+
+      &__title {
+        text-transform: uppercase;
+        font-weight: 900;
+        font-size: 20px;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-around;
+
+    &__item {
+      flex: 1;
+      border: solid $nt-13;
+      border-width: 5px 1px 1px 1px;
+      border-radius: 5px;
+      margin: 20px;
+      padding: 10px;
+
+      &__title {
+        text-align: center;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      &__text {
+        &__list {
+          margin-top: 20px;
+
+          &__item {
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}

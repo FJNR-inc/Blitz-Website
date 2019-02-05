@@ -11,6 +11,10 @@ import {InternationalizationService} from '../../services/internationalization.s
             <span class="left-nav__content__header">
               {{ 'admin-layout.left-nav.title' | translate }}
             </span>
+            <a routerLink="/admin" class="left-nav__content__item">
+              <i class="fas fa-tachometer-alt"></i>
+              {{ 'admin-layout.left-nav.dashboard' | translate }}
+            </a>
             <a routerLink="/admin/users" class="left-nav__content__item">
               <i class="fa fa-users"></i>
               {{ 'admin-layout.left-nav.users' | translate }}

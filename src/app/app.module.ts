@@ -132,6 +132,7 @@ import {RetirementWaitingQueueNotificationService} from './services/retirementWa
 import {MultiselectModule} from '@rignonnoel/angular-multiselect';
 import { CouponsCreationComponent } from './components/pages/admin/coupons/coupons-creation/coupons-creation.component';
 import { ProfileCouponsComponent } from './components/pages/profile/profile-coupons/profile-coupons.component';
+import { GeneralComponent } from './components/pages/admin/general/general.component';
 
 registerLocaleData(localeFr);
 
@@ -269,6 +270,14 @@ const appRoutes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
+      {
+        path: 'admin',
+        component: GeneralComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
       {
         path: 'admin/documentation',
         component: DesignDocumentationComponent,
@@ -512,6 +521,7 @@ const appRoutes = [
     ProfileEditComponent,
     CouponsCreationComponent,
     ProfileCouponsComponent,
+    GeneralComponent,
   ],
   imports: [
     BrowserModule,

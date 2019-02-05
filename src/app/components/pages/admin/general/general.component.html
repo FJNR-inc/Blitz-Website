@@ -1,0 +1,52 @@
+<div class="admin-general-page">
+  <div class="admin-general-page__stats">
+    <div class="admin-general-page__stats__item">
+      <div class="admin-general-page__stats__item__number">
+        {{ userCount }}
+      </div>
+      <div class="admin-general-page__stats__item__title">
+        {{ 'admin-general-page.stats.users' | translate }}
+      </div>
+    </div>
+    <div class="admin-general-page__stats__item">
+      <div class="admin-general-page__stats__item__number">
+        {{ retreatReservationCount }}
+      </div>
+      <div class="admin-general-page__stats__item__title">
+        {{ 'admin-general-page.stats.retreat_reserved' | translate }}
+      </div>
+    </div>
+    <div class="admin-general-page__stats__item">
+      <div class="admin-general-page__stats__item__number">
+        {{ timeslotReservationCount }}
+      </div>
+      <div class="admin-general-page__stats__item__title">
+        {{ 'admin-general-page.stats.timeslot_reserved' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-general-page__content">
+    <div class="admin-general-page__content__item">
+      <div class="admin-general-page__content__item__title">
+        {{ 'admin-general-page.support.title' | translate }}
+      </div>
+      <div class="admin-general-page__content__item__text">
+        {{ 'admin-general-page.support.text' | translate }}:
+
+        <ol class="admin-general-page__content__item__text__list">
+          <li class="admin-general-page__content__item__text__list__item">
+            {{ 'admin-general-page.support.item_1' | translate }}
+          </li>
+          <li class="admin-general-page__content__item__text__list__item">
+            {{ 'admin-general-page.support.item_2' | translate }}
+          </li>
+          <li class="admin-general-page__content__item__text__list__item">
+            {{ 'admin-general-page.support.item_3' | translate }}:
+            <a class="nt-link" href="mailto:support@fjnr.ca">support@fjnr.ca</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
