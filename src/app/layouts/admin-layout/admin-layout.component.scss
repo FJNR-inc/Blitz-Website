@@ -10,7 +10,7 @@
 .left-nav {
   width: 250px;
   border-right: 1px solid $border-calendar;
-  height: 100%;
+  min-height: 100%;
   box-sizing: border-box;
   background-color: $nt-4;
   display: flex;
