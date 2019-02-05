@@ -93,6 +93,15 @@
         <i *ngIf="!showNav" class="icon icon-logout icon--2x"></i>
       </a>
 
+      <a routerLink="/admin"
+         class="nt-header__main__actions__item"
+         *ngIf="isAdmin()">
+        <div *ngIf="showNav">
+          {{ 'header.administration' | translate }}
+        </div>
+        <i *ngIf="!showNav" class="fas fa-cogs fa-2x"></i>
+      </a>
+
       <a *ngIf="multilingual_activated && locale === 'fr'" (click)="changeLanguage('en')"
          class="nt-header__main__actions__item">
         <div *ngIf="showNav">
@@ -170,6 +179,12 @@
          class="nt-header-responsive__actions__item"
          *ngIf="isAuthenticated()">
           {{ 'header.logout' | translate }}
+      </a>
+
+      <a routerLink="/admin"
+         class="nt-header-responsive__actions__item"
+         *ngIf="isAdmin()">
+        {{ 'header.administration' | translate }}
       </a>
 
       <a *ngIf="multilingual_activated && locale === 'fr'" (click)="changeLanguage('en')"
