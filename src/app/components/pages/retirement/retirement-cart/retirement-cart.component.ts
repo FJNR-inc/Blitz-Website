@@ -341,7 +341,6 @@ export class RetirementCartComponent implements OnInit {
 
     this.orderService.create(order).subscribe(
       response => {
-        this.waitAPI = false;
         this.notificationService.success(
           _('shared.notifications.order_done.title'),
           _('shared.notifications.order_done.content')
