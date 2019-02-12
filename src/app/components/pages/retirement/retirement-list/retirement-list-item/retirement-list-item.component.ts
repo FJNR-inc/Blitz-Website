@@ -37,7 +37,7 @@ export class RetirementListItemComponent implements OnInit {
 
   // Return true if we can buy the retirement, false if there is no more place available.
   isAvailable() {
-    return this.retirement.users.length < this.retirement.seats;
+    return this.retirement.places_remaining > 0;
   }
 
   userCanAddToCart() {
