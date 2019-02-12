@@ -53,7 +53,11 @@ export class TableRetirementReservationsComponent implements OnInit {
       {
         name: 'cancelation_action',
         title: _('shared.common.action')
-      }
+      },
+      {
+        name: 'personnal_restrictions',
+        title: _('shared.common.personnal_restrictions')
+      },
     ]
   };
 
@@ -102,7 +106,8 @@ export class TableRetirementReservationsComponent implements OnInit {
       is_present: retirementReservation.is_present,
       is_active: retirementReservation.is_active,
       cancelation_reason: retirementReservation.getCancelationReasonLabel() || '-',
-      cancelation_action: retirementReservation.getCancelationActionLabel() || '-'
+      cancelation_action: retirementReservation.getCancelationActionLabel() || '-',
+      personnal_restrictions: retirementReservation.user_details.personnal_restrictions
     };
 
     return reservationAdapted;
