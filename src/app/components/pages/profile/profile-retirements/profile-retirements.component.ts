@@ -127,6 +127,7 @@ export class ProfileRetirementsComponent implements OnInit {
 
   openModalExchangeRetirementReservation(selectedRetirementReservation) {
     this.selectedRetirementReservation = selectedRetirementReservation;
+    this.selectedRetirementForExchange = this.getChoicesExchangeRetirement()[0].url;
     this.refreshRetirements();
     this.toogleModal('form_exchange_retirement');
   }
