@@ -76,14 +76,15 @@ export class CouponsComponent implements OnInit {
   }
 
   couponAdapter(coupon) {
+    const couponObject = new Coupon(coupon);
     return {
-      id: coupon.id,
-      url: coupon.url,
-      code: coupon.code,
-      value: coupon.value,
-      start_time: coupon.getStartTime(),
-      end_time: coupon.getEndTime(),
-      details: coupon.details
+      id: couponObject.id,
+      url: couponObject.url,
+      code: couponObject.code,
+      value: String(couponObject.getValue()) + ' ' + couponObject.getLabelledTypeOfValue(),
+      start_time: couponObject.getStartTime(),
+      end_time: couponObject.getEndTime(),
+      details: couponObject.details
     };
   }
 

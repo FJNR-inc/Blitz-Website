@@ -29,7 +29,22 @@ export class CouponsCreationComponent implements OnInit {
       label: _('shared.form.coupon.code')
     },
     {
-      name: 'value',
+      name: 'type_of_value',
+      type: 'select',
+      choices: [
+        {
+          value: 'value',
+          label: 'Value'
+        },
+        {
+          value: 'percent_off',
+          label: 'Percentage'
+        }
+      ],
+      label: _('shared.form.coupon.type_of_value')
+    },
+    {
+      name: 'value_of_coupon',
       type: 'number',
       label: _('shared.form.coupon.value')
     },
@@ -115,7 +130,8 @@ export class CouponsCreationComponent implements OnInit {
         data => {
           this.coupon = new Coupon(data);
           this.couponForm.controls['code'].setValue(this.coupon.code);
-          this.couponForm.controls['value'].setValue(this.coupon.value);
+          this.couponForm.controls['value_of_coupon'].setValue(this.coupon.getValue());
+          this.couponForm.controls['type_of_value'].setValue(this.coupon.getTypeOfValue());
           this.couponForm.controls['start_time'].setValue(this.coupon.start_time);
           this.couponForm.controls['end_time'].setValue(this.coupon.end_time);
           this.couponForm.controls['max_use'].setValue(this.coupon.max_use);
@@ -240,6 +256,13 @@ export class CouponsCreationComponent implements OnInit {
       value['applicable_memberships'] = this.getSelectedMemberships();
       value['applicable_packages'] = this.getSelectedPackages();
       value['applicable_product_types'] = this.getSelectedTypeOfProduct();
+      if (value['type_of_value'] === 'value') {
+        value['value'] = value['value_of_coupon'];
+        value['percent_off'] = 0;
+      } else {
+        value['percent_off'] = value['value_of_coupon'];
+        value['value'] = 0;
+      }
 
       if (this.coupon) {
         this.couponService.update(this.coupon.url, value).subscribe(

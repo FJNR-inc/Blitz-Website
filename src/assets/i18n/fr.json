@@ -481,6 +481,7 @@
   "shared.form.coupon.max_user_per_user": "Utilisation maximum par utilisateur",
   "shared.form.coupon.start_time": "Début",
   "shared.form.coupon.value": "Valeur du coupon",
+  "shared.form.coupon.type_of_value": "Type de valeur",
   "shared.form.description_in_english": "",
   "shared.form.description_in_french": "",
   "shared.form.email": "adresse courriel",

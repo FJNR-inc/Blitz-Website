@@ -7,6 +7,7 @@ export class Coupon extends BaseModel {
   code: string;
   applicable_product_types: string;
   value: string;
+  percent_off: string;
   max_use: string;
   max_use_per_user: string;
   start_time: string;
@@ -26,6 +27,29 @@ export class Coupon extends BaseModel {
   getEndTime() {
     const date = new Date(this.start_time);
     return DateUtil.formatDay(date) + ' - ' + DateUtil.formatTime(date);
+  }
+
+  getValue() {
+    return this[this.getTypeOfValue()];
+  }
+
+  getTypeOfValue() {
+    if (this.value && Number(this.value) > 0) {
+      return 'value';
+    } else {
+      return 'percent_off';
+    }
+  }
+
+  getLabelledTypeOfValue() {
+    const type = this.getTypeOfValue();
+    if (type === 'value') {
+      return '$';
+    } else if (type === 'percent_off') {
+      return '%';
+    } else {
+      return '';
+    }
   }
 }
 
