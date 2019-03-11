@@ -4,7 +4,7 @@
   background-color: $nt-4;
   height: 100%;
   min-height: 100vh;
-  padding: 100px;
+  padding: 100px 100px 20px 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,6 +33,12 @@
     &__next {
       margin-right: 40px;
     }
+  }
+
+  &__politics {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
   }
 }
 
