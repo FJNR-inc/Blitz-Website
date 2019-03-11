@@ -39,15 +39,15 @@
     </div>
   </div>
   <div class="cart-summary__coupons" *ngIf="cart.getCoupons().length">
-    <div *ngFor="let coupon of cart.getCoupons()" class="cart-summary__coupons__coupon" [ngClass]="{'cart-summary__coupons__coupon--disabled': getAppliedCoupon(coupon).reason}">
+    <div *ngFor="let coupon of cart.getCoupons()" class="cart-summary__coupons__coupon" [ngClass]="{'cart-summary__coupons__coupon--disabled': isCouponDisabled(coupon)}">
       <div class="cart-summary__coupons__coupon__code">
         {{coupon.code}}
-        <p *ngIf="getAppliedCoupon(coupon).reason">
+        <p *ngIf="getAppliedCoupon(coupon) && getAppliedCoupon(coupon).reason">
           {{ getAppliedCoupon(coupon).reason }}
         </p>
       </div>
       <div class="cart-summary__coupons__coupon__price">
-        <span *ngIf="!getAppliedCoupon(coupon).reason">
+        <span *ngIf="getAppliedCoupon(coupon) && !getAppliedCoupon(coupon).reason">
           {{ getAppliedCoupon(coupon)['value'] }} $CAN
         </span>
       </div>

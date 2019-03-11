@@ -37,4 +37,13 @@ export class CartSummaryComponent implements OnInit {
       }
     }
   }
+
+  isCouponDisabled(coupon) {
+    const appliedCoupon = this.getAppliedCoupon(coupon);
+    if (appliedCoupon) {
+      return appliedCoupon.reason;
+    } else {
+      return false;
+    }
+  }
 }

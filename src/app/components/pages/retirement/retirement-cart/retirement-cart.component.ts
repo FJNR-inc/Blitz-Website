@@ -109,7 +109,7 @@ export class RetirementCartComponent implements OnInit {
     }
   ];
 
-
+  haveGrantApplied = false;
   universityForm: FormGroup;
   universityErrors: string[];
   universityFields = [
@@ -154,6 +154,7 @@ export class RetirementCartComponent implements OnInit {
         this.cart = emitedCart;
         this.defineCurrentStep();
         if (this.cart.getCoupons().length) {
+          this.haveGrantApplied = true;
           this.orderService.validate(this.cart.generateOrder()).subscribe(
             data => {
               const newAppliedCoupon = new AppliedCoupon(data);
@@ -171,6 +172,8 @@ export class RetirementCartComponent implements OnInit {
               this.cart.setAppliedCoupon([newAppliedCoupon]);
             }
           );
+        } else {
+          this.haveGrantApplied = false;
         }
       }
     );
@@ -289,32 +292,36 @@ export class RetirementCartComponent implements OnInit {
   }
 
   submitUniversityInformation() {
-    const value = new User({
-      academic_program_code: this.universityForm.controls['academic_program_code'].value,
-      faculty: this.universityForm.controls['faculty'].value,
-      student_number: this.universityForm.controls['student_number'].value
-    });
-    const newCoupon = new Coupon({
-        code: this.universityForm.controls['coupon_code'].value
-      }
-    );
-
-    const profile = this.authenticationService.getProfile();
-    this.userService.update(profile.url, value).subscribe(
-      user => {
-        this.authenticationService.setProfile(user);
-        this.defineCurrentStep();
-        this.cartService.addCoupon(newCoupon);
-      },
-      err => {
-        if (err.error.non_field_errors) {
-          this.universityErrors = err.error.non_field_errors;
-        } else {
-          this.universityErrors =  ['shared.form.errors.unknown'];
+    if (!this.haveGrantApplied) {
+      this.haveGrantApplied = true;
+      const value = new User({
+        academic_program_code: this.universityForm.controls['academic_program_code'].value,
+        faculty: this.universityForm.controls['faculty'].value,
+        student_number: this.universityForm.controls['student_number'].value
+      });
+      const newCoupon = new Coupon({
+          code: this.universityForm.controls['coupon_code'].value
         }
-        this.universityForm = FormUtil.manageFormErrors(this.universityForm, err);
-      }
-    );
+      );
+
+      const profile = this.authenticationService.getProfile();
+      this.userService.update(profile.url, value).subscribe(
+        user => {
+          this.authenticationService.setProfile(user);
+          this.defineCurrentStep();
+          this.cartService.addCoupon(newCoupon);
+        },
+        err => {
+          this.haveGrantApplied = false;
+          if (err.error.non_field_errors) {
+            this.universityErrors = err.error.non_field_errors;
+          } else {
+            this.universityErrors = ['shared.form.errors.unknown'];
+          }
+          this.universityForm = FormUtil.manageFormErrors(this.universityForm, err);
+        }
+      );
+    }
   }
 
   openModalSummaryPayment() {

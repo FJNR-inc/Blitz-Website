@@ -108,7 +108,7 @@
         </p>
         <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>
 
-        <button class="retirement-cart__step__content__section nt-button" [disabled]="!canAddAGrant()" (click)="submitUniversityInformation()">
+        <button class="retirement-cart__step__content__section nt-button" [disabled]="!canAddAGrant() || haveGrantApplied" (click)="submitUniversityInformation()">
           {{ 'retirement-cart.grants.apply' | translate }}
         </button>
       </div>
