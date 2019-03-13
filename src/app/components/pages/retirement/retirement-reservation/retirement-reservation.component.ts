@@ -39,7 +39,7 @@ export class RetirementReservationComponent implements OnInit {
   ngOnInit() {
     this.cartService.reset();
     if (this.authenticationService.isAuthenticated()) {
-      this.refreshRetirementReservations();
+      this.refreshRetirementReservations(true);
     }
   }
 
@@ -53,6 +53,7 @@ export class RetirementReservationComponent implements OnInit {
 
   openTutorial() {
     this.displayTutorial = true;
+    console.log('Open the tutorial!');
   }
 
   closeTutorial() {
@@ -63,7 +64,7 @@ export class RetirementReservationComponent implements OnInit {
     this.currentView = view;
   }
 
-  refreshRetirementReservations() {
+  refreshRetirementReservations(refreshTutorial = false) {
     const filters = [
       {
         'name': 'user',
@@ -77,7 +78,9 @@ export class RetirementReservationComponent implements OnInit {
     this.retirementReservationService.list(filters).subscribe(
       data => {
         this.retirementReservations = data.results.map(r => new RetirementReservation(r));
-        this.updateTutorialDisplay(this.retirementReservations.length);
+        if (refreshTutorial) {
+          this.updateTutorialDisplay(this.retirementReservations.length);
+        }
       }
     );
   }
