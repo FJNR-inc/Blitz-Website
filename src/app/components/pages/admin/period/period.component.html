@@ -43,33 +43,77 @@
 <app-nt-modal name="form_timeslots"
               typeModal="success"
               (button2)="submitTimeslot()"
-              maxWidth="600px">
-  <form [formGroup]="timeslotForm">
+              maxWidth="600px"
+              class="form-edit-timeslot">
+    <form [formGroup]="timeslotForm">
     <app-alert *ngIf="timeslotErrors" [messages]="timeslotErrors" type="danger"></app-alert>
 
-    <div class="form-group">
-      <label for="start_time" class="nt-form-label">Début du bloc de rédaction:</label>
-      <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
-             formControlName="start_time" class="nt-form-input"
-             id="start_time">
-      <owl-date-time #dt_start [firstDayOfWeek]="1"></owl-date-time>
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of timeslotForm.controls['start_time'].getError('apiError')">
-        {{ errorMessage}}
+    <a class="nt-link" (click)="createBatch = !createBatch">
+      <span *ngIf="!createBatch">
+        Répeter l'évènement
+      </span>
+      <span *ngIf="createBatch">
+        Ne pas répeter l'évènement
+      </span>
+    </a>
+
+    <div *ngIf="createBatch" class="form-edit-timeslot__batch">
+      <label>Jour de la semaine:</label>
+      <div class="form-edit-timeslot__batch__weekdays">
+        <div class="form-edit-timeslot__batch__weekdays__day" [ngClass]="{'form-edit-timeslot__batch__weekdays__day--selected': selectedDays.lastIndexOf(day) > -1}" *ngFor="let day of days" (click)="toogleDay(day)">
+          {{ day.label }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="start_time" class="nt-form-label">Début du premier bloc de rédaction:</label>
+        <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
+               formControlName="start_time" class="nt-form-input"
+               id="start_time">
+        <owl-date-time #dt_start [firstDayOfWeek]="1"></owl-date-time>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of timeslotForm.controls['start_time'].getError('apiError')">
+          {{ errorMessage}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="end_time" class="nt-form-label">Fin du dernier bloc de rédaction:</label>
+        <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
+               formControlName="end_time" class="nt-form-input"
+               id="end_time">
+        <owl-date-time #dt_end [firstDayOfWeek]="1"></owl-date-time>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of timeslotForm.controls['end_time'].getError('apiError')">
+          {{ errorMessage}}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!createBatch">
+      <div class="form-group">
+        <label for="start_time" class="nt-form-label">Début du bloc de rédaction:</label>
+        <input [owlDateTimeTrigger]="dt_start" [owlDateTime]="dt_start"
+               formControlName="start_time" class="nt-form-input"
+               id="start_time">
+        <owl-date-time #dt_start [firstDayOfWeek]="1"></owl-date-time>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of timeslotForm.controls['start_time'].getError('apiError')">
+          {{ errorMessage}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="end_time" class="nt-form-label">Fin du bloc de rédaction:</label>
+        <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
+               formControlName="end_time" class="nt-form-input"
+               id="end_time">
+        <owl-date-time #dt_end [firstDayOfWeek]="1"></owl-date-time>
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of timeslotForm.controls['end_time'].getError('apiError')">
+          {{ errorMessage}}
+        </div>
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="end_time" class="nt-form-label">Fin du bloc de rédaction:</label>
-      <input [owlDateTimeTrigger]="dt_end" [owlDateTime]="dt_end"
-             formControlName="end_time" class="nt-form-input"
-             id="end_time">
-      <owl-date-time #dt_end [firstDayOfWeek]="1"></owl-date-time>
-      <div class="form-text form-text--right form-text--danger"
-           *ngFor="let errorMessage of timeslotForm.controls['end_time'].getError('apiError')">
-        {{ errorMessage}}
-      </div>
-    </div>
     <div *ngIf="selectedTimeslot && selectedTimeslot.number_of_reservations > 0">
       <app-alert type="danger" [messages]="[alertMessage]"></app-alert>
       <div class="form-group">

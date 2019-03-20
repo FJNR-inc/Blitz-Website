@@ -10,6 +10,7 @@ export class TimeSlotService extends GlobalService {
 
   url_time_slots = environment.url_base_api + environment.paths_api.time_slots;
   url_time_slots_export = environment.url_base_api + environment.paths_api.time_slots_export;
+  url_time_slots_batch = environment.url_base_api + environment.paths_api.time_slots_batch;
 
   constructor(public http: HttpClient) {
     super();
@@ -19,6 +20,15 @@ export class TimeSlotService extends GlobalService {
     const headers = this.getHeaders();
     return this.http.post<any>(
       this.url_time_slots,
+      timeslot,
+      {headers: headers}
+    );
+  }
+
+  createBatch(timeslot: TimeSlot): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      this.url_time_slots_batch,
       timeslot,
       {headers: headers}
     );

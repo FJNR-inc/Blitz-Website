@@ -95,7 +95,7 @@
 
       <a routerLink="/admin"
          class="nt-header__main__actions__item"
-         *ngIf="isAdmin()">
+         *ngIf="isAdmin() || isVolunteer()">
         <div *ngIf="showNav">
           {{ 'header.administration' | translate }}
         </div>
@@ -183,7 +183,7 @@
 
       <a routerLink="/admin"
          class="nt-header-responsive__actions__item"
-         *ngIf="isAdmin()">
+         *ngIf="isAdmin() || isVolunteer()">
         {{ 'header.administration' | translate }}
       </a>
 

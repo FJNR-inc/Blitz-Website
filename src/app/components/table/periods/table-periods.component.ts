@@ -10,6 +10,7 @@ import {WorkplaceService} from '../../../services/workplace.service';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../utils/form';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {AuthenticationService} from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-table-periods',
@@ -32,9 +33,6 @@ export class TablePeriodsComponent implements OnInit {
     title: _('table-periods.periods'),
     noDataText: _('table-periods.no_period'),
     clickable: true,
-    addButton: true,
-    editButton: true,
-    removeButton: true,
     previous: false,
     next: false,
     numberOfPage: 0,
@@ -97,7 +95,8 @@ export class TablePeriodsComponent implements OnInit {
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private workplaceService: WorkplaceService) { }
+              private workplaceService: WorkplaceService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.refreshPeriodList();
@@ -105,6 +104,12 @@ export class TablePeriodsComponent implements OnInit {
 
     const formUtil = new FormUtil();
     this.periodForm = formUtil.createFormGroup(this.fields);
+
+    if (this.authenticationService.isAdmin()) {
+      this.settings['addButton'] = true;
+      this.settings['editButton'] = true;
+      this.settings['removeButton'] = true;
+    }
   }
 
   refreshWorkplaceList() {

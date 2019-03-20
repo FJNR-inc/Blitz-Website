@@ -8,6 +8,7 @@ import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../../utils/form';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {AuthenticationService} from '../../../../services/authentication.service';
 
 @Component({
   selector: 'app-workplaces',
@@ -26,7 +27,6 @@ export class WorkplacesComponent implements OnInit {
   settings = {
     title: _('workplaces.workplaces'),
     noDataText: _('workplaces.no_workplaces'),
-    addButton: true,
     clickable: true,
     previous: false,
     next: false,
@@ -129,13 +129,18 @@ export class WorkplacesComponent implements OnInit {
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.refreshWorkplaceList();
 
     const formUtil = new FormUtil();
     this.workplaceForm = formUtil.createFormGroup(this.fields);
+
+    if (this.authenticationService.isAdmin()) {
+      this.settings['addButton'] = true;
+    }
   }
 
   changePage(index: number) {

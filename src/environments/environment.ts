@@ -33,6 +33,7 @@ export const environment = {
     profile: '/profile',
     time_slots: '/time_slots',
     time_slots_export: '/time_slots/export',
+    time_slots_batch: '/time_slots/batch_create',
     periods: '/periods',
     periods_export: '/periods/export',
     memberships: '/memberships',

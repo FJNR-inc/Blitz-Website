@@ -9,6 +9,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { isNull } from 'util';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {AuthenticationService} from '../../../../services/authentication.service';
+import {DateUtil} from '../../../../utils/date';
 
 @Component({
   selector: 'app-period',
@@ -30,9 +32,6 @@ export class PeriodComponent implements OnInit {
   settings = {
     title: _('period.list_of_redaction_bloc'),
     noDataText: _('period.no_bloc'),
-    addButton: true,
-    editButton: true,
-    removeButton: true,
     clickable: true,
     previous: false,
     next: false,
@@ -64,13 +63,47 @@ export class PeriodComponent implements OnInit {
 
   displayOnlyFutureTimeslot = true;
 
+  createBatch = false;
+  selectedDays = [];
+  days = [
+    {
+      value: 0,
+      label: 'L'
+    },
+    {
+      value: 1,
+      label: 'M'
+    },
+    {
+      value: 2,
+      label: 'M'
+    },
+    {
+      value: 3,
+      label: 'J'
+    },
+    {
+      value: 4,
+      label: 'V'
+    },
+    {
+      value: 5,
+      label: 'S'
+    },
+    {
+      value: 6,
+      label: 'D'
+    }
+  ];
+
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
               private timeslotService: TimeSlotService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -82,6 +115,12 @@ export class PeriodComponent implements OnInit {
       );
     });
     this.resetForm();
+
+    if (this.authenticationService.isAdmin()) {
+      this.settings['addButton'] = true;
+      this.settings['editButton'] = true;
+      this.settings['removeButton'] = true;
+    }
   }
 
   resetForm(edit = false) {
@@ -171,8 +210,24 @@ export class PeriodComponent implements OnInit {
   submitTimeslot() {
     if ( this.timeslotForm.valid ) {
       const value = this.timeslotForm.value;
+      console.log(value);
       if (isNull(value.custom_message)) {
         delete value['custom_message'];
+      }
+      if (this.createBatch) {
+        const days = [];
+        for (const day of this.selectedDays) {
+          days.push(day.value);
+        }
+        value['weekdays'] = days;
+
+        const start_time = value['start_time'];
+        const end_time = value['end_time'];
+
+        value['start_time'] = DateUtil.formatTime(start_time);
+        value['end_time'] = DateUtil.formatTime(end_time);
+        value['start_date'] = DateUtil.formatDate(start_time);
+        value['end_date'] = DateUtil.formatDate(end_time);
       }
       if (this.selectedTimeslot) {
         if (this.selectedTimeslot.number_of_reservations > 0 && value.force_update === false) {
@@ -206,32 +261,59 @@ export class PeriodComponent implements OnInit {
           );
         }
       } else {
-        this.timeslotService.create(value).subscribe(
-          data => {
-            this.notificationService.success(
-              _('shared.notifications.commons.added.title')
-            );
-            this.refreshTimeslotList();
-            this.toggleModal('form_timeslots');
-          },
-          err => {
-            if (err.error.non_field_errors) {
-              this.timeslotErrors = err.error.non_field_errors;
+        if (this.createBatch) {
+          this.timeslotService.createBatch(value).subscribe(
+            data => {
+              this.handleSuccessCreation();
+            },
+            err => {
+              if (err.error.non_field_errors) {
+                this.timeslotErrors = err.error.non_field_errors;
+              }
+              if (err.error.start_time) {
+                this.timeslotForm.controls['start_time'].setErrors({
+                  apiError: err.error.start_time
+                });
+              }
+              if (err.error.end_time) {
+                this.timeslotForm.controls['end_time'].setErrors({
+                  apiError: err.error.end_time
+                });
+              }
             }
-            if (err.error.start_time) {
-              this.timeslotForm.controls['start_time'].setErrors({
-                apiError: err.error.start_time
-              });
+          );
+        } else {
+          this.timeslotService.create(value).subscribe(
+            data => {
+              this.handleSuccessCreation();
+            },
+            err => {
+              if (err.error.non_field_errors) {
+                this.timeslotErrors = err.error.non_field_errors;
+              }
+              if (err.error.start_time) {
+                this.timeslotForm.controls['start_time'].setErrors({
+                  apiError: err.error.start_time
+                });
+              }
+              if (err.error.end_time) {
+                this.timeslotForm.controls['end_time'].setErrors({
+                  apiError: err.error.end_time
+                });
+              }
             }
-            if (err.error.end_time) {
-              this.timeslotForm.controls['end_time'].setErrors({
-                apiError: err.error.end_time
-              });
-            }
-          }
-        );
+          );
+        }
       }
     }
+  }
+
+  handleSuccessCreation() {
+    this.notificationService.success(
+      _('shared.notifications.commons.added.title')
+    );
+    this.refreshTimeslotList();
+    this.toggleModal('form_timeslots');
   }
 
   removeTimeslot(item = null, force = false) {
@@ -318,5 +400,14 @@ export class PeriodComponent implements OnInit {
   resetTimeslotData() {
     this.listAdaptedTimeslots = null;
     this.listTimeslots = null;
+  }
+
+  toogleDay(day) {
+    const index = this.selectedDays.indexOf(day);
+    if (index > -1) {
+      this.selectedDays.splice(index, 1);
+    } else {
+      this.selectedDays.push(day);
+    }
   }
 }

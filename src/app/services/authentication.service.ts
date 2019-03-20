@@ -96,6 +96,30 @@ export class AuthenticationService extends GlobalService {
     }
   }
 
+  isVolunteer(workplaceUrl: string = null) {
+    const profile = this.getProfile();
+    let workplaces = [];
+    if (profile) {
+      workplaces = profile.volunteer_for_workplace;
+    }
+
+    if (workplaces && workplaces.length) {
+      if (workplaceUrl) {
+        // User need to be volunteer on this exact workplace
+        for (const workplace of workplaces) {
+          if (workplace === workplaceUrl) {
+            return true;
+          }
+        }
+      } else {
+        // User just need to be volunteer on a workplace
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   getProfile() {
     return new User(JSON.parse(localStorage.getItem('userProfile')));
   }
@@ -125,6 +149,13 @@ export class AuthenticationService extends GlobalService {
 
     // Define here all the default permissions
     const list_permissions: string[] = [];
+
+    if (this.isVolunteer()) {
+      list_permissions.push('access_admin_panel');
+      list_permissions.push('can_access_admin_dashboard');
+      list_permissions.push('can_access_admin_workplaces');
+      list_permissions.push('can_edit_presence');
+    }
 
     for (const permission in permissions) {
       if (list_permissions.indexOf(permissions[permission]) === -1) {

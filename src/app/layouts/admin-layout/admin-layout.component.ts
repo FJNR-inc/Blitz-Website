@@ -11,53 +11,12 @@ import {InternationalizationService} from '../../services/internationalization.s
             <span class="left-nav__content__header">
               {{ 'admin-layout.left-nav.title' | translate }}
             </span>
-            <a routerLink="/admin" class="left-nav__content__item">
-              <i class="fas fa-tachometer-alt"></i>
-              {{ 'admin-layout.left-nav.dashboard' | translate }}
-            </a>
-            <a routerLink="/admin/users" class="left-nav__content__item">
-              <i class="fa fa-users"></i>
-              {{ 'admin-layout.left-nav.users' | translate }}
-            </a>
-            <a routerLink="/admin/organizations" class="left-nav__content__item">
-              <i class="fas fa-university"></i>
-              {{ 'admin-layout.left-nav.universities' | translate }}
-            </a>
-            <a routerLink="/admin/academics" class="left-nav__content__item">
-              <i class="fas fa-graduation-cap"></i>
-              {{ 'admin-layout.left-nav.studies' | translate }}
-            </a>
-            <a routerLink="/admin/workplaces" class="left-nav__content__item">
-              <i class="fas fa-building"></i>
-              {{ 'admin-layout.left-nav.spaces' | translate }}
-            </a>
-            <a routerLink="/admin/memberships" class="left-nav__content__item">
-              <i class="fas fa-address-card"></i>
-              {{ 'admin-layout.left-nav.type_of_memberships' | translate }}
-            </a>
-            <a routerLink="/admin/offers" class="left-nav__content__item">
-              <i class="fas fa-hand-holding-usd"></i>
-              {{ 'admin-layout.left-nav.type_of_packages' | translate }}
-            </a>
-            <a routerLink="/admin/export" class="left-nav__content__item">
-              <i class="fas fa-file-export"></i>
-              {{ 'admin-layout.left-nav.export' | translate }}
-            </a>
-            <a routerLink="/admin/documentation" class="left-nav__content__item">
-              <i class="fas fa-book"></i>
-              {{ 'admin-layout.left-nav.documentation' | translate }}
-            </a>
-            <a routerLink="/admin/retirements" class="left-nav__content__item">
-              <i class="fas fa-place-of-worship"></i>
-              {{ 'admin-layout.left-nav.retirements' | translate }}
-            </a>
-            <a routerLink="/admin/coupons" class="left-nav__content__item">
-              <i class="fas fa-ticket-alt"></i>
-              {{ 'admin-layout.left-nav.coupons' | translate }}
-            </a>
-            <a routerLink="/" class="left-nav__content__item">
-              <i class="fas fa-door-open"></i>
-              {{ 'admin-layout.left-nav.exit' | translate }}
+            <a [routerLink]="item.routerLink"
+               class="left-nav__content__item"
+               *ngFor="let item of nav"
+               [appHasPermissions]="item.permissions">
+              <i [class]="item.icon"></i>
+              {{ item.label | translate }}
             </a>
           </div>
           <div class="left-nav__footer">
@@ -79,6 +38,102 @@ import {InternationalizationService} from '../../services/internationalization.s
   styleUrls: ['admin-layout.component.scss'],
 })
 export class AdminLayoutComponent implements OnInit {
+
+  nav = [
+    {
+      label: 'admin-layout.left-nav.dashboard',
+      icon: 'fas fa-tachometer-alt',
+      routerLink: '/admin',
+      permissions: [
+        'can_access_admin_dashboard',
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.users',
+      icon: 'fa fa-users',
+      routerLink: '/admin/users',
+      permissions: [
+        'can_access_admin_users'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.universities',
+      icon: 'fas fa-university',
+      routerLink: '/admin/organizations',
+      permissions: [
+        'can_access_admin_organizations'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.studies',
+      icon: 'fas fa-graduation-cap',
+      routerLink: '/admin/academics',
+      permissions: [
+        'can_access_admin_academics'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.spaces',
+      icon: 'fas fa-building',
+      routerLink: '/admin/workplaces',
+      permissions: [
+        'can_access_admin_workplaces'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.type_of_memberships',
+      icon: 'fas fa-address-card',
+      routerLink: '/admin/memberships',
+      permissions: [
+        'can_access_admin_memberships'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.type_of_packages',
+      icon: 'fas fa-hand-holding-usd',
+      routerLink: '/admin/offers',
+      permissions: [
+        'can_access_admin_packages'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.export',
+      icon: 'fas fa-file-export',
+      routerLink: '/admin/export',
+      permissions: [
+        'can_access_admin_exports'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.documentation',
+      icon: 'fas fa-book',
+      routerLink: '/admin/documentation',
+      permissions: [
+        'can_access_admin_documentation'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.retirements',
+      icon: 'fas fa-place-of-worship',
+      routerLink: '/admin/retirements',
+      permissions: [
+        'can_access_admin_retirements'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.coupons',
+      icon: 'fas fa-ticket-alt',
+      routerLink: '/admin/coupons',
+      permissions: [
+        'can_access_admin_coupons'
+      ],
+    },
+    {
+      label: 'admin-layout.left-nav.exit',
+      icon: 'fas fa-door-open',
+      routerLink: '/',
+    },
+  ];
 
   constructor(private internationalizationService: InternationalizationService) { }
 

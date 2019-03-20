@@ -4,7 +4,7 @@
   <div class="admin-workplace-page__header">
       <div class="admin-workplace-page__header__name">
         {{ workplace.name }}
-        <a class="admin-workplace-page__header__name__edit button" (click)="OpenModalEditWorkplace()">
+        <a class="admin-workplace-page__header__name__edit button" *ngIf="authenticationService.isAdmin()" (click)="OpenModalEditWorkplace()">
           <i class="fas fa-pencil-alt"></i> {{ 'workplace.edit_informations' | translate }}
         </a>
       </div>
@@ -19,8 +19,8 @@
       </p>
   </div>
 
-  <app-loader *ngIf="!listPictures"></app-loader>
-  <div class="admin-workplace-page__pictures" *ngIf="listPictures">
+  <app-loader *ngIf="!listPictures && authenticationService.isAdmin()"></app-loader>
+  <div class="admin-workplace-page__pictures" *ngIf="listPictures && authenticationService.isAdmin()">
     <h2 class="nt-title">{{ 'workplace.pictures' | translate }}</h2>
     <div class="admin-workplace-page__pictures__uploader">
       <app-file-upload (newFile)="onUploadFinished($event)"

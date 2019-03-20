@@ -26,6 +26,10 @@ export class DateUtil {
     return date.toLocaleString(locale, options).replace(/ /g, '');
   }
 
+  static formatDate(date) {
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' +  date.getDate();
+  }
+
   static getLongDay(date) {
     const index = date.getDay();
     const lang = InternationalizationService.getLocale();
@@ -158,5 +162,11 @@ export class DateUtil {
       dateInterval += DateUtil.getYear(end_date);
     }
     return dateInterval;
+  }
+
+  static removeTimezone(date) {
+    date = new Date(date);
+    const offset = date.getTimezoneOffset();
+    return new Date(date.getTime() - offset * 60000);
   }
 }

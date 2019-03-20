@@ -231,6 +231,10 @@ export class NtHeaderComponent implements OnInit {
     return this.authenticationService.isAdmin();
   }
 
+  isVolunteer() {
+    return this.authenticationService.isVolunteer();
+  }
+
   changeLanguage(language: string) {
     this.internationalizationService.setLocale(language);
   }

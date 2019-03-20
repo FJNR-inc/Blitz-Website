@@ -10,6 +10,7 @@ import {PeriodService} from '../../../../services/period.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../../utils/form';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {AuthenticationService} from '../../../../services/authentication.service';
 
 @Component({
   selector: 'app-workplace',
@@ -115,7 +116,8 @@ export class WorkplaceComponent implements OnInit {
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
-              private pictureService: PictureService) { }
+              private pictureService: PictureService,
+              public authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
