@@ -7,6 +7,7 @@ import {Reservation} from '../../../../models/reservation';
 import {User} from '../../../../models/user';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {AuthenticationService} from '../../../../services/authentication.service';
 
 @Component({
   selector: 'app-timeslot',
@@ -21,7 +22,6 @@ export class TimeslotComponent implements OnInit {
   errors: string[];
 
   settings = {
-    clickable: true,
     editButton: true,
     noDataText: _('timeslot.no_reservation'),
     title: _('timeslot.list_reservations'),
@@ -55,7 +55,8 @@ export class TimeslotComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private reservationService: ReservationService,
-              private myModalService: MyModalService) { }
+              private myModalService: MyModalService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -66,6 +67,10 @@ export class TimeslotComponent implements OnInit {
         }
       );
     });
+
+    if (this.authenticationService.isAdmin()) {
+      this.settings['clickable'] = true;
+    }
   }
 
   goToUser(event) {

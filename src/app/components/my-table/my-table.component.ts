@@ -91,10 +91,12 @@ export class MyTableComponent implements OnInit, OnChanges {
   }
 
   clickItem(event: Event, item) {
-    const target = (event.target as HTMLElement);
+    if (this.settings.clickable) {
+      const target = (event.target as HTMLElement);
 
-    if (!target.classList.contains('actionnable')) {
-      this.selectItem.emit(item);
+      if (!target.classList.contains('actionnable')) {
+        this.selectItem.emit(item);
+      }
     }
   }
 
