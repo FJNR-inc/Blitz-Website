@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   default_language: 'fr',
   multilingual_activated: false,
   tomato_per_timeslot: 4,
