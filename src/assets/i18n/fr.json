@@ -602,7 +602,7 @@
   "shared.notifications.order_done.content": "La commande est effectuée",
   "shared.notifications.order_done.title": "Succès",
   "shared.notifications.session_expired.content": "Votre session est expirée",
-  "shared.notifications.session_expired.title": "Session expiré",
+  "shared.notifications.session_expired.title": "Session expirée",
   "shared.taxes.TPS": "TPS",
   "shared.taxes.TVQ": "TVQ",
   "shared.yes": "oui",
