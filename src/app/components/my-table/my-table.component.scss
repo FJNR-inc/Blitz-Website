@@ -109,6 +109,16 @@
         &--actions {
           text-align: right;
 
+          &__download {
+            margin: 0 5px;
+            text-decoration: none;
+
+            &:hover {
+              color: $color-success-text;
+              cursor: pointer;
+            }
+          }
+
           &__edit {
             margin: 0 5px;
             text-decoration: none;

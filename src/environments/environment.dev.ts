@@ -47,6 +47,7 @@ export const environment = {
     retirements: '/retirement/retirements',
     retirementReservations: '/retirement/reservations',
     coupons: '/coupons',
+    coupons_use_export: '/coupon_uses/export',
     retirement_waiting_queues: '/retirement/wait_queues',
     retirement_waiting_queue_notifications: '/retirement/wait_queue_notifications',
   }

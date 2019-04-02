@@ -3,13 +3,13 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
-import {Retirement} from '../models/retirement';
 import {Coupon} from '../models/coupon';
 
 @Injectable()
 export class CouponService extends GlobalService {
 
   url_coupons = environment.url_base_api + environment.paths_api.coupons;
+  url_coupons_use_export = environment.url_base_api + environment.paths_api.coupons_use_export;
 
   constructor(public http: HttpClient) {
     super();
@@ -82,5 +82,20 @@ export class CouponService extends GlobalService {
       },
       {headers: headers}
     );
+  }
+
+  export(id: number = null): Observable<any> {
+    let url = this.url_coupons_use_export;
+    if (id) {
+      url += '?coupon=' + id;
+    }
+
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      url,
+      {
+        headers: headers,
+        responseType: 'blob' as 'json'
+      });
   }
 }

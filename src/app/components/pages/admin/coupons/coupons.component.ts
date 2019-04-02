@@ -22,6 +22,7 @@ export class CouponsComponent implements OnInit {
     noDataText: _('coupons.no_coupons'),
     addButton: true,
     clickable: true,
+    downloadButton: true,
     removeButton: true,
     previous: false,
     next: false,
@@ -94,6 +95,16 @@ export class CouponsComponent implements OnInit {
 
   goToCouponEditionPage(coupon) {
     this.router.navigate(['/admin/coupons/edit/' + coupon.id]);
+  }
+
+  exportUsage(coupon) {
+    this.couponService.export(coupon.id).subscribe(
+      data => {
+        const blob = new Blob([data], { type: 'application/vnd.ms-excel' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      }
+    );
   }
 
   removeCoupon(coupon) {

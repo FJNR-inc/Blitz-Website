@@ -17,6 +17,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Input() useSearchBar: false;
 
   @Output() selectItem: EventEmitter<any> = new EventEmitter();
+  @Output() downloadItem: EventEmitter<any> = new EventEmitter();
   @Output() editItem: EventEmitter<any> = new EventEmitter();
   @Output() removeItem: EventEmitter<any> = new EventEmitter();
   @Output() addButton: EventEmitter<any> = new EventEmitter();
@@ -98,6 +99,10 @@ export class MyTableComponent implements OnInit, OnChanges {
         this.selectItem.emit(item);
       }
     }
+  }
+
+  download(item) {
+    this.downloadItem.emit(item);
   }
 
   edit(item) {

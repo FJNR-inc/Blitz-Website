@@ -83,6 +83,11 @@
     </td>
     <td class="my-table__table__line__cell my-table__table__line__cell--actions"
         *ngIf="settings.editButton || settings.removeButton">
+      <a *ngIf="settings.downloadButton"
+         class="my-table__table__line__cell--actions__download"
+         (click)="download(item)">
+        <i class="fas fa-file-download actionnable"></i>
+      </a>
       <a *ngIf="settings.editButton"
          class="my-table__table__line__cell--actions__edit"
          (click)="edit(item)">
