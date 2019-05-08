@@ -133,6 +133,7 @@ import {MultiselectModule} from '@rignonnoel/angular-multiselect';
 import { CouponsCreationComponent } from './components/pages/admin/coupons/coupons-creation/coupons-creation.component';
 import { ProfileCouponsComponent } from './components/pages/profile/profile-coupons/profile-coupons.component';
 import { GeneralComponent } from './components/pages/admin/general/general.component';
+import { ValidateEmailComponent } from './components/pages/validate-email/validate-email.component';
 
 registerLocaleData(localeFr);
 
@@ -164,6 +165,13 @@ const appRoutes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'validate/email/:token',
+        component: ValidateEmailComponent,
         canActivate: [
           CanActivateViaAuthGuard,
         ]
@@ -522,6 +530,7 @@ const appRoutes = [
     CouponsCreationComponent,
     ProfileCouponsComponent,
     GeneralComponent,
+    ValidateEmailComponent,
   ],
   imports: [
     BrowserModule,

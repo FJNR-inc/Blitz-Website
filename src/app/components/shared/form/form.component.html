@@ -2,7 +2,7 @@
 
 <form [formGroup]="form" *ngIf="form">
   <div *ngFor="let field of fields">
-    <div class="form-group" *ngIf="field.type === 'text' || field.type === 'password' || field.type === 'number'">
+    <div class="form-group" *ngIf="field.type === 'text' || field.type === 'password' || field.type === 'number' || field.type === 'email'">
       <label [for]="field.name" class="nt-form-label">{{field.label | translate}}</label>
       <input [formControlName]="field.name" [type]="field.type" [id]="field.name" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"

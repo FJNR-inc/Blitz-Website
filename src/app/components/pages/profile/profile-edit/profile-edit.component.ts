@@ -7,6 +7,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserService} from '../../../../services/user.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../../utils/form';
+import {Organization} from '../../../../models/organization';
+import { map } from 'rxjs/operators';
+import {OrganizationService} from '../../../../services/organization.service';
 
 @Component({
   selector: 'app-profile-edit',
@@ -15,9 +18,16 @@ import {FormUtil} from '../../../../utils/form';
 })
 export class ProfileEditComponent implements OnInit {
 
-  profile: User;
+  _profile: User;
+  set profile(newProfile: User){
+    this._profile = newProfile;
+    this.refreshOrganizations();
+  }
+  get profile(): User { return this._profile; }
+
   userForm: FormGroup;
   errors: string[];
+  organizations: Organization[] = [];
 
   fields = [
     {
@@ -34,6 +44,17 @@ export class ProfileEditComponent implements OnInit {
       name: 'birthdate',
       type: 'date',
       label: _('shared.form.birthdate')
+    },
+    {
+      name: 'email',
+      type: 'email',
+      label: _('shared.form.email')
+    },
+    {
+      name: 'university',
+      type: 'select',
+      label: _('shared.form.university'),
+      choices: []
     },
     {
       name: 'gender',
@@ -64,10 +85,33 @@ export class ProfileEditComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private userService: UserService,
               private formBuilder: FormBuilder,
-              private notificationService: MyNotificationService) { }
+              private notificationService: MyNotificationService,
+              private organizationService: OrganizationService
+  ) { }
 
   ngOnInit() {
     this.refreshProfile();
+    // this.refreshOrganizations();
+  }
+
+  initForm(organizationSelected = []) {
+    const formUtil = new FormUtil();
+    this.updateFields(organizationSelected);
+    this.userForm = formUtil.createFormGroup(this.fields);
+  }
+
+  updateFields(organizationSelected = []) {
+    for (const field of this.fields) {
+      if (field.name === 'university') {
+        field['choices'] = [];
+        for (const organization of this.organizations) {
+          field['choices'].push({
+            label: organization.name,
+            value: organization.name
+          });
+        }
+      }
+    }
   }
 
   resetForm() {
@@ -75,9 +119,10 @@ export class ProfileEditComponent implements OnInit {
     this.userForm = formUtil.createFormGroup(this.fields);
     this.userForm.controls['first_name'].setValue(this.profile.first_name);
     this.userForm.controls['last_name'].setValue(this.profile.last_name);
+    this.userForm.controls['email'].setValue(this.profile.email);
+    this.userForm.controls['university'].setValue((this.profile.university) ? this.profile.university.name : null);
     this.userForm.controls['birthdate'].setValue(this.profile.getBirthdate());
     this.userForm.controls['gender'].setValue(this.profile.gender);
-
   }
 
   refreshProfile() {
@@ -93,9 +138,25 @@ export class ProfileEditComponent implements OnInit {
     );
   }
 
+  refreshOrganizations() {
+    this.organizationService.list()
+      .pipe(map(values => values.results))
+      .subscribe(
+        value => {
+          this.organizations = value.map(l => new Organization(l));
+          this.updateFields([]);
+          // this.initForm([]);
+        }
+      );
+  }
+
   submitProfile() {
     if ( this.userForm.valid ) {
       const value = this.userForm.value;
+      if (this.userForm.controls['birthdate']) {
+        const newUniversity = this.userForm.controls['university'].value;
+        value['university'] = {'name': newUniversity};
+      }
       if (this.userForm.controls['birthdate']) {
         const birthdate = this.userForm.controls['birthdate'].value.toISOString().substr(0, 10);
         value['birthdate'] = birthdate;
@@ -117,6 +178,11 @@ export class ProfileEditComponent implements OnInit {
           if (err.error.last_name) {
             this.userForm.controls['last_name'].setErrors({
               apiError: err.error.last_name
+            });
+          }
+          if (err.error.email) {
+            this.userForm.controls['email'].setErrors({
+              apiError: err.error.email
             });
           }
           if (err.error.birthdate) {
