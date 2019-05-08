@@ -1,0 +1,11 @@
+<div class="profile-page">
+  <div class="profile-page__responses">
+    <div *ngIf="profile && flagSuccess">
+      <p>{{'profile.activate.hello' | translate}} {{profile.first_name}},</p>
+      <p>{{'profile.activate.messageSuccess' | translate}}</p>
+    </div>
+
+    <p *ngIf="!flagSuccess">{{'profile.activate.messageError' | translate}}</p>
+    <p>{{'profile.activate.thanking' | translate}}</p>
+  </div>
+</div>

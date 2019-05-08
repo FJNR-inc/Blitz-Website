@@ -53,6 +53,16 @@ export class UserService extends GlobalService {
     );
   }
 
+  activateToken(token: string) {
+    const headers = this.getHeaders();
+
+    return this.http.post<any>(
+      this.url_activation,
+      {'activation_token': token},
+      {headers: headers}
+    );
+  }
+
   list(filters: {name: string, value: any}[] = null, limit = 100, offset = 0): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();
