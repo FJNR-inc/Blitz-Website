@@ -1,7 +1,8 @@
 <app-my-table [settings]="settings"
               [data]="listAdaptedRetirementReservations"
               (selectItem)="goTo($event)"
-              (changePage)="changePage($event)">
+              (changePage)="changePage($event)"
+              (addButton)="addButtonFunction()">
 </app-my-table>
 
 <app-nt-modal name="retirement_deleted"

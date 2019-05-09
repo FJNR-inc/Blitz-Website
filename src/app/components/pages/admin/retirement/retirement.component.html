@@ -19,11 +19,71 @@
     </p>
   </div>
 
-  <app-table-retirement-reservations class="admin-retirement-page__reservations" [retirement]="retirement">
+  <app-table-retirement-reservations 
+    class="admin-retirement-page__reservations" 
+    [retirement]="retirement"
+    (addButton)="addUserToRetirement()"
+    [hasAddButton]="true">
   </app-table-retirement-reservations>
 </div>
 
-<app-nt-modal name="form_retirements"
+<app-nt-modal name="select_user"
+              typeModal="success"
+              maxWidth="600px"
+              [activated]="selectedUser != null"
+              (button2)="addUser()">
+  <div *ngIf="!selectedUser">
+    <app-my-table [settings]="settings"
+                [data]="listUsers"
+                [filters]="filters"
+                [useSearchBar]="true"
+                (searchBar)="updateFilter('search', $event)"
+                (selectItem)="selectUser($event)"
+                (changePage)="changePage($event)"
+                (updateFilters)="updateFilters($event)"
+                [limitChoices]="limitChoices"
+                (updateLimit)="changeLimit($event)">
+    </app-my-table>
+  </div>
+  <div 
+    *ngIf="selectedUser">
+    <app-alert type="warning" [messages]="warningMessage">
+    </app-alert>
+    <p></p>
+    <div
+      style="border: 1px solid black; background: white;">
+      <button 
+        (click)="unselectUser()"
+        class="arrowButton">
+        <img 
+          class="modal-component__content__reveal__header__cancel" 
+          src="../../../assets/images/icons/icon_left_arrow.svg">
+      </button>
+      <div style="margin-top: -10px;">
+        <p style="font-size: 1.2em; text-align: center;">
+          {{ selectedUser.first_name }}
+          {{ selectedUser.last_name }}
+        </p>
+        <p style="text-align: center;">
+          {{ selectedUser.email }}
+        </p>
+        <p *ngIf="selectedUser.university" style="text-align: center;">
+          {{ selectedUser.university }}
+        </p>
+        <p *ngIf="!selectedUser.university" style="text-align: center;">
+          {{ noUniversity | translate }}
+        </p>
+      </div>
+    </div>
+    <div *ngIf="errors" >
+      <p></p>
+      <app-alert type="danger" [messages]="errors">
+      </app-alert>
+    </div>
+  </div>
+</app-nt-modal>
+
+  <app-nt-modal name="form_retirements"
               typeModal="success"
               (button2)="submitRetirement()"
               maxWidth="600px">

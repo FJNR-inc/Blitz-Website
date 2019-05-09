@@ -38,6 +38,15 @@ export class RetirementReservationService extends GlobalService {
     );
   }
 
+  create(retirementReservation: RetirementReservation): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      this.url_retirement_reservation,
+      retirementReservation,
+      {headers: headers}
+    );
+  }
+
   remove(retirementReservation: RetirementReservation): Observable<any> {
     const headers = this.getHeaders();
     return this.http.delete<any>(
