@@ -38,3 +38,16 @@
     padding: 20px 20px 20px 20px;
   }
 }
+
+.arrowButton {
+  background: white;
+  border: 0px;
+  height: 45px;
+  width: 45px;
+  padding: 10px;
+
+  &:hover {
+    cursor: pointer;
+    color: $link-color-hover;
+  }
+}

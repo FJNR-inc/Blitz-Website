@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {isNull} from 'util';
 import {MyModalService} from '../../../services/my-modal/my-modal.service';
 import {Router} from '@angular/router';
@@ -19,47 +19,14 @@ export class TableRetirementReservationsComponent implements OnInit {
 
   @Input() retirement: Retirement = null;
   @Input() user: User = null;
+  @Input() hasAddButton: Boolean = false;
+  
+  @Output() addButton: EventEmitter<any> = new EventEmitter();
 
   listRetirementReservations: RetirementReservation[];
   listAdaptedRetirementReservations: any[];
 
-  settings = {
-    title: _('table-retirement-reservation.title_table'),
-    noDataText: _('table-retirement-reservation.no_reservation'),
-    clickable: true,
-    previous: false,
-    next: false,
-    numberOfPage: 0,
-    page: 0,
-    columns: [
-      {
-        name: 'name',
-        title: _('shared.common.name')
-      },
-      {
-        name: 'is_present',
-        title: _('shared.common.present'),
-        type: 'boolean'
-      },
-      {
-        name: 'is_active',
-        title: _('shared.common.canceled'),
-        type: 'boolean'
-      },
-      {
-        name: 'cancelation_reason',
-        title: _('shared.common.reason')
-      },
-      {
-        name: 'cancelation_action',
-        title: _('shared.common.action')
-      },
-      {
-        name: 'personnal_restrictions',
-        title: _('shared.common.personnal_restrictions')
-      },
-    ]
-  };
+  settings = null;
 
   constructor(private retirementReservationService: RetirementReservationService,
               private myModalService: MyModalService,
@@ -68,6 +35,45 @@ export class TableRetirementReservationsComponent implements OnInit {
 
   ngOnInit() {
     this.refreshPeriodList();
+    
+    this.settings = {
+      title: _('table-retirement-reservation.title_table'),
+      noDataText: _('table-retirement-reservation.no_reservation'),
+      addButton: this.hasAddButton,
+      clickable: true,
+      previous: false,
+      next: false,
+      numberOfPage: 0,
+      page: 0,
+      columns: [
+        {
+          name: 'name',
+          title: _('shared.common.name')
+        },
+        {
+          name: 'is_present',
+          title: _('shared.common.present'),
+          type: 'boolean'
+        },
+        {
+          name: 'is_active',
+          title: _('shared.common.canceled'),
+          type: 'boolean'
+        },
+        {
+          name: 'cancelation_reason',
+          title: _('shared.common.reason')
+        },
+        {
+          name: 'cancelation_action',
+          title: _('shared.common.action')
+        },
+        {
+          name: 'personnal_restrictions',
+          title: _('shared.common.personnal_restrictions')
+        },
+      ]
+    };
   }
 
   refreshPeriodList(page = 1, limit = 20) {
@@ -143,5 +149,9 @@ export class TableRetirementReservationsComponent implements OnInit {
     }
 
     modal.toggle();
+  }
+
+  addButtonFunction(){
+    this.addButton.emit();
   }
 }

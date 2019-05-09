@@ -8,6 +8,12 @@ import {MyNotificationService} from '../../../../services/my-notification/my-not
 import {FormUtil} from '../../../../utils/form';
 import {TranslateService} from '@ngx-translate/core';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import { User } from '../../../../models/user';
+import { RetirementReservation } from '../../../../models/retirementReservation';
+import { UserService } from '../../../../services/user.service';
+import { RetirementReservationService } from '../../../../services/retirement-reservation.service'
+import { isNull } from 'util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-retirement',
@@ -21,6 +27,75 @@ export class RetirementComponent implements OnInit {
 
   retirementForm: FormGroup;
   errors: string[];
+
+  warningMessage = [_('retirement.add_user_modal.warning1'),
+                    _('retirement.add_user_modal.warning2')];
+
+  noUniversity = _('retirement.add_user_modal.no_university');
+
+
+  listUsers: User[];
+  selectedUser = null;
+  userFilters = [];
+
+  limitChoices = [10, 20, 100, 1000];
+  limit = 10;
+  page = 1;
+
+  settings = {
+    noDataText: _('users-page.no_users'),
+    allowFiltering: false,
+    clickable: true,
+    previous: false,
+    next: false,
+    numberOfPage: 0,
+    page: 0,
+    columns: [
+      {
+        name: 'first_name',
+        title: _('shared.common.first_name')
+      },
+      {
+        name: 'last_name',
+        title: _('shared.common.last_name')
+      },
+      {
+        name: 'email',
+        title: _('shared.common.email')
+      }
+    ]
+  };
+
+  filters = [
+    {
+      display: 'Prénom',
+      name: 'first_name',
+      comparators: [
+        {
+          display: 'contient',
+          name: 'contain'
+        },
+        {
+          display: 'est egal a',
+          name: 'equal_to'
+        }
+      ]
+    },
+    {
+      display: 'Université',
+      name: 'university',
+      comparators: [
+        {
+          display: 'est',
+          name: 'is'
+        },
+        {
+          display: 'n\'est pas',
+          name: 'is_not'
+        }
+      ]
+    },
+  ];
 
   retirementFields = [
     {
@@ -198,7 +273,10 @@ export class RetirementComponent implements OnInit {
               private retirementService: RetirementService,
               private formBuilder: FormBuilder,
               private myModalService: MyModalService,
-              private notificationService: MyNotificationService) { }
+              private notificationService: MyNotificationService,
+              private userService: UserService,
+              private retirementReservationService: RetirementReservationService,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -298,4 +376,122 @@ export class RetirementComponent implements OnInit {
       );
     }
   }
+
+  addUserToRetirement(){
+    this.refreshUserList();
+    this.selectedUser = null;
+    this.errors = null;
+    this.toogleModal(
+      'select_user',
+      _('retirement.add_user_modal.title'),
+      _('retirement.add_user_modal.button')
+    );
+    
+  }
+
+  updateFilter(name, value) {
+    let update = false;
+    for (const filter of this.userFilters) {
+      if (filter.name === name) {
+        filter.value = value;
+        update = true;
+      }
+    }
+    if (!update) {
+      const newFilter = {
+        name: name,
+        value: value
+      };
+      this.userFilters.push(newFilter);
+    }
+    this.refreshUserList();
+  }
+
+  updateFilters(filters) {
+    this.userFilters = [];
+
+    for (const filter of filters) {
+        const newFilter = {
+          'name': filter.name,
+          'comparator': 'contain',
+          'value': filter.value
+        };
+        this.userFilters.push(newFilter);
+    }
+    this.refreshUserList();
+  }
+
+  refreshUserList(page = this.page, limit = this.limit) {
+    this.resetUserData();
+    this.userService.list(this.userFilters, limit, limit * (page - 1)).subscribe(
+      users => {
+        this.settings.numberOfPage = Math.ceil(users.count / limit);
+        this.settings.page = page;
+        this.settings.previous = !isNull(users.previous);
+        this.settings.next = !isNull(users.next);
+        this.listUsers = this.userAdapter(users.results.map(u => new User(u)));
+        }
+    );
+  }
+
+  resetUserData() {
+    this.listUsers = null;
+  }
+
+  userAdapter(users) {
+    const usersAdapted = [];
+    for (let user of users) {
+      user = {
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        university: user.getUniversity(),
+        is_active: user.is_active,
+        url: user.url
+      };
+      usersAdapted.push(user);
+    }
+    return usersAdapted;
+  }
+
+  selectUser(user) {
+
+    this.selectedUser = user
+  }
+
+  addUser(){
+    var retirementReservation = new RetirementReservation();
+    retirementReservation.user= this.selectedUser.url;
+    retirementReservation.retirement= this.retirement.url;
+    
+    this.retirementReservationService.create(retirementReservation).subscribe(
+      data => {
+        this.toogleModal('select_user');
+        this.selectedUser = null;
+      },
+      err => {
+        console.log(err)
+        this.errors = err.error.non_field_errors;
+        console.log(this.errors)
+      }
+    );
+  }
+
+  changePage(index: number) {
+    this.page = index;
+    this.refreshUserList();
+  }
+
+  changeLimit(event) {
+    this.limit = event;
+    this.page = 1;
+    this.refreshUserList();
+  }
+
+  unselectUser(){
+    this.selectedUser=null
+    this.errors = null;
+  }
+
 }

@@ -16,7 +16,7 @@ Feel free to create an account on this instance if you want to contribute!
 
 ## Development server
 
-Run `ng serve -c local` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
@@ -34,6 +34,13 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Internationcalization
+
+ - Run `npm run extract`. This will create a strings.json file.  
+ - Copy the content of fr.json in strings.json  
+ - Run `npm run extract` again tu update strings.json
+ - Update the new lines if needed, and copy the contet of strings.json inside fr.json
 
 # Specials thanks
 
