@@ -467,6 +467,14 @@ export class RetirementComponent implements OnInit {
     
     this.retirementReservationService.create(retirementReservation).subscribe(
       data => {
+        console.log("AddUser")
+        let temp_retirement = this.retirement
+        this.retirement = new Retirement();
+        console.log("this.retirement = null")
+        console.log(this.retirement)
+        this.retirement = temp_retirement
+        console.log("this.retirement = Object")
+        console.log(this.retirement)
         this.toogleModal('select_user');
         this.selectedUser = null;
       },
