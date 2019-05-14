@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {isNull} from 'util';
 import {MyModalService} from '../../../services/my-modal/my-modal.service';
 import {Router} from '@angular/router';
@@ -15,23 +15,12 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
   templateUrl: './table-retirement-reservations.component.html',
   styleUrls: ['./table-retirement-reservations.component.scss']
 })
-export class TableRetirementReservationsComponent implements OnInit, OnChanges {
+export class TableRetirementReservationsComponent implements OnInit {
 
-  private _retirement : Retirement = null;
-  get retirement(): Retirement {
-    return this._retirement;
-  }
-  
-  @Input() 
-  set retirement(retirement: Retirement){
-    console.log("set retirement");
-    this._retirement = retirement;
-    this.refreshPeriodList();
-  }
-
+  @Input() retirement: Retirement = null;
   @Input() user: User = null;
   @Input() hasAddButton: Boolean = false;
-  
+
   @Output() addButton: EventEmitter<any> = new EventEmitter();
 
   listRetirementReservations: RetirementReservation[];
@@ -44,15 +33,9 @@ export class TableRetirementReservationsComponent implements OnInit, OnChanges {
               private notificationService: MyNotificationService,
               private router: Router) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes['retirement']) {
-      console.log("NgOnChange");
-    }
-  }
-  
   ngOnInit() {
     this.refreshPeriodList();
-    
+
     this.settings = {
       title: _('table-retirement-reservation.title_table'),
       noDataText: _('table-retirement-reservation.no_reservation'),
@@ -95,15 +78,14 @@ export class TableRetirementReservationsComponent implements OnInit, OnChanges {
 
   refreshPeriodList(page = 1, limit = 20) {
     let filter = null;
-    if (this._retirement) {
-      filter = [{'name': 'retirement', 'value': this._retirement.id}];
+    if (this.retirement) {
+      filter = [{'name': 'retirement', 'value': this.retirement.id}];
     }
     if (this.user) {
       filter = [{'name': 'user', 'value': this.user.id}];
     }
     this.retirementReservationService.list(filter, limit, limit * (page - 1)).subscribe(
       retirementReservations => {
-        console.log(retirementReservations)
         this.settings.numberOfPage = Math.ceil(retirementReservations.count / limit);
         this.settings.page = page;
         // todo: remove previous and next page on all pagined page.
@@ -138,7 +120,7 @@ export class TableRetirementReservationsComponent implements OnInit, OnChanges {
   }
 
   goTo(event) {
-    if (this._retirement) {
+    if (this.retirement) {
       for (const retirement of this.listRetirementReservations) {
         if (retirement.id === event.id) {
           this.router.navigate(['/admin/users/' + retirement.user_details.id]);
@@ -169,7 +151,7 @@ export class TableRetirementReservationsComponent implements OnInit, OnChanges {
     modal.toggle();
   }
 
-  addButtonFunction(){
+  addButtonFunction() {
     this.addButton.emit();
   }
 }

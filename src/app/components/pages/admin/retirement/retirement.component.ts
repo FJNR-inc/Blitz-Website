@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import { Retirement } from '../../../../models/retirement';
 import { RetirementService } from '../../../../services/retirement.service';
@@ -11,9 +11,10 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import { User } from '../../../../models/user';
 import { RetirementReservation } from '../../../../models/retirementReservation';
 import { UserService } from '../../../../services/user.service';
-import { RetirementReservationService } from '../../../../services/retirement-reservation.service'
+import { RetirementReservationService } from '../../../../services/retirement-reservation.service';
 import { isNull } from 'util';
 import { Router } from '@angular/router';
+import { TableRetirementReservationsComponent } from '../../../table/table-retirement-reservations/table-retirement-reservations.component';
 
 @Component({
   selector: 'app-retirement',
@@ -24,6 +25,9 @@ export class RetirementComponent implements OnInit {
 
   retirementId: number;
   retirement: Retirement;
+
+  @ViewChild(TableRetirementReservationsComponent)
+  private tableRetirement: TableRetirementReservationsComponent;
 
   retirementForm: FormGroup;
   errors: string[];
@@ -377,7 +381,7 @@ export class RetirementComponent implements OnInit {
     }
   }
 
-  addUserToRetirement(){
+  addUserToRetirement() {
     this.refreshUserList();
     this.selectedUser = null;
     this.errors = null;
@@ -386,7 +390,6 @@ export class RetirementComponent implements OnInit {
       _('retirement.add_user_modal.title'),
       _('retirement.add_user_modal.button')
     );
-    
   }
 
   updateFilter(name, value) {
@@ -456,32 +459,23 @@ export class RetirementComponent implements OnInit {
   }
 
   selectUser(user) {
-
-    this.selectedUser = user
+    this.selectedUser = user;
   }
 
-  addUser(){
-    var retirementReservation = new RetirementReservation();
-    retirementReservation.user= this.selectedUser.url;
-    retirementReservation.retirement= this.retirement.url;
-    
+  addUser() {
+    const retirementReservation = new RetirementReservation();
+    retirementReservation.user = this.selectedUser.url;
+    retirementReservation.retirement = this.retirement.url;
+
     this.retirementReservationService.create(retirementReservation).subscribe(
       data => {
-        console.log("AddUser")
-        let temp_retirement = this.retirement
-        this.retirement = new Retirement();
-        console.log("this.retirement = null")
-        console.log(this.retirement)
-        this.retirement = temp_retirement
-        console.log("this.retirement = Object")
-        console.log(this.retirement)
+        this.tableRetirement.refreshPeriodList();
         this.toogleModal('select_user');
         this.selectedUser = null;
       },
       err => {
-        console.log(err)
+        console.log(err);
         this.errors = err.error.non_field_errors;
-        console.log(this.errors)
       }
     );
   }
@@ -497,8 +491,8 @@ export class RetirementComponent implements OnInit {
     this.refreshUserList();
   }
 
-  unselectUser(){
-    this.selectedUser=null
+  unselectUser() {
+    this.selectedUser = null;
     this.errors = null;
   }
 
