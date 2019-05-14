@@ -369,6 +369,8 @@
   "retirement-list-item.begin": "Début",
   "retirement-list-item.end": "Fin",
   "retirement-list-item.know_more": "En savoir plus",
+  "retirement-list-item.messageAlertReservation": "Vous devez être connecté.e pour faire une réservation.",
+  "retirement-list-item.messageAlertWaitingList": "Vous devez vous connecter pour être sur notre liste d'attente",
   "retirement-list-item.notifications.subscribe_waiting_list.error.content": "Inscription échoué",
   "retirement-list-item.notifications.subscribe_waiting_list.error.title": "Erreur",
   "retirement-list-item.notifications.subscribe_waiting_list.success.content": "Vous êtes maintenant inscrit à la liste d'attente.",

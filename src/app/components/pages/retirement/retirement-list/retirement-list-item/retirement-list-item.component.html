@@ -18,6 +18,7 @@
       {{retirement.getDateInterval()}}<br/>
       {{retirement.places_remaining}} {{ 'retirement-list-item.place_availables' | translate }}
     </p>
+    <app-alert [type]="'text-warning'" [messages]="getMessageAlert()"></app-alert>
 
     <div *ngIf="showDetails" class="retirement-list-item__description__more">
       <b>{{ 'retirement-list-item.begin' | translate }}:</b> {{retirement.getStartTime()}}<br/>
