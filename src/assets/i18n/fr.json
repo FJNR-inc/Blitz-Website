@@ -702,7 +702,7 @@
   "users-pages.users": "Utilisateurs",
   "validate.email.hello": "Bonjour",
   "validate.email.messageError": "Votre modification n'a pas pu être effectué. Si le problème persiste, merci de contacter notre administration avec l'email ci-dessous.",
-  "validate.email.messageSuccess": "Votre modification a été faite avec succes.",
+  "validate.email.messageSuccess": "Votre modification a été faite avec succès.",
   "validate.email.thanking": "Merci de votre confiance.",
   "workplace.edit_informations": "Éditer les informations generale",
   "workplace.edit_workplace_modal.button": "Éditer l'espace",

@@ -91,7 +91,6 @@ export class ProfileEditComponent implements OnInit {
 
   ngOnInit() {
     this.refreshProfile();
-    // this.refreshOrganizations();
   }
 
   initForm(organizationSelected = []) {
@@ -145,7 +144,6 @@ export class ProfileEditComponent implements OnInit {
         value => {
           this.organizations = value.map(l => new Organization(l));
           this.updateFields([]);
-          // this.initForm([]);
         }
       );
   }
