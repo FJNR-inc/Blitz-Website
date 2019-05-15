@@ -271,6 +271,11 @@ export class RetirementComponent implements OnInit {
       type: 'checkbox',
       label: _('shared.form.retirement.available')
     },
+    {
+      name: 'has_shared_rooms',
+      type: 'checkbox',
+      label: _('shared.form.retirement.has_shared_rooms')
+    },
   ];
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -332,6 +337,7 @@ export class RetirementComponent implements OnInit {
     this.retirementForm.controls['email_content'].setValue(this.retirement.email_content);
     this.retirementForm.controls['accessibility'].setValue(this.retirement.accessibility);
     this.retirementForm.controls['place_name'].setValue(this.retirement.place_name);
+    this.retirementForm.controls['has_shared_rooms'].setValue(this.retirement.has_shared_rooms);
 
 
     this.toogleModal(
