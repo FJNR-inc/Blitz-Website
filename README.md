@@ -40,7 +40,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
  - Run `npm run extract`. This will create a strings.json file.  
  - Copy the content of fr.json in strings.json  
  - Run `npm run extract` again tu update strings.json
- - Update the new lines if needed, and copy the contet of strings.json inside fr.json
+ - Update the new lines if needed, and copy the content of strings.json inside fr.json
 
 # Specials thanks
 

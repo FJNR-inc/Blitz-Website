@@ -51,26 +51,23 @@
     </app-alert>
     <p></p>
     <div
-      style="border: 1px solid black; background: white;">
-      <button 
-        (click)="unselectUser()"
-        class="arrowButton">
-        <img 
-          class="modal-component__content__reveal__header__cancel" 
-          src="../../../assets/images/icons/icon_left_arrow.svg">
-      </button>
-      <div style="margin-top: -10px;">
-        <p style="font-size: 1.2em; text-align: center;">
+      class="admin-retirement-page__modal__selected-user">
+      <img 
+        class="admin-retirement-page__modal__back"
+        src="../../../assets/images/icons/icon_left_arrow.svg"
+        (click)="unselectUser()">
+      <div class="admin-retirement-page__modal__text">
+        <p class="admin-retirement-page__modal__title">
           {{ selectedUser.first_name }}
           {{ selectedUser.last_name }}
         </p>
-        <p style="text-align: center;">
+        <p>
           {{ selectedUser.email }}
         </p>
-        <p *ngIf="selectedUser.university" style="text-align: center;">
+        <p *ngIf="selectedUser.university">
           {{ selectedUser.university }}
         </p>
-        <p *ngIf="!selectedUser.university" style="text-align: center;">
+        <p *ngIf="!selectedUser.university">
           {{ noUniversity | translate }}
         </p>
       </div>

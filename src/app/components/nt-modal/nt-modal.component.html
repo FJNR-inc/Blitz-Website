@@ -1,8 +1,14 @@
-<div class="modal-component" (click)="clickOverlay($event)" [style.display]="!show ? 'none' : 'block'">
+<div 
+  class="modal-component" 
+  (click)="clickOverlay($event)" 
+  [style.display]="!show ? 'none' : 'block'">
   <div class="modal-component__content">
     <div class="modal-component__content__reveal" [style.width]="maxWidth">
       <div class="modal-component__content__reveal__header">
-        <img src="../../../assets/images/icons/icon_exit.svg" class="modal-component__content__reveal__header__cancel" (click)="toggle()" />
+        <img 
+          src="../../../assets/images/icons/icon_exit.svg" 
+          class="modal-component__content__reveal__header__cancel" 
+          (click)="toggle()" />
         {{ title | translate }}
       </div>
       <div class="modal-component__content__reveal__content" #modalContent>

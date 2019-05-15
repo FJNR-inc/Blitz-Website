@@ -37,17 +37,33 @@
   &__reservations {
     padding: 20px 20px 20px 20px;
   }
-}
 
-.arrowButton {
-  background: white;
-  border: 0px;
-  height: 45px;
-  width: 45px;
-  padding: 10px;
+  &__modal {
 
-  &:hover {
-    cursor: pointer;
-    color: $link-color-hover;
+    &__selected-user {
+      border: 1px solid black; 
+      background: white;
+    }
+
+    &__title{
+      font-size: 1.3em;
+    }
+
+    &__text{
+      text-align: center;
+    }
+
+    &__back {
+      height: 45px; 
+      padding: 10px;
+      object-position: 0 0;
+      
+      &:hover {
+        cursor: pointer;
+        color: $link-color-hover;
+      }
+    }
+
   }
+
 }
