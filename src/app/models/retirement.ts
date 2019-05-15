@@ -51,6 +51,7 @@ export class Retirement extends BaseModel {
   accessibility: boolean;
   reserved_seats: number;
   places_remaining: number;
+  has_shared_rooms: boolean;
 
   constructor(data: Object = {}) {
     super(data);

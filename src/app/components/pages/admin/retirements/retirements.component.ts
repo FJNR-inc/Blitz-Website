@@ -211,6 +211,11 @@ export class RetirementsComponent implements OnInit {
       name: 'is_active',
       type: 'checkbox',
       label: _('shared.form.retirement.available')
+    },
+    {
+      name: 'has_shared_rooms',
+      type: 'checkbox',
+      label: _('shared.form.retirement.has_shared_rooms')
     }
   ];
 

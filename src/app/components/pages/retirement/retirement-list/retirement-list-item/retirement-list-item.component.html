@@ -27,6 +27,12 @@
         <b>{{ 'retirement-list-item.animation' | translate }}:</b> {{ retirement.getActivityLanguageLabel() | translate }}<br/>
       </span>
       <b>{{ 'retirement-list-item.price' | translate }}:</b> {{retirement.price}}$CAN<br/>
+      <span *ngIf="retirement.has_shared_rooms">
+        {{ 'retirement-list-item.has_shared_rooms.true' | translate }}
+      </span>
+      <span *ngIf="!retirement.has_shared_rooms">
+        {{ 'retirement-list-item.has_shared_rooms.false' | translate }}
+      </span>
 
       <a class="retirement-list-item__description__more__button nt-button"
          *ngIf="userCanAddToCart()"
