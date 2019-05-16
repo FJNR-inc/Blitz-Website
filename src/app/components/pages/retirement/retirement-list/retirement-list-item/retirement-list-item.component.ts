@@ -91,7 +91,7 @@ export class RetirementListItemComponent implements OnInit {
     );
   }
 
-  getMessageAlert(){
+  getMessageAlert() {
     if (!this.authenticationService.isAuthenticated() && this.retirement.places_remaining <= 0) {
       return [_('retirement-list-item.messageAlertWaitingList')];
     }
