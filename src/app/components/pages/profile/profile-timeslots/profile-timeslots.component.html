@@ -75,12 +75,20 @@
               button2Label="{{ 'profile.cancel_reservation_button' | translate }}"
               (button2)="cancelReservation()"
               maxWidth="600px"
-              [autoClose]="true">
-  <p>
-    {{ 'profile.cancel_reservation_text_1' | translate }}
+              [autoClose]="true"
+              class="profile-timeslots__modal">
 
-  </p>
   <p>
-    {{ 'profile.cancel_reservation_text_2' | translate }}
+  <b>{{'shared.cancelation_politic.title' | translate}}</b>
+  </p>
+  <p> 
+  <b>{{'shared.cancelation_politic.text_1' | translate}}</b>
+  </p>
+  <p> 
+  {{'shared.cancelation_politic.text_2' | translate}}
+  </p>
+
+  <p>
+    <b> {{ 'profile.cancel_reservation_text' | translate }}</b>
   </p>
 </app-nt-modal>
