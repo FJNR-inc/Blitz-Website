@@ -35,11 +35,8 @@ export class ValidateEmailComponent implements OnInit {
       .subscribe(
         value => {
           this.authenticationService.setProfile(value);
-          this.profile = new User(value)
+          this.profile = new User(value);
           this.flagSuccess = true;
-        },
-        error => {
-          console.log(error);
         }
       );
   }

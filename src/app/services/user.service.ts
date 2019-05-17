@@ -53,7 +53,7 @@ export class UserService extends GlobalService {
     );
   }
 
-  activateToken(token: string) {
+  activateToken(token: string): Observable<any>  {
     const headers = this.getHeaders();
 
     return this.http.post<any>(
