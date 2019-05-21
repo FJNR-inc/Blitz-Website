@@ -61,6 +61,10 @@ export class ProfileTimeslotsComponent implements OnInit {
       {
         'name': 'is_active',
         'value': true
+      },
+      {
+        'name': 'ordering',
+        'value': '-timeslot__start_time'
       }
     ];
     this.reservationService.list(filters).subscribe(
