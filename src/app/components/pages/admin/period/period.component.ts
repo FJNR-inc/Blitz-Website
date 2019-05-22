@@ -96,6 +96,8 @@ export class PeriodComponent implements OnInit {
     }
   ];
 
+  modeEdit = false;
+
   constructor(private periodService: PeriodService,
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
@@ -181,6 +183,7 @@ export class PeriodComponent implements OnInit {
 
   OpenModalCreateTimeslot() {
     this.resetForm();
+    this.modeEdit = false;
     this.timeslotForm.controls['period'].setValue(this.period.url);
     this.selectedTimeslot = null;
     this.toggleModal(
@@ -192,6 +195,7 @@ export class PeriodComponent implements OnInit {
 
   OpenModalEditTimeslot(item) {
     this.resetForm(true);
+    this.modeEdit = true;
     for (const timeslot of this.listTimeslots) {
       if (timeslot.id === item.id) {
         this.timeslotForm.controls['start_time'].setValue(timeslot.start_time);
@@ -210,7 +214,6 @@ export class PeriodComponent implements OnInit {
   submitTimeslot() {
     if ( this.timeslotForm.valid ) {
       const value = this.timeslotForm.value;
-      console.log(value);
       if (isNull(value.custom_message)) {
         delete value['custom_message'];
       }
