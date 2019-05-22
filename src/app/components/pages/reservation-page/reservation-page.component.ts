@@ -553,7 +553,14 @@ export class ReservationPageComponent implements OnInit {
       expiredMembership = new Date(this.user.membership_end) < new Date();
     }
     const noMembershipInCart = isNull(this.selectedMembership);
-    return noMembershipInCart && (neverHadMembership || expiredMembership);
+
+    let benefitOfNewUserPromo = false;
+    if (this.firstTimeReservation()) {
+      if (this.selectedTimeSlots.length <= 1) {
+        benefitOfNewUserPromo = true;
+      }
+    }
+    return noMembershipInCart && !benefitOfNewUserPromo && (neverHadMembership || expiredMembership);
   }
 
   needToUseCard() {
@@ -639,7 +646,7 @@ export class ReservationPageComponent implements OnInit {
     return this.totalPrice + this.getTotalTPS() + this.getTotalTVQ();
   }
 
-  needToShowTutorial() {
+  firstTimeReservation() {
     if (isNull(this.listReservedTimeslot)) {
       return false;
     } else {
