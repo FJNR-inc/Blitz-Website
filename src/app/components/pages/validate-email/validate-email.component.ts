@@ -16,7 +16,7 @@ import {AuthenticationService} from '../../../services/authentication.service';
 export class ValidateEmailComponent implements OnInit {
   token: string;
   profile: User;
-  flagSuccess = false;
+  flagSuccess = 0;
 
   constructor(
     private userService: UserService,
@@ -36,7 +36,10 @@ export class ValidateEmailComponent implements OnInit {
         value => {
           this.authenticationService.setProfile(value);
           this.profile = new User(value);
-          this.flagSuccess = true;
+          this.flagSuccess = 1;
+        },
+        err => {
+          this.flagSuccess = -1;
         }
       );
   }
