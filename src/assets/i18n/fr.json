@@ -309,7 +309,7 @@
   "reservation.info_need_membership": "Les blocs de rédaction de cet espace de travail nécessitent un membership actif pour être réservées. Veuillez sélectionner un type de membership à acheter.",
   "reservation.info_need_package": "Il vous faut plus de blocs prépayés que ceux disponibles sur votre profil.",
   "reservation.membership_active": "Votre membership est encore valide",
-  "reservation.membership_inactive": "Votre n'avez pas de membership actif.",
+  "reservation.membership_inactive": "Vous n'avez pas de membership actif.",
   "reservation.membership_required": "membership requis",
   "reservation.n_bloc_prepayed": "Il vous reste {{numberOfTicket}} bloc(s) prépayé(s)",
   "reservation.need_to_login_1": "Pour réserver un bloc de rédaction dans un espace de travail vous devez d'abord",
