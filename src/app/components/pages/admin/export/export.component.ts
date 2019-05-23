@@ -11,6 +11,7 @@ import {AcademicFieldService} from '../../../../services/academic-field.service'
 import {AcademicLevelService} from '../../../../services/academic-level.service';
 import {WorkplaceService} from '../../../../services/workplace.service';
 import {OrderLineService} from '../../../../services/order-line.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-export',
@@ -18,6 +19,12 @@ import {OrderLineService} from '../../../../services/order-line.service';
   styleUrls: ['./export.component.scss']
 })
 export class ExportComponent implements OnInit {
+
+  numberOfPages: any[] = [];
+  limit = 0;
+
+  exports: any;
+  selectedExport: any;
 
   constructor(private userService: UserService,
               private orderService: OrderService,
@@ -33,6 +40,80 @@ export class ExportComponent implements OnInit {
               private orderLineService: OrderLineService) { }
 
   ngOnInit() {
+    this.exports = [
+      {
+        service: this.userService,
+        name: _('export.users'),
+        code: 'user',
+        icon: 'fa fa-user',
+      },
+      {
+        service: this.orderService,
+        name: 'export.orders',
+        code: 'order',
+        icon: 'fas fa-file-invoice-dollar',
+      },
+      {
+        service: this.orderLineService,
+        name: 'export.orderlines',
+        code: 'orderLine',
+        icon: 'fas fa-file-invoice-dollar',
+      },
+      {
+        service: this.reservationPackageService,
+        name: 'export.packages',
+        code: 'package',
+        icon: 'fas fa-hand-holding-usd',
+      },
+      {
+        service: this.membershipService,
+        name: 'export.memberships',
+        code: 'membership',
+        icon: 'fas fa-address-card',
+      },
+      {
+        service: this.organizationService,
+        name: 'export.universities',
+        code: 'organization',
+        icon: 'fas fa-university',
+      },
+      {
+        service: this.periodService,
+        name: 'export.periods',
+        code: 'period',
+        icon: 'far fa-calendar-alt',
+      },
+      {
+        service: this.timeslotService,
+        name: 'export.timeslots',
+        code: 'timeslot',
+        icon: 'far fa-clock',
+      },
+      {
+        service: this.reservationService,
+        name: 'export.reservations',
+        code: 'timeslotReservation',
+        icon: 'far fa-calendar-check',
+      },
+      {
+        service: this.academicLevelService,
+        name: 'export.level_of_study',
+        code: 'levelOfStudy',
+        icon: 'fa fa-graduation-cap',
+      },
+      {
+        service: this.academicFieldService,
+        name: 'export.field_of_study',
+        code: 'fieldOfStudy',
+        icon: 'fa fa-graduation-cap',
+      },
+      {
+        service: this.workplaceService,
+        name: 'export.workplaces',
+        code: 'workplace',
+        icon: 'fas fa-building',
+      }
+    ];
   }
 
   exportUser() {
@@ -43,92 +124,29 @@ export class ExportComponent implements OnInit {
     );
   }
 
-  exportOrder() {
-    this.orderService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
+  export(type: string, pageRequested: number = -1) {
+    let pageToGet = 1;
+    if (pageRequested > 0) {
+      pageToGet = pageRequested;
+    }
 
-  exportMembership() {
-    this.membershipService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
+    for (const exportType of this.exports) {
+      if (exportType.code === type) {
+        exportType.service.export(pageToGet).subscribe(
+          data => {
+            console.log(data);
 
-  exportPackage() {
-    this.reservationPackageService.export().subscribe(
-      data => {
-        this.downloadFile(data);
+            const numberOfPages = Math.ceil(data.count / data.limit);
+            this.numberOfPages = Array.from(Array(numberOfPages), (x, i) => i);
+            this.limit = data.limit;
+            this.selectedExport = exportType;
+            if (pageRequested > 0) {
+              window.open(data.file_url);
+            }
+          }
+        );
       }
-    );
-  }
-
-  exportOrganization() {
-    this.organizationService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
-
-  exportPeriod() {
-    this.periodService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
-
-  exportTimeslot() {
-    this.timeslotService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
-
-  exportReservation() {
-    this.reservationService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
-
-  exportAcademicField() {
-    this.academicFieldService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
-
-  exportAcademicLevel() {
-    this.academicLevelService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
-
-  exportWorkplace() {
-    this.workplaceService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
-  }
-
-  exportOrderLine() {
-    this.orderLineService.export().subscribe(
-      data => {
-        this.downloadFile(data);
-      }
-    );
+    }
   }
 
   downloadFile(data: Response) {

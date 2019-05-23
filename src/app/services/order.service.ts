@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
@@ -34,13 +34,15 @@ export class OrderService extends GlobalService {
     );
   }
 
-  export(): Observable<any> {
+  export(page: number = 0): Observable<any> {
     const headers = this.getHeaders();
+    let params = new HttpParams();
+    params = params.set('page', page.toString());
     return this.http.get<any>(
       this.url_orders_export,
       {
         headers: headers,
-        responseType: 'blob' as 'json'
+        params: params,
       });
   }
 }

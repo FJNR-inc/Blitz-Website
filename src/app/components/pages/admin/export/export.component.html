@@ -1,90 +1,44 @@
 <div class="export-page">
-  <h1 class="export-page__title nt-title">
-    {{ 'export.title' | translate }}
-  </h1>
-
   <div class="export-page__list">
-    <div class="export-page__list__item" (click)="exportUser()">
-      <i class="export-page__list__item__icon fa fa-users"></i>
+    <div class="export-page__list__title" (click)="exportUser()">
+      {{ 'export.page_title' | translate }}
+    </div>
+
+    <div class="export-page__list__item" *ngFor="let type of exports" (click)="export(type.code)">
+      <i class="export-page__list__item__icon {{type.icon}}"></i>
       <div class="export-page__list__item__name">
-        {{ 'export.users' | translate }}
+        {{ type.name | translate }}
       </div>
     </div>
 
-    <div class="export-page__list__item" (click)="exportOrder()">
-      <i class="export-page__list__item__icon fas fa-file-invoice-dollar"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.orders' | translate }}
-      </div>
+  </div>
+  <div class="export-page__content">
+    <h1 class="nt-title" *ngIf="!selectedExport">
+      {{ 'export.title' | translate }}
+    </h1>
+    <h1 class="nt-title" *ngIf="selectedExport">
+      {{ selectedExport.name }}
+    </h1>
+    <h1 class="nt-title" *ngIf="!selectedExport">
+      {{ 'export.title' | translate }}
+    </h1>
+    <div *ngIf="numberOfPages.length === 0">
+      {{ 'export.welcome_message' | translate }}
     </div>
-
-    <div class="export-page__list__item" (click)="exportOrderLine()">
-      <i class="export-page__list__item__icon fas fa-file-invoice-dollar"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.orderlines' | translate }}
-      </div>
+    <div *ngIf="numberOfPages.length != 0">
+      {{ 'export.help_message' | translate }}
     </div>
-
-    <div class="export-page__list__item" (click)="exportPackage()">
-      <i class="export-page__list__item__icon fas fa-hand-holding-usd"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.packages' | translate }}
-      </div>
-    </div>
-
-    <div class="export-page__list__item" (click)="exportMembership()">
-      <i class="export-page__list__item__icon fas fa-address-card"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.memberships' | translate }}
-      </div>
-    </div>
-
-    <div class="export-page__list__item" (click)="exportOrganization()">
-      <i class="export-page__list__item__icon fas fa-university"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.universities' | translate }}
-      </div>
-    </div>
-
-    <div class="export-page__list__item" (click)="exportPeriod()">
-      <i class="export-page__list__item__icon far fa-calendar-alt"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.periods' | translate }}
-      </div>
-    </div>
-
-    <div class="export-page__list__item" (click)="exportTimeslot()">
-      <i class="export-page__list__item__icon far fa-clock"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.timeslots' | translate }}
-      </div>
-    </div>
-
-    <div class="export-page__list__item" (click)="exportReservation()">
-      <i class="export-page__list__item__icon far fa-calendar-check"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.reservations' | translate }}
-      </div>
-    </div>
-
-    <div class="export-page__list__item" (click)="exportAcademicLevel()">
-      <i class="export-page__list__item__icon fa fa-graduation-cap"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.level_of_study' | translate }}
-      </div>
-    </div>
-
-    <div class="export-page__list__item" (click)="exportAcademicField()">
-      <i class="export-page__list__item__icon fa fa-graduation-cap"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.field_of_study' | translate }}
-      </div>
-    </div>
-
-    <div class="export-page__list__item" (click)="exportWorkplace()">
-      <i class="export-page__list__item__icon fas fa-building"></i>
-      <div class="export-page__list__item__name">
-        {{ 'export.workplaces' | translate }}
+    <div class="export-page__content__list" *ngIf="numberOfPages.length != 0">
+      <div class="export-page__content__list__page" *ngFor="let page of numberOfPages" (click)="export(selectedExport.code, page + 1)">
+        <div>
+          {{ (page * limit) +1 }}
+        </div>
+        <div>
+          -
+        </div>
+        <div>
+          {{ (page+1) * limit }}
+        </div>
       </div>
     </div>
   </div>

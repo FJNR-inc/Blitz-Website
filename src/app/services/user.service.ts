@@ -125,7 +125,6 @@ export class UserService extends GlobalService {
       this.url_users_export,
        {
         headers: headers,
-        responseType: 'blob' as 'json'
       });
   }
 }
