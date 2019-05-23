@@ -2,37 +2,74 @@
 @import '../../../../../assets/scss/easings';
 
 .export-page {
-  padding: 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 100%;
 
   &__list {
     display: flex;
-    align-items: stretch;
-    flex-wrap: wrap;
-    margin-top: 20px;
+    flex-direction: column;
+    min-width: 300px;
+    height: 100%;
+    background-color: $nt-3;
+    border-right: 1px solid $nt-14;
+
+    &__title {
+      text-align: center;
+      font-size: 20px;
+      border-bottom: 1px solid $nt-14;
+      padding: 10px;
+    }
 
     &__item {
-      background-color: $color-main;
-      padding: 30px;
-      min-width: 300px;
-      border-radius: 10px;
-      text-align: center;
-      color: white;
-      margin: 20px;
-      box-shadow: 0 2px 3px grey;
-      transition: all $ease-inout-sine 300ms;
+      color: $nt-14;
+      transition: all $ease-inout-sine 100ms;
+      display: flex;
+      padding: 10px;
+      border-bottom: 1px solid $nt-14;
 
       &:hover {
         cursor: pointer;
-        box-shadow: 0 5px 10px black;
+        background-color: $nt-14;
+        color: $nt-3;
       }
 
       &__icon {
-        font-size: 40px;
-        margin-bottom: 10px;
+        font-size: 20px;
+        margin-right: 10px;
+        width: 25px;
       }
 
       &__name {
         font-size: 20px;
+      }
+    }
+  }
+
+  &__content {
+    padding: 25px;
+
+    &__list {
+      display: flex;
+      margin-top: 20px;
+
+      &__page {
+        width: 100px;
+        height: 100px;
+        padding: 20px;
+        border-radius: 3px;
+        background-color: $nt-12;
+        color: white;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }

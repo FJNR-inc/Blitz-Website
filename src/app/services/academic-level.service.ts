@@ -53,13 +53,15 @@ export class AcademicLevelService extends GlobalService {
     );
   }
 
-  export(): Observable<any> {
+  export(page: number = 0): Observable<any> {
     const headers = this.getHeaders();
+    let params = new HttpParams();
+    params = params.set('page', page.toString());
     return this.http.get<any>(
       this.url_academic_levels_export,
       {
         headers: headers,
-        responseType: 'blob' as 'json'
+        params: params,
       });
   }
 }
