@@ -73,3 +73,16 @@
     </a>
   </div>
 </div>
+
+<app-nt-modal [name]="modalName"
+              typeModal="success"
+              maxWidth="600px"
+              (onClose)="refreshPage()"
+              (button2)="toogleModal(this.modalName)">
+  <p>
+    {{ 'retirement-list-item.notifications.subscribe_waiting_list.success.content_1' | translate }}
+  </p>
+  <p>
+    {{ 'retirement-list-item.notifications.subscribe_waiting_list.success.content_2' | translate }} {{ this.positionInList }}.
+  </p>
+</app-nt-modal>

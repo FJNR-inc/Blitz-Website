@@ -6,6 +6,7 @@ import {RetirementWaitingQueue} from '../../../../../models/retirementWaitingQue
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {MyNotificationService} from '../../../../../services/my-notification/my-notification.service';
 import {AuthenticationService} from '../../../../../services/authentication.service';
+import { MyModalService } from '../../../../../services/my-modal/my-modal.service';
 
 @Component({
   selector: 'app-retirement-list-item',
@@ -21,14 +22,19 @@ export class RetirementListItemComponent implements OnInit {
   @Output() changed: EventEmitter<any> = new EventEmitter();
 
   showDetails = false;
+  positionInList = null;
+  modalName = null;
 
 
   constructor(private cartService: MyCartService,
               private retirementWaitingQueueService: RetirementWaitingQueueService,
               private notificationService: MyNotificationService,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private myModalService: MyModalService, ) {
+              }
 
   ngOnInit() {
+    this.modalName = 'waiting-list-success-' + String(this.retirement.id);
   }
 
   toogleDetails() {
@@ -76,11 +82,12 @@ export class RetirementListItemComponent implements OnInit {
     );
     this.retirementWaitingQueueService.create(retirementWaitingQueue).subscribe(
       data => {
-        this.notificationService.success(
+        this.positionInList = data.list_size;
+        this.toogleModal(
+          this.modalName,
           _('retirement-list-item.notifications.subscribe_waiting_list.success.title'),
-          _('retirement-list-item.notifications.subscribe_waiting_list.success.content')
-        );
-        this.changed.emit(true);
+          _('shared.ok')
+         );
       }, err => {
         this.notificationService.success(
           _('retirement-list-item.notifications.subscribe_waiting_list.error.title'),
@@ -89,6 +96,23 @@ export class RetirementListItemComponent implements OnInit {
         this.changed.emit(true);
       }
     );
+  }
+
+  refreshPage() {
+    this.changed.emit(true);
+  }
+
+  toogleModal(name, title: string | string[] = '', button2: string | string[] = '') {
+    const modal = this.myModalService.get(name);
+
+    if (!modal) {
+      console.error('No modal named %s', name);
+      return;
+    }
+
+    modal.title = title;
+    modal.button2Label = button2;
+    modal.toggle();
   }
 
   getMessageAlert() {
