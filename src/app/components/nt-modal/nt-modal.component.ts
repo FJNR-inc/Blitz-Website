@@ -23,6 +23,7 @@ export class NtModalComponent implements OnInit {
 
   @Output() button1: EventEmitter<any> = new EventEmitter();
   @Output() button2: EventEmitter<any> = new EventEmitter();
+  @Output() onClose: EventEmitter<any> = new EventEmitter();
 
   isModalInformation: boolean;
   isModalForm: boolean;
@@ -61,6 +62,7 @@ export class NtModalComponent implements OnInit {
     if (this.show) {
       document.addEventListener('keyup', this.escapeListener);
     } else {
+      this.onClose.emit(null);
       document.removeEventListener('keyup', this.escapeListener);
       this.errorMessage = '';
     }
