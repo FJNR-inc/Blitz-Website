@@ -19,19 +19,19 @@
       </div>
     </div>
 
-    <div *ngFor="let retirement of cart.getRetirements()" class="cart-summary__items__item">
+    <div *ngFor="let retreat of cart.getRetreats()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__left">
         <div class="cart-summary__items__item__left__name">
-          {{ retirement.name }}<br/>
-          {{ retirement.getDateInterval() }}
+          {{ retreat.name }}<br/>
+          {{ retreat.getDateInterval() }}
         </div>
         <div class="cart-summary__items__item__left__price">
-          {{retirement.price}} $CAN
+          {{retreat.price}} $CAN
         </div>
       </div>
       <div class="cart-summary__items__item__right">
         <div class="cart-summary__items__item__right__action">
-          <a (click)="removeRetirementFromCart(retirement)">
+          <a (click)="removeRetreatFromCart(retreat)">
             <img class="cart-summary__items__item__right__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
           </a>
         </div>

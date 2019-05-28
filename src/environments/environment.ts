@@ -8,7 +8,7 @@ export const environment = {
   default_language: 'fr',
   multilingual_activated: true,
   tomato_per_timeslot: 4,
-  tomato_per_retirement: 20,
+  tomato_per_retreat: 20,
   url_base_api: 'http://localhost:8000',
   environment_paysafe: 'TEST',
   // tslint:disable-next-line:max-line-length
@@ -49,11 +49,11 @@ export const environment = {
     reservations: '/reservations',
     reservations_export: '/reservations/export',
     custom_payments: '/custom_payments',
-    retirements: '/retirement/retirements',
-    retirementReservations: '/retirement/reservations',
+    retreats: '/retirement/retirements',
+    retreatReservations: '/retirement/reservations',
     coupons: '/coupons',
     coupons_use_export: '/coupon_uses/export',
-    retirement_waiting_queues: '/retirement/wait_queues',
-    retirement_waiting_queue_notifications: '/retirement/wait_queue_notifications',
+    retreat_waiting_queues: '/retirement/wait_queues',
+    retreat_waiting_queue_notifications: '/retirement/wait_queue_notifications',
   }
 };

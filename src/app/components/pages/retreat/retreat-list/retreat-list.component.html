@@ -1,0 +1,25 @@
+<div class="retreat-list">
+  <div class="retreat-list__header">
+    <div class="retreat-list__header__title nt-title">
+      {{ 'retreat-list.list_of_retreats' | translate }}
+    </div>
+    <div class="retreat-list__header__description">
+      {{ 'retreat-list.details' | translate }}
+    </div>
+    <a class="retreat-list__header__link nt-link" href="http://www.thesez-vous.com/questcequuneretraite.html" target="_blank">
+      {{ 'retreat-list.know_more' | translate }}
+    </a>
+  </div>
+  <div class="retreat-list__content">
+    <app-loader *ngIf="!retreats"></app-loader>
+
+    <div *ngFor="let retreat of retreats">
+      <app-retreat-list-item [retreat]="retreat"
+                                [reserved]="isAlreadyReserved(retreat)"
+                                [inQueue]="isAlreadyInQueue(retreat)"
+                                [notified]="isNotified(retreat)"
+                                (changed)="refreshContent()">
+      </app-retreat-list-item>
+    </div>
+  </div>
+</div>

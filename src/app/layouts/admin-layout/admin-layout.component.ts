@@ -113,11 +113,11 @@ export class AdminLayoutComponent implements OnInit {
       ],
     },
     {
-      label: 'admin-layout.left-nav.retirements',
+      label: 'admin-layout.left-nav.retreats',
       icon: 'fas fa-place-of-worship',
-      routerLink: '/admin/retirements',
+      routerLink: '/admin/retreats',
       permissions: [
-        'can_access_admin_retirements'
+        'can_access_admin_retreats'
       ],
     },
     {

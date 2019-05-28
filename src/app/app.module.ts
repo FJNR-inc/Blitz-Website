@@ -99,36 +99,36 @@ import { CalendarIconComponent } from './components/shared/calendar-icon/calenda
 // tslint:disable-next-line:max-line-length
 import { DesignDocumentationComponent } from './components/pages/admin/design-documentation/design-documentation.component';
 import { DesignDocumentationSectionComponent } from './components/pages/admin/design-documentation/design-documentation-section/design-documentation-section.component';
-import { RetirementReservationComponent } from './components/pages/retirement/retirement-reservation/retirement-reservation.component';
-import { RetirementTutorialComponent } from './components/pages/retirement/retirement-tutorial/retirement-tutorial.component';
-import { RetirementListComponent } from './components/pages/retirement/retirement-list/retirement-list.component';
-import { RetirementCartComponent } from './components/pages/retirement/retirement-cart/retirement-cart.component';
+import { RetreatReservationComponent } from './components/pages/retreat/retreat-reservation/retreat-reservation.component';
+import { RetreatTutorialComponent } from './components/pages/retreat/retreat-tutorial/retreat-tutorial.component';
+import { RetreatListComponent } from './components/pages/retreat/retreat-list/retreat-list.component';
+import { RetreatCartComponent } from './components/pages/retreat/retreat-cart/retreat-cart.component';
 // tslint:disable-next-line:max-line-length
-import { RetirementListItemComponent } from './components/pages/retirement/retirement-list/retirement-list-item/retirement-list-item.component';
+import { RetreatListItemComponent } from './components/pages/retreat/retreat-list/retreat-list-item/retreat-list-item.component';
 import { LoginFormComponent } from './components/shared/forms/login-form/login-form.component';
 import { IconInfoComponent } from './components/shared/icon-info/icon-info.component';
 import {MyCartService} from './services/my-cart/my-cart.service';
-import {RetirementService} from './services/retirement.service';
+import {RetreatService} from './services/retreat.service';
 import { CartSummaryComponent } from './components/shared/cart-summary/cart-summary.component';
 import { NtHeaderSubComponent } from './components/nt-header/nt-header-sub/nt-header-sub.component';
-import { RetirementsComponent } from './components/pages/admin/retirements/retirements.component';
-import { RetirementComponent } from './components/pages/admin/retirement/retirement.component';
-import {RetirementReservationService} from './services/retirement-reservation.service';
+import { RetreatsComponent } from './components/pages/admin/retreats/retreats.component';
+import { RetreatComponent } from './components/pages/admin/retreat/retreat.component';
+import {RetreatReservationService} from './services/retreat-reservation.service';
 // tslint:disable-next-line:max-line-length
-import { TableRetirementReservationsComponent } from './components/table/table-retirement-reservations/table-retirement-reservations.component';
+import { TableRetreatReservationsComponent } from './components/table/table-retreat-reservations/table-retreat-reservations.component';
 import { CartPaymentComponent } from './components/shared/cart-payment/cart-payment.component';
 import {CouponService} from './services/coupon.service';
 import { CouponsComponent } from './components/pages/admin/coupons/coupons.component';
-import {RetirementWaitingQueueService} from './services/retirementWaitingQueue.service';
+import {RetreatWaitingQueueService} from './services/retreatWaitingQueue.service';
 import { ProfileCardsComponent } from './components/pages/profile/profile-cards/profile-cards.component';
 import { ProfileDeactivateComponent } from './components/pages/profile/profile-deactivate/profile-deactivate.component';
 import { ProfileSubscriptionComponent } from './components/pages/profile/profile-subscription/profile-subscription.component';
 import { ProfileTimeslotsComponent } from './components/pages/profile/profile-timeslots/profile-timeslots.component';
-import { ProfileRetirementsComponent } from './components/pages/profile/profile-retirements/profile-retirements.component';
+import { ProfileRetreatsComponent } from './components/pages/profile/profile-retreats/profile-retreats.component';
 import { ProfileTomatoesComponent } from './components/pages/profile/profile-tomatoes/profile-tomatoes.component';
 import { ProfileStatsComponent } from './components/pages/profile/profile-stats/profile-stats.component';
 import { ProfileEditComponent } from './components/pages/profile/profile-edit/profile-edit.component';
-import {RetirementWaitingQueueNotificationService} from './services/retirementWaitingQueueNotification.service';
+import {RetreatWaitingQueueNotificationService} from './services/retreatWaitingQueueNotification.service';
 import {MultiselectModule} from '@rignonnoel/angular-multiselect';
 import { CouponsCreationComponent } from './components/pages/admin/coupons/coupons-creation/coupons-creation.component';
 import { ProfileCouponsComponent } from './components/pages/profile/profile-coupons/profile-coupons.component';
@@ -158,9 +158,14 @@ const appRoutes = [
         path: 'reservation/:id',
         component: ReservationPageComponent,
       },
+
+      {
+        path: 'retreats',
+        component: RetreatReservationComponent,
+      },
       {
         path: 'retirements',
-        component: RetirementReservationComponent,
+        redirectTo: '/retreats'
       },
       {
         path: 'profile',
@@ -416,16 +421,16 @@ const appRoutes = [
         ]
       },
       {
-        path: 'admin/retirements',
-        component: RetirementsComponent,
+        path: 'admin/retreats',
+        component: RetreatsComponent,
         canActivate: [
           CanActivateViaAuthGuard,
           CanAccessAdminPanelGuard,
         ]
       },
       {
-        path: 'admin/retirements/:id',
-        component: RetirementComponent,
+        path: 'admin/retreats/:id',
+        component: RetreatComponent,
         canActivate: [
           CanActivateViaAuthGuard,
           CanAccessAdminPanelGuard,
@@ -505,25 +510,25 @@ const appRoutes = [
     CalendarIconComponent,
     DesignDocumentationComponent,
     DesignDocumentationSectionComponent,
-    RetirementReservationComponent,
-    RetirementTutorialComponent,
-    RetirementListComponent,
-    RetirementCartComponent,
-    RetirementListItemComponent,
+    RetreatReservationComponent,
+    RetreatTutorialComponent,
+    RetreatListComponent,
+    RetreatCartComponent,
+    RetreatListItemComponent,
     LoginFormComponent,
     IconInfoComponent,
     CartSummaryComponent,
     NtHeaderSubComponent,
-    RetirementsComponent,
-    RetirementComponent,
-    TableRetirementReservationsComponent,
+    RetreatsComponent,
+    RetreatComponent,
+    TableRetreatReservationsComponent,
     CartPaymentComponent,
     CouponsComponent,
     ProfileCardsComponent,
     ProfileDeactivateComponent,
     ProfileSubscriptionComponent,
     ProfileTimeslotsComponent,
-    ProfileRetirementsComponent,
+    ProfileRetreatsComponent,
     ProfileTomatoesComponent,
     ProfileStatsComponent,
     ProfileEditComponent,
@@ -586,11 +591,11 @@ const appRoutes = [
     MyNotificationService,
     CustomPaymentsService,
     MyCartService,
-    RetirementService,
-    RetirementReservationService,
+    RetreatService,
+    RetreatReservationService,
     CouponService,
-    RetirementWaitingQueueService,
-    RetirementWaitingQueueNotificationService,
+    RetreatWaitingQueueService,
+    RetreatWaitingQueueNotificationService,
   ],
   bootstrap: [AppComponent]
 })

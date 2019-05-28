@@ -1,0 +1,130 @@
+<div class="profile-retreats">
+  <h2 class="title title--8">
+    {{ 'profile.list_retreat_reservations.title' | translate }}
+  </h2>
+
+  <div class="profile-retreats__list profile-retreats__list--loading" *ngIf="!getDisplayedRetreatReservation()">
+    <app-loader></app-loader>
+  </div>
+  <div class="profile-retreats__list profile-retreats__list--empty" *ngIf="getDisplayedRetreatReservation() && getDisplayedRetreatReservation().length === 0">
+    {{ 'profile.list_retreat_reservations.no_reservation' | translate }}
+  </div>
+  <div class="profile-retreats__list" *ngIf="getDisplayedRetreatReservation() && getDisplayedRetreatReservation().length">
+    <div class="profile-retreats__list__item"
+         *ngFor="let retreatReservation of getDisplayedRetreatReservation()"
+         (click)="openRetreatReservation(retreatReservation.id)">
+      <div class="profile-retreats__list__item__title">
+        <div class="profile-retreats__list__item__title__text">
+          {{ retreatReservation.retirement_details.name }}
+        </div>
+
+        <div *ngIf="retreatReservationOpen === retreatReservation.id" class="profile-retreats__list__item__title__tomatoes">
+          20 <i class="icon icon-tomato icon--3x"></i>
+        </div>
+      </div>
+      <div class="profile-retreats__list__item__description">
+        <p>
+          {{ retreatReservation.retirement_details.details }}
+        </p>
+        <p>
+          {{ retreatReservation.retirement_details.getDateInterval() }}
+        </p>
+        <div class="profile-retreats__list__item__description__more" *ngIf="retreatReservationOpen === retreatReservation.id">
+          <b>{{ 'profile.retreats.details.begin' | translate }}:</b> {{retreatReservation.retirement_details.getStartTime()}}<br/>
+          <b>{{ 'profile.retreats.details.end' | translate }}:</b> {{retreatReservation.retirement_details.getEndTime()}}<br/>
+          <span *ngIf="retreatReservation.retirement_details.getActivityLanguageLabel()">
+                    <b>{{ 'profile.retreats.details.animation' | translate }}:</b> {{retreatReservation.retirement_details.getActivityLanguageLabel() | translate }}<br/>
+                  </span>
+          <b>{{ 'profile.retreats.details.price' | translate }}:</b> {{retreatReservation.retirement_details.price}}$CAN<br/>
+        </div>
+      </div>
+      <div class="profile-retreats__list__item__actions">
+        <a *ngIf="retreatReservation.retirement_details.form_url" class="profile-retreats__list__item__actions__item" target="_blank" [href]="retreatReservation.retirement_details.form_url">
+          <i class="icon icon-form icon--3x"></i>
+        </a>
+        <a class="profile-retreats__list__item__actions__item"
+           (click)="openModalExchangeRetreatReservation(retreatReservation)">
+          <i class="icon icon-transfer icon--3x"></i>
+        </a>
+        <a class="profile-retreats__list__item__actions__item"
+           (click)="openModalCancelRetreatReservation(retreatReservation)">
+          <i class="icon icon-times icon--3x"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <a class="profile-retreats__action" routerLink="/retreats">
+    <i class="icon icon-plus icon--2x"></i>
+    {{ 'profile.add_retreat_reservations' | translate }}
+  </a>
+  <a *ngIf="!displayAllRetreatReservation" class="profile-retreats__link nt-link" (click)="setDisplayAllRetreatReservation(true)">
+    {{ 'profile.display_old_retreat_reservations' | translate }}
+  </a>
+  <a *ngIf="displayAllRetreatReservation" class="profile-retreats__link nt-link" (click)="setDisplayAllRetreatReservation(false)">
+    {{ 'profile.hide_old_retreat_reservations' | translate }}
+  </a>
+</div>
+
+
+<app-nt-modal name="form_exchange_retreat"
+              typeModal="danger"
+              title="{{ 'profile.exchange_reservation_retreat_title' | translate }}"
+              button2Label="{{ 'profile.exchange_reservation_retreat_button_confirm' | translate }}"
+              (button2)="exchangeRetreat()"
+              maxWidth="600px"
+              class="form-exchange-retreat">
+  <div *ngIf="selectedRetreatReservation">
+    <p>
+      {{ 'profile.exchange_reservation_retreat_text' | translate:{'delay_max': selectedRetreatReservation.retreat_details.min_day_exchange} }}
+    </p>
+
+    <h2 class="form-exchange-retreat__title">
+      {{ 'profile.exchange_reservation_retreat_title_actual' | translate }}
+    </h2>
+
+    <select [disabled]="true" class="nt-form-input nt-form-input--select">
+      <option>{{ selectedRetreatReservation.retreat_details.name }} - {{ selectedRetreatReservation.retreat_details.getStartTime() }}</option>
+    </select>
+
+    <div class="form-exchange-retreat__icon">
+      <i class="icon icon-transfer icon--5x"></i>
+    </div>
+
+    <h2 class="form-exchange-retreat__title">
+      {{ 'profile.exchange_reservation_retreat_title_new' | translate }}
+    </h2>
+
+    <select [(ngModel)]="selectedRetreatForExchange" class="nt-form-input nt-form-input--select" name="retreatForExchange">
+      <option *ngFor="let retreat of getChoicesExchangeRetreat()" [value]="retreat.url">
+        {{ retreat.name }} - {{ retreat.getStartTime() }}
+      </option>
+    </select>
+
+    <app-alert class="form-exchange-retreat__alert" type="danger" [messages]="errorExchangeRetreatReservation" *ngIf="errorExchangeRetreatReservation"></app-alert>
+  </div>
+</app-nt-modal>
+
+<app-nt-modal name="form_cancel_reservation_retreat"
+              typeModal="danger"
+              title="{{ 'profile.cancel_reservation_retreat' | translate }}"
+              button2Label="{{ 'profile.cancel_reservation_retreat_button' | translate }}"
+              (button2)="cancelRetreat()"
+              maxWidth="600px">
+  <div *ngIf="selectedRetreatReservation" class="form-cancel-reservation-retreat">
+    <p>
+      {{ 'profile.cancel_reservation_retreat_text_1' | translate:{'rate': 100-selectedRetreatReservation.retreat_details.refund_rate, 'delay_max': selectedRetreatReservation.retreat_details.min_day_refund} }}
+
+    </p>
+
+    <div class="form-cancel-reservation-retreat__retreat">
+      {{ selectedRetreatReservation.retreat_details.name }}<br/>
+      {{ selectedRetreatReservation.retreat_details.details }}<br/>
+      {{ selectedRetreatReservation.retreat_details.getDateInterval() }}
+    </div>
+    <p>
+      {{ 'profile.cancel_reservation_retreat_text_2' | translate }}
+    </p>
+
+    <app-alert type="danger" [messages]="errorCancelationRetreatReservation" *ngIf="errorCancelationRetreatReservation"></app-alert>
+  </div>
+</app-nt-modal>

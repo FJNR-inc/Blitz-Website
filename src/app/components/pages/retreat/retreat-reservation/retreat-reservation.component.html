@@ -1,0 +1,37 @@
+<div class="retreat-reservation">
+  <div class="retreat-reservation__title">
+    <div class="retreat-reservation__title__top">
+      <div class="retreat-reservation__title__top__text">
+      {{ 'retreat-reservation.title' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="retreat-reservation__content">
+    <app-retreat-tutorial *ngIf="displayTutorial" (close)="closeTutorial()"></app-retreat-tutorial>
+
+    <div *ngIf="!displayTutorial" class="retreat-reservation__content__list">
+      <div class="retreat-reservation__content__list__go-to-cart" *ngIf="currentView === 'list'">
+        <div>
+          {{ cart.getRetreats().length }} {{ 'retreat-reservation.selected_retreat' | translate }}
+        </div>
+        <button class="nt-button" (click)="changeCurrentView('cart')">
+          {{ 'retreat-reservation.see_cart' | translate }}
+        </button>
+      </div>
+
+      <div class="retreat-reservation__content__list__go-to-list" *ngIf="currentView === 'cart'">
+        <a class="retreat-reservation__content__list__go-to-list__link nt-link" (click)="changeCurrentView('list')">
+          <img class="retreat-reservation__content__list__go-to-list__link__icon" src="../../assets/images/icons/icon_left_arrow.svg">
+
+          {{ 'retreat-reservation.back_to_list' | translate }}
+        </a>
+      </div>
+
+      <app-retreat-list [ngClass]="{'retreat-reservation__content__list__retreats--responsive': currentView === 'list'}"
+                           class="retreat-reservation__content__list__retreats"
+                           [retreatReservations]="retreatReservations"></app-retreat-list>
+      <app-retreat-cart [ngClass]="{'retreat-reservation__content__list__cart--responsive': currentView === 'cart'}"
+                           class="retreat-reservation__content__list__cart"></app-retreat-cart>
+    </div>
+  </div>
+</div>

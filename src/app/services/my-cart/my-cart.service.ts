@@ -2,7 +2,7 @@ import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Order} from '../../models/order';
 import {OrderLine} from '../../models/orderLine';
 import {Membership} from '../../models/membership';
-import {Retirement} from '../../models/retirement';
+import {Retreat} from '../../models/retreat';
 import {TimeSlot} from '../../models/timeSlot';
 import {Cart} from '../../models/cart';
 import {Coupon} from '../../models/coupon';
@@ -35,11 +35,11 @@ export class MyCartService {
     }
   }
 
-  contain(product: Retirement|TimeSlot|Membership) {
+  contain(product: Retreat|TimeSlot|Membership) {
     const cart = this.getCart();
 
-    for (const retirement of cart.getRetirements()) {
-      if (retirement.url === product.url) {
+    for (const retreat of cart.getRetreats()) {
+      if (retreat.url === product.url) {
         return true;
       }
     }
@@ -103,15 +103,15 @@ export class MyCartService {
     this.setCart(cart);
   }
 
-  addRetirement(retirement: Retirement) {
+  addRetreat(retreat: Retreat) {
     const cart = this.getCart();
-    cart.addRetirement(retirement);
+    cart.addRetreat(retreat);
     this.setCart(cart);
   }
 
-  removeRetirement(retirementId: number) {
+  removeRetreat(retreatId: number) {
     const cart = this.getCart();
-    cart.removeRetirement(retirementId);
+    cart.removeRetreat(retreatId);
     this.setCart(cart);
   }
 

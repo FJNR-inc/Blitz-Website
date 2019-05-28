@@ -1,0 +1,33 @@
+@import '../../assets/scss/theme';
+
+.retreat-list {
+  border-right: 1px solid $border-calendar;
+  height: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    padding: 40px;
+
+    &__description {
+      margin-top: 20px;
+    }
+
+    &__link {
+      margin-top: 20px;
+    }
+  }
+
+  &__content {
+    flex: 1;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .retreat-list {
+    height: inherit;
+    overflow-y: visible;
+  }
+}
