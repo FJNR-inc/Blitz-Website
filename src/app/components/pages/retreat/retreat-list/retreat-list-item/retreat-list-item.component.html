@@ -1,0 +1,88 @@
+<div class="retreat-list-item">
+  <div class="retreat-list-item__description">
+    <h2 class="nt-title">
+      {{retreat.name}}
+    </h2>
+    <p>
+      <span *ngIf="retreat.place_name">
+        {{ retreat.place_name }}<br/>
+      </span>
+      <span *ngIf="!retreat.place_name">
+        {{retreat.address_line1}}<br/>
+        <span *ngIf="retreat.address_line2">
+          {{retreat.address_line2}}<br/>
+        </span>
+        {{retreat.city}}, {{retreat.state_province}}<br/>
+        {{retreat.country}}<br/>
+      </span>
+      {{retreat.getDateInterval()}}<br/>
+      {{retreat.places_remaining}} {{ 'retreat-list-item.place_availables' | translate }}
+    </p>
+
+    <app-alert
+      *ngIf="getMessageAlert()"
+      [type]="'text-warning'"
+      [messages]="getMessageAlert()">
+    </app-alert>
+
+    <div *ngIf="showDetails" class="retreat-list-item__description__more">
+      <b>{{ 'retreat-list-item.begin' | translate }}:</b> {{retreat.getStartTime()}}<br/>
+      <b>{{ 'retreat-list-item.end' | translate }}:</b> {{retreat.getEndTime()}},<br/>
+      <span *ngIf="retreat.getActivityLanguageLabel()">
+        <b>{{ 'retreat-list-item.animation' | translate }}:</b> {{ retreat.getActivityLanguageLabel() | translate }}<br/>
+      </span>
+      <b>{{ 'retreat-list-item.price' | translate }}:</b> {{retreat.price}}$CAN<br/>
+      <span *ngIf="retreat.has_shared_rooms">
+        {{ 'retreat-list-item.has_shared_rooms.true' | translate }}
+      </span>
+      <span *ngIf="!retreat.has_shared_rooms">
+        {{ 'retreat-list-item.has_shared_rooms.false' | translate }}
+      </span>
+
+      <a class="retreat-list-item__description__more__button nt-button"
+         *ngIf="userCanAddToCart()"
+         (click)="addToCart(retreat)">
+        {{ 'retreat-list-item.add_to_card' | translate }}
+      </a>
+      <a class="retreat-list-item__description__more__button nt-button nt-button--danger"
+         *ngIf="userCanRemoveFromCart()"
+         (click)="removeFromCart(retreat)">
+        {{ 'retreat-list-item.remove_from_cart' | translate }}
+      </a>
+      <a class="retreat-list-item__description__more__button nt-button"
+         *ngIf="userCanSubscribeToWaitingList()"
+         (click)="subscribeToWaitingList()">
+        {{ 'retreat-list-item.register_to_waiting_list' | translate }}
+      </a>
+      <app-alert class="retreat-list-item__description__more__alert" *ngIf="reserved" type="success">
+        {{ 'retreat-list-item.already_reserved' | translate }}
+      </app-alert>
+      <app-alert class="retreat-list-item__description__more__alert" *ngIf="inQueue" type="success">
+        {{ 'retreat-list-item.already_in_queue' | translate }}
+      </app-alert>
+
+      <a class="retreat-list-item__description__more__link nt-link" target="_blank" href="http://www.thesez-vous.com/questcequuneretraite.html">
+        {{ 'retreat-list-item.know_more' | translate }}
+      </a>
+    </div>
+  </div>
+  <div class="retreat-list-item__action">
+    <a (click)="toogleDetails()" class="retreat-list-item__action__item">
+      <i *ngIf="!showDetails" class="icon icon-plus icon--5x"></i>
+      <i *ngIf="showDetails" class="icon icon-times icon--5x"></i>
+    </a>
+  </div>
+</div>
+
+<app-nt-modal [name]="modalName"
+              typeModal="success"
+              maxWidth="600px"
+              (onClose)="refreshPage()"
+              (button2)="toogleModal(this.modalName)">
+  <p>
+    {{ 'retreat-list-item.notifications.subscribe_waiting_list.success.content_1' | translate }}
+  </p>
+  <p>
+    {{ 'retreat-list-item.notifications.subscribe_waiting_list.success.content_2' | translate }} {{ this.positionInList }}.
+  </p>
+</app-nt-modal>

@@ -1,5 +1,5 @@
 import {Membership} from './membership';
-import {Retirement} from './retirement';
+import {Retreat} from './retreat';
 import {TimeSlot} from './timeSlot';
 import {TaxeUtil} from '../utils/taxe';
 import {Order} from './order';
@@ -10,7 +10,7 @@ import {assertPlatform} from '@angular/core';
 
 export class Cart {
   _memberships: Membership[] = [];
-  _retirements: Retirement[] = [];
+  _retreats: Retreat[] = [];
   _timeslots: TimeSlot[] = [];
   _coupons: Coupon[] = [];
   _single_use_token: string;
@@ -32,10 +32,10 @@ export class Cart {
           }
         );
       }
-      if (data.hasOwnProperty('_retirements')) {
-        data['_retirements'].map(
+      if (data.hasOwnProperty('_retreats')) {
+        data['_retreats'].map(
           r => {
-            this._retirements.push(new Retirement(r));
+            this._retreats.push(new Retreat(r));
           }
         );
       }
@@ -63,8 +63,8 @@ export class Cart {
     }
   }
 
-  getRetirements() {
-    return this._retirements;
+  getRetreats() {
+    return this._retreats;
   }
 
   getTimeslots() {
@@ -98,8 +98,8 @@ export class Cart {
     this._payment_token = null;
   }
 
-  addRetirement(retirement: Retirement) {
-    this._retirements.push(retirement);
+  addRetreat(retreat: Retreat) {
+    this._retreats.push(retreat);
   }
 
   addCoupon(coupon: Coupon) {
@@ -118,11 +118,11 @@ export class Cart {
     this._memberships.push(membership);
   }
 
-  removeRetirement(retirementId: number) {
+  removeRetreat(retreatId: number) {
     let index = 0;
-    for (const retirement of this._retirements) {
-      if (retirement.id === retirementId) {
-        this._retirements.splice(index, 1);
+    for (const retreat of this._retreats) {
+      if (retreat.id === retreatId) {
+        this._retreats.splice(index, 1);
         break;
       }
       index += 1;
@@ -165,7 +165,7 @@ export class Cart {
     if (this._memberships.length) {
       return false;
     }
-    if (this._retirements.length) {
+    if (this._retreats.length) {
       return false;
     }
     if (this._timeslots.length) {
@@ -179,8 +179,8 @@ export class Cart {
     for (const membership of this._memberships) {
       total += Number(membership.price);
     }
-    for (const retirement of this._retirements) {
-      total += Number(retirement.price);
+    for (const retreat of this._retreats) {
+      total += Number(retreat.price);
     }
     for (const appliedCoupon of this._applied_coupons) {
       total -= Number(appliedCoupon.value);
@@ -227,11 +227,11 @@ export class Cart {
         );
       }
     }
-    if (this._retirements) {
-      for (const retirement of this._retirements) {
+    if (this._retreats) {
+      for (const retreat of this._retreats) {
         newOrder['order_lines'].push(new OrderLine({
             'content_type': 'retirement',
-            'object_id': retirement.id,
+            'object_id': retreat.id,
             'quantity': 1,
           })
         );

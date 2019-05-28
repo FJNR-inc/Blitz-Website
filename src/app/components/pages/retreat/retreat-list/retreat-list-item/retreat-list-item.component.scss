@@ -1,0 +1,68 @@
+@import '../../assets/scss/theme';
+
+.retreat-list-item {
+  border-top: 1px solid $border-calendar;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 40px;
+
+  &__description {
+    padding: 20px;
+    line-height: 1.5rem;
+    flex: 2;
+
+    &__more {
+      margin-top: 20px;
+
+      &__button {
+        margin-top: 30px;
+        display: block;
+      }
+
+      &__alert {
+        margin-top: 30px;
+        display: block;
+      }
+
+      &__link {
+        margin-top: 20px;
+        display: block;
+      }
+    }
+  }
+
+  &__action {
+    padding: 20px;
+
+    &__item {
+      text-decoration: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .retreat-list-item {
+    &__title {
+      padding: 20px 10px;
+    }
+
+    &__description {
+      padding: 10px;
+    }
+
+    &__action {
+      padding: 10px;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .retreat-list-item {
+    padding: 10px 20px;
+
+    &__title {
+      font-size: 20px;
+    }
+  }
+}

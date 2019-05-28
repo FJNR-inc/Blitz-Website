@@ -85,27 +85,27 @@ export class NtHeaderComponent implements OnInit {
         }
       ]
     }, {
-      label: _('header.retirement.title'),
+      label: _('header.retreat.title'),
       url: '',
       router_url: '',
       nav: [
         {
-          label: _('header.retirement.what_is_it'),
+          label: _('header.retreat.what_is_it'),
           url: 'http://www.thesez-vous.com/questcequuneretraite.html',
           router_url: ''
         },
         {
-          label: _('header.retirement.grants'),
+          label: _('header.retreat.grants'),
           url: 'http://www.thesez-vous.com/bourses-et-financement.html\n',
           router_url: ''
         }, {
-          label: _('header.retirement.SBL'),
+          label: _('header.retreat.SBL'),
           url: 'http://www.thesez-vous.com/sbl.html',
           router_url: ''
         }, {
-          label: _('header.retirement.inscription'),
+          label: _('header.retreat.inscription'),
           url: '',
-          router_url: '/retirements',
+          router_url: '/retreats',
           type: 'button',
           keepClose: true
         }

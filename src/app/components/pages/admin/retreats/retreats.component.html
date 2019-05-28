@@ -1,0 +1,40 @@
+<div class="admin-retreats-page">
+  <div class="admin-retreats-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="listRetreats"
+                  (addButton)="OpenModalCreateRetreat()"
+                  (removeItem)="removeRetreat($event)"
+                  (selectItem)="redirectToRetreat($event.id)"
+                  (changePage)="changePage($event)"
+                  [confirmationOnDeletion]="false">
+    </app-my-table>
+  </div>
+</div>
+
+<app-nt-modal name="form_retreats"
+              typeModal="success"
+              (button2)="submitRetreat()"
+              maxWidth="600px">
+  <app-form [form]="retreatForm" [fields]="fields" [errors]="retreatErrors"></app-form>
+</app-nt-modal>
+
+<app-nt-modal name="validation_deletion"
+              typeModal="success"
+              (button2)="removeRetreat(null, true)"
+              maxWidth="600px"
+              [autoClose]="true"
+              [activated]="isSecurityOnDeletionValid()">
+  <p>
+    {{ 'retreats.validation_deletion_modal.text_1' | translate }}
+  </p>
+  <p>
+    {{ 'retreats.validation_deletion_modal.text_2' | translate }}
+  </p>
+  <p>
+    {{ 'retreats.validation_deletion_modal.text_3' | translate }}
+  </p>
+  <div class="form-group">
+    <label class="nt-form-label">{{ 'retreats.validation_deletion_modal.labels.name' | translate }}:</label>
+    <input class="nt-form-input" type="text" [(ngModel)]="securityOnDeletion"/>
+  </div>
+</app-nt-modal>

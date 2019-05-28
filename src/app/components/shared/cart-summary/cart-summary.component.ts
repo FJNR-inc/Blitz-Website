@@ -22,8 +22,8 @@ export class CartSummaryComponent implements OnInit {
     this.cartService.removeMembership(membership.id);
   }
 
-  removeRetirementFromCart(retirement) {
-    this.cartService.removeRetirement(retirement.id);
+  removeRetreatFromCart(retreat) {
+    this.cartService.removeRetreat(retreat.id);
   }
 
   removeCouponFromCart(coupon) {

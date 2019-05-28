@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../../../services/user.service';
 import {OrderService} from '../../../../services/order.service';
-import {RetirementReservationService} from '../../../../services/retirement-reservation.service';
+import {RetreatReservationService} from '../../../../services/retreat-reservation.service';
 import {ReservationService} from '../../../../services/reservation.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class GeneralComponent implements OnInit {
 
   constructor(private userService: UserService,
               private reservationService: ReservationService,
-              private retreatReservationService: RetirementReservationService) {
+              private retreatReservationService: RetreatReservationService) {
   }
 
   ngOnInit() {

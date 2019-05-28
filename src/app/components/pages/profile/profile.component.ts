@@ -13,8 +13,8 @@ export class ProfileComponent implements OnInit {
 
   totalPastTimeslotTomatoes = 0;
   totalFutureTimeslotTomatoes = 0;
-  totalPastRetirementTomatoes = 0;
-  totalFutureRetirementTomatoes = 0;
+  totalPastRetreatTomatoes = 0;
+  totalFutureRetreatTomatoes = 0;
 
   constructor(private authenticationService: AuthenticationService) { }
 
@@ -27,10 +27,10 @@ export class ProfileComponent implements OnInit {
   }
 
   getTotalPastTomatoes() {
-    return this.totalPastTimeslotTomatoes + this.totalPastRetirementTomatoes;
+    return this.totalPastTimeslotTomatoes + this.totalPastRetreatTomatoes;
   }
 
   getTotalFutureTomatoes() {
-    return this.totalFutureTimeslotTomatoes + this.totalFutureRetirementTomatoes;
+    return this.totalFutureTimeslotTomatoes + this.totalFutureRetreatTomatoes;
   }
 }

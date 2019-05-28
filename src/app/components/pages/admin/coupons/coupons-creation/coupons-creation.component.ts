@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {FormUtil} from '../../../../../utils/form';
 import {FormGroup} from '@angular/forms';
-import {Retirement} from '../../../../../models/retirement';
-import {RetirementService} from '../../../../../services/retirement.service';
+import {Retreat} from '../../../../../models/retreat';
+import {RetreatService} from '../../../../../services/retreat.service';
 import {AuthenticationService} from '../../../../../services/authentication.service';
 import {MyNotificationService} from '../../../../../services/my-notification/my-notification.service';
 import {CouponService} from '../../../../../services/coupon.service';
@@ -79,8 +79,8 @@ export class CouponsCreationComponent implements OnInit {
   couponErrors: string[];
   selectedCouponUrl: string;
 
-  listRetirements: Retirement[] = [];
-  selectedRetirements: Retirement[] = [];
+  listRetreats: Retreat[] = [];
+  selectedRetreats: Retreat[] = [];
 
   listMemberships: Membership[] = [];
   selectedMemberships: Membership[] = [];
@@ -91,7 +91,7 @@ export class CouponsCreationComponent implements OnInit {
   listTypeOfProduct: any[] = [
     {
       name: 'Retraites',
-      value: 'retirement'
+      value: 'retreat'
     },
     {
       name: 'Memberships',
@@ -108,7 +108,7 @@ export class CouponsCreationComponent implements OnInit {
   ];
   selectedTypeOfProduct: any[] = [];
 
-  constructor(private retirementService: RetirementService,
+  constructor(private retreatService: RetreatService,
               private couponService: CouponService,
               private authenticationService: AuthenticationService,
               private notificationService: MyNotificationService,
@@ -118,7 +118,7 @@ export class CouponsCreationComponent implements OnInit {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.refreshRetirementList();
+    this.refreshRetreatList();
     this.refreshMembershipList();
     this.refreshPackageList();
 
@@ -137,7 +137,7 @@ export class CouponsCreationComponent implements OnInit {
           this.couponForm.controls['max_use'].setValue(this.coupon.max_use);
           this.couponForm.controls['max_use_per_user'].setValue(this.coupon.max_use_per_user);
           this.couponForm.controls['details'].setValue(this.coupon.details);
-          this.selectedRetirements = this.setSelectedRetirements();
+          this.selectedRetreats = this.setSelectedRetreats();
           this.selectedPackages = this.setSelectedPackages();
           this.selectedTypeOfProduct = this.setSelectedTypeOfProduct();
           this.selectedMemberships = this.setSelectedMemberships();
@@ -146,7 +146,7 @@ export class CouponsCreationComponent implements OnInit {
     });
   }
 
-  refreshRetirementList(search = null) {
+  refreshRetreatList(search = null) {
     let filters = null;
     if (search) {
       filters = [
@@ -156,9 +156,9 @@ export class CouponsCreationComponent implements OnInit {
         }
       ];
     }
-    this.retirementService.list(filters).subscribe(
-      retirements => {
-        this.listRetirements = retirements.results.map(o => new Retirement(o));
+    this.retreatService.list(filters).subscribe(
+      retreats => {
+        this.listRetreats = retreats.results.map(o => new Retreat(o));
       }
     );
   }
@@ -180,20 +180,20 @@ export class CouponsCreationComponent implements OnInit {
   }
 
 
-  setSelectedRetirements() {
-    const selectedRetirements = [];
-    for (const retirement of this.coupon.applicable_retirements) {
-      selectedRetirements.push(retirement);
+  setSelectedRetreats() {
+    const selectedRetreats = [];
+    for (const retreat of this.coupon.applicable_retirements) {
+      selectedRetreats.push(retreat);
     }
-    return selectedRetirements;
+    return selectedRetreats;
   }
 
-  getSelectedRetirements() {
-    const selectedRetirements = [];
-    for (const retirement of this.selectedRetirements) {
-      selectedRetirements.push(retirement.url);
+  getSelectedRetreats() {
+    const selectedRetreats = [];
+    for (const retreat of this.selectedRetreats) {
+      selectedRetreats.push(retreat.url);
     }
-    return selectedRetirements;
+    return selectedRetreats;
   }
 
   setSelectedMemberships() {
@@ -206,8 +206,8 @@ export class CouponsCreationComponent implements OnInit {
 
   getSelectedMemberships() {
     const selectedMemberships = [];
-    for (const retirement of this.selectedMemberships) {
-      selectedMemberships.push(retirement.url);
+    for (const retreat of this.selectedMemberships) {
+      selectedMemberships.push(retreat.url);
     }
     return selectedMemberships;
   }
@@ -252,7 +252,7 @@ export class CouponsCreationComponent implements OnInit {
     if ( this.couponForm.valid ) {
       const value = this.couponForm.value;
       value['owner'] = this.authenticationService.getProfile().url;
-      value['applicable_retirements'] = this.getSelectedRetirements();
+      value['applicable_retirements'] = this.getSelectedRetreats();
       value['applicable_memberships'] = this.getSelectedMemberships();
       value['applicable_packages'] = this.getSelectedPackages();
       value['applicable_product_types'] = this.getSelectedTypeOfProduct();
@@ -302,7 +302,7 @@ export class CouponsCreationComponent implements OnInit {
     }
   }
 
-  filterRetirements(search) {
-    this.refreshRetirementList(search);
+  filterRetreats(search) {
+    this.refreshRetreatList(search);
   }
 }

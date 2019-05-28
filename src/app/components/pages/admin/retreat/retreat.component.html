@@ -1,0 +1,88 @@
+<app-loader *ngIf="!retreat"></app-loader>
+
+<div class="admin-retreat-page" *ngIf="retreat">
+  <div class="admin-retreat-page__header">
+    <div class="admin-retreat-page__header__name">
+      {{ retreat.name }}
+      <a class="admin-retreat-page__header__name__edit button" (click)="OpenModalEditRetreat()">
+        <i class="fas fa-pencil-alt"></i> {{ 'retreat.edit_retreat' | translate }}
+      </a>
+    </div>
+    <div class="admin-retreat-page__header__informations">
+      <i class="fas fa-location-arrow"></i> {{ retreat.getAddress() }}<br/>
+    </div>
+    <div class="admin-retreat-page__header__informations">
+      <i class="fas fa-building"></i> {{ retreat.seats }} {{ 'retreat.place_available' | translate }}
+    </div>
+    <p class="admin-retreat-page__header__details">
+      {{ retreat.details }}
+    </p>
+  </div>
+
+  <app-table-retreat-reservations
+    class="admin-retreat-page__reservations"
+    [retreat]="retreat"
+    (addButton)="addUserToRetreat()"
+    [hasAddButton]="true">
+  </app-table-retreat-reservations>
+</div>
+
+<app-nt-modal name="select_user"
+              typeModal="success"
+              maxWidth="600px"
+              [activated]="selectedUser != null"
+              (button2)="addUser()">
+  <div *ngIf="!selectedUser">
+    <app-my-table [settings]="settings"
+                [data]="listUsers"
+                [filters]="filters"
+                [useSearchBar]="true"
+                (searchBar)="updateFilter('search', $event)"
+                (selectItem)="selectUser($event)"
+                (changePage)="changePage($event)"
+                (updateFilters)="updateFilters($event)"
+                [limitChoices]="limitChoices"
+                (updateLimit)="changeLimit($event)">
+    </app-my-table>
+  </div>
+  <div
+    *ngIf="selectedUser">
+    <app-alert type="warning" [messages]="warningMessage">
+    </app-alert>
+    <p></p>
+    <div
+      class="admin-retreat-page__modal__selected-user">
+      <img
+        class="admin-retreat-page__modal__back"
+        src="../../../assets/images/icons/icon_left_arrow.svg"
+        (click)="unselectUser()">
+      <div class="admin-retreat-page__modal__text">
+        <p class="admin-retreat-page__modal__title">
+          {{ selectedUser.first_name }}
+          {{ selectedUser.last_name }}
+        </p>
+        <p>
+          {{ selectedUser.email }}
+        </p>
+        <p *ngIf="selectedUser.university">
+          {{ selectedUser.university }}
+        </p>
+        <p *ngIf="!selectedUser.university">
+          {{ noUniversity | translate }}
+        </p>
+      </div>
+    </div>
+    <div *ngIf="errors" >
+      <p></p>
+      <app-alert type="danger" [messages]="errors">
+      </app-alert>
+    </div>
+  </div>
+</app-nt-modal>
+
+  <app-nt-modal name="form_retreats"
+              typeModal="success"
+              (button2)="submitRetreat()"
+              maxWidth="600px">
+  <app-form [form]="retreatForm" [fields]="retreatFields" [errors]="errors"></app-form>
+</app-nt-modal>

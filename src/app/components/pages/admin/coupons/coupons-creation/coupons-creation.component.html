@@ -10,11 +10,11 @@
     {{ 'coupons-creation.form.infos_multiselect' | translate }}
   </app-alert>
   <div class="form-group">
-    <label class="nt-form-label">{{ 'coupons-creation.form.retirements' | translate }}</label>
-    <multiselect [list]="listRetirements"
-                 [(selected)]="selectedRetirements"
+    <label class="nt-form-label">{{ 'coupons-creation.form.retreats' | translate }}</label>
+    <multiselect [list]="listRetreats"
+                 [(selected)]="selectedRetreats"
                  labelProperty="name"
-                 (searchBar)="filterRetirements($event)"
+                 (searchBar)="filterRetreats($event)"
                  typeOfSearch='text'>
     </multiselect>
   </div>
