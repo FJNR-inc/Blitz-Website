@@ -7,6 +7,7 @@ export class TimeSlot extends BaseModel {
   id: number;
   name: string;
   price: number;
+  billing_price: number;
   start_time: string;
   end_time: string;
   users: string[];

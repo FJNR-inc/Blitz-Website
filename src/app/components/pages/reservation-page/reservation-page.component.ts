@@ -227,7 +227,7 @@ export class ReservationPageComponent implements OnInit {
                     if (timeslot.places_remaining > 0) {
                       newSelectedTimeSlots.push(timeslot);
                     } else {
-                      this.totalTicket -= timeslot.price;
+                      this.totalTicket -= timeslot.billing_price;
                     }
                   }
                 }
@@ -346,7 +346,7 @@ export class ReservationPageComponent implements OnInit {
         this.scroll('cart');
       }
       this.selectedTimeSlots.push(timeSlot);
-      this.totalTicket += Number(timeSlot.price);
+      this.totalTicket += Number(timeSlot.billing_price);
       for (const event of this.events) {
         if (event.id === timeSlot.id) {
           event.color = this.colors[3].color;
@@ -359,7 +359,7 @@ export class ReservationPageComponent implements OnInit {
     const index = this.selectedTimeSlots.indexOf(timeSlot);
     if (index > -1) {
       this.selectedTimeSlots.splice(index, 1);
-      this.totalTicket -= Number(timeSlot.price);
+      this.totalTicket -= Number(timeSlot.billing_price);
       for (const event of this.events) {
         if (event.id === timeSlot.id) {
           event.color = this.getTimeslotColor(timeSlot);
