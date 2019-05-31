@@ -227,27 +227,25 @@ export class WorkplacesComponent implements OnInit {
   }
 
   submitWorkplace() {
-    if ( this.workplaceForm.valid ) {
-      const value = this.workplaceForm.value;
-      value['timezone'] = 'America/Montreal';
-      this.workplaceService.create(value).subscribe(
-        data => {
-          this.notificationService.success(
-            _('shared.notifications.commons.added.title')
-          );
-          this.refreshWorkplaceList();
-          this.toggleModal('form_workplaces');
-        },
-        err => {
-          if (err.error.non_field_errors) {
-            this.workplaceErrors = err.error.non_field_errors;
-          } else {
-            this.workplaceErrors =  ['shared.form.errors.unknown'];
-          }
-          this.workplaceForm = FormUtil.manageFormErrors(this.workplaceForm, err);
+    const value = this.workplaceForm.value;
+    value['timezone'] = 'America/Montreal';
+    this.workplaceService.create(value).subscribe(
+      data => {
+        this.notificationService.success(
+          _('shared.notifications.commons.added.title')
+        );
+        this.refreshWorkplaceList();
+        this.toggleModal('form_workplaces');
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.workplaceErrors = err.error.non_field_errors;
+        } else {
+          this.workplaceErrors =  ['shared.form.errors.unknown'];
         }
-      );
-    }
+        this.workplaceForm = FormUtil.manageFormErrors(this.workplaceForm, err);
+      }
+    );
   }
 
   isSecurityOnDeletionValid() {
