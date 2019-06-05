@@ -8,7 +8,7 @@ export class RetreatWaitingQueue extends BaseModel {
   id: number;
   url: string;
   user: string;
-  retirement: string;
+  retreat: string;
 
   constructor(data: Object = {}) {
     super(data);

@@ -76,7 +76,7 @@ export class RetreatListItemComponent implements OnInit {
   subscribeToWaitingList() {
     const retreatWaitingQueue = new RetreatWaitingQueue(
       {
-        retirement: this.retreat.url,
+        retreat: this.retreat.url,
         user: this.authenticationService.getProfile().url
       }
     );

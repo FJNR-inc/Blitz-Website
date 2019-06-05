@@ -15,7 +15,7 @@
          (click)="openRetreatReservation(retreatReservation.id)">
       <div class="profile-retreats__list__item__title">
         <div class="profile-retreats__list__item__title__text">
-          {{ retreatReservation.retirement_details.name }}
+          {{ retreatReservation.retreat_details.name }}
         </div>
 
         <div *ngIf="retreatReservationOpen === retreatReservation.id" class="profile-retreats__list__item__title__tomatoes">
@@ -24,22 +24,22 @@
       </div>
       <div class="profile-retreats__list__item__description">
         <p>
-          {{ retreatReservation.retirement_details.details }}
+          {{ retreatReservation.retreat_details.details }}
         </p>
         <p>
-          {{ retreatReservation.retirement_details.getDateInterval() }}
+          {{ retreatReservation.retreat_details.getDateInterval() }}
         </p>
         <div class="profile-retreats__list__item__description__more" *ngIf="retreatReservationOpen === retreatReservation.id">
-          <b>{{ 'profile.retreats.details.begin' | translate }}:</b> {{retreatReservation.retirement_details.getStartTime()}}<br/>
-          <b>{{ 'profile.retreats.details.end' | translate }}:</b> {{retreatReservation.retirement_details.getEndTime()}}<br/>
-          <span *ngIf="retreatReservation.retirement_details.getActivityLanguageLabel()">
-                    <b>{{ 'profile.retreats.details.animation' | translate }}:</b> {{retreatReservation.retirement_details.getActivityLanguageLabel() | translate }}<br/>
+          <b>{{ 'profile.retreats.details.begin' | translate }}:</b> {{retreatReservation.retreat_details.getStartTime()}}<br/>
+          <b>{{ 'profile.retreats.details.end' | translate }}:</b> {{retreatReservation.retreat_details.getEndTime()}}<br/>
+          <span *ngIf="retreatReservation.retreat_details.getActivityLanguageLabel()">
+                    <b>{{ 'profile.retreats.details.animation' | translate }}:</b> {{retreatReservation.retreat_details.getActivityLanguageLabel() | translate }}<br/>
                   </span>
-          <b>{{ 'profile.retreats.details.price' | translate }}:</b> {{retreatReservation.retirement_details.price}}$CAN<br/>
+          <b>{{ 'profile.retreats.details.price' | translate }}:</b> {{retreatReservation.retreat_details.price}}$CAN<br/>
         </div>
       </div>
       <div class="profile-retreats__list__item__actions">
-        <a *ngIf="retreatReservation.retirement_details.form_url" class="profile-retreats__list__item__actions__item" target="_blank" [href]="retreatReservation.retirement_details.form_url">
+        <a *ngIf="retreatReservation.retreat_details.form_url" class="profile-retreats__list__item__actions__item" target="_blank" [href]="retreatReservation.retreat_details.form_url">
           <i class="icon icon-form icon--3x"></i>
         </a>
         <a class="profile-retreats__list__item__actions__item"

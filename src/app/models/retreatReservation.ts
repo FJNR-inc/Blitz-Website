@@ -14,8 +14,8 @@ export class RetreatReservation extends BaseModel {
   is_present: boolean;
   user: string;
   user_details: User;
-  retirement: string;
-  retirement_details: Retreat;
+  retreat: string;
+  retreat_details: Retreat;
   order_line: OrderLine;
 
   constructor(data: Object = {}) {
@@ -23,8 +23,8 @@ export class RetreatReservation extends BaseModel {
     if (data.hasOwnProperty('user_details')) {
       this.user_details = new User(data['user_details']);
     }
-    if (data.hasOwnProperty('retirement_details')) {
-      this.retirement_details = new Retreat(data['retirement_details']);
+    if (data.hasOwnProperty('retreat_details')) {
+      this.retreat_details = new Retreat(data['retreat_details']);
     }
   }
 

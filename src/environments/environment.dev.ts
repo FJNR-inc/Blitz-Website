@@ -44,11 +44,11 @@ export const environment = {
     reservations: '/reservations',
     reservations_export: '/reservations/export',
     custom_payments: '/custom_payments',
-    retreats: '/retirement/retirements',
-    retreatReservations: '/retirement/reservations',
+    retreats: '/retreat/retreats',
+    retreatReservations: '/retreat/reservations',
     coupons: '/coupons',
     coupons_use_export: '/coupon_uses/export',
-    retreat_waiting_queues: '/retirement/wait_queues',
-    retreat_waiting_queue_notifications: '/retirement/wait_queue_notifications',
+    retreat_waiting_queues: '/retreat/wait_queues',
+    retreat_waiting_queue_notifications: '/retreat/wait_queue_notifications',
   }
 };

@@ -133,7 +133,7 @@ export class TableRetreatReservationsComponent implements OnInit {
           if (retreat.cancelation_reason === 'RD') {
             this.toggleModal('retreat_deleted');
           } else {
-            this.router.navigate(['/admin/retreats/' + retreat.retirement_details.id]);
+            this.router.navigate(['/admin/retreats/' + retreat.retreat_details.id]);
           }
         }
       }

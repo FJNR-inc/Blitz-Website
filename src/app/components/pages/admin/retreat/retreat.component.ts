@@ -471,7 +471,7 @@ export class RetreatComponent implements OnInit {
   addUser() {
     const retreatReservation = new RetreatReservation();
     retreatReservation.user = this.selectedUser.url;
-    retreatReservation.retirement = this.retreat.url;
+    retreatReservation.retreat = this.retreat.url;
 
     this.retreatReservationService.create(retreatReservation).subscribe(
       data => {

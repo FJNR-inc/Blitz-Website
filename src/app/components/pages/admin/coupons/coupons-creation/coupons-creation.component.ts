@@ -182,7 +182,7 @@ export class CouponsCreationComponent implements OnInit {
 
   setSelectedRetreats() {
     const selectedRetreats = [];
-    for (const retreat of this.coupon.applicable_retirements) {
+    for (const retreat of this.coupon.applicable_retreats) {
       selectedRetreats.push(retreat);
     }
     return selectedRetreats;
@@ -252,7 +252,7 @@ export class CouponsCreationComponent implements OnInit {
     if ( this.couponForm.valid ) {
       const value = this.couponForm.value;
       value['owner'] = this.authenticationService.getProfile().url;
-      value['applicable_retirements'] = this.getSelectedRetreats();
+      value['applicable_retreats'] = this.getSelectedRetreats();
       value['applicable_memberships'] = this.getSelectedMemberships();
       value['applicable_packages'] = this.getSelectedPackages();
       value['applicable_product_types'] = this.getSelectedTypeOfProduct();
