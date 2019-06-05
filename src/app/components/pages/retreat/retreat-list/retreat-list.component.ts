@@ -90,7 +90,7 @@ export class RetreatListComponent implements OnInit {
   isAlreadyReserved(retreat) {
     if ( this.retreatReservations ) {
       for (const reservation of this.retreatReservations) {
-        if (reservation.retirement === retreat.url) {
+        if (reservation.retreat === retreat.url) {
           return true;
         }
       }
@@ -101,7 +101,7 @@ export class RetreatListComponent implements OnInit {
   isAlreadyInQueue(retreat) {
     if ( this.retreatWaitingQueues ) {
       for (const queue of this.retreatWaitingQueues) {
-        if (queue.retirement === retreat.url) {
+        if (queue.retreat === retreat.url) {
           return true;
         }
       }
@@ -112,7 +112,7 @@ export class RetreatListComponent implements OnInit {
   isNotified(retreat) {
     if ( this.retreatWaitingQueueNotifications ) {
       for (const notification of this.retreatWaitingQueueNotifications) {
-        if (notification.retirement === retreat.url) {
+        if (notification.retreat === retreat.url) {
           return true;
         }
       }

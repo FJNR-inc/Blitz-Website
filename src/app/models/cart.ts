@@ -230,7 +230,7 @@ export class Cart {
     if (this._retreats) {
       for (const retreat of this._retreats) {
         newOrder['order_lines'].push(new OrderLine({
-            'content_type': 'retirement',
+            'content_type': 'retreat',
             'object_id': retreat.id,
             'quantity': 1,
           })

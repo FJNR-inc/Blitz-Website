@@ -14,7 +14,7 @@ export class Coupon extends BaseModel {
   end_time: string;
   details: string;
   owner: string;
-  applicable_retirements: string;
+  applicable_retreats: string;
   applicable_timeslots: string;
   applicable_packages: string;
   applicable_memberships: string;

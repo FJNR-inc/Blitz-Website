@@ -88,7 +88,7 @@ export class ProfileRetreatsComponent implements OnInit {
         this.listFutureRetreatReservations = [];
 
         for ( const retreatReservation of listRetreatReservations ) {
-          if (retreatReservation.retirement_details.getEndDate() < new Date()) {
+          if (retreatReservation.retreat_details.getEndDate() < new Date()) {
             this.totalPastRetreatReservations += environment.tomato_per_retreat;
           } else {
             this.totalFutureRetreatReservations += environment.tomato_per_retreat;
@@ -142,7 +142,7 @@ export class ProfileRetreatsComponent implements OnInit {
     if (this.listRetreats) {
       const list = [];
       for (const retreat of this.listRetreats) {
-        if (retreat.id !== this.selectedRetreatReservation.retirement_details.id) {
+        if (retreat.id !== this.selectedRetreatReservation.retreat_details.id) {
           if (retreat.places_remaining > 0) {
             list.push(retreat);
           }
@@ -156,7 +156,7 @@ export class ProfileRetreatsComponent implements OnInit {
 
   exchangeRetreat() {
     const reservation = new RetreatReservation();
-    reservation.retirement = this.selectedRetreatForExchange;
+    reservation.retreat = this.selectedRetreatForExchange;
     this.retreatReservationService.update(this.selectedRetreatReservation.url, reservation).subscribe(
       data => {
         this.notificationService.success(
