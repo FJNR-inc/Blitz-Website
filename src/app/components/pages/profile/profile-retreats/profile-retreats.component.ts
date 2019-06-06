@@ -168,7 +168,7 @@ export class ProfileRetreatsComponent implements OnInit {
       },
       err => {
         if (err.error.non_field_errors) {
-          this.errorExchangeRetreatReservation = [err.error.non_field_errors];
+          this.errorExchangeRetreatReservation = err.error.non_field_errors;
         } else {
           this.errorExchangeRetreatReservation = [_('shared.alert.errors.unknown')];
         }
@@ -188,7 +188,7 @@ export class ProfileRetreatsComponent implements OnInit {
       },
       err => {
         if (err.error.non_field_errors) {
-          this.errorCancelationRetreatReservation = [err.error.non_field_errors];
+          this.errorCancelationRetreatReservation = err.error.non_field_errors;
         } else {
           this.errorCancelationRetreatReservation = [_('shared.alert.errors.unknown')];
         }
