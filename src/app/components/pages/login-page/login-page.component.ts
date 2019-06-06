@@ -15,6 +15,7 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 export class LoginPageComponent {
   loginForm: FormGroup;
   errors: string[];
+  buttonDisabled = false;
 
   returnUrl: string;
 
@@ -38,8 +39,10 @@ export class LoginPageComponent {
 
   authenticate(form: FormGroup) {
     if ( form.valid ) {
+      this.buttonDisabled = true;
       this.authenticationService.authenticate(form.value['login'], form.value['password']).subscribe(
         data => {
+          this.buttonDisabled = false;
           this.authenticationService.setToken(data.token);
           this.profileService.get().subscribe(
             profile => {
@@ -53,6 +56,7 @@ export class LoginPageComponent {
           );
         },
         err => {
+          this.buttonDisabled = false;
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
           }

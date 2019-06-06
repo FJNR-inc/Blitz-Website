@@ -31,7 +31,7 @@
         <a routerLink="/forgot-password" class="nt-link">{{ 'login.link_to_forgot_password' | translate }}</a>
       </div>
     </div>
-    <button type="submit" class="nt-button login-page__content__submit">
+    <button type="submit" class="nt-button login-page__content__submit" [disabled]="buttonDisabled">
       {{ 'shared.buttons.log_in' | translate }}
     </button>
   </form>
