@@ -43,10 +43,12 @@
           <i class="icon icon-form icon--3x"></i>
         </a>
         <a class="profile-retreats__list__item__actions__item"
+           *ngIf="retreatReservation.exchangeable"
            (click)="openModalExchangeRetreatReservation(retreatReservation)">
           <i class="icon icon-transfer icon--3x"></i>
         </a>
         <a class="profile-retreats__list__item__actions__item"
+           *ngIf="retreatReservation.refundable"
            (click)="openModalCancelRetreatReservation(retreatReservation)">
           <i class="icon icon-times icon--3x"></i>
         </a>
