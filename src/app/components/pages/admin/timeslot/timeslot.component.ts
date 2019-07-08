@@ -78,7 +78,17 @@ export class TimeslotComponent implements OnInit {
   }
 
   refreshReservation() {
-    this.reservationService.list([{'name': 'timeslot', 'value': this.timeslot.id}]).subscribe(
+    const filters = [
+      {
+        'name': 'timeslot',
+        'value': this.timeslot.id
+      },
+      {
+        'name': 'ordering',
+        'value': 'user__first_name'
+      }
+    ];
+    this.reservationService.list(filters).subscribe(
       reservations => {
         this.listReservations = reservations.results.map(
           r => this.reservationAdapter(new Reservation(r))
