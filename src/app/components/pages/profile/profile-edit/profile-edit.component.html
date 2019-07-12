@@ -4,5 +4,8 @@
   </h2>
 
   <app-form [form]="userForm" [fields]="fields" [errors]="errors"></app-form>
+  <app-alert type="info" *ngIf="displayChangeEmailInfoText()">
+    {{ 'profile.personal_informations.change_email_info' | translate }}
+  </app-alert>
   <a class="nt-button profile-edit__button" (click)="submitProfile()">Modifier mes informations</a>
 </div>
