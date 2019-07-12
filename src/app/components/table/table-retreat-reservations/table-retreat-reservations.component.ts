@@ -108,13 +108,18 @@ export class TableRetreatReservationsComponent implements OnInit {
     const reservationAdapted = {
       id: retreatReservation.id,
       url: retreatReservation.url,
-      name: retreatReservation.user_details.getFullName(),
       is_present: retreatReservation.is_present,
       is_active: retreatReservation.is_active,
       cancelation_reason: retreatReservation.getCancelationReasonLabel() || '-',
       cancelation_action: retreatReservation.getCancelationActionLabel() || '-',
       personnal_restrictions: retreatReservation.user_details.personnal_restrictions
     };
+
+    if (this.retreat) {
+      reservationAdapted['name'] = retreatReservation.user_details.getFullName();
+    } else if (this.user) {
+      reservationAdapted['name'] = retreatReservation.retreat_details.name;
+    }
 
     return reservationAdapted;
   }
