@@ -29,6 +29,7 @@ export class RetreatsComponent implements OnInit {
     addButton: true,
     clickable: true,
     previous: false,
+    downloadButton: true,
     next: false,
     numberOfPage: 0,
     page: 0,
@@ -346,5 +347,13 @@ export class RetreatsComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  exportReservations(retreat: Retreat) {
+    this.retreatService.exportReservations(retreat.id).subscribe(
+      data => {
+        window.open(data.file_url);
+      }
+    );
   }
 }
