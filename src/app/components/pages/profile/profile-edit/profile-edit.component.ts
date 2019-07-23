@@ -125,7 +125,7 @@ export class ProfileEditComponent implements OnInit {
     this.userForm.controls['first_name'].setValue(this.profile.first_name);
     this.userForm.controls['last_name'].setValue(this.profile.last_name);
     this.userForm.controls['email'].setValue(this.profile.email);
-    this.userForm.controls['university'].setValue((this.profile.university) ? this.profile.university.name : null);
+    this.userForm.controls['university'].setValue((this.profile.university) ? this.profile.university.name : '');
     this.userForm.controls['birthdate'].setValue(this.profile.getBirthdate());
     this.userForm.controls['gender'].setValue(this.profile.gender);
     console.log(this.userForm.controls['university'].value);
