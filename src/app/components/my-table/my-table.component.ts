@@ -138,7 +138,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   }
 
   displayActionColumn() {
-    return this.settings.removeButton || this.settings.editButton;
+    return this.settings.removeButton || this.settings.editButton || this.settings.downloadButton;
   }
 
   getNumberOfColumns() {
