@@ -25,7 +25,8 @@ export class UserService extends GlobalService {
       last_name: user.last_name,
       email: user.email,
       gender: user.gender,
-      birthdate: user.birthdate
+      birthdate: user.birthdate,
+      phone: user.phone,
     };
 
     if (user.university) {
