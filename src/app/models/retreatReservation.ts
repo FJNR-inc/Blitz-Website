@@ -19,6 +19,7 @@ export class RetreatReservation extends BaseModel {
   order_line: OrderLine;
   exchangeable: boolean;
   refundable: boolean;
+  inscription_date: string;
 
   constructor(data: Object = {}) {
     super(data);
