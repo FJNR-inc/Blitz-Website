@@ -1,0 +1,66 @@
+@import "../../../../assets/scss/_theme.scss";
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: $nt-10;
+}
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: $nt-13;
+}
+
+/deep/ .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: $nt-14;
+}
+
+.chartjs{
+
+  display: flex;
+  flex-direction: row;
+  height: 400px;
+
+  &__controls{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.mat-spinner-center{
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#outer-box {
+  width: calc(100% - 400px);
+  height: 400px;
+  display:block;
+  position:relative;
+
+  #inner-box {
+    background: $nt-1;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 0;
+    transition: opacity .5s;
+
+  }
+
+  &:hover {
+    #inner-box {
+      opacity: .9;
+      transition: opacity .5s;
+    }
+  }
+}
