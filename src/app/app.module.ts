@@ -36,7 +36,9 @@ import { ActivationPageComponent } from './components/pages/activation-page/acti
 import { CanActivateViaAuthGuard } from './guards/CanActivateViaAuthGuard';
 import { CanAccessAdminPanelGuard } from './guards/CanAccessAdminPanelGuard';
 // tslint:disable-next-line:max-line-length
-import { ForgotPasswordConfirmationPageComponent } from './components/pages/forgot-password-confirmation-page/forgot-password-confirmation-page.component';
+import {
+  ForgotPasswordConfirmationPageComponent
+} from './components/pages/forgot-password-confirmation-page/forgot-password-confirmation-page.component';
 import { ResetPasswordPageComponent } from './components/pages/reset-password-page/reset-password-page.component';
 import { WorkplaceService } from './services/workplace.service';
 import { WorkplacesComponent } from './components/pages/admin/workplaces/workplaces.component';
@@ -146,6 +148,10 @@ import {
 } from '@angular/material';
 import {RetreatUnsubscribeComponent} from './components/pages/retreat/retreat-unsubscribe/retreat-unsubscribe.component';
 import { RetreatInvitationComponent } from './components/pages/admin/retreat-invitation/retreat-invitation.component';
+import { OptionsProductsComponent} from './components/pages/admin/options-products/options-products.component';
+import {
+  OptionsProductsCreationComponent
+} from './components/pages/admin/options-products/options-products-creation/options-products-creation.component';
 
 registerLocaleData(localeFr);
 
@@ -400,6 +406,39 @@ const appRoutes = [
         ],
       },
       {
+        path: 'admin/options_products',
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ],
+        children: [
+          {
+            path: '',
+            component: OptionsProductsComponent,
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ]
+          },
+          {
+            path: 'create',
+            component: OptionsProductsCreationComponent,
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ]
+          },
+          {
+            path: 'edit/:id',
+            component: OptionsProductsCreationComponent,
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ]
+          }
+        ],
+      },
+      {
         path: 'admin/workplaces/:id',
         component: WorkplaceComponent,
         canActivate: [
@@ -557,7 +596,10 @@ const appRoutes = [
     ValidateEmailComponent,
     ChartJSComponent,
     RetreatUnsubscribeComponent,
-    RetreatInvitationComponent
+    RetreatInvitationComponent,
+    RetreatUnsubscribeComponent,
+    OptionsProductsComponent,
+    OptionsProductsCreationComponent,
   ],
   imports: [
     BrowserModule,

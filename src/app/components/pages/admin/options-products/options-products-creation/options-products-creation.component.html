@@ -1,0 +1,45 @@
+<div class="option_product-creation">
+  <div class="title title--6" *ngIf="!optionProduct">
+    {{ 'option_product-creation.title' | translate }}
+  </div>
+  <div class="title title--6" *ngIf="optionProduct">
+    {{ 'option_product-creation.title-edition' | translate }}
+  </div>
+  <app-form [form]="optionProduitForm" [fields]="fields" [errors]="optionProduitErrors"></app-form>
+
+  <div class="form-group">
+    <label class="nt-form-label">{{ 'coupons-creation.form.type_of_product' | translate }}</label>
+    <multiselect [list]="listTypeOfProduct" [(selected)]="selectedTypeOfProduct" labelProperty="name">
+    </multiselect>
+  </div>
+
+  <div class="form-group">
+    <label class="nt-form-label">{{ 'coupons-creation.form.retreats' | translate }}</label>
+    <multiselect [list]="listRetreats"
+                 [(selected)]="selectedRetreats"
+                 labelProperty="name"
+                 (searchBar)="filterRetreats($event)"
+                 typeOfSearch='text'>
+    </multiselect>
+  </div>
+
+  <div class="form-group">
+    <label class="nt-form-label">{{ 'coupons-creation.form.memberships' | translate }}</label>
+    <multiselect [list]="listMemberships"
+                 [(selected)]="selectedMemberships"
+                 labelProperty="name">
+    </multiselect>
+  </div>
+
+  <div class="form-group">
+    <label class="nt-form-label">{{ 'coupons-creation.form.packages' | translate }}</label>
+    <multiselect [list]="listPackages"
+                 [(selected)]="selectedPackages"
+                 labelProperty="name">
+    </multiselect>
+  </div>
+
+  <a class="nt-button coupons-creation__button" (click)="submitOptionProduct()">
+    {{ 'option_product-creation.submit_button' | translate }}
+  </a>
+</div>
