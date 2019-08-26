@@ -55,6 +55,7 @@ export const environment = {
     retreatReservations: '/retreat/reservations',
     retreatInvitations: '/retreat/retreat_invitation',
     coupons: '/coupons',
+    options_products: '/option_products',
     coupons_use_export: '/coupon_uses/export',
     retreat_waiting_queues: '/retreat/wait_queues',
     retreat_waiting_queue_notifications: '/retreat/wait_queue_notifications',
