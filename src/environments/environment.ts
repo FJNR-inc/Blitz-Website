@@ -46,6 +46,8 @@ export const environment = {
     orders_export: '/orders/export',
     orders_validate: '/orders/validate_coupon',
     orderLines_export: '/order_lines/export',
+    orderLines_chartJS: '/order_lines/chartjs',
+    orderLines_product_list: '/order_lines/product_list',
     reservations: '/reservations',
     reservations_export: '/reservations/export',
     custom_payments: '/custom_payments',
