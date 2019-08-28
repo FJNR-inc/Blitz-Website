@@ -31,6 +31,14 @@ export class RetreatService extends GlobalService {
     );
   }
 
+  getByUrl(url: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      url,
+      {headers: headers}
+    );
+  }
+
   list(filters: {name: string, value: any}[] = null, limit = 100, offset = 0): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();

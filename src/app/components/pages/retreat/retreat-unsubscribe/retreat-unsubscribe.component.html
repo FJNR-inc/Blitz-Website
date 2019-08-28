@@ -1,0 +1,29 @@
+<div class="unsubscribe-page"
+     *ngIf="retreatWaitQueue$ | async as retreatWaitQueue">
+
+  <div class="unsubscribe-page__content">
+    <div *ngIf="retreat$ | async as retreat">
+      <h2 class="nt-title">
+        {{ retreat.name }}
+      </h2>
+      <p>
+        <span *ngIf="retreat.place_name">
+          {{ retreat.place_name }}<br/>
+        </span>
+        <span *ngIf="!retreat.place_name">
+        {{retreat.address_line1}}<br/>
+          <span *ngIf="retreat.address_line2">
+          {{retreat.address_line2}}<br/>
+          </span>
+          {{retreat.city}}, {{retreat.state_province}}<br/>
+          {{retreat.country}}<br/>
+        </span>
+        {{retreat.getDateInterval()}}<br/>
+      </p>
+    </div>
+
+    <button type="submit" class="nt-button" (click)="unsubscribe(retreatWaitQueue)">
+      {{ 'shared.buttons.unsubscribe' | translate }}
+    </button>
+  </div>
+</div>

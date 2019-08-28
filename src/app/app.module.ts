@@ -144,6 +144,7 @@ import {
   MatSelectModule,
   MatSlideToggleModule
 } from '@angular/material';
+import {RetreatUnsubscribeComponent} from './components/pages/retreat/retreat-unsubscribe/retreat-unsubscribe.component';
 
 registerLocaleData(localeFr);
 
@@ -277,6 +278,13 @@ const appRoutes = [
           CanActivateViaAuthGuard,
         ]
       },
+      {
+        path: 'wait_queue/:id/unsubscribe',
+        component: RetreatUnsubscribeComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      }
     ]
   },
   {
@@ -547,6 +555,7 @@ const appRoutes = [
     GeneralComponent,
     ValidateEmailComponent,
     ChartJSComponent,
+    RetreatUnsubscribeComponent
   ],
   imports: [
     BrowserModule,
