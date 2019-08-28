@@ -40,4 +40,22 @@ export class RetreatWaitingQueueService extends GlobalService {
       {headers: headers, params: params}
     );
   }
+
+
+
+  get(id: number): Observable<RetreatWaitingQueue> {
+    const headers = this.getHeaders();
+    return this.http.get<RetreatWaitingQueue>(
+      this.url_retreat_waiting_queues + '/' + id,
+      {headers: headers}
+    );
+  }
+
+  delete(retreatWaitingQueue: RetreatWaitingQueue): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(
+      retreatWaitingQueue.url,
+      {headers: headers}
+    );
+  }
 }
