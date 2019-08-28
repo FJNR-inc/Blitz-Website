@@ -79,6 +79,12 @@ export class ProfileEditComponent implements OnInit {
         }
       ]
     },
+    {
+      name: 'phone',
+      type: 'text',
+      label: _('shared.form.phone'),
+      choices: []
+    },
   ];
 
   constructor(private profileService: ProfileService,
@@ -93,13 +99,7 @@ export class ProfileEditComponent implements OnInit {
     this.refreshProfile();
   }
 
-  initForm(organizationSelected = []) {
-    const formUtil = new FormUtil();
-    this.updateFields(organizationSelected);
-    this.userForm = formUtil.createFormGroup(this.fields);
-  }
-
-  updateFields(organizationSelected = []) {
+  updateFields() {
     for (const field of this.fields) {
       if (field.name === 'university') {
         field['choices'] = [
@@ -120,7 +120,6 @@ export class ProfileEditComponent implements OnInit {
 
   resetForm() {
     const formUtil = new FormUtil();
-    console.log(this.profile.university);
     this.userForm = formUtil.createFormGroup(this.fields);
     this.userForm.controls['first_name'].setValue(this.profile.first_name);
     this.userForm.controls['last_name'].setValue(this.profile.last_name);
@@ -128,7 +127,7 @@ export class ProfileEditComponent implements OnInit {
     this.userForm.controls['university'].setValue((this.profile.university) ? this.profile.university.name : '');
     this.userForm.controls['birthdate'].setValue(this.profile.getBirthdate());
     this.userForm.controls['gender'].setValue(this.profile.gender);
-    console.log(this.userForm.controls['university'].value);
+    this.userForm.controls['phone'].setValue(this.profile.phone);
   }
 
   refreshProfile() {
@@ -150,7 +149,7 @@ export class ProfileEditComponent implements OnInit {
       .subscribe(
         value => {
           this.organizations = value.map(l => new Organization(l));
-          this.updateFields([]);
+          this.updateFields();
         }
       );
   }
@@ -165,11 +164,10 @@ export class ProfileEditComponent implements OnInit {
         value['university'] = null;
       }
       if (this.userForm.controls['birthdate']) {
-        const birthdate = this.userForm.controls['birthdate'].value.toISOString().substr(0, 10);
-        value['birthdate'] = birthdate;
+        value['birthdate'] = this.userForm.controls['birthdate'].value.toISOString().substr(0, 10);
       }
       this.userService.update(this.profile.url, value).subscribe(
-        data => {
+        () => {
           this.notificationService.success(_('shared.notifications.commons.added.title'));
           this.refreshProfile();
         },
@@ -205,6 +203,11 @@ export class ProfileEditComponent implements OnInit {
           if (err.error.university) {
             this.userForm.controls['university'].setErrors({
               apiError: err.error.university.name
+            });
+          }
+          if (err.error.phone) {
+            this.userForm.controls['phone'].setErrors({
+              apiError: err.error.phone
             });
           }
         }
