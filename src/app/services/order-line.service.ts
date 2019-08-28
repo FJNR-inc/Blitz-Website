@@ -42,8 +42,7 @@ export class OrderLineService extends GlobalService {
       params = params.append('group_by_object', 'True');
     }
 
-    products.forEach(product =>
-      params = params.append('content_type', product.toString()));
+    params = params.set('content_type', products.toString());
 
     if (start) {
       params = params.append('start', start.toISOString());
