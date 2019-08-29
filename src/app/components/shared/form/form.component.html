@@ -3,7 +3,7 @@
 <form [formGroup]="form" *ngIf="form">
   <div *ngFor="let field of fields">
     <div class="form-group" *ngIf="field.type === 'text' || field.type === 'password' || field.type === 'number' || field.type === 'email'">
-      <label [for]="field.name" class="nt-form-label">{{field.label | translate}}</label>
+      <app-title [level]="7" type="label" text="{{field.label | translate}}" [for]="field.name"></app-title>
       <input [formControlName]="field.name" [type]="field.type" [id]="field.name" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of form.controls[field.name].getError('apiError')">
@@ -12,7 +12,7 @@
     </div>
 
     <div class="form-group" *ngIf="field.type === 'select'">
-      <label [for]="field.name" class="nt-form-label">{{field.label | translate}}</label>
+      <app-title [level]="7" type="label" text="{{field.label | translate}}" [for]="field.name"></app-title>
       <select [formControlName]="field.name" [id]="field.name" class="nt-form-input nt-form-input--select">
         <option *ngFor="let choice of field.choices" [value]="choice.value">{{choice.label | translate}}</option>
       </select>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="form-group" *ngIf="field.type === 'datetime'">
-      <label [for]="field.name" class="nt-form-label">{{field.label | translate}}</label>
+      <app-title [level]="7" type="label" text="{{field.label | translate}}" [for]="field.name"></app-title>
       <input [owlDateTimeTrigger]="dt_start"
              [owlDateTime]="dt_start"
              [formControlName]="field.name"
@@ -37,7 +37,7 @@
     </div>
 
     <div class="form-group" *ngIf="field.type === 'date'">
-      <label [for]="field.name" class="nt-form-label">{{field.label | translate}}</label>
+      <app-title [level]="7" type="label" text="{{field.label | translate}}" [for]="field.name"></app-title>
       <input [owlDateTimeTrigger]="dt_start"
              [owlDateTime]="dt_start"
              [formControlName]="field.name"
@@ -51,7 +51,7 @@
     </div>
 
     <div class="form-group" *ngIf="field.type === 'textarea'">
-      <label [for]="field.name" class="nt-form-label">{{field.label | translate}}</label>
+      <app-title [level]="7" type="label" text="{{field.label | translate}}" [for]="field.name"></app-title>
       <textarea [formControlName]="field.name" [id]="field.name" class="nt-form-input nt-form-input--textarea"></textarea>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of form.controls[field.name].getError('apiError')">
@@ -60,7 +60,7 @@
     </div>
 
     <div class="form-group" *ngIf="field.type === 'checkbox'">
-      <label [for]="field.name" class="nt-form-label">{{field.label | translate}}</label>
+      <app-title [level]="7" type="label" text="{{field.label | translate}}" [for]="field.name"></app-title>
       <div class="align-center">
         <input type="checkbox" [formControlName]="field.name" [id]="field.name" />
         <label [for]="field.name" >{{field.label | translate}}</label>

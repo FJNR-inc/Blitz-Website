@@ -2,111 +2,86 @@
 
 .retreat-reservation {
   display: flex;
-  min-height: 100vh;
 
-  &__title {
-    width: 150px;
-    display: inline-block;
-    background-color: $nt-14;
-    color: $nt-2;
-
-    &__top {
-      min-height: 100vh;
-      position: relative;
-
-      &__text {
-        text-transform: uppercase;
-        font-size: 30px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-        width: 100vh;
-        text-align: center;
-        white-space: normal;
-        line-height: 35px;
-      }
-    }
+  &__cart-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
   }
 
-  &__content {
+  &__main {
     flex: 1;
-    min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
 
-    &__list {
+    &__content {
       display: flex;
-      height: 100%;
+      flex-direction: column;
+      max-width: 750px;
+      margin: auto;
+      padding: 100px 10px;
 
-      & > * {
-        width: 100%;
-      }
+      &__header {
+        display: flex;
+        flex-direction: column;
 
-      &__go-to-list {
-        display: none;
-        margin: 20px;
+        &__alert {
+          margin-top: 30px;
+        }
+
+        &__description {
+          margin-top: 20px;
+        }
 
         &__link {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          padding: 20px 10px;
-
-          &__icon {
-            width: 20px;
-            margin-right: 20px;
-          }
+          margin-top: 20px;
         }
       }
 
-      &__go-to-cart {
-        display: none;
-        justify-content: space-between;
-        align-items: center;
-        background-color: $nt-10;
-        padding: 20px 10px;
+      &__retreat {
+        width: 100%;
+        margin: 70px 0 70px 0;
+      }
+
+      &__politics {
+        display: flex;
+        flex-direction: column;
+        margin-top: 70px;
+
+        &__title {
+          padding-bottom: 20px;
+        }
+
+        &__content {
+          border-top: 1px solid $nt2-color-4;
+          padding: 40px 0;
+        }
       }
     }
   }
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1500px) {
   .retreat-reservation {
-    height: inherit;
-    min-height: 100vh;
-
-    &__title {
-      display: none;
+    &__panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 100vh;
     }
+  }
+}
 
-    &__content {
 
-      &__list {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
+@media only screen and (max-width: 600px) {
+  .retreat-reservation {
+    &__main {
+      &__content {
+        padding-top: 30px;
 
-        &__go-to-list {
-          display: flex;
-        }
-
-        &__go-to-cart {
-          display: flex;
-        }
-
-        &__retreats {
-          display: none;
-
-          &--responsive {
-            display: block;
-          }
-        }
-
-        &__cart {
-          display: none;
-
-          &--responsive {
-            display: block;
-          }
+        &__retreat {
+          margin: 30px 0;
         }
       }
     }

@@ -1,364 +1,283 @@
 @import "../../../../assets/scss/_theme.scss";
 
 .reservation-page {
+  display: flex;
 
-  &__header {
-    margin: 40px 40px 0 40px;
-    display: flex;
+  &__cart-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+  }
 
-    &__details {
-      flex: 1;
-      padding: 30px;
-      background-color: $nt-2;
+  &__main {
+    flex: 1;
+    max-height: 100vh;
+    overflow-y: auto;
 
-      &__title {
-        font-size: 22px;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
+    &__content {
+      display: flex;
+      flex-direction: column;
+      max-width: 750px;
+      margin: auto;
+      padding: 100px 10px;
 
-      &__text {
-        margin-top: 20px;
-      }
+      &__header {
+        display: flex;
+        flex-direction: column;
 
-      &__list {
-        list-style-type: none;
-        padding: 20px 0 0 0;
-        margin: 0;
-        text-align: left;
-
-        &__item {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+        &__details {
           margin-top: 20px;
+          display: flex;
+          flex-direction: column;
 
-          &__icon {
-            width: 40px;
-            margin-right: 20px;
-          }
+          &__item {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-top: 1px solid $nt2-color-4;
 
-          &__label {
-            line-height: 25px;
+            &:last-child {
+              border-bottom: 1px solid $nt2-color-4;
+            }
           }
         }
       }
-    }
 
-    &__picture {
-      flex: 1;
-      background-size: cover;
-      background-position: center;
-      min-height: 400px;
-    }
-
-    &__map {
-      flex: 1;
-      background-image: url('assets/images/map_espace.jpg');
-      background-size: cover;
-      background-position: center;
-      min-height: 400px;
-    }
-  }
-
-  &__content {
-    background-color: white;
-    display: flex;
-
-    &__reservation {
-      flex: 2;
-      padding: 30px 0 30px 30px;
-      display: flex;
-      justify-content: space-around;
-
-      margin-top: 50px;
-
-      &__calendar {
+      &__reservation {
         flex: 2;
-        padding: 0 20px 20px 20px;
+        padding: 30px 0 30px 30px;
+        display: flex;
+        justify-content: space-around;
 
-        &__actions {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 30px;
-          color: $border-calendar;
+        margin-top: 50px;
 
-          &__button {
+        &__calendar {
+          flex: 2;
+          padding: 0 20px 20px 20px;
+
+          &__actions {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            text-decoration: none;
+            margin-bottom: 30px;
+            color: $border-calendar;
 
-            &__icon {
-              width: 25px;
-              margin: 0 15px;
+            &__button {
+              display: flex;
+              align-items: center;
+              text-decoration: none;
+
+              &__icon {
+                width: 25px;
+                margin: 0 15px;
+                color: $border-calendar;
+              }
+            }
+
+            &__title {
+              display: flex;
+              justify-content: center;
+              text-transform: uppercase;
+              font-size: 14px;
+              font-weight: 600;
               color: $border-calendar;
             }
           }
 
-          &__title {
+          &__legend {
             display: flex;
-            justify-content: center;
-            text-transform: uppercase;
-            font-size: 14px;
-            font-weight: 600;
-            color: $border-calendar;
-          }
-        }
+            margin-top: 25px;
 
-        &__legend {
-          display: flex;
-          margin-top: 25px;
-
-          &__item {
-            margin-right: 20px;
-            display: flex;
-
-            &__text {
-              opacity: 0.6;
-              font-size: 10px;
-              line-height: 13px;
-            }
-
-            &__color {
-              border-radius: 50%;
-              width: 10px;
-              height: 10px;
-              min-width: 10px;
-              min-height: 10px;
-              margin-right: 5px;
-            }
-          }
-        }
-
-        &__politics {
-          margin-top: 20px;
-          font-size: 12px;
-          text-align: center;
-        }
-      }
-    }
-
-    &__details{
-      flex: 1;
-      padding: 30px;
-      color: $nt-text;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      &__form {
-        &__alert {
-          background-color: $nt-4;
-          padding: 20px;
-          margin-top: 30px;
-
-          &--warning {
-            background-color: $nt-7;
-          }
-
-          &__content {
-            display: flex;
-            align-items: center;
-
-            &__icon {
-              width: 25px;
+            &__item {
               margin-right: 20px;
-            }
+              display: flex;
 
-            &__text {
-              flex: 1;
-              line-height: 1.3em;
-            }
-          }
+              &__text {
+                opacity: 0.6;
+                font-size: 10px;
+                line-height: 13px;
+              }
 
-          &__button {
-            width: 100%;
-            margin-top: 30px;
-          }
-        }
-
-        &__ticket {
-          background-color: $nt-4;
-          padding: 20px 30px 20px 30px;
-          margin-top: 30px;
-
-          &__title {
-            font-size: 0.8em;
-            font-weight: 600;
-            border-bottom: 1px solid $nt-text;
-            text-transform: uppercase;
-            padding-bottom: 5px;
-            margin: 20px 0;
-          }
-
-          &__helper {
-            &--responsive {
-              display: none;
-            }
-          }
-
-          &__total {
-            text-align: right;
-            font-size: 1.2em;
-            font-weight: 400;
-            line-height: 1.5em;
-          }
-
-          &__line {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-
-            &__title:first-letter {
-              text-transform: capitalize;
-            }
-
-            &__actions {
-              width: 14px;
-              margin-left: 10px;
-            }
-          }
-        }
-
-        &__infos {
-          margin: 30px 0 0 0;
-          padding: 0;
-          list-style-type: none;
-
-          &__item {
-            padding: 5px 0;
-            color: $nt-9;
-
-            &--success {
-              color: $nt-12;
-            }
-
-            &__icon {
-              width: 14px;
-            }
-          }
-        }
-
-        &__link-packages {
-          margin-top: 20px;
-        }
-
-        &__payment {
-          margin-top: 30px;
-
-          &__card {
-            &__single {
-              margin: 30px 0 0 0;
-
-              &__link {
-                margin: 30px 0 0 0;
+              &__color {
+                border-radius: 50%;
+                width: 10px;
+                height: 10px;
+                min-width: 10px;
+                min-height: 10px;
+                margin-right: 5px;
               }
             }
           }
 
-          &__button {
+          &__politics {
             margin-top: 20px;
-            width: 100%;
+            font-size: 12px;
+            text-align: center;
           }
         }
       }
-    }
-  }
-}
-
-.modal-credit-card {
-  &__form {
-
-    &__alert {
-      margin-bottom: 10px;
-    }
-
-    &__field {
-      height: 32px;
-      margin-bottom: 1em;
-      display: block;
-      background-color: transparent;
-      color: rgba(0, 0, 0, .87);
-      border: none;
-      border-bottom: 1px solid rgba(0, 0, 0, .26);
-      outline: 0;
-      width: 100%;
-      font-size: 16px;
-      padding: 0;
-      box-shadow: none;
-      border-radius: 0;
-      position: relative;
-    }
-
-    &__expiration {
-      display: flex;
-      align-content: space-between;
-
-      &__item {
-        width: 100%;
-
-        & + .modal-credit-card__form__expiration__item {
-          padding-left: 10px;
-        }
-      }
-    }
-  }
-}
-
-.modal-reservation {
-  &__text {
-    margin-top: 20px;
-  }
-}
-
-@media only screen and (max-width: 1000px) {
-  .reservation-page {
-    &__header {
-      flex-direction: column;
-
-      &__picture {
-        display: none;
-      }
-
-      &__map {
-        display: none;
-      }
-    }
-
-    &__content {
-      flex-direction: column-reverse;
 
       &__details {
-        max-width: 100%;
+        flex: 1;
+        padding: 30px;
+        color: $nt-text;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         &__form {
-          &__ticket {
-            &__helper {
-              display: none;
+          &__alert {
+            background-color: $nt-4;
+            padding: 20px;
+            margin-top: 30px;
 
-              &--responsive {
-                display: block;
+            &--warning {
+              background-color: $nt-7;
+            }
+
+            &__content {
+              display: flex;
+              align-items: center;
+
+              &__icon {
+                width: 25px;
+                margin-right: 20px;
               }
+
+              &__text {
+                flex: 1;
+                line-height: 1.3em;
+              }
+            }
+
+            &__button {
+              width: 100%;
+              margin-top: 30px;
+            }
+          }
+
+          &__ticket {
+            background-color: $nt-4;
+            padding: 20px 30px 20px 30px;
+            margin-top: 30px;
+
+            &__title {
+              font-size: 0.8em;
+              font-weight: 600;
+              border-bottom: 1px solid $nt-text;
+              text-transform: uppercase;
+              padding-bottom: 5px;
+              margin: 20px 0;
+            }
+
+            &__helper {
+              &--responsive {
+                display: none;
+              }
+            }
+
+            &__total {
+              text-align: right;
+              font-size: 1.2em;
+              font-weight: 400;
+              line-height: 1.5em;
+            }
+
+            &__line {
+              display: flex;
+              justify-content: space-between;
+              padding: 10px 0;
+
+              &__title:first-letter {
+                text-transform: capitalize;
+              }
+
+              &__actions {
+                width: 14px;
+                margin-left: 10px;
+              }
+            }
+          }
+
+          &__infos {
+            margin: 30px 0 0 0;
+            padding: 0;
+            list-style-type: none;
+
+            &__item {
+              padding: 5px 0;
+              color: $nt-9;
+
+              &--success {
+                color: $nt-12;
+              }
+
+              &__icon {
+                width: 14px;
+              }
+            }
+          }
+
+          &__link-packages {
+            margin-top: 20px;
+          }
+
+          &__payment {
+            margin-top: 30px;
+
+            &__card {
+              &__single {
+                margin: 30px 0 0 0;
+
+                &__link {
+                  margin: 30px 0 0 0;
+                }
+              }
+            }
+
+            &__button {
+              margin-top: 20px;
+              width: 100%;
             }
           }
         }
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .reservation-page {
+    &__panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 100vh;
     }
   }
 }
 
 @media only screen and (max-width: 700px) {
   .reservation-page {
+    &__main {
+      &__content {
+        &__header {
+          &__details {
+            &__item {
+              flex-direction: column;
+            }
+          }
+        }
 
-    &__content {
-      &__reservation {
-        padding: 30px 0;
+        &__reservation {
+          padding: 30px 0;
 
-        &__calendar {
-          &__actions {
-            &__button {
-              font-size: 0.6em;
+          &__calendar {
+            &__actions {
+              &__button {
+                font-size: 0.6em;
+              }
             }
           }
         }

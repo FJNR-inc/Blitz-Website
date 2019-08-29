@@ -1,0 +1,24 @@
+<h1 *ngIf="!type && level == 1" class="app-title app-title--{{level}}">
+  {{ text }}
+</h1>
+<h2 *ngIf="!type && level == 2" class="app-title app-title--{{level}}">
+  {{ text }}
+</h2>
+<h3 *ngIf="!type && level == 3" class="app-title app-title--{{level}}">
+  {{ text }}
+</h3>
+<h4 *ngIf="!type && level == 4" class="app-title app-title--{{level}}">
+  {{ text }}
+</h4>
+<h5 *ngIf="!type && level == 5" class="app-title app-title--{{level}}">
+  {{ text }}
+</h5>
+<h6 *ngIf="!type && level == 6" class="app-title app-title--{{level}}">
+  {{ text }}
+</h6>
+<span *ngIf="!type && level > 6" class="app-title app-title--{{level}}">
+  {{ text }}
+</span>
+<label *ngIf="type === 'label'" class="app-title app-title--{{level}}" for="{{for}}">
+  {{ text }}
+</label>

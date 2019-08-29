@@ -1,0 +1,42 @@
+@import '../../../../../assets/scss/theme';
+
+.payment-flow-confirmation {
+  display: flex;
+  flex-direction: column;
+
+  &__payment-mode {
+    margin-top: 40px;
+  }
+
+  &__checkboxs {
+    display: block;
+    margin-top: 30px;
+  }
+
+  &__politics-link {
+    display: block;
+  }
+
+  &__error {
+    display: block;
+    margin-top: 30px;
+  }
+
+  &__actions {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.payment-flow-confirmation-modale-politics {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    margin: 40px 0 20px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid $nt2-color-4;
+  }
+}

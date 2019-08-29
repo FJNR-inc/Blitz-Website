@@ -131,7 +131,8 @@ export class NtHeaderComponent implements OnInit {
           label: _('header.espace.reservation'),
           url: '',
           router_url: '/reservation/1',
-          type: 'button'
+          type: 'button',
+          keepClose: true
         }
       ]
     }, {

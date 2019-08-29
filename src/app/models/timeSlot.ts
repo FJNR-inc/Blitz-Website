@@ -1,6 +1,7 @@
 import BaseModel from './baseModel';
 import { DateUtil } from '../utils/date';
 import {Workplace} from './workplace';
+import {OptionProduct} from './optionProduct';
 
 export class TimeSlot extends BaseModel {
   url: string;

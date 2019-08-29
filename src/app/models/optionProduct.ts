@@ -14,5 +14,6 @@ export class OptionProduct extends BaseModel {
   available_on_product_types: string;
   available_on_products: string;
   url: string;
+  duration: string;
 }
 

@@ -3,7 +3,6 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
-import {TimeSlot} from '../models/timeSlot';
 
 @Injectable()
 export class CardService extends GlobalService {
@@ -24,6 +23,9 @@ export class CardService extends GlobalService {
       for (const filter of filters) {
         if (filter.name === 'owner') {
           params = params.set('owner', filter.value);
+        }
+        if (filter.name === 'payment_token') {
+          params = params.set('payment_token', filter.value);
         }
       }
     }

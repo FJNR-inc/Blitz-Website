@@ -1,5 +1,6 @@
 import BaseModel from './baseModel';
 import { AcademicLevel } from './academicLevel';
+import {OptionProduct} from './optionProduct';
 
 export class Membership extends BaseModel {
   url: string;
@@ -12,5 +13,6 @@ export class Membership extends BaseModel {
   duration: string;
   academic_levels: number[];
   available: boolean;
+  options: OptionProduct[];
 }
 

@@ -1,0 +1,15 @@
+.payment-flow-informations {
+  display: flex;
+  flex-direction: column;
+
+  &__texts {
+    margin-bottom: 30px;
+  }
+
+  &__actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
