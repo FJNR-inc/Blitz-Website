@@ -159,7 +159,7 @@ export class RetreatCartComponent implements OnInit {
             data => {
               const newAppliedCoupon = new AppliedCoupon(data);
               newAppliedCoupon['coupon'] = this.cart.getCoupons()[0];
-              this.cart.setAppliedCoupon([newAppliedCoupon]);
+              this.cart.setAppliedCoupon(newAppliedCoupon);
             },
             err => {
               const newAppliedCoupon = new AppliedCoupon();
@@ -169,7 +169,7 @@ export class RetreatCartComponent implements OnInit {
               } else if (err.error.coupon) {
                 newAppliedCoupon['reason'] = err.error.coupon[0];
               }
-              this.cart.setAppliedCoupon([newAppliedCoupon]);
+              this.cart.setAppliedCoupon(newAppliedCoupon);
             }
           );
         } else {

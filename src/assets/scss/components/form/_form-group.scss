@@ -1,8 +1,14 @@
 .form-group {
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &--large {
+    margin-bottom: 30px;
+  }
 
   &--multiple {
-    display: flex;
+    flex-direction: row;
   }
 
   &__item {

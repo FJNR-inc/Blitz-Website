@@ -1,0 +1,8 @@
+<div class="payment-flow-wizard">
+  <div class="payment-flow-wizard__item"
+       *ngFor="let step of steps; let i = index"
+       (click)="changeStep(step)"
+       [ngClass]="{'payment-flow-wizard__item--past': i < currentIndex, 'payment-flow-wizard__item--future': i > currentIndex}">
+    {{ step.label }}
+  </div>
+</div>

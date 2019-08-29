@@ -6,13 +6,22 @@ export class DateUtil {
     return this.formatDay(date) + ' - ' + this.formatTime(date);
   }
 
-  static formatDay(date) {
-    const options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    };
+  static formatDay(date, longday = true) {
+    let options;
+    if (longday === true) {
+      options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+    } else {
+      options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+    }
     const locale = InternationalizationService.getLocale();
     return date.toLocaleDateString(locale, options);
   }
@@ -141,9 +150,12 @@ export class DateUtil {
     const lang = InternationalizationService.getLocale();
 
     if (lang === 'fr') {
+      dateInterval += 'Du ';
       dateInterval += DateUtil.getDate(start_date);
       dateInterval += ' ';
       dateInterval += DateUtil.getLongMonth(start_date);
+      dateInterval += ' ';
+      dateInterval += DateUtil.getYear(start_date);
       dateInterval += ' au ';
       dateInterval += DateUtil.getDate(end_date);
       dateInterval += ' ';
@@ -151,9 +163,12 @@ export class DateUtil {
       dateInterval += ' ';
       dateInterval += DateUtil.getYear(end_date);
     } else {
+      dateInterval += 'From ';
       dateInterval += DateUtil.getLongMonth(start_date);
       dateInterval += ' ';
       dateInterval += DateUtil.getDate(start_date);
+      dateInterval += ' ';
+      dateInterval += DateUtil.getYear(start_date);
       dateInterval += ' to ';
       dateInterval += DateUtil.getLongMonth(end_date);
       dateInterval += ' ';

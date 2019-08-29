@@ -1,0 +1,32 @@
+@import '../../assets/scss/theme';
+
+.authentication-panel {
+  width: 630px;
+  height: 100%;
+  background-color: $nt2-color-3;
+  padding:  0 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 0 6px lightgrey;
+  overflow-y: auto;
+
+  &__close {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    margin-top: 50px;
+
+    &__login {
+      display: block;
+      margin-top: 40px;
+    }
+  }
+}

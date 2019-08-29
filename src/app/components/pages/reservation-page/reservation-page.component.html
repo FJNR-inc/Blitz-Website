@@ -1,360 +1,136 @@
 <app-loader *ngIf="!workplace"></app-loader>
 
 <div class="reservation-page" *ngIf="workplace">
-  <div class="reservation-page__header">
-    <div class="reservation-page__header__details">
-      <div class="reservation-page__header__details__title">
-        {{ workplace.name }}
+  <app-cart-button *ngIf="!displayedPanel"
+                   class="reservation-page__cart-button"
+                   (onClick)="openCart()"></app-cart-button>
+  <div class="reservation-page__main">
+    <div class="reservation-page__main__content">
+      <div class="reservation-page__main__content__header">
+        <app-title [level]="4" [text]="workplace.name"></app-title>
+        <div class="reservation-page__main__content__header__details">
+          <div class="reservation-page__main__content__header__details__item">
+            <app-title [level]="5" text="Adresse"></app-title>
+            <app-title [level]="9" text="{{workplace.address_line1}}, {{workplace.city}},
+            {{workplace.state_province}} {{workplace.postal_code}}"></app-title>
+          </div>
+          <div class="reservation-page__main__content__header__details__item">
+            <app-title [level]="5" text="Places disponibles"></app-title>
+            <app-title [level]="9" [text]="workplace.seats"></app-title>
+          </div>
+          <div class="reservation-page__main__content__header__details__item">
+            <app-title [level]="5" text="Inclus avec la reservation"></app-title>
+            <app-title [level]="9" text="Cafe et the a volonte"></app-title>
+          </div>
+          <div class="reservation-page__main__content__header__details__item">
+            <app-title [level]="5" text="Options"></app-title>
+            <app-title [level]="9" text="Repas et collations"></app-title>
+          </div>
+        </div>
       </div>
-      <div class="reservation-page__header__details__text">
-        {{ workplace.details }}
-      </div>
-      <ul class="reservation-page__header__details__list">
-        <li class="reservation-page__header__details__list__item">
-          <img class="reservation-page__header__details__list__item__icon" src="../../../../assets/images/icons/icon_rdv.svg" />
-          <span class="reservation-page__header__details__list__item__label">
-            {{workplace.address_line1}}<br/>
-            {{workplace.city}}, {{workplace.state_province}} {{workplace.postal_code}}
-          </span>
-        </li>
-        <li class="reservation-page__header__details__list__item">
-          <img class="reservation-page__header__details__list__item__icon" src="../../../../assets/images/icons/icon_membre.svg" />
-          <span class="reservation-page__header__details__list__item__label">
-            {{'reservation.membership_required' | translate}}
-          </span>
-        </li>
-        <li class="reservation-page__header__details__list__item">
-          <img class="reservation-page__header__details__list__item__icon" src="../../../../assets/images/icons/icon_chair.svg" />
-          <span class="reservation-page__header__details__list__item__label">
-            {{workplace.seats}} {{'reservation.seat_available' | translate}}
-          </span>
-        </li>
-        <li class="reservation-page__header__details__list__item">
-          <img class="reservation-page__header__details__list__item__icon" src="../../../../assets/images/icons/icon_coffee.svg" />
-          <span class="reservation-page__header__details__list__item__label">
-            {{'reservation.coffee_free' | translate}}
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="reservation-page__header__picture" *ngIf="workplace.pictures[0]" [ngStyle]="{'background-image': 'url(' + workplace.pictures[0] + ')'}">
-    </div>
-    <div class="reservation-page__header__map">
-    </div>
-  </div>
-  <div class="reservation-page__content">
-    <div class="reservation-page__content__reservation">
-      <div class="reservation-page__content__reservation__calendar" id="calendar">
-        <div class="reservation-page__content__reservation__calendar__actions">
-          <a class="reservation-page__content__reservation__calendar__actions__button"
-             mwlCalendarPreviousView
-             [view]="view"
-             [(viewDate)]="viewDate"
-             (viewDateChange)="activeDayIsOpen = false">
-            <img class="reservation-page__content__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_left_arrow.svg"/>
+
+      <app-loader *ngIf="!listTimeSlots"></app-loader>
+
+      <div *ngIf="listTimeSlots" class="reservation-page__main__content__reservation">
+        <div class="reservation-page__main__content__reservation__calendar" id="calendar">
+          <div class="reservation-page__main__content__reservation__calendar__actions">
+            <a class="reservation-page__main__content__reservation__calendar__actions__button"
+               mwlCalendarPreviousView
+               [view]="view"
+               [(viewDate)]="viewDate"
+               (viewDateChange)="activeDayIsOpen = false">
+              <img class="reservation-page__main__content__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_left_arrow.svg"/>
+              <span>
+              {{'shared.buttons.previous' | translate}}
+            </span>
+            </a>
+            <h2 class="reservation-page__main__content__reservation__calendar__actions__title">
+              {{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}
+            </h2>
+            <a class="reservation-page__main__content__reservation__calendar__actions__button"
+               mwlCalendarNextView
+               [view]="view"
+               [(viewDate)]="viewDate"
+               (viewDateChange)="activeDayIsOpen = false">
             <span>
-            {{'shared.buttons.previous' | translate}}
-          </span>
-          </a>
-          <h2 class="reservation-page__content__reservation__calendar__actions__title">
-            {{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}
-          </h2>
-          <a class="reservation-page__content__reservation__calendar__actions__button"
-             mwlCalendarNextView
-             [view]="view"
-             [(viewDate)]="viewDate"
-             (viewDateChange)="activeDayIsOpen = false">
-          <span>
-            {{'shared.buttons.next' | translate}}
-          </span>
-            <img class="reservation-page__content__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_right_arrow.svg"/>
-          </a>
-        </div>
-        <div [ngSwitch]="view">
-          <mwl-calendar-month-view
-            *ngSwitchCase="'month'"
-            [viewDate]="viewDate"
-            [events]="events"
-            [refresh]="refresh"
-            [weekStartsOn]="weekStartsOn"
-            [locale]="locale"
-            [activeDayIsOpen]="activeDayIsOpen"
-            (dayClicked)="dayClicked($event.day)"
-            (eventClicked)="eventClicked($event.event)">
-          </mwl-calendar-month-view>
-        </div>
-        <div class="reservation-page__content__reservation__calendar__legend">
-          <div class="reservation-page__content__reservation__calendar__legend__item" *ngFor="let color of colors">
-            <div class="reservation-page__content__reservation__calendar__legend__item__color" [style.background-color]="color.color.primary"></div>
-            <span class="reservation-page__content__reservation__calendar__legend__item__text">{{ color.label | translate }}</span>
-          </div>
-        </div>
-        <div class="reservation-page__content__reservation__calendar__politics">
-          <p>
-          {{'shared.cancelation_politic.title' | translate}}
-        </p>
-        <p>
-          {{'shared.cancelation_politic.text_1' | translate}}
-          {{'shared.cancelation_politic.text_2' | translate}}
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="reservation-page__content__details">
-      <div class="reservation-page__content__details__form">
-        <div class="reservation-page__content__details__form__alert" *ngIf="!user">
-          <div class="reservation-page__content__details__form__alert__content">
-            <img class="reservation-page__content__details__form__alert__content__icon" src="../../../../assets/images/icons/icon_attention.svg"/>
-            <p class="reservation-page__content__details__form__alert__content__text">
-              {{'reservation.need_to_login_1' | translate}}
-              <a (click)="goToLoginPage()">{{'reservation.need_to_login_2' | translate}}</a>
-              {{'reservation.need_to_login_3' | translate}}
-              <a routerLink="/register">{{'reservation.need_to_login_4' | translate}}</a>.
-            </p>
-          </div>
-          <a (click)="goToLoginPage()" class="reservation-page__content__details__form__alert__button nt-button">
-            {{'shared.buttons.log_in' | translate}}
-          </a>
-        </div>
-        <div class="reservation-page__content__details__form__ticket" *ngIf="user" id="cart">
-          <div class="reservation-page__content__details__form__ticket__title">
-            {{'reservation.cart' | translate}}
-          </div>
-          <a *ngIf="selectedTimeSlots.length === 0"
-             class="reservation-page__content__details__form__ticket__helper reservation-page__content__details__form__ticket__helper--responsive nt-link"
-             (click)="scroll('calendar')">
-            {{'reservation.select_a_bloc' | translate}}
-          </a>
-          <span *ngIf="selectedTimeSlots.length === 0" class="reservation-page__content__details__form__ticket__helper">
-            {{'reservation.select_a_bloc' | translate}}
-          </span>
-          <div *ngFor="let timeslot of selectedTimeSlots" class="reservation-page__content__details__form__ticket__line">
-            <div class="reservation-page__content__details__form__ticket__line__title">
-              {{ timeslot.getStartDay() }} - {{ timeslot.getStartTime() }} à {{ timeslot.getEndTime() }}
-            </div>
-            <a (click)="removeFromCart(timeslot)" class="reservation-page__content__details__form__ticket__line__actions">
-              <img src="../../../../assets/images/icons/icon_exit.svg" />
+              {{'shared.buttons.next' | translate}}
+            </span>
+              <img class="reservation-page__main__content__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_right_arrow.svg"/>
             </a>
           </div>
-          <div *ngFor="let package of selectedPackages" class="reservation-page__content__details__form__ticket__line">
-            <div class="reservation-page__content__details__form__ticket__line__title">
-              {{ package.name }} - {{ package.reservations }} bloc(s) - {{ package.price }}$
-            </div>
-            <div class="reservation-page__content__details__form__ticket__line__actions">
-              <a (click)="removePackageFromCart(package)">
-                <img src="../../../../assets/images/icons/icon_exit.svg" />
-              </a>
+          <div [ngSwitch]="view">
+            <mwl-calendar-month-view
+              *ngSwitchCase="'month'"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              [weekStartsOn]="weekStartsOn"
+              [locale]="locale"
+              [activeDayIsOpen]="activeDayIsOpen"
+              (dayClicked)="dayClicked($event.day)"
+              (eventClicked)="eventClicked($event.event)">
+            </mwl-calendar-month-view>
+          </div>
+          <div class="reservation-page__main__content__reservation__calendar__legend">
+            <div class="reservation-page__main__content__reservation__calendar__legend__item" *ngFor="let color of colors">
+              <div class="reservation-page__main__content__reservation__calendar__legend__item__color" [style.background-color]="color.color.primary"></div>
+              <span class="reservation-page__main__content__reservation__calendar__legend__item__text">{{ color.label | translate }}</span>
             </div>
           </div>
-          <div *ngIf="selectedMembership" class="reservation-page__content__details__form__ticket__line">
-            <div class="reservation-page__content__details__form__ticket__line__title">
-              {{'shared.common.membership' | translate}} {{ selectedMembership.name }} - {{ selectedMembership.price }}$
-            </div>
-            <div class="reservation-page__content__details__form__ticket__line__actions">
-              <a (click)="removeMembershipFromCart()">
-                <img src="../../../../assets/images/icons/icon_exit.svg" />
-              </a>
-            </div>
-          </div>
-          <div>
-            <div class="reservation-page__content__details__form__ticket__title">
-              {{'reservation.total' | translate}}
-            </div>
-            <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
-              <div class="reservation-page__content__details__form__ticket__line__title">
-                {{'reservation.sub_total' | translate}}
-              </div>
-              <div>
-                {{ totalPrice }} $CAN
-              </div>
-            </div>
-            <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
-              <div class="reservation-page__content__details__form__ticket__line__title">
-                {{'shared.taxes.TPS' | translate}}
-              </div>
-              <div>
-                {{getTotalTPS()}} $CAN
-              </div>
-            </div>
-            <div *ngIf="totalPrice" class="reservation-page__content__details__form__ticket__line">
-              <div class="reservation-page__content__details__form__ticket__line__title">
-                {{'shared.taxes.TVQ' | translate}}
-              </div>
-              <div>
-                {{getTotalTVQ()}} $CAN
-              </div>
-            </div>
-            <div class="reservation-page__content__details__form__ticket__total">
-              {{ totalTicket }} {{'reservation.bloc_prepayed' | translate}}<br/>
-              {{ getTotalWithTaxes() }} $CAN
-            </div>
+          <div class="reservation-page__main__content__reservation__calendar__politics">
+            <p>
+            {{'shared.cancelation_politic.title' | translate}}
+          </p>
+          <p>
+            {{'shared.cancelation_politic.text_1' | translate}}
+            {{'shared.cancelation_politic.text_2' | translate}}
+            </p>
           </div>
         </div>
-
-        <ul class="reservation-page__content__details__form__infos" *ngIf="user && (user.membership || user.tickets > totalTicket)">
-          <li *ngIf="!needToBuyMembership()"
-              class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item--success">
-            <img src="../../../../assets/images/icons/icon_check.svg" class="reservation-page__content__details__form__infos__item__icon">
-            {{'reservation.membership_active' | translate}}.
-          </li>
-          <li *ngIf="needToBuyMembership()"
-              class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item">
-            <img src="../../../../assets/images/icons/icon_exit.svg" class="reservation-page__content__details__form__infos__item__icon">
-            {{'reservation.membership_inactive' | translate}}
-          </li>
-          <li *ngIf="!needToBuyPackage() && getNumberOfTicket()"
-              class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item--success">
-            <img src="../../../../assets/images/icons/icon_check.svg" class="reservation-page__content__details__form__infos__item__icon">
-            {{'reservation.n_bloc_prepayed' | translate:{'numberOfTicket': getNumberOfTicket() - totalTicket} }}.
-          </li>
-          <li *ngIf="needToBuyPackage()"
-              class="reservation-page__content__details__form__infos__item reservation-page__content__details__form__infos__item">
-            <img src="../../../../assets/images/icons/icon_exit.svg" class="reservation-page__content__details__form__infos__item__icon">
-            {{'reservation.no_bloc_prepayed' | translate}}
-          </li>
-        </ul>
-        <a *ngIf="user && !wantToBuyPackage && !needToBuyPackage()"
-           (click)="askToBuyPackage()"
-           class="reservation-page__content__details__form__link-packages nt-link">
-          {{'reservation.buy_prepayed_blocs' | translate}}
-        </a>
-
-        <form class="reservation-page__content__details__form__alert" *ngIf="needToBuyMembership()">
-          <div class="reservation-page__content__details__form__alert__content">
-            <img class="reservation-page__content__details__form__alert__content__icon" src="../../../../assets/images/icons/icon_attention.svg"/>
-            <div class="reservation-page__content__details__form__alert__content__text">
-              {{'reservation.info_need_membership' | translate}}
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="membership" class="nt-form-label">{{'shared.form.type_membership' | translate}}:</label>
-            <select [(ngModel)]="currentMembership" name="membership" id="membership" class="nt-form-input nt-form-input--select">
-              <option *ngFor="let membership of listMembership" value="{{membership.id}}">
-                {{ membership.name }} - {{ membership.price }}$CAN +txs
-              </option>
-            </select>
-          </div>
-          <button (click)="addMembership()"
-                  type="button"
-                  class="reservation-page__content__details__form__alert__button nt-button">
-            {{'reservation.add_to_card' | translate}}
-          </button>
-        </form>
-
-        <form class="reservation-page__content__details__form__alert" [ngClass]="{'reservation-page__content__details__form__alert--warning': this.needToBuyPackage()}" *ngIf="showPackageSection() && user">
-          <div class="reservation-page__content__details__form__alert__content" *ngIf="needToBuyPackage()">
-            <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__content__details__form__alert__content__icon" />
-            <div class="reservation-page__content__details__form__alert__content__text">
-              {{'reservation.info_need_package' | translate}}
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="package" class="nt-form-label">{{'shared.form.type_package' | translate}}:</label>
-            <select [(ngModel)]="currentPackage" name="reservationPackage" id="package" class="nt-form-input nt-form-input--select">
-              <option *ngFor="let package of listReservationPackage" value="{{package.id}}">
-                {{ package.reservations }} {{'reservation.bloc(s)' | translate}} - {{ package.price }}$CAN +txs
-              </option>
-            </select>
-          </div>
-          <button (click)="addPackage()" type="button" class="reservation-page__content__details__form__alert__button nt-button">
-            {{'reservation.add_to_card' | translate}}
-          </button>
-        </form>
-
-        <form class="reservation-page__content__details__form__payment" *ngIf="user">
-          <div class="reservation-page__content__details__form__payment__card form-group" *ngIf="needToUseCard()">
-            <div class="reservation-page__content__details__form__alert reservation-page__content__details__form__alert--warning" *ngIf="listCards && listCards.length && !singleUseToken">
-              <label for="card" class="nt-form-label">{{'reservation.payment_mode' | translate}}:</label>
-              <select id="card" class="nt-form-input nt-form-input--select" (change)="selectCard($event)">
-                <option value="none">{{'reservation.choose_payment_mode' | translate}}</option>
-                <option value="{{card.payment_token}}" *ngFor="let card of listCards">
-                  **** **** **** {{card.last_digits}} ({{card.card_expiry.month}}/{{card.card_expiry.year}})
-                </option>
-              </select>
-              <div class="form-text form-text--right">
-                <a (click)="ToggleModal('form_credit_card')">{{'reservation.add_new_card' | translate}}</a>
-              </div>
-            </div>
-            <div *ngIf="(!listCards || !listCards.length) && !singleUseToken" class="reservation-page__content__details__form__alert reservation-page__content__details__form__alert--warning">
-              <div class="reservation-page__content__details__form__alert__content">
-                <img src="../../../../assets/images/icons/icon_attention.svg" class="reservation-page__content__details__form__alert__content__icon" />
-                <div class="reservation-page__content__details__form__alert__content__text">
-                  {{'reservation.no_card' | translate}}.
-                </div>
-              </div>
-              <a (click)="ToggleModal('form_credit_card')" class="reservation-page__content__details__form__alert__button nt-button">
-                {{'reservation.add_card' | translate}}
-              </a>
-            </div>
-            <div *ngIf="singleUseToken" class="reservation-page__content__details__form__payment__card__single">
-              {{'reservation.card_is_saved' | translate}}.
-
-              <a (click)="setSingleUseToken(null)" class="reservation-page__content__details__form__payment__card__single__link nt-link">
-                {{'reservation.use_existing_card' | translate}}
-              </a>
-            </div>
-          </div>
-          <app-alert *ngIf="errorOrder" [messages]="errorOrder" type="danger"></app-alert>
-          <button type="button" (click)="finalizeTransaction()" class="reservation-page__content__details__form__payment__button nt-button" [ngClass]="{'nt-button--disabled': isPaymentButtonDisabled()}">
-            {{ getLabelFinalizeButton() | translate }}
-          </button>
-        </form>
       </div>
     </div>
   </div>
+  <app-product-selector-panel *ngIf="displayedPanel === 'product-selector'"
+                              class="reservation-page__panel"
+                              [product]="selectedTimeslot"
+                              type="TimeSlot"
+                              (close)="closePanel()"
+                              (addToCart)="addToCart()">
+  </app-product-selector-panel>
+  <app-authentication-panel *ngIf="displayedPanel === 'authentication'"
+                            class="reservation-page__panel"
+                            (close)="closePanel()"
+                            (onAuthentication)="subscribe(selectedTimeslot)">
+  </app-authentication-panel>
+  <app-cart-panel *ngIf="displayedPanel === 'cart'"
+                  class="reservation-page__panel"
+                  [cart]="cart"
+                  (close)="closePanel()"
+                  (finalize)="finalize()">
+  </app-cart-panel>
 </div>
 
-<app-nt-modal name="form_credit_card"
-              class="modal-credit-card"
+<app-nt-modal name="add_package"
               button2Label="{{'shared.buttons.add' | translate}}"
-              typeModal="success"
-              (button2)="addCard()"
-              [activated]="!waitPaysafe"
-              maxWidth="600px">
-  <h1 class="nt-title">
-    {{'reservation.add_card' | translate}}
-  </h1>
-  <form class="modal-credit-card__form">
-    <app-alert [messages]="errorModal" type="danger" *ngIf="errorModal"></app-alert>
-    <div class="form-group">
-      <label for="card-number" class="nt-form-label">{{'shared.form.card_number' | translate}}*:</label>
-      <div id="card-number" class="modal-credit-card__form__field"></div>
-    </div>
-    <div class="modal-credit-card__form__expiration">
-      <div class="form-group modal-credit-card__form__expiration__item">
-        <label for="expiration-date" class="nt-form-label">{{'shared.form.expiration_date' | translate}}*:</label>
-        <div id="expiration-date" class="modal-credit-card__form__field"></div>
-      </div>
-      <div class="form-group modal-credit-card__form__expiration__item">
-        <label for="cvv" class="nt-form-label">CVV*:</label>
-        <div id="cvv" class="modal-credit-card__form__field"></div>
-      </div>
-    </div>
-  </form>
-</app-nt-modal>
-
-<app-nt-modal name="no_places"
-              button2Label="{{'shared.buttons.understood' | translate}}"
               maxWidth="600px"
-              [autoClose]="true">
-  <h1 class="nt-title">
-    {{'reservation.no_place.title' | translate}}
-  </h1>
-  <p class="modal-reservation__text">
-    {{'reservation.no_place.text' | translate}}
+              title="Nombre de ticket insuffisant"
+              (button2)="addPackageToCart()">
+  <p>
+    <app-title [level]="9" text="Vous n'avez pas assez de bloc de redaction prepaye pour pouvoir reserver ce bloc de redaction."></app-title>
   </p>
+  <p>
+    <app-title [level]="9" text="Si vous souhaitez poursuivre cette achat il vous faut ajouter un lot de bloc de redaction prepaye a votre panier."></app-title>
+  </p>
+  <p>
+    <app-title [level]="7" text="Lot de bloc de redaction prepaye"></app-title>
+  </p>
+  <select id="reservationPackage" class="nt-form-input nt-form-input--select" [(ngModel)]="selectedReservationPackageIndex">
+    <option *ngFor="let reservationPackage of this.listReservationPackage; let i = index" [value]="i">
+       {{ reservationPackage.reservations }} blocs ({{ reservationPackage.price }}$CAN)
+    </option>
+  </select>
 </app-nt-modal>
 
-<app-nt-modal name="payment_button_disabled"
-              button2Label="{{'shared.buttons.understood' | translate}}"
-              maxWidth="600px"
-              [autoClose]="true">
-  <h1 class="nt-title">
-    {{'reservation.payment_disabled.title' | translate}}
-  </h1>
-  <div class="modal-reservation__text" [innerHTML]="'reservation.payment_disabled.text' | translate">
-  </div>
-</app-nt-modal>
 
 <app-nt-modal name="reservation_tutorial"
               button2Label="{{'shared.buttons.understood' | translate}}"

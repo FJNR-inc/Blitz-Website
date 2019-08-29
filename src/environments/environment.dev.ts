@@ -54,5 +54,6 @@ export const environment = {
     coupons_use_export: '/coupon_uses/export',
     retreat_waiting_queues: '/retreat/wait_queues',
     retreat_waiting_queue_notifications: '/retreat/wait_queue_notifications',
+    retreat_invitation: '/retreat/retreat_invitation',
   }
 };

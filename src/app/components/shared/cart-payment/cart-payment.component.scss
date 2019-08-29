@@ -1,49 +1,32 @@
 @import '../../../../assets/scss/theme';
 
 .card-payment {
-  &__content {
-    border: 1px solid $border-calendar;
-    padding: 20px;
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    &__title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      &__text {
-        font-size: 20px;
-        font-weight: 900;
-      }
-    }
-
-    &__alert {
-      display: block;
-      margin: 20px 0;
-    }
-
-    &__cards {
-      margin-top: 20px;
-    }
-
-    &__form {
-      margin-top: 20px;
+    &__text {
+      font-size: 20px;
+      font-weight: 900;
     }
   }
 
-  &__action {
-    border: solid $border-calendar;
-    border-width: 0 1px 1px 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    font-weight: 900;
-    text-transform: uppercase;
-    text-decoration: none;
+  &__alert {
+    display: block;
+    margin: 20px 0;
+  }
 
-    &:hover {
-      background-color: $nt-14;
-      color: white;
-    }
+  &__cards {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form {
+    margin-top: 20px;
+  }
+
+  &__action {
+    margin-top: 30px;
   }
 }

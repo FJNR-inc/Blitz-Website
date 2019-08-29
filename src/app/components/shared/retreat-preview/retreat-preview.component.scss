@@ -1,0 +1,88 @@
+@import '../../assets/scss/theme';
+
+.retreat-preview {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__subtitle {
+    display: block;
+    margin-top: 30px;
+  }
+
+  &__description {
+    display: block;
+    margin-top: 10px;
+  }
+
+  &__picture {
+    margin-top: 20px;
+    height: 200px;
+    background-size: cover;
+  }
+
+  &__infos {
+    margin-top: 50px;
+
+    &__line {
+      border-top: 1px solid $nt2-color-4;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+
+      &:nth-last-child {
+        border-bottom: 1px solid $nt2-color-4;
+      }
+
+      &--clickable {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    &__details {
+      &__item {
+        display: block;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  &__button {
+    margin-left: 25px;
+    margin-top: 50px;
+  }
+}
+
+
+@media only screen and (max-width: 700px) {
+  .retreat-preview {
+    &__subtitle {
+      display: none;
+    }
+
+    &__description {
+      display: none;
+    }
+
+    &__picture {
+      display: none;
+    }
+
+    &__infos {
+      &__line {
+        flex-direction: column;
+      }
+    }
+
+    &__button {
+      margin-left: 0;
+    }
+  }
+}
+

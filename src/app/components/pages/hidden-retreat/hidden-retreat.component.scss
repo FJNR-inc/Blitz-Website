@@ -1,0 +1,63 @@
+@import '../../../../assets/scss/theme';
+
+.hidden-retreat {
+  display: flex;
+
+  &__main {
+    flex: 1;
+    max-height: 100vh;
+    overflow-y: auto;
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 750px;
+      margin: auto;
+      padding: 100px 0;
+
+      &__retreat {
+        width: 100%;
+        padding: 25px;
+      }
+
+      &__info {
+        background-color: $nt2-color-2;
+        padding: 50px;
+        margin-top: 30px;
+
+        &__subtitle {
+          display: block;
+          margin-top: 20px;
+        }
+
+        &__text {
+          display: block;
+          margin-top: 10px;
+        }
+
+        &__button {
+          display: block;
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+
+  &__panel {
+
+  }
+}
+
+
+@media only screen and (max-width: 1500px) {
+  .hidden-retreat {
+    &__panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 100vh;
+    }
+  }
+}

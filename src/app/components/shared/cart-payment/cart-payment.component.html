@@ -1,29 +1,27 @@
 <div class="card-payment">
-  <div class="card-payment__content">
-    <div class="card-payment__content__title">
-      <div class="card-payment__content__title__text">
-        Mode de paiement
-      </div>
-      <div class="card-payment__content__title__icon">
-        <i *ngIf="!cartContainPaymentMethod()" class="icon icon-times-circle-reverse icon--3x icon--danger"></i>
-        <i *ngIf="cartContainPaymentMethod()" class="icon icon-check-circle-reverse icon--3x icon--success"></i>
-      </div>
-    </div>
-    <app-alert class="card-payment__content__alert" type="success" [messages]="successAddCardMessage" *ngIf="successAddCardMessage"></app-alert>
-    <div class="card-payment__content__cards">
-      <label for="card">Choisir une carte existante:</label>
-      <select id="card" [(ngModel)]="paymentCard" class="nt-form-input nt-form-input--select" (change)="setCard()">
-        <option disabled value="">Choisir une carte de paiement</option>
-        <option *ngFor="let card of listCards" [value]="card.payment_token">
-          **** **** **** {{ card.last_digits }} ({{card.card_expiry.month}}/{{card.card_expiry.year}})
-        </option>
-      </select>
-    </div>
-    <div class="card-payment__content__form" *ngIf="displayFormNewCard">
-      <app-paysafe-form (singleUseToken)="setSingleUseToken($event)"></app-paysafe-form>
-    </div>
+  <div class="card-payment__cards">
+    <app-title [level]="7" type="label" for="card" text="Carte bancaire"></app-title>
+    <app-title [level]="9" text="Choisir une carte de paiement permis celle(s) enregistrée(s) dans votre profil."></app-title>
+    <select id="card" [(ngModel)]="paymentCard" class="nt-form-input nt-form-input--select" (change)="setCard()">
+      <option disabled value="">
+        Choisir une carte de paiement
+      </option>
+      <option *ngFor="let card of listCards" [value]="card.payment_token">
+        **** **** **** {{ card.last_digits }} ({{card.card_expiry.month}}/{{card.card_expiry.year}})
+      </option>
+    </select>
   </div>
-  <a class="card-payment__action" *ngIf="!displayFormNewCard" (click)="toggleFormNewCard()">
-    <i class="icon icon-plus icon--3x"></i> Ajouter une carte
-  </a>
+  <app-link class="card-payment__action"
+            (click)="toggleFormNewCard()"
+            text="Ajouter une carte"></app-link>
 </div>
+
+<app-nt-modal name="new-card"
+              button2Label="Ajouter"
+              maxWidth="800px"
+              title="Ajouter une carte bancaire"
+              [displayButtons]="false">
+  <div class="card-payment-modale">
+    <app-paysafe-form (singleUseToken)="setSingleUseToken($event)"></app-paysafe-form>
+  </div>
+</app-nt-modal>
