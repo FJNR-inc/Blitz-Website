@@ -78,7 +78,14 @@
         <i class="fa fa-times" style="color: darkred;"></i>
       </span>
       <span *ngIf="column.type !== 'boolean'">
-        {{ item[column.name] | translate }}
+        <ng-container *ngIf="item[column.name] as itemData">
+          <ng-container *ngIf="itemData.hasOwnProperty('key'); else dataWithoutranslate">
+            {{ itemData | translate }}
+          </ng-container>
+          <ng-template #dataWithoutranslate>
+              {{ itemData }}
+          </ng-template>
+        </ng-container>
       </span>
     </td>
     <td class="my-table__table__line__cell my-table__table__line__cell--actions"

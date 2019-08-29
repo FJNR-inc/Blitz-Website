@@ -145,6 +145,7 @@ import {
   MatSlideToggleModule
 } from '@angular/material';
 import {RetreatUnsubscribeComponent} from './components/pages/retreat/retreat-unsubscribe/retreat-unsubscribe.component';
+import { RetreatInvitationComponent } from './components/pages/admin/retreat-invitation/retreat-invitation.component';
 
 registerLocaleData(localeFr);
 
@@ -555,7 +556,8 @@ const appRoutes = [
     GeneralComponent,
     ValidateEmailComponent,
     ChartJSComponent,
-    RetreatUnsubscribeComponent
+    RetreatUnsubscribeComponent,
+    RetreatInvitationComponent
   ],
   imports: [
     BrowserModule,
