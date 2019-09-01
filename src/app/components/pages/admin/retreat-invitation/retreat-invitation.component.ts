@@ -110,6 +110,8 @@ export class RetreatInvitationComponent implements OnInit {
     this.couponService.list().subscribe(
       data => {
         const coupons: Coupon[] = data.results;
+        this.couponField.choices = [];
+
         coupons.forEach((coupon: Coupon) => {
           const choice: Choice = {
             value: coupon.url,
