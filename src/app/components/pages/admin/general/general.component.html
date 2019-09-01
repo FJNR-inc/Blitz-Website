@@ -1,5 +1,6 @@
 <div class="admin-general-page">
-  <div class="admin-general-page__stats">
+  <div class="admin-general-page__stats"
+  *ngIf="isAdmin">
     <div class="admin-general-page__stats__item">
       <div class="admin-general-page__stats__item__number">
         {{ userCount }}
@@ -48,7 +49,8 @@
         </ol>
       </div>
     </div>
-    <div class="admin-general-page__content__item admin-general-page__content__item--full_size">
+    <div class="admin-general-page__content__item admin-general-page__content__item--full_size"
+         *ngIf="isAdmin">
 
       <div class="admin-general-page__content__item__title">
         Ventes

@@ -3,6 +3,7 @@ import {UserService} from '../../../../services/user.service';
 import {OrderService} from '../../../../services/order.service';
 import {RetreatReservationService} from '../../../../services/retreat-reservation.service';
 import {ReservationService} from '../../../../services/reservation.service';
+import {AuthenticationService} from '../../../../services/authentication.service';
 
 @Component({
   selector: 'app-general',
@@ -17,13 +18,18 @@ export class GeneralComponent implements OnInit {
 
   constructor(private userService: UserService,
               private reservationService: ReservationService,
-              private retreatReservationService: RetreatReservationService) {
+              private retreatReservationService: RetreatReservationService,
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
     this.refreshUserCount();
     this.refreshRetreatReservationCount();
     this.refreshTimeslotReservationCount();
+  }
+
+  get isAdmin(){
+    return this.authenticationService.isAdmin();
   }
 
   refreshUserCount() {
