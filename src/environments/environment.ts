@@ -53,6 +53,7 @@ export const environment = {
     custom_payments: '/custom_payments',
     retreats: '/retreat/retreats',
     retreatReservations: '/retreat/reservations',
+    retreatInvitations: '/retreat/retreat_invitation',
     coupons: '/coupons',
     coupons_use_export: '/coupon_uses/export',
     retreat_waiting_queues: '/retreat/wait_queues',

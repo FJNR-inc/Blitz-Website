@@ -1,0 +1,17 @@
+<app-my-table [settings]="settings"
+              [data]="retreatInvitations"
+              (editItem)="editInvitation($event)"
+              (addButton)="addInvitation()">
+</app-my-table>
+
+<app-nt-modal name="form_retreat_invitations"
+              typeModal="success"
+              (button2)="submitInvitation()"
+              maxWidth="600px">
+  <app-form
+    [form]="invitationForm"
+    [fields]="invitationFields"
+    [errors]="errors">
+  </app-form>
+</app-nt-modal>
+
