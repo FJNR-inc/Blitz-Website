@@ -52,6 +52,7 @@ export class Retreat extends BaseModel {
   reserved_seats: number;
   places_remaining: number;
   has_shared_rooms: boolean;
+  hidden: boolean;
 
   constructor(data: Object = {}) {
     super(data);

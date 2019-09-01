@@ -6,14 +6,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../../utils/form';
-import {TranslateService} from '@ngx-translate/core';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import { User } from '../../../../models/user';
 import { RetreatReservation } from '../../../../models/retreatReservation';
 import { UserService } from '../../../../services/user.service';
 import { RetreatReservationService } from '../../../../services/retreat-reservation.service';
 import { isNull } from 'util';
-import { Router } from '@angular/router';
 import { TableRetreatReservationsComponent } from '../../../table/table-retreat-reservations/table-retreat-reservations.component';
 
 @Component({
@@ -276,6 +274,11 @@ export class RetreatComponent implements OnInit {
       type: 'checkbox',
       label: _('shared.form.retreat.has_shared_rooms')
     },
+    {
+      name: 'hidden',
+      type: 'checkbox',
+      label: _('shared.form.retreat.hidden')
+    },
   ];
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -284,8 +287,7 @@ export class RetreatComponent implements OnInit {
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private userService: UserService,
-              private retreatReservationService: RetreatReservationService,
-              private router: Router) { }
+              private retreatReservationService: RetreatReservationService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -338,6 +340,7 @@ export class RetreatComponent implements OnInit {
     this.retreatForm.controls['accessibility'].setValue(this.retreat.accessibility);
     this.retreatForm.controls['place_name'].setValue(this.retreat.place_name);
     this.retreatForm.controls['has_shared_rooms'].setValue(this.retreat.has_shared_rooms);
+    this.retreatForm.controls['hidden'].setValue(this.retreat.hidden);
 
 
     this.toogleModal(
@@ -368,7 +371,7 @@ export class RetreatComponent implements OnInit {
     }
     if ( this.retreatForm.valid ) {
       this.retreatService.update(this.retreat.url, value).subscribe(
-        data => {
+        () => {
           this.notificationService.success(
             _('shared.notifications.commons.added.title')
           );
@@ -474,7 +477,7 @@ export class RetreatComponent implements OnInit {
     retreatReservation.retreat = this.retreat.url;
 
     this.retreatReservationService.create(retreatReservation).subscribe(
-      data => {
+      () => {
         this.tableRetreat.refreshPeriodList();
         this.toogleModal('select_user');
         this.selectedUser = null;

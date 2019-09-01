@@ -9,6 +9,7 @@ import {RetreatReservation} from '../../../models/retreatReservation';
 import {Retreat} from '../../../models/retreat';
 import {User} from '../../../models/user';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {DateUtil} from '../../../utils/date';
 
 @Component({
   selector: 'app-table-retreat-reservations',
@@ -72,6 +73,10 @@ export class TableRetreatReservationsComponent implements OnInit {
           name: 'personnal_restrictions',
           title: _('shared.common.personnal_restrictions')
         },
+        {
+          name: 'inscription_date',
+          title: _('shared.common.inscription_date')
+        },
       ]
     };
   }
@@ -104,17 +109,27 @@ export class TableRetreatReservationsComponent implements OnInit {
     this.refreshPeriodList(index);
   }
 
-  retreatReservationAdapter(retreatReservation) {
+  retreatReservationAdapter(retreatReservation: RetreatReservation) {
+
+    const inscriptionDate = new Date(retreatReservation.inscription_date);
+    const inscription_date = DateUtil.formatDayAndTime(inscriptionDate);
+
     const reservationAdapted = {
       id: retreatReservation.id,
       url: retreatReservation.url,
-      name: retreatReservation.user_details.getFullName(),
       is_present: retreatReservation.is_present,
       is_active: retreatReservation.is_active,
       cancelation_reason: retreatReservation.getCancelationReasonLabel() || '-',
       cancelation_action: retreatReservation.getCancelationActionLabel() || '-',
-      personnal_restrictions: retreatReservation.user_details.personnal_restrictions
+      personnal_restrictions: retreatReservation.user_details.personnal_restrictions,
+      inscription_date: inscription_date
     };
+
+    if (this.retreat) {
+      reservationAdapted['name'] = retreatReservation.user_details.getFullName();
+    } else if (this.user) {
+      reservationAdapted['name'] = retreatReservation.retreat_details.name;
+    }
 
     return reservationAdapted;
   }

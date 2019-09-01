@@ -1,5 +1,6 @@
 <div class="admin-general-page">
-  <div class="admin-general-page__stats">
+  <div class="admin-general-page__stats"
+  *ngIf="isAdmin">
     <div class="admin-general-page__stats__item">
       <div class="admin-general-page__stats__item__number">
         {{ userCount }}
@@ -46,6 +47,16 @@
             <a class="nt-link" href="mailto:support@fjnr.ca">support@fjnr.ca</a>
           </li>
         </ol>
+      </div>
+    </div>
+    <div class="admin-general-page__content__item admin-general-page__content__item--full_size"
+         *ngIf="isAdmin">
+
+      <div class="admin-general-page__content__item__title">
+        Ventes
+      </div>
+      <div>
+        <app-chart-js></app-chart-js>
       </div>
     </div>
   </div>

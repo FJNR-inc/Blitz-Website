@@ -134,6 +134,18 @@ import { CouponsCreationComponent } from './components/pages/admin/coupons/coupo
 import { ProfileCouponsComponent } from './components/pages/profile/profile-coupons/profile-coupons.component';
 import { GeneralComponent } from './components/pages/admin/general/general.component';
 import { ValidateEmailComponent } from './components/pages/validate-email/validate-email.component';
+import { ChartJSComponent } from './components/shared/chart-js/chart-js.component';
+import {ChartsModule} from 'ng2-charts';
+import {
+  MatDatepickerModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatSlideToggleModule
+} from '@angular/material';
+import {RetreatUnsubscribeComponent} from './components/pages/retreat/retreat-unsubscribe/retreat-unsubscribe.component';
+import { RetreatInvitationComponent } from './components/pages/admin/retreat-invitation/retreat-invitation.component';
 
 registerLocaleData(localeFr);
 
@@ -267,6 +279,13 @@ const appRoutes = [
           CanActivateViaAuthGuard,
         ]
       },
+      {
+        path: 'wait_queue/:id/unsubscribe',
+        component: RetreatUnsubscribeComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      }
     ]
   },
   {
@@ -536,6 +555,9 @@ const appRoutes = [
     ProfileCouponsComponent,
     GeneralComponent,
     ValidateEmailComponent,
+    ChartJSComponent,
+    RetreatUnsubscribeComponent,
+    RetreatInvitationComponent
   ],
   imports: [
     BrowserModule,
@@ -559,7 +581,14 @@ const appRoutes = [
         deps: [HttpClient]
       }
     }),
-    MultiselectModule
+    MultiselectModule,
+    ChartsModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     CanActivateViaAuthGuard,

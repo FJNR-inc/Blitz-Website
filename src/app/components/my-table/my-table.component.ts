@@ -2,6 +2,29 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { MyModalService } from '../../services/my-modal/my-modal.service';
 import { v4 as uuid } from 'uuid';
 
+export interface TableSettingColumns {
+  name: string;
+  title: string | string[];
+  type?: string;
+}
+
+export interface TableSetting {
+    title?: string | string[];
+    noDataText?: string | string[];
+    addButton?: boolean;
+    clickable?: boolean;
+    previous?: boolean;
+    next?: boolean;
+    numberOfPage?: number;
+    page?: number;
+    removeButton?: boolean;
+    editButton?: boolean;
+    downloadButton?: boolean;
+    allowFiltering?: boolean;
+    columns?: TableSettingColumns[];
+}
+
+
 @Component({
   selector: 'app-my-table',
   templateUrl: './my-table.component.html',
@@ -9,12 +32,12 @@ import { v4 as uuid } from 'uuid';
 })
 export class MyTableComponent implements OnInit, OnChanges {
 
-  @Input() settings: any;
+  @Input() settings: TableSetting;
   @Input() data: any;
   @Input() filters: any[];
   @Input() confirmationOnDeletion = true;
   @Input() limitChoices: number[] = null;
-  @Input() useSearchBar: false;
+  @Input() useSearchBar = false;
 
   @Output() selectItem: EventEmitter<any> = new EventEmitter();
   @Output() downloadItem: EventEmitter<any> = new EventEmitter();
@@ -138,7 +161,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   }
 
   displayActionColumn() {
-    return this.settings.removeButton || this.settings.editButton;
+    return this.settings.removeButton || this.settings.editButton || this.settings.downloadButton;
   }
 
   getNumberOfColumns() {

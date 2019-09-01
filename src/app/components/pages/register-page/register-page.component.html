@@ -182,6 +182,14 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="phone" class="nt-form-label">{{ 'shared.form.phone' | translate }}:</label>
+        <input formControlName="phone" id="phone" class="nt-form-input" />
+        <div class="form-text form-text--right form-text--danger"
+             *ngFor="let errorMessage of registerForm.controls['phone'].getError('apiError')">
+          {{ errorMessage }}
+        </div>
+      </div>
+      <div class="form-group">
         <label for="password" class="nt-form-label">{{ 'shared.form.password' | translate }}*:</label>
         <input formControlName="password" type="password" id="password" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"

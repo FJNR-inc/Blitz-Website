@@ -1,0 +1,74 @@
+<div class="chartjs">
+  <div id="outer-box">
+    <div *ngIf="data"
+         style="display: block"
+         class="chartjs__graph">
+      <canvas baseChart width="400" height="400"
+              [datasets]="data.datasets"
+              [options]="options"
+              [legend]="true"
+              [chartType]="type">
+
+      </canvas>
+    </div>
+    <div id="inner-box"
+         *ngIf="!data || loading">
+      <div class="mat-spinner-center">
+        <mat-progress-spinner
+          [diameter]="150"
+          [mode]="'indeterminate'">
+        </mat-progress-spinner>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="formControl"
+       class="chartjs__controls">
+
+    <mat-form-field>
+      <mat-label>Type de produit</mat-label>
+      <mat-select [formControl]="contentTypesControl" multiple>
+        <mat-option *ngFor="let contentType of contentTypes"
+                    [value]="contentType"
+                    [disabled]="isSelectedDisable(contentType)
+                  || loading">
+          {{contentType.name}}
+          <ng-container *ngIf="isSelectedDisable(contentType)">
+            contient trop de données
+          </ng-container>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Interval de mesure</mat-label>
+      <mat-select [formControl]="intervalControl">
+        <mat-option *ngFor="let interval of intervals"
+                    [value]="interval.value">
+          {{interval.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Start" [formControl]="startControl">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker_end" placeholder="End" [formControl]="endControl">
+      <mat-datepicker-toggle matSuffix [for]="picker_end"></mat-datepicker-toggle>
+      <mat-datepicker #picker_end></mat-datepicker>
+    </mat-form-field>
+
+    <mat-slide-toggle
+      [formControl]="detailControl"
+      [disabled]="isDetailDisable">
+      Détail par produit
+    </mat-slide-toggle>
+    <mat-error *ngIf="isDetailDisable">{{detailDisabledErrorMessage}}</mat-error>
+
+  </div>
+</div>

@@ -56,6 +56,7 @@ export class MembershipRegisterComponent implements OnInit {
         birth_month: ['', Validators.required],
         birth_year: ['', Validators.required],
         gender: [null, Validators.required],
+        phone: [null],
         password: [null, Validators.required],
         confirmation: [null, Validators.required],
       },
@@ -190,6 +191,7 @@ export class MembershipRegisterComponent implements OnInit {
         email: form.value['email'],
         birthdate: birthdate,
         gender: form.value['gender'],
+        phone: form.value['phone'],
       };
       if (form.value['university'] !== 'none') {
         userData['university'] = form.value['university'];
@@ -203,7 +205,7 @@ export class MembershipRegisterComponent implements OnInit {
 
       const user = new User(userData);
       this.userService.create(user, form.value['password']).subscribe(
-        data => {
+        () => {
           this.router.navigate(['/membership/verification']);
         },
         err => {
@@ -256,6 +258,11 @@ export class MembershipRegisterComponent implements OnInit {
           if (err.error.password) {
             this.registerForm.controls['password'].setErrors({
               apiError: err.error.password
+            });
+          }
+          if (err.error.phone) {
+            this.registerForm.controls['phone'].setErrors({
+              apiError: err.error.phone
             });
           }
         }

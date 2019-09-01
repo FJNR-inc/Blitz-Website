@@ -29,6 +29,7 @@ export class RetreatsComponent implements OnInit {
     addButton: true,
     clickable: true,
     previous: false,
+    downloadButton: true,
     next: false,
     numberOfPage: 0,
     page: 0,
@@ -216,7 +217,12 @@ export class RetreatsComponent implements OnInit {
       name: 'has_shared_rooms',
       type: 'checkbox',
       label: _('shared.form.retreat.has_shared_rooms')
-    }
+    },
+    {
+      name: 'hidden',
+      type: 'checkbox',
+      label: _('shared.form.retreat.hidden')
+    },
   ];
 
   constructor(private retreatService: RetreatService,
@@ -287,14 +293,14 @@ export class RetreatsComponent implements OnInit {
         );
       } else {
         this.retreatService.remove(this.retreatInDeletion).subscribe(
-          data => {
+          () => {
             this.notificationService.success(
               _('shared.notifications.delete_space.title'),
               _('shared.notifications.delete_space.content')
             );
             this.refreshRetreatList();
           },
-          err => {
+          () => {
             this.notificationService.error(
               _('shared.notifications.fail_deletion.title'),
               _('shared.notifications.fail_deletion.content')
@@ -322,7 +328,7 @@ export class RetreatsComponent implements OnInit {
     const value = this.retreatForm.value;
     value['timezone'] = 'America/Montreal';
     this.retreatService.create(value).subscribe(
-      data => {
+      () => {
         this.notificationService.success(
           _('shared.notifications.commons.added.title')
         );
@@ -346,5 +352,13 @@ export class RetreatsComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  exportReservations(retreat: Retreat) {
+    this.retreatService.exportReservations(retreat.id).subscribe(
+      data => {
+        window.open(data.file_url);
+      }
+    );
   }
 }

@@ -31,6 +31,14 @@ export class RetreatService extends GlobalService {
     );
   }
 
+  getByUrl(url: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      url,
+      {headers: headers}
+    );
+  }
+
   list(filters: {name: string, value: any}[] = null, limit = 100, offset = 0): Observable<any> {
     const headers = this.getHeaders();
     let params = new HttpParams();
@@ -68,6 +76,15 @@ export class RetreatService extends GlobalService {
     const headers = this.getHeaders();
     return this.http.delete<any>(
       retreat.url,
+      {headers: headers}
+    );
+  }
+
+
+  exportReservations(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_retreats + '/' + id + '/export_participation',
       {headers: headers}
     );
   }
