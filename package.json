@@ -10,7 +10,21 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "extract": "ngx-translate-extract --input ./src --output ./src/assets/i18n/ --sort --format json --marker _ --format-indentation '  '"
+    "extract": "ngx-translate-extract --input ./src --output ./src/assets/i18n/ --sort --format json --marker _ --format-indentation '  '",
+    "build:prod": "ng build -c=prod --prod=\"true\"",
+    "aws_clean:prod": "aws s3 rm s3://thesezvous-frontend --recursive",
+    "aws_copy:prod": "aws s3 cp ./dist s3://thesezvous-frontend --recursive --acl public-read",
+    "aws_copy:prod:deploy_page": "aws s3 cp ./deploy s3://thesezvous-frontend --recursive --acl public-read",
+    "aws_invalidate": "aws cloudfront create-invalidation --distribution-id E1UQGH7N2I6YW4 --paths /index.html",
+    "deploy:prod": "npm run build:prod && npm run aws_clean:prod && npm run aws_copy:prod && npm run aws_invalidate",
+    "deploy:prod:deploy_page": "npm run aws_clean:prod && npm run aws_copy:deploy_page && npm run aws_invalidate",
+    "build:qa": "ng build -c=qa",
+    "aws_clean:qa": "aws s3 rm s3://thesezvous-dev-frontendbucket-3k24zycbd7x --recursive",
+    "aws_copy:qa": "aws s3 cp ./dist s3://thesezvous-dev-frontendbucket-3k24zycbd7x --recursive --acl public-read",
+    "aws_copy:qa:deploy_page": "aws s3 cp ./deploy s3://thesezvous-dev-frontendbucket-3k24zycbd7x --recursive --acl public-read",
+    "aws_invalidate:qa": "aws cloudfront create-invalidation --distribution-id E2R00F4J8NO75S --paths /index.html",
+    "deploy:qa": "npm run build:qa && npm run aws_clean:qa && npm run aws_copy:qa && npm run aws_invalidate:qa",
+    "deploy:qa:deploy_page": "npm run aws_clean:qa && npm run aws_copy:qa:deploy_page && npm run aws_invalidate:qa"
   },
   "private": true,
   "dependencies": {
