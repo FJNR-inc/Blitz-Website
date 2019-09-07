@@ -129,6 +129,14 @@ export class AdminLayoutComponent implements OnInit {
       ],
     },
     {
+      label: 'admin-layout.left-nav.optionsProducts',
+      icon: 'fab fa-product-hunt',
+      routerLink: '/admin/options_products',
+      permissions: [
+        'can_access_admin_optionsProducts'
+      ],
+    },
+    {
       label: 'admin-layout.left-nav.exit',
       icon: 'fas fa-door-open',
       routerLink: '/',

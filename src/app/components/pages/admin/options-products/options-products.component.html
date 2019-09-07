@@ -1,0 +1,10 @@
+<div class="admin-options_products-page">
+  <div class="admin-options_products-page__table">
+    <app-my-table [settings]="settings"
+                  [data]="listOptionsProducts"
+                  (addButton)="goToOptionProductCreationPage()"
+                  (changePage)="changePage($event)"
+                  (selectItem)="goToCouponEditionPage($event)">
+    </app-my-table>
+  </div>
+</div>
