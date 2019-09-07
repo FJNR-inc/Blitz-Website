@@ -1,5 +1,6 @@
 import BaseModel from './baseModel';
 import { Membership } from './membership';
+import {OptionProduct} from './optionProduct';
 
 export class ReservationPackage extends BaseModel {
   url: string;
@@ -12,5 +13,6 @@ export class ReservationPackage extends BaseModel {
   reservations: number;
   exclusive_memberships: Membership[];
   available: boolean;
+  options: OptionProduct[];
 }
 

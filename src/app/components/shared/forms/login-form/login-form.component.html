@@ -1,10 +1,11 @@
 <div class="login-form" [ngClass]="{'login-form--centered': centered}">
   <app-form [form]="loginForm" [fields]="loginFields" [errors]="loginErrors"></app-form>
   <div class="login-form__actions">
-    <button (click)="submitForm()" class="login-form__actions__button nt-button">
-      {{ 'login-form.login'  | translate }}
-    </button>
-    <a class="login-form__actions__link nt-link" routerLink="/register">
-      {{ 'login-form.sign_up'  | translate }}</a>
+    <app-button (onClick)="submitForm()"
+                class="login-form__actions__button"
+                [text]="'login-form.login'  | translate">
+    </app-button>
+    <app-link class="login-form__actions__link" *ngIf="registerLink" routerLink="/register" text="{{'login-form.sign_up' | translate}}"></app-link>
+    <app-link class="login-form__actions__link" *ngIf="forgotPasswordLink" routerLink="/forgot-password" text="Vous avez oublie votre mot de passe?"></app-link>
   </div>
 </div>

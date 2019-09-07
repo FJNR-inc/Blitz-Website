@@ -1,7 +1,7 @@
-@import "../../../assets/scss/_theme.scss";
+@import "../../../assets/scss/theme.scss";
 
 .modal-component {
-  background: rgba(0,0,0,0.6);
+  background: rgba($nt2-color-4 ,0.95);
   position: fixed;
   z-index: 1;
   top: 0;
@@ -17,7 +17,7 @@
     height: 100vh;
 
     &__reveal {
-      background: $nt-background-color;
+      background: $nt2-color-1;
       position: relative;
 
       display: flex;

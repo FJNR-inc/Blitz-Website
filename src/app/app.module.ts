@@ -152,6 +152,28 @@ import { OptionsProductsComponent} from './components/pages/admin/options-produc
 import {
   OptionsProductsCreationComponent
 } from './components/pages/admin/options-products/options-products-creation/options-products-creation.component';
+import { HiddenRetreatComponent } from './components/pages/hidden-retreat/hidden-retreat.component';
+import {LightLayoutComponent} from './layouts/light-layout/light-layout.component';
+import { RetreatPreviewComponent } from './components/shared/retreat-preview/retreat-preview.component';
+import { TitleComponent } from './components/shared/title/title.component';
+import { ButtonComponent } from './components/shared/button/button.component';
+import { ProductSelectorPanelComponent } from './components/shared/product-selector-panel/product-selector-panel.component';
+import { LinkComponent } from './components/shared/link/link.component';
+import { AuthenticationPanelComponent } from './components/shared/authentication-panel/authentication-panel.component';
+import { CartPanelComponent } from './components/shared/cart-panel/cart-panel.component';
+import { PaymentFlowComponent } from './components/pages/payment-flow/payment-flow.component';
+import { PaymentFlowWizardComponent } from './components/pages/payment-flow/payment-flow-wizard/payment-flow-wizard.component';
+import { PaymentFlowMembershipComponent } from './components/pages/payment-flow/payment-flow-membership/payment-flow-membership.component';
+// tslint:disable-next-line:max-line-length
+import { PaymentFlowInformationsComponent } from './components/pages/payment-flow/payment-flow-informations/payment-flow-informations.component';
+import { PaymentFlowBourseComponent } from './components/pages/payment-flow/payment-flow-bourse/payment-flow-bourse.component';
+import { PaymentFlowModeComponent } from './components/pages/payment-flow/payment-flow-mode/payment-flow-mode.component';
+// tslint:disable-next-line:max-line-length
+import { PaymentFlowConfirmationComponent } from './components/pages/payment-flow/payment-flow-confirmation/payment-flow-confirmation.component';
+import {Error404Component} from './components/error-404/error-404.component';
+import {RetreatInvitationService} from './services/retreatInvitation.service';
+import { CartButtonComponent } from './components/shared/cart-button/cart-button.component';
+import { PaymentSuccessfulComponent } from './components/pages/payment-successful/payment-successful.component';
 
 registerLocaleData(localeFr);
 
@@ -195,6 +217,20 @@ const appRoutes = [
       {
         path: 'validate/email/:token',
         component: ValidateEmailComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'payment',
+        component: PaymentFlowComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+        ]
+      },
+      {
+        path: 'payment-successful',
+        component: PaymentSuccessfulComponent,
         canActivate: [
           CanActivateViaAuthGuard,
         ]
@@ -292,6 +328,16 @@ const appRoutes = [
           CanActivateViaAuthGuard,
         ]
       }
+    ]
+  },
+  {
+    path: '',
+    component: LightLayoutComponent,
+    children: [
+      {
+        path: 'hiddenRetreat/:token',
+        component: HiddenRetreatComponent,
+      },
     ]
   },
   {
@@ -503,6 +549,16 @@ const appRoutes = [
         ]
       },
     ]
+  },
+  {
+    path: '',
+    component: NewLayoutComponent,
+    children: [
+      {
+        path: '**',
+        component: Error404Component,
+      }
+    ]
   }
 ];
 
@@ -600,6 +656,25 @@ const appRoutes = [
     RetreatUnsubscribeComponent,
     OptionsProductsComponent,
     OptionsProductsCreationComponent,
+    HiddenRetreatComponent,
+    LightLayoutComponent,
+    RetreatPreviewComponent,
+    TitleComponent,
+    ButtonComponent,
+    ProductSelectorPanelComponent,
+    LinkComponent,
+    AuthenticationPanelComponent,
+    CartPanelComponent,
+    PaymentFlowComponent,
+    PaymentFlowWizardComponent,
+    PaymentFlowMembershipComponent,
+    PaymentFlowInformationsComponent,
+    PaymentFlowBourseComponent,
+    PaymentFlowModeComponent,
+    PaymentFlowConfirmationComponent,
+    Error404Component,
+    CartButtonComponent,
+    PaymentSuccessfulComponent,
   ],
   imports: [
     BrowserModule,
@@ -667,6 +742,7 @@ const appRoutes = [
     CouponService,
     RetreatWaitingQueueService,
     RetreatWaitingQueueNotificationService,
+    RetreatInvitationService,
   ],
   bootstrap: [AppComponent]
 })

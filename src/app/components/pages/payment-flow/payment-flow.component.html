@@ -1,0 +1,42 @@
+<div class="payment-flow">
+  <app-payment-flow-wizard class="payment-flow__header" [steps]="steps" [(currentStep)]="currentStep"></app-payment-flow-wizard>
+
+  <div class="payment-flow__content">
+    <div class="payment-flow__content__body">
+      <app-payment-flow-membership *ngIf="currentStep.id === 'membership'"
+                                   (forward)="goForward()"></app-payment-flow-membership>
+      <app-payment-flow-informations *ngIf="currentStep.id === 'informations'"
+                                     (back)="goBack()"
+                                     (forward)="goForward()"></app-payment-flow-informations>
+      <app-payment-flow-bourse *ngIf="currentStep.id === 'bourses'"
+                               (back)="goBack()"
+                               (forward)="goForward()"></app-payment-flow-bourse>
+      <app-payment-flow-mode *ngIf="currentStep.id === 'payment_mode'"
+                             (back)="goBack()"
+                             (forward)="goForward()"></app-payment-flow-mode>
+      <app-payment-flow-confirmation *ngIf="currentStep.id === 'confirmation'"
+                                     (back)="goBack()"
+                                     (forward)="goForward()"></app-payment-flow-confirmation>
+    </div>
+    <div class="payment-flow__content__side">
+      <app-cart-summary [cart]="cart" *ngIf="currentStep.id !== 'confirmation'"></app-cart-summary>
+      <div *ngIf="currentStep.id === 'confirmation'" class="payment-flow__content__side__politics">
+        <app-title [level]="3" text="Politiques d'annulation"></app-title>
+        <app-title [level]="6" text="Les retraites de rédaction" class="payment-flow__content__side__politics__title"></app-title>
+        <app-title [level]="9" text="Toute annulation de participation doit être communiquée par
+        écrit à l’adresse suivante : info@thesez-vous.com. Des frais de gestion équivalent à 10%
+        du prix de la retraite payé par le ou la participant.e ayant annulé sont applicables. Le
+        ou la participant.e ayant annulé sera remboursé à la hauteur de 90% du prix payé uniquement
+        si son annulation a eu lieu plus de 7 jours ouvrables précédant le début de la retraite.
+        Thèsez-vous se réserve le droit d’annuler ou de déplacer une retraite si le nombre
+        d’inscriptions est insuffisant."></app-title>
+        <app-title [level]="6" text="Les blocs de rédaction à l’Espace" class="payment-flow__content__side__politics__title"></app-title>
+        <app-title [level]="9" text="Les blocs de rédaction ne sont PAS remboursés en cas d’annulation
+        ou de changement de plage horaire. Nous avons privilégié cette façon de faire pour inviter
+        les étudiant.e.s à prendre un vrai rendez-vous avec leurs thèses, pour éviter de perdre une
+        place dont un.e autre étudiant.e pourrait bénéficier et, surtout, pour éviter que les
+        étudiant.e.s se désistent à la dernière minute par manque de motivation."></app-title>
+      </div>
+    </div>
+  </div>
+</div>

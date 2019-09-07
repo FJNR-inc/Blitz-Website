@@ -18,6 +18,7 @@ export class NtModalComponent implements OnInit {
   @Input() activated = true;
   @Input() autoClose = false;
   @Input() show = false;
+  @Input() displayButtons = true;
 
   @ViewChild('modalContent') modalContent;
 

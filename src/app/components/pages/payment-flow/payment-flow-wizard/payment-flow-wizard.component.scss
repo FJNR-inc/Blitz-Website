@@ -1,0 +1,24 @@
+@import '../../../../../assets/scss/theme';
+
+.payment-flow-wizard {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: auto;
+
+  &__item {
+    font-size: 12pt;
+    font-weight: 900;
+    color: $nt2-color-4;
+    border-bottom: 3px solid $nt2-color-4;
+    padding: 5px 10px 5px 10px;
+
+    &--past {
+      border-bottom: none;
+    }
+
+    &--future {
+      color: $nt2-color-5;
+      border-bottom: none;
+    }
+  }
+}

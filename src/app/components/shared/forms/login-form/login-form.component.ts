@@ -30,7 +30,8 @@ export class LoginFormComponent implements OnInit {
     }
   ];
 
-  @Input() registerLink = false;
+  @Input() registerLink = true;
+  @Input() forgotPasswordLink = true;
   @Input() centered = false;
 
   @Output() isConnected: EventEmitter<any> = new EventEmitter();

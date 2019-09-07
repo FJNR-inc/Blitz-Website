@@ -4,6 +4,13 @@ import {Cart} from '../../../../models/cart';
 import {RetreatReservation} from '../../../../models/retreatReservation';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {RetreatReservationService} from '../../../../services/retreat-reservation.service';
+import {Retreat} from '../../../../models/retreat';
+import {RetreatWaitingQueueNotification} from '../../../../models/retreatWaitingQueueNotification';
+import {RetreatWaitingQueue} from '../../../../models/retreatWaitingQueue';
+import {RetreatService} from '../../../../services/retreat.service';
+import {RetreatWaitingQueueService} from '../../../../services/retreatWaitingQueue.service';
+import {RetreatWaitingQueueNotificationService} from '../../../../services/retreatWaitingQueueNotification.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-retreat-reservation',
@@ -13,15 +20,24 @@ import {RetreatReservationService} from '../../../../services/retreat-reservatio
 export class RetreatReservationComponent implements OnInit {
 
   displayTutorial = true;
-  currentView: 'cart'|'list' = 'list';
+  retreats: Retreat[];
+  retreatWaitingQueues: RetreatWaitingQueue[];
+  retreatWaitingQueueNotifications: RetreatWaitingQueueNotification[];
 
   retreatReservations: RetreatReservation[];
 
   cart: Cart;
 
+  selectedRetreat: Retreat;
+  displayedPanel: 'authentication' | 'product-selector' | 'cart';
+
   constructor(private cartService: MyCartService,
               private authenticationService: AuthenticationService,
-              private retreatReservationService: RetreatReservationService) {
+              private retreatReservationService: RetreatReservationService,
+              private retreatService: RetreatService,
+              private retreatWaitingQueueService: RetreatWaitingQueueService,
+              private retreatWaitingQueueNotificationService: RetreatWaitingQueueNotificationService,
+              private router: Router) {
     this.cart = this.cartService.getCart();
     this.cartService.cart.subscribe(
       emitedCart => {
@@ -37,7 +53,7 @@ export class RetreatReservationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cartService.reset();
+    this.refreshContent();
     if (this.authenticationService.isAuthenticated()) {
       this.refreshRetreatReservations(true);
     }
@@ -60,10 +76,6 @@ export class RetreatReservationComponent implements OnInit {
     this.displayTutorial = false;
   }
 
-  changeCurrentView(view) {
-    this.currentView = view;
-  }
-
   refreshRetreatReservations(refreshTutorial = false) {
     const filters = [
       {
@@ -83,5 +95,85 @@ export class RetreatReservationComponent implements OnInit {
         }
       }
     );
+  }
+
+  refreshContent() {
+    this.refreshRetreats();
+    if (this.authenticationService.isAuthenticated()) {
+      this.refreshRetreatWaitingQueue();
+      this.refreshRetreatWaitingQueueNotification();
+    }
+  }
+
+  refreshRetreats() {
+    const now = new Date().toISOString();
+    const filters = [
+      {
+        'name': 'is_active',
+        'value': true
+      },
+      {
+        'name': 'end_time__gte',
+        'value': now
+      }
+    ];
+    this.retreatService.list(filters).subscribe(
+      data => {
+        this.retreats = data.results.map(r => new Retreat(r));
+      }
+    );
+  }
+
+  refreshRetreatWaitingQueue() {
+    const filters = [
+      {
+        'name': 'user',
+        'value': this.authenticationService.getProfile().id
+      }
+    ];
+    this.retreatWaitingQueueService.list(filters).subscribe(
+      data => {
+        this.retreatWaitingQueues = data.results.map(r => new RetreatReservation(r));
+      }
+    );
+  }
+
+  refreshRetreatWaitingQueueNotification() {
+    const filters = [
+      {
+        'name': 'user',
+        'value': this.authenticationService.getProfile().id
+      }
+    ];
+    this.retreatWaitingQueueNotificationService.list(filters).subscribe(
+      data => {
+        this.retreatWaitingQueueNotifications = data.results.map(r => new RetreatWaitingQueueNotification(r));
+      }
+    );
+  }
+
+  closePanel() {
+    this.displayedPanel = null;
+  }
+
+  subscribe(retreat) {
+    this.selectedRetreat = retreat;
+    if (this.authenticationService.isAuthenticated()) {
+      this.displayedPanel = 'product-selector';
+    } else {
+      this.displayedPanel = 'authentication';
+    }
+  }
+
+  addToCart() {
+    this.openCart();
+  }
+
+  openCart() {
+    this.displayedPanel = 'cart';
+  }
+
+  finalize() {
+    this.router.navigate(['/payment']);
   }
 }

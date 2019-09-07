@@ -38,6 +38,10 @@ import {InternationalizationService} from '../../../services/internationalizatio
 import {TranslateService} from '@ngx-translate/core';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {Retreat} from '../../../models/retreat';
+import {Time} from '@angular/common';
+import {MyCartService} from '../../../services/my-cart/my-cart.service';
+import {Cart} from '../../../models/cart';
 
 
 declare let paysafe: any;
@@ -66,7 +70,6 @@ export class ReservationPageComponent implements OnInit {
   listTimeSlots: TimeSlot[];
   listReservedTimeslot: TimeSlot[] = null;
   listMembership: Membership[];
-  listReservationPackage: ReservationPackage[];
   listCards: Card[];
 
   selectedTimeSlots: TimeSlot[] = [];
@@ -139,6 +142,12 @@ export class ReservationPageComponent implements OnInit {
   waitAPI = false;
   wantToBuyPackage = false;
 
+  listReservationPackage: ReservationPackage[];
+  selectedTimeslot: TimeSlot;
+  selectedReservationPackageIndex = 1;
+  displayedPanel: 'authentication' | 'product-selector' | 'cart';
+  cart: Cart;
+
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
               private timeSlotService: TimeSlotService,
@@ -151,10 +160,17 @@ export class ReservationPageComponent implements OnInit {
               private orderService: OrderService,
               private profileService: ProfileService,
               private notificationService: MyNotificationService,
-              private internationalizationService: InternationalizationService) {}
+              private internationalizationService: InternationalizationService,
+              private cartService: MyCartService) {
+    this.cart = this.cartService.getCart();
+    this.cartService.cart.subscribe(
+      emitedCart => {
+        this.cart = emitedCart;
+      }
+    );
+  }
 
   ngOnInit() {
-    this.initPaysafe();
     this.refreshProfile();
     this.refreshListTimeSlot();
     this.refreshListMembership();
@@ -237,17 +253,6 @@ export class ReservationPageComponent implements OnInit {
           );
         }
       );
-    });
-  }
-
-  initPaysafe() {
-    const instance = this;
-    paysafe.fields.setup(this.API_KEY, this.OPTIONS, (paysafeInstance: any, error: any) => {
-      if (error) {
-        console.error(`Setup error: [${error.code}] ${error.detailedMessage}`);
-      } else {
-        instance.paysafeInstance = paysafeInstance;
-      }
     });
   }
 
@@ -334,13 +339,13 @@ export class ReservationPageComponent implements OnInit {
     for (const timeSlot of this.listTimeSlots) {
       if (timeSlot.id === event.id && this.selectedTimeSlots.indexOf(timeSlot) === -1) {
         if (timeSlot.places_remaining > 0) {
-          this.addToCart(timeSlot);
+          this.subscribe(timeSlot);
         }
       }
     }
   }
 
-  addToCart(timeSlot) {
+  oldAddToCart(timeSlot) {
     if (this.authenticationService.isAuthenticated()) {
       if (this.selectedTimeSlots.length === 0) {
         this.scroll('cart');
@@ -646,11 +651,61 @@ export class ReservationPageComponent implements OnInit {
     return this.totalPrice + this.getTotalTPS() + this.getTotalTVQ();
   }
 
+  getNumberOfTicketAvailable() {
+    let total = this.cartService.getDifferenceOfTicket();
+    const user = this.authenticationService.getProfile();
+
+    if (user) {
+      total += user.tickets;
+    }
+    return total;
+  }
+
   firstTimeReservation() {
     if (isNull(this.listReservedTimeslot)) {
       return false;
     } else {
       return this.listReservedTimeslot.length === 0;
+    }
+  }
+
+  closePanel() {
+    this.displayedPanel = null;
+  }
+
+  finalize() {
+    this.router.navigate(['/payment']);
+  }
+
+  addToCart() {
+    /*
+    if (this.getNumberOfTicketAvailable() > 0) {
+      this.cartService.addTimeslot(this.selectedTimeslot);
+
+    } else {
+      this.myModalService.get('add_package').toggle();
+    }
+    */
+    this.openCart();
+  }
+
+  addPackageToCart() {
+    this.cartService.addReservationPackage(this.listReservationPackage[this.selectedReservationPackageIndex]);
+    this.myModalService.get('add_package').close();
+    console.log('package added with success');
+    this.addToCart();
+  }
+
+  openCart() {
+    this.displayedPanel = 'cart';
+  }
+
+  subscribe(timeslot) {
+    this.selectedTimeslot = timeslot;
+    if (this.authenticationService.isAuthenticated()) {
+      this.displayedPanel = 'product-selector';
+    } else {
+      this.displayedPanel = 'authentication';
     }
   }
 }
