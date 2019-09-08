@@ -4,6 +4,7 @@ import {AuthenticationService} from '../../../services/authentication.service';
 import {CardService} from '../../../services/card.service';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {MyModalService} from '../../../services/my-modal/my-modal.service';
 
 @Component({
   selector: 'app-cart-payment',
@@ -14,12 +15,11 @@ export class CartPaymentComponent implements OnInit {
 
   listCards: Card[];
   paymentCard: string;
-  displayFormNewCard = false;
-  successAddCardMessage = null;
 
   constructor(private authenticationService: AuthenticationService,
               private cardService: CardService,
-              private cartService: MyCartService) { }
+              private cartService: MyCartService,
+              private modaleService: MyModalService) { }
 
   ngOnInit() {
     this.refreshListCard();
@@ -45,24 +45,26 @@ export class CartPaymentComponent implements OnInit {
   }
 
   toggleFormNewCard() {
-    this.displayFormNewCard = !this.displayFormNewCard;
+    this.toggleModaleNewCard();
     this.paymentCard = null;
     this.cartService.removePaymentToken();
   }
 
   setCard() {
-    this.displayFormNewCard = false;
+    this.closeModaleNewCard();
     this.cartService.addPaymentToken(this.paymentCard);
   }
 
   setSingleUseToken(token) {
-    this.displayFormNewCard = false;
-    this.successAddCardMessage = [_('cart-payment.alert.new_card_added')];
+    this.closeModaleNewCard();
     this.cartService.addPaymentToken(token, true);
   }
 
-  cartContainPaymentMethod() {
-    const result =  this.cartService.containPaymentMethod();
-    return result;
+  toggleModaleNewCard() {
+    this.modaleService.get('new-card').toggle();
+  }
+
+  closeModaleNewCard() {
+    this.modaleService.get('new-card').close();
   }
 }

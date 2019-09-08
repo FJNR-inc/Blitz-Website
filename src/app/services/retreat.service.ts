@@ -49,6 +49,9 @@ export class RetreatService extends GlobalService {
         if (filter.name === 'is_active') {
           params = params.set('is_active', filter.value);
         }
+        if (filter.name === 'hidden') {
+          params = params.set('hidden', filter.value);
+        }
         if (filter.name === 'name') {
           params = params.set('name', filter.value);
         }

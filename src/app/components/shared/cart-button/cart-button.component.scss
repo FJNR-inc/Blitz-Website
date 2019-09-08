@@ -1,0 +1,30 @@
+@import "../../../../assets/scss/theme";
+@import "../../../../assets/scss/easings";
+
+.cart-button {
+  display: inline-block;
+  background-color: $nt2-color-3;
+  color: $nt2-color-4;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 15px;
+
+  &__title {
+    display: inline-block;
+    opacity: 0;
+    max-width: 0;
+    text-transform: uppercase;
+    transition: $ease-in-sine 250ms;
+    padding-right: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .cart-button__title {
+      opacity: 1;
+      max-width: 300px;
+      padding-right: 10px;
+    }
+  }
+}

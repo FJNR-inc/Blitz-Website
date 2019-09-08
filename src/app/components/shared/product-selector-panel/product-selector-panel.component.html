@@ -1,0 +1,34 @@
+<div class="product-selector">
+  <div class="product-selector__close" (click)="closePanel()">
+    <i class="icon icon-times icon--5x"></i>
+  </div>
+  <div class="product-selector__content" *ngIf="product">
+    <app-title [level]="4" text="Selection"></app-title>
+    <app-alert class="product-selector__content__errors" type="info" [messages]="errors" *ngIf="errors"></app-alert>
+    <div class="product-selector__content__product" *ngIf="type === 'Retreat'">
+      {{ product.name }}<br/>
+      {{ product.city }}<br/>
+      {{ product.getDateInterval() }}<br/>
+      {{ product.price }} $CAN<br/>
+    </div>
+    <div class="product-selector__content__product" *ngIf="type === 'TimeSlot'">
+      {{ product.getStartDay() }}<br/>
+      {{ product.getStartTime() }} <i class="fas fa-arrow-right"></i> {{ product.getEndTime() }}<br/>
+      {{ product.billing_price }} $CAN<br/>
+    </div>
+    <div class="product-selector__content__options" *ngIf="product.options && product.options.length > 0">
+      <app-title [level]="6" text="Veuillez selectionner les options de votre choix"></app-title>
+      <div *ngFor="let option of product.options; let i = index;" class="product-selector__content__options__choice">
+        <app-title type='label' [for]="option.id" [level]="7" text="{{ option.name }} ({{ option.price }}$/u)"></app-title>
+        <select class="nt-form-input nt-form-input--select" [id]="option.id" (change)="selectOption($event, option)">
+          <option [value]="i" *ngFor="let quantity of getOptionQuantity(option.max_quantity); let i = index">{{ i }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="product-selector__content__actions">
+      <app-button text="Ajouter au panier" (onClick)="clickedAddToCart()" [disabled]="!canAddToCard"></app-button>
+      <app-link text="Annuler" (onClick)="closePanel()"></app-link>
+    </div>
+  </div>
+</div>

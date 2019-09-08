@@ -1,0 +1,45 @@
+<div class="payment-flow-confirmation">
+  <app-title [level]="4" text="Confirmation"></app-title>
+  <app-cart-summary [cart]="cart" [displayTitle]="false"></app-cart-summary>
+
+  <div class="payment-flow-confirmation__payment-mode form-group form-group--large">
+    <app-title [level]="7" text="Mode de paiement"></app-title>
+    <input type="text" disabled="disabled" [value]="paymentInfo" class="nt-form-input"/>
+    <app-link text="Modifier le mode de paiement" class="payment-flow-confirmation__modify-mode" (onClick)="changePaymentMethod()"></app-link>
+  </div>
+
+  <div class="payment-flow-confirmation__checkboxs align-top">
+    <input id="conditions" type="checkbox" [(ngModel)]="termsAndConditionsAccepted" />
+    <app-title [level]="9" for="conditions" type="label" text="J’ai lu, je comprends et j’accepte les
+    politiques d’annulation."></app-title>
+    <app-link text="Afficher les politiques d'annulation" class="payment-flow-confirmation__politics-link" appMyModalOpen="politics"></app-link>
+  </div>
+  <app-alert class="payment-flow-confirmation__error" type="danger" [messages]="errorOrder" *ngIf="errorOrder"></app-alert>
+  <div class="payment-flow-confirmation__actions">
+    <app-button text="Precedent" [type]="3" (click)="goBack()"></app-button>
+    <app-button text="Confirmer le paiement" [type]="1" (click)="goForward()" [disabled]="!isReadyToFinalize()"></app-button>
+  </div>
+</div>
+
+<app-nt-modal name="politics"
+              button2Label="Fermer"
+              maxWidth="800px"
+              [autoClose]="true">
+  <div class="payment-flow-confirmation-modale-politics">
+    <app-title [level]="3" text="Politiques d'annulation"></app-title>
+    <app-title [level]="6" text="Les retraites de rédaction" class="payment-flow-confirmation-modale-politics__title"></app-title>
+    <app-title [level]="9" text="Toute annulation de participation doit être communiquée par
+          écrit à l’adresse suivante : info@thesez-vous.com. Des frais de gestion équivalent à 10%
+          du prix de la retraite payé par le ou la participant.e ayant annulé sont applicables. Le
+          ou la participant.e ayant annulé sera remboursé à la hauteur de 90% du prix payé uniquement
+          si son annulation a eu lieu plus de 7 jours ouvrables précédant le début de la retraite.
+          Thèsez-vous se réserve le droit d’annuler ou de déplacer une retraite si le nombre
+          d’inscriptions est insuffisant."></app-title>
+    <app-title [level]="6" text="Les blocs de rédaction à l’Espace" class="payment-flow-confirmation-modale-politics__title"></app-title>
+    <app-title [level]="9" text="Les blocs de rédaction ne sont PAS remboursés en cas d’annulation
+          ou de changement de plage horaire. Nous avons privilégié cette façon de faire pour inviter
+          les étudiant.e.s à prendre un vrai rendez-vous avec leurs thèses, pour éviter de perdre une
+          place dont un.e autre étudiant.e pourrait bénéficier et, surtout, pour éviter que les
+          étudiant.e.s se désistent à la dernière minute par manque de motivation."></app-title>
+  </div>
+</app-nt-modal>

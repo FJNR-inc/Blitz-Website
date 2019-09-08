@@ -1,0 +1,23 @@
+@import '../../../../assets/scss/theme';
+
+.payment-flow-success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+
+  &__image {
+    height: 300px;
+  }
+
+  &__email {
+    padding: 10px;
+    border: 1px solid $nt2-color-4;
+  }
+
+  & > * {
+    margin: 15px 20px;
+  }
+}

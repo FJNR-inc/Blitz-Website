@@ -1,0 +1,19 @@
+.payment-flow-membership {
+  display: flex;
+  flex-direction: column;
+
+  &__texts {
+    margin-bottom: 30px;
+  }
+
+  &__actions {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > * {
+      margin-bottom: 30px;
+    }
+  }
+}

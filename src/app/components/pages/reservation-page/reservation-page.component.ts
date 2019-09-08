@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours
 } from 'date-fns';
 
 import { Subject } from 'rxjs';
@@ -29,18 +23,12 @@ import { isNull } from 'util';
 import { Card } from '../../../models/card';
 import { CardService } from '../../../services/card.service';
 import { OrderService } from '../../../services/order.service';
-import { Order } from '../../../models/order';
-import { OrderLine } from '../../../models/orderLine';
 import {ProfileService} from '../../../services/profile.service';
-import {environment} from '../../../../environments/environment';
-import {TaxeUtil} from '../../../utils/taxe';
 import {InternationalizationService} from '../../../services/internationalization.service';
-import {TranslateService} from '@ngx-translate/core';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
-
-
-declare let paysafe: any;
+import {MyCartService} from '../../../services/my-cart/my-cart.service';
+import {Cart} from '../../../models/cart';
 
 @Component({
   selector: 'app-reservation-page',
@@ -66,43 +54,15 @@ export class ReservationPageComponent implements OnInit {
   listTimeSlots: TimeSlot[];
   listReservedTimeslot: TimeSlot[] = null;
   listMembership: Membership[];
-  listReservationPackage: ReservationPackage[];
   listCards: Card[];
 
   selectedTimeSlots: TimeSlot[] = [];
   selectedMembership: Membership = null;
-  selectedPackages: ReservationPackage[] = [];
-  currentMembership: number;
   currentPackage: number;
 
   totalTicket = 0;
-  totalPrice = 0;
 
   user: User = null;
-
-  API_KEY = environment.token_paysafe;
-  OPTIONS = {
-    environment: environment.environment_paysafe,
-    fields: {
-      cardNumber: {
-        selector: '#card-number',
-        placeholder: '1234 1234 1234 1234'
-      },
-      expiryDate: {
-        selector: '#expiration-date',
-        placeholder: 'MM/AA'
-      },
-      cvv: {
-        selector: '#cvv',
-        placeholder: '123'
-      }
-    }
-  };
-  singleUseToken: string = null;
-  paymentToken: string = null;
-  private paysafeInstance: any;
-  errorModal;
-  errorOrder;
 
   colors = [
     {
@@ -135,9 +95,11 @@ export class ReservationPageComponent implements OnInit {
     }
   ];
 
-  waitPaysafe = false;
-  waitAPI = false;
-  wantToBuyPackage = false;
+  listReservationPackage: ReservationPackage[];
+  selectedTimeslot: TimeSlot;
+  selectedReservationPackageIndex = 1;
+  displayedPanel: 'authentication' | 'product-selector' | 'cart';
+  cart: Cart;
 
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
@@ -151,10 +113,17 @@ export class ReservationPageComponent implements OnInit {
               private orderService: OrderService,
               private profileService: ProfileService,
               private notificationService: MyNotificationService,
-              private internationalizationService: InternationalizationService) {}
+              private internationalizationService: InternationalizationService,
+              private cartService: MyCartService) {
+    this.cart = this.cartService.getCart();
+    this.cartService.cart.subscribe(
+      emitedCart => {
+        this.cart = emitedCart;
+      }
+    );
+  }
 
   ngOnInit() {
-    this.initPaysafe();
     this.refreshProfile();
     this.refreshListTimeSlot();
     this.refreshListMembership();
@@ -240,17 +209,6 @@ export class ReservationPageComponent implements OnInit {
     });
   }
 
-  initPaysafe() {
-    const instance = this;
-    paysafe.fields.setup(this.API_KEY, this.OPTIONS, (paysafeInstance: any, error: any) => {
-      if (error) {
-        console.error(`Setup error: [${error.code}] ${error.detailedMessage}`);
-      } else {
-        instance.paysafeInstance = paysafeInstance;
-      }
-    });
-  }
-
   refreshListReservationPackage() {
     const filters: any[] = [
       {
@@ -258,13 +216,7 @@ export class ReservationPageComponent implements OnInit {
         'value': true
       }
     ];
-    if (this.user && this.user.membership) {
-      filters.push({'name': 'exclusive_memberships', 'value': [this.user.membership.id]});
-    } else if (this.selectedMembership) {
-      filters.push({'name': 'exclusive_memberships', 'value': [this.selectedMembership.id]});
-    } else {
-      filters.push({'name': 'exclusive_memberships', 'value': null});
-    }
+
     this.reservationPackageService.list(filters).subscribe(
       reservationPackages => {
         this.listReservationPackage = reservationPackages.results.map(r => new ReservationPackage(r));
@@ -273,10 +225,6 @@ export class ReservationPageComponent implements OnInit {
         }
       }
     );
-  }
-
-  scroll(element) {
-    document.getElementById(element).scrollIntoView({behavior: 'smooth'});
   }
 
   refreshListMembership() {
@@ -334,45 +282,9 @@ export class ReservationPageComponent implements OnInit {
     for (const timeSlot of this.listTimeSlots) {
       if (timeSlot.id === event.id && this.selectedTimeSlots.indexOf(timeSlot) === -1) {
         if (timeSlot.places_remaining > 0) {
-          this.addToCart(timeSlot);
+          this.subscribe(timeSlot);
         }
       }
-    }
-  }
-
-  addToCart(timeSlot) {
-    if (this.authenticationService.isAuthenticated()) {
-      if (this.selectedTimeSlots.length === 0) {
-        this.scroll('cart');
-      }
-      this.selectedTimeSlots.push(timeSlot);
-      this.totalTicket += Number(timeSlot.billing_price);
-      for (const event of this.events) {
-        if (event.id === timeSlot.id) {
-          event.color = this.colors[3].color;
-        }
-      }
-    }
-  }
-
-  removeFromCart(timeSlot) {
-    const index = this.selectedTimeSlots.indexOf(timeSlot);
-    if (index > -1) {
-      this.selectedTimeSlots.splice(index, 1);
-      this.totalTicket -= Number(timeSlot.billing_price);
-      for (const event of this.events) {
-        if (event.id === timeSlot.id) {
-          event.color = this.getTimeslotColor(timeSlot);
-        }
-      }
-    }
-  }
-
-  removePackageFromCart(reservationPackage) {
-    const index = this.selectedPackages.indexOf(reservationPackage);
-    if (index > -1) {
-      this.selectedPackages.splice(index, 1);
-      this.totalPrice -= Number(reservationPackage.price);
     }
   }
 
@@ -405,245 +317,14 @@ export class ReservationPageComponent implements OnInit {
     };
   }
 
-  goToLoginPage() {
-    this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url }});
-  }
+  getNumberOfTicketAvailable() {
+    let total = this.cartService.getDifferenceOfTicket();
+    const user = this.authenticationService.getProfile();
 
-  ToggleModal(name: string) {
-    const modal = this.myModalService.get(name);
-
-    if (!modal) {
-      console.error('No modal named %s', name);
-      return;
-    }
-
-    modal.toggle();
-  }
-
-  addCard() {
-    const instance = this;
-    this.waitPaysafe = true;
-    if (!instance.paysafeInstance) {
-      console.error('No instance Paysafe');
-      this.errorModal = [_('reservation-page.payment_service_hs')];
-      this.waitPaysafe = false;
-    } else {
-      instance.paysafeInstance.tokenize((paysafeInstance: any, error: any, result: any) => {
-        if (error) {
-          this.errorModal = [_('reservation-page.invalid_card_info')];
-          console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
-          this.waitPaysafe = false;
-        } else {
-          this.setSingleUseToken(result.token);
-          this.waitPaysafe = false;
-          this.ToggleModal('form_credit_card');
-        }
-      });
-    }
-  }
-
-  setSingleUseToken(token) {
-    this.singleUseToken = token;
-    this.paymentToken = null;
-  }
-
-  setPaymentToken(token) {
-    this.singleUseToken = null;
-    this.paymentToken = token;
-  }
-
-  finalizeTransaction() {
-    if (this.isPaymentButtonDisabled()) {
-      this.ToggleModal('payment_button_disabled');
-    } else {
-      this.generateOrder();
-    }
-  }
-  generateOrder() {
-    this.waitAPI = true;
-    const newOrder = new Order(
-      {
-        'order_lines': [],
-      }
-    );
-    if (this.singleUseToken) {
-      newOrder['single_use_token'] = this.singleUseToken;
-    } else if (this.paymentToken) {
-      newOrder['payment_token'] = this.paymentToken;
-    }
-    if (this.selectedMembership) {
-      newOrder['order_lines'].push(new OrderLine({
-          'content_type': 'membership',
-          'object_id': this.selectedMembership.id,
-          'quantity': 1,
-        })
-      );
-    }
-    if (this.selectedPackages) {
-      for (const selectedPackage of this.selectedPackages) {
-        newOrder['order_lines'].push(new OrderLine({
-            'content_type': 'package',
-            'object_id': selectedPackage.id,
-            'quantity': 1,
-          })
-        );
-      }
-    }
-    if (this.selectedTimeSlots) {
-      for (const selectedTimeslot of this.selectedTimeSlots) {
-        newOrder['order_lines'].push(new OrderLine({
-            'content_type': 'timeslot',
-            'object_id': selectedTimeslot.id,
-            'quantity': 1,
-          })
-        );
-      }
-    }
-    this.orderService.create(newOrder).subscribe(
-      response => {
-        this.waitAPI = false;
-        this.notificationService.success(
-          _('shared.notifications.order_done.title'),
-          _('shared.notifications.order_done.content')
-        );
-        this.router.navigate(['/profile']);
-      }, err => {
-        this.waitAPI = false;
-
-        if (err.error.non_field_errors.indexOf('There are no places left in the requested timeslot.') > -1) {
-          this.ToggleModal('no_places');
-          this.refreshListTimeSlot();
-        } else {
-          this.errorOrder = [_('reservation-page.error_in_payment')];
-        }
-      }
-    );
-  }
-
-  getNumberOfTicket() {
-    let total = 0;
-    for (const reservationPackage of this.selectedPackages) {
-      total += reservationPackage.reservations;
-    }
-    if (this.user != null) {
-      total += this.user.tickets;
+    if (user) {
+      total += user.tickets;
     }
     return total;
-  }
-
-  needToBuyPackage() {
-    if (this.user != null) {
-      return this.getNumberOfTicket() < this.totalTicket;
-    }
-    return false;
-  }
-
-  showPackageSection() {
-    if (this.wantToBuyPackage) {
-      return true;
-    } else {
-      return this.needToBuyPackage();
-    }
-  }
-
-  needToBuyMembership() {
-    const neverHadMembership = this.user && !this.user.membership;
-    let expiredMembership = false;
-    if (!neverHadMembership && this.user) {
-      expiredMembership = new Date(this.user.membership_end) < new Date();
-    }
-    const noMembershipInCart = isNull(this.selectedMembership);
-
-    let benefitOfNewUserPromo = false;
-    if (this.firstTimeReservation()) {
-      if (this.selectedTimeSlots.length <= 1) {
-        benefitOfNewUserPromo = true;
-      }
-    }
-    return noMembershipInCart && !benefitOfNewUserPromo && (neverHadMembership || expiredMembership);
-  }
-
-  needToUseCard() {
-    return this.totalPrice > 0;
-  }
-
-  canFinalizePayment() {
-    let paymentMethod = false;
-    if ( this.singleUseToken || this.paymentToken) {
-      paymentMethod = true;
-    }
-    if (this.needToUseCard() && !paymentMethod) {
-      return false;
-    }
-    if (!this.totalTicket && !this.totalPrice) {
-      return false;
-    }
-    return !this.needToBuyPackage() && !this.needToBuyMembership();
-  }
-
-  addPackage() {
-    for (const reservationPackage of this.listReservationPackage) {
-      if (reservationPackage.id.toString() === this.currentPackage.toString()) {
-        this.selectedPackages.push(reservationPackage);
-        this.totalPrice += Number(reservationPackage.price);
-      }
-    }
-  }
-
-  addMembership() {
-    for (const membership of this.listMembership) {
-      if (membership.id.toString() === this.currentMembership.toString()) {
-        this.selectedMembership = membership;
-        this.totalPrice += Number(membership.price);
-      }
-    }
-    this.refreshListReservationPackage();
-  }
-
-  removeMembershipFromCart() {
-    this.totalPrice -= Number(this.selectedMembership.price);
-    this.selectedMembership = null;
-  }
-
-  selectCard(event) {
-    const value = event.target.value;
-    if (value !== 'none') {
-      this.setPaymentToken(value);
-    } else {
-      this.setPaymentToken(null);
-    }
-  }
-
-  askToBuyPackage() {
-    this.wantToBuyPackage = true;
-  }
-
-  getLabelFinalizeButton() {
-    if (this.totalPrice && this.totalTicket) {
-      return _('reservation-page.finalize_button.pay_and_reserve');
-    } else if (this.totalPrice) {
-      return _('reservation-page.finalize_button.pay');
-    } else if (this.totalTicket) {
-      return _('reservation-page.finalize_button.reserve');
-    } else {
-      return _('reservation-page.finalize_button.finalize');
-    }
-  }
-
-  isPaymentButtonDisabled() {
-    return !this.canFinalizePayment() || this.waitAPI;
-  }
-
-  getTotalTPS() {
-    return TaxeUtil.getTPS(this.totalPrice);
-  }
-
-  getTotalTVQ() {
-    return TaxeUtil.getTVQ(this.totalPrice);
-  }
-
-  getTotalWithTaxes() {
-    return this.totalPrice + this.getTotalTPS() + this.getTotalTVQ();
   }
 
   firstTimeReservation() {
@@ -651,6 +332,41 @@ export class ReservationPageComponent implements OnInit {
       return false;
     } else {
       return this.listReservedTimeslot.length === 0;
+    }
+  }
+
+  closePanel() {
+    this.displayedPanel = null;
+  }
+
+  finalize() {
+    this.router.navigate(['/payment']);
+  }
+
+  addToCart() {
+    this.openCart();
+  }
+
+  addPackageToCart() {
+    this.cartService.addReservationPackage(this.listReservationPackage[this.selectedReservationPackageIndex]);
+    this.myModalService.get('add_package').close();
+    this.subscribe(this.selectedTimeslot);
+  }
+
+  openCart() {
+    this.displayedPanel = 'cart';
+  }
+
+  subscribe(timeslot) {
+    this.selectedTimeslot = timeslot;
+    if (this.authenticationService.isAuthenticated()) {
+      if (this.getNumberOfTicketAvailable() > 0) {
+        this.displayedPanel = 'product-selector';
+      } else {
+        this.myModalService.get('add_package').toggle();
+      }
+    } else {
+      this.displayedPanel = 'authentication';
     }
   }
 }

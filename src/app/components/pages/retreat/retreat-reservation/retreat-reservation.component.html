@@ -1,37 +1,68 @@
-<div class="retreat-reservation">
-  <div class="retreat-reservation__title">
-    <div class="retreat-reservation__title__top">
-      <div class="retreat-reservation__title__top__text">
-      {{ 'retreat-reservation.title' | translate }}
+<div class="retreat-reservation" *ngIf="!displayTutorial">
+  <app-cart-button *ngIf="!displayedPanel"
+                   class="retreat-reservation__cart-button"
+                   (onClick)="openCart()"></app-cart-button>
+  <div class="retreat-reservation__main">
+    <div class="retreat-reservation__main__content">
+      <div class="retreat-reservation__main__content__header">
+        <app-title [level]="4"
+                   class="retreat-reservation__main__content__header__title"
+                   text="{{ 'retreat-list.list_of_retreats' | translate }}">
+        </app-title>
+        <app-title [level]="9"
+                   class="retreat-reservation__main__content__header__description"
+                   text="{{ 'retreat-list.details' | translate }}">
+        </app-title>
+        <app-button [type]="4"
+                   class="retreat-reservation__main__content__header__link"
+                   text="{{ 'retreat-list.know_more' | translate }}">
+        </app-button>
+        <!--
+        todo: Add href and target to this button
+        href="http://www.thesez-vous.com/questcequuneretraite.html" target="_blank"
+        -->
+      </div>
+      <app-loader *ngIf="!retreats">
+      </app-loader>
+      <app-alert type="info"
+                 class="retreat-reservation__main__content__header__alert"
+                 [messages]="['Aucun retraite disponible a l\'achat']"
+                 *ngIf="retreats && retreats.length === 0"></app-alert>
+      <app-retreat-preview *ngFor="let retreat of retreats"
+                           class="retreat-reservation__main__content__retreat"
+                           [retreat]="this.retreat"
+                           [displaySubscribeButton]="true"
+                           (subscribe)="subscribe(retreat)">
+      </app-retreat-preview>
+
+      <div class="retreat-reservation__main__content__politics">
+        <app-title [level]="4" class="retreat-reservation__main__content__politics__title" text="Politique d'annulation"></app-title>
+        <app-title class="retreat-reservation__main__content__politics__content" [level]="9" text="Toute annulation de
+        participation doit être communiquée par écrit à l’adresse suivante : info@thesez-
+        vous.com. Des frais de gestion équivalent à 10% du prix de la retraite payé par le ou la participant.e
+        ayant annulé sont applicables. Le ou la participant.e ayant annulé sera remboursé à la hauteur de 90%
+        du prix payé uniquement si son annulation a eu lieu plus de 7 jours ouvrables précédant le début de la
+        retraite. Thèsez-vous se réserve le droit d’annuler ou de déplacer une retraite si le nombre
+        d’inscriptions est insuffisant."></app-title>
       </div>
     </div>
   </div>
-  <div class="retreat-reservation__content">
-    <app-retreat-tutorial *ngIf="displayTutorial" (close)="closeTutorial()"></app-retreat-tutorial>
-
-    <div *ngIf="!displayTutorial" class="retreat-reservation__content__list">
-      <div class="retreat-reservation__content__list__go-to-cart" *ngIf="currentView === 'list'">
-        <div>
-          {{ cart.getRetreats().length }} {{ 'retreat-reservation.selected_retreat' | translate }}
-        </div>
-        <button class="nt-button" (click)="changeCurrentView('cart')">
-          {{ 'retreat-reservation.see_cart' | translate }}
-        </button>
-      </div>
-
-      <div class="retreat-reservation__content__list__go-to-list" *ngIf="currentView === 'cart'">
-        <a class="retreat-reservation__content__list__go-to-list__link nt-link" (click)="changeCurrentView('list')">
-          <img class="retreat-reservation__content__list__go-to-list__link__icon" src="../../assets/images/icons/icon_left_arrow.svg">
-
-          {{ 'retreat-reservation.back_to_list' | translate }}
-        </a>
-      </div>
-
-      <app-retreat-list [ngClass]="{'retreat-reservation__content__list__retreats--responsive': currentView === 'list'}"
-                           class="retreat-reservation__content__list__retreats"
-                           [retreatReservations]="retreatReservations"></app-retreat-list>
-      <app-retreat-cart [ngClass]="{'retreat-reservation__content__list__cart--responsive': currentView === 'cart'}"
-                           class="retreat-reservation__content__list__cart"></app-retreat-cart>
-    </div>
-  </div>
+  <app-product-selector-panel *ngIf="displayedPanel === 'product-selector'"
+                              class="retreat-reservation__panel"
+                              [product]="selectedRetreat"
+                              (close)="closePanel()"
+                              (addToCart)="addToCart()">
+  </app-product-selector-panel>
+  <app-authentication-panel *ngIf="displayedPanel === 'authentication'"
+                            class="retreat-reservation__panel"
+                            (close)="closePanel()"
+                            (onAuthentication)="subscribe(selectedRetreat)">
+  </app-authentication-panel>
+  <app-cart-panel *ngIf="displayedPanel === 'cart'"
+                  class="retreat-reservation__panel"
+                  [cart]="cart"
+                  (close)="closePanel()"
+                  (finalize)="finalize()">
+  </app-cart-panel>
 </div>
+<app-retreat-tutorial *ngIf="displayTutorial" (close)="closeTutorial()"></app-retreat-tutorial>

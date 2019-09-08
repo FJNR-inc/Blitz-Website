@@ -1,0 +1,13 @@
+<div class="payment-flow-success">
+  <img src="../../../../assets/images/felicitations.svg" class="payment-flow-success__image">
+  <app-title [level]="4"
+             text="Merci pour votre achat !"
+             class="payment-flow-success__texts"></app-title>
+  <app-title [level]="9"
+             class="payment-flow-success__texts"
+             text="Vous recevrez un reçu à l’adresse courriel de votre profil Thèsez-vous :"></app-title>
+  <div class="payment-flow-success__email">
+    {{profile.email}}
+  </div>
+  <app-button text="Retour a l'accueil" [type]="1" (click)="goToHomepage()"></app-button>
+</div>

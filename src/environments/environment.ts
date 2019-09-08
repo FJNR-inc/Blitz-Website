@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   default_language: 'fr',
-  multilingual_activated: true,
+  multilingual_activated: false,
   tomato_per_timeslot: 4,
   tomato_per_retreat: 20,
   url_base_api: 'http://localhost:8000',
@@ -55,8 +55,10 @@ export const environment = {
     retreatReservations: '/retreat/reservations',
     retreatInvitations: '/retreat/retreat_invitation',
     coupons: '/coupons',
+    options_products: '/option_products',
     coupons_use_export: '/coupon_uses/export',
     retreat_waiting_queues: '/retreat/wait_queues',
     retreat_waiting_queue_notifications: '/retreat/wait_queue_notifications',
+    retreat_invitation: '/retreat/retreat_invitation',
   }
 };

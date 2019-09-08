@@ -1,0 +1,21 @@
+<div class="payment-flow-membership">
+  <app-title [level]="4" text="Membership" class="payment-flow-membership__texts"></app-title>
+  <app-title [level]="9"  class="payment-flow-membership__texts"
+             text="Vous devez être membre de Thèsez-vous pour réserver à un espace
+        ou pour bénéficier des tarifs étudiants pour l’inscription aux retraites."></app-title>
+  <app-title [level]="9"  class="payment-flow-membership__texts"
+             text="Il est toujours possible de s’inscrire à une retraite de rédaction
+        sans être membre Thèsez-vous à un tarif plus élévé, il suffit de communiquer directement avec nous à
+        coordo@thesez-vous.com."></app-title>
+
+  <div class="form-group form-group--large">
+    <app-title [level]="7" type="label" for="membership" text="Choix du membership"></app-title>
+    <select class="nt-form-input nt-form-input--select" id="membership" [(ngModel)]="selectedMembership">
+      <option *ngFor="let membership of memberships; let i = index" [value]="i">{{ membership.name }}</option>
+    </select>
+  </div>
+  <div class="payment-flow-membership__actions">
+    <app-button text="Continuer" [type]="1" (click)="goForward()"></app-button>
+    <app-link text="Je ne souhaite pas devenir membre" (click)="goForward(true)"></app-link>
+  </div>
+</div>

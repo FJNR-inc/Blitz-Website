@@ -4,10 +4,11 @@ import {OrderLine} from '../../models/orderLine';
 import {Membership} from '../../models/membership';
 import {Retreat} from '../../models/retreat';
 import {TimeSlot} from '../../models/timeSlot';
-import {Cart} from '../../models/cart';
+import {Cart, SelectedProductOption} from '../../models/cart';
 import {Coupon} from '../../models/coupon';
 import {AppliedCoupon} from '../../models/appliedCoupon';
-
+import {Time} from '@angular/common';
+import {ReservationPackage} from '../../models/reservationPackage';
 
 @Injectable({
   providedIn: 'root'
@@ -37,26 +38,7 @@ export class MyCartService {
 
   contain(product: Retreat|TimeSlot|Membership) {
     const cart = this.getCart();
-
-    for (const retreat of cart.getRetreats()) {
-      if (retreat.url === product.url) {
-        return true;
-      }
-    }
-
-    for (const timeslot of cart.getTimeslots()) {
-      if (timeslot.url === product.url) {
-        return true;
-      }
-    }
-
-    for (const membership of cart.getMemberships()) {
-      if (membership.url === product.url) {
-        return true;
-      }
-    }
-
-    return false;
+    return cart.contain(product);
   }
 
   containMembership() {
@@ -68,9 +50,31 @@ export class MyCartService {
     }
   }
 
+  getCoupons() {
+    return this.getCart().getCoupons();
+  }
+
+  generateOrder() {
+    return this.getCart().generateOrder();
+  }
+
+  setAppliedCoupon(appliedCoupon: AppliedCoupon) {
+    this.getCart().setAppliedCoupon(appliedCoupon);
+  }
+
+  getDifferenceOfTicket() {
+    return this.getCart().getDifferenceOfTicket();
+  }
+
   setCart(cart: Cart) {
     localStorage.setItem(this.localStorageName, JSON.stringify(cart));
     this.cart.emit(cart);
+  }
+
+  setMetadata(product: Retreat | TimeSlot | ReservationPackage | Membership, metadata) {
+    const cart = this.getCart();
+    cart.setMetadata(product, metadata);
+    this.setCart(cart);
   }
 
   addMembership(membership: Membership) {
@@ -85,15 +89,15 @@ export class MyCartService {
     this.setCart(cart);
   }
 
-  setAppliedCoupon(coupon: AppliedCoupon[]) {
-    const cart = this.getCart();
-    cart.setAppliedCoupon(coupon);
-    this.setCart(cart);
-  }
-
   removeMembership(membershipId: number) {
     const cart = this.getCart();
     cart.removeMembership(membershipId);
+    this.setCart(cart);
+  }
+
+  removeReservationPackage(reservationPackageId: number) {
+    const cart = this.getCart();
+    cart.removeReservationPackage(reservationPackageId);
     this.setCart(cart);
   }
 
@@ -103,15 +107,33 @@ export class MyCartService {
     this.setCart(cart);
   }
 
-  addRetreat(retreat: Retreat) {
+  addRetreat(retreat: Retreat, productOptions: SelectedProductOption[] = []) {
     const cart = this.getCart();
-    cart.addRetreat(retreat);
+    cart.addRetreat(retreat, productOptions);
     this.setCart(cart);
   }
 
   removeRetreat(retreatId: number) {
     const cart = this.getCart();
     cart.removeRetreat(retreatId);
+    this.setCart(cart);
+  }
+
+  addTimeslot(timeslot: TimeSlot, productOptions: SelectedProductOption[] = []) {
+    const cart = this.getCart();
+    cart.addTimeslot(timeslot, productOptions);
+    this.setCart(cart);
+  }
+
+  addReservationPackage(reservationPackage: ReservationPackage) {
+    const cart = this.getCart();
+    cart.addReservationPackage(reservationPackage);
+    this.setCart(cart);
+  }
+
+  removeTimeslot(timeslotId: number) {
+    const cart = this.getCart();
+    cart.removeTimeslot(timeslotId);
     this.setCart(cart);
   }
 

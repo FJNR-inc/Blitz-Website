@@ -1,5 +1,9 @@
 import BaseModel from './baseModel';
 
+export interface OrderLineOption {
+  id: number;
+  quantity: number;
+}
 export class OrderLine extends BaseModel {
   id: number;
   url: string;
@@ -7,5 +11,7 @@ export class OrderLine extends BaseModel {
   object_id: number;
   order: string;
   quantity: number;
+  options: OrderLineOption[];
+  metadata: any;
 }
 
