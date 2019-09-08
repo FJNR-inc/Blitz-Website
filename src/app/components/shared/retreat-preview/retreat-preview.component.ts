@@ -6,7 +6,6 @@ import {RetreatService} from '../../../services/retreat.service';
 import {RetreatReservationService} from '../../../services/retreat-reservation.service';
 import {RetreatWaitingQueueService} from '../../../services/retreatWaitingQueue.service';
 import {RetreatWaitingQueue} from '../../../models/retreatWaitingQueue';
-import {_} from '@biesbjerg/ngx-translate-extract';
 import {MyModalService} from '../../../services/my-modal/my-modal.service';
 
 @Component({
