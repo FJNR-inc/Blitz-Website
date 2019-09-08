@@ -19,7 +19,7 @@
     </div>
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="Place(s) disponible(s)"></app-title>
-      <app-title [level]='9' [text]="retreat.places_remaining"></app-title>
+      <app-title [level]='9' [text]="getAvailablePlace()"></app-title>
     </div>
     <!--
     <div class="retreat-preview__infos__line">
@@ -80,8 +80,11 @@
     </div>
   </div>
 
+  <app-alert type="success" *ngIf="existingReservation" [messages]="['Vous êtes déjà inscrit à cette retraite']"></app-alert>
+  <app-alert type="warning" *ngIf="!existingReservation && getAvailablePlace() <= 0" [messages]="['Il n\'y a plus de place disponible pour cette retraite']"></app-alert>
+
   <app-button *ngIf="displaySubscribeButton"
               class="retreat-preview__button"
               text="S'inscrire"
-              (onClick)="subscribeToRetreat()"></app-button>
+              (onClick)="subscribeToRetreat()" [disabled]="!canSubscribe()"></app-button>
 </div>

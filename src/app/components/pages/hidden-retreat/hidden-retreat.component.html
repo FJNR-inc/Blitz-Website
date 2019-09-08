@@ -6,6 +6,7 @@
       <app-retreat-preview class="hidden-retreat__main__content__retreat"
                            *ngIf="retreat"
                            [retreat]="this.retreat"
+                           [invitation]="this.invitation"
                            [displaySubscribeButton]="true"
                            (subscribe)="subscribe()"></app-retreat-preview>
       <div class="hidden-retreat__main__content__info">
