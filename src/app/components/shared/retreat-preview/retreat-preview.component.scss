@@ -23,6 +23,7 @@
     margin-top: 20px;
     height: 200px;
     background-size: cover;
+    background-position: center center;
   }
 
   &__infos {
@@ -49,6 +50,11 @@
       &__item {
         display: block;
         margin-top: 20px;
+
+        &__title {
+          display: inline-block;
+          padding-right: 20px;
+        }
       }
     }
   }

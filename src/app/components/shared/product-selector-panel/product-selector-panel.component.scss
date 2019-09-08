@@ -20,6 +20,11 @@
   &__content {
     margin: 50px;
 
+    &__errors {
+      display: block;
+      margin: 20px 0;
+    }
+
     &__product {
       padding: 30px 0;
       border-top: 1px solid $nt2-color-4;

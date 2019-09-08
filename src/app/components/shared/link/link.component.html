@@ -1,3 +1,7 @@
-<a class="app-link" (click)="clicked()">
+<a *ngIf="!href" class="app-link" (click)="clicked()">
+  {{ text }}
+</a>
+
+<a *ngIf="href" class="app-link" (click)="clicked()" [href]="href" [target]="target">
   {{ text }}
 </a>

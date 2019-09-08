@@ -6,7 +6,6 @@ import {TimeSlot} from '../../../models/timeSlot';
 import {ReservationService} from '../../../services/reservation.service';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {SelectedProductOption} from '../../../models/cart';
-import {current} from 'codelyzer/util/syntaxKind';
 
 @Component({
   selector: 'app-product-selector-panel',
@@ -17,6 +16,7 @@ export class ProductSelectorPanelComponent implements OnInit {
 
   errors: string[];
   selectedProductOptions: SelectedProductOption[] = [];
+  canAddToCard = false;
 
   @Input() type: 'TimeSlot' | 'Retreat' = 'Retreat';
 
@@ -81,6 +81,8 @@ export class ProductSelectorPanelComponent implements OnInit {
         this._product = product;
         if (reservations.count > 0) {
           this.errors = ['Vous etes deja inscrit a cette retraite'];
+        } else {
+          this.canAddToCard = true;
         }
       }
     );
@@ -106,6 +108,8 @@ export class ProductSelectorPanelComponent implements OnInit {
         this._product = product;
         if (reservations.count > 0) {
           this.errors = ['Vous etes deja inscrit a cette plage horaire'];
+        } else {
+          this.canAddToCard = true;
         }
       }
     );

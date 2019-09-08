@@ -8,6 +8,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class LinkComponent implements OnInit {
 
   @Input() text: string;
+  @Input() href: string;
+  @Input() target: string;
 
   @Output() onClick: EventEmitter<any> = new EventEmitter();
 

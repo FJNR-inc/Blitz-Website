@@ -3,10 +3,10 @@
     <app-title [level]="3" [text]="retreat.name"></app-title>
     <app-title [level]="3" [text]="retreat.getStartDay()"></app-title>
   </div>
-  <app-title class="retreat-preview__subtitle" [level]="5" text="Sous-titre accrocheur"></app-title>
-  <app-title class="retreat-preview__description" [level]="8" [text]="retreat.details"></app-title>
+  <app-title class="retreat-preview__subtitle" [level]="5" [text]="retreat.sub_title"></app-title>
+  <app-title class="retreat-preview__description" [level]="8" [text]="retreat.description"></app-title>
 
-  <div class="retreat-preview__picture" [ngStyle]="{'background-image': 'url(\'../../assets/images/retraite.jpg\')'}"></div>
+  <div class="retreat-preview__picture" [ngStyle]="{'background-image': 'url(' + getRetreatPicture() + ')'}"></div>
 
   <div class="retreat-preview__infos">
     <div class="retreat-preview__infos__line">
@@ -15,26 +15,30 @@
     </div>
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="Lieu"></app-title>
-      <app-title [level]='9' [text]="retreat.city"></app-title>
+      <app-link text="{{ retreat.place_name }} ({{ retreat.city }})" [href]="retreat.google_maps_url" target="_blank"></app-link>
     </div>
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="Place(s) disponible(s)"></app-title>
-      <app-title [level]='9' [text]="retreat.seats"></app-title>
+      <app-title [level]='9' [text]="retreat.places_remaining"></app-title>
     </div>
+    <!--
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="Chambres"></app-title>
       <app-title [level]='9' text="# Occupation double"></app-title>
     </div>
+    -->
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="Tarif"></app-title>
-      <app-title [level]='9' [text]="retreat.price"></app-title>
+      <app-title [level]='9' text="{{ retreat.price }} $CAN"></app-title>
     </div>
+    <!--
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="Particularite(s)"></app-title>
       <app-title [level]='9' text="# # # #"></app-title>
     </div>
+    -->
     <div class="retreat-preview__infos__line retreat-preview__infos__line--clickable" (click)="toggleDetails()">
-      <app-title [level]='5' text="Informations supplementaires"></app-title>
+      <app-title [level]='5' text="Informations supplémentaires"></app-title>
       <div>
         <i class="icon icon--4x icon-plus" *ngIf="!displayDetails"></i>
         <i class="fas fa-minus" *ngIf="displayDetails"></i>
@@ -42,35 +46,36 @@
     </div>
     <div *ngIf="displayDetails" class="retreat-preview__infos__details">
       <div class="retreat-preview__infos__details__item">
-        <app-title [level]="8" text="Adresse"></app-title>
+        <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="Adresse"></app-title>
         <app-title [level]="9" [text]="retreat.getAddress()"></app-title>
       </div>
       <div class="retreat-preview__infos__details__item">
-        <app-title [level]="8" text="Debut"></app-title>
+        <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="Début"></app-title>
         <app-title [level]="9" [text]="retreat.getStartTime()"></app-title>
       </div>
       <div class="retreat-preview__infos__details__item">
-        <app-title [level]="8" text="Fin"></app-title>
+        <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="Fin"></app-title>
         <app-title [level]="9" [text]="retreat.getEndTime()"></app-title>
       </div>
+      <!--
       <div class="retreat-preview__infos__details__item">
-        <app-title [level]="8" text="Toilettes"></app-title>
+        <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="Toilettes"></app-title>
         <app-title [level]="9" text="# Genrees"></app-title>
       </div>
+      -->
       <div class="retreat-preview__infos__details__item">
-        <app-title [level]="8" text="Accessibilite"></app-title>
-        <app-title [level]="9" text="# Details accessibilite"></app-title>
+        <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="Accessibilité"></app-title>
+        <app-title [level]="9" [text]="retreat.accessibility_detail"></app-title>
       </div>
+      <!--
       <div class="retreat-preview__infos__details__item">
-        <app-title [level]="8" text="Options de repas"></app-title>
+        <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="Options de repas"></app-title>
         <app-title [level]="9" text="# Options vege, vegan, sans gluten, etc.."></app-title>
       </div>
+      -->
       <div class="retreat-preview__infos__details__item">
-        <app-title [level]="8" text="Autre information"></app-title>
-        <app-title [level]="9" text="# Le Lorem Ipsum est simplement du faux texte employé dans la composition et la
-        mise en page avant impression. Le Lorem Ipsum est le faux texte standard de
-        l’imprimerie depuis les années 1500, quand un imprimeur anonyme assembla
-        ensemble des morceaux de texte pour réaliser un livre spécimen"></app-title>
+        <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="Autres informations"></app-title>
+        <app-title [level]="9" [text]="retreat.details"></app-title>
       </div>
     </div>
   </div>

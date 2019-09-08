@@ -4,7 +4,7 @@
   </div>
   <div class="product-selector__content" *ngIf="product">
     <app-title [level]="4" text="Selection"></app-title>
-    <app-alert type="info" [messages]="errors" *ngIf="errors"></app-alert>
+    <app-alert class="product-selector__content__errors" type="info" [messages]="errors" *ngIf="errors"></app-alert>
     <div class="product-selector__content__product" *ngIf="type === 'Retreat'">
       {{ product.name }}<br/>
       {{ product.city }}<br/>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="product-selector__content__actions">
-      <app-button text="Ajouter au panier" (onClick)="clickedAddToCart()"></app-button>
+      <app-button text="Ajouter au panier" (onClick)="clickedAddToCart()" [disabled]="!canAddToCard"></app-button>
       <app-link text="Annuler" (onClick)="closePanel()"></app-link>
     </div>
   </div>

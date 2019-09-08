@@ -55,6 +55,15 @@ export class Retreat extends BaseModel {
   has_shared_rooms: boolean;
   hidden: boolean;
   options: OptionProduct[];
+  google_maps_url: string;
+  accessibility_detail: string;
+  sub_title: string;
+  description: string;
+  food_vege: string;
+  food_vegan: string;
+  food_allergen_free: string;
+  food_gluten_free: string;
+  pictures: string[];
 
   constructor(data: Object = {}) {
     super(data);

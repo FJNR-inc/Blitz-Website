@@ -115,7 +115,11 @@ export class RetreatReservationComponent implements OnInit {
       {
         'name': 'end_time__gte',
         'value': now
-      }
+      },
+      {
+        'name': 'hidden',
+        'value': false
+      },
     ];
     this.retreatService.list(filters).subscribe(
       data => {

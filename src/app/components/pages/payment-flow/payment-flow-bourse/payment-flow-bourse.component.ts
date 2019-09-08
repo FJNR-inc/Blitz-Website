@@ -129,7 +129,7 @@ export class PaymentFlowBourseComponent implements OnInit {
           if (err.error.non_field_errors) {
             this.universityErrors = err.error.non_field_errors;
           } else if (err.error.coupon) {
-            this.universityErrors = err.error.coupon[0];
+            this.universityErrors = err.error.coupon;
           }
         }
       );

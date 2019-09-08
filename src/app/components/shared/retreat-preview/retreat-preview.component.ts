@@ -27,4 +27,12 @@ export class RetreatPreviewComponent implements OnInit {
   toggleDetails() {
     this.displayDetails = !this.displayDetails;
   }
+
+  getRetreatPicture() {
+    if (this.retreat.pictures.length > 0) {
+      return this.retreat.pictures[0];
+    } else {
+     return '../../assets/images/retraite.jpg';
+    }
+  }
 }
