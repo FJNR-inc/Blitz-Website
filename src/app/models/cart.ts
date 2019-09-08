@@ -416,6 +416,10 @@ export class Cart {
     return total.toFixed(2);
   }
 
+  needPaymentInformation() {
+    return parseFloat(this.getTotal()) > 0 && !this.containPaymentMethod();
+  }
+
   generateOrderline(product: Retreat | TimeSlot | ReservationPackage | Membership,
                     contenttype: 'membership' | 'timeslot' | 'package' | 'retreat' ) {
     const assignedProductOption = this.getAssignedProductOptions(product);
@@ -423,7 +427,6 @@ export class Cart {
       'content_type': contenttype,
       'object_id': product.id,
       'quantity': 1,
-      'options': [],
     });
     for (const productOption of assignedProductOption) {
       orderLine.options.push(

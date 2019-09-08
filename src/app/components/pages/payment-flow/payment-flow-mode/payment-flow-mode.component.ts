@@ -89,4 +89,12 @@ export class PaymentFlowModeComponent implements OnInit {
   goForward() {
     this.forward.emit();
   }
+
+  isFree() {
+    return parseFloat(this.cart.getTotal()) <= 0;
+  }
+
+  canGoForward() {
+    return this.havePaymentMethod() || !this.cart.needPaymentInformation();
+  }
 }

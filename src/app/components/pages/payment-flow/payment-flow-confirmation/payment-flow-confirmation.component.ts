@@ -99,7 +99,7 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   }
 
   isReadyToFinalize() {
-    if (!this.cart.containPaymentMethod()) {
+    if (this.cart.needPaymentInformation()) {
       return false;
     } else if (this.cart.isEmpty()) {
       return false;

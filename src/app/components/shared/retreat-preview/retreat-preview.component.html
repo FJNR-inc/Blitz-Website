@@ -81,10 +81,28 @@
   </div>
 
   <app-alert type="success" *ngIf="existingReservation" [messages]="['Vous êtes déjà inscrit à cette retraite']"></app-alert>
-  <app-alert type="warning" *ngIf="!existingReservation && getAvailablePlace() <= 0" [messages]="['Il n\'y a plus de place disponible pour cette retraite']"></app-alert>
+  <app-alert type="success" *ngIf="existingWaitingQueue" [messages]="['Vous êtes déjà inscrit à cette file d\'attente']"></app-alert>
+  <app-alert type="warning"
+             *ngIf="!existingReservation && !existingWaitingQueue && getAvailablePlace() <= 0"
+             [messages]="['Il n\'y a plus de place disponible pour cette retraite']"></app-alert>
 
-  <app-button *ngIf="displaySubscribeButton"
-              class="retreat-preview__button"
+  <app-button class="retreat-preview__button"
               text="S'inscrire"
-              (onClick)="subscribeToRetreat()" [disabled]="!canSubscribe()"></app-button>
+              (onClick)="subscribeToRetreat()"
+              *ngIf="displaySubscribeButton && canSubscribe()"></app-button>
+
+  <app-button class="retreat-preview__button"
+              text="Liste d'attente"
+              (onClick)="subscribeToQueue()"
+              *ngIf="displaySubscribeButton && canSubscribeToWaitingQueue()"></app-button>
 </div>
+
+<app-nt-modal name="waiting-list-success"
+              typeModal="success"
+              [displayButtons]="false"
+              maxWidth="600px"
+              [autoClose]="true">
+  <p>
+    {{ 'retreat-list-item.notifications.subscribe_waiting_list.success.content' | translate:{position: this.positionInList} }}
+  </p>
+</app-nt-modal>

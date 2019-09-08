@@ -33,6 +33,9 @@ export class RetreatWaitingQueueService extends GlobalService {
         if (filter.name === 'user') {
           params = params.set('user', filter.value);
         }
+        if (filter.name === 'retreat') {
+          params = params.set('retreat', filter.value);
+        }
       }
     }
     return this.http.get<any>(

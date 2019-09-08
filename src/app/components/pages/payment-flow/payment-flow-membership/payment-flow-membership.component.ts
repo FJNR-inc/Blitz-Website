@@ -44,8 +44,10 @@ export class PaymentFlowMembershipComponent implements OnInit {
     );
   }
 
-  goForward() {
-    this.cartService.addMembership(this.memberships[this.selectedMembership]);
+  goForward(skipMembership = false) {
+    if (!skipMembership) {
+      this.cartService.addMembership(this.memberships[this.selectedMembership]);
+    }
     this.forward.emit();
   }
 }

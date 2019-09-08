@@ -16,5 +16,6 @@
   </div>
   <div class="payment-flow-membership__actions">
     <app-button text="Continuer" [type]="1" (click)="goForward()"></app-button>
+    <app-link text="Je ne souhaite pas devenir membre" (click)="goForward(true)"></app-link>
   </div>
 </div>

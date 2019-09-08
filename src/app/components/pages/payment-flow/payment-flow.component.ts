@@ -17,7 +17,6 @@ export class PaymentFlowComponent implements OnInit {
   set cart(cart) {
     this._cart = cart;
     this.refreshCouponUsage();
-    this.refreshStep();
   }
   get cart() {
     return this._cart;
@@ -77,12 +76,6 @@ export class PaymentFlowComponent implements OnInit {
   }
 
   ngOnInit() { }
-
-  refreshStep() {
-    if (this.cart.getMemberships().length !== 1) {
-      this.currentStep = this.membershipStep;
-    }
-  }
 
   refreshCouponUsage() {
     if (this.cart.getCoupons().length) {

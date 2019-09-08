@@ -9,7 +9,11 @@
   &__actions {
     margin-top: 30px;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
     align-items: center;
+
+    & > * {
+      margin-bottom: 30px;
+    }
   }
 }

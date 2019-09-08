@@ -167,7 +167,7 @@ export class NtHeaderComponent implements OnInit {
         }, {
           label: _('header.membership.become_member'),
           url: '',
-          router_url: '/register',
+          router_url: '/membership/intro',
           type: 'button'
         }
       ]

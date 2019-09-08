@@ -6,6 +6,7 @@ import {Cart} from '../../../models/cart';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RetreatInvitationService} from '../../../services/retreatInvitation.service';
 import {RetreatService} from '../../../services/retreat.service';
+import {Coupon} from '../../../models/coupon';
 
 @Component({
   selector: 'app-hidden-retreat',
@@ -17,6 +18,7 @@ export class HiddenRetreatComponent implements OnInit {
   retreat: Retreat;
   invitation: any;
   cart: Cart;
+  coupon: Coupon;
 
   displayedPanel: 'authentication' | 'product-selector' | 'cart';
 
@@ -41,11 +43,8 @@ export class HiddenRetreatComponent implements OnInit {
         data => {
           if (data.count > 0) {
             this.invitation = data.results[0];
-            this.retreatService.getByUrl(data.results[0].retreat).subscribe(
-              retreat => {
-                this.retreat = new Retreat(retreat);
-              }
-            );
+            this.retreat = new Retreat(this.invitation.retreat);
+            this.coupon = new Coupon(this.invitation.coupon);
           } else {
             this.router.navigate(['/404']);
           }
@@ -64,12 +63,11 @@ export class HiddenRetreatComponent implements OnInit {
     } else {
       this.displayedPanel = 'authentication';
     }
-    console.log(this.displayedPanel);
   }
 
   addToCart() {
-    console.log(this.generateMetaData());
     this.cartService.setMetadata(this.retreat, this.generateMetaData());
+    this.cartService.addCoupon(this.coupon);
     this.displayedPanel = 'cart';
   }
 
