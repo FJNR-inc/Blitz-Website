@@ -119,10 +119,18 @@ export class PaymentFlowConfirmationComponent implements OnInit {
         this.router.navigate(['/payment-successful']);
       }, err => {
         this.waitAPI = false;
+        this.errorOrder = [];
         if (err.error.non_field_errors) {
           this.errorOrder = err.error.non_field_errors;
         } else {
-          this.errorOrder = [_('shared.form.errors.unknown')];
+          this.errorOrder = this.errorOrder.concat([_('shared.form.errors.unknown')]);
+          if (err.error.order_lines) {
+            for (const orderLine of err.error.order_lines) {
+              if (orderLine.object_id) {
+                this.errorOrder = this.errorOrder.concat(orderLine.object_id);
+              }
+            }
+          }
         }
       }
     );
