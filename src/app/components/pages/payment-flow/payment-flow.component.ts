@@ -106,4 +106,8 @@ export class PaymentFlowComponent implements OnInit {
   goForward() {
     this.currentStep = this.steps[this.steps.indexOf(this.currentStep) + 1];
   }
+
+  isAfterBourseStep() {
+    return this.steps.indexOf(this.currentStep) > this.steps.indexOf(this.bourseStep);
+  }
 }

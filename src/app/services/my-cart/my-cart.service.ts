@@ -101,9 +101,9 @@ export class MyCartService {
     this.setCart(cart);
   }
 
-  removeCoupon(couponCode: string) {
+  removeCoupon() {
     const cart = this.getCart();
-    cart.removeCoupon(couponCode);
+    cart.removeCoupon();
     this.setCart(cart);
   }
 

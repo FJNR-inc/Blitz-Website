@@ -17,7 +17,6 @@ import {OrderService} from '../../../../services/order.service';
 })
 export class PaymentFlowBourseComponent implements OnInit {
 
-  haveGrantApplied = false;
   universityForm: FormGroup;
   universityErrors: string[];
   universityFields = [
@@ -74,40 +73,40 @@ export class PaymentFlowBourseComponent implements OnInit {
   submitUniversityInformation() {
     const temporaryCart = this.cartService.getCart();
 
-    if (!this.haveGrantApplied) {
-      this.haveGrantApplied = true;
-      const value = new User({
-        academic_program_code: this.universityForm.controls['academic_program_code'].value,
-        faculty: this.universityForm.controls['faculty'].value,
-        student_number: this.universityForm.controls['student_number'].value
-      });
+    const value = new User({
+      academic_program_code: this.universityForm.controls['academic_program_code'].value,
+      faculty: this.universityForm.controls['faculty'].value,
+      student_number: this.universityForm.controls['student_number'].value
+    });
+    if (this.universityForm.controls['coupon_code'].value === '') {
+      temporaryCart.removeCoupon();
+    } else {
       const newCoupon = new Coupon({
           code: this.universityForm.controls['coupon_code'].value
         }
       );
-
-      const profile = this.authenticationService.getProfile();
-      this.userService.update(profile.url, value).subscribe(
-        user => {
-          this.authenticationService.setProfile(user);
-          temporaryCart.addCoupon(newCoupon);
-          this.refreshCouponUsage(temporaryCart);
-        },
-        err => {
-          this.haveGrantApplied = false;
-          if (err.error.non_field_errors) {
-            this.universityErrors = err.error.non_field_errors;
-          } else {
-            this.universityErrors = ['shared.form.errors.unknown'];
-          }
-          this.universityForm = FormUtil.manageFormErrors(this.universityForm, err);
-        }
-      );
+      temporaryCart.addCoupon(newCoupon);
     }
+
+    const profile = this.authenticationService.getProfile();
+    this.userService.update(profile.url, value).subscribe(
+      user => {
+        this.authenticationService.setProfile(user);
+        this.refreshCouponUsage(temporaryCart);
+      },
+      err => {
+        if (err.error.non_field_errors) {
+          this.universityErrors = err.error.non_field_errors;
+        } else {
+          this.universityErrors = ['shared.form.errors.unknown'];
+        }
+        this.universityForm = FormUtil.manageFormErrors(this.universityForm, err);
+      }
+    );
   }
 
   canAddAGrant() {
-    return FormUtil.isCompleted(this.universityForm, this.universityFields) && !this.haveGrantApplied;
+    return FormUtil.isCompleted(this.universityForm, this.universityFields);
   }
 
   goBack() {
@@ -134,6 +133,7 @@ export class PaymentFlowBourseComponent implements OnInit {
         }
       );
     } else {
+      this.cartService.removeCoupon();
       this.forward.emit();
     }
   }
