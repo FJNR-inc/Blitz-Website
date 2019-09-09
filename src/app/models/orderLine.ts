@@ -13,5 +13,14 @@ export class OrderLine extends BaseModel {
   quantity: number;
   options: OrderLineOption[];
   metadata: any;
+
+  constructor(data: Object = {}) {
+    super(data);
+    if (data) {
+      if (data.hasOwnProperty('options')) {
+        this.options = data['options'];
+      }
+    }
+  }
 }
 
