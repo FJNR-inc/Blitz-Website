@@ -40,7 +40,7 @@ export class CartSummaryComponent implements OnInit {
   }
 
   removeCouponFromCart(coupon) {
-    this.cartService.removeCoupon(coupon.code);
+    this.cartService.removeCoupon();
   }
 
   getAppliedCoupon(coupon: Coupon) {

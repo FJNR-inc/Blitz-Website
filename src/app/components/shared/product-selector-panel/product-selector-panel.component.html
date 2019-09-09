@@ -14,7 +14,7 @@
     <div class="product-selector__content__product" *ngIf="type === 'TimeSlot'">
       {{ product.getStartDay() }}<br/>
       {{ product.getStartTime() }} <i class="fas fa-arrow-right"></i> {{ product.getEndTime() }}<br/>
-      {{ product.billing_price }} $CAN<br/>
+      {{ product.billing_price }} bloc prépayé<br/>
     </div>
     <div class="product-selector__content__options" *ngIf="product.options && product.options.length > 0">
       <app-title [level]="6" text="Veuillez selectionner les options de votre choix"></app-title>

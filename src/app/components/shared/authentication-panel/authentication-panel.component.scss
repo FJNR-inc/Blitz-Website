@@ -19,10 +19,16 @@
 
   &__content {
     margin: 50px;
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      margin-bottom: 20px;
+    }
 
     &__login {
       display: block;
-      margin-top: 40px;
+      margin-top: 20px;
     }
   }
 }

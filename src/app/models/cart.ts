@@ -327,15 +327,8 @@ export class Cart {
     }
   }
 
-  removeCoupon(couponCode: string) {
-    let index = 0;
-    for (const coupon of this._coupons) {
-      if (coupon.code === couponCode) {
-        this._coupons.splice(index, 1);
-        break;
-      }
-      index += 1;
-    }
+  removeCoupon() {
+    this._coupons = [];
   }
 
   containPaymentMethod() {

@@ -9,7 +9,7 @@
     <app-link text="Modifier le mode de paiement" (onClick)="resetPaymentMode()"></app-link>
   </div>
 
-  <app-alert type="success" *ngIf="isFree()" [messages]="['Le total de votre panier etant de 0$CAN, vous n\'avez pas besoin de mode de paiement']"></app-alert>
+  <app-alert type="success" *ngIf="isFree()" [messages]="['Le total de votre panier étant de 0$CAN, vous n\'avez pas besoin de mode de paiement']"></app-alert>
   <div class="payment-flow-mode__actions">
     <app-button text="Precedent" [type]="3" (click)="goBack()"></app-button>
     <app-button text="Continuer" [type]="1" (click)="goForward()" [disabled]="!canGoForward()"></app-button>
