@@ -62,5 +62,9 @@ export class User extends BaseModel {
   getFullName() {
     return this.first_name + ' ' + this.last_name;
   }
+
+  get hasMembershipActive(): boolean{
+   return this.getTimeBeforeEndMembership() > 0;
+  }
 }
 

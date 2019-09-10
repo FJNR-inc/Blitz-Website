@@ -262,11 +262,16 @@ export class Cart {
       this._coupons = [coupon];
     } else {
       console.error('Coupon may have a code.');
+      console.error(coupon);
     }
   }
 
   setAppliedCoupon(coupon: AppliedCoupon) {
     this._applied_coupons = [coupon];
+  }
+
+  removeAppliedCoupon() {
+    this._applied_coupons = [];
   }
 
   addMembership(membership: Membership, productOptions: SelectedProductOption[] = []) {

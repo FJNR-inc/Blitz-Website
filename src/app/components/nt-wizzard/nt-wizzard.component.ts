@@ -1,6 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
+export interface WizzardItem {
+  name: string;
+  activated?: boolean;
+  completed?: boolean;
+}
+
 @Component({
   selector: 'app-nt-wizzard',
   templateUrl: './nt-wizzard.component.html',
@@ -8,7 +14,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class NtWizzardComponent implements OnInit {
 
-  items: any[] = [
+  items: WizzardItem[] = [
     {
       'name': 'nt-wizzard.informations'
     },
@@ -49,7 +55,7 @@ export class NtWizzardComponent implements OnInit {
       let count = 0;
       for (const item of this.items) {
         if (count === this.active) {
-          item.actived = true;
+          item.activated = true;
           break;
         } else {
           item.completed = true;
@@ -65,5 +71,9 @@ export class NtWizzardComponent implements OnInit {
     } else {
       return 0;
     }
+  }
+
+  get maxWidth(): string{
+    return `${100 / this.items.length}%`;
   }
 }

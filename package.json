@@ -17,7 +17,7 @@
     "aws_copy:prod:deploy_page": "aws s3 cp ./deploy s3://thesezvous-frontend --recursive --acl public-read",
     "aws_invalidate": "aws cloudfront create-invalidation --distribution-id E1UQGH7N2I6YW4 --paths /index.html",
     "deploy:prod": "npm run build:prod && npm run aws_clean:prod && npm run aws_copy:prod && npm run aws_invalidate",
-    "deploy:prod:deploy_page": "npm run aws_clean:prod && npm run aws_copy:deploy_page && npm run aws_invalidate",
+    "deploy:prod:deploy_page": "npm run aws_clean:prod && npm run aws_copy:prod:deploy_page && npm run aws_invalidate",
     "build:qa": "ng build -c=qa",
     "aws_clean:qa": "aws s3 rm s3://thesezvous-dev-frontendbucket-3k24zycbd7x --recursive",
     "aws_copy:qa": "aws s3 cp ./dist s3://thesezvous-dev-frontendbucket-3k24zycbd7x --recursive --acl public-read",

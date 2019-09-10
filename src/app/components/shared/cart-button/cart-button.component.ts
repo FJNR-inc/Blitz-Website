@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {Cart} from '../../../models/cart';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-cart-button',
@@ -9,17 +10,13 @@ import {Cart} from '../../../models/cart';
 })
 export class CartButtonComponent implements OnInit {
 
-  cart: Cart;
+
+  cart$: Observable<Cart>;
 
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private cartService: MyCartService) {
-    this.cart = this.cartService.getCart();
-    this.cartService.cart.subscribe(
-      emitedCart => {
-        this.cart = emitedCart;
-      }
-    );
+    this.cart$ = this.cartService.cart$;
   }
 
   ngOnInit() {
