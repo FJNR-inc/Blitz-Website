@@ -91,4 +91,12 @@ export class RetreatService extends GlobalService {
       {headers: headers}
     );
   }
+
+  exportOptions(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_retreats + '/' + id + '/export_options',
+      {headers: headers}
+    );
+  }
 }

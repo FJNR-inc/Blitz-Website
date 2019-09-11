@@ -505,4 +505,12 @@ export class RetreatComponent implements OnInit {
     this.errors = null;
   }
 
+  exportOptions() {
+    this.retreatService.exportOptions(this.retreat.id).subscribe(
+      data => {
+        window.open(data.file_url);
+      }
+    );
+  }
+
 }
