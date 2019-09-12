@@ -7,6 +7,9 @@
       <a class="admin-retreat-page__header__name__edit button" (click)="OpenModalEditRetreat()">
         <i class="fas fa-pencil-alt"></i> {{ 'retreat.edit_retreat' | translate }}
       </a>
+      <a class="admin-retreat-page__header__name__edit button" (click)="exportOptions()">
+        <i class="fas fa-file-download"></i> {{ 'retreat.export_options' | translate }}
+      </a>
     </div>
     <div class="admin-retreat-page__header__informations">
       <i class="fas fa-location-arrow"></i> {{ retreat.getAddress() }}<br/>
