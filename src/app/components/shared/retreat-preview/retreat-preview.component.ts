@@ -32,7 +32,7 @@ export class RetreatPreviewComponent implements OnInit {
               private retreatWaitingQueueService: RetreatWaitingQueueService,
               private modalService: MyModalService) {
     this.authenticationService.profile.subscribe(
-      emitedProfile => {
+      () => {
         this.refreshRetreatReservations();
         this.refreshRetreatWaitingQueue();
       }
@@ -113,15 +113,7 @@ export class RetreatPreviewComponent implements OnInit {
     );
   }
 
-  getRetreatPicture() {
-    if (this.retreat.pictures.length > 0) {
-      return this.retreat.pictures[0];
-    } else {
-     return '../../assets/images/retraite.jpg';
-    }
-  }
-
-  getAvailablePlace() {
+  get availablePlace() {
     if (this.retreat.hidden) {
       return Number(this.invitation.nb_places) - Number(this.invitation.nb_places_used);
     } else {
@@ -130,10 +122,10 @@ export class RetreatPreviewComponent implements OnInit {
   }
 
   canSubscribe() {
-    return this.getAvailablePlace() > 0 && !this.existingReservation;
+    return this.availablePlace > 0 && !this.existingReservation;
   }
 
   canSubscribeToWaitingQueue() {
-    return !this.canSubscribe() && !this.existingWaitingQueue;
+    return this.availablePlace <= 0 && !this.existingReservation && !this.existingWaitingQueue;
   }
 }

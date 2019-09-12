@@ -128,5 +128,13 @@ export class Retreat extends BaseModel {
       return null;
     }
   }
+
+  get firstPicture(){
+    if (this.pictures.length > 0) {
+      return this.pictures[0];
+    } else {
+      return '../../assets/images/retraite.jpg';
+    }
+  }
 }
 

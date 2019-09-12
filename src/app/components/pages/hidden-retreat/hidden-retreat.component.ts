@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Retreat} from '../../../models/retreat';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
-import {Cart} from '../../../models/cart';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RetreatInvitationService} from '../../../services/retreatInvitation.service';
 import {RetreatService} from '../../../services/retreat.service';
@@ -17,7 +16,6 @@ export class HiddenRetreatComponent implements OnInit {
 
   retreat: Retreat;
   invitation: any;
-  cart: Cart;
   coupon: Coupon;
 
   displayedPanel: 'authentication' | 'product-selector' | 'cart';
@@ -28,12 +26,6 @@ export class HiddenRetreatComponent implements OnInit {
               private cartService: MyCartService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
-    this.cart = this.cartService.getCart();
-    this.cartService.cart.subscribe(
-      emitedCart => {
-        this.cart = emitedCart;
-      }
-    );
   }
 
   ngOnInit() {

@@ -85,22 +85,22 @@
   </div>
   <div class="cart-summary__coupons" *ngIf="cart.getCoupons().length && displayCoupon">
     <app-title [level]="6" class="cart-summary__coupons__title" text="RÉDUCTIONS"></app-title>
-    <div *ngFor="let coupon of cart.getCoupons()" class="cart-summary__coupons__coupon">
+    <div *ngFor="let coupon_applied of cart.getAppliedCoupons()" class="cart-summary__coupons__coupon">
       <div class="cart-summary__coupons__coupon__code">
-        <app-title [level]="9" [text]="coupon.code"></app-title>
+        <app-title [level]="9" [text]="coupon_applied.coupon.code"></app-title>
         <div class="cart-summary__coupons__coupon__code__reason"
-             [ngClass]="{'cart-summary__coupons__coupon__code__reason--disabled': isCouponDisabled(coupon)}"
-             *ngIf="getAppliedCoupon(coupon) && getAppliedCoupon(coupon).reason">
-          {{ getAppliedCoupon(coupon).reason }}
+             [ngClass]="{'cart-summary__coupons__coupon__code__reason--disabled': isCouponDisabled(coupon_applied)}"
+             *ngIf="getAppliedCoupon(coupon_applied.coupon) && getAppliedCoupon(coupon_applied.coupon).reason">
+          {{ getAppliedCoupon(coupon_applied.coupon).reason }}
         </div>
       </div>
       <div class="cart-summary__coupons__coupon__price">
-        <span *ngIf="getAppliedCoupon(coupon) && !getAppliedCoupon(coupon).reason">
-          {{ getAppliedCoupon(coupon)['value'] }} $CAN
+        <span *ngIf="getAppliedCoupon(coupon_applied.coupon) && !getAppliedCoupon(coupon_applied.coupon).reason">
+          {{ getAppliedCoupon(coupon_applied.coupon)['value'] }} $CAN
         </span>
       </div>
       <div class="cart-summary__coupons__coupon__action">
-        <img (click)="removeCouponFromCart(coupon)" class="cart-summary__coupons__coupon__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+        <img (click)="removeCouponFromCart()" class="cart-summary__coupons__coupon__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
       </div>
     </div>
   </div>

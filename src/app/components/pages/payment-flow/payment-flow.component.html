@@ -19,7 +19,7 @@
                                      (forward)="goForward()"></app-payment-flow-confirmation>
     </div>
     <div class="payment-flow__content__side">
-      <app-cart-summary [cart]="cart" [displayCoupon]="isAfterBourseStep()" *ngIf="currentStep.id !== 'confirmation'"></app-cart-summary>
+      <app-cart-summary [displayCoupon]="isAfterBourseStep()" *ngIf="currentStep.id !== 'confirmation'"></app-cart-summary>
       <div *ngIf="currentStep.id === 'confirmation'" class="payment-flow__content__side__politics">
         <app-title [level]="3" text="Politiques d'annulation"></app-title>
         <app-title [level]="6" text="Les retraites de rédaction" class="payment-flow__content__side__politics__title"></app-title>

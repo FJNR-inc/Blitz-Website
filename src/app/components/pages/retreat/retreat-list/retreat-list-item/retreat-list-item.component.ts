@@ -7,6 +7,8 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {MyNotificationService} from '../../../../../services/my-notification/my-notification.service';
 import {AuthenticationService} from '../../../../../services/authentication.service';
 import { MyModalService } from '../../../../../services/my-modal/my-modal.service';
+import {Cart} from '../../../../../models/cart';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-retreat-list-item',
@@ -25,6 +27,8 @@ export class RetreatListItemComponent implements OnInit {
   positionInList = null;
   modalName = null;
 
+  cart: Cart;
+  cart$: Observable<Cart>;
 
   constructor(private cartService: MyCartService,
               private retreatWaitingQueueService: RetreatWaitingQueueService,
@@ -34,6 +38,10 @@ export class RetreatListItemComponent implements OnInit {
               }
 
   ngOnInit() {
+    this.cart$ = this.cartService.cart$;
+    this.cart$.subscribe(
+      (cart: Cart) => this.cart = cart
+    );
     this.modalName = 'waiting-list-success-' + String(this.retreat.id);
   }
 
@@ -70,7 +78,7 @@ export class RetreatListItemComponent implements OnInit {
   }
 
   isInCart() {
-    return this.cartService.contain(this.retreat);
+    return this.cart.contain(this.retreat);
   }
 
   subscribeToWaitingList() {
@@ -88,7 +96,7 @@ export class RetreatListItemComponent implements OnInit {
           _('retreat-list-item.notifications.subscribe_waiting_list.success.title'),
           _('shared.ok')
          );
-      }, err => {
+      }, () => {
         this.notificationService.success(
           _('retreat-list-item.notifications.subscribe_waiting_list.error.title'),
           _('retreat-list-item.notifications.subscribe_waiting_list.error.content')

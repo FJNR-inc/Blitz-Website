@@ -9,6 +9,8 @@ import {UserService} from '../../../../services/user.service';
 import {MyCartService} from '../../../../services/my-cart/my-cart.service';
 import {AppliedCoupon} from '../../../../models/appliedCoupon';
 import {OrderService} from '../../../../services/order.service';
+import {Observable} from 'rxjs';
+import {Cart} from '../../../../models/cart';
 
 @Component({
   selector: 'app-payment-flow-bourse',
@@ -45,12 +47,17 @@ export class PaymentFlowBourseComponent implements OnInit {
   @Output() back: EventEmitter<any> = new EventEmitter<any>();
   @Output() forward: EventEmitter<any> = new EventEmitter<any>();
 
+  cart$: Observable<Cart>;
+  currentCart: Cart;
+
   constructor(private authenticationService: AuthenticationService,
               private userService: UserService,
               private cartService: MyCartService,
               private orderService: OrderService) { }
 
   ngOnInit() {
+    this.cart$ = this.cartService.cart$;
+    this.cart$.subscribe((cart: Cart) => this.currentCart = cart);
     this.initUniversityForm();
   }
 
@@ -58,12 +65,9 @@ export class PaymentFlowBourseComponent implements OnInit {
     const formUtil = new FormUtil();
     this.universityForm = formUtil.createFormGroup(this.universityFields);
     const profile = this.authenticationService.getProfile();
-    const cart = this.cartService.getCart();
-    if (cart) {
-      const coupons = cart.getCoupons();
-      if (coupons.length > 0) {
-        this.universityForm.controls['coupon_code'].setValue(coupons[0].code);
-      }
+    const coupons = this.currentCart.getCoupons();
+    if (coupons.length > 0) {
+      this.universityForm.controls['coupon_code'].setValue(coupons[0].code);
     }
     this.universityForm.controls['academic_program_code'].setValue(profile.academic_program_code);
     this.universityForm.controls['faculty'].setValue(profile.faculty);
@@ -71,7 +75,7 @@ export class PaymentFlowBourseComponent implements OnInit {
   }
 
   submitUniversityInformation() {
-    const temporaryCart = this.cartService.getCart();
+    const temporaryCart = this.currentCart;
 
     const value = new User({
       academic_program_code: this.universityForm.controls['academic_program_code'].value,
@@ -121,7 +125,10 @@ export class PaymentFlowBourseComponent implements OnInit {
     if (temporaryCart.getCoupons().length) {
       this.orderService.validate(temporaryCart.generateOrder()).subscribe(
         data => {
-          this.cartService.addCoupon(temporaryCart.getCoupons()[0]);
+
+          const newAppliedCoupon = new AppliedCoupon(data);
+          newAppliedCoupon.coupon = temporaryCart.getCoupons()[0];
+          this.cartService.setAppliedCoupon(newAppliedCoupon);
           this.forward.emit();
         },
         err => {
@@ -130,10 +137,12 @@ export class PaymentFlowBourseComponent implements OnInit {
           } else if (err.error.coupon) {
             this.universityErrors = err.error.coupon;
           }
+
+          this.cartService.removeAppliedCoupon();
         }
       );
     } else {
-      this.cartService.removeCoupon();
+      this.cartService.removeAppliedCoupon();
       this.forward.emit();
     }
   }

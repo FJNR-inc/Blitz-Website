@@ -4,11 +4,11 @@
   </div>
   <div class="cart-panel__content">
 
-    <app-cart-summary [cart]="cart" [displayPrice]="false" [displayCoupon]="false"></app-cart-summary>
+    <app-cart-summary [displayPrice]="false" [displayCoupon]="false"></app-cart-summary>
 
     <div class="cart-panel__content__actions">
-      <app-button text="Passer a la caisse" (onClick)="clickedToFinalize()"></app-button>
-      <app-link text="Fermer" (onClick)="closePanel()"></app-link>
+      <app-button [text]="'Passer à la caisse'" (onClick)="clickedToFinalize()"></app-button>
+      <app-link [text]="'Fermer'" (onClick)="closePanel()"></app-link>
     </div>
   </div>
 </div>

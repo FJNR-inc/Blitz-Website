@@ -60,7 +60,6 @@
   </app-authentication-panel>
   <app-cart-panel *ngIf="displayedPanel === 'cart'"
                   class="retreat-reservation__panel"
-                  [cart]="cart"
                   (close)="closePanel()"
                   (finalize)="finalize()">
   </app-cart-panel>

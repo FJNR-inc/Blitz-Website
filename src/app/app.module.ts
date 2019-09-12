@@ -104,7 +104,6 @@ import { DesignDocumentationSectionComponent } from './components/pages/admin/de
 import { RetreatReservationComponent } from './components/pages/retreat/retreat-reservation/retreat-reservation.component';
 import { RetreatTutorialComponent } from './components/pages/retreat/retreat-tutorial/retreat-tutorial.component';
 import { RetreatListComponent } from './components/pages/retreat/retreat-list/retreat-list.component';
-import { RetreatCartComponent } from './components/pages/retreat/retreat-cart/retreat-cart.component';
 // tslint:disable-next-line:max-line-length
 import { RetreatListItemComponent } from './components/pages/retreat/retreat-list/retreat-list-item/retreat-list-item.component';
 import { LoginFormComponent } from './components/shared/forms/login-form/login-form.component';
@@ -627,7 +626,6 @@ const appRoutes = [
     RetreatReservationComponent,
     RetreatTutorialComponent,
     RetreatListComponent,
-    RetreatCartComponent,
     RetreatListItemComponent,
     LoginFormComponent,
     IconInfoComponent,
@@ -681,7 +679,7 @@ const appRoutes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true }
+      { enableTracing: false }
     ),
     HttpClientModule,
     FormsModule,

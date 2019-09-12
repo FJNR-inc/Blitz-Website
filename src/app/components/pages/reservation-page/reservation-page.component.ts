@@ -5,7 +5,7 @@ import {
   isSameMonth,
 } from 'date-fns';
 
-import { Subject } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import { CalendarDateFormatter, CalendarEvent, DAYS_OF_WEEK } from 'angular-calendar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WorkplaceService } from '../../../services/workplace.service';
@@ -99,7 +99,9 @@ export class ReservationPageComponent implements OnInit {
   selectedTimeslot: TimeSlot;
   selectedReservationPackageIndex = 1;
   displayedPanel: 'authentication' | 'product-selector' | 'cart';
+
   cart: Cart;
+  cart$: Observable<Cart>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
@@ -115,15 +117,14 @@ export class ReservationPageComponent implements OnInit {
               private notificationService: MyNotificationService,
               private internationalizationService: InternationalizationService,
               private cartService: MyCartService) {
-    this.cart = this.cartService.getCart();
-    this.cartService.cart.subscribe(
-      emitedCart => {
-        this.cart = emitedCart;
-      }
-    );
   }
 
   ngOnInit() {
+    this.cart$ = this.cartService.cart$;
+    this.cart$.subscribe(
+      (cart: Cart) => this.cart = cart
+    );
+
     this.refreshProfile();
     this.refreshListTimeSlot();
     this.refreshListMembership();
@@ -318,7 +319,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   getNumberOfTicketAvailable() {
-    let total = this.cartService.getDifferenceOfTicket();
+    let total = this.cart.getDifferenceOfTicket();
     const user = this.authenticationService.getProfile();
 
     if (user) {
