@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Cart} from '../../../models/cart';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {Step} from './payment-flow-wizard/payment-flow-wizard.component';
-import {AppliedCoupon} from '../../../models/appliedCoupon';
 import {OrderService} from '../../../services/order.service';
 
 @Component({
@@ -12,15 +10,6 @@ import {OrderService} from '../../../services/order.service';
   styleUrls: ['./payment-flow.component.scss']
 })
 export class PaymentFlowComponent implements OnInit {
-
-  _cart: Cart;
-  set cart(cart) {
-    this._cart = cart;
-    this.refreshCouponUsage();
-  }
-  get cart() {
-    return this._cart;
-  }
 
   membershipStep: Step = {
     'label': 'Membership',
@@ -58,17 +47,9 @@ export class PaymentFlowComponent implements OnInit {
   currentStep: Step;
 
   constructor(private cartService: MyCartService,
-              private authenticationService: AuthenticationService,
-              private orderService: OrderService) {
-    this.cart = this.cartService.getCart();
-    this.cartService.cart.subscribe(
-      emitedCart => {
-        this.cart = emitedCart;
-      }
-    );
+              private authenticationService: AuthenticationService) {
 
-    const have_membership = this.authenticationService.getProfile().getTimeBeforeEndMembership() > 0;
-    if (have_membership) {
+    if (this.authenticationService.getProfile().hasMembershipActive) {
       this.steps.splice(0, 1);
     }
 
@@ -77,27 +58,7 @@ export class PaymentFlowComponent implements OnInit {
 
   ngOnInit() { }
 
-  refreshCouponUsage() {
-    if (this.cart.getCoupons().length) {
-      this.orderService.validate(this.cart.generateOrder()).subscribe(
-        data => {
-          const newAppliedCoupon = new AppliedCoupon(data);
-          newAppliedCoupon['coupon'] = this.cart.getCoupons()[0];
-          this.cart.setAppliedCoupon(newAppliedCoupon);
-        },
-        err => {
-          const newAppliedCoupon = new AppliedCoupon();
-          newAppliedCoupon['coupon'] = this.cart.getCoupons()[0];
-          if (err.error.non_field_errors) {
-            newAppliedCoupon['reason'] = err.error.non_field_errors;
-          } else if (err.error.coupon) {
-            newAppliedCoupon['reason'] = err.error.coupon[0];
-          }
-          this.cart.setAppliedCoupon(newAppliedCoupon);
-        }
-      );
-    }
-  }
+
 
   goBack() {
     this.currentStep = this.steps[this.steps.indexOf(this.currentStep) - 1];
@@ -109,5 +70,8 @@ export class PaymentFlowComponent implements OnInit {
 
   isAfterBourseStep() {
     return this.steps.indexOf(this.currentStep) > this.steps.indexOf(this.bourseStep);
+  }
+  isOnOrAfterBourseStep() {
+    return this.steps.indexOf(this.currentStep) >= this.steps.indexOf(this.bourseStep);
   }
 }

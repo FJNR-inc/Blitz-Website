@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Cart} from '../../../../models/cart';
 import {MyCartService} from '../../../../services/my-cart/my-cart.service';
 import {Card} from '../../../../models/card';
@@ -7,6 +7,7 @@ import {CardService} from '../../../../services/card.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {OrderService} from '../../../../services/order.service';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-payment-flow-confirmation',
@@ -15,14 +16,8 @@ import {Router} from '@angular/router';
 })
 export class PaymentFlowConfirmationComponent implements OnInit {
 
-  _cart: Cart;
-  set cart(cart) {
-    this._cart = cart;
-    this.getPaymentInfos();
-  }
-  get cart() {
-    return this._cart;
-  }
+  cart: Cart;
+  cart$: Observable<Cart>;
 
   waitAPI = false;
   errorOrder: any[];
@@ -39,10 +34,11 @@ export class PaymentFlowConfirmationComponent implements OnInit {
               private cardService: CardService,
               private orderService: OrderService,
               private router: Router) {
-    this.cart = this.cartService.getCart();
-    this.cartService.cart.subscribe(
-      emitedCart => {
-        this.cart = emitedCart;
+    this.cart$ = this.cartService.cart$;
+    this.cart$.subscribe(
+      (cart: Cart) => {
+        this.cart = cart;
+        this.getPaymentInfos();
       }
     );
   }
@@ -70,8 +66,11 @@ export class PaymentFlowConfirmationComponent implements OnInit {
       ];
       this.cardService.list(filters).subscribe(
         cards => {
-          if (cards.results.length >= 1) {
-            return new Card(cards.results[0].cards[0]);
+          if (cards.results.length > 0) {
+            const card = new Card(cards.results[0].cards[0]);
+            this.paymentInfo = '**** **** **** ' + card.last_digits + ' (' + card.card_expiry.month + '/' + card.card_expiry.year + ')';
+          } else {
+            this.paymentInfo = 'Nouvelle carte ajouté avec succés';
           }
         }
       );
@@ -82,12 +81,7 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   getPaymentInfos() {
     const paymentToken = this.cart.getPaymentToken();
     if (paymentToken) {
-      const card = this.getCard(paymentToken);
-      if (card) {
-        this.paymentInfo = '**** **** **** ' + card.last_digits + ' (' + card.card_expiry + ')';
-      } else {
-        this.paymentInfo = 'Nouvelle carte ajoute avec succes';
-      }
+      this.getCard(paymentToken);
     } else {
       this.paymentInfo = 'Aucun mode de paiement';
     }
@@ -115,7 +109,8 @@ export class PaymentFlowConfirmationComponent implements OnInit {
     this.waitAPI = true;
 
     this.orderService.create(order).subscribe(
-      response => {
+      () => {
+        this.cartService.resetCart();
         this.router.navigate(['/payment-successful']);
       }, err => {
         this.waitAPI = false;

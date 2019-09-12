@@ -420,6 +420,7 @@
   "retreat.add_user_modal.warning1": "Vous êtes en train d'ajouter une réservation gratuitement.",
   "retreat.add_user_modal.warning2": "L'utilisateur peut annuler cette réservation mais pas l'échanger.",
   "retreat.edit_retreat": "Éditer les informations generale",
+  "retreat.export_options": "Exporter les options achetées par les utilisateurs",
   "retreat.edit_retreat_modal.button": "Éditer",
   "retreat.edit_retreat_modal.title": "Éditer une retraite",
   "retreat.place_available": "places disponibles",

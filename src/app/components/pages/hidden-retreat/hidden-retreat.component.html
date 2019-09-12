@@ -32,7 +32,6 @@
   </app-authentication-panel>
   <app-cart-panel *ngIf="displayedPanel === 'cart'"
                   class="hidden-retreat__panel"
-                  [cart]="cart"
                   (close)="closePanel()"
                   (finalize)="finalize()">
   </app-cart-panel>

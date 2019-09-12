@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {MyCartService} from '../../../../services/my-cart/my-cart.service';
-import {Cart} from '../../../../models/cart';
 import {RetreatReservation} from '../../../../models/retreatReservation';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {RetreatReservationService} from '../../../../services/retreat-reservation.service';
@@ -26,7 +25,6 @@ export class RetreatReservationComponent implements OnInit {
 
   retreatReservations: RetreatReservation[];
 
-  cart: Cart;
 
   selectedRetreat: Retreat;
   displayedPanel: 'authentication' | 'product-selector' | 'cart';
@@ -38,15 +36,9 @@ export class RetreatReservationComponent implements OnInit {
               private retreatWaitingQueueService: RetreatWaitingQueueService,
               private retreatWaitingQueueNotificationService: RetreatWaitingQueueNotificationService,
               private router: Router) {
-    this.cart = this.cartService.getCart();
-    this.cartService.cart.subscribe(
-      emitedCart => {
-        this.cart = emitedCart;
-      }
-    );
 
     this.authenticationService.profile.subscribe(
-      emitedProfile => {
+      () => {
         this.refreshRetreatReservations();
       }
     );

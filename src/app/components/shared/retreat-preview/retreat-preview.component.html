@@ -6,7 +6,7 @@
   <app-title class="retreat-preview__subtitle" [level]="5" [text]="retreat.sub_title"></app-title>
   <app-title class="retreat-preview__description" [level]="8" [text]="retreat.description"></app-title>
 
-  <div class="retreat-preview__picture" [ngStyle]="{'background-image': 'url(' + getRetreatPicture() + ')'}"></div>
+  <div class="retreat-preview__picture" [ngStyle]="{'background-image': 'url(' + retreat.firstPicture + ')'}"></div>
 
   <div class="retreat-preview__infos">
     <div class="retreat-preview__infos__line">
@@ -19,7 +19,7 @@
     </div>
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="Place(s) disponible(s)"></app-title>
-      <app-title [level]='9' [text]="getAvailablePlace()"></app-title>
+      <app-title [level]='9' [text]="availablePlace.toString()"></app-title>
     </div>
     <!--
     <div class="retreat-preview__infos__line">
@@ -83,7 +83,7 @@
   <app-alert type="success" *ngIf="existingReservation" [messages]="['Vous êtes déjà inscrit à cette retraite']"></app-alert>
   <app-alert type="success" *ngIf="existingWaitingQueue" [messages]="['Vous êtes déjà inscrit à cette file d\'attente']"></app-alert>
   <app-alert type="warning"
-             *ngIf="!existingReservation && !existingWaitingQueue && getAvailablePlace() <= 0"
+             *ngIf="!existingReservation && !existingWaitingQueue && availablePlace <= 0"
              [messages]="['Il n\'y a plus de place disponible pour cette retraite']"></app-alert>
 
   <app-button class="retreat-preview__button"

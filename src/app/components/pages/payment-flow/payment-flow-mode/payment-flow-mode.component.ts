@@ -4,6 +4,7 @@ import {Cart} from '../../../../models/cart';
 import {Card} from '../../../../models/card';
 import {CardService} from '../../../../services/card.service';
 import {AuthenticationService} from '../../../../services/authentication.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-payment-flow-mode',
@@ -12,34 +13,30 @@ import {AuthenticationService} from '../../../../services/authentication.service
 })
 export class PaymentFlowModeComponent implements OnInit {
 
-  _cart: Cart;
-  set cart(cart) {
-    this._cart = cart;
-    this.getPaymentInfos();
-  }
-  get cart() {
-    return this._cart;
-  }
-  paymentInfo: string;
+  paymentInfo = '';
 
   @Output() back: EventEmitter<any> = new EventEmitter<any>();
   @Output() forward: EventEmitter<any> = new EventEmitter<any>();
 
+  cart: Cart;
+  cart$: Observable<Cart>;
+
   constructor(private cartService: MyCartService,
               private cardService: CardService,
               private authenticationService: AuthenticationService) {
-    this.cart = this.cartService.getCart();
-    this.cartService.cart.subscribe(
-      emitedCart => {
-        this.cart = emitedCart;
+  }
+
+  ngOnInit() {
+    this.cart$ = this.cartService.cart$;
+    this.cart$.subscribe(
+      (cart: Cart) => {
+        this.cart = cart;
+        this.getPaymentInfos();
       }
     );
   }
 
-  ngOnInit() {
-  }
-
-  getCard(paymentToken): Card {
+  getCard(paymentToken) {
     const user = this.authenticationService.getProfile();
     if ( user ) {
       const filters: any[] = [
@@ -54,13 +51,15 @@ export class PaymentFlowModeComponent implements OnInit {
       ];
       this.cardService.list(filters).subscribe(
         cards => {
-          if (cards.results.length >= 1) {
-            return new Card(cards.results[0].cards[0]);
+          if (cards.results.length > 0) {
+            const card = new Card(cards.results[0].cards[0]);
+            this.paymentInfo = '**** **** **** ' + card.last_digits + ' (' + card.card_expiry.month + '/' + card.card_expiry.year + ')';
+          } else {
+            this.paymentInfo = 'Nouvelle carte ajouté avec succés';
           }
         }
       );
     }
-    return null;
   }
 
   havePaymentMethod() {
@@ -69,16 +68,10 @@ export class PaymentFlowModeComponent implements OnInit {
 
   getPaymentInfos() {
     const paymentToken = this.cart.getPaymentToken();
-    const card = this.getCard(paymentToken);
-    if (card) {
-      this.paymentInfo = '**** **** **** ' + card.last_digits + ' (' + card.card_expiry + ')';
-    } else {
-      this.paymentInfo = 'Nouvelle carte ajoute avec succes';
-    }
+    this.getCard(paymentToken);
   }
 
   resetPaymentMode() {
-    console.log('remove tokens');
     this.cartService.removePaymentToken();
   }
 
