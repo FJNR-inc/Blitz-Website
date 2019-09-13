@@ -14,7 +14,7 @@ import {MyModalService} from '../../../services/my-modal/my-modal.service';
 export class CartPaymentComponent implements OnInit {
 
   listCards: Card[];
-  paymentCard: string;
+  paymentCard = '';
 
   constructor(private authenticationService: AuthenticationService,
               private cardService: CardService,
@@ -46,7 +46,7 @@ export class CartPaymentComponent implements OnInit {
 
   toggleFormNewCard() {
     this.toggleModaleNewCard();
-    this.paymentCard = null;
+    this.paymentCard = '';
     this.cartService.removePaymentToken();
   }
 
