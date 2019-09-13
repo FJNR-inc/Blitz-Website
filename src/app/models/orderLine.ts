@@ -11,7 +11,7 @@ export class OrderLine extends BaseModel {
   object_id: number;
   order: string;
   quantity: number;
-  options: OrderLineOption[];
+  options: OrderLineOption[] = [];
   metadata: any;
 
   constructor(data: Object = {}) {
