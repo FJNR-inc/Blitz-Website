@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../../../services/authentication.service
 export class PaymentFlowMembershipComponent implements OnInit {
 
   memberships: Membership[];
-  selectedMembership = 0;
+  selectedMembership: Membership = null;
 
   @Output() forward: EventEmitter<any> = new EventEmitter<any>();
 
@@ -34,9 +34,9 @@ export class PaymentFlowMembershipComponent implements OnInit {
     ];
     if (user && user.academic_level) {
       filters.push({'name': 'academic_levels', 'value': [user.academic_level.id]});
-    } else {
-      filters.push({'name': 'academic_levels', 'value': null});
     }
+    filters.push({'name': 'academic_levels', 'value': null});
+
     this.membershipService.list(filters).subscribe(
       memberships => {
         this.memberships = memberships.results.map(m => new Membership(m));
@@ -45,8 +45,8 @@ export class PaymentFlowMembershipComponent implements OnInit {
   }
 
   goForward(skipMembership = false) {
-    if (!skipMembership) {
-      this.cartService.addMembership(this.memberships[this.selectedMembership]);
+    if (!skipMembership && this.selectedMembership) {
+      this.cartService.addMembership(this.selectedMembership);
     }
     this.forward.emit();
   }
