@@ -72,4 +72,11 @@ export class HiddenRetreatComponent implements OnInit {
       'invitation_id': this.invitation.id
     };
   }
+
+  redirectToRetreatInfo() {
+    window.open(
+      'http://www.thesez-vous.com/questcequuneretraite.html',
+      '_blank',
+    );
+  }
 }

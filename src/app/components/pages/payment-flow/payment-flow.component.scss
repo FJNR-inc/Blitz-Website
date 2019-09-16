@@ -21,6 +21,8 @@
       margin-left: 100px;
 
       &__politics {
+        display: flex;
+        flex-direction: column;
 
         &__title {
           display: block;

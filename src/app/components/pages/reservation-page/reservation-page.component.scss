@@ -111,8 +111,13 @@
 
           &__politics {
             margin-top: 20px;
-            font-size: 12px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+
+            & > * {
+              margin-top: 10px;
+            }
           }
         }
       }

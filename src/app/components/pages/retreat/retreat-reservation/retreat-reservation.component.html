@@ -13,14 +13,11 @@
                    class="retreat-reservation__main__content__header__description"
                    text="{{ 'retreat-list.details' | translate }}">
         </app-title>
-        <app-button [type]="4"
-                   class="retreat-reservation__main__content__header__link"
-                   text="{{ 'retreat-list.know_more' | translate }}">
-        </app-button>
-        <!--
-        todo: Add href and target to this button
-        href="http://www.thesez-vous.com/questcequuneretraite.html" target="_blank"
-        -->
+        <app-link class="retreat-reservation__main__content__header__link"
+                  text="{{ 'retreat-list.know_more' | translate }}"
+                  target="_blank"
+                  href="http://www.thesez-vous.com/questcequuneretraite.html">
+        </app-link>
       </div>
       <app-loader *ngIf="!retreats">
       </app-loader>
