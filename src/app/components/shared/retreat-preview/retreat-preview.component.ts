@@ -24,7 +24,7 @@ export class RetreatPreviewComponent implements OnInit {
   displayDetails = false;
   existingReservation: RetreatReservation;
   existingWaitingQueue: RetreatWaitingQueue;
-  positionInList: number;
+  positionInList = 1;
 
   constructor(private authenticationService: AuthenticationService,
               private retreatService: RetreatService,
