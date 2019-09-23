@@ -1,4 +1,4 @@
-<h2 class="title title--8">
+<h2 class="title title--8" *ngIf="title">
   {{ 'profile.subscription' | translate }}
 </h2>
 
@@ -7,6 +7,7 @@
     {{ profile.membership.name }}
   </p>
   <p class="profile-subscription__sub-text">
+    {{ profile.getTimeBeforeEndMembership() }} {{ 'user-page.remaining_days' | translate }}<br>
     {{ profile.membership.price }}$ / {{ 'shared.common.year' | translate }}
   </p>
   <p *ngIf="profile.getTimeBeforeEndMembership() < 30">
