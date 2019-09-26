@@ -1,0 +1,14 @@
+@import '../../../../assets/scss/theme';
+
+.politics-page {
+  background-color: $nt-background-color-light;
+  max-width: 600px;
+  margin: 0 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+
+  &__section {
+    margin: 60px 0 40px 0;
+  }
+}
