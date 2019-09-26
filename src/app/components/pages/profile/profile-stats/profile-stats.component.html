@@ -20,5 +20,11 @@
     <p class="profile-stats__box__sub-text">
       {{ 'profile.remaining_days_subtext' | translate }}
     </p>
+    <p *ngIf="profile.getTimeBeforeEndMembership() > 0 && profile.getTimeBeforeEndMembership() < 30">
+      <a class="nt-link" routerLink="/membership/intro">{{ 'shared.buttons.renew_member' | translate }}</a>
+    </p>
+    <p *ngIf="profile.getTimeBeforeEndMembership() === 0">
+      <a class="nt-link" routerLink="/membership/intro">{{ 'shared.buttons.become_member' | translate }}</a>
+    </p>
   </div>
 </div>
