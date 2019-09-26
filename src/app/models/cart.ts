@@ -8,6 +8,7 @@ import {Coupon} from './coupon';
 import {AppliedCoupon} from './appliedCoupon';
 import {ReservationPackage} from './reservationPackage';
 import {OptionProduct} from './optionProduct';
+import {User} from './user';
 
 export interface SelectedProductOption {
   option: OptionProduct;
@@ -34,6 +35,8 @@ export class Cart {
   _reservationPackages: ReservationPackage[] = [];
   _single_use_token: string;
   _payment_token: string;
+  _bypassPayment = false;
+  _targetUser: User;
   _applied_coupons: AppliedCoupon[] = [];
   _options: AppliedProductOption[] = [];
   _metadata: Metadata[] = [];
@@ -173,6 +176,14 @@ export class Cart {
   setPaymentToken(token: string) {
     this._single_use_token = null;
     this._payment_token = token;
+  }
+
+  setBypassPayment(value: boolean) {
+    this._bypassPayment = value;
+  }
+
+  setTargetUser(user: User) {
+    this._targetUser = user;
   }
 
   getPaymentToken() {
@@ -458,6 +469,12 @@ export class Cart {
       newOrder['single_use_token'] = this._single_use_token;
     } else if (this._payment_token) {
       newOrder['payment_token'] = this._payment_token;
+    }
+    if (this._targetUser) {
+      newOrder['target_user'] = this._targetUser.url;
+    }
+    if (this._bypassPayment) {
+      newOrder['bypass_payment'] = this._bypassPayment;
     }
     if (this._memberships) {
       for (const membership of this._memberships) {
