@@ -62,4 +62,18 @@ export class MembershipSubscriptionComponent implements OnInit {
     const isForAll = membership.academic_levels.length === 0;
     return haveRight || isForAll;
   }
+
+  get nb_days_with_new_membership(): string{
+    return (
+      this.profile.getTimeBeforeEndMembership() +
+      this.selectedMembership.duration_days
+    ).toString();
+  }
+
+  get nb_end_date_with_new_membership(): string{
+    const new_end = new Date(this.profile.membership_end);
+    new_end.setDate(new_end.getDate() + this.selectedMembership.duration_days);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new_end.toLocaleDateString('fr-FR', options);
+  }
 }

@@ -14,5 +14,9 @@ export class Membership extends BaseModel {
   academic_levels: number[];
   available: boolean;
   options: OptionProduct[];
+
+  get duration_days(): number {
+    return +this.duration.split(' ')[0];
+  }
 }
 

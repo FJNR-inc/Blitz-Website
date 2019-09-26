@@ -30,12 +30,12 @@
         si son annulation a eu lieu plus de 7 jours ouvrables précédant le début de la retraite.
         Thèsez-vous se réserve le droit d’annuler ou de déplacer une retraite si le nombre
         d’inscriptions est insuffisant."></app-title>
-        <app-title [level]="6" text="Les blocs de rédaction à l’Espace" class="payment-flow__content__side__politics__title"></app-title>
-        <app-title [level]="9" text="Les blocs de rédaction ne sont PAS remboursés en cas d’annulation
-        ou de changement de plage horaire. Nous avons privilégié cette façon de faire pour inviter
-        les étudiant.e.s à prendre un vrai rendez-vous avec leurs thèses, pour éviter de perdre une
-        place dont un.e autre étudiant.e pourrait bénéficier et, surtout, pour éviter que les
-        étudiant.e.s se désistent à la dernière minute par manque de motivation."></app-title>
+        <app-title [level]="6"
+                   class="payment-flow__content__side__politics__title"
+                   text="{{'shared.cancelation_politic.title' | translate}}"></app-title>
+        <app-title [level]="9" text="{{'shared.cancelation_politic.text_1' | translate}}"></app-title>
+        <app-title [level]="9" text="{{'shared.cancelation_politic.text_2' | translate}}"></app-title>
+        <app-title [level]="9" text="{{'shared.cancelation_politic.text_3' | translate}}"></app-title>
       </div>
     </div>
   </div>
