@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../../models/user';
 import {AuthenticationService} from '../../../../services/authentication.service';
 
@@ -8,6 +8,8 @@ import {AuthenticationService} from '../../../../services/authentication.service
   styleUrls: ['./profile-subscription.component.scss']
 })
 export class ProfileSubscriptionComponent implements OnInit {
+
+  @Input() title = true;
 
   profile: User;
 
