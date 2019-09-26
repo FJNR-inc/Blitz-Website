@@ -173,6 +173,7 @@ import {Error404Component} from './components/error-404/error-404.component';
 import {RetreatInvitationService} from './services/retreatInvitation.service';
 import { CartButtonComponent } from './components/shared/cart-button/cart-button.component';
 import { PaymentSuccessfulComponent } from './components/pages/payment-successful/payment-successful.component';
+import { PoliticsComponent } from './components/pages/politics/politics.component';
 
 registerLocaleData(localeFr);
 
@@ -275,6 +276,10 @@ const appRoutes = [
       {
         path: 'reset-password/:token',
         component: ResetPasswordPageComponent,
+      },
+      {
+        path: 'policy',
+        component: PoliticsComponent,
       },
       {
         path: 'membership/intro',
@@ -673,6 +678,7 @@ const appRoutes = [
     Error404Component,
     CartButtonComponent,
     PaymentSuccessfulComponent,
+    PoliticsComponent,
   ],
   imports: [
     BrowserModule,
