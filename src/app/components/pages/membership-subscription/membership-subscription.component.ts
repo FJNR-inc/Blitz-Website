@@ -71,9 +71,12 @@ export class MembershipSubscriptionComponent implements OnInit {
   }
 
   get nb_end_date_with_new_membership(): string{
-    const new_end = new Date(this.profile.membership_end);
-    new_end.setDate(new_end.getDate() + this.selectedMembership.duration_days);
+    let newEnd = new Date();
+    if (this.profile.membership_end) {
+      newEnd = new Date(this.profile.membership_end);
+    }
+    newEnd.setDate(newEnd.getDate() + this.selectedMembership.duration_days);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return new_end.toLocaleDateString('fr-FR', options);
+    return newEnd.toLocaleDateString('fr-FR', options);
   }
 }
