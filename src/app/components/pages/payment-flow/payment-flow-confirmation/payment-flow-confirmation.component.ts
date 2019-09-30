@@ -8,6 +8,7 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {OrderService} from '../../../../services/order.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-flow-confirmation',
@@ -29,11 +30,17 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   @Output() back: EventEmitter<any> = new EventEmitter<any>();
   @Output() forward: EventEmitter<any> = new EventEmitter<any>();
 
+  new_card: string;
+  no_payment_mode: string;
+
   constructor(private cartService: MyCartService,
               private authenticationService: AuthenticationService,
               private cardService: CardService,
               private orderService: OrderService,
-              private router: Router) {
+              private router: Router,
+              private translate: TranslateService) {
+    this.new_card = this.translate.instant('new_card_added');
+    this.no_payment_mode = this.translate.instant('no_payment_mode');
     this.cart$ = this.cartService.cart$;
     this.cart$.subscribe(
       (cart: Cart) => {
@@ -53,6 +60,7 @@ export class PaymentFlowConfirmationComponent implements OnInit {
 
   getCard(paymentToken): Card {
     const user = this.authenticationService.getProfile();
+    this.paymentInfo = this.new_card;
     if ( user ) {
       const filters: any[] = [
         {
@@ -70,7 +78,7 @@ export class PaymentFlowConfirmationComponent implements OnInit {
             const card = new Card(cards.results[0].cards[0]);
             this.paymentInfo = '**** **** **** ' + card.last_digits + ' (' + card.card_expiry.month + '/' + card.card_expiry.year + ')';
           } else {
-            this.paymentInfo = 'Nouvelle carte ajouté avec succés';
+            this.paymentInfo = this.new_card;
           }
         }
       );
@@ -83,7 +91,7 @@ export class PaymentFlowConfirmationComponent implements OnInit {
     if (paymentToken) {
       this.getCard(paymentToken);
     } else {
-      this.paymentInfo = 'Aucun mode de paiement';
+      this.paymentInfo = this.no_payment_mode;
     }
 
   }
