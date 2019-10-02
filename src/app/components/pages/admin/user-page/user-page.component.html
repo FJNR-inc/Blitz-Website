@@ -34,7 +34,10 @@
     </div>
   </div>
   <div class="user-page__navbar">
-    <a class="button" (click)="openModalUserEdition()">
+    <a class="button user-page__navbar__button" (click)="sendEmail()">
+      {{ 'user-page.send_email_confirmation' | translate }}
+    </a>
+    <a *ngIf="!user.is_active" class="button user-page__navbar__button" (click)="openModalUserEdition()">
       <i class="fas fa-pencil-alt"></i>
       {{ 'user-page.button_edit_user' | translate }}
     </a>

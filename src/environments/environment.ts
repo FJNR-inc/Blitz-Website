@@ -18,6 +18,7 @@ export const environment = {
     authentication: '/authentication',
     users: '/users',
     users_export: '/users/export',
+    email_confirm: '/send_email_confirm',
     organizations: '/organizations',
     organizations_export: '/organizations/export',
     domains: '/domains',

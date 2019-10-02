@@ -118,7 +118,7 @@ export class TableRetreatReservationsComponent implements OnInit {
       id: retreatReservation.id,
       url: retreatReservation.url,
       is_present: retreatReservation.is_present,
-      is_active: retreatReservation.is_active,
+      is_active: !retreatReservation.is_active,
       cancelation_reason: retreatReservation.getCancelationReasonLabel() || '-',
       cancelation_action: retreatReservation.getCancelationActionLabel() || '-',
       personnal_restrictions: retreatReservation.user_details.personnal_restrictions,

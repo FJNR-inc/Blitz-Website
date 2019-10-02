@@ -358,4 +358,14 @@ export class UserPageComponent implements OnInit {
   setSingleUseToken(singleUseToken) {
     this.singleUseToken = singleUseToken;
   }
+
+  sendEmail() {
+    this.userService.send_confirm_email(this.user.id).subscribe(
+      () => {
+        this.notificationService.success(
+          _('shared.notifications.commons.confirm_email')
+        );
+      }
+    );
+  }
 }

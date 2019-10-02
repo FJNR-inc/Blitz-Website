@@ -103,6 +103,14 @@ export class UserService extends GlobalService {
     );
   }
 
+  send_confirm_email(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(
+      this.url_users + '/' + id  + environment.paths_api.email_confirm,
+      {headers: headers}
+    );
+  }
+
   update(url: string, user: User): Observable<any> {
     const headers = this.getHeaders();
     return this.http.patch<any>(
