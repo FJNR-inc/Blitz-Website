@@ -56,6 +56,7 @@ export class MembershipRegisterComponent implements OnInit {
         birth_month: ['', Validators.required],
         birth_year: ['', Validators.required],
         gender: [null, Validators.required],
+        language: [null],
         phone: [null],
         password: [null, Validators.required],
         confirmation: [null, Validators.required],
@@ -191,6 +192,7 @@ export class MembershipRegisterComponent implements OnInit {
         email: form.value['email'],
         birthdate: birthdate,
         gender: form.value['gender'],
+        language: form.value['language'],
         phone: form.value['phone'],
       };
       if (form.value['university'] !== 'none') {
@@ -226,6 +228,11 @@ export class MembershipRegisterComponent implements OnInit {
           if (err.error.email) {
             this.registerForm.controls['email'].setErrors({
               apiError: err.error.email
+            });
+          }
+          if (err.error.language) {
+            this.registerForm.controls['language'].setErrors({
+              apiError: err.error.language
             });
           }
           if (err.error.university && err.error.university.name) {
