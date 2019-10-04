@@ -3,10 +3,17 @@
     <div class="hidden-retreat__main__content">
       <app-loader *ngIf="!retreat">
       </app-loader>
+      <div *ngIf="retreat && coupon"
+        class="hidden-retreat__main__content__coupon_info">
+        <app-alert [type]="'success'">
+          Le coupon {{coupon.code}} d'une valeur de {{coupon.getValue()}}{{coupon.getLabelledTypeOfValue()}} sera ajouté automatiquement lors de l'inscription à cette retraite.
+          Son application dans le pannier (durant le flux de paiement) dépendra du nombre de personne l'ayant déjà utilisé.
+        </app-alert>
+      </div>
       <app-retreat-preview class="hidden-retreat__main__content__retreat"
                            *ngIf="retreat"
-                           [retreat]="this.retreat"
-                           [invitation]="this.invitation"
+                           [retreat]="retreat"
+                           [invitation]="invitation"
                            [displaySubscribeButton]="true"
                            (subscribe)="subscribe()"></app-retreat-preview>
       <div class="hidden-retreat__main__content__info">

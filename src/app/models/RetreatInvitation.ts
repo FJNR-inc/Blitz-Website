@@ -8,6 +8,7 @@ export class RetreatInvitation extends BaseModel {
   name?: string;
   nb_places: number;
   nb_places_used: number;
+  reserve_seat: boolean;
   coupon?: Coupon | string;
   retreat: Retreat | string;
   front_url: string;
