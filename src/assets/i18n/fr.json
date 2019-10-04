@@ -480,6 +480,7 @@
   "shared.common.name": "Nom",
   "shared.common.nb_places": "Places disponibles",
   "shared.common.nb_places_used": "Places utilisées",
+  "shared.common.reserve_seat": "Réservations des places active",
   "shared.common.front_url": "Lien d'invitation",
   "shared.common.number_of_reservation": "Nombre de réservation",
   "shared.common.personnal_restrictions": "Restrictions personnelles",

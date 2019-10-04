@@ -116,6 +116,8 @@ export class RetreatPreviewComponent implements OnInit {
   get availablePlace() {
     if (this.retreat.hidden) {
       return Number(this.invitation.nb_places) - Number(this.invitation.nb_places_used);
+    } else if (this.invitation && this.invitation.reserve_seat) {
+      return this.retreat.places_remaining + this.invitation.nb_places - this.invitation.nb_places_used;
     } else {
       return this.retreat.places_remaining;
     }
