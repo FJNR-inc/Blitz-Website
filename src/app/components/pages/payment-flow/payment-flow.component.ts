@@ -51,7 +51,11 @@ export class PaymentFlowComponent implements OnInit {
 
     if (this.authenticationService.getProfile().hasMembershipActive) {
       this.steps.splice(0, 1);
+    } else if (this.cartService.hasMembership) {
+      this.steps.splice(0, 1);
     }
+
+
 
     this.currentStep = this.steps[0];
   }

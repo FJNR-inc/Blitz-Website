@@ -14,11 +14,16 @@
       align-items: center;
       max-width: 750px;
       margin: auto;
-      padding: 100px 0;
+      padding: 25px 0;
 
       &__retreat {
         width: 100%;
         padding: 25px;
+      }
+
+      &__coupon_info {
+        padding-left: 50px;
+        padding-right: 50px;
       }
 
       &__info {

@@ -54,6 +54,10 @@ export class RetreatInvitationComponent implements OnInit {
         name: 'nb_places_used',
         title: _('shared.common.nb_places_used')
       }, {
+        name: 'reserve_seat',
+        type: 'boolean',
+        title: _('shared.common.reserve_seat')
+      }, {
         name: 'front_url',
         title: _('shared.common.front_url')
       },
@@ -77,6 +81,11 @@ export class RetreatInvitationComponent implements OnInit {
       name: 'nb_places',
       type: 'number',
       label: 'Nombre de places'
+    },
+    {
+      name: 'reserve_seat',
+      type: 'boolean',
+      label: 'Reserver les sieges'
     },
     {
       name: 'coupon',
@@ -171,6 +180,7 @@ export class RetreatInvitationComponent implements OnInit {
       const data = {
         'coupon' : this.invitationForm.value.coupon,
         'nb_places': this.invitationForm.value.nb_places,
+        'reserve_seat': this.invitationForm.value.reserve_seat,
       };
 
       this.retreatInvitationService

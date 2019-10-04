@@ -5,6 +5,8 @@ import {Card} from '../../../../models/card';
 import {CardService} from '../../../../services/card.service';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {Observable} from 'rxjs';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-flow-mode',
@@ -21,12 +23,18 @@ export class PaymentFlowModeComponent implements OnInit {
   cart: Cart;
   cart$: Observable<Cart>;
 
+  new_card: string;
+  no_payment_mode: string;
+
   constructor(private cartService: MyCartService,
               private cardService: CardService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
+    this.new_card = this.translate.instant('new_card_added');
+    this.no_payment_mode = this.translate.instant('no_payment_mode');
     this.cart$ = this.cartService.cart$;
     this.cart$.subscribe(
       (cart: Cart) => {
@@ -38,6 +46,7 @@ export class PaymentFlowModeComponent implements OnInit {
 
   getCard(paymentToken) {
     const user = this.authenticationService.getProfile();
+    this.paymentInfo = this.new_card;
     if ( user ) {
       const filters: any[] = [
         {
@@ -55,7 +64,7 @@ export class PaymentFlowModeComponent implements OnInit {
             const card = new Card(cards.results[0].cards[0]);
             this.paymentInfo = '**** **** **** ' + card.last_digits + ' (' + card.card_expiry.month + '/' + card.card_expiry.year + ')';
           } else {
-            this.paymentInfo = 'Nouvelle carte ajouté avec succés';
+            this.paymentInfo = this.new_card;
           }
         }
       );
@@ -68,7 +77,12 @@ export class PaymentFlowModeComponent implements OnInit {
 
   getPaymentInfos() {
     const paymentToken = this.cart.getPaymentToken();
-    this.getCard(paymentToken);
+    if (paymentToken) {
+      this.getCard(paymentToken);
+    } else {
+      this.paymentInfo = this.no_payment_mode;
+    }
+
   }
 
   resetPaymentMode() {
