@@ -142,4 +142,12 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   goForward() {
     this.submitOrder();
   }
+
+  get confirmButtonText(){
+    if (this.cart.hasOnlyTimeslot) {
+      return 'Confirmer la reservation';
+    } else {
+      return 'Confirmer le paiement';
+    }
+  }
 }

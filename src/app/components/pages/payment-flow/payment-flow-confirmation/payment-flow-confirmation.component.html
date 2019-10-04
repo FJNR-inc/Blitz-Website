@@ -17,7 +17,7 @@
   <app-alert class="payment-flow-confirmation__error" type="danger" [messages]="errorOrder" *ngIf="errorOrder"></app-alert>
   <div class="payment-flow-confirmation__actions">
     <app-button [text]="'Precedent'" [type]="3" (click)="goBack()"></app-button>
-    <app-button [text]="'Confirmer le paiement'" [type]="1" (click)="goForward()" [disabled]="!isReadyToFinalize()"></app-button>
+    <app-button [text]="confirmButtonText" [type]="1" (click)="goForward()" [disabled]="!isReadyToFinalize()"></app-button>
   </div>
 </div>
 
