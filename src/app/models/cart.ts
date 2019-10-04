@@ -97,6 +97,12 @@ export class Cart {
     }
   }
 
+  get hasOnlyTimeslot(): boolean{
+    return this._memberships.length < 1 &&
+      this._retreats.length < 1 &&
+      this._reservationPackages.length < 1;
+  }
+
   contain(product: Retreat|TimeSlot|Membership) {
     for (const retreat of this.getRetreats()) {
       if (retreat.url === product.url) {
