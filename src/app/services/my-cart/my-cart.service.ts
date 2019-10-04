@@ -146,4 +146,9 @@ export class MyCartService {
     localCart.removePaymentToken();
     this._cart.next(localCart);
   }
+
+  hasMembership(): boolean {
+    const localCart = this.localCart;
+    return !!localCart.getMemberships();
+  }
 }

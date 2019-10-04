@@ -26,12 +26,6 @@ export class NtWizzardComponent implements OnInit {
     },
     {
       'name': 'nt-wizzard.subscription'
-    },
-    {
-      'name': 'nt-wizzard.summary'
-    },
-    {
-      'name': 'nt-wizzard.payment'
     }
   ];
 

@@ -4,6 +4,7 @@ import {MembershipService} from '../../../services/membership.service';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {User} from '../../../models/user';
+import {MyCartService} from '../../../services/my-cart/my-cart.service';
 
 @Component({
   selector: 'app-membership-subscription',
@@ -20,7 +21,8 @@ export class MembershipSubscriptionComponent implements OnInit {
 
   constructor(private membershipService: MembershipService,
               private router: Router,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private cartService: MyCartService) { }
 
   ngOnInit() {
     this.profile = this.authenticationService.getProfile();
@@ -45,8 +47,8 @@ export class MembershipSubscriptionComponent implements OnInit {
 
   submit() {
     if (this.selectedMembership) {
-      localStorage.setItem('selectedMembership', JSON.stringify(this.selectedMembership));
-      this.router.navigate(['/membership/summary']);
+      this.cartService.addMembership(this.selectedMembership);
+      this.router.navigate(['/payment']);
     } else {
       this.error = 'Vous devez séléctionnez le membership de votre choix.';
     }
