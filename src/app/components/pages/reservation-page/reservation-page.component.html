@@ -1,6 +1,7 @@
 <app-loader *ngIf="!workplace"></app-loader>
 
 <div class="reservation-page" *ngIf="workplace">
+
   <app-cart-button *ngIf="!displayedPanel"
                    class="reservation-page__cart-button"
                    (onClick)="openCart()"></app-cart-button>
@@ -27,6 +28,9 @@
 
       <app-loader *ngIf="!listTimeSlots"></app-loader>
 
+      <div style="margin-bottom: 30px;">
+        <app-calandar [daysOfWeek]="days_of_week" [timeSlots]="timeSlotsData"></app-calandar>
+      </div>
       <div *ngIf="listTimeSlots" class="reservation-page__main__content__reservation">
         <div class="reservation-page__main__content__reservation__calendar" id="calendar">
           <div class="reservation-page__main__content__reservation__calendar__actions">

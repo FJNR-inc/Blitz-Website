@@ -174,6 +174,7 @@ import {RetreatInvitationService} from './services/retreatInvitation.service';
 import { CartButtonComponent } from './components/shared/cart-button/cart-button.component';
 import { PaymentSuccessfulComponent } from './components/pages/payment-successful/payment-successful.component';
 import { PoliticsComponent } from './components/pages/politics/politics.component';
+import { CalandarComponent } from './components/pages/calandar/calandar.component';
 
 registerLocaleData(localeFr);
 
@@ -679,6 +680,7 @@ const appRoutes = [
     CartButtonComponent,
     PaymentSuccessfulComponent,
     PoliticsComponent,
+    CalandarComponent,
   ],
   imports: [
     BrowserModule,
