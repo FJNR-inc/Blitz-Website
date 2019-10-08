@@ -29,7 +29,7 @@ import {MyNotificationService} from '../../../services/my-notification/my-notifi
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {Cart} from '../../../models/cart';
-import {CalandarItem, ColorCode} from '../../../models/calandarItem';
+import {CalendarPeriod} from '../../../models/calendar';
 
 @Component({
   selector: 'app-reservation-page',
@@ -103,8 +103,7 @@ export class ReservationPageComponent implements OnInit {
 
   cart: Cart;
   cart$: Observable<Cart>;
-  days_of_week: CalandarItem[];
-  timeSlotsData: CalandarItem[] = [];
+  timeSlotsData: CalendarPeriod[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
@@ -132,51 +131,6 @@ export class ReservationPageComponent implements OnInit {
     this.refreshListTimeSlot();
     this.refreshListMembership();
     this.subscribeToLocaleChange();
-
-    this.days_of_week = [
-      new CalandarItem({
-        position_of_week: 1,
-        am_color: ColorCode.many_place,
-        pm_color: ColorCode.less_50_place,
-        night_color: ColorCode.almost_no_place
-      }),
-      new CalandarItem({
-        position_of_week: 1,
-        am_color: ColorCode.many_place,
-        pm_color: ColorCode.less_50_place,
-        night_color: ColorCode.almost_no_place
-      }),
-      new CalandarItem({
-        position_of_week: 1,
-        am_color: ColorCode.many_place,
-        pm_color: ColorCode.less_50_place,
-        night_color: ColorCode.almost_no_place
-      }),
-      new CalandarItem({
-        position_of_week: 1,
-        am_color: ColorCode.many_place,
-        pm_color: ColorCode.less_50_place,
-        night_color: ColorCode.almost_no_place
-      }),
-      new CalandarItem({
-        position_of_week: 1,
-        am_color: ColorCode.many_place,
-        pm_color: ColorCode.less_50_place,
-        night_color: ColorCode.almost_no_place
-      }),
-      new CalandarItem({
-        position_of_week: 1,
-        am_color: ColorCode.many_place,
-        pm_color: ColorCode.less_50_place,
-        night_color: ColorCode.almost_no_place
-      }),
-      new CalandarItem({
-        position_of_week: 1,
-        am_color: ColorCode.many_place,
-        pm_color: ColorCode.less_50_place,
-        night_color: ColorCode.almost_no_place
-      }),
-    ];
   }
 
   subscribeToLocaleChange() {
@@ -337,9 +291,12 @@ export class ReservationPageComponent implements OnInit {
     }
   }
 
+  onEventClicked(event) {
+    this.eventClicked(event);
+  }
+
   syncCalendarEvent() {
     this.events = [];
-    console.log('populate time slot');
     for (const timeSlot of this.listTimeSlots) {
       this.events.push(this.timeSlotAdapter(timeSlot));
       this.timeSlotsData.push(this.newTimeSlotAdapter(timeSlot));
@@ -370,12 +327,14 @@ export class ReservationPageComponent implements OnInit {
   }
 
   newTimeSlotAdapter(timeSlot) {
-    return new CalandarItem({
+    return new CalendarPeriod({
       id: timeSlot.id,
       start: new Date(timeSlot.start_time),
       end: new Date(timeSlot.end_time),
-      title: timeSlot.getStartTime() + ' à ' + timeSlot.getEndTime() + ' (' + timeSlot.places_remaining.toString() + ' places restantes)',
-      color: this.getTimeslotColor(timeSlot)
+      places: timeSlot.workplace.seats,
+      places_remaining: timeSlot.places_remaining,
+      reservations: timeSlot.reservations,
+      users: timeSlot.users
     });
   }
 
@@ -410,7 +369,9 @@ export class ReservationPageComponent implements OnInit {
   }
 
   addPackageToCart() {
-    this.cartService.addReservationPackage(this.listReservationPackage[this.selectedReservationPackageIndex]);
+    this.cartService.addReservationPackage(
+      this.listReservationPackage[this.selectedReservationPackageIndex]
+    );
     this.myModalService.get('add_package').close();
     this.subscribe(this.selectedTimeslot);
   }

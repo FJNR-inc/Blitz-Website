@@ -26,63 +26,13 @@
         </div>
       </div>
 
-      <app-loader *ngIf="!listTimeSlots"></app-loader>
-
-      <div style="margin-bottom: 30px;">
-        <app-calandar [daysOfWeek]="days_of_week" [timeSlots]="timeSlotsData"></app-calandar>
-      </div>
-      <div *ngIf="listTimeSlots" class="reservation-page__main__content__reservation">
-        <div class="reservation-page__main__content__reservation__calendar" id="calendar">
-          <div class="reservation-page__main__content__reservation__calendar__actions">
-            <a class="reservation-page__main__content__reservation__calendar__actions__button"
-               mwlCalendarPreviousView
-               [view]="view"
-               [(viewDate)]="viewDate"
-               (viewDateChange)="activeDayIsOpen = false">
-              <img class="reservation-page__main__content__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_left_arrow.svg"/>
-              <span>
-              {{'shared.buttons.previous' | translate}}
-            </span>
-            </a>
-            <h2 class="reservation-page__main__content__reservation__calendar__actions__title">
-              {{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}
-            </h2>
-            <a class="reservation-page__main__content__reservation__calendar__actions__button"
-               mwlCalendarNextView
-               [view]="view"
-               [(viewDate)]="viewDate"
-               (viewDateChange)="activeDayIsOpen = false">
-            <span>
-              {{'shared.buttons.next' | translate}}
-            </span>
-              <img class="reservation-page__main__content__reservation__calendar__actions__button__icon" src="../../../../assets/images/icons/icon_right_arrow.svg"/>
-            </a>
-          </div>
-          <div [ngSwitch]="view">
-            <mwl-calendar-month-view
-              *ngSwitchCase="'month'"
-              [viewDate]="viewDate"
-              [events]="events"
-              [refresh]="refresh"
-              [weekStartsOn]="weekStartsOn"
-              [locale]="locale"
-              [activeDayIsOpen]="activeDayIsOpen"
-              (dayClicked)="dayClicked($event.day)"
-              (eventClicked)="eventClicked($event.event)">
-            </mwl-calendar-month-view>
-          </div>
-          <div class="reservation-page__main__content__reservation__calendar__legend">
-            <div class="reservation-page__main__content__reservation__calendar__legend__item" *ngFor="let color of colors">
-              <div class="reservation-page__main__content__reservation__calendar__legend__item__color" [style.background-color]="color.color.primary"></div>
-              <span class="reservation-page__main__content__reservation__calendar__legend__item__text">{{ color.label | translate }}</span>
-            </div>
-          </div>
-          <div class="reservation-page__main__content__reservation__calendar__politics">
-            <app-title [level]="8" text="{{'shared.cancelation_politic.title' | translate}}"></app-title>
-            <app-title [level]="9" text="{{'shared.cancelation_politic.text_1' | translate}}"></app-title>
-            <app-title [level]="9" text="{{'shared.cancelation_politic.text_2' | translate}}"></app-title>
-            <app-title [level]="9" text="{{'shared.cancelation_politic.text_3' | translate}}"></app-title>
-          </div>
+      <div>
+        <app-calendar *ngIf="timeSlotsData" [timeSlots]="timeSlotsData" (periodSelected)="onEventClicked($event)"></app-calendar>
+        <div class="reservation-page__main__content__reservation__calendar__politics">
+          <app-title [level]="8" text="{{'shared.cancelation_politic.title' | translate}}"></app-title>
+          <app-title [level]="9" text="{{'shared.cancelation_politic.text_1' | translate}}"></app-title>
+          <app-title [level]="9" text="{{'shared.cancelation_politic.text_2' | translate}}"></app-title>
+          <app-title [level]="9" text="{{'shared.cancelation_politic.text_3' | translate}}"></app-title>
         </div>
       </div>
     </div>

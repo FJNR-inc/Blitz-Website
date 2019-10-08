@@ -1,0 +1,106 @@
+<app-loader *ngIf="!calendarIsReady"></app-loader>
+<div *ngIf="calendarIsReady" class="calendar">
+  <div class="calendar__table">
+    <div class="calendar__table__title">
+      <h2>{{'shared.calendar.header.title1'| translate}}</h2>
+      <hr>
+      <p>
+        {{"shared.calendar.header.text1" | translate}}
+      </p>
+    </div>
+    <div class="calendar__table__content">
+      <div class="calendar__table__content__header">
+        <button class="calendar__table__content__header__button"
+           (click)="changeWeek(CHANGE_WEEK_BACKWARD)">
+          <img
+            class="calendar__table__content__header__button__icon"
+            alt="icon_left_arrow"
+            src="../../../../assets/images/icons/icon_left_arrow.svg">
+        </button>
+        {{ 'shared.calendar.header.title2' | translate: ({dateStart: startDateWeek, dateEnd: endDateWeek})}}
+        <button class="calendar__table__content__header__button"
+           (click)="changeWeek(CHANGE_WEEK_FORWARD)">
+          <img
+               class="calendar__table__content__header__button__icon"
+               alt="icon_right_arrow"
+               src="../../../../assets/images/icons/icon_right_arrow.svg">
+        </button>
+      </div>
+
+      <div class="calendar__table__content__raw">
+        <div class="calendar__table__content__raw__box">
+          <div class=" calendar__table__content__raw__box__title">
+            {{'shared.calendar.table.title.date'|translate}}
+          </div>
+        </div>
+        <div class="calendar__table__content__raw__box">
+          <div class="calendar__table__content__raw__box__title">AM</div>
+        </div>
+        <div class="calendar__table__content__raw__box">
+          <div class="calendar__table__content__raw__box__title">PM</div>
+        </div>
+        <div class="calendar__table__content__raw__box">
+          <div class="calendar__table__content__raw__box__title">
+            {{'shared.calendar.table.title.night'|translate}}
+          </div>
+        </div>
+      </div>
+
+      <div [ngClass]="'calendar__table__content__col--n' + (dayOfWeek.position_of_week+1)"
+           *ngFor="let dayOfWeek of daysOfWeek" class="calendar__table__content__col">
+        <div class="calendar__table__content__col__box calendar__table__content__col__box--date">
+          <div>{{dayOfWeek.getDayStr()}}</div>
+          <div>{{dayOfWeek.date.getDate()}} {{dayOfWeek.getMonthStr()}}</div>
+        </div>
+
+        <div *ngFor="let period of dayOfWeek.periods"
+          [ngClass]="stylePeriodReserved(period)"
+          (click)="onEventClicked(period)"
+          class="calendar__table__content__col__box calendar__table__content__col__box--hover">
+          <div
+             *ngIf="period && isPeriodDay(period)"
+          >
+            <span class="calendar__table__content__col__box__puce"
+                  *ngIf="stylePeriodReserved(period) != 'calendar__table__content__col__box--reserved'"
+              [style.background-color]="period.css_style">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calendar__legend">
+    <div class="calendar__legend__title">
+      <h2>{{'shared.calendar.legend.title'| translate}}</h2>
+      <hr>
+    </div>
+    <ul class="calendar__legend__list">
+      <li class="calendar__legend__list__elt">
+        <div class="calendar__legend__list__elt__form">
+          <span class="calendar__legend__list__elt__form__round"
+                [style.background-color]="COLOR_CODE_MANY_PLACE"></span>
+        </div>
+        <div>{{'shared.calendar.legend.text1'|translate}}</div>
+      </li>
+      <li class="calendar__legend__list__elt">
+        <div class="calendar__legend__list__elt__form"><span class="calendar__legend__list__elt__form__round" [style.background-color]="COLOR_CODE_LESS_50_PLACE"></span></div>
+        <div>{{'shared.calendar.legend.text2'|translate}}</div>
+      </li>
+      <li class="calendar__legend__list__elt">
+        <div class="calendar__legend__list__elt__form"><span class="calendar__legend__list__elt__form__round" [style.background-color]="COLOR_CODE_ALMOST_NO_PLACE"></span></div>
+        <div>{{'shared.calendar.legend.text3'|translate}}</div>
+      </li>
+      <li class="calendar__legend__list__elt">
+        <div class="calendar__legend__list__elt__form"><span class="calendar__legend__list__elt__form__round" [style.background-color]="COLOR_CODE_NO_PLACE"></span></div>
+        <div>{{'shared.calendar.legend.text4'|translate}}</div>
+      </li>
+      <li class="calendar__legend__list__elt">
+        <div class="calendar__legend__list__elt__form"><span class="calendar__legend__list__elt__form__square-empty-case"></span></div>
+        <div>{{'shared.calendar.legend.text5'|translate}}</div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
