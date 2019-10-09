@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {Step} from './payment-flow-wizard/payment-flow-wizard.component';
-import {OrderService} from '../../../services/order.service';
 
 @Component({
   selector: 'app-payment-flow',
@@ -36,6 +35,7 @@ export class PaymentFlowComponent implements OnInit {
     'id': 'confirmation'
   };
 
+
   steps: Step[] = [
     this.membershipStep,
     this.informationStep,
@@ -50,19 +50,25 @@ export class PaymentFlowComponent implements OnInit {
               private authenticationService: AuthenticationService) {
 
     if (this.authenticationService.getProfile().hasMembershipActive) {
-      this.steps.splice(0, 1);
+      this.steps.splice(this.steps.indexOf(this.membershipStep), 1);
     } else if (this.cartService.hasMembership) {
-      this.steps.splice(0, 1);
+      this.steps.splice(this.steps.indexOf(this.membershipStep), 1);
     }
-
-
-
     this.currentStep = this.steps[0];
   }
 
-  ngOnInit() { }
-
-
+  ngOnInit() {
+    this.cartService.cart$.subscribe(
+      cart => {
+        if (cart._retreats.length > 0 && cart._memberships.length > 0) {
+          this.steps.splice(this.steps.indexOf(this.bourseStep), 1 );
+        }
+        if (cart._retreats.length <= 0) {
+          this.steps.splice(this.steps.indexOf(this.informationStep), 1);
+        }
+      }
+    );
+  }
 
   goBack() {
     this.currentStep = this.steps[this.steps.indexOf(this.currentStep) - 1];
