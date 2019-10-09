@@ -12,15 +12,8 @@ export interface Step {
 })
 export class PaymentFlowWizardComponent implements OnInit {
 
-  _steps: Step[] = [];
-
   @Input()
-  set steps(steps: Step[]) {
-    this._steps = steps;
-  }
-  get steps() {
-    return this._steps;
-  }
+  steps: Step[] = [];
 
   _currentStep: Step;
   @Output() currentStepChange = new EventEmitter();

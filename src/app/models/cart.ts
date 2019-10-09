@@ -490,4 +490,13 @@ export class Cart {
 
     return newOrder;
   }
+  get hasMembership(): boolean {
+    return this.getMemberships().length > 0;
+  }
+  get hasRetreat(): boolean {
+    return this.getRetreats().length > 0;
+  }
+  get hasTimeslot(): boolean {
+    return this.getTimeslots().length > 0;
+  }
 }

@@ -49,25 +49,45 @@ export class PaymentFlowComponent implements OnInit {
   constructor(private cartService: MyCartService,
               private authenticationService: AuthenticationService) {
 
-    if (this.authenticationService.getProfile().hasMembershipActive) {
-      this.steps.splice(this.steps.indexOf(this.membershipStep), 1);
-    } else if (this.cartService.hasMembership) {
-      this.steps.splice(this.steps.indexOf(this.membershipStep), 1);
-    }
+    this.filterStep();
     this.currentStep = this.steps[0];
   }
 
   ngOnInit() {
-    this.cartService.cart$.subscribe(
-      cart => {
-        if (cart._retreats.length > 0 && cart._memberships.length > 0) {
-          this.steps.splice(this.steps.indexOf(this.bourseStep), 1 );
-        }
-        if (cart._retreats.length <= 0) {
-          this.steps.splice(this.steps.indexOf(this.informationStep), 1);
-        }
-      }
-    );
+  }
+
+  filterStep() {
+    if (this.authenticationService.getProfile().hasMembershipActive) {
+      this.removeStepMembership();
+    } else if (this.cartService.hasMembership) {
+      this.removeStepMembership();
+    }
+
+    if (!this.cartService.hasRetreat && !this.cartService.hasMembership) {
+      this.removeStepBourse();
+    }
+    if (!this.cartService.hasRetreat) {
+      this.removeStepInformation();
+    }
+  }
+
+  removeStep(step: Step) {
+    const indexStep = this.steps.indexOf(step);
+    if ( indexStep > -1) {
+      this.steps.splice(indexStep, 1);
+    }
+  }
+
+  removeStepMembership() {
+    this.removeStep(this.membershipStep);
+  }
+
+  removeStepBourse() {
+    this.removeStep(this.bourseStep);
+  }
+
+  removeStepInformation() {
+    this.removeStep(this.informationStep);
   }
 
   goBack() {
