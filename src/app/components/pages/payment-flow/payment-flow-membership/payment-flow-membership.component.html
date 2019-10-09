@@ -12,7 +12,7 @@
     <app-title [level]="7" type="label" for="membership" text="Choix du membership"></app-title>
     <select class="nt-form-input nt-form-input--select" id="membership" [(ngModel)]="selectedMembership">
       <option [ngValue]="null">Choisir un membership</option>
-      <option *ngFor="let membership of memberships" [value]="membership">{{ membership.name }}</option>
+      <option *ngFor="let membership of memberships" [ngValue]="membership">{{ membership.name }}</option>
     </select>
   </div>
   <div class="payment-flow-membership__actions">

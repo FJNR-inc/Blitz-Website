@@ -22,7 +22,7 @@ export class MyCartService {
 
   public cart$: Observable<Cart> = this._cart.asObservable();
 
-  constructor(private orderService: OrderService) {
+  constructor() {
 
     this.cart$.subscribe(
       (cart: Cart) => {
@@ -147,8 +147,18 @@ export class MyCartService {
     this._cart.next(localCart);
   }
 
-  hasMembership(): boolean {
+  get hasMembership(): boolean {
     const localCart = this.localCart;
-    return !!localCart.getMemberships();
+    return localCart.hasMembership;
+  }
+
+  get hasRetreat(): boolean {
+    const localCart = this.localCart;
+    return localCart.hasRetreat;
+  }
+
+  get hasTimeslot(): boolean {
+    const localCart = this.localCart;
+    return localCart.hasTimeslot;
   }
 }
