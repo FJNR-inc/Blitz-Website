@@ -104,6 +104,12 @@
       </div>
     </div>
   </div>
+
+
+  <div class="cart-summary__actions">
+    <app-link [text]="'Vider le panier'" (onClick)="cleanCart()"></app-link>
+  </div>
+
   <div class="cart-summary__taxes" *ngIf="displayPrice">
     <div class="cart-summary__taxes__line cart-summary__taxes__line--main">
       <app-title [level]="6" class="cart-summary__taxes__line__name" text="Sous-total"></app-title>

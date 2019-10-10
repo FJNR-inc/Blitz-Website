@@ -110,6 +110,15 @@
     }
   }
 
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    margin-top: 5px;
+
+  }
+
   &__taxes {
     padding-top: 20px;
 

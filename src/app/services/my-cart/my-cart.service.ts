@@ -31,6 +31,10 @@ export class MyCartService {
     );
   }
 
+  cleanLocalCart() {
+    this._cart.next(new Cart());
+  }
+
   get localCart(): Cart {
     const cart = JSON.parse(localStorage.getItem(this.localStorageName));
     if ( cart !== undefined ) {
