@@ -84,4 +84,9 @@ export class CartSummaryComponent implements OnInit {
       return null;
     }
   }
+
+  cleanCart() {
+    this.cartService.cleanLocalCart();
+  }
+
 }
