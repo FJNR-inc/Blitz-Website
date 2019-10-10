@@ -94,7 +94,7 @@
   <app-button class="retreat-preview__button"
               text="Liste d'attente"
               (onClick)="subscribeToQueue()"
-              *ngIf="displaySubscribeButton && canSubscribeToWaitingQueue()"></app-button>
+              *ngIf="display_wait_queue_button"></app-button>
 </div>
 
 <app-nt-modal name="waiting-list-success"
