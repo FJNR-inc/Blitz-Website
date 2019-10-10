@@ -7,6 +7,7 @@ import {RetreatReservationService} from '../../../services/retreat-reservation.s
 import {RetreatWaitingQueueService} from '../../../services/retreatWaitingQueue.service';
 import {RetreatWaitingQueue} from '../../../models/retreatWaitingQueue';
 import {MyModalService} from '../../../services/my-modal/my-modal.service';
+import {RetreatInvitation} from '../../../models/RetreatInvitation';
 
 @Component({
   selector: 'app-retreat-preview',
@@ -16,7 +17,7 @@ import {MyModalService} from '../../../services/my-modal/my-modal.service';
 export class RetreatPreviewComponent implements OnInit {
 
   @Input() retreat: Retreat;
-  @Input() invitation: any;
+  @Input() invitation: RetreatInvitation;
   @Input() displaySubscribeButton = false;
 
   @Output() subscribe: EventEmitter<any> = new EventEmitter();
@@ -114,13 +115,14 @@ export class RetreatPreviewComponent implements OnInit {
   }
 
   get availablePlace() {
-    if (this.retreat.hidden) {
-      return Number(this.invitation.nb_places) - Number(this.invitation.nb_places_used);
-    } else if (this.invitation && this.invitation.reserve_seat) {
-      return this.retreat.places_remaining + this.invitation.nb_places - this.invitation.nb_places_used;
+    let availablePlace;
+    if (this.invitation) {
+      availablePlace = Number(this.invitation.nb_places) - Number(this.invitation.nb_places_used);
     } else {
-      return this.retreat.places_remaining;
+      availablePlace = this.retreat.places_remaining;
     }
+
+    return availablePlace > 0 ? availablePlace : 0;
   }
 
   canSubscribe() {
@@ -129,5 +131,11 @@ export class RetreatPreviewComponent implements OnInit {
 
   canSubscribeToWaitingQueue() {
     return this.availablePlace <= 0 && !this.existingReservation && !this.existingWaitingQueue;
+  }
+
+  get display_wait_queue_button(){
+    return this.displaySubscribeButton &&
+      this.canSubscribeToWaitingQueue() &&
+      (this.invitation && !this.invitation.reserve_seat);
   }
 }
