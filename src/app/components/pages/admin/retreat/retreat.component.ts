@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import { Retreat } from '../../../../models/retreat';
+import {Retreat, ROOM_CHOICES} from '../../../../models/retreat';
 import { RetreatService } from '../../../../services/retreat.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
@@ -135,6 +135,25 @@ export class RetreatComponent implements OnInit {
       ]
     },
     {
+      name: 'room_type',
+      type: 'select',
+      label: _('shared.form.retreat.room_type'),
+      choices: [
+        {
+          label: _('shared.form.retreat.room_type.choices.single_occupation'),
+          value: ROOM_CHOICES.SINGLE_OCCUPATION
+        },
+        {
+          label: _('shared.form.retreat.room_type.choices.double_occupation'),
+          value: ROOM_CHOICES.DOUBLE_OCCUPATION
+        },
+        {
+          label: _('shared.form.retreat.room_type.choices.double_single_occupation'),
+          value: ROOM_CHOICES.DOUBLE_SINGLE_OCCUPATION
+        }
+      ]
+    },
+    {
       name: 'details_fr',
       type: 'textarea',
       label: _('shared.form.retreat.description_in_french')
@@ -265,6 +284,11 @@ export class RetreatComponent implements OnInit {
       label: _('shared.form.retreat.accessibility')
     },
     {
+      name: 'toilet_gendered',
+      type: 'checkbox',
+      label: _('shared.form.retreat.toilet_gendered')
+    },
+    {
       name: 'is_active',
       type: 'checkbox',
       label: _('shared.form.retreat.available')
@@ -341,7 +365,8 @@ export class RetreatComponent implements OnInit {
     this.retreatForm.controls['place_name'].setValue(this.retreat.place_name);
     this.retreatForm.controls['has_shared_rooms'].setValue(this.retreat.has_shared_rooms);
     this.retreatForm.controls['hidden'].setValue(this.retreat.hidden);
-
+    this.retreatForm.controls['toilet_gendered'].setValue(this.retreat.toilet_gendered);
+    this.retreatForm.controls['room_type'].setValue(this.retreat.room_type);
 
     this.toogleModal(
       'form_retreats',

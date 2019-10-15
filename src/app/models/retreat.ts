@@ -5,6 +5,11 @@ import {DateUtil} from '../utils/date';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {OptionProduct} from './optionProduct';
 
+export enum ROOM_CHOICES {
+  DOUBLE_OCCUPATION = 'double_occupation' ,
+  SINGLE_OCCUPATION = 'single_occupation' ,
+  DOUBLE_SINGLE_OCCUPATION = 'double_single_occupation' ,
+}
 export class Retreat extends BaseModel {
   id: number;
   url: string;
@@ -64,6 +69,8 @@ export class Retreat extends BaseModel {
   food_allergen_free: string;
   food_gluten_free: string;
   pictures: string[];
+  room_type: ROOM_CHOICES;
+  toilet_gendered: boolean;
 
   constructor(data: Object = {}) {
     super(data);

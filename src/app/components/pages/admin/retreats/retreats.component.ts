@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Retreat } from '../../../../models/retreat';
+import {Retreat, ROOM_CHOICES} from '../../../../models/retreat';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RetreatService } from '../../../../services/retreat.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
@@ -75,6 +75,25 @@ export class RetreatsComponent implements OnInit {
         {
           label: _('shared.form.retreat.activity_language.choices.bilingual'),
           value: 'B'
+        }
+      ]
+    },
+    {
+      name: 'room_type',
+      type: 'select',
+      label: _('shared.form.retreat.room_type'),
+      choices: [
+        {
+          label: _('shared.form.retreat.room_type.choices.single_occupation'),
+          value: ROOM_CHOICES.SINGLE_OCCUPATION
+        },
+        {
+          label: _('shared.form.retreat.room_type.choices.double_occupation'),
+          value: ROOM_CHOICES.DOUBLE_OCCUPATION
+        },
+        {
+          label: _('shared.form.retreat.room_type.choices.double_single_occupation'),
+          value: ROOM_CHOICES.DOUBLE_SINGLE_OCCUPATION
         }
       ]
     },
@@ -207,6 +226,11 @@ export class RetreatsComponent implements OnInit {
       name: 'accessibility',
       type: 'checkbox',
       label: _('shared.form.retreat.accessibility')
+    },
+    {
+      name: 'toilet_gendered',
+      type: 'checkbox',
+      label: _('shared.form.retreat.toilet_gendered')
     },
     {
       name: 'is_active',
