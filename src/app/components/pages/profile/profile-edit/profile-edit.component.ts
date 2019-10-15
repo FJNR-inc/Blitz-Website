@@ -46,6 +46,21 @@ export class ProfileEditComponent implements OnInit {
       label: _('shared.form.birthdate')
     },
     {
+      name: 'language',
+      type: 'select',
+      choices: [
+        {
+          label: _('shared.form.language_en'),
+          value: 'en'
+        },
+        {
+          label: _('shared.form.language_fr'),
+          value: 'fr'
+        },
+      ],
+      label: _('shared.form.language')
+    },
+    {
       name: 'email',
       type: 'email',
       label: _('shared.form.email')
@@ -125,6 +140,7 @@ export class ProfileEditComponent implements OnInit {
     this.userForm.controls['last_name'].setValue(this.profile.last_name);
     this.userForm.controls['email'].setValue(this.profile.email);
     this.userForm.controls['university'].setValue((this.profile.university) ? this.profile.university.name : '');
+    this.userForm.controls['language'].setValue(this.profile.language);
     this.userForm.controls['birthdate'].setValue(this.profile.getBirthdate());
     this.userForm.controls['gender'].setValue(this.profile.gender);
     this.userForm.controls['phone'].setValue(this.profile.phone);
@@ -193,6 +209,11 @@ export class ProfileEditComponent implements OnInit {
           if (err.error.birthdate) {
             this.userForm.controls['birthdate'].setErrors({
               apiError: err.error.birthdate
+            });
+          }
+          if (err.error.language) {
+            this.userForm.controls['language'].setErrors({
+              apiError: err.error.language
             });
           }
           if (err.error.gender) {

@@ -13,6 +13,7 @@ export class User extends BaseModel {
   academic_level: any;
   birthdate: string;
   gender: string;
+  language: string;
   is_active: boolean;
   is_superuser: boolean;
   volunteer_for_workplace: string[];
