@@ -78,6 +78,10 @@ export class DateUtil {
     }
   }
 
+  static getShortDay(date) {
+    return this.getLongDay(date).substr(0, 3);
+  }
+
   static getLongMonth(date) {
     const index = date.getMonth();
     const lang = InternationalizationService.getLocale();
@@ -135,6 +139,10 @@ export class DateUtil {
         return 'December';
       }
     }
+  }
+
+  static getShortMonth(date) {
+    return this.getLongMonth(date).substr(0, 3);
   }
 
   static getDate(date) {

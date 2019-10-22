@@ -29,6 +29,7 @@ import {MyNotificationService} from '../../../services/my-notification/my-notifi
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {Cart} from '../../../models/cart';
+import {CalendarPeriod} from '../../../models/calendar';
 
 @Component({
   selector: 'app-reservation-page',
@@ -102,6 +103,7 @@ export class ReservationPageComponent implements OnInit {
 
   cart: Cart;
   cart$: Observable<Cart>;
+  timeSlotsData: CalendarPeriod[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
@@ -289,11 +291,17 @@ export class ReservationPageComponent implements OnInit {
     }
   }
 
+  onEventClicked(event) {
+    this.eventClicked(event);
+  }
+
   syncCalendarEvent() {
     this.events = [];
     for (const timeSlot of this.listTimeSlots) {
       this.events.push(this.timeSlotAdapter(timeSlot));
+      this.timeSlotsData.push(this.newTimeSlotAdapter(timeSlot));
     }
+    this.timeSlotsData = this.timeSlotsData.slice(0);
   }
 
   getTimeslotColor(timeSlot) {
@@ -316,6 +324,18 @@ export class ReservationPageComponent implements OnInit {
       title: timeSlot.getStartTime() + ' à ' + timeSlot.getEndTime() + ' (' + timeSlot.places_remaining.toString() + ' places restantes)',
       color: this.getTimeslotColor(timeSlot)
     };
+  }
+
+  newTimeSlotAdapter(timeSlot) {
+    return new CalendarPeriod({
+      id: timeSlot.id,
+      start: new Date(timeSlot.start_time),
+      end: new Date(timeSlot.end_time),
+      places: timeSlot.workplace.seats,
+      places_remaining: timeSlot.places_remaining,
+      reservations: timeSlot.reservations,
+      users: timeSlot.users
+    });
   }
 
   getNumberOfTicketAvailable() {
@@ -349,7 +369,9 @@ export class ReservationPageComponent implements OnInit {
   }
 
   addPackageToCart() {
-    this.cartService.addReservationPackage(this.listReservationPackage[this.selectedReservationPackageIndex]);
+    this.cartService.addReservationPackage(
+      this.listReservationPackage[this.selectedReservationPackageIndex]
+    );
     this.myModalService.get('add_package').close();
     this.subscribe(this.selectedTimeslot);
   }
