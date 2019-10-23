@@ -171,8 +171,8 @@ export class ProfileRetreatsComponent implements OnInit {
     this.retreatReservationService.update(this.selectedRetreatReservation.url, reservation).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.exchange_retreat_reservation.title'),
-          _('shared.notifications.exchange_retreat_reservation.content')
+          _('profile-retreats.notifications.exchange_retreat_reservation.title'),
+          _('profile-retreats.notifications.exchange_retreat_reservation.content')
         );
         this.refreshRetreatReservation();
         this.toogleModal('form_exchange_retreat');
@@ -181,7 +181,7 @@ export class ProfileRetreatsComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.errorExchangeRetreatReservation = err.error.non_field_errors;
         } else {
-          this.errorExchangeRetreatReservation = [_('shared.alert.errors.unknown')];
+          this.errorExchangeRetreatReservation = [_('profile-retreats.alert.errors.unknown')];
         }
       }
     );
@@ -191,8 +191,8 @@ export class ProfileRetreatsComponent implements OnInit {
     this.retreatReservationService.remove(this.selectedRetreatReservation).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.cancel_retreat_reservation.title'),
-          _('shared.notifications.cancel_retreat_reservation.content')
+          _('profile-retreats.notifications.cancel_retreat_reservation.title'),
+          _('profile-retreats.notifications.cancel_retreat_reservation.content')
         );
         this.refreshRetreatReservation();
         this.toogleModal('form_cancel_reservation_retreat');
@@ -201,7 +201,7 @@ export class ProfileRetreatsComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.errorCancelationRetreatReservation = err.error.non_field_errors;
         } else {
-          this.errorCancelationRetreatReservation = [_('shared.alert.errors.unknown')];
+          this.errorCancelationRetreatReservation = [_('profile-retreats.alert.errors.unknown')];
         }
       }
     );
@@ -211,7 +211,6 @@ export class ProfileRetreatsComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
     modal.toggle();

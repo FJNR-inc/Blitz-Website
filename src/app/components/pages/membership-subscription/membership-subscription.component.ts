@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {User} from '../../../models/user';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-membership-subscription',
@@ -16,7 +17,7 @@ export class MembershipSubscriptionComponent implements OnInit {
   menuActive = 3;
   listMemberships: Membership[];
   selectedMembership: Membership = null;
-  error: string;
+  error: string | string[];
   profile: User = null;
 
   constructor(private membershipService: MembershipService,
@@ -50,7 +51,7 @@ export class MembershipSubscriptionComponent implements OnInit {
       this.cartService.addMembership(this.selectedMembership);
       this.router.navigate(['/payment']);
     } else {
-      this.error = 'Vous devez séléctionnez le membership de votre choix.';
+      this.error = _('membership-subscription.error_1');
     }
   }
 

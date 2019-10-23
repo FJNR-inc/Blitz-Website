@@ -126,7 +126,7 @@ export class PaymentFlowConfirmationComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.errorOrder = err.error.non_field_errors;
         } else {
-          this.errorOrder = this.errorOrder.concat([_('shared.form.errors.unknown')]);
+          this.errorOrder = this.errorOrder.concat([_('payment-flow-confirmation.form.errors.unknown')]);
           if (err.error.order_lines) {
             for (const orderLine of err.error.order_lines) {
               if (orderLine.object_id) {
@@ -145,9 +145,9 @@ export class PaymentFlowConfirmationComponent implements OnInit {
 
   get confirmButtonText(){
     if (this.cart.hasOnlyTimeslot) {
-      return 'Confirmer la reservation';
+      return _('payment-flow-confirmation.confirm_button_reservation');
     } else {
-      return 'Confirmer le paiement';
+      return _('payment-flow-confirmation.confirm_button_paiement');
     }
   }
 }

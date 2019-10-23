@@ -1,17 +1,17 @@
 <div class="validate-page" *ngIf="flagSuccess != 0">
   <div class="validate-page__responses">
     <div *ngIf="profile && flagSuccess == 1">
-      <h1>{{'validate.email.hello' | translate}} {{profile.first_name}},</h1>
-      <p>{{'validate.email.messageSuccess' | translate}}</p>
+      <h1>{{'validate-email.hello' | translate}} {{profile.first_name}},</h1>
+      <p>{{'validate-email.messageSuccess' | translate}}</p>
     </div>
 
     <div *ngIf="flagSuccess == -1">
-      <h1>{{'validate.email.hello' | translate}},</h1>
-      <p>{{'validate.email.messageError_1' | translate}}</p>
-      <p>{{'validate.email.messageError_2' | translate}}</p>
+      <h1>{{'validate-email.hello' | translate}},</h1>
+      <p>{{'validate-email.messageError_1' | translate}}</p>
+      <p>{{'validate-email.messageError_2' | translate}}</p>
       <p><b>info@thesez-vous.com</b></p>
     </div>
-    <p>{{'validate.email.thanking' | translate}}</p>
+    <p>{{'validate-email.thanking' | translate}}</p>
   </div>
 </div>
 <app-loader *ngIf="flagSuccess ==  0"></app-loader>

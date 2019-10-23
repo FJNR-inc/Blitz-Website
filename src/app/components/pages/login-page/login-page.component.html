@@ -1,14 +1,14 @@
 <div class="login-page">
   <div>
     <h2 class="nt-title">
-      {{ 'login.title' | translate }}
+      {{ 'login-page.title' | translate }}
     </h2>
   </div>
   <form class="login-page__content" (submit)="authenticate(loginForm)" [formGroup]="loginForm">
     <app-alert *ngIf="errors" [messages]="errors" type="danger"></app-alert>
 
     <div class="form-group">
-      <label for="email" class="nt-form-label">{{ 'shared.form.email' | translate }}*:</label>
+      <label for="email" class="nt-form-label">{{ 'login-page.form.email' | translate }}*:</label>
       <input formControlName="login" name="login" type="email" id="email" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of loginForm.controls['login'].getError('apiError')">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="password" class="nt-form-label">{{ 'shared.form.password' | translate }}*:</label>
+      <label for="password" class="nt-form-label">{{ 'login-page.form.password' | translate }}*:</label>
       <input formControlName="password" name="password" type="password" id="password" class="nt-form-input" />
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of loginForm.controls['password'].getError('apiError')">
@@ -25,14 +25,14 @@
     </div>
     <div class="login-page__content__actions">
       <div class="login-page__content__actions__item login-page__content__actions__main">
-        <a routerLink="/register" class="nt-link">{{ 'login.link_to_register' | translate }}</a>
+        <a routerLink="/register" class="nt-link">{{ 'login-page.link_to_register' | translate }}</a>
       </div>
       <div class="login-page__content__actions__item">
-        <a routerLink="/forgot-password" class="nt-link">{{ 'login.link_to_forgot_password' | translate }}</a>
+        <a routerLink="/forgot-password" class="nt-link">{{ 'login-page.link_to_forgot_password' | translate }}</a>
       </div>
     </div>
     <button type="submit" class="nt-button login-page__content__submit" [disabled]="buttonDisabled">
-      {{ 'shared.buttons.log_in' | translate }}
+      {{ 'login-page.buttons.log_in' | translate }}
     </button>
   </form>
 </div>

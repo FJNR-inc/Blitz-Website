@@ -31,82 +31,82 @@ export class WorkplaceComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('workplace.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('workplace.form.name_in_english')
     },
     {
       name: 'details_fr',
       type: 'textarea',
-      label: _('shared.form.description_in_french')
+      label: _('workplace.form.description_in_french')
     },
     {
       name: 'details_en',
       type: 'textarea',
-      label: _('shared.form.description_in_english')
+      label: _('workplace.form.description_in_english')
     },
     {
       name: 'seats',
       type: 'number',
-      label: _('shared.form.seats')
+      label: _('workplace.form.seats')
     },
     {
       name: 'address_line1_fr',
       type: 'text',
-      label: _('shared.form.address_line1_in_french')
+      label: _('workplace.form.address_line1_in_french')
     },
     {
       name: 'address_line2_fr',
       type: 'text',
-      label: _('shared.form.address_line2_in_french')
+      label: _('workplace.form.address_line2_in_french')
     },
     {
       name: 'address_line1_en',
       type: 'text',
-      label: _('shared.form.address_line1_in_english')
+      label: _('workplace.form.address_line1_in_english')
     },
     {
       name: 'address_line2_en',
       type: 'text',
-      label: _('shared.form.address_line2_in_english')
+      label: _('workplace.form.address_line2_in_english')
     },
     {
       name: 'postal_code',
       type: 'text',
-      label: _('shared.form.postal_code')
+      label: _('workplace.form.postal_code')
     },
     {
       name: 'city_fr',
       type: 'text',
-      label: _('shared.form.city_in_french')
+      label: _('workplace.form.city_in_french')
     },
     {
       name: 'city_en',
       type: 'text',
-      label: _('shared.form.city_in_english')
+      label: _('workplace.form.city_in_english')
     },
     {
       name: 'state_province_fr',
       type: 'text',
-      label: _('shared.form.state_province_in_french')
+      label: _('workplace.form.state_province_in_french')
     },
     {
       name: 'state_province_en',
       type: 'text',
-      label: _('shared.form.state_province_in_english')
+      label: _('workplace.form.state_province_in_english')
     },
     {
       name: 'country_fr',
       type: 'text',
-      label: _('shared.form.country_in_french')
+      label: _('workplace.form.country_in_french')
     },
     {
       name: 'country_en',
       type: 'text',
-      label: _('shared.form.country_in_english')
+      label: _('workplace.form.country_in_english')
     }
   ];
 
@@ -165,14 +165,14 @@ export class WorkplaceComponent implements OnInit {
       data => {
         this.listPictures.push(new Picture(data));
         this.notificationService.success(
-          _('shared.notifications.add_picture.title'),
-          _('shared.notifications.add_picture.content')
+          _('workplace.notifications.add_picture.title'),
+          _('workplace.notifications.add_picture.content')
         );
       },
       err => {
         this.notificationService.error(
-          _('shared.notifications.fail_add.title'),
-          _('shared.notifications.fail_add.content')
+          _('workplace.notifications.fail_add.title'),
+          _('workplace.notifications.fail_add.content')
         );
       }
     );
@@ -184,15 +184,15 @@ export class WorkplaceComponent implements OnInit {
         this.pictureService.remove(picture).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.delete_picture.title'),
-              _('shared.notifications.delete_picture.content')
+              _('workplace.notifications.delete_picture.title'),
+              _('workplace.notifications.delete_picture.content')
             );
             this.refreshListPictures();
           },
           err => {
             this.notificationService.error(
-              _('shared.notifications.fail_deletion.title'),
-              _('shared.notifications.fail_deletion.content')
+              _('workplace.notifications.fail_deletion.title'),
+              _('workplace.notifications.fail_deletion.content')
             );
           }
         );
@@ -230,7 +230,6 @@ export class WorkplaceComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 
@@ -249,7 +248,7 @@ export class WorkplaceComponent implements OnInit {
       this.workplaceService.update(this.workplace.url, value).subscribe(
         data => {
           this.notificationService.success(
-            _('shared.notifications.commons.added.title')
+            _('workplace.notifications.commons.added.title')
           );
           this.refreshWorkplace();
           this.toogleModal('form_workplaces');
@@ -258,7 +257,7 @@ export class WorkplaceComponent implements OnInit {
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
           } else {
-            this.errors =  ['shared.form.errors.unknown'];
+            this.errors =  ['workplace.form.errors.unknown'];
           }
           this.workplaceForm = FormUtil.manageFormErrors(this.workplaceForm, err);
         }

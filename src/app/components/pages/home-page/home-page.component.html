@@ -1,34 +1,31 @@
 <div class="home-page">
   <img class="home-page__splashscreen" src="../../../../assets/images/illustration1.jpg" />
   <div class="home-page__splash-text">
-    <h1 class="home-page__splash-text__title">Rédiger plus, mieux, ensemble</h1>
+    <h1 class="home-page__splash-text__title">{{'home-page.splash_text_title' | translate}}</h1>
     <p class="home-page__splash-text__content">
-      Grâce à des espaces favorables à la concentration, à une communauté motivante
-      et à un encadrement structurant, des étudiant.e.s et des chercheur.e.s de toutes
-      les disciplines et de toutes les universités passent à un stade de productivité
-      supérieur dans la rédaction de leur mémoire, thèse, article ou demande de financement.
+      {{'home-page.splash_text' | translate}}
     </p>
   </div>
   <div class="home-page__retraite">
     <div class="home-page__retraite__picture"></div>
     <div class="home-page__retraite__text">
       <h1 class="home-page__retraite__text__title">
-        Les retraites de rédaction
+        {{'home-page.retreat.title' | translate}}
       </h1>
       <p class="home-page__retraite__text__content">
-        S'exiler pour des retraites de rédaction dans des sites inspirants
+        {{'home-page.retreat.text' | translate}}
       </p>
 
-      <a class="home-page__retraite__text__button nt nt-button">Consulter le calendrier</a>
+      <a class="home-page__retraite__text__button nt nt-button">{{'home-page.retreat.btn' | translate}}</a>
     </div>
   </div>
   <div class="home-page__espace">
     <div class="home-page__espace__text" *ngIf="workplaceList && workplaceList[0]">
       <h1 class="home-page__espace__text__title">
-        L'espace Thèsez-vous
+        {{'home-page.espace.title' | translate}}
       </h1>
       <p class="home-page__espace__text__content">
-        Premier espace de travail en ville
+        {{'home-page.espace.text' | translate}}
       </p>
       <ul class="home-page__espace__text__details">
         <li class="home-page__espace__text__details__item">
@@ -41,23 +38,25 @@
         <li class="home-page__espace__text__details__item">
           <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_membre.svg" />
           <span class="home-page__espace__text__details__item__label">
-            Membership requis
+            {{'home-page.espace.text1' | translate}}
           </span>
         </li>
         <li class="home-page__espace__text__details__item">
           <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_chair.svg" />
           <span class="home-page__espace__text__details__item__label">
-            {{workplaceList[0].seats}} places disponibles
+            {{workplaceList[0].seats}} {{'home-page.espace.text2' | translate}}
           </span>
         </li>
         <li class="home-page__espace__text__details__item">
           <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_coffee.svg" />
           <span class="home-page__espace__text__details__item__label">
-            Café inclus
+            {{'home-page.espace.text3' | translate}}
           </span>
         </li>
       </ul>
-      <a class="home-page__espace__text__button nt nt-button" routerLink="/reservation/{{workplaceList[0].id}}">Réserver ma place</a>
+      <a class="home-page__espace__text__button nt nt-button" routerLink="/reservation/{{workplaceList[0].id}}">
+        {{'home-page.espace.btn' | translate}}
+      </a>
     </div>
     <div class="home-page__espace__map"></div>
   </div>
@@ -68,16 +67,10 @@
   </div>
   <div class="home-page__partners">
     <h1 class="home-page__partners__title">
-      Nos précieux partenaires
+      {{'home-page.partner.title' | translate}}
     </h1>
     <p class="home-page__partners__content">
-      Sit natus in dicta qui placeat quaerat quod. Assumenda aut et et voluptates quisquam minus autem. Ullam omnis dolor explicabo rem quia. Culpa reprehenderit dolore dicta aut quo est velit. Debitis ut iure non facilis.
-
-      Dolores sit praesentium deserunt. Neque rerum in in. Sed nisi minus voluptas rerum adipisci alias et. Atque rerum est minima laboriosam tempora laboriosam. Facere aut at autem dolorum ut quasi qui dolor.
-
-      Ut quia mollitia rerum quia velit est aut. Repudiandae tenetur totam aut repellat exercitationem fugiat. Autem quos et exercitationem veniam incidunt.
-
-      Numquam non nihil est quo perspiciatis voluptates. Pariatur at inventore doloremque explicabo non voluptatem aperiam fugiat. Ipsa repellat voluptatibus quia eos. Assumenda consequatur similique omnis qui quis aspernatur.
+      {{'home-page.partner.text' | translate}}
     </p>
   </div>
 </div>

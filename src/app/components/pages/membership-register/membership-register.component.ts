@@ -78,7 +78,7 @@ export class MembershipRegisterComponent implements OnInit {
 
       if (password.value !== confirmation.value) {
         return confirmation.setErrors({
-          apiError: ['La confirmation n\'est pas identique au mot de passe.']
+          apiError: [_('membership-register.error_text_1')]
         });
       }
     };
@@ -91,7 +91,7 @@ export class MembershipRegisterComponent implements OnInit {
 
       if (!day.value && day.valid) {
         return day.setErrors({
-          apiError: ['Ce champ ne peut pas etre vide.']
+          apiError: [_('membership-register.error_text_2')]
         });
       }
     };
@@ -104,7 +104,7 @@ export class MembershipRegisterComponent implements OnInit {
 
       if (!month.value && month.valid) {
         return month.setErrors({
-          apiError: ['Ce champ ne peut pas etre vide.']
+          apiError: [_('membership-register.error_text_2')]
         });
       }
     };
@@ -117,7 +117,7 @@ export class MembershipRegisterComponent implements OnInit {
 
       if (!year.value && year.valid) {
         return year.setErrors({
-          apiError: ['Ce champ ne peut pas etre vide.']
+          apiError: [_('membership-register.error_text_2')]
         });
       }
     };
@@ -166,7 +166,6 @@ export class MembershipRegisterComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

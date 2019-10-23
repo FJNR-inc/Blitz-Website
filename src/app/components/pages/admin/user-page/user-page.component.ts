@@ -43,25 +43,25 @@ export class UserPageComponent implements OnInit {
     columns: [
       {
         name: 'start_event',
-        title: _('shared.common.bloc')
+        title: _('user-page.common.bloc')
       },
       {
         name: 'workplace_name',
-        title: _('shared.common.place')
+        title: _('user-page.common.place')
       },
       {
         name: 'is_active',
-        title: _('shared.common.active'),
+        title: _('user-page.common.active'),
         type: 'boolean'
       },
       {
         name: 'is_present',
-        title: _('shared.common.present'),
+        title: _('user-page.common.present'),
         type: 'boolean'
       },
       {
         name: 'cancelation_reason_long',
-        title: _('shared.common.reason')
+        title: _('user-page.common.reason')
       }
     ]
   };
@@ -72,11 +72,11 @@ export class UserPageComponent implements OnInit {
     columns: [
       {
         name: 'number',
-        title: _('shared.common.card_number')
+        title: _('user-page.common.card_number')
       },
       {
         name: 'expiry_date',
-        title: _('shared.common.expiration_date')
+        title: _('user-page.common.expiration_date')
       }
     ]
   };
@@ -88,15 +88,15 @@ export class UserPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.common.name')
+        title: _('user-page.common.name')
       },
       {
         name: 'price',
-        title: _('shared.common.price')
+        title: _('user-page.common.price')
       },
       {
         name: 'details',
-        title: _('shared.common.details')
+        title: _('user-page.common.details')
       }
     ]
   };
@@ -112,17 +112,17 @@ export class UserPageComponent implements OnInit {
     {
       name: 'price',
       type: 'number',
-      label: _('shared.common.price')
+      label: _('user-page.common.price')
     },
     {
       name: 'name',
       type: 'text',
-      label: _('shared.common.name')
+      label: _('user-page.common.name')
     },
     {
       name: 'details',
       type: 'textarea',
-      label: _('shared.common.details')
+      label: _('user-page.common.details')
     }
   ];
 
@@ -132,37 +132,37 @@ export class UserPageComponent implements OnInit {
     {
       name: 'first_name',
       type: 'text',
-      label: _('shared.common.first_name')
+      label: _('user-page.common.first_name')
     },
     {
       name: 'last_name',
       type: 'text',
-      label: _('shared.common.last_name')
+      label: _('user-page.common.last_name')
     },
     {
       name: 'birthdate',
       type: 'date',
-      label: _('shared.common.birth_date')
+      label: _('user-page.common.birth_date')
     },
     {
       name: 'gender',
       type: 'select',
-      label: _('shared.common.gender'),
+      label: _('user-page.common.gender'),
       choices: [
         {
-          label: _('shared.form.gender_none'),
+          label: _('user-page.form.gender_none'),
           value: 'A'
         },
         {
-          label: _('shared.form.gender_male'),
+          label: _('user-page.form.gender_male'),
           value: 'M'
         },
         {
-          label: _('shared.form.gender_female'),
+          label: _('user-page.form.gender_female'),
           value: 'F'
         },
         {
-          label: _('shared.form.gender_no_binary'),
+          label: _('user-page.form.gender_no_binary'),
           value: 'T'
         }
       ]
@@ -286,7 +286,6 @@ export class UserPageComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 
@@ -316,7 +315,7 @@ export class UserPageComponent implements OnInit {
     this.customPaymentService.create(value).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.commons.added.title')
+          _('user-page.notifications.commons.added.title')
         );
         this.refreshListCustomPayment();
         this.myModalService.get('add_custom_payment').toggle();
@@ -325,7 +324,7 @@ export class UserPageComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.customPaymentErrors = err.error.non_field_errors;
         } else {
-          this.customPaymentErrors =  ['shared.form.errors.unknown'];
+          this.customPaymentErrors =  ['user-page.form.errors.unknown'];
         }
         this.customPaymentForm = FormUtil.manageFormErrors(this.customPaymentForm, err);
       }
@@ -339,7 +338,7 @@ export class UserPageComponent implements OnInit {
     this.userService.update(this.user.url, value).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.commons.updated.title')
+          _('user-page.notifications.commons.updated.title')
         );
         this.refreshUser();
         this.myModalService.get('edit_user').toggle();
@@ -348,7 +347,7 @@ export class UserPageComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.userErrors = err.error.non_field_errors;
         } else {
-          this.userErrors =  ['shared.form.errors.unknown'];
+          this.userErrors =  ['user-page.form.errors.unknown'];
         }
         this.userForm = FormUtil.manageFormErrors(this.userForm, err);
       }
@@ -363,7 +362,7 @@ export class UserPageComponent implements OnInit {
     this.userService.send_confirm_email(this.user.id).subscribe(
       () => {
         this.notificationService.success(
-          _('shared.notifications.commons.confirm_email')
+          _('user-page.notifications.commons.confirm_email')
         );
       }
     );

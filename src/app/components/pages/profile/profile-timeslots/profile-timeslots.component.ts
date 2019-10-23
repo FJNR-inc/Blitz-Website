@@ -115,15 +115,15 @@ export class ProfileTimeslotsComponent implements OnInit {
     this.reservationService.remove(this.reservationInCancelation).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.cancel_bloc.title'),
-          _('shared.notifications.cancel_bloc.content')
+          _('profile-timeslots.notifications.cancel_bloc.title'),
+          _('profile-timeslots.notifications.cancel_bloc.content')
         );
         this.refreshReservation();
       },
       err => {
         this.notificationService.error(
-          _('shared.notifications.fail_cancel_bloc.title'),
-          _('shared.notifications.fail_cancel_bloc.content')
+          _('profile-timeslots.notifications.fail_cancel_bloc.title'),
+          _('profile-timeslots.notifications.fail_cancel_bloc.content')
         );
       }
     );
@@ -133,7 +133,6 @@ export class ProfileTimeslotsComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
     modal.toggle();

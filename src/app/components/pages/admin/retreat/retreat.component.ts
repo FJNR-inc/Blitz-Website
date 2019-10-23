@@ -45,7 +45,7 @@ export class RetreatComponent implements OnInit {
   page = 1;
 
   settings = {
-    noDataText: _('users-page.no_users'),
+    noDataText: _('retreat.users-page.no_users'),
     allowFiltering: false,
     clickable: true,
     previous: false,
@@ -55,81 +55,50 @@ export class RetreatComponent implements OnInit {
     columns: [
       {
         name: 'first_name',
-        title: _('shared.common.first_name')
+        title: _('retreat.common.first_name')
       },
       {
         name: 'last_name',
-        title: _('shared.common.last_name')
+        title: _('retreat.common.last_name')
       },
       {
         name: 'email',
-        title: _('shared.common.email')
+        title: _('retreat.common.email')
       }
     ]
   };
-
-  filters = [
-    {
-      display: 'Prénom',
-      name: 'first_name',
-      comparators: [
-        {
-          display: 'contient',
-          name: 'contain'
-        },
-        {
-          display: 'est egal a',
-          name: 'equal_to'
-        }
-      ]
-    },
-    {
-      display: 'Université',
-      name: 'university',
-      comparators: [
-        {
-          display: 'est',
-          name: 'is'
-        },
-        {
-          display: 'n\'est pas',
-          name: 'is_not'
-        }
-      ]
-    },
-  ];
 
   retreatFields = [
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.retreat.name_in_french')
+      label: _('retreat.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.retreat.name_in_english')
+      label: _('retreat.form.name_in_english')
     },
     {
       name: 'place_name',
       type: 'text',
-      label: _('shared.form.retreat.place_name')
+      label: _('retreat.form.place_name')
     },
     {
       name: 'activity_language',
       type: 'select',
-      label: _('shared.form.retreat.activity_language'),
+      label: _('retreat.form.activity_language'),
       choices: [
         {
-          label: _('shared.form.retreat.activity_language.choices.english'),
+          label: _('retreat.form.activity_language.choices.english'),
           value: 'EN'
         },
         {
-          label: _('shared.form.retreat.activity_language.choices.french'),
+          label: _('retreat.form.activity_language.choices.french'),
           value: 'FR'
         },
         {
-          label: _('shared.form.retreat.activity_language.choices.bilingual'),
+          label: _('retreat.form.activity_language.choices.bilingual'),
           value: 'B'
         }
       ]
@@ -137,18 +106,18 @@ export class RetreatComponent implements OnInit {
     {
       name: 'room_type',
       type: 'select',
-      label: _('shared.form.retreat.room_type'),
+      label: _('retreat.form.room_type'),
       choices: [
         {
-          label: _('shared.form.retreat.room_type.choices.single_occupation'),
+          label: _('retreat.form.room_type.choices.single_occupation'),
           value: ROOM_CHOICES.SINGLE_OCCUPATION
         },
         {
-          label: _('shared.form.retreat.room_type.choices.double_occupation'),
+          label: _('retreat.form.room_type.choices.double_occupation'),
           value: ROOM_CHOICES.DOUBLE_OCCUPATION
         },
         {
-          label: _('shared.form.retreat.room_type.choices.double_single_occupation'),
+          label: _('retreat.form.room_type.choices.double_single_occupation'),
           value: ROOM_CHOICES.DOUBLE_SINGLE_OCCUPATION
         }
       ]
@@ -156,152 +125,152 @@ export class RetreatComponent implements OnInit {
     {
       name: 'details_fr',
       type: 'textarea',
-      label: _('shared.form.retreat.description_in_french')
+      label: _('retreat.form.description_in_french')
     },
     {
       name: 'details_en',
       type: 'textarea',
-      label: _('shared.form.retreat.description_in_english')
+      label: _('retreat.form.description_in_english')
     },
     {
       name: 'seats',
       type: 'number',
-      label: _('shared.form.retreat.seats')
+      label: _('retreat.form.seats')
     },
     {
       name: 'price',
       type: 'number',
-      label: _('shared.form.retreat.price')
+      label: _('retreat.form.price')
     },
     {
       name: 'start_time',
       type: 'datetime',
-      label: _('shared.form.retreat.start_time')
+      label: _('retreat.form.start_time')
     },
     {
       name: 'end_time',
       type: 'datetime',
-      label: _('shared.form.retreat.end_time')
+      label: _('retreat.form.end_time')
     },
     {
       name: 'form_url',
       type: 'textarea',
-      label: _('shared.form.retreat.form_url')
+      label: _('retreat.form.form_url')
     },
     {
       name: 'carpool_url',
       type: 'textarea',
-      label: _('shared.form.retreat.carpool_url')
+      label: _('retreat.form.carpool_url')
     },
     {
       name: 'review_url',
       type: 'textarea',
-      label: _('shared.form.retreat.review_url')
+      label: _('retreat.form.review_url')
     },
     {
       name: 'email_content',
       type: 'textarea',
-      label: _('shared.form.retreat.email_content')
+      label: _('retreat.form.email_content')
     },
     {
       name: 'min_day_refund',
       type: 'number',
-      label: _('shared.form.retreat.min_day_refund')
+      label: _('retreat.form.min_day_refund')
     },
     {
       name: 'min_day_exchange',
       type: 'number',
-      label: _('shared.form.retreat.min_day_exchange')
+      label: _('retreat.form.min_day_exchange')
     },
     {
       name: 'refund_rate',
       type: 'number',
-      label: _('shared.form.retreat.refund_rate')
+      label: _('retreat.form.refund_rate')
     },
     {
       name: 'warning',
       type: 'alert',
-      label: _('shared.form.retreat.refund_rate_warning')
+      label: _('retreat.form.refund_rate_warning')
     },
     {
       name: 'address_line1_fr',
       type: 'text',
-      label: _('shared.form.retreat.address_line1_in_french')
+      label: _('retreat.form.address_line1_in_french')
     },
     {
       name: 'address_line2_fr',
       type: 'text',
-      label: _('shared.form.retreat.address_line2_in_french')
+      label: _('retreat.form.address_line2_in_french')
     },
     {
       name: 'address_line1_en',
       type: 'text',
-      label: _('shared.form.retreat.address_line1_in_english')
+      label: _('retreat.form.address_line1_in_english')
     },
     {
       name: 'address_line2_en',
       type: 'text',
-      label: _('shared.form.retreat.address_line2_in_english')
+      label: _('retreat.form.address_line2_in_english')
     },
     {
       name: 'postal_code',
       type: 'text',
-      label: _('shared.form.retreat.postal_code')
+      label: _('retreat.form.postal_code')
     },
     {
       name: 'city_fr',
       type: 'text',
-      label: _('shared.form.retreat.city_in_french')
+      label: _('retreat.form.city_in_french')
     },
     {
       name: 'city_en',
       type: 'text',
-      label: _('shared.form.retreat.city_in_english')
+      label: _('retreat.form.city_in_english')
     },
     {
       name: 'state_province_fr',
       type: 'text',
-      label: _('shared.form.retreat.state_province_in_french')
+      label: _('retreat.form.state_province_in_french')
     },
     {
       name: 'state_province_en',
       type: 'text',
-      label: _('shared.form.retreat.state_province_in_english')
+      label: _('retreat.form.state_province_in_english')
     },
     {
       name: 'country_fr',
       type: 'text',
-      label: _('shared.form.retreat.country_in_french')
+      label: _('retreat.form.country_in_french')
     },
     {
       name: 'country_en',
       type: 'text',
-      label: _('shared.form.retreat.country_in_english')
+      label: _('retreat.form.country_in_english')
     },
     {
       name: 'accessibility',
       type: 'checkbox',
-      label: _('shared.form.retreat.accessibility')
+      label: _('retreat.form.accessibility')
     },
     {
       name: 'toilet_gendered',
       type: 'checkbox',
-      label: _('shared.form.retreat.toilet_gendered')
+      label: _('retreat.form.toilet_gendered')
     },
     {
       name: 'is_active',
       type: 'checkbox',
-      label: _('shared.form.retreat.available')
+      label: _('retreat.form.available')
     },
     {
       name: 'has_shared_rooms',
       type: 'checkbox',
-      label: _('shared.form.retreat.has_shared_rooms')
+      label: _('retreat.form.has_shared_rooms')
     },
     {
       name: 'hidden',
       type: 'checkbox',
-      label: _('shared.form.retreat.hidden')
+      label: _('retreat.form.hidden')
     },
   ];
 
@@ -379,7 +348,6 @@ export class RetreatComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 
@@ -398,7 +366,7 @@ export class RetreatComponent implements OnInit {
       this.retreatService.update(this.retreat.url, value).subscribe(
         () => {
           this.notificationService.success(
-            _('shared.notifications.commons.added.title')
+            _('retreat.notifications.commons.added.title')
           );
           this.refreshRetreat();
           this.toogleModal('form_retreats');
@@ -407,7 +375,7 @@ export class RetreatComponent implements OnInit {
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
           } else {
-            this.errors =  ['shared.form.errors.unknown'];
+            this.errors =  ['retreat.form.errors.unknown'];
           }
           this.retreatForm = FormUtil.manageFormErrors(this.retreatForm, err);
         }
