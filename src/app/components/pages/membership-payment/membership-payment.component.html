@@ -4,18 +4,18 @@
   </div>
   <div>
     <h2 class="nt-title">
-      Paiement
+      {{'membership-payment.title' | translate}}
     </h2>
   </div>
   <form class="membership-payment-page__form">
     <app-alert *ngIf="error" [messages]="error" type="danger" class="membership-payment-page__form__alert"></app-alert>
     <div class="form-group">
-      <label for="card-number" class="nt-form-label">Numéro de la carte*:</label>
+      <label for="card-number" class="nt-form-label">{{'membership-payment.field_cart_number' | translate}}</label>
       <div id="card-number" class="nt-form-input membership-payment-page__form__field"></div>
     </div>
     <div class="membership-payment-page__form__expiration">
       <div class="form-group membership-payment-page__form__expiration__item">
-        <label for="expiration-date" class="nt-form-label">Date d'expiration*:</label>
+        <label for="expiration-date" class="nt-form-label">{{'membership-payment.field_expiration_date' | translate}}</label>
         <div id="expiration-date" class="nt-form-input membership-payment-page__form__field"></div>
       </div>
       <div class="form-group membership-payment-page__form__expiration__item">
@@ -25,14 +25,14 @@
     </div>
     <div class="membership-payment-page__form__actions">
       <div class="membership-payment-page__form__actions__item membership-payment-page__form__actions__item--main">
-        <a routerLink="/" class="nt-link">Annuler</a>
+        <a routerLink="/" class="nt-link">{{'membership-payment.link_cancelled' | translate}}</a>
       </div>
       <div>
         <a routerLink="/membership/summary" class="membership-payment-page__form__actions__item nt-button nt-button--reverse">
-          Précédent
+          {{'membership-payment.btn_previous' | translate}}
         </a>
         <button (click)="generateOrder()" [disabled]="buttonDisabled" type="submit" class="membership-payment-page__form__actions__item nt-button">
-          Payer
+          {{'membership-payment.btn_buy' | translate}}
         </button>
       </div>
     </div>

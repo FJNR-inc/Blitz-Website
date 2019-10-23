@@ -1,32 +1,32 @@
 <div class="activation-page">
   <div *ngIf="success === null">
     <h2 class="nt-title">
-      {{ 'activation.pending' | translate }}
+      {{ 'activation-page.pending' | translate }}
     </h2>
   </div>
   <div *ngIf="success === false">
     <h2 class="nt-title">
-      {{ 'activation.fail_title' | translate }}
+      {{ 'activation-page.fail_title' | translate }}
     </h2>
     <div class="activation-page__sub-title">
-      {{ 'activation.fail_text' | translate }}
+      {{ 'activation-page.fail_text' | translate }}
     </div>
     <div class="activation-page__button">
       <a class="nt-link" routerLink="/login">
-        {{ 'activation.fail_button' | translate }}
+        {{ 'activation-page.fail_button' | translate }}
       </a>
     </div>
   </div>
   <div *ngIf="success">
     <h2 class="nt-title">
-      {{ 'activation.success_title' | translate }}
+      {{ 'activation-page.success_title' | translate }}
     </h2>
     <div class="activation-page__sub-title">
-      {{ 'activation.success_text' | translate }}
+      {{ 'activation-page.success_text' | translate }}
     </div>
     <div class="activation-page__button">
       <a routerLink="/login" class="nt-link">
-        {{ 'activation.success_button' | translate }}
+        {{ 'activation-page.success_button' | translate }}
       </a>
     </div>
   </div>

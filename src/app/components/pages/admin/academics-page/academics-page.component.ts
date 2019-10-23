@@ -41,7 +41,7 @@ export class AcademicsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.form.name')
+        title: _('academics-page.form.name')
       }
     ]
   };
@@ -58,7 +58,7 @@ export class AcademicsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.form.name')
+        title: _('academics-page.form.name')
       }
     ]
   };
@@ -67,12 +67,12 @@ export class AcademicsPageComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('academics-page.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('academics-page.form.name_in_english')
     }
   ];
 
@@ -80,12 +80,12 @@ export class AcademicsPageComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('academics-page.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('academics-page.form.name_in_english')
     }
   ];
 
@@ -165,7 +165,7 @@ export class AcademicsPageComponent implements OnInit {
       if (this.selectedFieldUrl) {
         this.academicFieldService.update(this.selectedFieldUrl, this.fieldForm.value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.updated.title');
+            this.notificationService.success('academics-page.notifications.commons.updated.title');
             this.refreshFieldList();
             this.toogleModal('form_academic_fields');
           },
@@ -173,7 +173,7 @@ export class AcademicsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.fieldErrors = err.error.non_field_errors;
             } else {
-              this.fieldErrors =  ['shared.form.errors.unknown'];
+              this.fieldErrors =  ['academics-page.form.errors.unknown'];
             }
             this.fieldForm = FormUtil.manageFormErrors(this.fieldForm, err);
           }
@@ -181,7 +181,7 @@ export class AcademicsPageComponent implements OnInit {
       } else {
         this.academicFieldService.create(this.fieldForm.value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.added.title');
+            this.notificationService.success('academics-page.notifications.commons.added.title');
             this.refreshFieldList();
             this.toogleModal('form_academic_fields');
           },
@@ -189,7 +189,7 @@ export class AcademicsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.fieldErrors = err.error.non_field_errors;
             } else {
-              this.fieldErrors =  ['shared.form.errors.unknown'];
+              this.fieldErrors =  ['academics-page.form.errors.unknown'];
             }
             this.fieldForm = FormUtil.manageFormErrors(this.fieldForm, err);
           }
@@ -202,13 +202,14 @@ export class AcademicsPageComponent implements OnInit {
     this.academicFieldService.remove(item).subscribe(
       data => {
         this.notificationService.success(
-          'shared.notifications.delete_academic_field.title',
-          'shared.notifications.delete_academic_field.content'
+          'academics-page.notifications.delete_academic_field.title',
         );
         this.refreshFieldList();
       },
       err => {
-        this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
+        this.notificationService.error(
+          'academics-page.notifications.fail_deletion.title',
+          'academics-page.notifications.fail_deletion.content');
       }
     );
   }
@@ -217,7 +218,6 @@ export class AcademicsPageComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 
@@ -229,7 +229,11 @@ export class AcademicsPageComponent implements OnInit {
   OpenModalCreateLevel() {
     this.levelForm.reset();
     this.selectedLevelUrl = null;
-    this.toogleModal('form_academic_levels', 'Ajouter un niveau d\'étude', 'Créer');
+    this.toogleModal(
+      'form_academic_levels',
+      _('academics-page.modal_add_level'),
+      _('academics-page.create_level_modal.button')
+    );
   }
 
   OpenModalEditLevel(item) {
@@ -238,7 +242,11 @@ export class AcademicsPageComponent implements OnInit {
         this.levelForm.controls['name_fr'].setValue(level.name_fr);
         this.levelForm.controls['name_en'].setValue(level.name_en);
         this.selectedLevelUrl = item.url;
-        this.toogleModal('form_academic_levels', 'Éditer un niveau d\'étude', 'Éditer');
+        this.toogleModal(
+          'form_academic_levels',
+          _('academics-page.modal_edit_level'),
+          _('academics-page.edit_level_modal.button')
+        );
       }
     }
   }
@@ -248,7 +256,7 @@ export class AcademicsPageComponent implements OnInit {
       if (this.selectedLevelUrl) {
         this.academicLevelService.update(this.selectedLevelUrl, this.levelForm.value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.updated.title');
+            this.notificationService.success('academics-page.notifications.commons.updated.title');
             this.refreshLevelList();
             this.toogleModal('form_academic_levels');
           },
@@ -256,7 +264,7 @@ export class AcademicsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.levelErrors = err.error.non_field_errors;
             } else {
-              this.levelErrors =  ['shared.form.errors.unknown'];
+              this.levelErrors =  ['academics-page.form.errors.unknown'];
             }
             this.levelForm = FormUtil.manageFormErrors(this.levelForm, err);
           }
@@ -264,7 +272,7 @@ export class AcademicsPageComponent implements OnInit {
       } else {
         this.academicLevelService.create(this.levelForm.value).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.commons.added.title');
+            this.notificationService.success('academics-page.notifications.commons.added.title');
             this.refreshLevelList();
             this.toogleModal('form_academic_levels');
           },
@@ -272,7 +280,7 @@ export class AcademicsPageComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.levelErrors = err.error.non_field_errors;
             } else {
-              this.levelErrors =  ['shared.form.errors.unknown'];
+              this.levelErrors =  ['academics-page.form.errors.unknown'];
             }
             this.levelForm = FormUtil.manageFormErrors(this.levelForm, err);
           }
@@ -285,13 +293,15 @@ export class AcademicsPageComponent implements OnInit {
     this.academicLevelService.remove(item).subscribe(
       data => {
         this.notificationService.success(
-          'shared.notifications.delete_academic_level.title',
-          'shared.notifications.delete_academic_level.content'
+          'academics-page.notifications.delete_academic_level.title'
         );
         this.refreshLevelList();
       },
       err => {
-        this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
+        this.notificationService.error(
+          'academics-page.notifications.fail_deletion.title',
+          'academics-page.notifications.fail_deletion.content'
+        );
       }
     );
   }

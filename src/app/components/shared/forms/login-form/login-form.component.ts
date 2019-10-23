@@ -63,7 +63,7 @@ export class LoginFormComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.loginErrors = err.error.non_field_errors;
         } else {
-          this.loginErrors =  [_('shared.form.errors.unknown')];
+          this.loginErrors =  [_('login-form.form.errors.unknown')];
         }
         this.loginForm = FormUtil.manageFormErrors(this.loginForm, err);
       }

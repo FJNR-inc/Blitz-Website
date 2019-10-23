@@ -2,10 +2,10 @@
 <div *ngIf="calendarIsReady" class="calendar">
   <div class="calendar__table">
     <div class="calendar__table__title">
-      <h2>{{'shared.calendar.header.title1'| translate}}</h2>
+      <h2>{{'calendar.header.title1'| translate}}</h2>
       <hr>
       <p>
-        {{"shared.calendar.header.text1" | translate}}
+        {{"calendar.header.text1" | translate}}
       </p>
     </div>
     <div class="calendar__table__content">
@@ -17,7 +17,7 @@
             alt="icon_left_arrow"
             src="../../../../assets/images/icons/icon_left_arrow.svg">
         </button>
-        {{ 'shared.calendar.header.title2' | translate: ({dateStart: startDateWeek, dateEnd: endDateWeek})}}
+        {{ 'calendar.header.title2' | translate: ({dateStart: startDateWeek, dateEnd: endDateWeek})}}
         <button class="calendar__table__content__header__button"
            (click)="changeWeek(CHANGE_WEEK_FORWARD)">
           <img
@@ -30,7 +30,7 @@
       <div class="calendar__table__content__raw">
         <div class="calendar__table__content__raw__box">
           <div class=" calendar__table__content__raw__box__title">
-            {{'shared.calendar.table.title.date'|translate}}
+            {{'calendar.table.title.date'|translate}}
           </div>
         </div>
         <div class="calendar__table__content__raw__box">
@@ -41,7 +41,7 @@
         </div>
         <div class="calendar__table__content__raw__box">
           <div class="calendar__table__content__raw__box__title">
-            {{'shared.calendar.table.title.night'|translate}}
+            {{'calendar.table.title.night'|translate}}
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@
 
   <div class="calendar__legend">
     <div class="calendar__legend__title">
-      <h2>{{'shared.calendar.legend.title'| translate}}</h2>
+      <h2>{{'calendar.legend.title'| translate}}</h2>
       <hr>
     </div>
     <ul class="calendar__legend__list">
@@ -81,23 +81,23 @@
           <span class="calendar__legend__list__elt__form__round"
                 [style.background-color]="COLOR_CODE_MANY_PLACE"></span>
         </div>
-        <div>{{'shared.calendar.legend.text1'|translate}}</div>
+        <div>{{'calendar.legend.text1'|translate}}</div>
       </li>
       <li class="calendar__legend__list__elt">
         <div class="calendar__legend__list__elt__form"><span class="calendar__legend__list__elt__form__round" [style.background-color]="COLOR_CODE_LESS_50_PLACE"></span></div>
-        <div>{{'shared.calendar.legend.text2'|translate}}</div>
+        <div>{{'calendar.legend.text2'|translate}}</div>
       </li>
       <li class="calendar__legend__list__elt">
         <div class="calendar__legend__list__elt__form"><span class="calendar__legend__list__elt__form__round" [style.background-color]="COLOR_CODE_ALMOST_NO_PLACE"></span></div>
-        <div>{{'shared.calendar.legend.text3'|translate}}</div>
+        <div>{{'calendar.legend.text3'|translate}}</div>
       </li>
       <li class="calendar__legend__list__elt">
         <div class="calendar__legend__list__elt__form"><span class="calendar__legend__list__elt__form__round" [style.background-color]="COLOR_CODE_NO_PLACE"></span></div>
-        <div>{{'shared.calendar.legend.text4'|translate}}</div>
+        <div>{{'calendar.legend.text4'|translate}}</div>
       </li>
       <li class="calendar__legend__list__elt">
         <div class="calendar__legend__list__elt__form"><span class="calendar__legend__list__elt__form__square-empty-case"></span></div>
-        <div>{{'shared.calendar.legend.text5'|translate}}</div>
+        <div>{{'calendar.legend.text5'|translate}}</div>
       </li>
     </ul>
   </div>

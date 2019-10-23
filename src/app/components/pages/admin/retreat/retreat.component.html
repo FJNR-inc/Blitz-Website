@@ -43,12 +43,10 @@
   <div *ngIf="!selectedUser">
     <app-my-table [settings]="settings"
                 [data]="listUsers"
-                [filters]="filters"
                 [useSearchBar]="true"
                 (searchBar)="updateFilter('search', $event)"
                 (selectItem)="selectUser($event)"
                 (changePage)="changePage($event)"
-                (updateFilters)="updateFilters($event)"
                 [limitChoices]="limitChoices"
                 (updateLimit)="changeLimit($event)">
     </app-my-table>

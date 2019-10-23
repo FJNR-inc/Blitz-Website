@@ -22,8 +22,8 @@ export class LogoutPageComponent {
         this.authenticationService.removeToken();
         this.authenticationService.setProfile('');
         this.notificationService.error(
-          _('shared.notifications.disconnected.title'),
-          _('shared.notifications.disconnected.content')
+          _('logout-page.notifications.disconnected.title'),
+          _('logout-page.notifications.disconnected.content')
         );
         this.router.navigate(['/']);
       }

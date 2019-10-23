@@ -40,19 +40,19 @@ export class TablePeriodsComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.form.name')
+        title: _('table-periods.form.name')
       },
       {
         name: 'start_date',
-        title: _('shared.form.start_date')
+        title: _('table-periods.form.start_date')
       },
       {
         name: 'end_date',
-        title: _('shared.form.end_date')
+        title: _('table-periods.form.end_date')
       },
       {
         name: 'is_active',
-        title: _('shared.form.available'),
+        title: _('table-periods.form.available'),
         type: 'boolean'
       }
     ]
@@ -66,27 +66,27 @@ export class TablePeriodsComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('table-periods.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('table-periods.form.name_in_english')
     },
     {
       name: 'start_date',
       type: 'datetime',
-      label: _('shared.form.start_date')
+      label: _('table-periods.form.start_date')
     },
     {
       name: 'end_date',
       type: 'datetime',
-      label: _('shared.form.end_date')
+      label: _('table-periods.form.end_date')
     },
     {
       name: 'is_active',
       type: 'checkbox',
-      label: _('shared.form.available')
+      label: _('table-periods.form.available')
     }
   ];
 
@@ -152,8 +152,8 @@ export class TablePeriodsComponent implements OnInit {
     this.selectedPeriod = null;
     this.toggleModal(
       'form_periods',
-      _('table-period.create_period_modal.title'),
-      _('table-period.create_period_modal.button')
+      _('table-periods.create_period_modal.title'),
+      _('table-periods.create_period_modal.button')
     );
   }
 
@@ -169,8 +169,8 @@ export class TablePeriodsComponent implements OnInit {
         this.selectedPeriod = period;
         this.toggleModal(
           'form_periods',
-          _('table-period.edit_period_modal.title'),
-          _('table-period.edit_period_modal.button')
+          _('table-periods.edit_period_modal.title'),
+          _('table-periods.edit_period_modal.button')
         );
       }
     }
@@ -185,7 +185,7 @@ export class TablePeriodsComponent implements OnInit {
       this.periodService.update(this.selectedPeriod.url, request).subscribe(
         data => {
           this.notificationService.success(
-            _('shared.notifications.commons.updated.title')
+            _('table-periods.notifications.commons.updated.title')
           );
           this.refreshPeriodList();
           this.toggleModal('form_periods');
@@ -194,7 +194,7 @@ export class TablePeriodsComponent implements OnInit {
           if (err.error.non_field_errors) {
             this.periodErrors = err.error.non_field_errors;
           } else {
-            this.periodErrors =  ['shared.form.errors.unknown'];
+            this.periodErrors =  ['table-periods.form.errors.unknown'];
           }
           this.periodForm = FormUtil.manageFormErrors(this.periodForm, err);
         }
@@ -207,7 +207,7 @@ export class TablePeriodsComponent implements OnInit {
       this.periodService.create(request).subscribe(
         data => {
           this.notificationService.success(
-            _('shared.notifications.commons.updated.title')
+            _('table-periods.notifications.commons.updated.title')
           );
           this.refreshPeriodList();
           this.toggleModal('form_periods');
@@ -216,7 +216,7 @@ export class TablePeriodsComponent implements OnInit {
           if (err.error.non_field_errors) {
             this.periodErrors = err.error.non_field_errors;
           } else {
-            this.periodErrors =  ['shared.form.errors.unknown'];
+            this.periodErrors =  ['table-periods.form.errors.unknown'];
           }
           this.periodForm = FormUtil.manageFormErrors(this.periodForm, err);
         }
@@ -232,16 +232,23 @@ export class TablePeriodsComponent implements OnInit {
         this.periodInDeletion = item;
       }
       if (!force && this.periodInDeletion.total_reservations > 0) {
-        this.toggleModal('validation_deletion', 'Attention!', 'Rembourser & Contacter');
+        this.toggleModal(
+          'validation_deletion',
+          _('table-periods.modal_warning_title'),
+          _('table-periods.modal_warning_text')
+        );
       } else {
         this.periodService.remove(this.periodInDeletion, force, this.messageOnDeletion).subscribe(
           data => {
-            this.notificationService.success('shared.notifications.delete_period.title', 'shared.notifications.delete_period.content');
+            this.notificationService.success(
+              'table-period.notifications.delete_period.title');
             this.myModalService.get('validation_deletion').close();
             this.refreshPeriodList();
           },
           err => {
-            this.notificationService.error('shared.notifications.fail_deletion.title', 'shared.notifications.fail_deletion.content');
+            this.notificationService.error(
+              'table-periods.notifications.fail_deletion.title',
+              'table-periods.notifications.fail_deletion.content');
           }
         );
       }

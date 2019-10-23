@@ -24,15 +24,15 @@ export class ProfileDeactivateComponent implements OnInit {
     this.userService.remove(this.authenticationService.getProfile()).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.deactivate_profile.title'),
-          _('shared.notifications.deactivate_profile.content')
+          _('profile-deactivate.notifications.deactivate_profile.title'),
+          _('profile-deactivate.notifications.deactivate_profile.content')
         );
         this.router.navigate(['/logout']);
       },
       err => {
         this.notificationService.error(
-          _('shared.notifications.fail_deactivation.title'),
-          _('shared.notifications.fail_deactivation.content')
+          _('profile-deactivate.notifications.fail_deactivation.title'),
+          _('profile-deactivate.notifications.fail_deactivation.content')
         );
       }
     );

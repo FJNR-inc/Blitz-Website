@@ -3,7 +3,7 @@
 <div class="admin-organization-page" *ngIf="organization">
   <div>
     <h1 class="nt-title">
-      Universités / {{organization.name}}
+      {{'organization.title' | translate}} / {{organization.name}}
     </h1>
   </div>
   <div class="admin-organization-page__table">
@@ -24,10 +24,10 @@
     <app-alert *ngIf="domainErrors" [messages]="domainErrors" type="danger"></app-alert>
 
     <app-alert type="warning">
-      Attention: le nom de domaine n'est que la partie situé après l'arobase (@) dans une adresse courriel.
+      {{'organization.warning_text' | translate}}
     </app-alert>
     <div class="form-group">
-      <label for="domainName" class="nt-form-label">Nom de domaine:</label>
+      <label for="domainName" class="nt-form-label">{{'organization.domain_name' | translate}}:</label>
       <input formControlName="name" type="text" id="domainName" class="nt-form-input" placeholder="etsmtl.ca"/>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of domainForm.controls['name'].getError('apiError')">
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="domainExample" class="nt-form-label">Exemple :</label>
+      <label for="domainExample" class="nt-form-label">{{'organization.example' | translate}}:</label>
       <input formControlName="example" type="text" id="domainExample" class="nt-form-input" placeholder="prenom.nom.1@ens.etsmtl.ca"/>
       <div class="form-text form-text--right form-text--danger"
            *ngFor="let errorMessage of domainForm.controls['example'].getError('apiError')">
