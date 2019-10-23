@@ -241,7 +241,7 @@ export class PeriodComponent implements OnInit {
           this.timeslotService.update(this.selectedTimeslot.url, value).subscribe(
             data => {
               this.notificationService.success(
-                _('shared.notifications.commons.updated.title')
+                _('period.notifications.commons.updated.title')
               );
               this.refreshTimeslotList();
               this.toggleModal('form_timeslots');
@@ -313,7 +313,7 @@ export class PeriodComponent implements OnInit {
 
   handleSuccessCreation() {
     this.notificationService.success(
-      _('shared.notifications.commons.added.title')
+      _('period.notifications.commons.added.title')
     );
     this.refreshTimeslotList();
     this.toggleModal('form_timeslots');
@@ -336,15 +336,15 @@ export class PeriodComponent implements OnInit {
         this.timeslotService.remove(this.timeslotInDeletion, force, this.messageOnDeletion).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.delete_bloc.title'),
-              _('shared.notifications.delete_bloc.content')
+              _('period.notifications.delete_bloc.title'),
+              _('period.notifications.delete_bloc.content')
             );
             this.refreshTimeslotList();
           },
           err => {
             this.notificationService.error(
-              _('shared.notifications.fail_deletion_bloc.title'),
-              _('shared.notifications.fail_deletion_bloc.content')
+              _('period.notifications.fail_deletion_bloc.title'),
+              _('period.notifications.fail_deletion_bloc.content')
             );
           }
         );
@@ -356,7 +356,6 @@ export class PeriodComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

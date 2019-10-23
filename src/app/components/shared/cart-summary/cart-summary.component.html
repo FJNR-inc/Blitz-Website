@@ -1,5 +1,5 @@
 <div class="cart-summary">
-  <app-title [level]="4" text="Panier" *ngIf="displayTitle"></app-title>
+  <app-title [level]="4" text="{{'cart-summary.panier' | translate}}" *ngIf="displayTitle"></app-title>
   <div class="cart-summary__items">
     <div *ngFor="let membership of cart.getMemberships()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__left">
@@ -8,7 +8,10 @@
       </div>
       <div class="cart-summary__items__item__right">
         <div class="cart-summary__items__item__right__action">
-          <img (click)="removeMembershipFromCart(membership)" class="cart-summary__items__item__right__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+          <img (click)="removeMembershipFromCart(membership)"
+               class="cart-summary__items__item__right__action__icon"
+               src="../../assets/images/icons/icon_exit.svg"
+               alt="{{'cart-summary.img1_alt' | translate}}" />
         </div>
       </div>
     </div>
@@ -32,7 +35,9 @@
       <div class="cart-summary__items__item__right">
         <div class="cart-summary__items__item__right__action">
           <a (click)="removeRetreatFromCart(retreat)">
-            <img class="cart-summary__items__item__right__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+            <img class="cart-summary__items__item__right__action__icon"
+                 src="../../assets/images/icons/icon_exit.svg"
+                 alt="{{'cart-summary.img1_alt' | translate}}" />
           </a>
         </div>
       </div>
@@ -41,18 +46,21 @@
     <div *ngFor="let timeslot of cart.getTimeslots()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__left">
         <div class="cart-summary__items__item__left__name">
-          <app-title [level]="9" class="cart-summary__items__item__left__name" text="Plage horaire de redaction"></app-title><br/>
+          <app-title [level]="9" class="cart-summary__items__item__left__name"
+                     text="{{'cart-summary.plage_horaire' | translate}}"></app-title><br/>
           <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="timeslot.getStartDay()"></app-title><br/>
           <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ timeslot.getStartTime() }} - {{ timeslot.getEndTime() }}"></app-title><br/>
         </div>
         <div class="cart-summary__items__item__left__price">
-          <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ timeslot.billing_price }} bloc prépayé"></app-title><br/>
+          <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ 'cart-summary.bloc_prepaye' | translate: ({billingPrice: timeslot.billing_price}) }}"></app-title><br/>
         </div>
       </div>
       <div class="cart-summary__items__item__right">
         <div class="cart-summary__items__item__right__action">
           <a (click)="removeTimeslotFromCart(timeslot)">
-            <img class="cart-summary__items__item__right__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+            <img class="cart-summary__items__item__right__action__icon"
+                 src="../../assets/images/icons/icon_exit.svg"
+                 alt="{{'cart-summary.img3_alt' | translate}}" />
           </a>
         </div>
       </div>
@@ -61,8 +69,9 @@
     <div *ngFor="let reservationPackage of cart.getReservationPackages()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__left">
         <div class="cart-summary__items__item__left__name">
-          <app-title [level]="9" class="cart-summary__items__item__left__name" text="Lot de bloc de redaction prepaye"></app-title><br/>
-          <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ reservationPackage.reservations }} blocs"></app-title><br/>
+          <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{'cart-summary.redaction-prepeye' | translate}}"></app-title><br/>
+          <app-title [level]="9" class="cart-summary__items__item__left__name"
+                     text="{{ 'cart-summary.nb_reservations' | translate: ({reservations: reservationPackage.reservations}) }}"></app-title><br/>
         </div>
         <div class="cart-summary__items__item__left__price">
           <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ reservationPackage.price }} $CAN"></app-title><br/>
@@ -71,7 +80,7 @@
       <div class="cart-summary__items__item__right">
         <div class="cart-summary__items__item__right__action">
           <a (click)="removeReservationPackageFromCart(reservationPackage)">
-            <img class="cart-summary__items__item__right__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+            <img class="cart-summary__items__item__right__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="{{'cart-summary.img4_alt' | translate}}" />
           </a>
         </div>
       </div>
@@ -79,12 +88,12 @@
 
     <div *ngIf="cart.isEmpty()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__left">
-        <app-title [level]="9" class="cart-summary__items__item__left__name" text="Votre panier est vide"></app-title>
+        <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{'cart-summary.panier_empty' | translate}}"></app-title>
       </div>
     </div>
   </div>
   <div class="cart-summary__coupons" *ngIf="cart.getCoupons().length && displayCoupon">
-    <app-title [level]="6" class="cart-summary__coupons__title" text="RÉDUCTIONS"></app-title>
+    <app-title [level]="6" class="cart-summary__coupons__title" text="{{'cart-summary.title_reduction' | translate}}"></app-title>
     <div *ngFor="let coupon_applied of cart.getAppliedCoupons()" class="cart-summary__coupons__coupon">
       <div class="cart-summary__coupons__coupon__code">
         <app-title [level]="9" [text]="coupon_applied.coupon.code"></app-title>
@@ -100,40 +109,44 @@
         </span>
       </div>
       <div class="cart-summary__coupons__coupon__action">
-        <img (click)="removeCouponFromCart()" class="cart-summary__coupons__coupon__action__icon" src="../../assets/images/icons/icon_exit.svg" alt="enlever du panier" />
+        <img (click)="removeCouponFromCart()"
+             class="cart-summary__coupons__coupon__action__icon"
+             src="../../assets/images/icons/icon_exit.svg"
+             alt="{{'cart-summary.img4_alt' | translate}}" />
       </div>
     </div>
   </div>
 
 
   <div class="cart-summary__actions">
-    <app-link [text]="'Vider le panier'" (onClick)="cleanCart()"></app-link>
+    <app-link [text]="'cart-summary.link_panier_empty' | translate" (onClick)="cleanCart()"></app-link>
   </div>
 
   <div class="cart-summary__taxes" *ngIf="displayPrice">
     <div class="cart-summary__taxes__line cart-summary__taxes__line--main">
-      <app-title [level]="6" class="cart-summary__taxes__line__name" text="Sous-total"></app-title>
+      <app-title [level]="6" class="cart-summary__taxes__line__name" text="{{'cart-summary.sub_total' | translate}}"></app-title>
       <app-title [level]="6" class="cart-summary__taxes__line__price" text="{{ cart.getSubTotal() }} $CAN"></app-title>
     </div>
     <div class="cart-summary__taxes__line">
-      <app-title [level]="9" class="cart-summary__taxes__line__name" text="TPS"></app-title>
+      <app-title [level]="9" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_tps' | translate}}"></app-title>
       <app-title [level]="9" class="cart-summary__taxes__line__price" text="{{ cart.getTPS() }} $CAN"></app-title>
     </div>
     <div class="cart-summary__taxes__line">
-      <app-title [level]="9" class="cart-summary__taxes__line__name" text="TVQ"></app-title>
+      <app-title [level]="9" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_tvq' | translate}}"></app-title>
       <app-title [level]="9" class="cart-summary__taxes__line__price" text="{{ cart.getTVQ() }} $CAN"></app-title>
     </div>
     <div class="cart-summary__taxes__line cart-summary__taxes__line--main">
-      <app-title [level]="6" class="cart-summary__taxes__line__name" text="TOTAL"></app-title>
+      <app-title [level]="6" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_total' | translate}}"></app-title>
       <app-title [level]="6" class="cart-summary__taxes__line__price" text="{{ cart.getTotal() }} $CAN"></app-title>
     </div>
     <div class="cart-summary__taxes__line" *ngIf="getActualTotalTicket()">
-      <app-title [level]="9" class="cart-summary__taxes__line__name" text="Ancien solde de bloc prepaye"></app-title>
+      <app-title [level]="9" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_old_solde_bloc_prepaye' | translate}}"></app-title>
       <app-title [level]="9" class="cart-summary__taxes__line__price" text="{{ getActualTotalTicket() }} bloc(s)"></app-title>
     </div>
     <div class="cart-summary__taxes__line" *ngIf="getNewTotalTicket()">
-      <app-title [level]="9" class="cart-summary__taxes__line__name" text="Nouveau solde de bloc prepaye"></app-title>
-      <app-title [level]="9" class="cart-summary__taxes__line__price" text="{{ getNewTotalTicket() }} bloc(s)"></app-title>
+      <app-title [level]="9" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_new_solde_bloc_prepaye' | translate}}"></app-title>
+      <app-title [level]="9" class="cart-summary__taxes__line__price"
+                 text="{{'cart-summary.nb_total_ticket' | translate: ({totalTicket: getNewTotalTicket()})}}"></app-title>
     </div>
   </div>
 </div>

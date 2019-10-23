@@ -19,7 +19,7 @@ interface Choice {
 interface Field {
   name: string;
   type: string;
-  label: string;
+  label: string | string[];
   choices?: Choice[];
 }
 
@@ -34,8 +34,8 @@ export class RetreatInvitationComponent implements OnInit {
   retreat: Retreat;
 
   settings: TableSetting = {
-    title: _('table-retreat-invitation.title_table'),
-    noDataText: _('table-retreat-invitation.no_reservation'),
+    title: _('retreat-invitation.title_table'),
+    noDataText: _('retreat-invitation.no_reservation'),
     addButton: true,
     clickable: false,
     previous: false,
@@ -46,20 +46,20 @@ export class RetreatInvitationComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.common.name')
+        title: _('retreat-invitation.common.name')
       }, {
         name: 'nb_places',
-        title: _('shared.common.nb_places')
+        title: _('retreat-invitation.common.nb_places')
       }, {
         name: 'nb_places_used',
-        title: _('shared.common.nb_places_used')
+        title: _('retreat-invitation.common.nb_places_used')
       }, {
         name: 'reserve_seat',
         type: 'boolean',
-        title: _('shared.common.reserve_seat')
+        title: _('retreat-invitation.common.reserve_seat')
       }, {
         name: 'front_url',
-        title: _('shared.common.front_url')
+        title: _('retreat-invitation.common.front_url')
       },
     ]
   };
@@ -75,22 +75,22 @@ export class RetreatInvitationComponent implements OnInit {
     {
       name: 'name',
       type: 'text',
-      label: 'Name'
+      label: _('retreat-invitation.form.name')
     },
     {
       name: 'nb_places',
       type: 'number',
-      label: 'Nombre de places'
+      label: _('retreat-invitation.form.nb_place')
     },
     {
       name: 'reserve_seat',
       type: 'boolean',
-      label: 'Reserver les sieges'
+      label: _('retreat-invitation.form.nb_reserved')
     },
     {
       name: 'coupon',
       type: 'select',
-      label: 'Coupon',
+      label: _('retreat-invitation.form.coupon'),
       choices: []
     }
   ];
@@ -140,12 +140,11 @@ export class RetreatInvitationComponent implements OnInit {
     const modal = this.myModalService.get('form_retreat_invitations');
 
     if (!modal) {
-      console.error('No modal named form_retreat_invitations');
       return;
     }
 
-    modal.title = 'Créer une invitation';
-    modal.button2Label = 'Créer';
+    modal.title = _('retreat-invitation.form.modal_add_title');
+    modal.button2Label = _('retreat-invitation.form.modal_add_btn');
     this.selectedInvitation = null;
     this.refreshCoupon();
     modal.toggle();
@@ -155,12 +154,11 @@ export class RetreatInvitationComponent implements OnInit {
     const modal = this.myModalService.get('form_retreat_invitations');
 
     if (!modal) {
-      console.error('No modal named form_retreat_invitations');
       return;
     }
 
-    modal.title = 'Editer une invitation';
-    modal.button2Label = 'Mettre à jour';
+    modal.title = _('retreat-invitation.form.modal_edit_title');
+    modal.button2Label = _('retreat-invitation.form.modal_edit_btn');
     this.selectedInvitation = invitation;
     this.refreshCoupon();
     modal.toggle();
@@ -189,14 +187,14 @@ export class RetreatInvitationComponent implements OnInit {
           this.refreshInvitations();
           this.myModalService.get('form_retreat_invitations').close();
           this.notificationService.success(
-            _('shared.notifications.commons.updated.title')
+            _('retreat-invitation.notifications.commons.updated.title')
           );
         },
         err => {
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
           } else {
-            this.errors =  ['shared.form.errors.unknown'];
+            this.errors =  ['retreat-invitation.form.errors.unknown'];
           }
           this.invitationForm = FormUtil.manageFormErrors(this.invitationForm, err);
         }
@@ -213,14 +211,14 @@ export class RetreatInvitationComponent implements OnInit {
           this.refreshInvitations();
           this.myModalService.get('form_retreat_invitations').close();
           this.notificationService.success(
-            _('shared.notifications.commons.added.title')
+            _('retreat-invitation.notifications.commons.added.title')
           );
         }  ,
         err => {
           if (err.error.non_field_errors) {
             this.errors = err.error.non_field_errors;
           } else {
-            this.errors =  ['shared.form.errors.unknown'];
+            this.errors =  ['retreat-invitation.form.errors.unknown'];
           }
           this.invitationForm = FormUtil.manageFormErrors(this.invitationForm, err);
         }

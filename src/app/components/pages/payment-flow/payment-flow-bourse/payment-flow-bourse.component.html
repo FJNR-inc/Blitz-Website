@@ -1,14 +1,15 @@
 <div class="payment-flow-bourse">
-  <app-title [level]="4" text="Bourse" class="payment-flow-bourse__texts"></app-title>
+  <app-title [level]="4" text="{{'payment-flow-bourse.title1' | translate}}"
+             class="payment-flow-bourse__texts"></app-title>
   <app-title [level]="9"  class="payment-flow-bourse__texts"
-             text="Certaines universités offrent des bourses pour réduire vos frais.
-             Cliquez ici pour voir si vous êtes éligibles et comment vous inscrire. Si applicable,
-             entrez les informations suivantes pour appliquer une bourse."></app-title>
+             text="{{'payment-flow-bourse.text1' | translate}}"></app-title>
 
   <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>
 
   <div class="payment-flow-bourse__actions">
-    <app-button text="Precedent" [type]="3" (click)="goBack()"></app-button>
-    <app-button text="Continuer" [type]="1" (click)="goForward()" [disabled]="!canAddAGrant"></app-button>
+    <app-button text="{{'payment-flow-bourse.actions_btn1' | translate}}"
+                [type]="3" (click)="goBack()"></app-button>
+    <app-button text="{{'payment-flow-bourse.actions_btn2' | translate}}"
+                [type]="1" (click)="goForward()" [disabled]="!canAddAGrant"></app-button>
   </div>
 </div>

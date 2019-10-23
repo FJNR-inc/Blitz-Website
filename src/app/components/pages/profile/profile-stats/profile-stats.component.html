@@ -4,10 +4,10 @@
       {{ profile.tickets}}
     </p>
     <div class="profile-stats__box__text">
-      {{ 'profile.prepaid_bloc' | translate }}
+      {{ 'profile-stats.prepaid_bloc' | translate }}
     </div>
     <p class="profile-stats__box__sub-text">
-      {{ 'profile.prepaid_bloc_subtext' | translate }}
+      {{ 'profile-stats.prepaid_bloc_subtext' | translate }}
     </p>
   </div>
   <div class="profile-stats__box profile-stats__box--main">
@@ -15,16 +15,16 @@
       {{ profile.getTimeBeforeEndMembership() }}
     </p>
     <div class="profile-stats__box__text">
-      {{ 'profile.remaining_days' | translate }}
+      {{ 'profile-stats.remaining_days' | translate }}
     </div>
     <p class="profile-stats__box__sub-text">
-      {{ 'profile.remaining_days_subtext' | translate }}
+      {{ 'profile-stats.remaining_days_subtext' | translate }}
     </p>
     <p *ngIf="profile.getTimeBeforeEndMembership() > 0 && profile.getTimeBeforeEndMembership() < 30">
-      <a class="nt-link" routerLink="/membership/intro">{{ 'shared.buttons.renew_member' | translate }}</a>
+      <a class="nt-link" routerLink="/membership/intro">{{ 'profile-stats.buttons.renew_member' | translate }}</a>
     </p>
     <p *ngIf="profile.getTimeBeforeEndMembership() === 0">
-      <a class="nt-link" routerLink="/membership/intro">{{ 'shared.buttons.become_member' | translate }}</a>
+      <a class="nt-link" routerLink="/membership/intro">{{ 'profile-stats.buttons.become_member' | translate }}</a>
     </p>
   </div>
 </div>

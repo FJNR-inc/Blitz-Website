@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-reset-password-page',
@@ -14,7 +15,7 @@ export class ResetPasswordPageComponent implements OnInit {
   token: string;
 
   resetForm: FormGroup;
-  errors: string[];
+  errors: (string | string[])[];
 
   success: boolean = null;
 
@@ -46,7 +47,7 @@ export class ResetPasswordPageComponent implements OnInit {
     if ( form.valid ) {
       this.authenticationService.changePassword(this.token, form.value['password']).subscribe(
         data => {
-          this.notificationService.success('shared.notifications.password_reset.title', 'shared.notifications.password_reset.content');
+          this.notificationService.success('reset-password-page.notifications.password_reset.title');
           this.router.navigate(['/']);
         },
         err => {
@@ -54,7 +55,7 @@ export class ResetPasswordPageComponent implements OnInit {
             this.errors = err.error.non_field_errors;
           }
           if (err.error.detail) {
-            this.errors = ['Une erreure est survenue. Veuillez contacter l\'administration.'];
+            this.errors = [_('reset-password-page.error_1')];
           }
           if (err.error.new_password) {
             this.resetForm.controls['password'].setErrors({
@@ -64,7 +65,7 @@ export class ResetPasswordPageComponent implements OnInit {
         }
       );
     } else {
-      this.errors = ['Veuillez remplir tous les champs.'];
+      this.errors = [_('reset-password-page.error_2')];
     }
   }
 
@@ -76,7 +77,7 @@ export class ResetPasswordPageComponent implements OnInit {
 
       if (password.value !== confirmation.value) {
         return confirmation.setErrors({
-          apiError: ['La confirmation n\'est pas identique au mot de passe.']
+          apiError: [_('reset-password-page.error_3')]
         });
       }
     };

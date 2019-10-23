@@ -41,15 +41,15 @@ export class MembershipsComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.form.name')
+        title: _('memberships.form.name')
       },
       {
         name: 'price',
-        title: _('shared.form.price')
+        title: _('memberships.form.price')
       },
       {
         name: 'available',
-        title: _('shared.form.available'),
+        title: _('memberships.form.available'),
         type: 'boolean'
       }
     ]
@@ -59,22 +59,22 @@ export class MembershipsComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('memberships.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('memberships.form.name_in_english')
     },
     {
       name: 'price',
       type: 'number',
-      label: _('shared.form.price')
+      label: _('memberships.form.price')
     },
     {
       name: 'academic_levels',
       type: 'choices',
-      label: _('shared.form.academic_level_required'),
+      label: _('memberships.form.academic_level_required'),
       choices: []
     },
     {
@@ -85,7 +85,7 @@ export class MembershipsComponent implements OnInit {
     {
       name: 'available',
       type: 'checkbox',
-      label: _('shared.form.available')
+      label: _('memberships.form.available')
     },
   ];
 
@@ -156,7 +156,10 @@ export class MembershipsComponent implements OnInit {
     this.membershipForm.controls['available'].setValue(false);
 
     this.selectedMembershipUrl = null;
-    this.toogleModal('form_memberships', 'Ajouter un type de membership', 'Créer');
+    this.toogleModal(
+      'form_memberships',
+      _('memberships.modal_add_membership'),
+      _('memberships.modal_btn_add_membership'));
   }
 
   OpenModalEditMembership(item) {
@@ -169,7 +172,10 @@ export class MembershipsComponent implements OnInit {
         this.membershipForm.controls['available'].setValue(membership.available);
 
         this.selectedMembershipUrl = item.url;
-        this.toogleModal('form_memberships', 'Éditer un type de membership', 'Éditer');
+        this.toogleModal(
+          'form_memberships',
+          _('memberships.modal_edit_membership'),
+          _('memberships.modal_btn_edit_membership'));
       }
     }
   }
@@ -190,7 +196,7 @@ export class MembershipsComponent implements OnInit {
       if (this.selectedMembershipUrl) {
         this.membershipService.update(this.selectedMembershipUrl, membership).subscribe(
           data => {
-            this.notificationService.success(_('shared.notifications.commons.updated.title'));
+            this.notificationService.success(_('memberships.notifications.commons.updated.title'));
             this.refreshMembershipList();
             this.toogleModal('form_memberships');
           },
@@ -198,7 +204,7 @@ export class MembershipsComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
             } else {
-              this.membershipErrors =  ['shared.form.errors.unknown'];
+              this.membershipErrors =  ['memberships.form.errors.unknown'];
             }
             this.membershipForm = FormUtil.manageFormErrors(this.membershipForm, err);
           }
@@ -206,7 +212,7 @@ export class MembershipsComponent implements OnInit {
       } else {
         this.membershipService.create(membership).subscribe(
           data => {
-            this.notificationService.success(_('shared.notifications.commons.added.title'));
+            this.notificationService.success(_('memberships.notifications.commons.added.title'));
             this.refreshMembershipList();
             this.toogleModal('form_memberships');
           },
@@ -214,7 +220,7 @@ export class MembershipsComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.membershipErrors = err.error.non_field_errors;
             } else {
-              this.membershipErrors =  ['shared.form.errors.unknown'];
+              this.membershipErrors =  ['memberships.form.errors.unknown'];
             }
             this.membershipForm = FormUtil.manageFormErrors(this.membershipForm, err);
           }
@@ -223,11 +229,10 @@ export class MembershipsComponent implements OnInit {
     }
   }
 
-  toogleModal(name, title = '', button2 = '') {
+  toogleModal(name, title: string | string[] = '', button2: string | string[] = '') {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

@@ -10,6 +10,7 @@ import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { MyModalService } from '../../../services/my-modal/my-modal.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-register-page',
@@ -157,7 +158,6 @@ export class RegisterPageComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

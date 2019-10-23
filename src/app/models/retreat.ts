@@ -126,11 +126,11 @@ export class Retreat extends BaseModel {
 
   getActivityLanguageLabel() {
     if (this.activity_language === 'B') {
-      return _('shared.form.retreat.activity_language.choices.bilingual');
+      return _('retreat.form.retreat.activity_language.choices.bilingual');
     } else if (this.activity_language === 'FR') {
-      return _('shared.form.retreat.activity_language.choices.french');
+      return _('retreat.form.retreat.activity_language.choices.french');
     } else if (this.activity_language === 'EN') {
-      return _('shared.form.retreat.activity_language.choices.english');
+      return _('retreat.form.retreat.activity_language.choices.english');
     } else {
       return null;
     }

@@ -1,15 +1,15 @@
 <div class="profile-coupons">
   <h2 class="title title--8">
-    {{ 'profile.coupons.title' | translate }}
+    {{ 'profile-coupons.coupons.title' | translate }}
   </h2>
 
   <p>
-    {{ 'profile.coupons.text' | translate }}: <a href="mailto:info@thesez-vous.com" class="nt-link">info@thesez-vous.com</a>
+    {{ 'profile-coupons.coupons.text' | translate }}: <a href="mailto:info@thesez-vous.com" class="nt-link">info@thesez-vous.com</a>
   </p>
 
   <div class="profile-coupons__list">
     <div class="profile-coupons__list__empty" *ngIf="coupons.length < 0">
-      {{ 'profile.coupons.empty' | translate }}
+      {{ 'profile-coupons.coupons.empty' | translate }}
     </div>
     <div class="profile-coupons__list__item" *ngFor="let coupon of coupons">
       <a class="profile-coupons__list__item__send-button" appMyModalOpen='form_send_coupon' (click)="openModal(coupon)">
@@ -20,45 +20,45 @@
       </div>
       <div class="profile-coupons__list__item__content">
         <span *ngIf="coupon.applicable_product_types.lastIndexOf('timeslot') > -1">
-          {{ 'profile.coupons.timeslot_free' | translate }}
+          {{ 'profile-coupons.timeslot_free' | translate }}
         </span><br/>
-        {{ 'profile.coupons.max_use' | translate }}: {{ coupon.max_use }}<br/>
-        {{ 'profile.coupons.max_use_per_user' | translate }}: {{ coupon.max_use_per_user }}
+        {{ 'profile-coupons.max_use' | translate }}: {{ coupon.max_use }}<br/>
+        {{ 'profile-coupons.max_use_per_user' | translate }}: {{ coupon.max_use_per_user }}
       </div>
     </div>
   </div>
   <a class="profile-coupons__action" href="http://www.thesez-vous.com/bourses-et-financement.html">
     <i class="icon icon-plus icon--2x"></i>
-    {{ 'profile.coupons.know_more' | translate }}
+    {{ 'profile-coupons.know_more' | translate }}
   </a>
 </div>
 
 
 <app-nt-modal name="form_send_coupon"
-              title="{{ 'profile.modals.send_coupon.title' | translate }}"
-              button2Label="{{ 'profile.modals.send_coupon.button' | translate }}"
+              title="{{ 'profile-coupons.modals.send_coupon.title' | translate }}"
+              button2Label="{{ 'profile-coupons.modals.send_coupon.button' | translate }}"
               (button2)="submit(displayValidationText)"
               maxWidth="600px"
               class="profile-coupons-modal-send"
               [activated]="getListOfEmail().length">
   <div *ngIf="displayValidationText">
     <p>
-      {{ 'profile.modals.send_coupon.validation-content' | translate }}:
+      {{ 'profile-coupons.modals.send_coupon.validation-content' | translate }}:
     </p>
     <ul class="profile-coupons-modal-send__validation_text__list">
       <li *ngFor="let email of getListOfEmail()">{{ email }}</li>
     </ul>
     <a class="nt-link profile-coupons-modal-send__validation_text__link" (click)="toogleDisplayValidationText()">
-      {{ 'profile.modals.send_coupon.modify-list' | translate }}
+      {{ 'profile-coupons.modals.send_coupon.modify-list' | translate }}
     </a>
   </div>
 
   <div *ngIf="!displayValidationText">
     <p>
-      {{ 'profile.modals.send_coupon.content' | translate }}
+      {{ 'profile-coupons.modals.send_coupon.content' | translate }}
     </p>
     <label class="nt-form-label">
-      {{ 'profile.modals.send_coupon.label' | translate }}
+      {{ 'profile-coupons.modals.send_coupon.label' | translate }}
     </label>
     <div class="profile-coupons-modal-send__line" *ngFor="let i of numberOfAddress">
       <input [(ngModel)]="emails[i]" type="text" class="nt-form-input"/>
@@ -69,7 +69,7 @@
 
     <a class="align-center profile-coupons-modal-send__link" (click)="updateNumberOfAddress(numberOfAddress.length + 1)">
       <i class="icon icon-plus"></i>
-      <span>{{ 'profile.modals.send_coupon.link_add_address' | translate }}</span>
+      <span>{{ 'profile-coupons.modals.send_coupon.link_add_address' | translate }}</span>
     </a>
 
     <app-alert class="profile-coupons-modal-send__alert" *ngIf="errors" [messages]="errors" type="danger"></app-alert>

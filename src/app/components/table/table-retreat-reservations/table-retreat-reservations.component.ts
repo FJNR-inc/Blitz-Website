@@ -49,33 +49,33 @@ export class TableRetreatReservationsComponent implements OnInit {
       columns: [
         {
           name: 'name',
-          title: _('shared.common.name')
+          title: _('table-retreat-reservations.common.name')
         },
         {
           name: 'is_present',
-          title: _('shared.common.present'),
+          title: _('table-retreat-reservations.common.present'),
           type: 'boolean'
         },
         {
           name: 'is_active',
-          title: _('shared.common.canceled'),
+          title: _('table-retreat-reservations.common.canceled'),
           type: 'boolean'
         },
         {
           name: 'cancelation_reason',
-          title: _('shared.common.reason')
+          title: _('table-retreat-reservations.common.reason')
         },
         {
           name: 'cancelation_action',
-          title: _('shared.common.action')
+          title: _('table-retreat-reservations.common.action')
         },
         {
           name: 'personnal_restrictions',
-          title: _('shared.common.personnal_restrictions')
+          title: _('table-retreat-reservations.common.personnal_restrictions')
         },
         {
           name: 'inscription_date',
-          title: _('shared.common.inscription_date')
+          title: _('table-retreat-reservations.common.inscription_date')
         },
       ]
     };
@@ -159,7 +159,6 @@ export class TableRetreatReservationsComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

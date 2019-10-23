@@ -1,20 +1,20 @@
 <div class="payment-flow-success">
   <img src="../../../../assets/images/felicitations.svg" class="payment-flow-success__image">
   <app-title [level]="4"
-             text="Merci!"
+             text="{{'payment-successful.thanks' | translate}}"
              class="payment-flow-success__texts"></app-title>
   <app-title [level]="9"
              class="payment-flow-success__texts"
-             text="Vous recevrez un reçu à l’adresse courriel de votre profil Thèsez-vous :"></app-title>
+             text="{{'payment-successful.title1' | translate}}"></app-title>
   <div class="payment-flow-success__email">
     {{profile.email}}
   </div>
 
   <app-title [level]="9"
              class="payment-flow-success__texts"
-             text="Il se peut que la confirmation se trouve dans votre voite indésirable. Lors de période de pointe, les courriels peuvent prendre un certain temps à arriver."></app-title>
+             text="{{'payment-successful.title2' | translate}}"></app-title>
   <app-title [level]="9"
              class="payment-flow-success__texts"
-             text="N'hésitez pas à consulter votre profil(thesez-vous.org) pour vérifier que l'inscription est enregistrée"></app-title>
-  <app-button text="Consulter le profil" [type]="1" (click)="goToHomepage()"></app-button>
+             text="{{'payment-successful.title3' | translate}}"></app-title>
+  <app-button text="{{'payment-successful.btn' | translate}}" [type]="1" (click)="goToHomepage()"></app-button>
 </div>
