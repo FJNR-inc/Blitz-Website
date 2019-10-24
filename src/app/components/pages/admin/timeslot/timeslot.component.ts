@@ -28,25 +28,25 @@ export class TimeslotComponent implements OnInit {
     columns: [
       {
         name: 'first_name',
-        title: _('shared.common.first_name')
+        title: _('timeslot.common.first_name')
       },
       {
         name: 'last_name',
-        title: _('shared.common.last_name')
+        title: _('timeslot.common.last_name')
       },
       {
         name: 'is_active',
-        title: _('shared.common.active'),
+        title: _('timeslot.common.active'),
         type: 'boolean'
       },
       {
         name: 'is_present',
-        title: _('shared.common.present'),
+        title: _('timeslot.common.present'),
         type: 'boolean'
       },
       {
         name: 'cancelation_reason',
-        title: _('shared.common.reason')
+        title: _('timeslot.common.reason')
       }
     ]
   };
@@ -138,7 +138,6 @@ export class TimeslotComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

@@ -37,19 +37,19 @@ export class ReservationPackagesComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.common.name')
+        title: _('reservation-packages.common.name')
       },
       {
         name: 'price',
-        title: _('shared.common.price')
+        title: _('reservation-packages.common.price')
       },
       {
         name: 'reservations',
-        title: _('shared.common.number_of_reservation')
+        title: _('reservation-packages.common.number_of_reservation')
       },
       {
         name: 'available',
-        title: _('shared.common.available'),
+        title: _('reservation-packages.common.available'),
         type: 'boolean'
       }
     ]
@@ -59,27 +59,27 @@ export class ReservationPackagesComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('reservation-packages.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('reservation-packages.form.name_in_english')
     },
     {
       name: 'price',
       type: 'number',
-      label: _('shared.form.price')
+      label: _('reservation-packages.form.price')
     },
     {
       name: 'reservations',
       type: 'number',
-      label: _('shared.form.number_of_reservation')
+      label: _('reservation-packages.form.number_of_reservation')
     },
     {
       name: 'exclusive_memberships',
       type: 'choices',
-      label: _('shared.form.membership_allowed'),
+      label: _('reservation-packages.form.membership_allowed'),
       choices: []
     },
     {
@@ -90,7 +90,7 @@ export class ReservationPackagesComponent implements OnInit {
     {
       name: 'available',
       type: 'checkbox',
-      label: _('shared.form.available'),
+      label: _('reservation-packages.form.available'),
     },
   ];
 
@@ -203,7 +203,7 @@ export class ReservationPackagesComponent implements OnInit {
         this.reservationPackageService.update(this.selectedReservationPackageUrl, reservationPackage).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.updated.title')
+              _('reservation-packages.notifications.commons.updated.title')
             );
             this.refreshReservationPackageList();
             this.toogleModal('form_reservation_packages');
@@ -219,7 +219,7 @@ export class ReservationPackagesComponent implements OnInit {
         this.reservationPackageService.create(reservationPackage).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.added.title')
+              _('reservation-packages.notifications.commons.added.title')
             );
             this.refreshReservationPackageList();
             this.toogleModal('form_reservation_packages');
@@ -239,7 +239,6 @@ export class ReservationPackagesComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

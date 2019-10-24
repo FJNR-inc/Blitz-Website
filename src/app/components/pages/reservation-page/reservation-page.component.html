@@ -11,28 +11,27 @@
         <app-title [level]="4" [text]="workplace.name"></app-title>
         <div class="reservation-page__main__content__header__details">
           <div class="reservation-page__main__content__header__details__item">
-            <app-title [level]="5" text="Adresse"></app-title>
+            <app-title [level]="5" text="{{'reservation-page.title_address' | translate}}"></app-title>
             <app-title [level]="9" text="{{workplace.address_line1}}, {{workplace.city}},
             {{workplace.state_province}} {{workplace.postal_code}}"></app-title>
           </div>
           <div class="reservation-page__main__content__header__details__item">
-            <app-title [level]="5" text="Places disponibles"></app-title>
+            <app-title [level]="5" text="{{'reservation-page.text_available_seats' | translate}}"></app-title>
             <app-title [level]="9" [text]="workplace.seats"></app-title>
           </div>
           <div class="reservation-page__main__content__header__details__item">
-            <app-title [level]="5" text="Inclus avec la reservation"></app-title>
-            <app-title [level]="9" text="Café et thé à volonté"></app-title>
+            <app-title [level]="5" text="{{'reservation-page.text_reservation_included' | translate}}"></app-title>
+            <app-title [level]="9" text="{{'reservation-page.text_coffee_tea_at_will' | translate}}"></app-title>
           </div>
         </div>
       </div>
-
       <div>
         <app-calendar *ngIf="timeSlotsData" [timeSlots]="timeSlotsData" (periodSelected)="onEventClicked($event)"></app-calendar>
         <div class="reservation-page__main__content__reservation__calendar__politics">
-          <app-title [level]="8" text="{{'shared.cancelation_politic.title' | translate}}"></app-title>
-          <app-title [level]="9" text="{{'shared.cancelation_politic.text_1' | translate}}"></app-title>
-          <app-title [level]="9" text="{{'shared.cancelation_politic.text_2' | translate}}"></app-title>
-          <app-title [level]="9" text="{{'shared.cancelation_politic.text_3' | translate}}"></app-title>
+          <app-title [level]="8" text="{{'reservation-page.cancelation_politic.title' | translate}}"></app-title>
+          <app-title [level]="9" text="{{'reservation-page.cancelation_politic.text_1' | translate}}"></app-title>
+          <app-title [level]="9" text="{{'reservation-page.cancelation_politic.text_2' | translate}}"></app-title>
+          <app-title [level]="9" text="{{'reservation-page.cancelation_politic.text_3' | translate}}"></app-title>
         </div>
       </div>
     </div>
@@ -57,18 +56,18 @@
 </div>
 
 <app-nt-modal name="add_package"
-              button2Label="{{'shared.buttons.add' | translate}}"
+              button2Label="{{'reservation-page.buttons.add' | translate}}"
               maxWidth="600px"
-              title="Nombre de ticket insuffisant"
+              title="{{'reservation-page.modal.add_package__title' | translate}}"
               (button2)="addPackageToCart()">
   <p>
-    <app-title [level]="9" text="Vous n'avez pas assez de bloc de redaction prepaye pour pouvoir reserver ce bloc de redaction."></app-title>
+    <app-title [level]="9" text="{{'reservation-page.modal.add_package__text_1' | translate}}"></app-title>
   </p>
   <p>
-    <app-title [level]="9" text="Si vous souhaitez poursuivre cette achat il vous faut ajouter un lot de bloc de redaction prepaye a votre panier."></app-title>
+    <app-title [level]="9" text="{{'reservation-page.modal.add_package__text_2' | translate}}"></app-title>
   </p>
   <p>
-    <app-title [level]="7" text="Lot de bloc de redaction prepaye"></app-title>
+    <app-title [level]="7" text="{{'reservation-page.modal.add_package__text_3' | translate}}"></app-title>
   </p>
   <select id="reservationPackage" class="nt-form-input nt-form-input--select" [(ngModel)]="selectedReservationPackageIndex">
     <option *ngFor="let reservationPackage of this.listReservationPackage; let i = index" [value]="i">
@@ -79,21 +78,21 @@
 
 
 <app-nt-modal name="reservation_tutorial"
-              button2Label="{{'shared.buttons.understood' | translate}}"
+              button2Label="{{'reservation-page.buttons.understood' | translate}}"
               maxWidth="600px"
-              title="{{'reservation.how_to.title' | translate}}"
+              title="{{'reservation-page.how_to.title' | translate}}"
               [autoClose]="true"
               [show]="firstTimeReservation()">
   <p class="modal-reservation__text">
-    {{'reservation.how_to.text_1' | translate}}:
+    {{'reservation-page.how_to.text_1' | translate}}:
   </p>
   <ol>
-    <li>{{'reservation.how_to.list_1' | translate}}</li>
-    <li>{{'reservation.how_to.list_2' | translate}}</li>
-    <li>{{'reservation.how_to.list_3' | translate}}</li>
-    <li>{{'reservation.how_to.list_4' | translate}}</li>
+    <li>{{'reservation-page.how_to.list_1' | translate}}</li>
+    <li>{{'reservation-page.how_to.list_2' | translate}}</li>
+    <li>{{'reservation-page.how_to.list_3' | translate}}</li>
+    <li>{{'reservation-page.how_to.list_4' | translate}}</li>
   </ol>
   <p class="modal-reservation__text">
-    {{'reservation.how_to.text_2' | translate}}
+    {{'reservation-page.how_to.text_2' | translate}}
   </p>
 </app-nt-modal>

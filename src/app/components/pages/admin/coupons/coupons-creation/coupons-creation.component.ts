@@ -13,6 +13,7 @@ import {ReservationPackage} from '../../../../../models/reservationPackage';
 import {ReservationPackageService} from '../../../../../services/reservation-package.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Coupon} from '../../../../../models/coupon';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-coupons-creation',
@@ -26,7 +27,7 @@ export class CouponsCreationComponent implements OnInit {
     {
       name: 'code',
       type: 'text',
-      label: _('shared.form.coupon.code')
+      label: _('coupons-creation.form.coupon.code')
     },
     {
       name: 'type_of_value',
@@ -41,37 +42,37 @@ export class CouponsCreationComponent implements OnInit {
           label: 'Percentage'
         }
       ],
-      label: _('shared.form.coupon.type_of_value')
+      label: _('coupons-creation.form.coupon.type_of_value')
     },
     {
       name: 'value_of_coupon',
       type: 'number',
-      label: _('shared.form.coupon.value')
+      label: _('coupons-creation.form.coupon.value')
     },
     {
       name: 'start_time',
       type: 'datetime',
-      label: _('shared.form.coupon.start_time')
+      label: _('coupons-creation.form.coupon.start_time')
     },
     {
       name: 'end_time',
       type: 'datetime',
-      label: _('shared.form.coupon.end_time')
+      label: _('coupons-creation.form.coupon.end_time')
     },
     {
       name: 'max_use',
       type: 'number',
-      label: _('shared.form.coupon.max_use')
+      label: _('coupons-creation.form.coupon.max_use')
     },
     {
       name: 'max_use_per_user',
       type: 'number',
-      label: _('shared.form.coupon.max_user_per_user')
+      label: _('coupons-creation.form.coupon.max_user_per_user')
     },
     {
       name: 'details',
       type: 'text',
-      label: _('shared.form.coupon.details')
+      label: _('coupons-creation.form.coupon.details')
     }
   ];
 
@@ -90,19 +91,19 @@ export class CouponsCreationComponent implements OnInit {
 
   listTypeOfProduct: any[] = [
     {
-      name: 'Retraites',
+      name: 'coupons-creation.listTypeOfProduct_retreat',
       value: 'retreat'
     },
     {
-      name: 'Memberships',
+      name: 'coupons-creation.listTypeOfProduct_membership',
       value: 'membership'
     },
     {
-      name: 'Bloc de rédactions',
+      name: 'coupons-creation.listTypeOfProduct_timeslot',
       value: 'timeslot'
     },
     {
-      name: 'Packages',
+      name: 'coupons-creation.listTypeOfProduct_package',
       value: 'package'
     }
   ];
@@ -115,7 +116,8 @@ export class CouponsCreationComponent implements OnInit {
               private membershipService: MembershipService,
               private packageService: ReservationPackageService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private translate: TranslateService) { }
 
   ngOnInit() {
     this.refreshRetreatList();
@@ -144,6 +146,7 @@ export class CouponsCreationComponent implements OnInit {
         }
       );
     });
+    this.translateIListTypeOfProduct();
   }
 
   refreshRetreatList(search = null) {
@@ -161,6 +164,16 @@ export class CouponsCreationComponent implements OnInit {
         this.listRetreats = retreats.results.map(o => new Retreat(o));
       }
     );
+  }
+
+  translateIListTypeOfProduct() {
+    for (const typeOfProduct of this.listTypeOfProduct) {
+      this.translate.get(typeOfProduct.name).subscribe(
+        (translatedLabel: string) => {
+          typeOfProduct.name = translatedLabel;
+        }
+      );
+    }
   }
 
   refreshMembershipList() {
@@ -268,7 +281,7 @@ export class CouponsCreationComponent implements OnInit {
         this.couponService.update(this.coupon.url, value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.updated.title')
+              _('coupons-creation.notifications.commons.updated.title')
             );
             this.router.navigate(['/admin/coupons']);
           },
@@ -276,7 +289,7 @@ export class CouponsCreationComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.couponErrors = err.error.non_field_errors;
             } else {
-              this.couponErrors =  ['shared.form.errors.unknown'];
+              this.couponErrors =  ['coupons-creation.form.errors.unknown'];
             }
             this.couponForm = FormUtil.manageFormErrors(this.couponForm, err);
           }
@@ -285,7 +298,7 @@ export class CouponsCreationComponent implements OnInit {
         this.couponService.create(value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.added.title')
+              _('coupons-creation.notifications.commons.added.title')
             );
             this.router.navigate(['/admin/coupons']);
           },
@@ -293,7 +306,7 @@ export class CouponsCreationComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.couponErrors = err.error.non_field_errors;
             } else {
-              this.couponErrors =  ['shared.form.errors.unknown'];
+              this.couponErrors =  ['coupons-creation.form.errors.unknown'];
             }
             this.couponForm = FormUtil.manageFormErrors(this.couponForm, err);
           }

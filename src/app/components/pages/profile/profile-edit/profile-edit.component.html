@@ -1,11 +1,13 @@
 <div class="profile-edit">
   <h2 class="title title--8">
-    {{ 'profile.personal_informations' | translate }}
+    {{ 'profile-edit.personal_informations' | translate }}
   </h2>
 
   <app-form [form]="userForm" [fields]="fields" [errors]="errors"></app-form>
   <app-alert type="info" *ngIf="displayChangeEmailInfoText()">
-    {{ 'profile.personal_informations.change_email_info' | translate }}
+    {{ 'profile-edit.personal_informations.change_email_info' | translate }}
   </app-alert>
-  <a class="nt-button profile-edit__button" (click)="submitProfile()">Modifier mes informations</a>
+  <a class="nt-button profile-edit__button" (click)="submitProfile()">
+    {{ 'profile-edit.edit_personal_informations' | translate }}
+  </a>
 </div>

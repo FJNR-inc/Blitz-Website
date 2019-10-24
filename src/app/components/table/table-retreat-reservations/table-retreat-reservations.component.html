@@ -8,11 +8,10 @@
 <app-nt-modal name="retreat_deleted"
               typeModal="success"
               maxWidth="600px"
-              title="Retraite supprimé"
-              button2Label="J'ai compris!"
+              title="{{'table-retreat-reservations.modal_retreat_reservations_deleted_title' | translate}}"
+              button2Label="{{'table-retreat-reservations.modal_retreat_reservations_deleted_btn' | translate}}"
               [autoClose]="true">
   <p>
-    La réservation que vous venez de sélectionner a été annulé car la retraite a été supprimé.
-    Nous ne pouvons donc pas vous rediriger vers ladite retraite.
+    {{'table-retreat-reservations.modal_retreat_reservations_deleted_text' | translate}}
   </p>
 </app-nt-modal>

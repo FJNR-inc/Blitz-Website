@@ -94,7 +94,7 @@ export class RetreatListItemComponent implements OnInit {
         this.toogleModal(
           this.modalName,
           _('retreat-list-item.notifications.subscribe_waiting_list.success.title'),
-          _('shared.ok')
+          _('retreat-list-item.ok')
          );
       }, () => {
         this.notificationService.success(
@@ -114,7 +114,6 @@ export class RetreatListItemComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

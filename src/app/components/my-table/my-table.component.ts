@@ -146,7 +146,6 @@ export class MyTableComponent implements OnInit, OnChanges {
       const modal = this.myModalService.get(this.deleteModalName);
 
       if (!modal) {
-        console.error('No modal named %s', this.deleteModalName);
         return;
       }
 

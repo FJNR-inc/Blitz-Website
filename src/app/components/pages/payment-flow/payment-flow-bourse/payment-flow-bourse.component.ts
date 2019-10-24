@@ -102,7 +102,7 @@ export class PaymentFlowBourseComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.universityErrors = err.error.non_field_errors;
         } else {
-          this.universityErrors = ['shared.form.errors.unknown'];
+          this.universityErrors = ['payment-flow-bourse.form.errors.unknown'];
         }
         this.universityForm = FormUtil.manageFormErrors(this.universityForm, err);
       }

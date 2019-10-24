@@ -31,23 +31,23 @@ export class CouponsComponent implements OnInit {
     columns: [
       {
         name: 'code',
-        title: _('shared.form.coupon.code')
+        title: _('coupons.form.coupon.code')
       },
       {
         name: 'value',
-        title: _('shared.form.coupon.value')
+        title: _('coupons.form.coupon.value')
       },
       {
         name: 'start_time',
-        title: _('shared.form.coupon.start_time')
+        title: _('coupons.form.coupon.start_time')
       },
       {
         name: 'end_time',
-        title: _('shared.form.coupon.end_time')
+        title: _('coupons.form.coupon.end_time')
       },
       {
         name: 'details',
-        title: _('shared.form.coupon.details')
+        title: _('coupons.form.coupon.details')
       }
     ]
   };
@@ -111,14 +111,14 @@ export class CouponsComponent implements OnInit {
     this.couponService.remove(coupon).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.commons.deleted.title')
+          _('coupons.notifications.commons.deleted.title')
         );
         this.refreshCouponList();
       },
       err => {
         this.notificationService.error(
-          _('shared.notifications.fail_deletion.title'),
-          _('shared.notifications.fail_deletion.content')
+          _('coupons.notifications.fail_deletion.title'),
+          _('coupons.notifications.fail_deletion.content')
         );
       }
     );

@@ -35,7 +35,7 @@ export class WorkplacesComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.form.name')
+        title: _('workplaces.form.name')
       }
     ]
   };
@@ -46,82 +46,82 @@ export class WorkplacesComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('workplaces.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('workplaces.form.name_in_english')
     },
     {
       name: 'details_fr',
       type: 'textarea',
-      label: _('shared.form.description_in_french')
+      label: _('workplaces.form.description_in_french')
     },
     {
       name: 'details_en',
       type: 'textarea',
-      label: _('shared.form.description_in_english')
+      label: _('workplaces.form.description_in_english')
     },
     {
       name: 'seats',
       type: 'number',
-      label: _('shared.form.seats')
+      label: _('workplaces.form.seats')
     },
     {
       name: 'address_line1_fr',
       type: 'text',
-      label: _('shared.form.address_line1_in_french')
+      label: _('workplaces.form.address_line1_in_french')
     },
     {
       name: 'address_line2_fr',
       type: 'text',
-      label: _('shared.form.address_line2_in_french')
+      label: _('workplaces.form.address_line2_in_french')
     },
     {
       name: 'address_line1_en',
       type: 'text',
-      label: _('shared.form.address_line1_in_english')
+      label: _('workplaces.form.address_line1_in_english')
     },
     {
       name: 'address_line2_en',
       type: 'text',
-      label: _('shared.form.address_line2_in_english')
+      label: _('workplaces.form.address_line2_in_english')
     },
     {
       name: 'postal_code',
       type: 'text',
-      label: _('shared.form.postal_code')
+      label: _('workplaces.form.postal_code')
     },
     {
       name: 'city_fr',
       type: 'text',
-      label: _('shared.form.city_in_french')
+      label: _('workplaces.form.city_in_french')
     },
     {
       name: 'city_en',
       type: 'text',
-      label: _('shared.form.city_in_english')
+      label: _('workplaces.form.city_in_english')
     },
     {
       name: 'state_province_fr',
       type: 'text',
-      label: _('shared.form.state_province_in_french')
+      label: _('workplaces.form.state_province_in_french')
     },
     {
       name: 'state_province_en',
       type: 'text',
-      label: _('shared.form.state_province_in_english')
+      label: _('workplaces.form.state_province_in_english')
     },
     {
       name: 'country_fr',
       type: 'text',
-      label: _('shared.form.country_in_french')
+      label: _('workplaces.form.country_in_french')
     },
     {
       name: 'country_en',
       type: 'text',
-      label: _('shared.form.country_in_english')
+      label: _('workplaces.form.country_in_english')
     }
   ];
 
@@ -197,15 +197,15 @@ export class WorkplacesComponent implements OnInit {
         this.workplaceService.remove(this.workplaceInDeletion).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.delete_space.title'),
-              _('shared.notifications.delete_space.content')
+              _('workplaces.notifications.delete_space.title'),
+              _('workplaces.notifications.delete_space.content')
             );
             this.refreshWorkplaceList();
           },
           err => {
             this.notificationService.error(
-              _('shared.notifications.fail_deletion.title'),
-              _('shared.notifications.fail_deletion.content')
+              _('workplaces.notifications.fail_deletion.title'),
+              _('workplaces.notifications.fail_deletion.content')
             );
           }
         );
@@ -217,7 +217,6 @@ export class WorkplacesComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 
@@ -232,7 +231,7 @@ export class WorkplacesComponent implements OnInit {
     this.workplaceService.create(value).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.commons.added.title')
+          _('workplaces.notifications.commons.added.title')
         );
         this.refreshWorkplaceList();
         this.toggleModal('form_workplaces');
@@ -241,7 +240,7 @@ export class WorkplacesComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.workplaceErrors = err.error.non_field_errors;
         } else {
-          this.workplaceErrors =  ['shared.form.errors.unknown'];
+          this.workplaceErrors =  ['workplaces.form.errors.unknown'];
         }
         this.workplaceForm = FormUtil.manageFormErrors(this.workplaceForm, err);
       }
