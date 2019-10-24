@@ -48,7 +48,7 @@
           <i class="icon icon-transfer icon--3x"></i>
         </a>
         <a class="profile-retreats__list__item__actions__item"
-           *ngIf="retreatReservation.refundable"
+           *ngIf="retreatReservation.refundable || isAdminReservation(retreatReservation)"
            (click)="openModalCancelRetreatReservation(retreatReservation)">
           <i class="icon icon-times icon--3x"></i>
         </a>
@@ -113,9 +113,17 @@
               (button2)="cancelRetreat()"
               maxWidth="600px">
   <div *ngIf="selectedRetreatReservation" class="form-cancel-reservation-retreat">
-    <p>
+    <h2 *ngIf="isAdminReservation(selectedRetreatReservation)">
+      {{ 'profile.cancel_admin_reservation_retreat_text_warning' | translate}}!
+    </h2>
+    <p *ngIf="!isAdminReservation(selectedRetreatReservation)">
       {{ 'profile.cancel_reservation_retreat_text_1' | translate:{'rate': 100-selectedRetreatReservation.retreat_details.refund_rate, 'delay_max': selectedRetreatReservation.retreat_details.min_day_refund} }}
-
+    </p>
+    <p *ngIf="isAdminReservation(selectedRetreatReservation)">
+      {{ 'profile.cancel_admin_reservation_retreat_text_1' | translate}}
+    </p>
+    <p *ngIf="isAdminReservation(selectedRetreatReservation)">
+      {{ 'profile.cancel_admin_reservation_retreat_text_2' | translate}}
     </p>
 
     <div class="form-cancel-reservation-retreat__retreat">
@@ -127,6 +135,9 @@
       {{ 'profile.cancel_reservation_retreat_text_2' | translate }}
     </p>
 
-    <app-alert type="danger" [messages]="errorCancelationRetreatReservation" *ngIf="errorCancelationRetreatReservation"></app-alert>
+    <app-alert
+      type="danger" [messages]="errorCancelationRetreatReservation"
+      *ngIf="errorCancelationRetreatReservation">
+    </app-alert>
   </div>
 </app-nt-modal>

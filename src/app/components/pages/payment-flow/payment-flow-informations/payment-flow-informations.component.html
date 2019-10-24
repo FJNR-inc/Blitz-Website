@@ -7,6 +7,9 @@
 
   <app-form [form]="personalInformationForm" [fields]="personalInformationFields" [errors]="personalInformationErrors"></app-form>
 
+  <app-title [level]="9"  class="payment-flow-informations__texts"
+             text="IMPORTANT: L'équipe de l'Abbaye St-Benoit du Lac n'a pas la capacité d'adapter le menu aux restrictions alimentaires.
+              Un seul menu est servi sans possibilité d'ajustement. Merci d'en ternir compte lors de votre inscription."></app-title>
   <div class="payment-flow-informations__actions">
     <app-button text="Precedent" [type]="3" (click)="goBack()"></app-button>
     <app-button text="Continuer" [type]="1" (click)="goForward()"></app-button>

@@ -1,0 +1,178 @@
+@import "../../../../assets/scss/_theme.scss";
+
+
+.calendar {
+  &__table {
+    margin-bottom: 35px;
+    padding-top: 50px;
+
+    &__content {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+
+      &__raw {
+        grid-area: 2 / 1 / 6 / 2;
+        font-size: 1.2em;
+        color: $nt2-color-4;
+
+        &__box {
+          min-height: 100px;
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          border: 1px solid $border-calendar;
+
+          &__title {
+            font-weight: bolder;
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+          }
+        }
+      }
+
+      &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: $nt2-color-4;
+        font-weight: 500;
+        grid-area: 1 / 1 / 2 / 9;
+        border: 1px solid $border-calendar;
+
+        &__title{
+          display: flex;
+          justify-content: center;
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: 600;
+        }
+        &__button{
+          background-color: $nt2-color-1;
+          border:none;
+          cursor: pointer;
+
+          &__content{
+            text-decoration: none;
+          }
+
+          &__icon{
+            width: 20px;
+            margin: 0 25px;
+          }
+        }
+      }
+      &__col {
+        &__box{
+          min-height: 100px;
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          border: 1px solid $border-calendar;
+
+          &--hover{
+            &:hover {background-color: $nt2-color-8;}
+          }
+          &--pointer{
+            cursor: pointer !important;
+          }
+          &--date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          &--reserved {
+            background-color: $nt2-color-7;
+            &:hover {
+              background-color: $nt2-color-7;
+            }
+          }
+          &__puce {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            display: inline-block;
+
+            &--empty-case {
+              height: 20px;
+              width: 20px;
+              display: inline-block;
+              border: 1px solid $nt2-color-5;
+            }
+          }
+        }
+        &--n2 { grid-area: 2 / 2 / 6 / 3; }
+        &--n3 { grid-area: 2 / 3 / 6 / 4; }
+        &--n4 { grid-area: 2 / 4 / 6 / 5; }
+        &--n5 { grid-area: 2 / 5 / 6 / 6; }
+        &--n6 { grid-area: 2 / 6 / 6 / 7; }
+        &--n7 { grid-area: 2 / 7 / 6 / 8; }
+        &--n8 { grid-area: 2 / 8 / 6 / 9; }
+      }
+    }
+    &__title {
+      padding-bottom: 10px;
+    }
+  }
+
+  &__legend{
+    &__title{
+      float: left;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    &__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      &__elt{
+        padding: 15px 10px;
+        margin-bottom: 10px;
+
+        &__form{
+          float: left;
+          margin-right: 20px;
+
+          &__round {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            display: inline-block;
+          }
+
+          &__square-empty-case {
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            border: 1px solid $nt2-color-5;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px){
+  .calendar__table__content__raw{
+    background-color: $nt2-color-4;
+    box-shadow: 3px 0px 5px $color-neutral-text;
+    color: $nt-background-color-light !important;
+  }
+}
+@media (max-width: 480px) {
+
+  .calendar__table__content__raw{
+    background-color: $nt2-color-4;
+    box-shadow: 3px 0px 5px $color-neutral-text;
+    color: $nt-background-color-light !important;
+  }
+}
+

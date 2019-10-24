@@ -181,6 +181,13 @@
           </select>
         </div>
       </div>
+      <div  class="form-group">
+        <label for="language" class="nt-form-label">{{ 'shared.form.language' | translate }}:</label>
+        <select formControlName="language" id="language" class="nt-form-input nt-form-input--select">
+          <option value="en">{{ 'shared.form.language_en' | translate }}</option>
+          <option value="fr">{{ 'shared.form.language_fr' | translate }}</option>
+        </select>
+      </div>
       <div class="form-group">
         <label for="phone" class="nt-form-label">{{ 'shared.form.phone' | translate }}:</label>
         <input formControlName="phone" id="phone" class="nt-form-input" />

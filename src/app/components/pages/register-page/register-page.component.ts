@@ -18,6 +18,7 @@ import { MyModalService } from '../../../services/my-modal/my-modal.service';
 })
 export class RegisterPageComponent implements OnInit {
 
+
   registerForm: FormGroup;
   errors: string[];
 
@@ -50,6 +51,7 @@ export class RegisterPageComponent implements OnInit {
         birth_month: ['', Validators.required],
         birth_year: ['', Validators.required],
         gender: [null, Validators.required],
+        language: [null],
         phone: [null],
         password: [null, Validators.required],
         confirmation: [null, Validators.required],
@@ -180,6 +182,7 @@ export class RegisterPageComponent implements OnInit {
         email: form.value['email'],
         birthdate: birthdate,
         gender: form.value['gender'],
+        language: form.value['language'],
         phone: form.value['phone'],
       };
       if (form.value['university'] !== 'none') {
@@ -219,6 +222,11 @@ export class RegisterPageComponent implements OnInit {
           if (err.error.university && err.error.university.name) {
             this.registerForm.controls['university'].setErrors({
               apiError: err.error.university.name
+            });
+          }
+          if (err.error.language) {
+            this.registerForm.controls['language'].setErrors({
+              apiError: err.error.language
             });
           }
           if (err.error.academic_level) {

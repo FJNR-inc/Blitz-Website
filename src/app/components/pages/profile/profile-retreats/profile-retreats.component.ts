@@ -26,6 +26,7 @@ export class ProfileRetreatsComponent implements OnInit {
   listFutureRetreatReservations: RetreatReservation[];
   totalPastRetreatReservations = 0;
   totalFutureRetreatReservations = 0;
+  listReservationToAdmin: RetreatReservation[] = [];
 
   displayAllRetreatReservation = false;
   retreatReservationOpen: number;
@@ -94,6 +95,10 @@ export class ProfileRetreatsComponent implements OnInit {
             this.totalFutureRetreatReservations += environment.tomato_per_retreat;
             this.listFutureRetreatReservations.push(retreatReservation);
           }
+
+          if (retreatReservation.order_line == null) {
+            this.listReservationToAdmin.push(retreatReservation);
+          }
           this.listRetreatReservations.push(retreatReservation);
         }
 
@@ -101,6 +106,12 @@ export class ProfileRetreatsComponent implements OnInit {
         this.totalFutureTomatoes.emit(this.totalFutureRetreatReservations);
       }
     );
+  }
+
+  isAdminReservation (retreatReservationArg) {
+    return !!this.listReservationToAdmin.find(function(retreatReservation) {
+      return retreatReservation.id === retreatReservationArg.id;
+    });
   }
 
   getDisplayedRetreatReservation() {
