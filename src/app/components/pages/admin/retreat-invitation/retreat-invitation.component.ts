@@ -84,7 +84,7 @@ export class RetreatInvitationComponent implements OnInit {
     },
     {
       name: 'reserve_seat',
-      type: 'boolean',
+      type: 'checkbox',
       label: _('retreat-invitation.form.nb_reserved')
     },
     {
