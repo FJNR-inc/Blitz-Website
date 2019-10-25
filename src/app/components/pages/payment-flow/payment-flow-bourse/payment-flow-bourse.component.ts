@@ -82,7 +82,7 @@ export class PaymentFlowBourseComponent implements OnInit {
       faculty: this.universityForm.controls['faculty'].value,
       student_number: this.universityForm.controls['student_number'].value
     });
-    if (this.universityForm.controls['coupon_code'].value === '') {
+    if (!this.universityForm.controls['coupon_code'].value) {
       temporaryCart.removeCoupon();
     } else {
       const newCoupon = new Coupon({
