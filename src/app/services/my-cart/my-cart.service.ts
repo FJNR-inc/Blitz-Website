@@ -7,7 +7,6 @@ import {Coupon} from '../../models/coupon';
 import {AppliedCoupon} from '../../models/appliedCoupon';
 import {ReservationPackage} from '../../models/reservationPackage';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {OrderService} from '../order.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +21,10 @@ export class MyCartService {
 
   public cart$: Observable<Cart> = this._cart.asObservable();
 
+  _elementChangeInCart: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  public elementChangeInCart$: Observable<boolean> = this._elementChangeInCart.asObservable();
+
   constructor() {
 
     this.cart$.subscribe(
@@ -33,6 +36,10 @@ export class MyCartService {
 
   cleanLocalCart() {
     this._cart.next(new Cart());
+  }
+
+  private elementChangeInCart() {
+    this._elementChangeInCart.next(true);
   }
 
   get localCart(): Cart {
@@ -97,6 +104,7 @@ export class MyCartService {
     const localCart = this.localCart;
     localCart.removeReservationPackage(reservationPackageId);
     this._cart.next(localCart);
+    this.elementChangeInCart();
   }
 
   removeCoupon() {
@@ -106,33 +114,40 @@ export class MyCartService {
   }
 
   addRetreat(retreat: Retreat, productOptions: SelectedProductOption[] = []) {
+
     const localCart = this.localCart;
     localCart.addRetreat(retreat, productOptions);
+
     this._cart.next(localCart);
+    this.elementChangeInCart();
   }
 
   removeRetreat(retreatId: number) {
     const localCart = this.localCart;
     localCart.removeRetreat(retreatId);
     this._cart.next(localCart);
+    this.elementChangeInCart();
   }
 
   addTimeslot(timeslot: TimeSlot, productOptions: SelectedProductOption[] = []) {
     const localCart = this.localCart;
     localCart.addTimeslot(timeslot, productOptions);
     this._cart.next(localCart);
+    this.elementChangeInCart();
   }
 
   addReservationPackage(reservationPackage: ReservationPackage) {
     const localCart = this.localCart;
     localCart.addReservationPackage(reservationPackage);
     this._cart.next(localCart);
+    this.elementChangeInCart();
   }
 
   removeTimeslot(timeslotId: number) {
     const localCart = this.localCart;
     localCart.removeTimeslot(timeslotId);
     this._cart.next(localCart);
+    this.elementChangeInCart();
   }
 
   addPaymentToken(token, isNew = false) {

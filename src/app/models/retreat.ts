@@ -74,15 +74,7 @@ export class Retreat extends BaseModel {
 
   constructor(data: Object = {}) {
     super(data);
-    if (data) {
-      if (data.hasOwnProperty('exclusive_memberships')) {
-        data['exclusive_memberships'].map(
-          m => {
-            this.exclusive_memberships.push(new Membership(m));
-          }
-        );
-      }
-    }
+
   }
 
   getAddress() {
