@@ -133,9 +133,14 @@ export class RetreatPreviewComponent implements OnInit {
     return this.availablePlace <= 0 && !this.existingReservation && !this.existingWaitingQueue;
   }
 
-  get display_wait_queue_button(){
-    return this.displaySubscribeButton &&
-      this.canSubscribeToWaitingQueue() &&
-      (this.invitation && !this.invitation.reserve_seat);
+  get display_wait_queue_button(): boolean{
+    // use !! to return only boolean and not undefined for example
+    return !!(
+      this.displaySubscribeButton &&
+      this.canSubscribeToWaitingQueue() && (
+        !this.invitation ||
+        (this.invitation && !this.invitation.reserve_seat)
+      )
+    );
   }
 }
