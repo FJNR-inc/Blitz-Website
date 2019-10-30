@@ -130,7 +130,7 @@ export class NtHeaderComponent implements OnInit {
         }, {
           label: _('header.espace.reservation'),
           url: '',
-          router_url: '/reservation/1',
+          router_url: `/reservation/${environment.defaultWorkplaceId}`,
           type: 'button',
           keepClose: true
         }

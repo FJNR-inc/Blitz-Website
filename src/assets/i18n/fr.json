@@ -999,6 +999,8 @@
   "retreats.validation_deletion_modal.text_1": "La suppression d'un espace de travail peut avoir de très lourde conséquences dont de nombreux remboursements et pertes de données.",
   "retreats.validation_deletion_modal.text_2": "En supprimant cet espace de travail vous prenez la responsabilité des conséquence et devriez donc d'abord en discuter avec une personne ressource de votre organisation.",
   "retreats.validation_deletion_modal.text_3": "Veuillez saisir le nom complet de l'espace de travail si vous souhaitez toujours le supprimer.",
+  "calendar.header.title1": "Plages horaire",
+  "calendar.header.title2": "Semaine du {{dateStart}} au {{dateEnd}}",
   "calendar.header.text1": "Sélectionnez la ou les plage(s) horaire de votre choix pour les ajouter à votre panier.",
   "calendar.table.title.night": "NUIT",
   "calendar.table.title.date": "DATE",

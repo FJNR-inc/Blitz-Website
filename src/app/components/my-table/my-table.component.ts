@@ -208,4 +208,8 @@ export class MyTableComponent implements OnInit, OnChanges {
       this.doneTypingInterval
     );
   }
+
+  isTranslateData(data: any): boolean {
+    return typeof data === 'string';
+  }
 }
