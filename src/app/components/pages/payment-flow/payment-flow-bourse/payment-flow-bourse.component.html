@@ -1,8 +1,15 @@
 <div class="payment-flow-bourse">
   <app-title [level]="4" text="{{'payment-flow-bourse.title1' | translate}}"
              class="payment-flow-bourse__texts"></app-title>
-  <app-title [level]="9"  class="payment-flow-bourse__texts"
-             text="{{'payment-flow-bourse.text1' | translate}}"></app-title>
+
+  <div class="payment-flow-bourse__texts">
+    <app-title [level]="9"
+               text="{{'payment-flow-bourse.text1_prefix' | translate}}" [inline]="true"></app-title>
+    <app-link  href="http://www.thesez-vous.com/bourses-et-financement.html"
+               text="{{'payment-flow-bourse.text1_content_of_link' | translate}}"></app-link>
+    <app-title [level]="9"
+               text="{{'payment-flow-bourse.text1_suffix' | translate}}" [inline]="true"></app-title>
+  </div>
 
   <app-form [form]="universityForm" [fields]="universityFields" [errors]="universityErrors"></app-form>
 

@@ -1,24 +1,24 @@
-<h1 *ngIf="!type && level == 1" class="app-title app-title--{{level}}">
+<h1 *ngIf="!type && level == 1" class="app-title app-title--{{level}}" [ngClass]="{'app-title--inline': inline}">
   {{ text }}
 </h1>
-<h2 *ngIf="!type && level == 2" class="app-title app-title--{{level}}">
+<h2 *ngIf="!type && level == 2" class="app-title app-title--{{level}}" [ngClass]="{'app-title--inline': inline}">
   {{ text }}
 </h2>
-<h3 *ngIf="!type && level == 3" class="app-title app-title--{{level}}">
+<h3 *ngIf="!type && level == 3" class="app-title app-title--{{level}}" [ngClass]="{'app-title--inline': inline}">
   {{ text }}
 </h3>
-<h4 *ngIf="!type && level == 4" class="app-title app-title--{{level}}">
+<h4 *ngIf="!type && level == 4" class="app-title app-title--{{level}}" [ngClass]="{'app-title--inline': inline}">
   {{ text }}
 </h4>
-<h5 *ngIf="!type && level == 5" class="app-title app-title--{{level}}">
+<h5 *ngIf="!type && level == 5" class="app-title app-title--{{level}}" [ngClass]="{'app-title--inline': inline}">
   {{ text }}
 </h5>
-<h6 *ngIf="!type && level == 6" class="app-title app-title--{{level}}">
+<h6 *ngIf="!type && level == 6" class="app-title app-title--{{level}}" [ngClass]="{'app-title--inline': inline}">
   {{ text }}
 </h6>
-<span *ngIf="!type && level > 6" class="app-title app-title--{{level}}">
+<span *ngIf="!type && level > 6" class="app-title app-title--{{level}}" [ngClass]="{'app-title--inline': inline}">
   {{ text }}
 </span>
-<label *ngIf="type === 'label'" class="app-title app-title--{{level}}" for="{{for}}">
+<label *ngIf="type === 'label'" class="app-title app-title--{{level}}" for="{{for}}" [ngClass]="{'app-title--inline': inline}">
   {{ text }}
 </label>
