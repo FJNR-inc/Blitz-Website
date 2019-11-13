@@ -20,7 +20,7 @@ export class PaymentSuccessfulComponent implements OnInit {
   ngOnInit() {
   }
 
-  goToHomepage() {
-    this.router.navigate(['/']);
+  goToProfile() {
+    this.router.navigate(['/profile']);
   }
 }
