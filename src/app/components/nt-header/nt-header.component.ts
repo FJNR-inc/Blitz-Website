@@ -172,16 +172,6 @@ export class NtHeaderComponent implements OnInit {
         }
       ]
     }, {
-      label: _('header.network'),
-      url: 'http://www.thesez-vous.com/reseau.html',
-      router_url: '',
-
-    }, {
-      label: _('header.news'),
-      url: 'http://www.thesez-vous.com/blogue.html',
-      router_url: '',
-
-    }, {
       label: _('header.ressources'),
       url: 'http://www.thesez-vous.com/bibliothese.html',
       router_url: '',
