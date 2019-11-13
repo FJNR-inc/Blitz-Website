@@ -6,6 +6,10 @@
   font-weight: bold;
   display: inline-block;
 
+  &--inline {
+    display: inline !important;
+  }
+
   &--1 {
     font-size: 100px;
     line-height: 120px;
