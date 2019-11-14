@@ -12,7 +12,7 @@
 
   <div class="payment-flow-confirmation__checkboxs align-top">
     <input id="conditions" type="checkbox" [(ngModel)]="termsAndConditionsAccepted" />
-    <app-title [level]="9" for="conditions" type="label" text="">{{'payment-flow-confirmation.accept_policy' | translate}}</app-title>
+    <app-title [level]="9" for="conditions" type="label" text="{{'payment-flow-confirmation.accept_policy' | translate}}"></app-title>
     <app-link text="{{'payment-flow-confirmation.display_cancelled_policy' | translate}}" class="payment-flow-confirmation__politics-link" appMyModalOpen="politics"></app-link>
   </div>
   <app-alert class="payment-flow-confirmation__error" type="danger" [messages]="errorOrder" *ngIf="errorOrder"></app-alert>
