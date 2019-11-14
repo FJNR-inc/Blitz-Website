@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, Output} from '@angular/core';
 import {environment} from '../../../../environments/environment';
+import {TranslateService} from '@ngx-translate/core';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 declare let paysafe: any;
 
@@ -22,7 +24,7 @@ export class PaysafeFormComponent implements AfterViewInit {
       },
       expiryDate: {
         selector: '#expiration-date',
-        placeholder: ''
+        placeholder: _('paysafe-form.expiry_date_placeholder')
       },
       cvv: {
         selector: '#cvv',
@@ -36,10 +38,13 @@ export class PaysafeFormComponent implements AfterViewInit {
 
   @Output() singleUseToken: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
 
   ngAfterViewInit() {
-    this.initPaysafe();
+    this.translate.get(this.OPTIONS.fields.expiryDate.placeholder).subscribe((res: string) => {
+      this.OPTIONS.fields.expiryDate.placeholder = res;
+      this.initPaysafe();
+    });
   }
 
   initPaysafe() {
