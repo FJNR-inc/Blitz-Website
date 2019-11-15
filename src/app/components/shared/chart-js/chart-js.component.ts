@@ -114,7 +114,7 @@ export class ChartJSComponent implements OnInit {
 
   loading = false;
 
-  @ViewChild(BaseChartDirective)
+  @ViewChild(BaseChartDirective, { static: false })
   public chart: BaseChartDirective;
 
   constructor(private orderLineService: OrderLineService,

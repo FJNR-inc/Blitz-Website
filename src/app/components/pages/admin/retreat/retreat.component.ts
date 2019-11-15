@@ -24,7 +24,7 @@ export class RetreatComponent implements OnInit {
   retreatId: number;
   retreat: Retreat;
 
-  @ViewChild(TableRetreatReservationsComponent)
+  @ViewChild(TableRetreatReservationsComponent, { static: false })
   private tableRetreat: TableRetreatReservationsComponent;
 
   retreatForm: FormGroup;
