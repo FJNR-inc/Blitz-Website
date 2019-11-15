@@ -136,6 +136,6 @@ export class RetreatPreviewComponent implements OnInit {
   get display_wait_queue_button(){
     return this.displaySubscribeButton &&
       this.canSubscribeToWaitingQueue() &&
-      (this.invitation && !this.invitation.reserve_seat);
+      !(this.invitation && this.invitation.reserve_seat);
   }
 }
