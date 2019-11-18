@@ -18,7 +18,6 @@ import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { ReservationPageComponent } from './components/pages/reservation-page/reservation-page.component';
-import { CalendarModule } from 'angular-calendar';
 import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
 import { AcademicFieldService } from './services/academic-field.service';
 import { AcademicLevelService } from './services/academic-level.service';
@@ -693,7 +692,6 @@ const appRoutes = [
     FormsModule,
     ReactiveFormsModule,
     SimpleNotificationsModule.forRoot(),
-    CalendarModule.forRoot(),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     ImageUploadModule.forRoot(),

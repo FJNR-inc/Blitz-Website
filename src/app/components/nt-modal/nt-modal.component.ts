@@ -20,7 +20,7 @@ export class NtModalComponent implements OnInit {
   @Input() show = false;
   @Input() displayButtons = true;
 
-  @ViewChild('modalContent') modalContent;
+  @ViewChild('modalContent', { static: true }) modalContent;
 
   @Output() button1: EventEmitter<any> = new EventEmitter();
   @Output() button2: EventEmitter<any> = new EventEmitter();
