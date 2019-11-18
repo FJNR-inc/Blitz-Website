@@ -1232,5 +1232,7 @@
   "workplaces.form.state_province_in_english": "Province en Anglais",
   "workplaces.form.state_province_in_french": "Province en Français",
   "workplaces.form.country_in_english": "Pays en Anglais",
-  "workplaces.form.country_in_french": "Pays en Français"
+  "workplaces.form.country_in_french": "Pays en Français",
+  "timeslot.create_reservation": "Créer la réservation",
+  "timeslot.bypass_payment": "Offrir cette reseration (aucun paiement n'aura lieu)"
 }
