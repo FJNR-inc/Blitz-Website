@@ -512,7 +512,7 @@
   "profile-retreats.notifications.exchange_retreat_reservation.title": "Succés",
   "profile-retreats.notifications.exchange_retreat_reservation.content": "L'échange a bien été effectué",
   "profile-retreats.alert.errors.unknown": "Une erreur est survenu, veuillez contacter notre équipe de support à l'adresse info@thesez-vous.com",
-  "profile-retreats.notifications.cancel_retreat_reservation.content": "Votre réservation est bien annulé.",
+  "profile-retreats.notifications.cancel_retreat_reservation.content": "Votre réservation est bien annulée.",
   "profile-retreats.notifications.cancel_retreat_reservation.title": "Succès!",
   "profile-retreats.list_retreat_reservations.no_reservation": "Aucune retraite prévue",
   "profile-retreats.exchange_reservation_retreat_button_confirm": "Échanger",
