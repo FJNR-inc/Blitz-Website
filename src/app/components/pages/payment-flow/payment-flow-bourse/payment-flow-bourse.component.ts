@@ -82,7 +82,7 @@ export class PaymentFlowBourseComponent implements OnInit {
       faculty: this.universityForm.controls['faculty'].value,
       student_number: this.universityForm.controls['student_number'].value
     });
-    if (this.universityForm.controls['coupon_code'].value === '') {
+    if (!this.universityForm.controls['coupon_code'].value) {
       temporaryCart.removeCoupon();
     } else {
       const newCoupon = new Coupon({
@@ -102,7 +102,7 @@ export class PaymentFlowBourseComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.universityErrors = err.error.non_field_errors;
         } else {
-          this.universityErrors = ['shared.form.errors.unknown'];
+          this.universityErrors = ['payment-flow-bourse.form.errors.unknown'];
         }
         this.universityForm = FormUtil.manageFormErrors(this.universityForm, err);
       }

@@ -14,6 +14,7 @@ import {ReservationPackage} from '../../../../../models/reservationPackage';
 import {RetreatService} from '../../../../../services/retreat.service';
 import {MembershipService} from '../../../../../services/membership.service';
 import {ReservationPackageService} from '../../../../../services/reservation-package.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-options-products-creation',
@@ -26,55 +27,55 @@ export class OptionsProductsCreationComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.optionsproducts.name_fr')
+      label: _('options-products-creation.form.optionsproducts.name_fr')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.optionsproducts.name_en')
+      label: _('options-products-creation.form.optionsproducts.name_en')
     },
     {
       name: 'price',
       type: 'number',
-      label: _('shared.form.optionsproducts.price')
+      label: _('options-products-creation.form.optionsproducts.price')
     },
     {
       name: 'max_quantity',
       type: 'number',
-      label: _('shared.form.optionsproducts.max_quantity')
+      label: _('options-products-creation.form.optionsproducts.max_quantity')
     },
     {
       name: 'available',
       type: 'checkbox',
-      label: _('shared.form.optionsproducts.available')
+      label: _('options-products-creation.form.optionsproducts.available')
     },
     {
       name: 'details_fr',
       type: 'text',
-      label: _('shared.form.optionsproducts.details_fr')
+      label: _('options-products-creation.form.optionsproducts.details_fr')
     },
     {
       name: 'details_en',
       type: 'text',
-      label: _('shared.form.optionsproducts.details_en')
+      label: _('options-products-creation.form.optionsproducts.details_en')
     }
   ];
 
   listTypeOfProduct: any[] = [
     {
-      name: 'Retraites',
+      name: 'options-products-creation.listTypeOfProduct_retreat',
       value: 'retreat'
     },
     {
-      name: 'Memberships',
+      name: 'options-products-creation.listTypeOfProduct_membership',
       value: 'membership'
     },
     {
-      name: 'Bloc de rédactions',
+      name: 'options-products-creation.listTypeOfProduct_timeslot',
       value: 'timeslot'
     },
     {
-      name: 'Packages',
+      name: 'options-products-creation.listTypeOfProduct_package',
       value: 'package'
     }
   ];
@@ -101,7 +102,8 @@ export class OptionsProductsCreationComponent implements OnInit {
     private retreatService: RetreatService,
     private membershipService: MembershipService,
     private packageService: ReservationPackageService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -131,6 +133,7 @@ export class OptionsProductsCreationComponent implements OnInit {
         }
       );
     });
+    this.translateIListTypeOfProduct();
   }
 
   refreshRetreatList(search = null) {
@@ -148,6 +151,16 @@ export class OptionsProductsCreationComponent implements OnInit {
         this.listRetreats = retreats.results.map(o => new Retreat(o));
       }
     );
+  }
+
+  translateIListTypeOfProduct() {
+    for (const typeOfProduct of this.listTypeOfProduct) {
+      this.translate.get(typeOfProduct.name).subscribe(
+        (translatedLabel: string) => {
+          typeOfProduct.name = translatedLabel;
+        }
+      );
+    }
   }
 
   refreshMembershipList() {
@@ -273,7 +286,7 @@ export class OptionsProductsCreationComponent implements OnInit {
         this.optionsProductsService.update(this.optionProduct.url, value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.updated.title')
+              _('options-products-creation.notifications.commons.updated.title')
             );
             this.router.navigate(['/admin/options_products']);
           },
@@ -281,7 +294,7 @@ export class OptionsProductsCreationComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.optionProduitErrors = err.error.non_field_errors;
             } else {
-              this.optionProduitErrors =  ['shared.form.errors.unknown'];
+              this.optionProduitErrors =  ['options-products-creation.form.errors.unknown'];
             }
             this.optionProduitForm = FormUtil.manageFormErrors(this.optionProduitForm, err);
           }
@@ -290,7 +303,7 @@ export class OptionsProductsCreationComponent implements OnInit {
         this.optionsProductsService.create(value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.added.title')
+              _('options-products-creation.notifications.commons.added.title')
             );
             this.router.navigate(['/admin/options_products']);
           },
@@ -298,7 +311,7 @@ export class OptionsProductsCreationComponent implements OnInit {
             if (err.error.non_field_errors) {
               this.optionProduitErrors = err.error.non_field_errors;
             } else {
-              this.optionProduitErrors =  ['shared.form.errors.unknown'];
+              this.optionProduitErrors =  ['options-products-creation.form.errors.unknown'];
             }
             this.optionProduitForm = FormUtil.manageFormErrors(this.optionProduitForm, err);
           }

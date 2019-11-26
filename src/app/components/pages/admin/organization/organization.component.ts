@@ -111,7 +111,7 @@ export class OrganizationComponent implements OnInit {
         this.domainService.update(this.selectedDomainUrl, this.domainForm.value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.updated.title')
+              _('organization.notifications.commons.updated.title')
             );
             this.refreshOrganization();
             this.toogleModal('form_domain');
@@ -136,7 +136,7 @@ export class OrganizationComponent implements OnInit {
         this.domainService.create(this.domainForm.value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.added.title')
+              _('organization.notifications.commons.added.title')
             );
             this.refreshOrganization();
             this.toogleModal('form_domain');
@@ -165,15 +165,15 @@ export class OrganizationComponent implements OnInit {
     this.domainService.remove(item).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.delete_domain_name.title'),
-          _('shared.notifications.delete_domain_name.content')
+          _('organization.notifications.delete_domain_name.title'),
+          _('organization.notifications.delete_domain_name.content')
         );
         this.refreshOrganization();
       },
       err => {
         this.notificationService.error(
-          _('shared.notifications.fail_deletion.title'),
-          _('shared.notifications.fail_deletion.content')
+          _('organization.notifications.fail_deletion.title'),
+          _('organization.notifications.fail_deletion.content')
         );
       }
     );
@@ -183,7 +183,6 @@ export class OrganizationComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

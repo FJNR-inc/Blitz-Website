@@ -43,8 +43,8 @@ export class RetreatUnsubscribeComponent implements OnInit {
   unsubscribe(retreatWaitingQueue: RetreatWaitingQueue) {
     this.retreatWaitingQueueService.delete(retreatWaitingQueue).subscribe(() => {
       this.notificationService.success(
-        _('shared.notifications.unsubscribe.title'),
-        _('shared.notifications.unsubscribe.content')
+        _('retreat-unsubscribe.notifications.unsubscribe.title'),
+        _('retreat-unsubscribe.notifications.unsubscribe.content')
       );
       this.router.navigate(['']);
     });

@@ -2,11 +2,11 @@
 
 <div class="admin-timeslot-page" *ngIf="timeslot">
   <div class="admin-timeslot-page__title">
-    <h2 class="nt-title">Bloc de rédaction / #{{ timeslot.id }}</h2>
+    <h2 class="nt-title">{{'timeslot.redacion_bloc' | translate}} / #{{ timeslot.id }}</h2>
   </div>
   <div class="admin-timeslot-page__header">
     <div>
-      <a class="ng-link" routerLink="/admin/workplaces/{{ timeslot.workplace.id }}">Retour à l'espace de travail</a>
+      <a class="ng-link" routerLink="/admin/workplaces/{{ timeslot.workplace.id }}">{{'timeslot.back_to_workspace' | translate}}</a>
     </div>
     <div class="admin-timeslot-page__header__date">
       <app-calendar-icon class="admin-timeslot-page__header__date__item" [date]="timeslot.start_time">
@@ -26,7 +26,8 @@
     <app-my-table [settings]="settings"
                   [data]="listReservations"
                   (selectItem)="goToUser($event)"
-                  (editItem)="editReservation($event)">
+                  (editItem)="editReservation($event)"
+                  (addButton)="openModalReservation()">
     </app-my-table>
   </div>
 </div>
@@ -34,13 +35,65 @@
 <app-nt-modal name="reservation_edition"
               typeModal="boolean"
               maxWidth="600px"
-              title="Modifier une présence"
+              title="{{'timeslot.modal_reservation_edition_title' | translate}}"
               (button1)="submitReservation(true)"
               (button2)="submitReservation(false)">
 
   <p *ngIf="selectedReservation">
-    Est-ce que {{selectedReservation.first_name}} {{selectedReservation.last_name}} était
-    présent dans l'espace lors du bloc de rédaction ?
+    {{'timeslot.selected_reservation' | translate: ({first_name:selectedReservation.first_name, last_name:selectedReservation.last_name})}}
   </p>
 </app-nt-modal>
 
+<app-nt-modal name="select_user"
+              typeModal="success"
+              maxWidth="600px"
+              [button2Label]="createReservationLabel"
+              [activated]="selectedUser != null && !waitAPI"
+              (button2)="addReservation()">
+  <div *ngIf="!selectedUser">
+    <app-my-table [settings]="settings"
+                  [data]="listUsers"
+                  [filters]="filters"
+                  [useSearchBar]="true"
+                  (searchBar)="updateFilter('search', $event)"
+                  (selectItem)="selectUser($event)"
+                  (changePage)="changePage($event)"
+                  (updateFilters)="updateFilters($event)"
+                  [limitChoices]="limitChoices"
+                  (updateLimit)="changeLimit($event)">
+    </app-my-table>
+  </div>
+  <div *ngIf="selectedUser">
+    <div class="admin-timeslot-page-modal__selected-user">
+      <img class="admin-timeslot-page-modal__back"
+           src="../../../assets/images/icons/icon_left_arrow.svg"
+           (click)="unselectUser()">
+      <div class="admin-timeslot-page-modal__text">
+        <p class="admin-timeslot-page-modal__title">
+          {{ selectedUser.first_name }}
+          {{ selectedUser.last_name }}
+        </p>
+        <p>
+          {{ selectedUser.email }}
+        </p>
+        <p *ngIf="selectedUser.university">
+          {{ selectedUser.university }}
+        </p>
+        <p *ngIf="!selectedUser.university">
+          {{ noUniversity | translate }}
+        </p>
+      </div>
+    </div>
+    <p>
+      <input id="conditions" type="checkbox" [(ngModel)]="bypassPayment" />
+      <app-title [level]="9" for="conditions" type="label"
+                 text="{{ 'timeslot.bypass_payment' | translate }}"></app-title>
+    </p>
+    <app-alert class="payment-flow-confirmation__error" type="danger" [messages]="errorOrder" *ngIf="errorOrder"></app-alert>
+    <div *ngIf="errors" >
+      <p></p>
+      <app-alert type="danger" [messages]="errors">
+      </app-alert>
+    </div>
+  </div>
+</app-nt-modal>

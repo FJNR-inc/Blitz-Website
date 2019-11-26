@@ -33,63 +33,63 @@ export class ProfileEditComponent implements OnInit {
     {
       name: 'first_name',
       type: 'text',
-      label: _('shared.form.first_name')
+      label: _('profile-edit.form.first_name')
     },
     {
       name: 'last_name',
       type: 'text',
-      label: _('shared.form.last_name')
+      label: _('profile-edit.form.last_name')
     },
     {
       name: 'birthdate',
       type: 'date',
-      label: _('shared.form.birthdate')
+      label: _('profile-edit.form.birthdate')
     },
     {
       name: 'language',
       type: 'select',
       choices: [
         {
-          label: _('shared.form.language_en'),
+          label: _('profile-edit.form.language_en'),
           value: 'en'
         },
         {
-          label: _('shared.form.language_fr'),
+          label: _('profile-edit.form.language_fr'),
           value: 'fr'
         },
       ],
-      label: _('shared.form.language')
+      label: _('profile-edit.form.language')
     },
     {
       name: 'email',
       type: 'email',
-      label: _('shared.form.email')
+      label: _('profile-edit.form.email')
     },
     {
       name: 'university',
       type: 'select',
-      label: _('shared.form.university'),
+      label: _('profile-edit.form.university'),
       choices: []
     },
     {
       name: 'gender',
       type: 'select',
-      label: _('shared.form.gender'),
+      label: _('profile-edit.form.gender'),
       choices: [
         {
-          label: _('shared.form.gender_male'),
+          label: _('profile-edit.form.gender_male'),
           value: 'M'
         },
         {
-          label: _('shared.form.gender_female'),
+          label: _('profile-edit.form.gender_female'),
           value: 'F'
         },
         {
-          label: _('shared.form.gender_no_binary'),
+          label: _('profile-edit.form.gender_no_binary'),
           value: 'T'
         },
         {
-          label: _('shared.form.gender_none'),
+          label: _('profile-edit.form.gender_none'),
           value: 'A'
         }
       ]
@@ -97,7 +97,7 @@ export class ProfileEditComponent implements OnInit {
     {
       name: 'phone',
       type: 'text',
-      label: _('shared.form.phone'),
+      label: _('profile-edit.form.phone'),
       choices: []
     },
   ];
@@ -184,7 +184,7 @@ export class ProfileEditComponent implements OnInit {
       }
       this.userService.update(this.profile.url, value).subscribe(
         () => {
-          this.notificationService.success(_('shared.notifications.commons.added.title'));
+          this.notificationService.success(_('profile-edit.notifications.commons.added.title'));
           this.refreshProfile();
         },
         err => {

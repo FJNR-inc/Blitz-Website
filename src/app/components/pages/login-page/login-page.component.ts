@@ -48,8 +48,8 @@ export class LoginPageComponent {
             profile => {
               this.authenticationService.setProfile(profile);
               this.notificationService.success(
-              _('shared.notifications.connected.title'),
-                _('shared.notifications.connected.content')
+              _('login-page.notifications.connected.title'),
+                _('login-page.notifications.connected.content')
               );
               this.router.navigate([this.returnUrl]);
             }

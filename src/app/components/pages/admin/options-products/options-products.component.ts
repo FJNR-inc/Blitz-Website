@@ -30,20 +30,20 @@ export class OptionsProductsComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.form.optionsproducts.name')
+        title: _('options-products.form.name')
       },
       {
         name: 'price',
-        title: _('shared.form.optionsproducts.price')
+        title: _('options-products.form.price')
       },
       {
         name: 'available',
-        title: _('shared.form.optionsproducts.available'),
+        title: _('options-products.form.available'),
         type: 'boolean'
       },
       {
         name: 'details',
-        title: _('shared.form.optionsproducts.details')
+        title: _('options-products.form.details')
       }
     ]
   };

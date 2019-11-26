@@ -130,7 +130,7 @@ export class NtHeaderComponent implements OnInit {
         }, {
           label: _('header.espace.reservation'),
           url: '',
-          router_url: '/reservation/1',
+          router_url: `/reservation/${environment.defaultWorkplaceId}`,
           type: 'button',
           keepClose: true
         }
@@ -171,16 +171,6 @@ export class NtHeaderComponent implements OnInit {
           type: 'button'
         }
       ]
-    }, {
-      label: _('header.network'),
-      url: 'http://www.thesez-vous.com/reseau.html',
-      router_url: '',
-
-    }, {
-      label: _('header.news'),
-      url: 'http://www.thesez-vous.com/blogue.html',
-      router_url: '',
-
     }, {
       label: _('header.ressources'),
       url: 'http://www.thesez-vous.com/bibliothese.html',

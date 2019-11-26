@@ -60,23 +60,23 @@ export class UsersPageComponent implements OnInit {
     columns: [
       {
         name: 'first_name',
-        title: _('shared.common.first_name')
+        title: _('users-page.common.first_name')
       },
       {
         name: 'last_name',
-        title: _('shared.common.last_name')
+        title: _('users-page.common.last_name')
       },
       {
         name: 'email',
-        title: _('shared.common.email')
+        title: _('users-page.common.email')
       },
       {
         name: 'university',
-        title: _('shared.common.university')
+        title: _('users-page.common.university')
       },
       {
         name: 'is_active',
-        title: _('shared.common.active'),
+        title: _('users-page.common.active'),
         type: 'boolean'
       }
     ]

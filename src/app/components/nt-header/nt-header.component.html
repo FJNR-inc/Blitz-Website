@@ -163,6 +163,7 @@
       </a>
 
       <a routerLink="/profile"
+         (click)="toggleResponsiveNav()"
          class="nt-header-responsive__actions__item "
          *ngIf="isAuthenticated()">
           {{ 'header.profile' | translate }}

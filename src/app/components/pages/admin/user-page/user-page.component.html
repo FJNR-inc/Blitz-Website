@@ -10,7 +10,7 @@
         <i class="fas fa-envelope"></i> {{ user.email }}<br/>
       </div>
       <div class="user-page__header__informations__email" *ngIf="user.is_superuser">
-        <i class="fas fa-user-shield"></i> {{ 'shared.common.administrator' | translate }}
+        <i class="fas fa-user-shield"></i> {{ 'user-page.common.administrator' | translate }}
       </div>
       <div class="user-page__header__informations__university" *ngIf="user.university">
         {{ user.university.name }}<br/>
@@ -29,7 +29,7 @@
           {{ user.getTimeBeforeEndMembership() }}
         </div>
         {{ 'user-page.remaining_days' | translate }}<br/>
-        ({{ 'shared.common.membership' | translate }} {{ user.membership.name }})
+        ({{ 'user-page.common.membership' | translate }} {{ user.membership.name }})
       </div>
     </div>
   </div>

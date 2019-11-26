@@ -79,10 +79,10 @@
       </span>
       <span *ngIf="column.type !== 'boolean'">
         <ng-container *ngIf="item[column.name] as itemData">
-          <ng-container *ngIf="itemData.hasOwnProperty('key'); else dataWithoutranslate">
+          <ng-container *ngIf="isTranslateData(itemData) ; else dataWithoutTranslate">
             {{ itemData | translate }}
           </ng-container>
-          <ng-template #dataWithoutranslate>
+          <ng-template #dataWithoutTranslate>
               {{ itemData }}
           </ng-template>
         </ng-container>
@@ -127,7 +127,7 @@
 
 <app-nt-modal name="{{deleteModalName}}"
               typeModal="danger"
-              title="Supprimer ?"
+              title="{{ 'my-table.delete_modal.title' | translate }}"
               button2Label="Supprimer"
               (button2)="remove(null, true)"
               maxWidth="600px"

@@ -21,55 +21,55 @@ export class PaymentFlowInformationsComponent implements OnInit {
       label: _('retreat-cart.labels.city'),
       choices: [
         {
-          label: 'Chicoutimi',
+          label: _('payment-flow-informations.chicoutimi'),
           value: 'Chicoutimi'
         },
         {
-          label: 'Gatineau',
+          label: _('payment-flow-informations.gatineau'),
           value: 'Gatineau'
         },
         {
-          label: 'Laval',
+          label: _('payment-flow-informations.laval'),
           value: 'Laval'
         },
         {
-          label: 'Longueuil',
+          label: _('payment-flow-informations.longueuil'),
           value: 'Longueuil'
         },
         {
-          label: 'Montréal',
+          label: _('payment-flow-informations.montreal'),
           value: 'Montreal'
         },
         {
-          label: 'Ottawa',
+          label: _('payment-flow-informations.ottawa'),
           value: 'Ottawa'
         },
         {
-          label: 'Québec',
+          label: _('payment-flow-informations.quebec'),
           value: 'Québec'
         },
         {
-          label: 'Rimouski',
+          label: _('payment-flow-informations.rimouski'),
           value: 'Rimouski'
         },
         {
-          label: 'Rouyn Noranda',
+          label: _('payment-flow-informations.rouyn-noranda'),
           value: 'Rouyn Noranda'
         },
         {
-          label: 'Sherbrooke',
+          label: _('payment-flow-informations.sherbrooke'),
           value: 'Sherbrooke'
         },
         {
-          label: 'St-Jérôme',
+          label: _('payment-flow-informations.stjerome'),
           value: 'St-Jérôme'
         },
         {
-          label: 'Trois-Rivière',
+          label: _('payment-flow-informations.trois-riviere'),
           value: 'Trois-Rivière'
         },
         {
-          label: 'Autre',
+          label: _('payment-flow-informations.other'),
           value: 'Autre'
         }
       ]
@@ -122,7 +122,7 @@ export class PaymentFlowInformationsComponent implements OnInit {
         if (err.error.non_field_errors) {
           this.personalInformationErrors = err.error.non_field_errors;
         } else {
-          this.personalInformationErrors =  ['shared.form.errors.unknown'];
+          this.personalInformationErrors =  ['payment-flow-informations.form.errors.unknown'];
         }
         this.personalInformationForm = FormUtil.manageFormErrors(this.personalInformationForm, err);
       }

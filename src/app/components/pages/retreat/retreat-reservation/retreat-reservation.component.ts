@@ -61,7 +61,6 @@ export class RetreatReservationComponent implements OnInit {
 
   openTutorial() {
     this.displayTutorial = true;
-    console.log('Open the tutorial!');
   }
 
   closeTutorial() {

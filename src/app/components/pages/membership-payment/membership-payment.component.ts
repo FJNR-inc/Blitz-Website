@@ -5,7 +5,7 @@ import {OrderService} from '../../../services/order.service';
 import {OrderLine} from '../../../models/orderLine';
 import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
-import {isEmpty} from 'rxjs/operators';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 declare let paysafe: any;
 
@@ -37,7 +37,7 @@ export class MembershipPaymentComponent implements OnInit {
     }
   };
   private paysafeInstance: any;
-  error: string[];
+  error: (string | string[])[];
   buttonDisabled = false;
 
   membership = null;
@@ -58,8 +58,7 @@ export class MembershipPaymentComponent implements OnInit {
     paysafe.fields.setup(this.API_KEY, this.OPTIONS, (paysafeInstance: any, error: any) => {
       if (error) {
         this.error = [
-          'Il semblerait que nous éprouvons des problèmes avec ' +
-          'notre système de vente, veuillez réessayer dans quelques instants.'
+          _('membership-payment.text_error_1')
         ];
         this.buttonDisabled = true;
       } else {
@@ -72,16 +71,13 @@ export class MembershipPaymentComponent implements OnInit {
     this.buttonDisabled = true;
     const instance = this;
     if (!instance.paysafeInstance) {
-      console.error('No instance Paysafe');
       this.error = [
-        'Il semblerait que nous éprouvons des problèmes avec ' +
-        'notre système de vente, veuillez réessayer dans quelques instants.'
+        _('membership-payment.text_error_2')
       ];
     } else {
       instance.paysafeInstance.tokenize((paysafeInstance: any, error: any, result: any) => {
         if (error) {
-          this.error = ['Ces informations bancaires sont invalides'];
-          console.error(`Tokenization error: [${error.code}] ${error.detailedMessage}`);
+          this.error = [_('membership-payment.text_error_3')];
           this.buttonDisabled = false;
         } else {
           const newOrder = new Order(
@@ -103,8 +99,7 @@ export class MembershipPaymentComponent implements OnInit {
             err => {
               if (err.error.non_field_errors) {
                 this.error = [
-                  'Il semblerait que nous éprouvons des problèmes avec ' +
-                  'notre système de vente, veuillez réessayer dans quelques instants.'
+                  _('membership-payment.text_error_4')
                 ];
                 this.buttonDisabled = false;
               }

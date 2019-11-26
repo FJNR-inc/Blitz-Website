@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {Step} from './payment-flow-wizard/payment-flow-wizard.component';
+import {Cart} from '../../../models/cart';
 
 @Component({
   selector: 'app-payment-flow',
@@ -36,7 +37,9 @@ export class PaymentFlowComponent implements OnInit {
   };
 
 
-  steps: Step[] = [
+  steps: Step[];
+
+  saveSteps: Step[] = [
     this.membershipStep,
     this.informationStep,
     this.bourseStep,
@@ -49,11 +52,18 @@ export class PaymentFlowComponent implements OnInit {
   constructor(private cartService: MyCartService,
               private authenticationService: AuthenticationService) {
 
-    this.filterStep();
-    this.currentStep = this.steps[0];
   }
 
   ngOnInit() {
+
+    this.cartService.elementChangeInCart$.subscribe(
+      () => {
+        this.steps = this.saveSteps;
+        this.filterStep();
+        this.currentStep = this.steps[0];
+      }
+    );
+
   }
 
   filterStep() {

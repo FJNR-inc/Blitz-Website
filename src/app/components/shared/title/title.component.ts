@@ -11,6 +11,7 @@ export class TitleComponent implements OnInit {
   @Input() text: string;
   @Input() type: string;
   @Input() for: string;
+  @Input() inline = false;
 
   constructor() { }
 

@@ -20,7 +20,7 @@ export class NtModalComponent implements OnInit {
   @Input() show = false;
   @Input() displayButtons = true;
 
-  @ViewChild('modalContent') modalContent;
+  @ViewChild('modalContent', { static: true }) modalContent;
 
   @Output() button1: EventEmitter<any> = new EventEmitter();
   @Output() button2: EventEmitter<any> = new EventEmitter();
@@ -93,7 +93,7 @@ export class NtModalComponent implements OnInit {
     if (this.button1Label) {
       return this.button1Label;
     } else {
-      return _('shared.yes');
+      return _('nt-modal.yes');
     }
   }
 
@@ -101,7 +101,7 @@ export class NtModalComponent implements OnInit {
     if (this.button2Label) {
       return this.button2Label;
     } else {
-      return _('shared.no');
+      return _('nt-modal.no');
     }
   }
 }

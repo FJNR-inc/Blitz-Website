@@ -3,7 +3,7 @@
     <div class="register-page__form__content__header">
       <div>
         <h2 class="nt-title">
-          {{ 'register.title' | translate }}
+          {{ 'register-page.title' | translate }}
         </h2>
       </div>
     </div>
@@ -12,7 +12,7 @@
 
       <div class="form-group form-group--multiple">
         <div class="form-group__item">
-          <label for="firstname" class="nt-form-label">{{ 'shared.form.first_name' | translate }}*:</label>
+          <label for="firstname" class="nt-form-label">{{ 'register-page.form.first_name' | translate }}*:</label>
           <input formControlName="first_name" type="text" id="firstname" class="nt-form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['first_name'].getError('apiError')">
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="form-group__item">
-          <label for="lastname" class="nt-form-label">{{ 'shared.form.last_name' | translate }}*:</label>
+          <label for="lastname" class="nt-form-label">{{ 'register-page.form.last_name' | translate }}*:</label>
           <input formControlName="last_name" type="text" id="lastname" class="nt-form-input" />
           <div class="form-text form-text--right form-text--danger"
                *ngFor="let errorMessage of registerForm.controls['last_name'].getError('apiError')">
@@ -30,16 +30,16 @@
       </div>
       <app-alert type="warning">
         <p>
-          {{ 'register.warning_email.text_1' | translate }}
+          {{ 'register-page.warning_email.text_1' | translate }}
         </p>
         <p>
-          {{ 'register.warning_email.text_2' | translate }}
+          {{ 'register-page.warning_email.text_2' | translate }}
         </p>
       </app-alert>
       <div class="form-group">
-        <label for="university" class="nt-form-label">{{ 'shared.form.university' | translate }}*:</label>
+        <label for="university" class="nt-form-label">{{ 'register-page.form.university' | translate }}*:</label>
         <select formControlName="university" id="university" class="nt-form-input nt-form-input--select" (change)="changeUniversity()">
-          <option value="none">{{ 'shared.form.university_none' | translate }}</option>
+          <option value="none">{{ 'register-page.form.university_none' | translate }}</option>
           <option value="{{ organization.name }}" *ngFor="let organization of listOrganizations">
             {{ organization.name }}
           </option>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="form-group" *ngIf="selectedUniversity">
-        <label for="study_level" class="nt-form-label">{{ 'shared.form.academic_level' | translate }}*:</label>
+        <label for="study_level" class="nt-form-label">{{ 'register-page.form.academic_level' | translate }}*:</label>
         <select formControlName="academic_level" id="study_level" class="nt-form-input nt-form-input--select">
           <option value="none"></option>
           <option value="{{ level.name }}" *ngFor="let level of listAcademicLevels">
@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="form-group" *ngIf="selectedUniversity">
-        <label for="study_field" class="nt-form-label">{{ 'shared.form.academic_field' | translate }}*:</label>
+        <label for="study_field" class="nt-form-label">{{ 'register-page.form.academic_field' | translate }}*:</label>
         <select formControlName="academic_field" id="study_field" class="nt-form-input nt-form-input--select">
           <option value="none"></option>
           <option value="{{ field.name }}" *ngFor="let field of listAcademicFields">
@@ -76,8 +76,8 @@
         </div>
       </div>
       <div class="form-group">
-        <label *ngIf="selectedUniversity" for="email" class="nt-form-label">{{ 'shared.form.university_email' | translate }}*:</label>
-        <label *ngIf="!selectedUniversity" for="email" class="nt-form-label">{{ 'shared.form.email' | translate }}*:</label>
+        <label *ngIf="selectedUniversity" for="email" class="nt-form-label">{{ 'register-page.form.university_email' | translate }}*:</label>
+        <label *ngIf="!selectedUniversity" for="email" class="nt-form-label">{{ 'register-page.form.email' | translate }}*:</label>
         <input formControlName="email" type="email" id="email" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of registerForm.controls['email'].getError('apiError')">
@@ -85,7 +85,7 @@
         </div>
         <app-alert type="danger" *ngIf="selectedUniversity">
           <p>
-            {{ 'shared.form.info_domain_name' | translate }}:
+            {{ 'register-page.form.info_domain_name' | translate }}:
           </p>
           <ul>
             <li *ngFor="let domain of selectedUniversity.domains">
@@ -96,11 +96,11 @@
       </div>
       <div class="register-page__form__content__form__inline">
         <div class="register-page__form__content__form__inline__dates form-group">
-          <label for="birthday_day" class="nt-form-label">{{ 'shared.form.birthdate' | translate }}*:</label>
+          <label for="birthday_day" class="nt-form-label">{{ 'register-page.form.birthdate' | translate }}*:</label>
           <div class="form-group form-group--multiple">
             <div class="form-group__item">
               <select formControlName="birth_day" id="birthday_day" class="nt-form-input nt-form-input--select">
-                <option value="" disabled="disabled">{{ 'shared.common.day' | translate }}</option>
+                <option value="" disabled="disabled">{{ 'register-page.common.day' | translate }}</option>
                 <option value="01">1</option>
                 <option value="02">2</option>
                 <option value="03">3</option>
@@ -140,19 +140,19 @@
             </div>
             <div class="form-group__item">
               <select formControlName="birth_month" id="birthday_month" class="nt-form-input nt-form-input--select">
-                <option value="" disabled="disabled">{{ 'shared.common.month' | translate }}</option>
-                <option value="01">Janvier</option>
-                <option value="02">Février</option>
-                <option value="03">Mars</option>
-                <option value="04">Avril</option>
-                <option value="05">Mai</option>
-                <option value="06">Juin</option>
-                <option value="07">Juillet</option>
-                <option value="08">Aout</option>
-                <option value="09">Septembre</option>
-                <option value="10">Octobre</option>
-                <option value="11">Novembre</option>
-                <option value="12">Décembre</option>
+                <option value="" disabled="disabled">{{ 'register-page.common.month' | translate }}</option>
+                <option value="01">{{'register-page.month.january' | translate}}</option>
+                <option value="02">{{'register-page.month.february' | translate}}</option>
+                <option value="03">{{'register-page.month.march' | translate}}</option>
+                <option value="04">{{'register-page.month.april' | translate}}</option>
+                <option value="05">{{'register-page.month.may' | translate}}</option>
+                <option value="06">{{'register-page.month.june' | translate}}</option>
+                <option value="07">{{'register-page.month.july' | translate}}</option>
+                <option value="08">{{'register-page.month.august' | translate}}</option>
+                <option value="09">{{'register-page.month.september' | translate}}</option>
+                <option value="10">{{'register-page.month.october' | translate}}</option>
+                <option value="11">{{'register-page.month.november' | translate}}</option>
+                <option value="12">{{'register-page.month.december' | translate}}</option>
               </select>
               <div class="form-text form-text--right form-text--danger"
                    *ngFor="let errorMessage of registerForm.controls['birth_month'].getError('apiError')">
@@ -161,7 +161,7 @@
             </div>
             <div class="form-group__item">
               <select formControlName="birth_year" id="birthday_year" class="nt-form-input nt-form-input--select">
-                <option value="" disabled="disabled">{{ 'shared.common.year' | translate }}</option>
+                <option value="" disabled="disabled">{{ 'register-page.common.year' | translate }}</option>
                 <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
               </select>
               <div class="form-text form-text--right form-text--danger"
@@ -172,24 +172,24 @@
           </div>
         </div>
         <div class="register-page__form__content__form__inline__gender form-group">
-          <label for="gender" class="nt-form-label">{{ 'shared.form.gender' | translate }}*:</label>
+          <label for="gender" class="nt-form-label">{{ 'register-page.form.gender' | translate }}*:</label>
           <select formControlName="gender" id="gender" class="nt-form-input nt-form-input--select">
-            <option value="A">{{ 'shared.form.gender_none' | translate }}</option>
-            <option value="M">{{ 'shared.form.gender_male' | translate }}</option>
-            <option value="F">{{ 'shared.form.gender_female' | translate }}</option>
-            <option value="T">{{ 'shared.form.gender_no_binary' | translate }}</option>
+            <option value="A">{{ 'register-page.form.gender_none' | translate }}</option>
+            <option value="M">{{ 'register-page.form.gender_male' | translate }}</option>
+            <option value="F">{{ 'register-page.form.gender_female' | translate }}</option>
+            <option value="T">{{ 'register-page.form.gender_no_binary' | translate }}</option>
           </select>
         </div>
       </div>
       <div  class="form-group">
-        <label for="language" class="nt-form-label">{{ 'shared.form.language' | translate }}:</label>
+        <label for="language" class="nt-form-label">{{ 'register-page.form.language' | translate }}:</label>
         <select formControlName="language" id="language" class="nt-form-input nt-form-input--select">
-          <option value="en">{{ 'shared.form.language_en' | translate }}</option>
-          <option value="fr">{{ 'shared.form.language_fr' | translate }}</option>
+          <option value="en">{{ 'register-page.form.language_en' | translate }}</option>
+          <option value="fr">{{ 'register-page.form.language_fr' | translate }}</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="phone" class="nt-form-label">{{ 'shared.form.phone' | translate }}:</label>
+        <label for="phone" class="nt-form-label">{{ 'register-page.form.phone' | translate }}:</label>
         <input formControlName="phone" id="phone" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of registerForm.controls['phone'].getError('apiError')">
@@ -197,7 +197,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="password" class="nt-form-label">{{ 'shared.form.password' | translate }}*:</label>
+        <label for="password" class="nt-form-label">{{ 'register-page.form.password' | translate }}*:</label>
         <input formControlName="password" type="password" id="password" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of registerForm.controls['password'].getError('apiError')">
@@ -205,7 +205,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="confirmation" class="nt-form-label">{{ 'shared.form.password_confirmation' | translate }}*:</label>
+        <label for="confirmation" class="nt-form-label">{{ 'register-page.form.password_confirmation' | translate }}*:</label>
         <input formControlName="confirmation" type="password" id="confirmation" class="nt-form-input" />
         <div class="form-text form-text--right form-text--danger"
              *ngFor="let errorMessage of registerForm.controls['confirmation'].getError('apiError')">
@@ -214,22 +214,20 @@
       </div>
     </div>
     <app-alert *ngIf="!registerForm.valid && hasSubmit" type="danger" class="register-page__form__content__error">
-      {{ 'shared.form.errors.forgot_fields' | translate }}
+      {{ 'register-page.form.errors.forgot_fields' | translate }}
     </app-alert>
     <div class="register-page__form__content__actions">
       <div class="register-page__form__content__actions__item register-page__form__content__actions__main">
-        <a routerLink="/login" class="nt-link">{{ 'shared.buttons.log_in' | translate }}</a>
+        <a routerLink="/login" class="nt-link">{{ 'register-page.buttons.log_in' | translate }}</a>
       </div>
       <div>
         <button type="submit" class="register-page__form__content__actions__item nt-button">
-          {{ 'shared.buttons.create_profile' | translate }}
+          {{ 'register-page.buttons.create_profile' | translate }}
         </button>
       </div>
     </div>
   </form>
 </div>
-
-
 <app-terms name="form_terms"
            (button2)="acceptTerms()"
            maxWidth='780px'>

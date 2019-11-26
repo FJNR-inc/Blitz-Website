@@ -24,8 +24,8 @@ export class OrganizationsPageComponent implements OnInit {
   selectedOrganizationUrl: string;
 
   settings = {
-    title: _('organizations.title'),
-    noDataText: _('organizations.no_organization'),
+    title: _('organizations-page.title'),
+    noDataText: _('organizations-page.no_organization'),
     clickable: true,
     addButton: true,
     editButton: true,
@@ -37,7 +37,7 @@ export class OrganizationsPageComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        title: _('shared.form.name')
+        title: _('organizations-page.form.name')
       }
     ]
   };
@@ -46,12 +46,12 @@ export class OrganizationsPageComponent implements OnInit {
     {
       name: 'name_fr',
       type: 'text',
-      label: _('shared.form.name_in_french')
+      label: _('organizations-page.form.name_in_french')
     },
     {
       name: 'name_en',
       type: 'text',
-      label: _('shared.form.name_in_english')
+      label: _('organizations-page.form.name_in_english')
     }
   ];
 
@@ -88,8 +88,8 @@ export class OrganizationsPageComponent implements OnInit {
     this.selectedOrganizationUrl = null;
     this.toogleModal(
       'form_organizations',
-      _('organizations.create_organization_modal.title'),
-      _('organizations.create_organization_modal.button')
+      _('organizations-page.create_organization_modal.title'),
+      _('organizations-page.create_organization_modal.button')
     );
   }
 
@@ -100,8 +100,8 @@ export class OrganizationsPageComponent implements OnInit {
     this.selectedOrganizationUrl = item.url;
     this.toogleModal(
       'form_organizations',
-      _('organizations.edit_organization_modal.title'),
-      _('organizations.edit_organization_modal.button')
+      _('organizations-page.edit_organization_modal.title'),
+      _('organizations-page.edit_organization_modal.button')
     );
   }
 
@@ -111,7 +111,7 @@ export class OrganizationsPageComponent implements OnInit {
         this.organizationService.update(this.selectedOrganizationUrl, this.organizationForm.value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.updated.title')
+              _('organizations-page.notifications.commons.updated.title')
             );
             this.refreshOrganizationList();
             this.toogleModal('form_organizations');
@@ -127,7 +127,7 @@ export class OrganizationsPageComponent implements OnInit {
         this.organizationService.create(this.organizationForm.value).subscribe(
           data => {
             this.notificationService.success(
-              _('shared.notifications.commons.added.title')
+              _('organizations-page.notifications.commons.added.title')
             );
             this.refreshOrganizationList();
             this.toogleModal('form_organizations');
@@ -147,15 +147,15 @@ export class OrganizationsPageComponent implements OnInit {
     this.organizationService.remove(item).subscribe(
       data => {
         this.notificationService.success(
-          _('shared.notifications.delete_university.title'),
-          _('shared.notifications.delete_university.content')
+          _('organizations-page.notifications.delete_university.title'),
+          _('organizations-page.notifications.delete_university.content')
         );
         this.refreshOrganizationList();
       },
       err => {
         this.notificationService.error(
-          _('shared.notifications.fail_deletion.title'),
-          _('shared.notifications.fail_deletion.content')
+          _('organizations-page.notifications.fail_deletion.title'),
+          _('organizations-page.notifications.fail_deletion.content')
         );
       }
     );
@@ -165,7 +165,6 @@ export class OrganizationsPageComponent implements OnInit {
     const modal = this.myModalService.get(name);
 
     if (!modal) {
-      console.error('No modal named %s', name);
       return;
     }
 

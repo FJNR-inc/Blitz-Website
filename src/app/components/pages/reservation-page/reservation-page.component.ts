@@ -1,12 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import {
-  isSameDay,
-  isSameMonth,
-} from 'date-fns';
-
-import {Observable, Subject} from 'rxjs';
-import { CalendarDateFormatter, CalendarEvent, DAYS_OF_WEEK } from 'angular-calendar';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WorkplaceService } from '../../../services/workplace.service';
 import { Workplace } from '../../../models/workplace';
@@ -35,21 +28,9 @@ import {CalendarPeriod} from '../../../models/calendar';
   selector: 'app-reservation-page',
   templateUrl: './reservation-page.component.html',
   styleUrls: ['./reservation-page.component.scss'],
-  providers: [
-    {
-      provide: CalendarDateFormatter,
-      useClass: CalendarDateFormatter
-    }
-  ]
 })
 export class ReservationPageComponent implements OnInit {
-  view = 'month';
-  viewDate: Date = new Date();
-  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   locale = InternationalizationService.getLocale();
-  refresh: Subject<any> = new Subject();
-  events: CalendarEvent[] = [];
-  activeDayIsOpen = false;
 
   workplace: Workplace;
   listTimeSlots: TimeSlot[];
@@ -267,20 +248,6 @@ export class ReservationPageComponent implements OnInit {
     }
   }
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-        this.viewDate = date;
-      }
-    }
-  }
-
   eventClicked(event) {
     for (const timeSlot of this.listTimeSlots) {
       if (timeSlot.id === event.id && this.selectedTimeSlots.indexOf(timeSlot) === -1) {
@@ -296,9 +263,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   syncCalendarEvent() {
-    this.events = [];
     for (const timeSlot of this.listTimeSlots) {
-      this.events.push(this.timeSlotAdapter(timeSlot));
       this.timeSlotsData.push(this.newTimeSlotAdapter(timeSlot));
     }
     this.timeSlotsData = this.timeSlotsData.slice(0);

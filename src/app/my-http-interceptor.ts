@@ -27,8 +27,8 @@ export class MyHttpInterceptor implements HttpInterceptor {
             localStorage.removeItem('token');
             localStorage.removeItem('userProfile');
             this.notificationService.error(
-              _('shared.notifications.session_expired.title'),
-              _('shared.notifications.session_expired.content')
+              _('my-http-interceptor.notifications.session_expired.title'),
+              _('my-http-interceptor.notifications.session_expired.content')
             );
             this.router.navigate(['/login']);
           }

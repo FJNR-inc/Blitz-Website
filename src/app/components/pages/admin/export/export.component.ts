@@ -149,7 +149,7 @@ export class ExportComponent implements OnInit {
     }
   }
 
-  downloadFile(data: Response) {
+  downloadFile(data) {
     const blob = new Blob([data], { type: 'application/vnd.ms-excel' });
     const url = window.URL.createObjectURL(blob);
     window.open(url);
