@@ -1006,7 +1006,7 @@
   "calendar.header.title1": "Plages horaire",
   "calendar.header.title2": "Semaine du {{dateStart}} au {{dateEnd}}",
   "calendar.header.text1": "Sélectionnez la ou les plage(s) horaire de votre choix pour les ajouter à votre panier.",
-  "calendar.table.title.night": "NUIT",
+  "calendar.table.title.night": "SOIR",
   "calendar.table.title.date": "DATE",
   "calendar.legend.title": "Légende",
   "calendar.legend.text1": "Beaucoup de places disponibles",

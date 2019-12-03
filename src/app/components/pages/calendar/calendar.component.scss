@@ -29,8 +29,8 @@
 
           &__title {
             font-weight: bolder;
-            writing-mode: vertical-lr;
-            text-orientation: mixed;
+            writing-mode: tb-rl;
+            transform: rotate(-180deg);
           }
         }
       }
