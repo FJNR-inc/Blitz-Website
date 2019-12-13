@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Retreat} from '../../../../models/retreat';
 import {RetreatReservation} from '../../../../models/retreatReservation';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
@@ -8,6 +8,8 @@ import {AuthenticationService} from '../../../../services/authentication.service
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {environment} from '../../../../../environments/environment';
+import {Router} from '@angular/router';
+import {MatMenuTrigger} from '@angular/material/menu';
 
 @Component({
   selector: 'app-profile-retreats',
@@ -33,11 +35,13 @@ export class ProfileRetreatsComponent implements OnInit {
 
   @Output() totalPastTomatoes: EventEmitter<any> = new EventEmitter();
   @Output() totalFutureTomatoes: EventEmitter<any> = new EventEmitter();
+  @ViewChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
 
   constructor(private retreatService: RetreatService,
               private retreatReservationService: RetreatReservationService,
               private authenticationService: AuthenticationService,
               private myModalService: MyModalService,
+              private router: Router,
               private notificationService: MyNotificationService) { }
 
   ngOnInit() {
@@ -163,6 +167,12 @@ export class ProfileRetreatsComponent implements OnInit {
     } else {
       return [];
     }
+  }
+
+  // Use to stop the event, and not open the detail of retreat
+  // when we open the menu (made with [matMenuTriggerFor]="optionsRetreat")
+  stopPropagation(event) {
+    event.stopPropagation();
   }
 
   exchangeRetreat() {
