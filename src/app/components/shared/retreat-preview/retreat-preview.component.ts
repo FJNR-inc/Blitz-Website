@@ -8,6 +8,8 @@ import {RetreatWaitingQueueService} from '../../../services/retreatWaitingQueue.
 import {RetreatWaitingQueue} from '../../../models/retreatWaitingQueue';
 import {MyModalService} from '../../../services/my-modal/my-modal.service';
 import {RetreatInvitation} from '../../../models/RetreatInvitation';
+import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-retreat-preview',
@@ -31,6 +33,7 @@ export class RetreatPreviewComponent implements OnInit {
               private retreatService: RetreatService,
               private retreatReservationService: RetreatReservationService,
               private retreatWaitingQueueService: RetreatWaitingQueueService,
+              private notificationService: MyNotificationService,
               private modalService: MyModalService) {
     this.authenticationService.profile.subscribe(
       () => {
@@ -61,7 +64,15 @@ export class RetreatPreviewComponent implements OnInit {
     this.retreatWaitingQueueService.create(retreatWaitingQueue).subscribe(
       data => {
         this.positionInList = data.list_size;
-        this.modalService.get('waiting-list-success').toggle();
+        // this.modalService.get('waiting-list-success').toggle();
+        this.notificationService.success(
+          _('retreat-list-item.notifications.subscribe_waiting_list.success.content'),
+          null,
+          {position: this.positionInList},
+          {
+            timeOut: 100000,
+          }
+        );
       }
     );
   }
