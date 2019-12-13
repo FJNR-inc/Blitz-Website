@@ -59,22 +59,6 @@
           margin-top: 30px;
         }
       }
-
-      &__actions {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        font-size: 20px;
-
-        &__item {
-          margin-right: 10px;
-          text-decoration: none;
-
-          &:last-child {
-            margin: 0;
-          }
-        }
-      }
     }
   }
 
@@ -130,11 +114,55 @@
   }
 }
 
+
+.options-button {
+
+  width: 130px;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  background: None;
+  border: 1px solid $border-calendar;
+  text-transform: uppercase;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding: 0 !important;
+}
+
+::ng-deep .options_menu {
+
+  width: 130px !important;
+  border-radius: 10px !important;
+  padding: 0 0 !important;
+  background: white !important;
+  border: 1px solid $border-calendar !important;
+
+  &__item {
+    height: 40px !important;
+    line-height: 20px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    text-align: left !important;
+    border-bottom: 1px solid $border-calendar !important;
+    padding: 10px 20px !important;
+    text-transform: uppercase;
+
+
+    &:last-child {
+      border: none !important;
+    }
+
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .profile-retreats {
     &__list {
       &__item {
         flex-wrap: wrap;
+
         &__title {
           order: 1;
           flex: none;
@@ -146,8 +174,7 @@
           flex: none;
           width: 100%;
         }
-
-        &__actions {
+        &__options {
           order: 2;
         }
       }

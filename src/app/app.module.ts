@@ -174,6 +174,7 @@ import { CartButtonComponent } from './components/shared/cart-button/cart-button
 import { PaymentSuccessfulComponent } from './components/pages/payment-successful/payment-successful.component';
 import { PoliticsComponent } from './components/pages/politics/politics.component';
 import { CalendarComponent } from './components/pages/calendar/calendar.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 registerLocaleData(localeFr);
 
@@ -686,7 +687,7 @@ const appRoutes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false }
+      {enableTracing: false}
     ),
     HttpClientModule,
     FormsModule,
@@ -710,6 +711,7 @@ const appRoutes = [
     MatInputModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatMenuModule,
   ],
   providers: [
     CanActivateViaAuthGuard,
