@@ -32,26 +32,40 @@
         <div class="profile-retreats__list__item__description__more" *ngIf="retreatReservationOpen === retreatReservation.id">
           <b>{{ 'profile-retreats.retreats.details.begin' | translate }}:</b> {{retreatReservation.retreat_details.getStartTime()}}<br/>
           <b>{{ 'profile-retreats.retreats.details.end' | translate }}:</b> {{retreatReservation.retreat_details.getEndTime()}}<br/>
-          <span *ngIf="retreatReservation.retreat_details.getActivityLanguageLabel()">
-                    <b>{{ 'profile-retreats.retreats.details.animation' | translate }}:</b> {{retreatReservation.retreat_details.getActivityLanguageLabel() | translate }}<br/>
+          <span *ngIf="retreatReservation.retreat_details.activityLanguageLabel">
+                    <b>{{ 'profile-retreats.retreats.details.animation' | translate }}:</b>
+            {{retreatReservation.retreat_details.activityLanguageLabel | translate }}<br/>
                   </span>
           <b>{{ 'profile-retreats.retreats.details.price' | translate }}:</b> {{retreatReservation.retreat_details.price}}$CAN<br/>
         </div>
       </div>
-      <div class="profile-retreats__list__item__actions">
-        <a *ngIf="retreatReservation.retreat_details.form_url" class="profile-retreats__list__item__actions__item" target="_blank" [href]="retreatReservation.retreat_details.form_url">
-          <i class="icon icon-form icon--3x"></i>
-        </a>
-        <a class="profile-retreats__list__item__actions__item"
-           *ngIf="retreatReservation.exchangeable"
-           (click)="openModalExchangeRetreatReservation(retreatReservation)">
-          <i class="icon icon-transfer icon--3x"></i>
-        </a>
-        <a class="profile-retreats__list__item__actions__item"
-           *ngIf="retreatReservation.refundable || isAdminReservation(retreatReservation)"
-           (click)="openModalCancelRetreatReservation(retreatReservation)">
-          <i class="icon icon-times icon--3x"></i>
-        </a>
+      <div class="profile-retreats__list__item__options">
+        <button [matMenuTriggerFor]="optionsRetreat"
+                class="options-button"
+                (click)="stopPropagation($event)"
+        >{{ 'profile-retreats.retreats.details.options' | translate }}
+          <i class="icon icon-caret-down"></i></button>
+        <mat-menu #optionsRetreat="matMenu"
+                  class="options_menu"
+        >
+
+          <button mat-menu-item class="options_menu__item"
+                  *ngIf="retreatReservation.refundable || isAdminReservation(retreatReservation)"
+                  (click)="openModalCancelRetreatReservation(retreatReservation)">
+            {{ 'profile-retreats.retreats.details.cancel' | translate }}
+          </button>
+          <button mat-menu-item class="options_menu__item"
+                  *ngIf="retreatReservation.exchangeable"
+                  (click)="openModalExchangeRetreatReservation(retreatReservation)">
+            {{ 'profile-retreats.retreats.details.change' | translate }}
+          </button>
+          <a
+            *ngIf="retreatReservation.retreat_details.form_url"
+            target="_blank" [href]="retreatReservation.retreat_details.form_url"
+            mat-menu-item class="options_menu__item">
+            {{ 'profile-retreats.retreats.details.detail' | translate }}
+          </a>
+        </mat-menu>
       </div>
     </div>
   </div>

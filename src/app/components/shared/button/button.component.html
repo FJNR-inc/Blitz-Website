@@ -1,3 +1,11 @@
-<button class="app-button app-button--{{type}}" (click)="clicked()" [disabled]="disabled" [ngClass]="{'app-button--disabled': disabled}">
+<button class="app-button app-button--{{type}}"
+        (click)="clicked()"
+        [disabled]="disabled"
+        [ngClass]="{'app-button--disabled': disabled}">
+  <ng-container *ngIf="text; else buttonContent">
     {{ text }}
+  </ng-container>
+  <ng-template #buttonContent>
+    <ng-content></ng-content>
+  </ng-template>
 </button>

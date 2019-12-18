@@ -8,19 +8,23 @@ export class MyNotificationService {
   constructor(private notificationService: NotificationsService,
               private translate: TranslateService) { }
 
-  success(title, content = null) {
+  success(title,
+          content = null,
+          params = null,
+          notificationParams = null) {
     const labels = [title];
 
     if (content) {
       labels.push(content);
     }
 
-    this.translate.get(labels).subscribe(
+    this.translate.get(labels, params).subscribe(
       (translatedLabels: string) => {
         if (content) {
           this.notificationService.success(
             translatedLabels[title],
-            translatedLabels[content]
+            translatedLabels[content],
+            notificationParams
           );
         } else {
           this.notificationService.success(
