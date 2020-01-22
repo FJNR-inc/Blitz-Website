@@ -5,7 +5,7 @@
   <div class="authentication-panel__content">
     <app-title [level]="4" text="{{'authentication-panel.title_1' | translate}}"></app-title>
     <app-title [level]="9" text="{{'authentication-panel.title_2' | translate}}"></app-title>
-    <app-link text="{{'authentication-panel.link' | translate}}"></app-link>
+    <app-link text="{{'authentication-panel.link' | translate}}" routerLink="/register"></app-link>
 
     <app-login-form class="authentication-panel__content__login"
                     [centered]="true"
