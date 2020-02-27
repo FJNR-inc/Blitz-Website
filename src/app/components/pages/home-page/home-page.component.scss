@@ -1,245 +1,73 @@
-@import "../../../../assets/scss/_easings.scss";
-@import "../../../../assets/scss/_theme.scss";
+@import '../../../../assets/scss/theme';
 
-.home-page {
-  position: relative;
+app-membership {
+  min-height: 100%;
+}
 
-  &__splashscreen {
-    width: 100%;
-    min-height: 600px;
+.membership-page {
+  display: flex;
+  min-height: 100vh;
+  padding: 50px;
+
+  &__column1 {
+    background-image: url('../../../../assets/images/home_background.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 600px;
   }
 
-  &__splash-text {
-    position: absolute;
-    top: 0;
-    text-align: center;
+  &__column2 {
+    flex: 1;
+
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
-    width: 100%;
+    justify-content: center;
 
-    &__title {
-      font-size: 40px;
-      color: $nt-text;
-      font-weight: 900;
-      padding-top: 30px;
-    }
+    &__content{
 
-    &__content {
-      max-width: 600px;
-      padding: 20px;
-      line-height: 21px;
-      font-weight: 500;
-    }
-  }
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
 
-  &__retraite {
-    padding: 75px 75px 0 75px;
-    display: flex;
-
-    &__picture {
-      flex: 1;
-      background-image: url('../../../../assets/images/retraite.jpg');
-      background-position: center;
-      background-size: cover;
-      min-height: 400px;
-    }
-
-    &__text {
-      flex: 1;
-      padding: 60px;
-      background-color: $nt-11;
-      color: $nt-text;
-      text-align: center;
+      max-width: 500px;
+      height: 100%;
+      margin-left: 50px;
 
       &__title {
-        text-transform: uppercase;
-        font-weight: 900;
-        display: block;
+        font-size: 30px;
+        line-height: 36px;
+        font-weight: 500;
         color: $nt-text;
 
-        &:after {
-          content: '';
-          width: 100px;
-          border-bottom: 1px solid $nt-text;
-          position: relative;
-          top: 20px;
-          display: block;
-          margin: auto;
-        }
+        margin-bottom: 30px;
       }
 
-      &__content {
-        font-size: 32px;
-        font-weight: 300;
-        margin-top: 60px;
-        line-height: 44px;
+      &__login {
+        margin-bottom: 10px;
+        width: 100%;
       }
 
-      &__button {
-        margin-top: 60px;
+      &__CKEditor{
+        background-color: #FCF7EF;
+        width: 100%;
+        max-height: 270px;
       }
-    }
-  }
-
-  &__espace {
-    padding: 0 75px 0 75px;
-    display: flex;
-
-    &__map {
-      flex: 2;
-      background-image: url('../../../../assets/images/map_espace.jpg');
-      background-position: center;
-      background-size: cover;
-      min-height: 400px;
-    }
-
-    &__text {
-      flex: 1;
-      padding: 60px;
-      background-color: $nt-4;
-      color: $nt-text;
-      text-align: center;
-
-      &__title {
-        text-transform: uppercase;
-        font-weight: 900;
-        display: block;
-        color: $nt-text;
-        font-size: 26px;
-        text-align: left;
-      }
-
-      &__content {
-        margin-top: 40px;
-        text-align: left;
-      }
-
-      &__details {
-        list-style-type: none;
-        padding: 20px 0 0 0;
-        margin: 0;
-        text-align: left;
-
-        &__item {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          margin-top: 20px;
-
-          &__icon {
-            width: 40px;
-            margin-right: 20px;
-          }
-
-          &__label {
-            line-height: 25px;
-          }
-        }
-      }
-
-      &__button {
-        margin-top: 60px;
-      }
-    }
-  }
-
-  &__pictures {
-    display: flex;
-    margin: 0 75px 0 75px;
-
-    &__item {
-      flex: 1;
-      height: 500px;
-      min-width: 300px;
-      background-size: cover;
-
-      &--space {
-        background-image: url('../../../../assets/images/space.jpg');
-      }
-
-      &--flag {
-        background-image: url('../../../../assets/images/flag.jpg');
-      }
-
-      &--bike {
-        background-image: url('../../../../assets/images/bike.jpg');
-      }
-    }
-  }
-
-  &__partners {
-    margin: 60px;
-
-    &__title {
-      text-transform: uppercase;
-      font-weight: 900;
-      display: block;
-      color: $nt-text;
-      text-align: center;
-
-      &:after {
-        content: '';
-        width: 100px;
-        border-bottom: 1px solid $nt-text;
-        position: relative;
-        top: 20px;
-        display: block;
-        margin: auto;
-      }
-    }
-
-    &__content {
-      margin-top: 60px;
     }
   }
 }
 
-@media only screen and (max-width: 1200px) {
-  .home-page {
-    &__retraite {
-      padding: 80px 40px 0 40px;
-      flex-direction: column;
-    }
-    &__espace {
-      padding: 0 40px 0 40px;
-      flex-direction: column;
-    }
-    &__pictures {
-      display: none;
-    }
-  }
-}
+@media only screen and (max-width: 700px) {
+  .membership-page {
+    flex-direction: column;
 
-@media only screen and (max-width: 400px) {
-  .home-page {
-    &__retraite {
-      &__text {
-        padding: 40px 10px;
-
-        &__content {
-          font-size: 20px;
-        }
-      }
+    &__column1 {
+      min-height: 200px;
     }
-    &__espace {
-      &__text {
-        padding: 40px 10px;
 
-        &__details {
-          &__item {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-
-            &__icon {
-              margin: 0;
-            }
-          }
-        }
-      }
+    &__column2 {
+      padding: 40px 0;
     }
   }
 }

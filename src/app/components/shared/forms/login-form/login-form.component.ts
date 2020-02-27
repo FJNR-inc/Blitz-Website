@@ -3,9 +3,6 @@ import {FormUtil} from '../../../../utils/form';
 import {FormGroup} from '@angular/forms';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {ProfileService} from '../../../../services/profile.service';
-import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
-import {Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
@@ -32,15 +29,11 @@ export class LoginFormComponent implements OnInit {
 
   @Input() registerLink = true;
   @Input() forgotPasswordLink = true;
-  @Input() centered = false;
 
   @Output() isConnected: EventEmitter<any> = new EventEmitter();
 
   constructor(private authenticationService: AuthenticationService,
-              private profileService: ProfileService,
-              private notificationService: MyNotificationService,
-              private router: Router,
-              private translate: TranslateService) { }
+              private profileService: ProfileService) { }
 
   ngOnInit() {
     const formUtil = new FormUtil();

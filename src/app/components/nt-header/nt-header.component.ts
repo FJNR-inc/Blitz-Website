@@ -7,6 +7,7 @@ import {NavigationEnd, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {environment} from '../../../environments/environment';
+import {MyModalService} from '../../services/my-modal/my-modal.service';
 
 @Component({
   selector: 'app-nt-header',
@@ -53,127 +54,24 @@ export class NtHeaderComponent implements OnInit {
 
   nav: any[] = [
     {
-      label: _('header.about.title'),
-      url: '',
-      router_url: '',
-      nav: [
-        {
-          label: _('header.about.mission'),
-          url: 'http://www.thesez-vous.com/agrave-propos.html',
-          router_url: ''
-        }, {
-          label: _('header.about.history'),
-          url: 'http://www.thesez-vous.com/historique.html',
-          router_url: ''
-        }, {
-          label: _('header.about.team'),
-          url: 'http://www.thesez-vous.com/equipe.html',
-          router_url: ''
-        }, {
-          label: _('header.about.press'),
-          url: 'http://www.thesez-vous.com/revue-de-presse.html',
-          router_url: ''
-        }, {
-          label: _('header.about.price'),
-          url: 'http://www.thesez-vous.com/prix-et-distinctions.html',
-          router_url: ''
-        }, {
-          label: _('header.about.help'),
-          url: 'http://www.thesez-vous.com/besoin-daide.html',
-          router_url: '',
-          type: 'button'
-        }
-      ]
-    }, {
       label: _('header.retreat.title'),
       url: '',
-      router_url: '',
-      nav: [
-        {
-          label: _('header.retreat.what_is_it'),
-          url: 'http://www.thesez-vous.com/questcequuneretraite.html',
-          router_url: ''
-        },
-        {
-          label: _('header.retreat.grants'),
-          url: 'http://www.thesez-vous.com/bourses-et-financement.html\n',
-          router_url: ''
-        }, {
-          label: _('header.retreat.SBL'),
-          url: 'http://www.thesez-vous.com/sbl.html',
-          router_url: ''
-        }, {
-          label: _('header.retreat.inscription'),
-          url: '',
-          router_url: '/retreats',
-          type: 'button',
-          keepClose: true
-        }
-      ]
+      router_url: '/retreats',
     }, {
       label: _('header.espace.title'),
       url: '',
+      router_url: '/reservation/',
+    }, {
+      label: _('header.pilot_project'),
+      url: 'https://www.thesez-vous.com/projets-pilotes.html',
       router_url: '',
-      nav: [
-        {
-          label: _('header.espace.what_is_it'),
-          url: '',
-          router_url: ''
-        }, {
-          label: _('header.espace.process'),
-          url: 'http://www.thesez-vous.com/inscriptionespace.html',
-          router_url: ''
-        }, {
-          label: _('header.espace.programmation'),
-          url: 'http://www.thesez-vous.com/espace.html',
-          router_url: ''
-        }, {
-          label: _('header.espace.reservation'),
-          url: '',
-          router_url: `/reservation/${environment.defaultWorkplaceId}`,
-          type: 'button',
-          keepClose: true
-        }
-      ]
     }, {
       label: _('header.membership.title'),
       url: '',
-      router_url: '',
-      nav: [
-        {
-          label: _('header.membership.student'),
-          url: 'http://www.thesez-vous.com/membre-etudiant.html',
-          router_url: ''
-        }, {
-          label: _('header.membership.professor'),
-          url: 'http://www.thesez-vous.com/membreprof.html',
-          router_url: ''
-        }, {
-          label: _('header.membership.allies'),
-          url: 'http://www.thesez-vous.com/membreallie.html',
-          router_url: ''
-        }, {
-          label: _('header.membership.community'),
-          url: 'http://www.thesez-vous.com/communaute.html',
-          router_url: ''
-        }, {
-          label: _('header.membership.terms_and_conditions'),
-          url: 'http://www.thesez-vous.com/termes-et-conditions.html',
-          router_url: ''
-        }, {
-          label: _('header.membership.portrait'),
-          url: 'http://www.thesez-vous.com/portrait.html',
-          router_url: ''
-        }, {
-          label: _('header.membership.become_member'),
-          url: '',
-          router_url: '/membership/intro',
-          type: 'button'
-        }
-      ]
+      router_url: '/membership/intro',
     }, {
-      label: _('header.ressources'),
-      url: 'http://www.thesez-vous.com/bibliothese.html',
+      label: _('header.about.title'),
+      url: 'http://www.thesez-vous.com',
       router_url: '',
     }, {
       label: _('header.contact'),
@@ -184,11 +82,14 @@ export class NtHeaderComponent implements OnInit {
 
   multilingual_activated = environment.multilingual_activated;
 
+  modalEnglishNotAvailable = 'english_not_available_modal';
+
   constructor(private authenticationService: AuthenticationService,
               private profileService: ProfileService,
               private internationalizationService: InternationalizationService,
               private router: Router,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private myModalService: MyModalService) {
   }
 
   ngOnInit() {
@@ -227,7 +128,11 @@ export class NtHeaderComponent implements OnInit {
   }
 
   changeLanguage(language: string) {
-    this.internationalizationService.setLocale(language);
+    if (language === 'en') {
+      this.openEnglishModal();
+    } else {
+      this.internationalizationService.setLocale(language);
+    }
   }
 
   getCurrentLanguage() {
@@ -360,5 +265,26 @@ export class NtHeaderComponent implements OnInit {
 
   toggleResponsiveNav() {
     this.isResponsiveOpened = !this.isResponsiveOpened;
+  }
+
+  openEnglishModal() {
+    const modal = this.myModalService.get(this.modalEnglishNotAvailable);
+
+    if (!modal) {
+      return;
+    }
+
+    modal.toggle();
+  }
+
+  closeEnglishModal() {
+
+    const modal = this.myModalService.get(this.modalEnglishNotAvailable);
+
+    if (!modal) {
+      return;
+    }
+
+    modal.close();
   }
 }

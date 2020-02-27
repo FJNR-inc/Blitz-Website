@@ -1,0 +1,18 @@
+<div class="workplace-list">
+
+  <div class="workplace-list__list">
+
+    <a *ngFor="let workplace of workplaces"
+       [routerLink]="['/reservation', workplace.id]"
+       class="workplace-list__list__link">
+      {{workplace.name}}
+    </a>
+
+
+    <a *ngFor="let workplace of hardcodedWorkplaces"
+       [href]="workplace.url"
+       class="workplace-list__list__link">
+      {{workplace.name}}
+    </a>
+  </div>
+</div>
