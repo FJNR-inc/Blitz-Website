@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {AuthenticationService} from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-home-page',
@@ -12,9 +13,15 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private notificationService: MyNotificationService) { }
+    private notificationService: MyNotificationService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    const isConnected = this.authenticationService.isAuthenticated();
+
+    if (isConnected) {
+      this.router.navigate(['/profile']).then();
+    }
   }
 
   authentified() {
