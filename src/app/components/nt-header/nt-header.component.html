@@ -55,15 +55,6 @@
 
 
     <div class="nt-header__main__actions">
-      <a routerLink="/membership/intro"
-         class="nt-header__main__actions__item "
-         *ngIf="!isAuthenticated()">
-        <div *ngIf="showNav">
-          {{ 'header.become_member' | translate }}
-        </div>
-
-        <i *ngIf="!showNav" class="icon icon-profile icon--2x"></i>
-      </a>
 
       <a routerLink="/profile"
          class="nt-header__main__actions__item "
@@ -133,7 +124,21 @@
   </app-nt-header-sub>
 </div>
 
+<app-nt-modal name="{{modalEnglishNotAvailable}}"
+              [displayButtons]="false"
+              maxWidth="800px"
+              [autoClose]="true">
 
+  <div class="english-modal">
+    <div class="english-modal__title">
+      {{ 'header.english_modal_title' | translate }}
+    </div>
+    <div class="english-modal__subtitle">
+      {{ 'header.english_modal_subtitle' | translate }}
+    </div>
+    <app-button text="{{'header.english_modal_button' | translate}}" (click)="closeEnglishModal()"></app-button>
+  </div>
+</app-nt-modal>
 
 <div class="nt-header-responsive">
   <div class="nt-header-responsive__header">
