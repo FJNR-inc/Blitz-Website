@@ -44,3 +44,4 @@ Thumbs.db
 
 # translate file generate
 src/assets/i18n/strings.json
+/src/ckeditor5TV/node_modules/

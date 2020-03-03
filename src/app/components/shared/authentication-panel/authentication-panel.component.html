@@ -8,7 +8,6 @@
     <app-link text="{{'authentication-panel.link' | translate}}" routerLink="/register"></app-link>
 
     <app-login-form class="authentication-panel__content__login"
-                    [centered]="true"
                     [registerLink]="false"
                     [forgotPasswordLink]="true"
                     (isConnected)="authentified()"></app-login-form>

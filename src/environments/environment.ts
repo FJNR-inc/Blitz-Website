@@ -6,10 +6,10 @@
 export const environment = {
   production: false,
   default_language: 'fr',
-  multilingual_activated: false,
+  multilingual_activated: true,
   tomato_per_timeslot: 4,
   tomato_per_retreat: 20,
-  url_base_api: 'http://localhost:8000',
+  url_base_api: 'https://api-dev.thesez-vous.org',
   environment_paysafe: 'TEST',
   // tslint:disable-next-line:max-line-length
   token_paysafe: 'T1QtMjM1MjAwOkItcWEyLTAtNWI4NDE0ZDYtMS0zMDJjMDIxNDEzMzhmMzEzN2FmZTgxNmUxMmE4YWJmYTk1NTVkN2VlZWQ5ZWU5ZjgwMjE0M2E1NzE5NDZjYzg3ODgwN2ZkZDU0NjkyODA1ZTg3ZjI5MjQ0ZGRiNg==',
@@ -62,5 +62,6 @@ export const environment = {
     retreat_waiting_queues: '/retreat/wait_queues',
     retreat_waiting_queue_notifications: '/retreat/wait_queue_notifications',
     retreat_invitation: '/retreat/retreat_invitation',
+    urlCKEditorPage: '/ckeditor_page',
   }
 };

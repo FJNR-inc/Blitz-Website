@@ -1,76 +1,12 @@
-<div class="home-page">
-  <img class="home-page__splashscreen" src="../../../../assets/images/illustration1.jpg" />
-  <div class="home-page__splash-text">
-    <h1 class="home-page__splash-text__title">{{'home-page.splash_text_title' | translate}}</h1>
-    <p class="home-page__splash-text__content">
-      {{'home-page.splash_text' | translate}}
-    </p>
-  </div>
-  <div class="home-page__retraite">
-    <div class="home-page__retraite__picture"></div>
-    <div class="home-page__retraite__text">
-      <h1 class="home-page__retraite__text__title">
-        {{'home-page.retreat.title' | translate}}
+<div class="membership-page">
+  <div class="membership-page__column1"></div>
+  <div class="membership-page__column2">
+    <div class="membership-page__column2__content">
+      <h1 class="membership-page__column2__content__title">
+        {{ 'membership.title' | translate }}
       </h1>
-      <p class="home-page__retraite__text__content">
-        {{'home-page.retreat.text' | translate}}
-      </p>
-
-      <a class="home-page__retraite__text__button nt nt-button">{{'home-page.retreat.btn' | translate}}</a>
+      <app-login-form (isConnected)="authentified()" class="membership-page__column2__content__login"></app-login-form>
+      <app-ckeditor-container [height]="'270px'" [pageKey]="'home-page'" class="membership-page__column2__content__CKEditor"></app-ckeditor-container>
     </div>
-  </div>
-  <div class="home-page__espace">
-    <div class="home-page__espace__text" *ngIf="workplaceList && workplaceList[0]">
-      <h1 class="home-page__espace__text__title">
-        {{'home-page.espace.title' | translate}}
-      </h1>
-      <p class="home-page__espace__text__content">
-        {{'home-page.espace.text' | translate}}
-      </p>
-      <ul class="home-page__espace__text__details">
-        <li class="home-page__espace__text__details__item">
-          <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_rdv.svg" />
-          <span class="home-page__espace__text__details__item__label">
-            {{workplaceList[0].address_line1}}<br/>
-            {{workplaceList[0].city}}, {{workplaceList[0].state_province}} {{workplaceList[0].postal_code}}
-          </span>
-        </li>
-        <li class="home-page__espace__text__details__item">
-          <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_membre.svg" />
-          <span class="home-page__espace__text__details__item__label">
-            {{'home-page.espace.text1' | translate}}
-          </span>
-        </li>
-        <li class="home-page__espace__text__details__item">
-          <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_chair.svg" />
-          <span class="home-page__espace__text__details__item__label">
-            {{workplaceList[0].seats}} {{'home-page.espace.text2' | translate}}
-          </span>
-        </li>
-        <li class="home-page__espace__text__details__item">
-          <img class="home-page__espace__text__details__item__icon" src="../../../../assets/images/icons/icon_coffee.svg" />
-          <span class="home-page__espace__text__details__item__label">
-            {{'home-page.espace.text3' | translate}}
-          </span>
-        </li>
-      </ul>
-      <a class="home-page__espace__text__button nt nt-button" routerLink="/reservation/{{workplaceList[0].id}}">
-        {{'home-page.espace.btn' | translate}}
-      </a>
-    </div>
-    <div class="home-page__espace__map"></div>
-  </div>
-  <div class="home-page__pictures">
-    <div class="home-page__pictures__item home-page__pictures__item--space"></div>
-    <div class="home-page__pictures__item home-page__pictures__item--flag"></div>
-    <div class="home-page__pictures__item home-page__pictures__item--bike"></div>
-  </div>
-  <div class="home-page__partners">
-    <h1 class="home-page__partners__title">
-      {{'home-page.partner.title' | translate}}
-    </h1>
-    <p class="home-page__partners__content">
-      {{'home-page.partner.text' | translate}}
-    </p>
   </div>
 </div>

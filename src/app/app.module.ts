@@ -7,7 +7,6 @@ import localeFr from '@angular/common/locales/fr';
 
 import { AppComponent } from './app.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
-import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
@@ -66,7 +65,6 @@ import { ImageUploadModule } from 'angular2-image-upload';
 import { CardService } from './services/card.service';
 import { BackgroundLayoutComponent } from './layouts/background-layout/background-layout.component';
 import { OrderService } from './services/order.service';
-import { MembershipComponent } from './components/pages/membership/membership.component';
 import { NewLayoutComponent } from './layouts/new-layout/new-layout.component';
 import { NewBackgroundLayoutComponent } from './layouts/new-background-layout/new-background-layout.component';
 import { MembershipRegisterComponent } from './components/pages/membership-register/membership-register.component';
@@ -175,6 +173,10 @@ import { PaymentSuccessfulComponent } from './components/pages/payment-successfu
 import { PoliticsComponent } from './components/pages/politics/politics.component';
 import { CalendarComponent } from './components/pages/calendar/calendar.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { CKEditorContainerComponent } from './components/shared/ckeditor-container/ckeditor-container.component';
+import { WorkplaceListComponent } from './components/pages/workplace-list/workplace-list.component';
+import {HomePageComponent} from './components/pages/home-page/home-page.component';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 registerLocaleData(localeFr);
 
@@ -189,17 +191,28 @@ const appRoutes = [
     children: [
       {
         path: '',
-        component: MembershipComponent,
+        component: HomePageComponent,
       },
       {
-        path: 'home',
-        component: HomePageComponent,
+        path: 'login',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'login/:lastUrl',
+        component: LoginPageComponent,
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordPageComponent,
+      },
+      {
+        path: 'reservation',
+        component: WorkplaceListComponent,
       },
       {
         path: 'reservation/:id',
         component: ReservationPageComponent,
       },
-
       {
         path: 'retreats',
         component: RetreatReservationComponent,
@@ -243,14 +256,6 @@ const appRoutes = [
     component: NewBackgroundLayoutComponent,
     children: [
       {
-        path: 'login',
-        component: LoginPageComponent,
-      },
-      {
-        path: 'login/:lastUrl',
-        component: LoginPageComponent,
-      },
-      {
         path: 'logout',
         component: LogoutPageComponent,
       },
@@ -265,10 +270,6 @@ const appRoutes = [
       {
         path: 'register/activation/:token',
         component: ActivationPageComponent,
-      },
-      {
-        path: 'forgot-password',
-        component: ForgotPasswordPageComponent,
       },
       {
         path: 'forgot-password/confirmation',
@@ -605,7 +606,6 @@ const appRoutes = [
     ProfileComponent,
     MyModalOpenDirective,
     TimeslotComponent,
-    MembershipComponent,
     MembershipRegisterComponent,
     NtWizzardComponent,
     MembershipIntroComponent,
@@ -681,6 +681,8 @@ const appRoutes = [
     PaymentSuccessfulComponent,
     PoliticsComponent,
     CalendarComponent,
+    CKEditorContainerComponent,
+    WorkplaceListComponent,
   ],
   imports: [
     BrowserModule,
@@ -712,6 +714,7 @@ const appRoutes = [
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    CKEditorModule
   ],
   providers: [
     CanActivateViaAuthGuard,

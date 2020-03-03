@@ -1,0 +1,5 @@
+<ckeditor *ngIf="ckEditorPage" [editor]="Editor"
+          [disabled]="disableEditor"
+          [(ngModel)]="ckEditorPage.data"
+          [config]="config">
+</ckeditor>
