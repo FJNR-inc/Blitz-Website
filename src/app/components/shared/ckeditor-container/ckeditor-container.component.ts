@@ -13,19 +13,20 @@ import {CKEditorPageService} from '../../../services/ckeditor-page.service';
 export class CKEditorContainerComponent implements OnInit {
 
   @Input()
-  height: string;
-
-  @Input()
   pageKey: string;
 
   public Editor = EditorTV;
-  public config = {
+  public configWrite = {
     autosave: {
       // The minimum amount of time the Autosave plugin is waiting after the last data change.
       waitingTime: 5000,
       save: editor => this.saveData( editor.getData() )
     },
   };
+  public configRead = {
+
+  };
+  public config;
 
   disableEditor = true;
 
@@ -40,6 +41,7 @@ export class CKEditorContainerComponent implements OnInit {
   ngOnInit() {
     this.profile = this.auth.getProfile();
     this.disableEditor = !(this.profile && this.profile.is_superuser);
+    this.config = this.disableEditor ? this.configRead : this.configWrite;
     this.ckEditorPageService.get(this.pageKey).subscribe(
       (ckEditorPage) => {
         if (ckEditorPage) {

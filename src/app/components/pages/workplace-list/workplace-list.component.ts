@@ -19,7 +19,7 @@ export class WorkplaceListComponent implements OnInit {
   hardcodedWorkplaces: HardcodedWorplace[] = [
     {
       url: 'https://www.thesez-vous.com/projets-pilotes.html',
-      name: 'L\'ESPACE PILOTE SAINT-HENRI',
+      name: 'L\'ESPACE PILOTE SUD-OUEST',
     },
     {
       url: 'https://www.thesez-vous.com/projets-pilotes.html',

@@ -72,11 +72,28 @@ EditorTV.defaultConfig = {
       'fontSize',
       'fontColor',
       '|',
+      'bold',
+      'italic',
       'link',
       'blockQuote',
       '|',
       'undo',
       'redo'
+    ]
+  },
+  fontSize: {
+    options: [
+      'default',
+      15,
+      20
+    ]
+  },
+  fontColor: {
+    colors: [
+      {
+        color: '#142823',
+        label: '$nt-text'
+      },
     ]
   },
   language: 'fr',

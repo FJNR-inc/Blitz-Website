@@ -10,14 +10,13 @@
   &__title{
     font-size: 30px;
     line-height: 36px;
-    font-weight: 500;
+    font-weight: 700;
     color: $nt-text;
 
     margin-bottom: 15px;
   }
 
   &__register{
-
     margin-bottom: 35px;
   }
 
@@ -32,11 +31,10 @@
     align-items: center;
 
     &__button {
-      margin-bottom: 20px;
+      margin-bottom: 26px;
     }
 
     &__link {
-      margin-bottom: 20px;
     }
   }
 
