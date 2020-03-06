@@ -6,7 +6,11 @@
         {{ 'membership.title' | translate }}
       </h1>
       <app-login-form (isConnected)="authentified()" class="membership-page__column2__content__login"></app-login-form>
-      <app-ckeditor-container [height]="'270px'" [pageKey]="'home-page'" class="membership-page__column2__content__CKEditor"></app-ckeditor-container>
+      <a
+        class="membership-page__column2__content__CKEditor"
+      [href]="'https://www.thesez-vous.com/projets-pilotes.html'">
+        <app-ckeditor-container [pageKey]="'home-page'"></app-ckeditor-container>
+      </a>
     </div>
   </div>
 </div>
