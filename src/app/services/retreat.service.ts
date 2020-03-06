@@ -58,6 +58,9 @@ export class RetreatService extends GlobalService {
         if (filter.name === 'end_time__gte') {
           params = params.set('end_time__gte', filter.value);
         }
+        if (filter.name === 'ordering') {
+          params = params.set('ordering', filter.value);
+        }
       }
     }
     return this.http.get<any>(
