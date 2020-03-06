@@ -216,7 +216,7 @@
       <a *ngIf="!navItem.url"
          class="nt-header-responsive__nav__item__link"
          [ngClass]="{'nt-header-responsive__nav__item__link--active': selectedNav === navItem}"
-         (click)="clickNav(navItem)">
+         (click)="clickNav(navItem, !navItem.nav)">
         {{ navItem.label | translate }}
       </a>
 

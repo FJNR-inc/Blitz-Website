@@ -75,7 +75,7 @@ export class NtHeaderComponent implements OnInit {
       router_url: '',
     }, {
       label: _('header.contact'),
-      url: 'http://www.thesez-vous.com/contact.html',
+      url: 'https://www.thesez-vous.com/contactez-nous.html',
       router_url: '',
     }
   ];
