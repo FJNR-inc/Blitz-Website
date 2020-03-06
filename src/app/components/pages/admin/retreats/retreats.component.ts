@@ -270,7 +270,13 @@ export class RetreatsComponent implements OnInit {
   }
 
   refreshRetreatList(page = 1, limit = 20) {
-    this.retreatService.list(null, limit, limit * (page - 1)).subscribe(
+    const filters = [
+      {
+        name: 'ordering',
+        value: '-start_time'
+      }
+    ];
+    this.retreatService.list(filters, limit, limit * (page - 1)).subscribe(
       retreats => {
         this.settings.numberOfPage = Math.ceil(retreats.count / limit);
         this.settings.page = page;
