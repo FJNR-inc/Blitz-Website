@@ -1,2 +1,24 @@
 <simple-notifications [options]="options"></simple-notifications>
 <router-outlet></router-outlet>
+
+<app-nt-modal [name]="covid19Message"
+              [displayButtons]="true"
+              maxWidth="800px"
+              [autoClose]="true"
+              typeModal="information"
+              button2Label="OK"
+              (button2)="closeCovid19MessageModal()">
+      Afin de contribuer à l’effort collectif pour contenir la pandémie de COVID-19, l’Espace sera fermé jusqu’au 30 mars 2020 et les retraite 58 et 59 seront reportées. Vos blocs seront crédités et automatiquement remis à votre profil Thèsez-vous. Les étudiantes et étudiants inscrit.e.s aux retraites seront contacté.e.s par courriel sous peu.<br>
+      Nous sommes vraiment désolées pour ce désagrément, nous savons à quel point certain.e.s d’entre vous comptent sur nos services pour maintenir leur motivation. On vous promet d’être créatives et de proposer des services en ligne. Les tomates virtuelles vont se multiplier sous peu. On va briser l’isolement, chacun chez soi ;)<br>
+      <br>
+      On vous invite aussi à faire preuve de patience et de sollicitude à l’égard de notre équipe, nous sommes un petit OBNL et cette crise ébranle considérablement notre structure du jour au lendemain. On va tout faire pour y survivre et poursuivre notre mission avec vous!<br>
+      <br>
+      Pour toute question, n’hésitez pas à nous écrire à info@thesez-vous.com.<br>
+      ***<br>
+      In order to contribute to the collective effort to contain the COVID-19 pandemic, l’Espace will be closed until March 30th, 2020, and the 58th and 59th retreats will be postponed. Your blocks will be credited and automatically put back into your Thèsez-vous profile. Students who registered for retreats will be contacted via email shortly.<br>
+      We are very sorry for the inconvenience, we know how important our services are to some of you when it comes to staying motivated. We promise to be creative and to offer online services. Virtual tomatoes will multiply shortly. We will break isolation, while staying home ;)<br>
+      <br>
+      We also invite you to be patient and understanding towards our team, we are a small non-profit and this crisis has considerably shaken our organization overnight. We will do everything in our power to survive and to keep carrying out our mission with you!<br>
+      <br>
+      For any clarification or question, send us an email at info@thesez-vous.com.<br>
+</app-nt-modal>
