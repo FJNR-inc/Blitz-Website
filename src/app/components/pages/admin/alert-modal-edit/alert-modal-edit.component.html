@@ -1,0 +1,14 @@
+<div class="alert-modal-edit">
+  <div class="alert-modal-edit__title nt-title">
+    {{'alert-modal-edit.title' | translate}}
+  </div>
+
+  <div class="alert-modal-edit__ckeditor">
+    <app-ckeditor-container
+      [pageKey]="'alert-modal'" [autoSave]="false" (saved)="dataSaved()"></app-ckeditor-container>
+  </div>
+
+  <app-button (onClick)="saveCKEditor()">
+    {{'alert-modal-edit.save' | translate}}</app-button>
+</div>
+

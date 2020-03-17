@@ -1,0 +1,13 @@
+.alert-modal-edit{
+
+  padding: 20px;
+
+  &__title{
+    margin-bottom: 20px;
+  }
+
+  &__ckeditor{
+    border: solid grey;
+    margin-bottom: 20px;
+  }
+}

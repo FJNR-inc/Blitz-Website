@@ -38,6 +38,7 @@
   "general.support.title": "Support",
   "admin-layout.left-nav.coupons": "Coupons",
   "admin-layout.left-nav.optionsProducts": "Options Produits",
+  "admin-layout.left-nav.alertModalEdit": "Editer la modal d'alerte",
   "admin-layout.left-nav.dashboard": "Général",
   "admin-layout.left-nav.documentation": "Documentation",
   "admin-layout.left-nav.exit": "Retour au site",
@@ -1243,5 +1244,8 @@
   "workplaces.form.country_in_english": "Pays en Anglais",
   "workplaces.form.country_in_french": "Pays en Français",
   "timeslot.create_reservation": "Créer la réservation",
-  "timeslot.bypass_payment": "Offrir cette reseration (aucun paiement n'aura lieu)"
+  "timeslot.bypass_payment": "Offrir cette reseration (aucun paiement n'aura lieu)",
+  "alert-modal-edit.title": "Modifier la modal d'alerte",
+  "alert-modal-edit.save": "Sauvegarder",
+  "alert-modal-edit.saved": "Le contenu de la modal a été mis à jour et sera réaffiché aux utilisateurs"
 }

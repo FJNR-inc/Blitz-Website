@@ -9,7 +9,7 @@ import {MyModalService} from './services/my-modal/my-modal.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
 
   public options = {
     position: ['bottom', 'right'],
@@ -18,7 +18,9 @@ export class AppComponent implements AfterViewInit {
     preventDuplicates: true,
   };
 
-  covid19Message = 'covid19Message';
+  alertModal = 'alertModal';
+
+  currentUpdatedAlertDate: string;
 
   constructor(private translate: TranslateService,
               private internationalizationService: InternationalizationService,
@@ -39,32 +41,28 @@ export class AppComponent implements AfterViewInit {
      ****************/
   }
 
-
   openCovid19MessageModal() {
-    let modal;
-
-
-    modal = this.myModalService.get(this.covid19Message);
+    const modal = this.myModalService.get(this.alertModal);
 
     if (!modal) {
       return;
     }
-
     modal.toggle();
   }
 
   closeCovid19MessageModal() {
     localStorage.setItem(
-      'covid19MessageAlreadyOpened',
-      JSON.stringify(true));
+      'alertModalDate',
+      JSON.stringify(this.currentUpdatedAlertDate));
   }
 
-  ngAfterViewInit(): void {
-    const covid19MessageAlreadyOpened = JSON.parse(
+  checkAndDisplayModal(currentUpdatedAlertDate) {
+    this.currentUpdatedAlertDate = currentUpdatedAlertDate;
+    const alertModalDate = JSON.parse(
       localStorage.getItem(
-        'covid19MessageAlreadyOpened')
+        'alertModalDate')
     );
-    if (!covid19MessageAlreadyOpened) {
+    if (!alertModalDate || alertModalDate !== currentUpdatedAlertDate) {
       this.openCovid19MessageModal();
     }
   }
