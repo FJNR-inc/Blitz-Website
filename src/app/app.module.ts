@@ -177,6 +177,7 @@ import { CKEditorContainerComponent } from './components/shared/ckeditor-contain
 import { WorkplaceListComponent } from './components/pages/workplace-list/workplace-list.component';
 import {HomePageComponent} from './components/pages/home-page/home-page.component';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
+import { AlertModalEditComponent } from './components/pages/admin/alert-modal-edit/alert-modal-edit.component';
 
 registerLocaleData(localeFr);
 
@@ -554,6 +555,14 @@ const appRoutes = [
           CanAccessAdminPanelGuard,
         ]
       },
+      {
+        path: 'admin/alert-modal',
+        component: AlertModalEditComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
     ]
   },
   {
@@ -683,6 +692,7 @@ const appRoutes = [
     CalendarComponent,
     CKEditorContainerComponent,
     WorkplaceListComponent,
+    AlertModalEditComponent,
   ],
   imports: [
     BrowserModule,
