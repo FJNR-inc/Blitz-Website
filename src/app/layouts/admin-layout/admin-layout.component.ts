@@ -137,6 +137,14 @@ export class AdminLayoutComponent implements OnInit {
       ],
     },
     {
+      label: 'admin-layout.left-nav.alertModalEdit',
+      icon: 'fas fa-exclamation-triangle',
+      routerLink: '/admin/alert-modal',
+      permissions: [
+        'can_access_admin_alertModalEdit'
+      ],
+    },
+    {
       label: 'admin-layout.left-nav.exit',
       icon: 'fas fa-door-open',
       routerLink: '/',

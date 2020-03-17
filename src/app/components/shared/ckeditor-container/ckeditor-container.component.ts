@@ -1,9 +1,17 @@
-import {Component,  Input, OnInit, } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import * as EditorTV from '../../../../ckeditor5TV/build/ckeditor.js';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {User} from '../../../models/user';
 import {CKEditorPageService} from '../../../services/ckeditor-page.service';
+
+export interface CKEditorPage {
+  url: string;
+  id: number;
+  key: string;
+  data: string;
+  updated_at: string;
+}
 
 @Component({
   selector: 'app-ckeditor-container',
@@ -15,12 +23,20 @@ export class CKEditorContainerComponent implements OnInit {
   @Input()
   pageKey: string;
 
+  @Input()
+  autoSave = true;
+
+  @Output() updatedAtChange: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
+  saved: EventEmitter<any> = new EventEmitter<any>();
+
   public Editor = EditorTV;
   public configWrite = {
     autosave: {
       // The minimum amount of time the Autosave plugin is waiting after the last data change.
       waitingTime: 5000,
-      save: editor => this.saveData( editor.getData() )
+      save: () => this.saveData()
     },
   };
   public configRead = {
@@ -30,7 +46,7 @@ export class CKEditorContainerComponent implements OnInit {
 
   disableEditor = true;
 
-  ckEditorPage;
+  ckEditorPage: CKEditorPage;
 
   profile: User;
 
@@ -41,17 +57,20 @@ export class CKEditorContainerComponent implements OnInit {
   ngOnInit() {
     this.profile = this.auth.getProfile();
     this.disableEditor = !(this.profile && this.profile.is_superuser);
-    this.config = this.disableEditor ? this.configRead : this.configWrite;
+    this.config = this.disableEditor || !this.autoSave ? this.configRead : this.configWrite;
     this.ckEditorPageService.get(this.pageKey).subscribe(
-      (ckEditorPage) => {
+      (ckEditorPage: CKEditorPage) => {
         if (ckEditorPage) {
           this.ckEditorPage = ckEditorPage;
+          this.updatedAtChange.emit(ckEditorPage.updated_at);
         }
       }
     );
   }
 
-  public saveData( data ) {
+  public saveData( ) {
+
+    const data = this.ckEditorPage.data;
 
     if (!this.disableEditor) {
 
@@ -61,6 +80,7 @@ export class CKEditorContainerComponent implements OnInit {
       ).subscribe((ckEditorPage) => {
         if (ckEditorPage) {
           this.ckEditorPage = ckEditorPage;
+          this.saved.emit(ckEditorPage);
         }
       });
     }
