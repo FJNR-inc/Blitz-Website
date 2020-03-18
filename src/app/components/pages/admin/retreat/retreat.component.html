@@ -31,7 +31,10 @@
     class="admin-retreat-page__reservations"
     [retreat]="retreat"
     (addButton)="addUserToRetreat()"
-    [hasAddButton]="true">
+    (removeButton)="removeUserFromRetreat($event)"
+    [hasAddButton]="true"
+    [hasRemoveButton]="true"
+    [confirmationOnDeletion]="false">
   </app-table-retreat-reservations>
 </div>
 
@@ -91,4 +94,44 @@
               (button2)="submitRetreat()"
               maxWidth="600px">
   <app-form [form]="retreatForm" [fields]="retreatFields" [errors]="errors"></app-form>
+</app-nt-modal>
+
+<app-nt-modal name="cancel_reservation"
+              typeModal="success"
+              class="cancel_reservation_modal"
+              (button2)="cancelReservation()"
+              [activated]="securityOnCancelReservation"
+              maxWidth="600px">
+  <p>
+    {{ 'retreat.cancel_reservation_modal.warning' | translate }}
+  </p>
+
+  <div class="cancel_reservation_modal__preview" *ngIf="selectedReservationOnCancellation">
+    <div class="cancel_reservation_modal__preview__item">
+      <div class="cancel_reservation_modal__preview__item__title">
+        {{ 'retreat.cancel_reservation_modal.name_of_user' | translate }}
+      </div>
+      {{ selectedReservationOnCancellation.name }}
+    </div>
+    <div class="cancel_reservation_modal__preview__item">
+      <div class="cancel_reservation_modal__preview__item__title">
+        {{ 'retreat.cancel_reservation_modal.reserved_since' | translate }}
+      </div>
+      {{ selectedReservationOnCancellation.inscription_date }}
+    </div>
+  </div>
+
+  <div class="align-top">
+    <input id="refundCheckbox" type="checkbox" [(ngModel)]="refundOnCancelReservation" />
+    <label class="nt-form-label" for="refundCheckbox">
+      {{ 'retreat.cancel_reservation_modal.refund' | translate }}
+    </label>
+  </div>
+  <app-alert class="cancel_reservation_modal__alert" *ngIf="refundOnCancelReservation" type="warning" [messages]="['retreat.cancel_reservation_modal.warning_refund']"></app-alert>
+  <div class="align-top">
+    <input id="securityCheckbox" type="checkbox" [(ngModel)]="securityOnCancelReservation" />
+    <label class="nt-form-label" for="securityCheckbox">
+      {{ 'retreat.cancel_reservation_modal.security' | translate }}
+    </label>
+  </div>
 </app-nt-modal>

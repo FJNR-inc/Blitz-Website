@@ -2,7 +2,9 @@
               [data]="listAdaptedRetreatReservations"
               (selectItem)="goTo($event)"
               (changePage)="changePage($event)"
-              (addButton)="addButtonFunction()">
+              (addButton)="addButtonFunction()"
+              (removeItem)="removeButtonFunction($event)"
+              [confirmationOnDeletion]="confirmationOnDeletion">
 </app-my-table>
 
 <app-nt-modal name="retreat_deleted"
