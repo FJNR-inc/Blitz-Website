@@ -47,11 +47,16 @@ export class RetreatReservationService extends GlobalService {
     );
   }
 
-  remove(retreatReservation: RetreatReservation): Observable<any> {
+  remove(retreatReservation: RetreatReservation, data = {}): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.delete<any>(
+
+    return this.http.request<any>(
+      'delete',
       retreatReservation.url,
-      {headers: headers}
+      {
+        body: data,
+        headers: headers
+      }
     );
   }
 

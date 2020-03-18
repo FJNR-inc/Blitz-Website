@@ -69,5 +69,35 @@
     }
 
   }
+}
 
+.cancel_reservation_modal {
+
+  &__preview {
+    border: 1px solid lightgrey;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+
+    &__item {
+      margin-bottom: 10px;
+
+      &__title {
+        font-weight: 700;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__alert {
+    display: block;
+    margin: 20px 0;
+  }
+
+  &__checkbox {
+    margin-bottom: 20px;
+  }
 }
