@@ -127,11 +127,19 @@
       {{ 'retreat.cancel_reservation_modal.refund' | translate }}
     </label>
   </div>
+
   <app-alert class="cancel_reservation_modal__alert" *ngIf="refundOnCancelReservation" type="warning" [messages]="['retreat.cancel_reservation_modal.warning_refund']"></app-alert>
+
   <div class="align-top">
     <input id="securityCheckbox" type="checkbox" [(ngModel)]="securityOnCancelReservation" />
     <label class="nt-form-label" for="securityCheckbox">
       {{ 'retreat.cancel_reservation_modal.security' | translate }}
     </label>
+  </div>
+
+  <div *ngIf="errors" >
+    <p></p>
+    <app-alert type="danger" [messages]="errors">
+    </app-alert>
   </div>
 </app-nt-modal>

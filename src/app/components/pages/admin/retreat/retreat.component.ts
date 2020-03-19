@@ -554,6 +554,9 @@ export class RetreatComponent implements OnInit {
           _('retreat.notifications.cancellation_success.title')
         );
         this.tableRetreat.refreshPeriodList();
+      },
+      err => {
+        this.errors = err.error.non_field_errors;
       }
     );
   }
