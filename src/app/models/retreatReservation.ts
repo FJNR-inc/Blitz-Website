@@ -33,7 +33,7 @@ export class RetreatReservation extends BaseModel {
 
   getCancelationReasonLabel() {
     if (this.cancelation_reason === 'U') {
-      return _('retreat-reservation-model.cancelation_reason.user_cancelation');
+      return _('retreat-reservation-model.cancelation_reason.user_cancellation');
     }
     if (this.cancelation_reason === 'RD') {
       return _('retreat-reservation-model.cancelation_reason.retreat_deleted');
@@ -41,7 +41,10 @@ export class RetreatReservation extends BaseModel {
     if (this.cancelation_reason === 'RM') {
       return _('retreat-reservation-model.cancelation_reason.retreat_updated');
     }
-    return null;
+    if (this.cancelation_reason === 'A') {
+      return _('retreat-reservation-model.cancelation_reason.admin_cancellation');
+    }
+    return this.cancelation_reason;
   }
 
   getCancelationActionLabel() {

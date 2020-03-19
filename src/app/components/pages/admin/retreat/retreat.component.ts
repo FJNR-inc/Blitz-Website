@@ -28,6 +28,7 @@ export class RetreatComponent implements OnInit {
   private tableRetreat: TableRetreatReservationsComponent;
 
   retreatForm: FormGroup;
+  cancelReservationForm: FormGroup;
   errors: string[];
 
   warningMessage = [_('retreat.add_user_modal.warning1'),
@@ -274,6 +275,22 @@ export class RetreatComponent implements OnInit {
     },
   ];
 
+  selectedReservationOnCancellation = null;
+  securityOnCancelReservation = false;
+  refundOnCancelReservation = false;
+  cancelReservationFields = [
+    {
+      name: 'warning',
+      type: 'alert',
+      label: _('retreat.cancel_reservation_modal.warning')
+    },
+    {
+      name: 'refund',
+      type: 'checkbox',
+      label: _('retreat.cancel_reservation_modal.refund')
+    },
+  ];
+
   constructor(private activatedRoute: ActivatedRoute,
               private retreatService: RetreatService,
               private formBuilder: FormBuilder,
@@ -290,6 +307,7 @@ export class RetreatComponent implements OnInit {
 
     const formUtil = new FormUtil();
     this.retreatForm = formUtil.createFormGroup(this.retreatFields);
+    this.cancelReservationForm = formUtil.createFormGroup(this.cancelReservationFields);
   }
 
   refreshRetreat() {
@@ -506,4 +524,40 @@ export class RetreatComponent implements OnInit {
     );
   }
 
+  removeUserFromRetreat(event) {
+    if (!event.is_active) {
+      this.selectedReservationOnCancellation = event;
+      this.securityOnCancelReservation = false;
+      this.toogleModal(
+        'cancel_reservation',
+        _('retreat.cancel_reservation_modal.title'),
+        _('retreat.cancel_reservation_modal.button')
+      );
+    } else {
+      console.log(event);
+      this.notificationService.error(
+        _('retreat.notifications.cancellation_already_done.title')
+      );
+    }
+  }
+
+  cancelReservation() {
+    this.retreatReservationService.remove(
+      this.selectedReservationOnCancellation,
+      {
+        force_refund: this.refundOnCancelReservation
+      }
+    ).subscribe(
+      data => {
+        this.toogleModal('cancel_reservation');
+        this.notificationService.success(
+          _('retreat.notifications.cancellation_success.title')
+        );
+        this.tableRetreat.refreshPeriodList();
+      },
+      err => {
+        this.errors = err.error.non_field_errors;
+      }
+    );
+  }
 }

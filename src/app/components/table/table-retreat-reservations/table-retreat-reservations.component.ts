@@ -21,8 +21,11 @@ export class TableRetreatReservationsComponent implements OnInit {
   @Input() retreat: Retreat = null;
   @Input() user: User = null;
   @Input() hasAddButton: Boolean = false;
+  @Input() hasRemoveButton: Boolean = false;
+  @Input() confirmationOnDeletion: Boolean = true;
 
   @Output() addButton: EventEmitter<any> = new EventEmitter();
+  @Output() removeButton: EventEmitter<any> = new EventEmitter();
 
   listRetreatReservations: RetreatReservation[];
   listAdaptedRetreatReservations: any[];
@@ -41,6 +44,7 @@ export class TableRetreatReservationsComponent implements OnInit {
       title: _('table-retreat-reservation.title_table'),
       noDataText: _('table-retreat-reservation.no_reservation'),
       addButton: this.hasAddButton,
+      removeButton: this.hasRemoveButton,
       clickable: true,
       previous: false,
       next: false,
@@ -167,5 +171,9 @@ export class TableRetreatReservationsComponent implements OnInit {
 
   addButtonFunction() {
     this.addButton.emit();
+  }
+
+  removeButtonFunction(event) {
+    this.removeButton.emit(event);
   }
 }
