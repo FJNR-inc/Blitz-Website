@@ -11,6 +11,8 @@ export class ButtonComponent implements OnInit {
   @Input() type = 1;
   @Input() disabled = false;
 
+  @Input() reverseColor = false;
+
   @Output() onClick: EventEmitter<any> = new EventEmitter();
 
   constructor() { }

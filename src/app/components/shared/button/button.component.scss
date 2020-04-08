@@ -24,6 +24,16 @@
     cursor: pointer;
   }
 
+  &--reverse-color {
+    background-color: $nt2-color-1;
+    border: 1px solid $nt2-color-1;
+    color: $nt2-color-4;
+    &:hover {
+      background-color: $nt2-color-4;
+      color: $nt2-color-1;
+    }
+  }
+
   &--disabled {
     color: $nt2-color-1;
     background-color: $nt2-color-5;

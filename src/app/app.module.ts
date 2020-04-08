@@ -178,6 +178,9 @@ import { WorkplaceListComponent } from './components/pages/workplace-list/workpl
 import {HomePageComponent} from './components/pages/home-page/home-page.component';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import { AlertModalEditComponent } from './components/pages/admin/alert-modal-edit/alert-modal-edit.component';
+import { NewsletterFooterComponent } from './components/pages/newsletter/newsletter-footer/newsletter-footer.component';
+import { NewsletterInscriptionComponent } from './components/pages/newsletter/newsletter-inscription/newsletter-inscription.component';
+import { NewsletterSuccessComponent } from './components/pages/newsletter/newsletter-success/newsletter-success.component';
 
 registerLocaleData(localeFr);
 
@@ -693,6 +696,9 @@ const appRoutes = [
     CKEditorContainerComponent,
     WorkplaceListComponent,
     AlertModalEditComponent,
+    NewsletterFooterComponent,
+    NewsletterInscriptionComponent,
+    NewsletterSuccessComponent,
   ],
   imports: [
     BrowserModule,
