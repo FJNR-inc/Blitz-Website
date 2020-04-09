@@ -1,0 +1,17 @@
+<div class="newsletter-success">
+
+  <div class="newsletter-success__title">
+    {{'newsletter-success.title' | translate}}
+  </div>
+  <div class="newsletter-success__description">
+    {{'newsletter-success.description' | translate}}
+  </div>
+  <div class="newsletter-success__email">
+    {{emailNewsletter}}
+  </div>
+  <app-button
+    [text]="'newsletter-success.go-back-button' | translate"
+    (onClick)="goBackButton.emit(true)"
+  ></app-button>
+
+</div>

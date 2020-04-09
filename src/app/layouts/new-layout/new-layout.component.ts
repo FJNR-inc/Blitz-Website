@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
       </div>
       <div class="new-layout__content">
         <router-outlet></router-outlet>
+        <app-newsletter-footer></app-newsletter-footer>
       </div>
     </div>
   `,

@@ -1,7 +1,10 @@
 <button class="app-button app-button--{{type}}"
         (click)="clicked()"
         [disabled]="disabled"
-        [ngClass]="{'app-button--disabled': disabled}">
+        [ngClass]="{
+        'app-button--disabled': disabled,
+        'app-button--reverse-color': reverseColor
+        }">
   <ng-container *ngIf="text; else buttonContent">
     {{ text }}
   </ng-container>

@@ -25,6 +25,8 @@ export class User extends BaseModel {
   student_number: string;
   faculty: string;
   academic_program_code: string;
+  hide_newsletter: boolean;
+  is_in_newsletter: boolean;
 
   getUniversity() {
     if (this.university) {

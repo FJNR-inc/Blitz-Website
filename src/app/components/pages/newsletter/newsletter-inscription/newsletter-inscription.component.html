@@ -1,0 +1,18 @@
+<div class="newsletter-inscription">
+  <app-title
+    [level]="4"
+    [text]="'newsletter-inscription.title' | translate"
+  ></app-title>
+  <div>
+    {{ 'newsletter-inscription.description' | translate }}
+  </div>
+  <app-form
+    [errors]="newsletterErrors"
+    [fields]="newsletterFields"
+    [form]="newsletterForm">
+  </app-form>
+  <app-button (onClick)="submitForm()"
+              [text]="'newsletter-inscription.inscription-button' | translate"
+              class="newsletter-inscription__button"
+  ></app-button>
+</div>

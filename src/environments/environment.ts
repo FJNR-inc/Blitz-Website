@@ -14,6 +14,7 @@ export const environment = {
   // tslint:disable-next-line:max-line-length
   token_paysafe: 'T1QtMjM1MjAwOkItcWEyLTAtNWI4NDE0ZDYtMS0zMDJjMDIxNDEzMzhmMzEzN2FmZTgxNmUxMmE4YWJmYTk1NTVkN2VlZWQ5ZWU5ZjgwMjE0M2E1NzE5NDZjYzg3ODgwN2ZkZDU0NjkyODA1ZTg3ZjI5MjQ0ZGRiNg==',
   defaultWorkplaceId: 1,
+  canHideFooter: false,
   paths_api: {
     activation: '/users/activate',
     authentication: '/authentication',

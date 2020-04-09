@@ -6,6 +6,11 @@
   font-size: 18px;
   line-height: 28px;
 
+  &--reverse-color {
+    color: $nt2-color-1;
+    border-bottom: 1px solid $nt2-color-1;
+  }
+
   &:hover {
     cursor: pointer;
   }
