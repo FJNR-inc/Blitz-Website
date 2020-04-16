@@ -12,7 +12,7 @@
     <a *ngFor="let workplace of hardcodedWorkplaces"
        [href]="workplace.url"
        class="workplace-list__list__link">
-      {{workplace.name}}
+      {{ workplace.name | translate }}
     </a>
   </div>
 </div>

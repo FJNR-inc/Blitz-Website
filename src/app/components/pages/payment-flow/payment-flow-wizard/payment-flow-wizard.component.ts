@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 export interface Step {
-  'label': string;
+  'label': any;
   'id': string;
 }
 
