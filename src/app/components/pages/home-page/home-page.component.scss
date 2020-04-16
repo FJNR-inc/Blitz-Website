@@ -5,17 +5,17 @@ app-membership {
 }
 
 .membership-page {
-  display: flex;
   min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(200px, 600px) minmax(400px, 1fr);
+  grid-column-gap: 50px;
   padding: 50px;
 
   &__column1 {
     background-image: url('../../../../assets/images/home_background.jpg');
     background-size: cover;
     background-position: center;
-    width: 600px;
     height: 976px;
-
   }
 
   &__column2 {
@@ -36,7 +36,6 @@ app-membership {
 
       max-width: 500px;
       height: 100%;
-      margin-left: 50px;
 
       margin-top: 75px;
 
@@ -58,8 +57,7 @@ app-membership {
         background-color: $nt-background-color-light;
 
         width: 100%;
-        height: 270px;
-        max-height: 270px;
+        min-height: 270px;
 
         display: flex;
         flex-direction: row;
@@ -74,14 +72,21 @@ app-membership {
 
 @media only screen and (max-width: 700px) {
   .membership-page {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    padding: 10px;
 
     &__column1 {
-      min-height: 200px;
+      height: 200px;
     }
 
     &__column2 {
-      padding: 40px 0;
+      &__content{
+        margin-top: 30px;
+        &__CKEditor{
+          padding: 15px 20px;
+        }
+      }
     }
   }
 }
