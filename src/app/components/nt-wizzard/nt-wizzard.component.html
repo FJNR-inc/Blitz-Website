@@ -3,7 +3,7 @@
       ui-sref="firstStep"
       [ngClass]="{'completed': item.completed, 'active': item.activated }"
       [style.maxWidth]="maxWidth">
-    <span>{{item.name}}</span>
+    <span>{{ item.name | translate }}</span>
   </li>
 </ul>
 

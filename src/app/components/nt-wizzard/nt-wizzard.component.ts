@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 export interface WizzardItem {
   name: string;
@@ -16,16 +17,16 @@ export class NtWizzardComponent implements OnInit {
 
   items: WizzardItem[] = [
     {
-      'name': 'nt-wizzard.informations'
+      'name': _('nt-wizzard.informations')
     },
     {
-      'name': 'nt-wizzard.verification'
+      'name': _('nt-wizzard.verification')
     },
     {
-      'name': 'nt-wizzard.confirmation'
+      'name': _('nt-wizzard.confirmation')
     },
     {
-      'name': 'nt-wizzard.subscription'
+      'name': _('nt-wizzard.subscription')
     }
   ];
 

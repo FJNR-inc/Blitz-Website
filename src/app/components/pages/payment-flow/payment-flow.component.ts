@@ -3,6 +3,7 @@ import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {Step} from './payment-flow-wizard/payment-flow-wizard.component';
 import {Cart} from '../../../models/cart';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-payment-flow',
@@ -12,27 +13,27 @@ import {Cart} from '../../../models/cart';
 export class PaymentFlowComponent implements OnInit {
 
   membershipStep: Step = {
-    'label': 'Membership',
+    'label': _('payment-flow.steps.membership'),
     'id': 'membership'
   };
 
   informationStep: Step = {
-    'label': 'Informations',
+    'label': _('payment-flow.steps.informations'),
     'id': 'informations'
   };
 
   bourseStep: Step = {
-    'label': 'Bourses',
+    'label': _('payment-flow.steps.grant'),
     'id': 'bourses'
   };
 
   paymentModeStep: Step = {
-    'label': 'Mode de paiement',
+    'label': _('payment-flow.steps.payment_mode'),
     'id': 'payment_mode'
   };
 
   confirmationStep: Step = {
-    'label': 'Confirmation',
+    'label': _('payment-flow.steps.confirmation'),
     'id': 'confirmation'
   };
 

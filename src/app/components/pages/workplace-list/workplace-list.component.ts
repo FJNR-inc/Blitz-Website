@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {WorkplaceService} from '../../../services/workplace.service';
 import {Workplace} from '../../../models/workplace';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 interface HardcodedWorplace {
   url: string;
-  name: string;
+  name: any;
 }
 
 @Component({
@@ -19,15 +20,15 @@ export class WorkplaceListComponent implements OnInit {
   hardcodedWorkplaces: HardcodedWorplace[] = [
     {
       url: 'https://www.thesez-vous.com/projets-pilotes.html',
-      name: 'L\'ESPACE PILOTE SUD-OUEST',
+      name: _('workplace-list.pilots.sud-west'),
     },
     {
       url: 'https://www.thesez-vous.com/projets-pilotes.html',
-      name: 'L\'ESPACE PILOTE SHERBROOKE',
+      name: _('workplace-list.pilots.sherbrooke'),
     },
     {
       url: 'https://www.thesez-vous.com/projets-pilotes.html',
-      name: 'L\'ESPACE PILOTE québec',
+      name: _('workplace-list.pilots.quebec'),
     },
   ];
 
