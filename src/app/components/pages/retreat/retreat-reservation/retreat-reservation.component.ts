@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MyCartService} from '../../../../services/my-cart/my-cart.service';
 import {RetreatReservation} from '../../../../models/retreatReservation';
 import {AuthenticationService} from '../../../../services/authentication.service';
@@ -10,13 +10,15 @@ import {RetreatService} from '../../../../services/retreat.service';
 import {RetreatWaitingQueueService} from '../../../../services/retreatWaitingQueue.service';
 import {RetreatWaitingQueueNotificationService} from '../../../../services/retreatWaitingQueueNotification.service';
 import {Router} from '@angular/router';
+import {Observable, Subscription} from 'rxjs';
+import {RightPanelService} from '../../../../services/right-panel.service';
 
 @Component({
   selector: 'app-retreat-reservation',
   templateUrl: './retreat-reservation.component.html',
   styleUrls: ['./retreat-reservation.component.scss']
 })
-export class RetreatReservationComponent implements OnInit {
+export class RetreatReservationComponent implements OnInit, OnDestroy {
 
   displayTutorial = true;
   retreats: Retreat[];
@@ -27,7 +29,10 @@ export class RetreatReservationComponent implements OnInit {
 
 
   selectedRetreat: Retreat;
-  displayedPanel: 'authentication' | 'product-selector' | 'cart';
+
+  displayCartButton$: Observable<boolean> = this._rightPanelService.displayCartButton$;
+  panelAuthenticateSubscription: Subscription;
+  finalizeSubscription: Subscription;
 
   constructor(private cartService: MyCartService,
               private authenticationService: AuthenticationService,
@@ -35,13 +40,32 @@ export class RetreatReservationComponent implements OnInit {
               private retreatService: RetreatService,
               private retreatWaitingQueueService: RetreatWaitingQueueService,
               private retreatWaitingQueueNotificationService: RetreatWaitingQueueNotificationService,
-              private router: Router) {
+              private router: Router,
+              private _rightPanelService: RightPanelService) {
 
     this.authenticationService.profile.subscribe(
       () => {
         this.refreshRetreatReservations();
       }
     );
+
+    this.finalizeSubscription = this._rightPanelService.finalize$.subscribe(
+      () => {
+        this.finalize();
+      }
+    );
+
+    this.panelAuthenticateSubscription = this._rightPanelService.authenticate$.subscribe(
+      () => {
+        this.subscribe();
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._rightPanelService.closePanel();
+    this.panelAuthenticateSubscription.unsubscribe();
+    this.finalizeSubscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -147,28 +171,24 @@ export class RetreatReservationComponent implements OnInit {
     );
   }
 
-  closePanel() {
-    this.displayedPanel = null;
+  selectRetreat(retreat) {
+    this.selectedRetreat = retreat;
+    this.subscribe();
   }
 
-  subscribe(retreat) {
-    this.selectedRetreat = retreat;
+  subscribe() {
     if (this.authenticationService.isAuthenticated()) {
-      this.displayedPanel = 'product-selector';
+      this._rightPanelService.openProductSelectorPanel(this.selectedRetreat);
     } else {
-      this.displayedPanel = 'authentication';
+      this._rightPanelService.openAuthenticationPanel();
     }
   }
 
-  addToCart() {
-    this.openCart();
-  }
-
   openCart() {
-    this.displayedPanel = 'cart';
+    this._rightPanelService.openCartPanel();
   }
 
   finalize() {
-    this.router.navigate(['/payment']);
+    this.router.navigate(['/payment']).then();
   }
 }

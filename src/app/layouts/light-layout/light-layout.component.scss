@@ -3,4 +3,19 @@
 .light-layout {
   min-height: 100vh;
   width: 100%;
+
+  display: flex;
+  flex-direction: row;
+
+  &__content {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-rows: 1fr auto
+  }
+
+  &__right-panel {
+    height: 100vh;
+  }
 }

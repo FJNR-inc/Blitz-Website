@@ -1,0 +1,20 @@
+<app-product-selector-panel
+  *ngIf="currentPanel === 'product-selector'"
+  class="panel"
+  [product]="product"
+  [type]="productType"
+  (close)="close()"
+  (addToCart)="openCart()">
+</app-product-selector-panel>
+<app-authentication-panel
+  *ngIf="currentPanel === 'authentication'"
+  class="panel"
+  (close)="close()"
+  (onAuthentication)="authenticate()">
+</app-authentication-panel>
+<app-cart-panel
+  *ngIf="currentPanel === 'cart'"
+  class="panel"
+  (close)="close()"
+  (finalize)="finalize()">
+</app-cart-panel>
