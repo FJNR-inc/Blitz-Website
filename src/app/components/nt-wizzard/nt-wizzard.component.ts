@@ -3,7 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 export interface WizzardItem {
-  name: string;
+  name: any;
   activated?: boolean;
   completed?: boolean;
 }
