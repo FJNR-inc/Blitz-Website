@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
       <div class="light-layout">
         <router-outlet></router-outlet>
+        <app-newsletter-footer></app-newsletter-footer>
       </div>
   `,
   styleUrls: ['light-layout.component.scss'],
