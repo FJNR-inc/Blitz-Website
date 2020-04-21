@@ -181,6 +181,7 @@ import { AlertModalEditComponent } from './components/pages/admin/alert-modal-ed
 import { NewsletterFooterComponent } from './components/pages/newsletter/newsletter-footer/newsletter-footer.component';
 import { NewsletterInscriptionComponent } from './components/pages/newsletter/newsletter-inscription/newsletter-inscription.component';
 import { NewsletterSuccessComponent } from './components/pages/newsletter/newsletter-success/newsletter-success.component';
+import { RightPanelContainerComponent } from './components/shared/right-panel-container/right-panel-container.component';
 
 registerLocaleData(localeFr);
 
@@ -699,6 +700,7 @@ const appRoutes = [
     NewsletterFooterComponent,
     NewsletterInscriptionComponent,
     NewsletterSuccessComponent,
+    RightPanelContainerComponent,
   ],
   imports: [
     BrowserModule,

@@ -59,19 +59,6 @@
   }
 }
 
-@media only screen and (max-width: 1500px) {
-  .retreat-reservation {
-    &__panel {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      min-height: 100vh;
-    }
-  }
-}
-
-
 @media only screen and (max-width: 600px) {
   .retreat-reservation {
     &__main {

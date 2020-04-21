@@ -3,16 +3,16 @@
     {{'newsletter-footer.description' | translate}}
   </div>
   <div class="newsletter-footer__actions">
-  <app-button
-    [text]="'newsletter-footer.button' | translate" [reverseColor]="true"
-    (onClick)="openNewsletterModal()"
-  ></app-button>
-  <app-link
-    *ngIf="canHideFooter"
-    [reverseColor]="true"
-    [text]="'newsletter-footer.hide' | translate"
-    (onClick)="hideNewsletter()"
-  ></app-link>
+    <app-button
+      [text]="'newsletter-footer.button' | translate" [reverseColor]="true"
+      (onClick)="openNewsletterModal()"
+    ></app-button>
+    <app-link
+      *ngIf="canHideFooter"
+      [reverseColor]="true"
+      [text]="'newsletter-footer.hide' | translate"
+      (onClick)="hideNewsletter()"
+    ></app-link>
   </div>
 </div>
 

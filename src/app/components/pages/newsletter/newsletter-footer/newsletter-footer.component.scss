@@ -5,11 +5,13 @@
 
   background-color: $nt2-color-4;
 
-  padding: 0 300px;
+  padding: 0 20px;
 
   display: grid;
-  grid-auto-flow: column;
-  grid-column-gap: 20px;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
+
+  grid-gap: 20px;
   align-items: center;
 
   &__description{
@@ -29,23 +31,10 @@
   }
 }
 
-
-@media only screen and (max-width: 1600px) {
-  .newsletter-footer{
-    padding: 0 100px;
-  }
-}
-
 @media only screen and (max-width: 900px){
   .newsletter-footer {
-    grid-auto-flow: row;
-    align-items: center;
-    justify-items: center;
-    align-content: space-around;
     text-align: center;
 
-
-    padding: 20px 100px;
   }
 }
 
@@ -53,7 +42,8 @@
 
   .newsletter-footer {
     height: 150px;
-    padding: 0 30px;
+    padding: 30px 30px;
+    grid-gap: 10px;
 
     &__description{
 

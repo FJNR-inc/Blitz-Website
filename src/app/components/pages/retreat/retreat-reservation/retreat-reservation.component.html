@@ -1,5 +1,5 @@
 <div class="retreat-reservation" *ngIf="!displayTutorial">
-  <app-cart-button *ngIf="!displayedPanel"
+  <app-cart-button *ngIf="displayCartButton$ | async"
                    class="retreat-reservation__cart-button"
                    (onClick)="openCart()"></app-cart-button>
   <div class="retreat-reservation__main">
@@ -29,7 +29,7 @@
                            class="retreat-reservation__main__content__retreat"
                            [retreat]="this.retreat"
                            [displaySubscribeButton]="true"
-                           (subscribe)="subscribe(retreat)">
+                           (subscribe)="selectRetreat(retreat)">
       </app-retreat-preview>
 
       <div class="retreat-reservation__main__content__politics">
@@ -40,21 +40,5 @@
       </div>
     </div>
   </div>
-  <app-product-selector-panel *ngIf="displayedPanel === 'product-selector'"
-                              class="retreat-reservation__panel"
-                              [product]="selectedRetreat"
-                              (close)="closePanel()"
-                              (addToCart)="addToCart()">
-  </app-product-selector-panel>
-  <app-authentication-panel *ngIf="displayedPanel === 'authentication'"
-                            class="retreat-reservation__panel"
-                            (close)="closePanel()"
-                            (onAuthentication)="subscribe(selectedRetreat)">
-  </app-authentication-panel>
-  <app-cart-panel *ngIf="displayedPanel === 'cart'"
-                  class="retreat-reservation__panel"
-                  (close)="closePanel()"
-                  (finalize)="finalize()">
-  </app-cart-panel>
 </div>
 <app-retreat-tutorial *ngIf="displayTutorial" (close)="closeTutorial()"></app-retreat-tutorial>

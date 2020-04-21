@@ -25,10 +25,11 @@ export class ProductSelectorPanelComponent implements OnInit {
   get product() {
     return this._product;
   }
+
   set product(product) {
-    if ( this.type === 'TimeSlot' ) {
+    if (this.type === 'TimeSlot') {
       this.getTimeSlot(product);
-    } else if ( this.type === 'Retreat' ) {
+    } else if (this.type === 'Retreat') {
       this.getRetreat(product);
     }
   }
@@ -39,7 +40,8 @@ export class ProductSelectorPanelComponent implements OnInit {
   constructor(private retreatReservationService: RetreatReservationService,
               private reservationService: ReservationService,
               private authenticationService: AuthenticationService,
-              private cartService: MyCartService) { }
+              private cartService: MyCartService) {
+  }
 
   ngOnInit() {
   }
