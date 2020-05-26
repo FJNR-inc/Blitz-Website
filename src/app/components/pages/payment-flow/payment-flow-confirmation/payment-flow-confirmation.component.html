@@ -30,8 +30,14 @@
               [autoClose]="true">
   <div class="payment-flow-confirmation-modale-politics">
     <app-title [level]="3" text="{{'payment-flow-confirmation.modal_title' | translate}}"></app-title>
-    <app-title [level]="6" text="{{'payment-flow-confirmation.modal_title2' | translate}}" class="payment-flow-confirmation-modale-politics__title"></app-title>
-    <app-title [level]="9" text="{{'payment-flow-confirmation.modal_text' | translate}}"></app-title>
+    <app-title [level]="6" class="payment-flow-confirmation-modale-politics__title"
+               text="{{'retreat-reservation.modal_policies.physical.title' | translate}}"></app-title>
+    <app-title [level]="9" text="{{'retreat-reservation.modal_policies.physical.text' | translate}}"></app-title>
+
+    <app-title [level]="6" class="payment-flow-confirmation-modale-politics__title"
+               text="{{'retreat-reservation.modal_policies.virtual.title' | translate}}"></app-title>
+    <app-title [level]="9" text="{{'retreat-reservation.modal_policies.virtual.text' | translate}}"></app-title>
+
     <app-title [level]="6"
                class="payment-flow-confirmation-modale-politics__title"
                text="{{'payment-flow-confirmation.cancelation_politic.title' | translate}}"></app-title>

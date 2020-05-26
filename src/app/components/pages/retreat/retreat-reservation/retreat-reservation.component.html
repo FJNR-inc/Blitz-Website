@@ -9,36 +9,66 @@
                    class="retreat-reservation__main__content__header__title"
                    text="{{ 'retreat-reservation.list_of_retreats' | translate }}">
         </app-title>
-        <app-title [level]="9"
-                   class="retreat-reservation__main__content__header__description"
-                   text="{{ 'retreat-reservation.details' | translate }}">
-        </app-title>
-        <app-link class="retreat-reservation__main__content__header__link"
-                  text="{{ 'retreat-reservation.know_more' | translate }}"
-                  target="_blank"
-                  href="http://www.thesez-vous.com/questcequuneretraite.html">
-        </app-link>
+        <div class="retreat-reservation__main__content__header__links">
+          <app-link class="retreat-reservation__main__content__header__links__link"
+                    text="{{ 'retreat-reservation.know_more' | translate }}"
+                    target="_blank"
+                    href="https://www.thesez-vous.com/questcequuneretraite.html">
+          </app-link>
+          <app-link class="retreat-reservation__main__content__header__links__link"
+                    text="{{ 'retreat-reservation.show_policies' | translate }}"
+                    appMyModalOpen="politics">
+          </app-link>
+        </div>
       </div>
+
+      <app-alert type="info"
+                 class="retreat-reservation__main__content__info"
+                 [messages]="['retreat-reservation.new_virtual_retreat_available' | translate]"></app-alert>
+
       <app-loader *ngIf="!retreats">
       </app-loader>
+
       <app-alert type="info"
                  class="retreat-reservation__main__content__header__alert"
                  [messages]="['retreat-reservation.retirement_available_purchase' | translate]"
                  *ngIf="retreats && retreats.length === 0"></app-alert>
-      <app-retreat-preview *ngFor="let retreat of retreats"
-                           class="retreat-reservation__main__content__retreat"
-                           [retreat]="this.retreat"
-                           [displaySubscribeButton]="true"
-                           (subscribe)="selectRetreat(retreat)">
-      </app-retreat-preview>
 
-      <div class="retreat-reservation__main__content__politics">
-        <app-title [level]="4" class="retreat-reservation__main__content__politics__title"
-                   text="{{'retreat-reservation.cancellation_policy_title' | translate}}"></app-title>
-        <app-title class="retreat-reservation__main__content__politics__content" [level]="9"
-                   text="{{'retreat-reservation.cancellation_policy' | translate}}"></app-title>
+      <div *ngIf="retreats && retreats.length > 0">
+        <app-retreat-reservation-summary class="retreat-reservation__main__content__retreats__summary" [retreats]="retreats" (filteredRetreats)="displayedRetreats = $event">
+
+        </app-retreat-reservation-summary>
+        <app-retreat-preview *ngFor="let retreat of displayedRetreats"
+                             class="retreat-reservation__main__content__retreats__list"
+                             [retreat]="this.retreat"
+                             [displaySubscribeButton]="true"
+                             (subscribe)="selectRetreat(retreat)">
+        </app-retreat-preview>
       </div>
     </div>
   </div>
 </div>
 <app-retreat-tutorial *ngIf="displayTutorial" (close)="closeTutorial()"></app-retreat-tutorial>
+
+<app-nt-modal
+  class="retreat-reservation-modal-politics"
+  name="politics"
+  [autoClose]="true"
+  button2Label="{{'retreat-reservation.modal_policies.close_button' | translate}}"
+  [displayButtons]="true"
+  title="{{'retreat-reservation.modal_policies.title' | translate}}"
+  maxWidth="1200px">
+  <div class="retreat-reservation__policies-modal__section">
+  <app-title [level]="5" class="retreat-reservation__policies-modal__section__title"
+             text="{{'retreat-reservation.modal_policies.physical.title' | translate}}"></app-title>
+  <app-title class="retreat-reservation__policies-modal__section__content" [level]="9"
+             text="{{'retreat-reservation.modal_policies.physical.text' | translate}}"></app-title>
+  </div>
+
+  <div class="retreat-reservation__policies-modal__section">
+  <app-title [level]="5" class="retreat-reservation__policies-modal__section__title"
+             text="{{'retreat-reservation.modal_policies.virtual.title' | translate}}"></app-title>
+  <app-title class="retreat-reservation__policies-modal__section__content" [level]="9"
+             text="{{'retreat-reservation.modal_policies.virtual.text' | translate}}"></app-title>
+  </div>
+</app-nt-modal>

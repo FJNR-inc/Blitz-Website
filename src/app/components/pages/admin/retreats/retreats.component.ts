@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {Retreat, ROOM_CHOICES} from '../../../../models/retreat';
+import { Retreat, ROOM_CHOICES, TYPE_CHOICES } from '../../../../models/retreat';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RetreatService } from '../../../../services/retreat.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
-import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
-import {FormUtil} from '../../../../utils/form';
-import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import { MyNotificationService } from '../../../../services/my-notification/my-notification.service';
+import { FormUtil } from '../../../../utils/form';
+import { _ } from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-retreats',
@@ -53,6 +53,21 @@ export class RetreatsComponent implements OnInit {
       name: 'name_en',
       type: 'text',
       label: _('retreats.form.name_in_english')
+    },
+    {
+      name: 'type',
+      type: 'select',
+      label: _('retreat.form.type'),
+      choices: [
+        {
+          label: _('retreat.form.type.choices.physical'),
+          value: TYPE_CHOICES.PHYSICAL
+        },
+        {
+          label: _('retreat.form.type.choices.virtual'),
+          value: TYPE_CHOICES.VIRTUAL
+        }
+      ]
     },
     {
       name: 'place_name',
@@ -288,13 +303,7 @@ export class RetreatsComponent implements OnInit {
   }
 
   OpenModalCreateRetreat() {
-    this.initRetreatForm();
-    this.selectedRetreatUrl = null;
-    this.toggleModal(
-      'form_retreats',
-      _('retreats.create_retreat_modal.title'),
-      _('retreats.create_retreat_modal.button')
-    );
+    this.router.navigate(['/admin/retreats/create']);
   }
 
   redirectToRetreat(id = null) {

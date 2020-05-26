@@ -31,29 +31,42 @@
           margin-top: 20px;
         }
 
-        &__link {
+        &__links {
           margin-top: 20px;
+
+          &__link {
+            margin-right: 20px;
+          }
         }
       }
 
-      &__retreat {
-        width: 100%;
-        margin: 70px 0 70px 0;
+      &__info {
+        display: block;
+        margin-top: 50px;
       }
 
-      &__politics {
-        display: flex;
-        flex-direction: column;
-        margin-top: 70px;
-
-        &__title {
-          padding-bottom: 20px;
+      &__retreats {
+        &__summary {
+          display: block;
+          margin: 70px 0 150px 0;
         }
 
-        &__content {
-          border-top: 1px solid $nt2-color-4;
-          padding: 40px 0;
+        &__list {
+          display: block;
+          width: 100%;
+          margin: 70px 0 100px 0;
         }
+      }
+    }
+  }
+
+  &__policies-modal {
+    &__section {
+      margin-bottom: 30px;
+
+      &__title {
+        display: block;
+        margin-bottom: 20px;
       }
     }
   }
