@@ -1,0 +1,48 @@
+<div class="retreat-reservation-summary">
+  <div class="retreat-reservation-summary__header">
+    <div class="retreat-reservation-summary__header__title">
+      <app-title [level]="5" text="{{ 'retreat-reservation-summary.title' | translate }}"></app-title>
+    </div>
+    <div class="retreat-reservation-summary__header__select">
+      <app-title type="label" for="calendar" [level]="7" text="{{ 'retreat-reservation-summary.select_name' | translate }}"></app-title>
+      <select id="calendar" class="nt-form-input nt-form-input--select" (change)="changeFilteredType($event)">
+        <option value="">{{ 'retreat-reservation-summary.select_choice.both' | translate }}</option>
+        <option value="V">{{ 'retreat-reservation-summary.select_choice.virtual' | translate }}</option>
+        <option value="P">{{ 'retreat-reservation-summary.select_choice.physical' | translate }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="retreat-reservation-summary__calendar">
+    <div class="retreat-reservation-summary__calendar__arrow" (click)="getPreviousMonth()">
+      <i class="fas fa-arrow-left"></i>
+    </div>
+    <div class="retreat-reservation-summary__calendar__title">
+      <app-title [level]="7" [text]="getDate()"></app-title>
+    </div>
+    <div class="retreat-reservation-summary__calendar__arrow" (click)="getNextMonth()">
+      <i class="fas fa-arrow-right"></i>
+    </div>
+  </div>
+  <div class="retreat-reservation-summary__list">
+    <div class="retreat-reservation-summary__list__item" *ngFor="let retreat of summaryList">
+      <i class="retreat-reservation-summary__list__item__icon fas" [ngClass]="{'fa-desktop': retreat.type === 'V', 'fa-home': retreat.type === 'P'}"></i>
+      <div class="retreat-reservation-summary__list__item__name">
+        <app-title [level]="8" [text]="retreat.name"></app-title>
+        <app-title [level]="9" text="{{ retreat.type_name | translate }}"></app-title>
+      </div>
+      <div class="retreat-reservation-summary__list__item__details">
+        <app-title *ngIf="retreat.type === 'V'" [level]="9" [text]="retreat.videoconference_tool"></app-title>
+        <app-title *ngIf="retreat.type === 'P'" [level]="9" [text]="retreat.city"></app-title>
+      </div>
+      <div class="retreat-reservation-summary__list__item__date">
+        <app-title [level]="9" [text]="retreat.getDateInterval()"></app-title>
+        <app-title [level]="9" text="{{ retreat.activityLanguageLabel | translate }}"></app-title>
+      </div>
+    </div>
+  </div>
+  <app-alert type="text-warning"
+             *ngIf="summaryList && summaryList.length < 1"
+             class="retreat-reservation-summary__empty-list"
+             [messages]="['retreat-reservation-summary.empty_list_alert_message' | translate]">
+  </app-alert>
+</div>

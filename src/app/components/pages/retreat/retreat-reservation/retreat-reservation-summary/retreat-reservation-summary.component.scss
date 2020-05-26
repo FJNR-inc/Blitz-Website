@@ -1,0 +1,75 @@
+@import "../../../../../../assets/scss/theme";
+
+.retreat-reservation-summary {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+
+    &__title {
+
+    }
+
+    &__select {
+
+    }
+  }
+
+  &__calendar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+
+    &__arrow {
+      font-size: 20px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $nt-14;
+      padding: 10px 0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &__icon {
+        font-size: 45px;
+        margin: 10px;
+      }
+
+      &__name {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+      }
+
+      &__details {
+        flex: 1;
+        margin: 10px 30px;
+      }
+
+      &__date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin: 10px;
+      }
+    }
+  }
+
+  &__empty-list {
+    display: block;
+    margin-top: 20px;
+  }
+}

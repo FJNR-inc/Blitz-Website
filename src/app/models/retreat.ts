@@ -4,15 +4,23 @@ import {Membership} from './membership';
 import {DateUtil} from '../utils/date';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {OptionProduct} from './optionProduct';
+import {environment} from '../../environments/environment';
 
 export enum ROOM_CHOICES {
   DOUBLE_OCCUPATION = 'double_occupation' ,
   SINGLE_OCCUPATION = 'single_occupation' ,
   DOUBLE_SINGLE_OCCUPATION = 'double_single_occupation' ,
 }
+
+export enum TYPE_CHOICES {
+  VIRTUAL = 'V' ,
+  PHYSICAL = 'P' ,
+}
+
 export class Retreat extends BaseModel {
   id: number;
   url: string;
+  type: TYPE_CHOICES;
   country: string;
   place_name: string;
   state_province: string;
@@ -71,6 +79,8 @@ export class Retreat extends BaseModel {
   pictures: string[];
   room_type: ROOM_CHOICES;
   toilet_gendered: boolean;
+  videoconference_tool: string;
+  videoconference_link: string;
 
   constructor(data: Object = {}) {
     super(data);
@@ -94,7 +104,7 @@ export class Retreat extends BaseModel {
   }
 
   getStartDate() {
-    return new Date(this.end_time);
+    return new Date(this.start_time);
   }
 
   getEndDate() {
@@ -116,6 +126,14 @@ export class Retreat extends BaseModel {
     return DateUtil.formatDayAndTime(date);
   }
 
+  get type_name() {
+    if (this.type === 'V') {
+      return 'retreat.form.retreat.type.choices.virtual';
+    } else {
+      return 'retreat.form.retreat.type.choices.physical';
+    }
+  }
+
   get activityLanguageLabel() {
     if (this.activity_language === 'B') {
       return 'retreat.form.retreat.activity_language.choices.bilingual';
@@ -134,6 +152,20 @@ export class Retreat extends BaseModel {
     } else {
       return '../../assets/images/retraite.jpg';
     }
+  }
+
+  get numberOfTomatoes() {
+    if (this.type === 'V') {
+      return environment.tomato_per_virtual_retreat;
+    } else {
+      return environment.tomato_per_physical_retreat;
+    }
+  }
+
+  get isOpen() {
+    const isStarted = new Date() > new Date(this.start_time);
+    const isFinished = new Date() > new Date(this.end_time);
+    return this.type === 'V' && this.videoconference_link && isStarted && !isFinished;
   }
 }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../../models/user';
 import {AuthenticationService} from '../../../services/authentication.service';
+import {RetreatReservation} from '../../../models/retreatReservation';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ export class ProfileComponent implements OnInit {
   totalFutureTimeslotTomatoes = 0;
   totalPastRetreatTomatoes = 0;
   totalFutureRetreatTomatoes = 0;
+  openVirtualReservation: RetreatReservation;
 
   constructor(private authenticationService: AuthenticationService) { }
 

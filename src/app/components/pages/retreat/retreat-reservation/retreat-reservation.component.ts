@@ -22,6 +22,7 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
 
   displayTutorial = true;
   retreats: Retreat[];
+  displayedRetreats: Retreat[];
   retreatWaitingQueues: RetreatWaitingQueue[];
   retreatWaitingQueueNotifications: RetreatWaitingQueueNotification[];
 

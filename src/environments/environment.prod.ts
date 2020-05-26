@@ -3,7 +3,8 @@ export const environment = {
   default_language: 'fr',
   multilingual_activated: true,
   tomato_per_timeslot: 4,
-  tomato_per_retreat: 20,
+  tomato_per_physical_retreat: 20,
+  tomato_per_virtual_retreat: 6,
   url_base_api: 'https://api.thesez-vous.org',
   environment_paysafe: 'LIVE',
   // tslint:disable-next-line:max-line-length
