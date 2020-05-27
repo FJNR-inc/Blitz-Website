@@ -42,6 +42,7 @@
   "admin-layout.left-nav.type_of_packages": "Lots de blocs",
   "admin-layout.left-nav.universities": "Universités",
   "admin-layout.left-nav.users": "Utilisateur.rice.s",
+  "admin-layout.left-nav.alertModalEdit": "Modale d'alerte",
   "alert-modal-edit.save": "#Sauvegarder",
   "alert-modal-edit.saved": "#Nouvelle modale d'alerte sauvegardé",
   "alert-modal-edit.title": "#Modale d'alerte",
@@ -1322,5 +1323,6 @@
   "retreat-reservation-summary.select_choice.virtual": "Virtuelle",
   "retreat-reservation-summary.select_choice.physical": "En présentiel",
   "retreat-reservation-summary.select_choice.both": "En présentiel et virtuelle",
-  "retreat-reservation-summary.empty_list_alert_message": "Aucune retraite correspondant a votre recherche n'a etait prevu pour le moment, n'hesitez pas a revenir plus tard!"
+  "retreat-reservation-summary.empty_list_alert_message": "Aucune retraite correspondant a votre recherche n'a etait prevu pour le moment, n'hesitez pas a revenir plus tard!",
+  "retreats.form.date": "Dates"
 }

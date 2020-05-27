@@ -1,7 +1,7 @@
 <div class="admin-retreats-page">
   <div class="admin-retreats-page__table">
     <app-my-table [settings]="settings"
-                  [data]="listRetreats"
+                  [data]="listAdaptedRetreats"
                   (addButton)="OpenModalCreateRetreat()"
                   (removeItem)="removeRetreat($event)"
                   (selectItem)="redirectToRetreat($event.id)"

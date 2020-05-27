@@ -17,6 +17,7 @@ import { _ } from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 export class RetreatsComponent implements OnInit {
 
   listRetreats: Retreat[];
+  listAdaptedRetreats: any[];
 
   retreatForm: FormGroup;
   retreatErrors: string[];
@@ -37,6 +38,10 @@ export class RetreatsComponent implements OnInit {
       {
         name: 'name',
         title: _('retreats.form.name')
+      },
+      {
+        name: 'start_time_readable',
+        title: _('retreats.form.date')
       }
     ]
   };
@@ -297,7 +302,13 @@ export class RetreatsComponent implements OnInit {
         this.settings.page = page;
         this.settings.previous = !isNull(retreats.previous);
         this.settings.next = !isNull(retreats.next);
-        this.listRetreats = retreats.results.map(o => new Retreat(o));
+        this.listRetreats = retreats.results.map(
+          retreat => new Retreat(retreat)
+        );
+        this.listAdaptedRetreats = [];
+        for (const retreat of this.listRetreats) {
+          this.listAdaptedRetreats.push(this.retreatAdapter(retreat));
+        }
       }
     );
   }
@@ -398,5 +409,10 @@ export class RetreatsComponent implements OnInit {
         window.open(data.file_url);
       }
     );
+  }
+
+  retreatAdapter(retreat: Retreat) {
+    retreat['start_time_readable'] = retreat.getDateInterval();
+    return retreat
   }
 }
