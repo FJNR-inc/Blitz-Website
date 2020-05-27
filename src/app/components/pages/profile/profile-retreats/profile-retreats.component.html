@@ -29,8 +29,12 @@
         <app-title *ngIf="retreatReservation.retreat_details.videoconference_tool" [level]="9" [text]="retreatReservation.retreat_details.videoconference_tool"></app-title>
         <app-title [level]="9" [text]="retreatReservation.retreat_details.getDateInterval()"></app-title>
 
-        <app-link text="{{ 'profile-retreats.list_retreat_reservations.how_to_prepare' | translate }}"></app-link>
+        <app-link href="https://www.thesez-vous.com/syprerparervirtuel.html"
+                  target="_blank"
+                  text="{{ 'profile-retreats.list_retreat_reservations.how_to_prepare' | translate }}"></app-link>
         <app-link *ngIf="retreatReservation.retreat_details.isOpen"
+                  [href]="retreatReservation.retreat_details.videoconference_link"
+                  target="_blank"
                   text="{{ 'profile-retreats.list_retreat_reservations.join_videoconference' | translate }}"></app-link>
 
         <div class="profile-retreats__list__item__description__more" *ngIf="retreatReservationOpen === retreatReservation.id">

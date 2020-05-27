@@ -6,8 +6,8 @@
       <app-title [level]="9" text="{{ retreat.type_name | translate }}"></app-title>
     </div>
     <div class="retreat-preview__header__date">
-      <app-title [level]="5" [text]="retreat.getStartDay()"></app-title>
-      <app-title [level]="5" text="{{ retreat.activityLanguageLabel | translate }}"></app-title>
+      <app-title [level]="8" [text]="retreat.getStartDay()"></app-title>
+      <app-title [level]="8" text="{{ retreat.activityLanguageLabel | translate }}"></app-title>
     </div>
   </div>
   <app-title class="retreat-preview__subtitle" *ngIf="retreat.sub_title" [level]="5" [text]="retreat.sub_title"></app-title>
