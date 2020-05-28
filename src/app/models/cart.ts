@@ -1,5 +1,5 @@
 import {Membership} from './membership';
-import {Retreat} from './retreat';
+import {Retreat, TYPE_CHOICES} from './retreat';
 import {TimeSlot} from './timeSlot';
 import {TaxeUtil} from '../utils/taxe';
 import {Order} from './order';
@@ -40,6 +40,7 @@ export class Cart {
   _applied_coupons: AppliedCoupon[] = [];
   _options: AppliedProductOption[] = [];
   _metadata: Metadata[] = [];
+  _numberOfFreeVirtualRetreat: number;
 
   constructor(data: Object = {}) {
     if (data) {
@@ -168,6 +169,14 @@ export class Cart {
     return this._applied_coupons;
   }
 
+  getNumberOfFreeVirtualRetreat() {
+    if (this._numberOfFreeVirtualRetreat) {
+      return this._numberOfFreeVirtualRetreat;
+    } else {
+      return 0;
+    }
+  }
+
   setSingleUseToken(token: string) {
     this._single_use_token = token;
     this._payment_token = null;
@@ -184,6 +193,10 @@ export class Cart {
 
   setTargetUser(user: User) {
     this._targetUser = user;
+  }
+
+  setNumberOfFreeVirtualRetreat(numberOfFreeVirtualRetreat: number) {
+    this._numberOfFreeVirtualRetreat = numberOfFreeVirtualRetreat;
   }
 
   getPaymentToken() {
@@ -379,13 +392,44 @@ export class Cart {
     return true;
   }
 
+  getRetreatPrice(retreat: Retreat) {
+    if (this.isVirtualRetreatFree(retreat)) {
+      return 0;
+    } else {
+      return retreat.price;
+    }
+  }
+
+  isVirtualRetreatFree(retreat: Retreat) {
+    let numberOfFreeVirtualRetreatAlreadyCounted = 0;
+    const numberOfFreeVirtualRetreatAvailable = this.getNumberOfFreeVirtualRetreat() + this.getMemberships().length;
+    console.log('NumberOfFreeRetreat' + numberOfFreeVirtualRetreatAvailable);
+
+    for (const retreatItem of this._retreats) {
+      const isVirtualRetreat = retreatItem.type === TYPE_CHOICES.VIRTUAL;
+      const canGetVirtualRetreatForFree = numberOfFreeVirtualRetreatAvailable > numberOfFreeVirtualRetreatAlreadyCounted;
+      const isFree = isVirtualRetreat && canGetVirtualRetreatForFree;
+
+      if (isFree) {
+        numberOfFreeVirtualRetreatAlreadyCounted += 1;
+      }
+
+      if (retreatItem.id === retreat.id) {
+        return isFree;
+      }
+    }
+  }
+
   getSubTotal(): string {
     let total = 0;
+
     for (const membership of this._memberships) {
       total += Number(membership.price);
     }
     for (const retreat of this._retreats) {
-      total += Number(retreat.price);
+      if (!this.isVirtualRetreatFree(retreat)) {
+        total += Number(retreat.price);
+      }
     }
     for (const reservationPackage of this._reservationPackages) {
       total += Number(reservationPackage.price);

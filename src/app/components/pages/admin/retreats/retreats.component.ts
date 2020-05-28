@@ -9,6 +9,10 @@ import { MyNotificationService } from '../../../../services/my-notification/my-n
 import { FormUtil } from '../../../../utils/form';
 import { _ } from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
+export class RetreatAdapted extends Retreat {
+  start_time_readable: string;
+}
+
 @Component({
   selector: 'app-retreats',
   templateUrl: './retreats.component.html',
@@ -17,7 +21,7 @@ import { _ } from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 export class RetreatsComponent implements OnInit {
 
   listRetreats: Retreat[];
-  listAdaptedRetreats: any[];
+  listAdaptedRetreats: RetreatAdapted[];
 
   retreatForm: FormGroup;
   retreatErrors: string[];
@@ -412,7 +416,8 @@ export class RetreatsComponent implements OnInit {
   }
 
   retreatAdapter(retreat: Retreat) {
-    retreat['start_time_readable'] = retreat.getDateInterval();
-    return retreat
+    const retreatAdapted = new RetreatAdapted(retreat);
+    retreatAdapted.start_time_readable = retreat.getDateInterval();
+    return retreatAdapted;
   }
 }

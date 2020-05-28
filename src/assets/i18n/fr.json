@@ -1331,5 +1331,7 @@
   "workplaces.validation_deletion_modal.text_1": "La suppression d'un espace de travail peut avoir de lourdes conséquences dont de nombreux remboursements et pertes de données.",
   "workplaces.validation_deletion_modal.text_2": "En supprimant cet espace de travail, vous prenez la responsabilité des conséquences éventuelles. Assurez-vous d'en avoir préalablement discuté avec une personne ressource de votre organisation.",
   "workplaces.validation_deletion_modal.text_3": "Veuillez saisir le nom complet de l'espace de travail pour confirmer sa suppression.",
-  "workplaces.workplaces": "Espaces de travail"
+  "workplaces.workplaces": "Espaces de travail",
+  "cart-summary.why_virtual_retreat_is_free": "Cette retraite vous est offerte grace a l'achat de votre membership",
+  "cart-summary.free": "Gratuit"
 }
