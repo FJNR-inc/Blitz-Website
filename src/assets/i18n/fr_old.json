@@ -449,7 +449,7 @@
   "payment-flow-bourse.form.errors.unknown": "Certains éléments du formulaire sont mal saisis",
   "payment-flow-mode.title1": "Mode de paiement",
   "payment-flow-mode.title2": "Carte bancaire",
-  "payment-flow-mode.alert": "Le total de votre panier étant de 0$CAN, vous n'avez pas besoin de mode de paiement",
+  "payment-flow-mode.alert": "Le total de votre panier étant de 0$CAD, vous n'avez pas besoin de mode de paiement",
   "payment-flow-mode.link": "Modifier le mode de paiement",
   "payment-flow-mode.actions_btn1": "Précedent",
   "payment-flow-mode.actions_btn2": "Continuer",

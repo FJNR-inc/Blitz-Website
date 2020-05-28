@@ -56,7 +56,7 @@
   <select id="reservationPackage" class="nt-form-input nt-form-input--select"
           [(ngModel)]="selectedReservationPackageIndex">
     <option *ngFor="let reservationPackage of this.listReservationPackage; let i = index" [value]="i">
-      {{ reservationPackage.reservations }} blocs ({{ reservationPackage.price }}$CAN)
+      {{ reservationPackage.reservations }} blocs ({{ reservationPackage.price }}$CAD)
     </option>
   </select>
 </app-nt-modal>
