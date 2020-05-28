@@ -173,10 +173,17 @@ export class DateUtil {
         dateInterval += ' ';
         dateInterval += DateUtil.getYear(start_date);
         dateInterval += ', de ';
-        dateInterval += DateUtil.formatTime(start_date);
-        dateInterval += 'h a ';
-        dateInterval += DateUtil.formatTime(end_date);
+        dateInterval += start_date.getHours();
         dateInterval += 'h';
+        if (start_date.getMinutes()) {
+          dateInterval += start_date.getMinutes();
+        }
+        dateInterval += ' a ';
+        dateInterval += end_date.getHours();
+        dateInterval += 'h';
+        if (end_date.getMinutes()) {
+          dateInterval += end_date.getMinutes();
+        }
       } else {
         dateInterval += 'The ';
         dateInterval += DateUtil.getDate(start_date);
@@ -186,9 +193,8 @@ export class DateUtil {
         dateInterval += DateUtil.getYear(start_date);
         dateInterval += ', from ';
         dateInterval += DateUtil.formatTime(start_date);
-        dateInterval += 'h to ';
+        dateInterval += ' to ';
         dateInterval += DateUtil.formatTime(end_date);
-        dateInterval += 'h';
       }
       return dateInterval;
     } else {

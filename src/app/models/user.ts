@@ -27,6 +27,7 @@ export class User extends BaseModel {
   academic_program_code: string;
   hide_newsletter: boolean;
   is_in_newsletter: boolean;
+  numberOfFreeVirtualRetreat: number;
 
   getUniversity() {
     if (this.university) {

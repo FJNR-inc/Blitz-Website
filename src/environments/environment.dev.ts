@@ -2,6 +2,7 @@ export const environment = {
   production: false,
   default_language: 'fr',
   multilingual_activated: true,
+  minutesBeforeShowVirtualRetreatLink: 30,
   tomato_per_timeslot: 4,
   tomato_per_physical_retreat: 20,
   tomato_per_virtual_retreat: 6,
