@@ -28,7 +28,7 @@ export class CartSummaryComponent implements OnInit {
     this.cart$.subscribe(
       (cart: Cart) => {
         this.cart = cart;
-        this.cart.setNumberOfFreeVirtualRetreat(this.authenticationService.getProfile().numberOfFreeVirtualRetreat);
+        this.cart.setNumberOfFreeVirtualRetreat(this.authenticationService.getProfile().number_of_free_virtual_retreat);
       }
     );
   }

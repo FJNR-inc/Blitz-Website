@@ -169,7 +169,7 @@ export class DateUtil {
         dateInterval += 'Le ';
         dateInterval += DateUtil.getDate(start_date);
         dateInterval += ' ';
-        dateInterval += DateUtil.getLongMonth(start_date);
+        dateInterval += DateUtil.getLongMonth(start_date).toLowerCase();
         dateInterval += ' ';
         dateInterval += DateUtil.getYear(start_date);
         dateInterval += ', de ';
@@ -178,7 +178,7 @@ export class DateUtil {
         if (start_date.getMinutes()) {
           dateInterval += start_date.getMinutes();
         }
-        dateInterval += ' a ';
+        dateInterval += ' à ';
         dateInterval += end_date.getHours();
         dateInterval += 'h';
         if (end_date.getMinutes()) {
