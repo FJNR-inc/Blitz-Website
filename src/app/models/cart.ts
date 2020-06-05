@@ -403,7 +403,6 @@ export class Cart {
   isVirtualRetreatFree(retreat: Retreat) {
     let numberOfFreeVirtualRetreatAlreadyCounted = 0;
     const numberOfFreeVirtualRetreatAvailable = this.getNumberOfFreeVirtualRetreat() + this.getMemberships().length;
-    console.log('NumberOfFreeRetreat' + numberOfFreeVirtualRetreatAvailable);
 
     for (const retreatItem of this._retreats) {
       const isVirtualRetreat = retreatItem.type === TYPE_CHOICES.VIRTUAL;

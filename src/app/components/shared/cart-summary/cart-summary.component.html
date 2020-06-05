@@ -3,7 +3,7 @@
   <div class="cart-summary__items">
     <div *ngFor="let membership of cart.getMemberships()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__left">
-        <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="membership.name"></app-title>
+        <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ 'cart-summary.membership' | translate: ({membershipName: membership.name}) }}"></app-title>
         <app-title [level]="9" class="cart-summary__items__item__left__price" text="{{membership.price}} $CAD"></app-title>
       </div>
       <div class="cart-summary__items__item__right">

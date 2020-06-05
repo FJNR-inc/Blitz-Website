@@ -3,6 +3,8 @@
 .retreat-reservation-summary {
   display: flex;
   flex-direction: column;
+  background-color: $nt-background-color-light;
+  padding: 30px;
 
   &__header {
     display: flex;
@@ -24,6 +26,10 @@
 
     &__arrow {
       font-size: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
@@ -38,6 +44,11 @@
       align-items: center;
       border-bottom: 1px solid $nt-14;
       padding: 10px 0;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $nt-2;
+      }
 
       &:last-child {
         border-bottom: none;

@@ -67,4 +67,8 @@ export class RetreatReservationSummaryComponent implements OnInit {
     this.month = month;
     this.year = year;
   }
+
+  scrollToElement(element) {
+    document.getElementById(element).scrollIntoView({behavior: 'smooth'});
+  }
 }

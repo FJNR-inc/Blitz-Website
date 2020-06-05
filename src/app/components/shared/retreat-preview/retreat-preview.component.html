@@ -1,5 +1,5 @@
 <div class="retreat-preview" *ngIf="retreat">
-  <div class="retreat-preview__header">
+  <div class="retreat-preview__header" id="retreatPreview{{retreat.id}}">
     <i class="retreat-preview__header__icon fas" [ngClass]="{'fa-desktop': retreat.type === 'V', 'fa-home': retreat.type === 'P'}"></i>
     <div class="retreat-preview__header__name">
       <app-title [level]="4" [text]="retreat.name"></app-title>

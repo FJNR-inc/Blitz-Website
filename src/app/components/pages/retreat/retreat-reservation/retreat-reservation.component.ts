@@ -20,7 +20,10 @@ import {RightPanelService} from '../../../../services/right-panel.service';
 })
 export class RetreatReservationComponent implements OnInit, OnDestroy {
 
-  displayTutorial = true;
+  // 2020-06-04: Raphaelle asked to hide this section since it's no more interresting and that policies should take
+  // too much place now with new virtual retreat policy
+  displayTutorial = false;
+
   retreats: Retreat[];
   displayedRetreats: Retreat[];
   retreatWaitingQueues: RetreatWaitingQueue[];
@@ -85,7 +88,9 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
   }
 
   openTutorial() {
-    this.displayTutorial = true;
+    // 2020-06-04: Raphaelle asked to hide this section since it's no more interresting and that policies should take
+    // too much place now with new virtual retreat policy
+    // this.displayTutorial = true;
   }
 
   closeTutorial() {
