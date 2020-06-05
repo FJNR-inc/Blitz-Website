@@ -8,6 +8,10 @@
     margin: 30px 0;
     border: 1px solid $nt-text;
 
+    &__image {
+      max-width: 100%;
+    }
+
     &__section {
       padding: 20px;
 

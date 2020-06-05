@@ -318,6 +318,7 @@
   "membership-subscription.new_end_date": "Votre membership sera actif pendant {{nb_days}} jours et prendra donc fin le {{end_date}}.",
   "membership-subscription.text_1": "Le membership est valable pour un an et n'est pas remboursable.",
   "membership-subscription.text_2": "Des courriels de rappel sont envoyés quelques semaines avant la date d'échéance de votre membership pour vous inviter à le renouveler.",
+  "membership-subscription.text_3": "Une retraite virtuelle est offerte gratuitement à l’achat d’un membership avant le premier septembre 2020!",
   "membership-subscription.title": "Membership",
   "membership-subscription.to_soon_message": "Vous pourrez renouveler votre membership à partir de 30 jours avant sa date d'échéance.",
   "membership-subscription.you_already_have_a_membership": "Vous disposez déjà d'un membership actif.",
@@ -569,6 +570,7 @@
   "product-selector-panel.content_action_btn": "Ajouter au panier",
   "product-selector-panel.content_action_link": "Annuler",
   "product-selector-panel.content_text_1": "bloc prépayé {{billing_price}}",
+  "cart-summary.membership": "Membership {{membershipName}}",
   "product-selector-panel.content_text_2": "Veuillez sélectionner les options souhaitées.",
   "product-selector-panel.title": "Sélection",
   "profile-cards.form.card_number": "numéro de carte",
@@ -1195,6 +1197,7 @@
   "terms.legal.title_7": "Pannes informatiques",
   "terms.legal.title_8": "Envois de courriels",
   "terms.legal.title_9": "Données personnelles",
+  "terms.legal.path_image_data_collected": "image_conditions_fr.png",
   "terms.title": "Conditions générales d'utilisation",
   "timeslot.back_to_workspace": "Retour à l'espace de travail",
   "timeslot.bypass_payment": "Offrir cette réservation (aucun paiement n'aura lieu)",
@@ -1333,5 +1336,10 @@
   "workplaces.validation_deletion_modal.text_3": "Veuillez saisir le nom complet de l'espace de travail pour confirmer sa suppression.",
   "workplaces.workplaces": "Espaces de travail",
   "cart-summary.why_virtual_retreat_is_free": "Cette retraite vous est offerte grace a l'achat de votre membership",
-  "cart-summary.free": "Gratuit"
+  "cart-summary.free": "Gratuit",
+  "payment-flow-informations.button_previous": "Précédent",
+  "payment-flow-informations.button_next": "Continuer",
+  "payment-flow-informations.title": "Informations complémentaires",
+  "payment-flow-informations.text": "Vous devez répondre aux questions suivantes pour compléter vos informations personnelles. Elles seront enregistrées à votre profil pour vous éviter de remplir à nouveau cette section lors de votre prochain achat.",
+  "payment-flow-informations.note": "IMPORTANT: L'équipe de l'Abbaye St-Benoit du Lac n'a pas la capacité d'adapter le menu aux restrictions alimentaires. Un seul menu est servi sans possibilité d'ajustement. Merci d'en ternir compte lors de votre inscription."
 }

@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="retreat-reservation-summary__list">
-    <div class="retreat-reservation-summary__list__item" *ngFor="let retreat of summaryList">
+    <a class="retreat-reservation-summary__list__item" *ngFor="let retreat of summaryList" (click)="scrollToElement('retreatPreview' + retreat.id)">
       <i class="retreat-reservation-summary__list__item__icon fas" [ngClass]="{'fa-desktop': retreat.type === 'V', 'fa-home': retreat.type === 'P'}"></i>
       <div class="retreat-reservation-summary__list__item__name">
         <app-title [level]="8" [text]="retreat.name"></app-title>
@@ -38,7 +38,7 @@
         <app-title [level]="9" [text]="retreat.getDateInterval()"></app-title>
         <app-title [level]="9" text="{{ retreat.activityLanguageLabel | translate }}"></app-title>
       </div>
-    </div>
+    </a>
   </div>
   <app-alert type="text-warning"
              *ngIf="summaryList && summaryList.length < 1"
