@@ -3,7 +3,7 @@ import {MembershipService} from '../../../../services/membership.service';
 import {Membership} from '../../../../models/membership';
 import {MyCartService} from '../../../../services/my-cart/my-cart.service';
 import {AuthenticationService} from '../../../../services/authentication.service';
-import {User} from "../../../../models/user";
+import {User} from '../../../../models/user';
 
 @Component({
   selector: 'app-payment-flow-membership',
@@ -31,13 +31,13 @@ export class PaymentFlowMembershipComponent implements OnInit {
     this.membershipService.list([{name: 'available', value: true}]).subscribe(
       memberships => {
         this.listMemberships = memberships.results.map(m => new Membership(m));
-        this.filterMemberships()
+        this.filterMemberships();
       }
     );
   }
 
   filterMemberships() {
-    this.profile = this.authenticationService.getProfile()
+    this.profile = this.authenticationService.getProfile();
     this.memberships = [];
     for (const membership of this.listMemberships) {
       let haveRight = false;
