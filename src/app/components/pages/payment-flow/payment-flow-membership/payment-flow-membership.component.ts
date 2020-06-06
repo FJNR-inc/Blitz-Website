@@ -3,6 +3,7 @@ import {MembershipService} from '../../../../services/membership.service';
 import {Membership} from '../../../../models/membership';
 import {MyCartService} from '../../../../services/my-cart/my-cart.service';
 import {AuthenticationService} from '../../../../services/authentication.service';
+import {User} from "../../../../models/user";
 
 @Component({
   selector: 'app-payment-flow-membership',
@@ -12,6 +13,8 @@ import {AuthenticationService} from '../../../../services/authentication.service
 export class PaymentFlowMembershipComponent implements OnInit {
 
   memberships: Membership[];
+  listMemberships: Membership[];
+  profile: User;
   selectedMembership: Membership = null;
 
   @Output() forward: EventEmitter<any> = new EventEmitter<any>();
@@ -21,27 +24,34 @@ export class PaymentFlowMembershipComponent implements OnInit {
               private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.refreshListMembership();
+    this.refreshListMemberships();
   }
 
-  refreshListMembership() {
-    const user = this.authenticationService.getProfile();
-    const filters: any[] = [
-      {
-        'name': 'available',
-        'value': true
-      }
-    ];
-    if (user && user.academic_level) {
-      filters.push({'name': 'academic_levels', 'value': [user.academic_level.id]});
-    }
-    filters.push({'name': 'academic_levels', 'value': null});
-
-    this.membershipService.list(filters).subscribe(
+  refreshListMemberships() {
+    this.membershipService.list([{name: 'available', value: true}]).subscribe(
       memberships => {
-        this.memberships = memberships.results.map(m => new Membership(m));
+        this.listMemberships = memberships.results.map(m => new Membership(m));
+        this.filterMemberships()
       }
     );
+  }
+
+  filterMemberships() {
+    this.profile = this.authenticationService.getProfile()
+    this.memberships = [];
+    for (const membership of this.listMemberships) {
+      let haveRight = false;
+      if (this.profile.academic_level) {
+        if (membership.academic_levels.indexOf(this.profile.academic_level.url) >= 0) {
+          haveRight = true;
+        }
+      }
+      const isForAll = membership.academic_levels.length === 0;
+
+      if (haveRight || isForAll) {
+        this.memberships.push(membership);
+      }
+    }
   }
 
   goForward(skipMembership = false) {

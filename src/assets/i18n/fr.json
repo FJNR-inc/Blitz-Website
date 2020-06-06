@@ -629,7 +629,7 @@
   "profile-retreats.cancel_admin_reservation_retreat_text_warning": "Attention!",
   "profile-retreats.cancel_reservation_retreat": "Annuler l'inscription à la retraite",
   "profile-retreats.cancel_reservation_retreat_button": "Annuler l'inscription",
-  "profile-retreats.cancel_reservation_retreat_text_1": "Des frais de gestion de {{rate}} % s'appliquent. Pour avoir accès à un remboursement, votre annulation doit être effectuée au moins {{delay_max}} jours avant le début de la retraite.",
+  "profile-retreats.cancel_reservation_retreat_text_1": "Un remboursement est disponible SEULEMENT si vous annulez {{delay_max}} jours avant la retraite. Dans ce cas, vous aurez toutefois des frais de gestion de {{rate}} % à payer. Si vous n’êtes pas dans les délais mentionnés ci-haut, vous pouvez annuler mais vous ne serez pas remboursé.e.s.",
   "profile-retreats.cancel_reservation_retreat_text_2": "Souhaitez-vous vraiment annuler votre inscription à cette retraite?",
   "profile-retreats.display_old_retreat_reservations": "Afficher mes anciennes retraites",
   "profile-retreats.exchange_reservation_retreat_button_confirm": "Échanger",
