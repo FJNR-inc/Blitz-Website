@@ -1,0 +1,10 @@
+<div class="profile-reservation-open" *ngIf="reservation">
+  <div class="profile-reservation-open__details">
+    <app-title [colorReverse]="true" [level]="7" [text]="reservation.retreat_details.name"></app-title>
+    <app-title [colorReverse]="true" [level]="9" [text]="reservation.retreat_details.getDateInterval()"></app-title>
+    <app-title [colorReverse]="true" [level]="9" text="{{ 'profile-reservation-open.welcome' | translate }}"></app-title>
+  </div>
+  <div class="profile-reservation-open__action">
+    <app-button (onClick)="goToVideoconference()" [reverseColor]="true" text="{{ 'profile-reservation-open.action_button' | translate }}"></app-button>
+  </div>
+</div>

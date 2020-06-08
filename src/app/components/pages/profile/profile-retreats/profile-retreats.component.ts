@@ -35,6 +35,7 @@ export class ProfileRetreatsComponent implements OnInit {
 
   @Output() totalPastTomatoes: EventEmitter<any> = new EventEmitter();
   @Output() totalFutureTomatoes: EventEmitter<any> = new EventEmitter();
+  @Output() openVirtualReservation: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
 
   constructor(private retreatService: RetreatService,
@@ -94,9 +95,9 @@ export class ProfileRetreatsComponent implements OnInit {
 
         for ( const retreatReservation of listRetreatReservations ) {
           if (retreatReservation.retreat_details.getEndDate() < new Date()) {
-            this.totalPastRetreatReservations += environment.tomato_per_retreat;
+            this.totalPastRetreatReservations += environment.tomato_per_physical_retreat;
           } else {
-            this.totalFutureRetreatReservations += environment.tomato_per_retreat;
+            this.totalFutureRetreatReservations += environment.tomato_per_physical_retreat;
             this.listFutureRetreatReservations.push(retreatReservation);
           }
 
@@ -108,6 +109,12 @@ export class ProfileRetreatsComponent implements OnInit {
 
         this.totalPastTomatoes.emit(this.totalPastRetreatReservations);
         this.totalFutureTomatoes.emit(this.totalFutureRetreatReservations);
+
+        for (const reservation of this.listRetreatReservations) {
+          if (reservation.retreat_details.isOpen) {
+            this.openVirtualReservation.emit(reservation);
+          }
+        }
       }
     );
   }

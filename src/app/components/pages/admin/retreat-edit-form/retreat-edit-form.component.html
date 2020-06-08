@@ -1,0 +1,16 @@
+<div class="retreat-edit-form">
+  <app-title class="retreat-edit-form__title" [level]="3" text="Create"></app-title>
+
+  <div class="retreat-edit-form__select">
+    <app-title type="label" for="calendar" [level]="7" text="{{ 'retreat-reservation-summary.select_name' | translate }}"></app-title>
+    <select id="calendar" class="nt-form-input nt-form-input--select" [(ngModel)]="type" (change)="changeType($event)">
+      <option value="" [disabled]="true"></option>
+      <option value="V">{{ 'retreat-reservation-summary.select_choice.virtual' | translate }}</option>
+      <option value="P">{{ 'retreat-reservation-summary.select_choice.physical' | translate }}</option>
+    </select>
+  </div>
+
+  <app-form *ngIf="retreatForm" [form]="retreatForm" [fields]="fields" [errors]="retreatErrors"></app-form>
+
+  <app-button *ngIf="retreatForm" class="retreat-edit-form__submit" text="#Sauvegarder" (onClick)="submit()"></app-button>
+</div>

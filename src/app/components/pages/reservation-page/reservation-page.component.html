@@ -2,7 +2,7 @@
 
 <div class="reservation-page" *ngIf="workplace">
 
-  <app-cart-button *ngIf="!displayedPanel"
+  <app-cart-button *ngIf="displayCartButton$ | async"
                    class="reservation-page__cart-button"
                    (onClick)="openCart()"></app-cart-button>
   <div class="reservation-page__main">
@@ -26,7 +26,8 @@
         </div>
       </div>
       <div>
-        <app-calendar *ngIf="timeSlotsData" [timeSlots]="timeSlotsData" (periodSelected)="onEventClicked($event)"></app-calendar>
+        <app-calendar *ngIf="timeSlotsData" [timeSlots]="timeSlotsData"
+                      (periodSelected)="onEventClicked($event)"></app-calendar>
         <div class="reservation-page__main__content__reservation__calendar__politics">
           <app-title [level]="8" text="{{'reservation-page.cancelation_politic.title' | translate}}"></app-title>
           <app-title [level]="9" text="{{'reservation-page.cancelation_politic.text_1' | translate}}"></app-title>
@@ -36,23 +37,6 @@
       </div>
     </div>
   </div>
-  <app-product-selector-panel *ngIf="displayedPanel === 'product-selector'"
-                              class="reservation-page__panel"
-                              [product]="selectedTimeslot"
-                              type="TimeSlot"
-                              (close)="closePanel()"
-                              (addToCart)="addToCart()">
-  </app-product-selector-panel>
-  <app-authentication-panel *ngIf="displayedPanel === 'authentication'"
-                            class="reservation-page__panel"
-                            (close)="closePanel()"
-                            (onAuthentication)="subscribe(selectedTimeslot)">
-  </app-authentication-panel>
-  <app-cart-panel *ngIf="displayedPanel === 'cart'"
-                  class="reservation-page__panel"
-                  (close)="closePanel()"
-                  (finalize)="finalize()">
-  </app-cart-panel>
 </div>
 
 <app-nt-modal name="add_package"
@@ -69,9 +53,10 @@
   <p>
     <app-title [level]="7" text="{{'reservation-page.modal.add_package__text_3' | translate}}"></app-title>
   </p>
-  <select id="reservationPackage" class="nt-form-input nt-form-input--select" [(ngModel)]="selectedReservationPackageIndex">
+  <select id="reservationPackage" class="nt-form-input nt-form-input--select"
+          [(ngModel)]="selectedReservationPackageIndex">
     <option *ngFor="let reservationPackage of this.listReservationPackage; let i = index" [value]="i">
-       {{ reservationPackage.reservations }} blocs ({{ reservationPackage.price }}$CAN)
+      {{ reservationPackage.reservations }} blocs ({{ reservationPackage.price }}$CAD)
     </option>
   </select>
 </app-nt-modal>

@@ -7,13 +7,16 @@ export const environment = {
   production: false,
   default_language: 'fr',
   multilingual_activated: true,
+  minutesBeforeShowVirtualRetreatLink: 30,
   tomato_per_timeslot: 4,
-  tomato_per_retreat: 20,
-  url_base_api: 'https://api-dev.thesez-vous.org',
+  tomato_per_physical_retreat: 20,
+  tomato_per_virtual_retreat: 6,
+  url_base_api: 'http://127.0.0.1:8000',
   environment_paysafe: 'TEST',
   // tslint:disable-next-line:max-line-length
   token_paysafe: 'T1QtMjM1MjAwOkItcWEyLTAtNWI4NDE0ZDYtMS0zMDJjMDIxNDEzMzhmMzEzN2FmZTgxNmUxMmE4YWJmYTk1NTVkN2VlZWQ5ZWU5ZjgwMjE0M2E1NzE5NDZjYzg3ODgwN2ZkZDU0NjkyODA1ZTg3ZjI5MjQ0ZGRiNg==',
   defaultWorkplaceId: 1,
+  canHideFooter: false,
   paths_api: {
     activation: '/users/activate',
     authentication: '/authentication',

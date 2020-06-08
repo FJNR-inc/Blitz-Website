@@ -4,9 +4,13 @@
       <app-loader *ngIf="!retreat">
       </app-loader>
       <div *ngIf="retreat && coupon"
-        class="hidden-retreat__main__content__coupon_info">
+           class="hidden-retreat__main__content__coupon_info">
         <app-alert [type]="'success'">
-          {{'hidden-retreat.alert_success' | translate: ({code: coupon.code, value: coupon.getValue(), typeValue: coupon.getLabelledTypeOfValue()})}}
+          {{'hidden-retreat.alert_success' | translate: ({
+          code: coupon.code,
+          value: coupon.getValue(),
+          typeValue: coupon.getLabelledTypeOfValue()
+        })}}
         </app-alert>
       </div>
       <app-retreat-preview class="hidden-retreat__main__content__retreat"
@@ -17,26 +21,14 @@
                            (subscribe)="subscribe()"></app-retreat-preview>
       <div class="hidden-retreat__main__content__info">
         <app-title [level]="4" text="{{'hidden-retreat.alert_success_title_1' | translate}}"></app-title>
-        <app-title class="hidden-retreat__main__content__info__subtitle" [level]="6" text="{{'hidden-retreat.alert_success_title_2' | translate}}"></app-title>
-        <app-title class="hidden-retreat__main__content__info__text" [level]="8" text="{{'hidden-retreat.alert_success_title_3' | translate}}"></app-title>
-        <app-button class="hidden-retreat__main__content__info__button" text="{{'hidden-retreat.alert_success_btn' | translate}}" [type]="2" (click)="redirectToRetreatInfo()"></app-button>
+        <app-title class="hidden-retreat__main__content__info__subtitle" [level]="6"
+                   text="{{'hidden-retreat.alert_success_title_2' | translate}}"></app-title>
+        <app-title class="hidden-retreat__main__content__info__text" [level]="8"
+                   text="{{'hidden-retreat.alert_success_title_3' | translate}}"></app-title>
+        <app-button class="hidden-retreat__main__content__info__button"
+                    text="{{'hidden-retreat.alert_success_btn' | translate}}" [type]="2"
+                    (click)="redirectToRetreatInfo()"></app-button>
       </div>
     </div>
   </div>
-  <app-product-selector-panel *ngIf="displayedPanel === 'product-selector'"
-                              class="hidden-retreat__panel"
-                              [product]="retreat"
-                              (close)="closePanel()"
-                              (addToCart)="addToCart()">
-  </app-product-selector-panel>
-  <app-authentication-panel *ngIf="displayedPanel === 'authentication'"
-                            class="hidden-retreat__panel"
-                            (close)="closePanel()"
-                            (onAuthentication)="subscribe()">
-  </app-authentication-panel>
-  <app-cart-panel *ngIf="displayedPanel === 'cart'"
-                  class="hidden-retreat__panel"
-                  (close)="closePanel()"
-                  (finalize)="finalize()">
-  </app-cart-panel>
 </div>

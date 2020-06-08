@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Retreat, ROOM_CHOICES} from '../../../../models/retreat';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Retreat, ROOM_CHOICES, TYPE_CHOICES} from '../../../../models/retreat';
 import { RetreatService } from '../../../../services/retreat.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
@@ -79,6 +79,31 @@ export class RetreatComponent implements OnInit {
       name: 'name_en',
       type: 'text',
       label: _('retreat.form.name_in_english')
+    },
+    {
+      name: 'type',
+      type: 'select',
+      label: _('retreat.form.type'),
+      choices: [
+        {
+          label: _('retreat.form.type.choices.physical'),
+          value: TYPE_CHOICES.PHYSICAL
+        },
+        {
+          label: _('retreat.form.type.choices.virtual'),
+          value: TYPE_CHOICES.VIRTUAL
+        }
+      ]
+    },
+    {
+      name: 'videoconference_tool',
+      type: 'text',
+      label: _('retreat.form.videoconference_tool')
+    },
+    {
+      name: 'videoconference_link',
+      type: 'text',
+      label: _('retreat.form.videoconference_link')
     },
     {
       name: 'place_name',
@@ -297,7 +322,8 @@ export class RetreatComponent implements OnInit {
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private userService: UserService,
-              private retreatReservationService: RetreatReservationService) { }
+              private retreatReservationService: RetreatReservationService,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -319,47 +345,7 @@ export class RetreatComponent implements OnInit {
   }
 
   OpenModalEditRetreat() {
-    this.retreatForm.reset();
-    this.retreatForm.controls['name_fr'].setValue(this.retreat.name_fr);
-    this.retreatForm.controls['name_en'].setValue(this.retreat.name_en);
-    this.retreatForm.controls['details_fr'].setValue(this.retreat.details_fr);
-    this.retreatForm.controls['details_en'].setValue(this.retreat.details_en);
-    this.retreatForm.controls['activity_language'].setValue(this.retreat.activity_language);
-    this.retreatForm.controls['seats'].setValue(this.retreat.seats);
-    this.retreatForm.controls['price'].setValue(this.retreat.price);
-    this.retreatForm.controls['start_time'].setValue(this.retreat.start_time);
-    this.retreatForm.controls['end_time'].setValue(this.retreat.end_time);
-    this.retreatForm.controls['min_day_refund'].setValue(this.retreat.min_day_refund);
-    this.retreatForm.controls['min_day_exchange'].setValue(this.retreat.min_day_exchange);
-    this.retreatForm.controls['refund_rate'].setValue(this.retreat.refund_rate);
-    this.retreatForm.controls['address_line1_fr'].setValue(this.retreat.address_line1_fr);
-    this.retreatForm.controls['address_line2_fr'].setValue(this.retreat.address_line2_fr);
-    this.retreatForm.controls['address_line1_en'].setValue(this.retreat.address_line1_en);
-    this.retreatForm.controls['address_line2_en'].setValue(this.retreat.address_line2_en);
-    this.retreatForm.controls['postal_code'].setValue(this.retreat.postal_code);
-    this.retreatForm.controls['city_fr'].setValue(this.retreat.city_fr);
-    this.retreatForm.controls['city_en'].setValue(this.retreat.city_en);
-    this.retreatForm.controls['state_province_fr'].setValue(this.retreat.state_province_fr);
-    this.retreatForm.controls['state_province_en'].setValue(this.retreat.state_province_en);
-    this.retreatForm.controls['country_fr'].setValue(this.retreat.country_fr);
-    this.retreatForm.controls['country_en'].setValue(this.retreat.country_en);
-    this.retreatForm.controls['is_active'].setValue(this.retreat.is_active);
-    this.retreatForm.controls['form_url'].setValue(this.retreat.form_url);
-    this.retreatForm.controls['carpool_url'].setValue(this.retreat.carpool_url);
-    this.retreatForm.controls['review_url'].setValue(this.retreat.review_url);
-    this.retreatForm.controls['email_content'].setValue(this.retreat.email_content);
-    this.retreatForm.controls['accessibility'].setValue(this.retreat.accessibility);
-    this.retreatForm.controls['place_name'].setValue(this.retreat.place_name);
-    this.retreatForm.controls['has_shared_rooms'].setValue(this.retreat.has_shared_rooms);
-    this.retreatForm.controls['hidden'].setValue(this.retreat.hidden);
-    this.retreatForm.controls['toilet_gendered'].setValue(this.retreat.toilet_gendered);
-    this.retreatForm.controls['room_type'].setValue(this.retreat.room_type);
-
-    this.toogleModal(
-      'form_retreats',
-      _('retreat.edit_retreat_modal.title'),
-      _('retreat.edit_retreat_modal.button')
-    );
+    this.router.navigate(['/admin/retreats/edit/' + this.retreat.id]);
   }
 
   toogleModal(name, title: string | string[] = '', button2: string | string[] = '') {
@@ -375,30 +361,7 @@ export class RetreatComponent implements OnInit {
   }
 
   submitRetreat() {
-    const value = this.retreatForm.value;
-    value['timezone'] = 'America/Montreal';
-    if (value['address_line2'] === '') {
-      value['address_line2'] = null;
-    }
-    if ( this.retreatForm.valid ) {
-      this.retreatService.update(this.retreat.url, value).subscribe(
-        () => {
-          this.notificationService.success(
-            _('retreat.notifications.commons.added.title')
-          );
-          this.refreshRetreat();
-          this.toogleModal('form_retreats');
-        },
-        err => {
-          if (err.error.non_field_errors) {
-            this.errors = err.error.non_field_errors;
-          } else {
-            this.errors =  ['retreat.form.errors.unknown'];
-          }
-          this.retreatForm = FormUtil.manageFormErrors(this.retreatForm, err);
-        }
-      );
-    }
+
   }
 
   addUserToRetreat() {

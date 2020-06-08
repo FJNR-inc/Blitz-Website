@@ -178,6 +178,14 @@ import { WorkplaceListComponent } from './components/pages/workplace-list/workpl
 import {HomePageComponent} from './components/pages/home-page/home-page.component';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import { AlertModalEditComponent } from './components/pages/admin/alert-modal-edit/alert-modal-edit.component';
+import { NewsletterFooterComponent } from './components/pages/newsletter/newsletter-footer/newsletter-footer.component';
+import { NewsletterInscriptionComponent } from './components/pages/newsletter/newsletter-inscription/newsletter-inscription.component';
+import { NewsletterSuccessComponent } from './components/pages/newsletter/newsletter-success/newsletter-success.component';
+import { RightPanelContainerComponent } from './components/shared/right-panel-container/right-panel-container.component';
+import { ProfileReservationOpenComponent } from './components/pages/profile/profile-reservation-open/profile-reservation-open.component';
+// tslint:disable-next-line:max-line-length
+import { RetreatReservationSummaryComponent } from './components/pages/retreat/retreat-reservation/retreat-reservation-summary/retreat-reservation-summary.component';
+import { RetreatEditFormComponent } from './components/pages/admin/retreat-edit-form/retreat-edit-form.component';
 
 registerLocaleData(localeFr);
 
@@ -533,10 +541,35 @@ const appRoutes = [
       },
       {
         path: 'admin/retreats',
-        component: RetreatsComponent,
         canActivate: [
           CanActivateViaAuthGuard,
           CanAccessAdminPanelGuard,
+        ],
+        children: [
+          {
+            path: '',
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ],
+            component: RetreatsComponent,
+          },
+          {
+            path: 'create',
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ],
+            component: RetreatEditFormComponent,
+          },
+          {
+            path: 'edit/:id',
+            canActivate: [
+              CanActivateViaAuthGuard,
+              CanAccessAdminPanelGuard,
+            ],
+            component: RetreatEditFormComponent,
+          }
         ]
       },
       {
@@ -693,6 +726,13 @@ const appRoutes = [
     CKEditorContainerComponent,
     WorkplaceListComponent,
     AlertModalEditComponent,
+    NewsletterFooterComponent,
+    NewsletterInscriptionComponent,
+    NewsletterSuccessComponent,
+    RightPanelContainerComponent,
+    ProfileReservationOpenComponent,
+    RetreatReservationSummaryComponent,
+    RetreatEditFormComponent,
   ],
   imports: [
     BrowserModule,

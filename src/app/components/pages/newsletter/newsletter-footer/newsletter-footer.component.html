@@ -1,0 +1,30 @@
+<div class="newsletter-footer" *ngIf="displayNewsLetter">
+  <div class="newsletter-footer__description">
+    {{'newsletter-footer.description' | translate}}
+  </div>
+  <div class="newsletter-footer__actions">
+    <app-button
+      [text]="'newsletter-footer.button' | translate" [reverseColor]="true"
+      (onClick)="openNewsletterModal()"
+    ></app-button>
+    <app-link
+      *ngIf="canHideFooter"
+      [reverseColor]="true"
+      [text]="'newsletter-footer.hide' | translate"
+      (onClick)="hideNewsletter()"
+    ></app-link>
+  </div>
+</div>
+
+<app-nt-modal
+  [name]="inscriptionModalName"
+  [displayButtons]="false"
+  maxWidth="800px">
+  <app-newsletter-inscription
+    *ngIf="!inscriptionDone"
+    (onInscription)="inscriptionSucceed($event)"></app-newsletter-inscription>
+  <app-newsletter-success
+    *ngIf="inscriptionDone"
+    [emailNewsletter]="inscriptionEmail"
+    (goBackButton)="closeNewsletterModal()"></app-newsletter-success>
+</app-nt-modal>

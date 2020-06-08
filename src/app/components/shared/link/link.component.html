@@ -1,7 +1,19 @@
-<a *ngIf="!href" class="app-link" (click)="clicked()">
+<a *ngIf="!href"
+   class="app-link"
+   (click)="clicked()"
+   [ngClass]="{
+        'app-link--reverse-color': reverseColor
+        }">
   {{ text }}
 </a>
 
-<a *ngIf="href" class="app-link" (click)="clicked()" [href]="href" [target]="target">
+<a *ngIf="href"
+   class="app-link"
+   (click)="clicked()"
+   [ngClass]="{
+        'app-link--reverse-color': reverseColor
+        }"
+   [href]="href"
+   [target]="target">
   {{ text }}
 </a>

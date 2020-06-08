@@ -11,8 +11,6 @@
 
   &__main {
     flex: 1;
-    max-height: 100vh;
-    overflow-y: auto;
 
     &__content {
       display: flex;
@@ -247,18 +245,6 @@
           }
         }
       }
-    }
-  }
-}
-
-@media only screen and (max-width: 1500px) {
-  .reservation-page {
-    &__panel {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      min-height: 100vh;
     }
   }
 }

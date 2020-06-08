@@ -1,4 +1,5 @@
 import {InternationalizationService} from '../services/internationalization.service';
+import {start} from 'repl';
 
 export class DateUtil {
 
@@ -153,38 +154,82 @@ export class DateUtil {
     return date.getFullYear();
   }
 
-  static getDateInterval(start_date, end_date) {
-    let dateInterval = '';
-    const lang = InternationalizationService.getLocale();
+  static isSameDay(d1, d2) {
+    return d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate();
+  }
 
-    if (lang === 'fr') {
-      dateInterval += 'Du ';
-      dateInterval += DateUtil.getDate(start_date);
-      dateInterval += ' ';
-      dateInterval += DateUtil.getLongMonth(start_date);
-      dateInterval += ' ';
-      dateInterval += DateUtil.getYear(start_date);
-      dateInterval += ' au ';
-      dateInterval += DateUtil.getDate(end_date);
-      dateInterval += ' ';
-      dateInterval += DateUtil.getLongMonth(end_date);
-      dateInterval += ' ';
-      dateInterval += DateUtil.getYear(end_date);
+  static getDateInterval(start_date, end_date) {
+    if (DateUtil.isSameDay(start_date, end_date)) {
+      let dateInterval = '';
+      const lang = InternationalizationService.getLocale();
+
+      if (lang === 'fr') {
+        dateInterval += 'Le ';
+        dateInterval += DateUtil.getDate(start_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getLongMonth(start_date).toLowerCase();
+        dateInterval += ' ';
+        dateInterval += DateUtil.getYear(start_date);
+        dateInterval += ', de ';
+        dateInterval += start_date.getHours();
+        dateInterval += 'h';
+        if (start_date.getMinutes()) {
+          dateInterval += start_date.getMinutes();
+        }
+        dateInterval += ' à ';
+        dateInterval += end_date.getHours();
+        dateInterval += 'h';
+        if (end_date.getMinutes()) {
+          dateInterval += end_date.getMinutes();
+        }
+      } else {
+        dateInterval += 'The ';
+        dateInterval += DateUtil.getDate(start_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getLongMonth(start_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getYear(start_date);
+        dateInterval += ', from ';
+        dateInterval += DateUtil.formatTime(start_date);
+        dateInterval += ' to ';
+        dateInterval += DateUtil.formatTime(end_date);
+      }
+      return dateInterval;
     } else {
-      dateInterval += 'From ';
-      dateInterval += DateUtil.getLongMonth(start_date);
-      dateInterval += ' ';
-      dateInterval += DateUtil.getDate(start_date);
-      dateInterval += ' ';
-      dateInterval += DateUtil.getYear(start_date);
-      dateInterval += ' to ';
-      dateInterval += DateUtil.getLongMonth(end_date);
-      dateInterval += ' ';
-      dateInterval += DateUtil.getDate(end_date);
-      dateInterval += ' ';
-      dateInterval += DateUtil.getYear(end_date);
+      let dateInterval = '';
+      const lang = InternationalizationService.getLocale();
+
+      if (lang === 'fr') {
+        dateInterval += 'Du ';
+        dateInterval += DateUtil.getDate(start_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getLongMonth(start_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getYear(start_date);
+        dateInterval += ' au ';
+        dateInterval += DateUtil.getDate(end_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getLongMonth(end_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getYear(end_date);
+      } else {
+        dateInterval += 'From ';
+        dateInterval += DateUtil.getLongMonth(start_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getDate(start_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getYear(start_date);
+        dateInterval += ' to ';
+        dateInterval += DateUtil.getLongMonth(end_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getDate(end_date);
+        dateInterval += ' ';
+        dateInterval += DateUtil.getYear(end_date);
+      }
+      return dateInterval;
     }
-    return dateInterval;
   }
 
   static removeTimezone(date) {

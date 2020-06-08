@@ -22,9 +22,15 @@
       <app-cart-summary [displayCoupon]="isAfterBourseStep()" *ngIf="currentStep.id !== 'confirmation'"></app-cart-summary>
       <div *ngIf="currentStep.id === 'confirmation'" class="payment-flow__content__side__politics">
         <app-title [level]="3" text="{{'payment-flow.title_cancelled_policy_1' | translate}}"></app-title>
-        <app-title [level]="6" text="{{'payment-flow.title_cancelled_policy_2' | translate}}"
-                   class="payment-flow__content__side__politics__title"></app-title>
-        <app-title [level]="9" text="{{'payment-flow.text_cancelled_policy' | translate}}"></app-title>
+
+        <app-title [level]="6" class="payment-flow__content__side__politics__title"
+                   text="{{'retreat-reservation.modal_policies.physical.title' | translate}}"></app-title>
+        <app-title [level]="9" text="{{'retreat-reservation.modal_policies.physical.text' | translate}}"></app-title>
+
+        <app-title [level]="6" class="payment-flow__content__side__politics__title"
+                   text="{{'retreat-reservation.modal_policies.virtual.title' | translate}}"></app-title>
+        <app-title [level]="9" text="{{'retreat-reservation.modal_policies.virtual.text' | translate}}"></app-title>
+
         <app-title [level]="6"
                    class="payment-flow__content__side__politics__title"
                    text="{{'payment-flow.cancelation_politic.title' | translate}}"></app-title>

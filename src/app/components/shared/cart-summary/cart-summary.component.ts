@@ -4,6 +4,7 @@ import {Cart} from '../../../models/cart';
 import {Coupon} from '../../../models/coupon';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {Observable} from 'rxjs';
+import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 
 @Component({
   selector: 'app-cart-summary',
@@ -25,7 +26,10 @@ export class CartSummaryComponent implements OnInit {
   ngOnInit() {
     this.cart$ = this.cartService.cart$;
     this.cart$.subscribe(
-      (cart: Cart) => this.cart = cart
+      (cart: Cart) => {
+        this.cart = cart;
+        this.cart.setNumberOfFreeVirtualRetreat(this.authenticationService.getProfile().number_of_free_virtual_retreat);
+      }
     );
   }
 
@@ -89,4 +93,12 @@ export class CartSummaryComponent implements OnInit {
     this.cartService.cleanLocalCart();
   }
 
+  getDisplayedPrice(price: number) {
+    if (price > 0) {
+      return price + ' $CAD';
+    } else {
+      return _('cart-summary.free');
+    }
+
+  }
 }

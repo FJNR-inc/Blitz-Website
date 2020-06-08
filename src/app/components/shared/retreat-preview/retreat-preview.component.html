@@ -1,21 +1,33 @@
 <div class="retreat-preview" *ngIf="retreat">
-  <div class="retreat-preview__title">
-    <app-title [level]="3" [text]="retreat.name"></app-title>
-    <app-title [level]="3" [text]="retreat.getStartDay()"></app-title>
+  <div class="retreat-preview__header" id="retreatPreview{{retreat.id}}">
+    <i class="retreat-preview__header__icon fas" [ngClass]="{'fa-desktop': retreat.type === 'V', 'fa-home': retreat.type === 'P'}"></i>
+    <div class="retreat-preview__header__name">
+      <app-title [level]="4" [text]="retreat.name"></app-title>
+      <app-title [level]="9" text="{{ retreat.type_name | translate }}"></app-title>
+    </div>
+    <div class="retreat-preview__header__date">
+      <app-title [level]="8" [text]="retreat.getStartDay()"></app-title>
+      <app-title [level]="8" text="{{ retreat.activityLanguageLabel | translate }}"></app-title>
+    </div>
   </div>
-  <app-title class="retreat-preview__subtitle" [level]="5" [text]="retreat.sub_title"></app-title>
-  <app-title class="retreat-preview__description" [level]="8" [text]="retreat.description"></app-title>
+  <app-title class="retreat-preview__subtitle" *ngIf="retreat.sub_title" [level]="5" [text]="retreat.sub_title"></app-title>
+  <app-title class="retreat-preview__description" *ngIf="retreat.description" [level]="8" [text]="retreat.description"></app-title>
 
   <div class="retreat-preview__picture" [ngStyle]="{'background-image': 'url(' + retreat.firstPicture + ')'}"></div>
 
   <div class="retreat-preview__infos">
     <div class="retreat-preview__infos__line">
-      <app-title [level]='5' text="{{'retreat-preview.date' | translate}}"></app-title>
+      <app-title *ngIf="retreat.type === 'P'" [level]='5' text="{{'retreat-preview.dates' | translate}}"></app-title>
+      <app-title *ngIf="retreat.type === 'V'" [level]='5' text="{{'retreat-preview.date' | translate}}"></app-title>
       <app-title [level]='9' [text]="retreat.getDateInterval()"></app-title>
     </div>
-    <div class="retreat-preview__infos__line">
+    <div class="retreat-preview__infos__line" *ngIf="retreat.type === 'P'">
       <app-title [level]='5' text="{{'retreat-preview.location' | translate}}"></app-title>
       <app-link text="{{ retreat.place_name }} ({{ retreat.city }})" [href]="retreat.google_maps_url" target="_blank"></app-link>
+    </div>
+    <div class="retreat-preview__infos__line" *ngIf="retreat.type === 'V'">
+      <app-title [level]='5' text="{{'retreat-preview.videoconference_tool' | translate}}"></app-title>
+      <app-title [level]='9' [text]="retreat.videoconference_tool"></app-title>
     </div>
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="{{'retreat-preview.space_available' | translate}}"></app-title>
@@ -29,7 +41,7 @@
     -->
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="{{'retreat-preview.rate' | translate}}"></app-title>
-      <app-title [level]='9' text="{{ retreat.price }} $CAN"></app-title>
+      <app-title [level]='9' text="{{ retreat.price }} $CAD"></app-title>
     </div>
     <!--
     <div class="retreat-preview__infos__line">
@@ -45,7 +57,7 @@
       </div>
     </div>
     <div *ngIf="displayDetails" class="retreat-preview__infos__details">
-      <div class="retreat-preview__infos__details__item">
+      <div class="retreat-preview__infos__details__item" *ngIf="retreat.type === 'P'">
         <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="{{'retreat-preview.address' | translate}}"></app-title>
         <app-title [level]="9" [text]="retreat.getAddress()"></app-title>
       </div>
@@ -63,9 +75,10 @@
         <app-title [level]="9" text="# Genrees"></app-title>
       </div>
       -->
-      <div class="retreat-preview__infos__details__item">
+      <div class="retreat-preview__infos__details__item" *ngIf="retreat.type === 'P'">
         <app-title class="retreat-preview__infos__details__item__title" [level]="8" text="{{'retreat-preview.Accessibility' | translate}}"></app-title>
-        <app-title [level]="9" [text]="retreat.accessibility_detail"></app-title>
+        <app-title *ngIf="retreat.accessibility_detail" [level]="9" [text]="retreat.accessibility_detail"></app-title>
+        <app-title *ngIf="!retreat.accessibility_detail" [level]="9" text="-"></app-title>
       </div>
       <!--
       <div class="retreat-preview__infos__details__item">

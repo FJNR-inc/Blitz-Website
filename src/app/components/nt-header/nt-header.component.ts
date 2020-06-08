@@ -128,11 +128,7 @@ export class NtHeaderComponent implements OnInit {
   }
 
   changeLanguage(language: string) {
-    if (language === 'en') {
-      this.openEnglishModal();
-    } else {
-      this.internationalizationService.setLocale(language);
-    }
+    this.internationalizationService.setLocale(language);
   }
 
   getCurrentLanguage() {

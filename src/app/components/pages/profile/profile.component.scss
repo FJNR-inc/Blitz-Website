@@ -1,56 +1,66 @@
 @import '../../../../assets/scss/theme';
 
 .profile-page {
-  padding: 100px 40px;
   background-color: white;
   min-height: 100vh;
 
-  &__title {
-    font-size: 35px;
-    font-weight: 700;
-  }
-
-  &__second-title {
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-top: 20px;
-  }
-
-  &__content {
+  &__reservation-open {
     display: flex;
+    background-color: $nt-14;
+    color: white;
+  }
 
-    &__left {
-      flex: 1;
-      padding: 40px 20px 0 0;
+  &__body {
+    padding: 100px 40px;
 
-      &__subscription {
-        margin-top: 40px;
-      }
 
-      &__coupons {
-        margin-top: 40px;
-      }
-
-      &__cards {
-        margin-top: 40px;
-      }
-
-      &__account {
-        margin-top: 40px;
-      }
+    &__title {
+      font-size: 35px;
+      font-weight: 700;
     }
 
-    &__right {
-      flex: 1;
-      padding: 40px 0 0 20px;
+    &__second-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 20px;
+    }
 
-      &__timeslots {
-       margin-top: 40px;
+    &__content {
+      display: flex;
+
+      &__left {
+        flex: 1;
+        padding: 40px 20px 0 0;
+
+        &__subscription {
+          margin-top: 40px;
+        }
+
+        &__coupons {
+          margin-top: 40px;
+        }
+
+        &__cards {
+          margin-top: 40px;
+        }
+
+        &__account {
+          margin-top: 40px;
+        }
       }
 
-      &__retreats {
-        margin-top: 40px;
+      &__right {
+        flex: 1;
+        padding: 40px 0 0 20px;
+
+        &__timeslots {
+          margin-top: 40px;
+        }
+
+        &__retreats {
+          margin-top: 40px;
+        }
       }
     }
   }
@@ -58,23 +68,25 @@
 
 @media only screen and (max-width: 1300px) {
   .profile-page {
-    &__title {
-      padding-left: 20px;
-    }
-
-    &__second-title {
-      padding-left: 20px;
-    }
-
-    &__content {
-      flex-direction: column-reverse;
-
-      &__left {
-        padding: 20px 20px;
+    &__body {
+      &__title {
+        padding-left: 20px;
       }
 
-      &__right {
-        padding: 20px 20px;
+      &__second-title {
+        padding-left: 20px;
+      }
+
+      &__content {
+        flex-direction: column-reverse;
+
+        &__left {
+          padding: 20px 20px;
+        }
+
+        &__right {
+          padding: 20px 20px;
+        }
       }
     }
   }
@@ -82,21 +94,25 @@
 
 @media only screen and (max-width: 700px) {
   .profile-page {
-    padding: 100px 10px;
+    &__body {
+      padding: 100px 10px;
+    }
   }
 }
 
 @media only screen and (max-width: 430px) {
   .profile-page {
-    padding: 100px 5px;
+    &__body {
+      padding: 100px 5px;
 
-    &__content {
-      &__left {
-        padding: 20px 5px;
-      }
+      &__content {
+        &__left {
+          padding: 20px 5px;
+        }
 
-      &__right {
-        padding: 20px 5px;
+        &__right {
+          padding: 20px 5px;
+        }
       }
     }
   }

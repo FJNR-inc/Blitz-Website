@@ -12,23 +12,31 @@
   <div class="profile-retreats__list" *ngIf="getDisplayedRetreatReservation() && getDisplayedRetreatReservation().length">
     <div class="profile-retreats__list__item"
          *ngFor="let retreatReservation of getDisplayedRetreatReservation()"
+         [ngClass]="{'profile-retreats__list__item--open': retreatReservation.retreat_details.isOpen}"
          (click)="openRetreatReservation(retreatReservation.id)">
+      <i class="profile-retreats__list__item__icon fas" [ngClass]="{'fa-desktop': retreatReservation.retreat_details.type === 'V', 'fa-home': retreatReservation.retreat_details.type === 'P'}"></i>
       <div class="profile-retreats__list__item__title">
         <div class="profile-retreats__list__item__title__text">
-          {{ retreatReservation.retreat_details.name }}
+          <app-title [level]="5" [text]="retreatReservation.retreat_details.name"></app-title>
+          <app-title [level]="9" text="{{ retreatReservation.retreat_details.type_name | translate }}"></app-title>
         </div>
 
         <div *ngIf="retreatReservationOpen === retreatReservation.id" class="profile-retreats__list__item__title__tomatoes">
-          20 <i class="icon icon-tomato icon--3x"></i>
+          {{ retreatReservation.retreat_details.numberOfTomatoes }} <i class="icon icon-tomato icon--3x"></i>
         </div>
       </div>
       <div class="profile-retreats__list__item__description">
-        <p>
-          {{ retreatReservation.retreat_details.details }}
-        </p>
-        <p>
-          {{ retreatReservation.retreat_details.getDateInterval() }}
-        </p>
+        <app-title *ngIf="retreatReservation.retreat_details.videoconference_tool" [level]="9" [text]="retreatReservation.retreat_details.videoconference_tool"></app-title>
+        <app-title [level]="9" [text]="retreatReservation.retreat_details.getDateInterval()"></app-title>
+
+        <app-link href="https://www.thesez-vous.com/syprerparervirtuel.html"
+                  target="_blank"
+                  text="{{ 'profile-retreats.list_retreat_reservations.how_to_prepare' | translate }}"></app-link>
+        <app-link *ngIf="retreatReservation.retreat_details.isOpen"
+                  [href]="retreatReservation.retreat_details.videoconference_link"
+                  target="_blank"
+                  text="{{ 'profile-retreats.list_retreat_reservations.join_videoconference' | translate }}"></app-link>
+
         <div class="profile-retreats__list__item__description__more" *ngIf="retreatReservationOpen === retreatReservation.id">
           <b>{{ 'profile-retreats.retreats.details.begin' | translate }}:</b> {{retreatReservation.retreat_details.getStartTime()}}<br/>
           <b>{{ 'profile-retreats.retreats.details.end' | translate }}:</b> {{retreatReservation.retreat_details.getEndTime()}}<br/>
@@ -36,7 +44,7 @@
                     <b>{{ 'profile-retreats.retreats.details.animation' | translate }}:</b>
             {{retreatReservation.retreat_details.activityLanguageLabel | translate }}<br/>
                   </span>
-          <b>{{ 'profile-retreats.retreats.details.price' | translate }}:</b> {{retreatReservation.retreat_details.price}}$CAN<br/>
+          <b>{{ 'profile-retreats.retreats.details.price' | translate }}:</b> {{retreatReservation.retreat_details.price}}$CAD<br/>
         </div>
       </div>
       <div class="profile-retreats__list__item__options">

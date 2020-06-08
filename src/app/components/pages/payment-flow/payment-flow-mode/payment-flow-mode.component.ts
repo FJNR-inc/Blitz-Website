@@ -26,6 +26,8 @@ export class PaymentFlowModeComponent implements OnInit {
   new_card: string;
   no_payment_mode: string;
 
+  errorMessageIfFree = _('payment-flow-mode.no_need_to_pay');
+
   constructor(private cartService: MyCartService,
               private cardService: CardService,
               private authenticationService: AuthenticationService,

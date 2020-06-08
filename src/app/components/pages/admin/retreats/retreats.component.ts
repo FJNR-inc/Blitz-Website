@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {Retreat, ROOM_CHOICES} from '../../../../models/retreat';
+import { Retreat, ROOM_CHOICES, TYPE_CHOICES } from '../../../../models/retreat';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RetreatService } from '../../../../services/retreat.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import { Router } from '@angular/router';
 import { isNull } from 'util';
-import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
-import {FormUtil} from '../../../../utils/form';
-import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import { MyNotificationService } from '../../../../services/my-notification/my-notification.service';
+import { FormUtil } from '../../../../utils/form';
+import { _ } from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+
+export class RetreatAdapted extends Retreat {
+  start_time_readable: string;
+}
 
 @Component({
   selector: 'app-retreats',
@@ -17,6 +21,7 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 export class RetreatsComponent implements OnInit {
 
   listRetreats: Retreat[];
+  listAdaptedRetreats: RetreatAdapted[];
 
   retreatForm: FormGroup;
   retreatErrors: string[];
@@ -37,6 +42,10 @@ export class RetreatsComponent implements OnInit {
       {
         name: 'name',
         title: _('retreats.form.name')
+      },
+      {
+        name: 'start_time_readable',
+        title: _('retreats.form.date')
       }
     ]
   };
@@ -53,6 +62,21 @@ export class RetreatsComponent implements OnInit {
       name: 'name_en',
       type: 'text',
       label: _('retreats.form.name_in_english')
+    },
+    {
+      name: 'type',
+      type: 'select',
+      label: _('retreat.form.type'),
+      choices: [
+        {
+          label: _('retreat.form.type.choices.physical'),
+          value: TYPE_CHOICES.PHYSICAL
+        },
+        {
+          label: _('retreat.form.type.choices.virtual'),
+          value: TYPE_CHOICES.VIRTUAL
+        }
+      ]
     },
     {
       name: 'place_name',
@@ -282,19 +306,19 @@ export class RetreatsComponent implements OnInit {
         this.settings.page = page;
         this.settings.previous = !isNull(retreats.previous);
         this.settings.next = !isNull(retreats.next);
-        this.listRetreats = retreats.results.map(o => new Retreat(o));
+        this.listRetreats = retreats.results.map(
+          retreat => new Retreat(retreat)
+        );
+        this.listAdaptedRetreats = [];
+        for (const retreat of this.listRetreats) {
+          this.listAdaptedRetreats.push(this.retreatAdapter(retreat));
+        }
       }
     );
   }
 
   OpenModalCreateRetreat() {
-    this.initRetreatForm();
-    this.selectedRetreatUrl = null;
-    this.toggleModal(
-      'form_retreats',
-      _('retreats.create_retreat_modal.title'),
-      _('retreats.create_retreat_modal.button')
-    );
+    this.router.navigate(['/admin/retreats/create']);
   }
 
   redirectToRetreat(id = null) {
@@ -389,5 +413,11 @@ export class RetreatsComponent implements OnInit {
         window.open(data.file_url);
       }
     );
+  }
+
+  retreatAdapter(retreat: Retreat) {
+    const retreatAdapted = new RetreatAdapted(retreat);
+    retreatAdapted.start_time_readable = retreat.getDateInterval();
+    return retreatAdapted;
   }
 }

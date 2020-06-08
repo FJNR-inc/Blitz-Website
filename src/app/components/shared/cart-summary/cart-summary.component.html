@@ -3,8 +3,8 @@
   <div class="cart-summary__items">
     <div *ngFor="let membership of cart.getMemberships()" class="cart-summary__items__item">
       <div class="cart-summary__items__item__left">
-        <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="membership.name"></app-title>
-        <app-title [level]="9" class="cart-summary__items__item__left__price" text="{{membership.price}} $CAN"></app-title>
+        <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ 'cart-summary.membership' | translate: ({membershipName: membership.name}) }}"></app-title>
+        <app-title [level]="9" class="cart-summary__items__item__left__price" text="{{membership.price}} $CAD"></app-title>
       </div>
       <div class="cart-summary__items__item__right">
         <div class="cart-summary__items__item__right__action">
@@ -20,16 +20,33 @@
       <div class="cart-summary__items__item__left">
         <div class="cart-summary__items__item__left__name">
           <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="retreat.name"></app-title><br/>
-          <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="retreat.place_name"></app-title><br/>
+          <app-title [level]="9"
+                     *ngIf="retreat.type === 'P'"
+                     class="cart-summary__items__item__left__name"
+                     [text]="retreat.place_name"></app-title>
+          <app-title [level]="9"
+                     *ngIf="retreat.type === 'V'"
+                     class="cart-summary__items__item__left__name"
+                     [text]="retreat.videoconference_tool"></app-title>
+          <br/>
           <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="retreat.getDateInterval()"></app-title><br/>
+          <div *ngIf="cart.isVirtualRetreatFree(retreat)">
+            <br/>
+            <br/>
+            <app-title [level]="9"
+                       class="cart-summary__items__item__left__name"
+                       text="{{'cart-summary.why_virtual_retreat_is_free' | translate}}"></app-title>
+          </div>
           <br/>
           <app-title [level]="9"
                      *ngFor="let assignedOption of cart.getAssignedProductOptions(retreat)"
                      class="cart-summary__items__item__left__option"
-                     text="{{ assignedOption.option.name }} x{{ assignedOption.quantity }} ({{ assignedOption.option.price }}$CAN/u)"></app-title>
+                     text="{{ assignedOption.option.name }} x{{ assignedOption.quantity }} ({{ assignedOption.option.price }}$CAD/u)"></app-title>
         </div>
         <div class="cart-summary__items__item__left__price">
-          <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ retreat.price }} $CAN"></app-title><br/>
+          <app-title [level]="9"
+                     class="cart-summary__items__item__left__name"
+                     [text]="getDisplayedPrice(cart.getRetreatPrice(retreat)) | translate"></app-title><br/>
         </div>
       </div>
       <div class="cart-summary__items__item__right">
@@ -74,7 +91,7 @@
                      text="{{ 'cart-summary.nb_reservations' | translate: ({reservations: reservationPackage.reservations}) }}"></app-title><br/>
         </div>
         <div class="cart-summary__items__item__left__price">
-          <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ reservationPackage.price }} $CAN"></app-title><br/>
+          <app-title [level]="9" class="cart-summary__items__item__left__name" text="{{ reservationPackage.price }} $CAD"></app-title><br/>
         </div>
       </div>
       <div class="cart-summary__items__item__right">
@@ -105,7 +122,7 @@
       </div>
       <div class="cart-summary__coupons__coupon__price">
         <span *ngIf="getAppliedCoupon(coupon_applied.coupon) && !getAppliedCoupon(coupon_applied.coupon).reason">
-          {{ getAppliedCoupon(coupon_applied.coupon)['value'] }} $CAN
+          {{ getAppliedCoupon(coupon_applied.coupon)['value'] }} $CAD
         </span>
       </div>
       <div class="cart-summary__coupons__coupon__action">
@@ -125,19 +142,19 @@
   <div class="cart-summary__taxes" *ngIf="displayPrice">
     <div class="cart-summary__taxes__line cart-summary__taxes__line--main">
       <app-title [level]="6" class="cart-summary__taxes__line__name" text="{{'cart-summary.sub_total' | translate}}"></app-title>
-      <app-title [level]="6" class="cart-summary__taxes__line__price" text="{{ cart.getSubTotal() }} $CAN"></app-title>
+      <app-title [level]="6" class="cart-summary__taxes__line__price" text="{{ cart.getSubTotal() }} $CAD"></app-title>
     </div>
     <div class="cart-summary__taxes__line">
       <app-title [level]="9" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_tps' | translate}}"></app-title>
-      <app-title [level]="9" class="cart-summary__taxes__line__price" text="{{ cart.getTPS() }} $CAN"></app-title>
+      <app-title [level]="9" class="cart-summary__taxes__line__price" text="{{ cart.getTPS() }} $CAD"></app-title>
     </div>
     <div class="cart-summary__taxes__line">
       <app-title [level]="9" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_tvq' | translate}}"></app-title>
-      <app-title [level]="9" class="cart-summary__taxes__line__price" text="{{ cart.getTVQ() }} $CAN"></app-title>
+      <app-title [level]="9" class="cart-summary__taxes__line__price" text="{{ cart.getTVQ() }} $CAD"></app-title>
     </div>
     <div class="cart-summary__taxes__line cart-summary__taxes__line--main">
       <app-title [level]="6" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_total' | translate}}"></app-title>
-      <app-title [level]="6" class="cart-summary__taxes__line__price" text="{{ cart.getTotal() }} $CAN"></app-title>
+      <app-title [level]="6" class="cart-summary__taxes__line__price" text="{{ cart.getTotal() }} $CAD"></app-title>
     </div>
     <div class="cart-summary__taxes__line" *ngIf="getActualTotalTicket()">
       <app-title [level]="9" class="cart-summary__taxes__line__name" text="{{'cart-summary.title_old_solde_bloc_prepaye' | translate}}"></app-title>

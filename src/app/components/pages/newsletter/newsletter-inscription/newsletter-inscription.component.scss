@@ -1,0 +1,13 @@
+.newsletter-inscription{
+
+  padding: 20px;
+
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 20px;
+
+  &__button{
+    justify-self: end;
+  }
+
+}

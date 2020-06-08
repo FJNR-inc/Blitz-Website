@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { WorkplaceService } from '../../../services/workplace.service';
-import { Workplace } from '../../../models/workplace';
-import { TimeSlotService } from '../../../services/time-slot.service';
-import { TimeSlot } from '../../../models/timeSlot';
-import { User } from '../../../models/user';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { Membership } from '../../../models/membership';
-import { MembershipService } from '../../../services/membership.service';
-import { ReservationPackageService } from '../../../services/reservation-package.service';
-import { ReservationPackage } from '../../../models/reservationPackage';
-import { MyModalService } from '../../../services/my-modal/my-modal.service';
-import { isNull } from 'util';
-import { Card } from '../../../models/card';
-import { CardService } from '../../../services/card.service';
-import { OrderService } from '../../../services/order.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {WorkplaceService} from '../../../services/workplace.service';
+import {Workplace} from '../../../models/workplace';
+import {TimeSlotService} from '../../../services/time-slot.service';
+import {TimeSlot} from '../../../models/timeSlot';
+import {User} from '../../../models/user';
+import {AuthenticationService} from '../../../services/authentication.service';
+import {Membership} from '../../../models/membership';
+import {MembershipService} from '../../../services/membership.service';
+import {ReservationPackageService} from '../../../services/reservation-package.service';
+import {ReservationPackage} from '../../../models/reservationPackage';
+import {MyModalService} from '../../../services/my-modal/my-modal.service';
+import {isNull} from 'util';
+import {Card} from '../../../models/card';
+import {CardService} from '../../../services/card.service';
+import {OrderService} from '../../../services/order.service';
 import {ProfileService} from '../../../services/profile.service';
 import {InternationalizationService} from '../../../services/internationalization.service';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
@@ -23,13 +23,14 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {MyCartService} from '../../../services/my-cart/my-cart.service';
 import {Cart} from '../../../models/cart';
 import {CalendarPeriod} from '../../../models/calendar';
+import {RightPanelService} from '../../../services/right-panel.service';
 
 @Component({
   selector: 'app-reservation-page',
   templateUrl: './reservation-page.component.html',
   styleUrls: ['./reservation-page.component.scss'],
 })
-export class ReservationPageComponent implements OnInit {
+export class ReservationPageComponent implements OnInit, OnDestroy {
   locale = InternationalizationService.getLocale();
 
   workplace: Workplace;
@@ -80,11 +81,14 @@ export class ReservationPageComponent implements OnInit {
   listReservationPackage: ReservationPackage[];
   selectedTimeslot: TimeSlot;
   selectedReservationPackageIndex = 1;
-  displayedPanel: 'authentication' | 'product-selector' | 'cart';
 
   cart: Cart;
   cart$: Observable<Cart>;
   timeSlotsData: CalendarPeriod[] = [];
+
+  displayCartButton$: Observable<boolean> = this._rightPanelService.displayCartButton$;
+  panelAuthenticateSubscription: Subscription;
+  finalizeSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private workplaceService: WorkplaceService,
@@ -99,7 +103,8 @@ export class ReservationPageComponent implements OnInit {
               private profileService: ProfileService,
               private notificationService: MyNotificationService,
               private internationalizationService: InternationalizationService,
-              private cartService: MyCartService) {
+              private cartService: MyCartService,
+              private _rightPanelService: RightPanelService) {
   }
 
   ngOnInit() {
@@ -108,18 +113,36 @@ export class ReservationPageComponent implements OnInit {
       (cart: Cart) => this.cart = cart
     );
 
+    this.finalizeSubscription = this._rightPanelService.finalize$.subscribe(
+      () => {
+        this.finalize();
+      }
+    );
+
+    this.panelAuthenticateSubscription = this._rightPanelService.authenticate$.subscribe(
+      () => {
+        this.subscribe();
+      }
+    );
+
     this.refreshProfile();
     this.refreshListTimeSlot();
     this.refreshListMembership();
     this.subscribeToLocaleChange();
   }
 
+  ngOnDestroy(): void {
+    this._rightPanelService.closePanel();
+    this.panelAuthenticateSubscription.unsubscribe();
+    this.finalizeSubscription.unsubscribe();
+  }
+
   subscribeToLocaleChange() {
-      this.internationalizationService.locale.subscribe(
-        emitedLocale => {
-          this.locale = emitedLocale;
-        }
-      );
+    this.internationalizationService.locale.subscribe(
+      emitedLocale => {
+        this.locale = emitedLocale;
+      }
+    );
   }
 
   refreshProfile() {
@@ -231,7 +254,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   refreshListCard() {
-    if ( this.user ) {
+    if (this.user) {
       const filters: any[] = [
         {
           'name': 'owner',
@@ -252,7 +275,9 @@ export class ReservationPageComponent implements OnInit {
     for (const timeSlot of this.listTimeSlots) {
       if (timeSlot.id === event.id && this.selectedTimeSlots.indexOf(timeSlot) === -1) {
         if (timeSlot.places_remaining > 0) {
-          this.subscribe(timeSlot);
+
+          this.selectedTimeslot = timeSlot;
+          this.subscribe();
         }
       }
     }
@@ -321,12 +346,8 @@ export class ReservationPageComponent implements OnInit {
     }
   }
 
-  closePanel() {
-    this.displayedPanel = null;
-  }
-
   finalize() {
-    this.router.navigate(['/payment']);
+    this.router.navigate(['/payment']).then();
   }
 
   addToCart() {
@@ -338,23 +359,22 @@ export class ReservationPageComponent implements OnInit {
       this.listReservationPackage[this.selectedReservationPackageIndex]
     );
     this.myModalService.get('add_package').close();
-    this.subscribe(this.selectedTimeslot);
+    this.subscribe();
   }
 
   openCart() {
-    this.displayedPanel = 'cart';
+    this._rightPanelService.openCartPanel();
   }
 
-  subscribe(timeslot) {
-    this.selectedTimeslot = timeslot;
+  subscribe() {
     if (this.authenticationService.isAuthenticated()) {
       if (this.getNumberOfTicketAvailable() > 0) {
-        this.displayedPanel = 'product-selector';
+        this._rightPanelService.openProductSelectorPanel(this.selectedTimeslot);
       } else {
         this.myModalService.get('add_package').toggle();
       }
     } else {
-      this.displayedPanel = 'authentication';
+      this._rightPanelService.openAuthenticationPanel();
     }
   }
 }

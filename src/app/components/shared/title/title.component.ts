@@ -12,6 +12,7 @@ export class TitleComponent implements OnInit {
   @Input() type: string;
   @Input() for: string;
   @Input() inline = false;
+  @Input() colorReverse: false;
 
   constructor() { }
 

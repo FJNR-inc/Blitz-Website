@@ -1,10 +1,10 @@
 <div class="card-payment">
   <div class="card-payment__cards">
-    <app-title [level]="7" type="label" for="card" text="Carte bancaire"></app-title>
-    <app-title [level]="9" text="Choisir une carte de paiement permis celle(s) enregistrée(s) dans votre profil."></app-title>
+    <app-title [level]="7" type="label" for="card" [text]="'cart-payment.credit_card' | translate"></app-title>
+    <app-title [level]="9" [text]="'cart-payment.select_a_card' | translate"></app-title>
     <select id="card" [(ngModel)]="paymentCard" class="nt-form-input nt-form-input--select" (change)="setCard()">
       <option disabled value="">
-        Choisir une carte de paiement
+        {{ 'cart-payment.select_default_choice' | translate }}
       </option>
       <option *ngFor="let card of listCards" [value]="card.payment_token">
         **** **** **** {{ card.last_digits }} ({{card.card_expiry.month}}/{{card.card_expiry.year}})
@@ -13,13 +13,13 @@
   </div>
   <app-link class="card-payment__action"
             (click)="toggleFormNewCard()"
-            text="Ajouter une carte"></app-link>
+            [text]="'cart-payment.add_a_new_credit_card' | translate"></app-link>
 </div>
 
 <app-nt-modal name="new-card"
-              button2Label="Ajouter"
+              [button2Label]="'cart-payment.new_card_modal.submit_button' | translate"
               maxWidth="800px"
-              title="Ajouter une carte bancaire"
+              [title]="'cart-payment.new_card_modal.title' | translate"
               [displayButtons]="false">
   <div class="card-payment-modale">
     <app-paysafe-form (singleUseToken)="setSingleUseToken($event)"></app-paysafe-form>

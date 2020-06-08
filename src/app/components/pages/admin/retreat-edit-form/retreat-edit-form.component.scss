@@ -1,0 +1,17 @@
+.retreat-edit-form {
+  padding: 30px;
+
+  &__title {
+    margin-bottom: 50px;
+    display: block;
+  }
+
+  &__select {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  &__submit {
+    margin-top: 20px;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-new-layout',
@@ -7,8 +7,16 @@ import { Component, OnInit } from '@angular/core';
       <div class="new-layout__nav">
         <app-nt-header></app-nt-header>
       </div>
-      <div class="new-layout__content">
-        <router-outlet></router-outlet>
+      <div class="new-layout__container">
+        <div class="new-layout__container__content">
+          <div>
+            <router-outlet></router-outlet>
+          </div>
+          <app-newsletter-footer></app-newsletter-footer>
+        </div>
+        <div class="new-layout__container__right-panel">
+          <app-right-panel-container></app-right-panel-container>
+        </div>
       </div>
     </div>
   `,
@@ -16,7 +24,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
