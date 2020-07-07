@@ -141,6 +141,10 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
         'name': 'hidden',
         'value': false
       },
+      {
+        'name': 'ordering',
+        'value': 'start_time'
+      }
     ];
     this.retreatService.list(filters).subscribe(
       data => {
