@@ -186,6 +186,8 @@ import { ProfileReservationOpenComponent } from './components/pages/profile/prof
 // tslint:disable-next-line:max-line-length
 import { RetreatReservationSummaryComponent } from './components/pages/retreat/retreat-reservation/retreat-reservation-summary/retreat-reservation-summary.component';
 import { RetreatEditFormComponent } from './components/pages/admin/retreat-edit-form/retreat-edit-form.component';
+import { RetreatTypesComponent } from './components/pages/admin/retreat-types/retreat-types.component';
+import { RetreatTypeService } from './services/retreat-type.service';
 
 registerLocaleData(localeFr);
 
@@ -540,6 +542,14 @@ const appRoutes = [
         ]
       },
       {
+        path: 'admin/retreattypes',
+        component: RetreatTypesComponent,
+        canActivate: [
+          CanActivateViaAuthGuard,
+          CanAccessAdminPanelGuard,
+        ]
+      },
+      {
         path: 'admin/retreats',
         canActivate: [
           CanActivateViaAuthGuard,
@@ -547,7 +557,7 @@ const appRoutes = [
         ],
         children: [
           {
-            path: '',
+            path: 'type/:id',
             canActivate: [
               CanActivateViaAuthGuard,
               CanAccessAdminPanelGuard,
@@ -733,6 +743,7 @@ const appRoutes = [
     ProfileReservationOpenComponent,
     RetreatReservationSummaryComponent,
     RetreatEditFormComponent,
+    RetreatTypesComponent,
   ],
   imports: [
     BrowserModule,
@@ -802,6 +813,7 @@ const appRoutes = [
     RetreatWaitingQueueService,
     RetreatWaitingQueueNotificationService,
     RetreatInvitationService,
+    RetreatTypeService,
   ],
   bootstrap: [AppComponent]
 })

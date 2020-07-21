@@ -1,0 +1,25 @@
+<div class="admin-retreat-types-page">
+  <app-my-table [settings]="settings"
+                [data]="listRetreatTypes"
+                (addButton)="OpenModalCreate()"
+                (editItem)="OpenModalEdit($event)"
+                (removeItem)="removeRetreatType()"
+                (selectItem)="onSelectItem($event)"
+                [confirmationOnDeletion]="false">
+  </app-my-table>
+
+  <app-nt-modal name="form_retreat_types"
+                typeModal="success"
+                (button2)="submitRetreatType()"
+                maxWidth="600px">
+    <app-form [form]="retreatTypeForm" [fields]="retreatTypeFields" [errors]="retreatTypeErrors"></app-form>
+  </app-nt-modal>
+
+  <app-nt-modal name="info_deletion"
+                [autoClose]="true"
+                maxWidth="600px">
+    <p>
+      {{ 'retreat-types.delete_retreat_type_modal.content' | translate }}
+    </p>
+  </app-nt-modal>
+</div>

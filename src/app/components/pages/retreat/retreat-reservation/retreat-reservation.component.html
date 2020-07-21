@@ -35,7 +35,10 @@
                  *ngIf="retreats && retreats.length === 0"></app-alert>
 
       <div *ngIf="retreats && retreats.length > 0">
-        <app-retreat-reservation-summary class="retreat-reservation__main__content__retreats__summary" [retreats]="retreats" (filteredRetreats)="displayedRetreats = $event">
+        <app-retreat-reservation-summary class="retreat-reservation__main__content__retreats__summary"
+                                         [retreats]="retreats"
+                                         [retreatTypes]="retreatTypes"
+                                         (filteredRetreats)="displayedRetreats = $event">
 
         </app-retreat-reservation-summary>
         <app-retreat-preview *ngFor="let retreat of displayedRetreats"

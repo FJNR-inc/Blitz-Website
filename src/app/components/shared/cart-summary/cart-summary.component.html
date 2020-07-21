@@ -30,13 +30,6 @@
                      [text]="retreat.videoconference_tool"></app-title>
           <br/>
           <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="retreat.getDateInterval()"></app-title><br/>
-          <div *ngIf="cart.isVirtualRetreatFree(retreat)">
-            <br/>
-            <br/>
-            <app-title [level]="9"
-                       class="cart-summary__items__item__left__name"
-                       text="{{'cart-summary.why_virtual_retreat_is_free' | translate}}"></app-title>
-          </div>
           <br/>
           <app-title [level]="9"
                      *ngFor="let assignedOption of cart.getAssignedProductOptions(retreat)"

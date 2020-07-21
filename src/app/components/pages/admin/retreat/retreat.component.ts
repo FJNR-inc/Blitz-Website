@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Retreat, ROOM_CHOICES, TYPE_CHOICES} from '../../../../models/retreat';
+import {Retreat, ROOM_CHOICES} from '../../../../models/retreat';
 import { RetreatService } from '../../../../services/retreat.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
@@ -79,21 +79,6 @@ export class RetreatComponent implements OnInit {
       name: 'name_en',
       type: 'text',
       label: _('retreat.form.name_in_english')
-    },
-    {
-      name: 'type',
-      type: 'select',
-      label: _('retreat.form.type'),
-      choices: [
-        {
-          label: _('retreat.form.type.choices.physical'),
-          value: TYPE_CHOICES.PHYSICAL
-        },
-        {
-          label: _('retreat.form.type.choices.virtual'),
-          value: TYPE_CHOICES.VIRTUAL
-        }
-      ]
     },
     {
       name: 'videoconference_tool',
@@ -328,7 +313,9 @@ export class RetreatComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.retreatId = params['id'];
-      this.refreshRetreat();
+      if (this.retreatId) {
+        this.refreshRetreat();
+      }
     });
 
     const formUtil = new FormUtil();

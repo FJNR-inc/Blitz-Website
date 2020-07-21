@@ -7,8 +7,7 @@
       <app-title type="label" for="calendar" [level]="7" text="{{ 'retreat-reservation-summary.select_name' | translate }}"></app-title>
       <select id="calendar" class="nt-form-input nt-form-input--select" (change)="changeFilteredType($event)">
         <option value="">{{ 'retreat-reservation-summary.select_choice.both' | translate }}</option>
-        <option value="V">{{ 'retreat-reservation-summary.select_choice.virtual' | translate }}</option>
-        <option value="P">{{ 'retreat-reservation-summary.select_choice.physical' | translate }}</option>
+        <option *ngFor="let type of retreatTypes" [value]="type.url">{{ type.name }}</option>
       </select>
     </div>
   </div>

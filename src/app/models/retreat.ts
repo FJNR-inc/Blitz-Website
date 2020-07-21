@@ -2,9 +2,8 @@ import BaseModel from './baseModel';
 import {User} from './user';
 import {Membership} from './membership';
 import {DateUtil} from '../utils/date';
-import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {OptionProduct} from './optionProduct';
-import {environment} from '../../environments/environment';
+import {RetreatType} from "./retreatType";
 
 export enum ROOM_CHOICES {
   DOUBLE_OCCUPATION = 'double_occupation' ,
@@ -12,15 +11,10 @@ export enum ROOM_CHOICES {
   DOUBLE_SINGLE_OCCUPATION = 'double_single_occupation' ,
 }
 
-export enum TYPE_CHOICES {
-  VIRTUAL = 'V' ,
-  PHYSICAL = 'P' ,
-}
-
 export class Retreat extends BaseModel {
   id: number;
   url: string;
-  type: TYPE_CHOICES;
+  type: RetreatType;
   country: string;
   place_name: string;
   state_province: string;
@@ -126,14 +120,6 @@ export class Retreat extends BaseModel {
     return DateUtil.formatDayAndTime(date);
   }
 
-  get type_name() {
-    if (this.type === 'V') {
-      return 'retreat.form.retreat.type.choices.virtual';
-    } else {
-      return 'retreat.form.retreat.type.choices.physical';
-    }
-  }
-
   get activityLanguageLabel() {
     if (this.activity_language === 'B') {
       return 'retreat.form.retreat.activity_language.choices.bilingual';
@@ -155,19 +141,15 @@ export class Retreat extends BaseModel {
   }
 
   get numberOfTomatoes() {
-    if (this.type === 'V') {
-      return environment.tomato_per_virtual_retreat;
-    } else {
-      return environment.tomato_per_physical_retreat;
-    }
+    return this.type.number_of_tomatoes;
   }
 
   get isOpen() {
-    const minutesBeforeRetreat = environment.minutesBeforeShowVirtualRetreatLink;
+    const minutesBeforeRetreat = this.type.minutes_before_display_link;
     const visibleDate = new Date(new Date(this.start_time).getTime() - minutesBeforeRetreat * 60 * 1000);
     const linkIsVisible = new Date() > visibleDate;
     const isFinished = new Date() > new Date(this.end_time);
-    return this.type === 'V' && this.videoconference_link && linkIsVisible && !isFinished;
+    return this.videoconference_link && linkIsVisible && !isFinished;
   }
 }
 

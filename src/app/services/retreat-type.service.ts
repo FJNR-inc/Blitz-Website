@@ -3,22 +3,22 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
-import {Retreat} from '../models/retreat';
+import {RetreatType} from "../models/retreatType";
 
 @Injectable()
-export class RetreatService extends GlobalService {
+export class RetreatTypeService extends GlobalService {
 
-  url_retreats = environment.url_base_api + environment.paths_api.retreats;
+  url_retreat_types = environment.url_base_api + environment.paths_api.retreat_types;
 
   constructor(public http: HttpClient) {
     super();
   }
 
-  create(retreat: Retreat): Observable<any> {
+  create(retreatType: RetreatType): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
-      this.url_retreats,
-      retreat,
+      this.url_retreat_types,
+      retreatType,
       {headers: headers}
     );
   }
@@ -26,15 +26,7 @@ export class RetreatService extends GlobalService {
   get(id: number): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get<any>(
-      this.url_retreats + '/' + id,
-      {headers: headers}
-    );
-  }
-
-  getByUrl(url: string): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.get<any>(
-      url,
+      this.url_retreat_types + '/' + id,
       {headers: headers}
     );
   }
@@ -55,9 +47,6 @@ export class RetreatService extends GlobalService {
         if (filter.name === 'name') {
           params = params.set('name', filter.value);
         }
-        if (filter.name === 'type') {
-          params = params.set('type__id', filter.value);
-        }
         if (filter.name === 'end_time__gte') {
           params = params.set('end_time__gte', filter.value);
         }
@@ -67,41 +56,24 @@ export class RetreatService extends GlobalService {
       }
     }
     return this.http.get<any>(
-      this.url_retreats,
+      this.url_retreat_types,
       {headers: headers, params: params}
     );
   }
 
-  update(url: string, retreat: Retreat): Observable<any> {
+  update(url: string, retreatType: RetreatType): Observable<any> {
     const headers = this.getHeaders();
     return this.http.patch<any>(
       url,
-      retreat,
+      retreatType,
       {headers: headers}
     );
   }
 
-  remove(retreat: Retreat): Observable<any> {
+  remove(retreatType: RetreatType): Observable<any> {
     const headers = this.getHeaders();
     return this.http.delete<any>(
-      retreat.url,
-      {headers: headers}
-    );
-  }
-
-
-  exportReservations(id: number): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.get<any>(
-      this.url_retreats + '/' + id + '/export_participation',
-      {headers: headers}
-    );
-  }
-
-  exportOptions(id: number): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.get<any>(
-      this.url_retreats + '/' + id + '/export_options',
+      retreatType.url,
       {headers: headers}
     );
   }

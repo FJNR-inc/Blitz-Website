@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Retreat, TYPE_CHOICES} from '../../../../../models/retreat';
+import {Retreat} from '../../../../../models/retreat';
 import {DateUtil} from '../../../../../utils/date';
+import {RetreatType} from "../../../../../models/retreatType";
 
 @Component({
   selector: 'app-retreat-reservation-summary',
@@ -10,12 +11,13 @@ import {DateUtil} from '../../../../../utils/date';
 export class RetreatReservationSummaryComponent implements OnInit {
 
   @Input() retreats: Retreat[];
+  @Input() retreatTypes: RetreatType[];
   @Output() filteredRetreats: EventEmitter<Retreat[]> = new EventEmitter<Retreat[]>();
   summaryList: Retreat[];
 
   month = new Date().getMonth();
   year = new Date().getFullYear();
-  filteredType: TYPE_CHOICES = null;
+  filteredType: string = null;
 
   constructor() { }
 
@@ -55,9 +57,9 @@ export class RetreatReservationSummaryComponent implements OnInit {
   filterRetreat(month = this.month, year = this.year) {
     const newFilteredList = [];
     for (const retreat of this.retreats) {
-      console.log(retreat.getStartDate());
         if (retreat.getStartDate().getMonth() === month && retreat.getStartDate().getFullYear() === year) {
-          if (!this.filteredType || retreat.type === this.filteredType) {
+          if (!this.filteredType || retreat.type.url === this.filteredType) {
+            console.log(retreat.type.url + ' - ' + this.filteredType);
             newFilteredList.push(retreat);
           }
         }

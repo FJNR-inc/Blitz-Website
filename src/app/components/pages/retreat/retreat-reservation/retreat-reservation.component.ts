@@ -12,6 +12,8 @@ import {RetreatWaitingQueueNotificationService} from '../../../../services/retre
 import {Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 import {RightPanelService} from '../../../../services/right-panel.service';
+import {RetreatType} from "../../../../models/retreatType";
+import {RetreatTypeService} from "../../../../services/retreat-type.service";
 
 @Component({
   selector: 'app-retreat-reservation',
@@ -24,6 +26,7 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
   // too much place now with new virtual retreat policy
   displayTutorial = false;
 
+  retreatTypes: RetreatType[];
   retreats: Retreat[];
   displayedRetreats: Retreat[];
   retreatWaitingQueues: RetreatWaitingQueue[];
@@ -45,7 +48,8 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
               private retreatWaitingQueueService: RetreatWaitingQueueService,
               private retreatWaitingQueueNotificationService: RetreatWaitingQueueNotificationService,
               private router: Router,
-              private _rightPanelService: RightPanelService) {
+              private _rightPanelService: RightPanelService,
+              private retreatTypesService: RetreatTypeService) {
 
     this.authenticationService.profile.subscribe(
       () => {
@@ -119,11 +123,20 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
   }
 
   refreshContent() {
+    this.refreshRetreatTypes();
     this.refreshRetreats();
     if (this.authenticationService.isAuthenticated()) {
       this.refreshRetreatWaitingQueue();
       this.refreshRetreatWaitingQueueNotification();
     }
+  }
+
+  refreshRetreatTypes() {
+    this.retreatTypesService.list().subscribe(
+      data => {
+        this.retreatTypes = data.results.map(r => new RetreatType(r));
+      }
+    );
   }
 
   refreshRetreats() {
