@@ -17,20 +17,7 @@ export class WorkplaceListComponent implements OnInit {
 
   workplaces: Workplace[];
 
-  hardcodedWorkplaces: HardcodedWorplace[] = [
-    {
-      url: 'https://www.thesez-vous.com/projets-pilotes.html',
-      name: _('workplace-list.pilots.sud-west'),
-    },
-    {
-      url: 'https://www.thesez-vous.com/projets-pilotes.html',
-      name: _('workplace-list.pilots.sherbrooke'),
-    },
-    {
-      url: 'https://www.thesez-vous.com/projets-pilotes.html',
-      name: _('workplace-list.pilots.quebec'),
-    },
-  ];
+  hardcodedWorkplaces: HardcodedWorplace[] = [];
 
   constructor(private workplaceService: WorkplaceService) {
   }
