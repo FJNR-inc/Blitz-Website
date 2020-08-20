@@ -1,0 +1,18 @@
+<app-my-table [settings]="settings"
+              [data]="listDates"
+              (editItem)="editDate($event)"
+              (removeItem)="removeDate($event)"
+              (addButton)="addDate()">
+</app-my-table>
+
+<app-nt-modal name="form_retreat_dates"
+              typeModal="success"
+              (button2)="submitDate()"
+              maxWidth="600px">
+  <app-form
+    [form]="dateForm"
+    [fields]="dateFields"
+    [errors]="errors">
+  </app-form>
+</app-nt-modal>
+

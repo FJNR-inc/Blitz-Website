@@ -61,6 +61,9 @@ export class RetreatService extends GlobalService {
         if (filter.name === 'ordering') {
           params = params.set('ordering', filter.value);
         }
+        if (filter.name === 'type') {
+          params = params.set('type__id', filter.value);
+        }
       }
     }
     return this.http.get<any>(
@@ -74,6 +77,15 @@ export class RetreatService extends GlobalService {
     return this.http.patch<any>(
       url,
       retreat,
+      {headers: headers}
+    );
+  }
+
+  activate(url: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      url + '/activate',
+      {},
       {headers: headers}
     );
   }

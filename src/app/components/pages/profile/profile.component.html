@@ -48,7 +48,11 @@
         </div>
 
         <div class="profile-page__body__content__right__retreats">
-          <app-profile-retreats (openVirtualReservation)="openVirtualReservation = $event" (totalPastTomatoes)="totalPastRetreatTomatoes = $event" (totalFutureTomatoes)="totalFutureRetreatTomatoes = $event"></app-profile-retreats>
+          <app-profile-retreats [type]='"physical"' (openVirtualReservation)="openVirtualReservation = $event" (totalPastTomatoes)="totalPastRetreatTomatoes = $event" (totalFutureTomatoes)="totalFutureRetreatTomatoes = $event"></app-profile-retreats>
+        </div>
+
+        <div class="profile-page__body__content__right__retreats">
+          <app-profile-retreats [type]='"virtual"' (openVirtualReservation)="openVirtualReservation = $event" (totalPastTomatoes)="totalPastRetreatTomatoes = $event" (totalFutureTomatoes)="totalFutureRetreatTomatoes = $event"></app-profile-retreats>
         </div>
       </div>
     </div>

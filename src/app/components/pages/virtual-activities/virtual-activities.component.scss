@@ -1,0 +1,33 @@
+@import '../../assets/scss/theme';
+
+.virtual-activities {
+  display: flex;
+
+  &__cart-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+  }
+
+  &__main {
+    flex: 1;
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      max-width: 750px;
+      margin: auto;
+      padding: 100px 10px;
+
+      &__services {
+        display: flex;
+        margin-top: 120px;
+
+        &__item {
+          display: block;
+          margin: 0 10px;
+        }
+      }
+    }
+  }
+}

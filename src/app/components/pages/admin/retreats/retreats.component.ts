@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Retreat, ROOM_CHOICES, TYPE_CHOICES } from '../../../../models/retreat';
+import { Retreat } from '../../../../models/retreat';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RetreatService } from '../../../../services/retreat.service';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
@@ -8,6 +8,13 @@ import { isNull } from 'util';
 import { MyNotificationService } from '../../../../services/my-notification/my-notification.service';
 import { FormUtil } from '../../../../utils/form';
 import { _ } from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {RetreatType} from '../../../../models/retreatType';
+import {RetreatTypeService} from '../../../../services/retreat-type.service';
+
+interface Choice {
+  value: any;
+  label: string;
+}
 
 export class RetreatAdapted extends Retreat {
   start_time_readable: string;
@@ -21,12 +28,12 @@ export class RetreatAdapted extends Retreat {
 export class RetreatsComponent implements OnInit {
 
   listRetreats: Retreat[];
+  retreatTypes: RetreatType[];
   listAdaptedRetreats: RetreatAdapted[];
 
   retreatForm: FormGroup;
   retreatErrors: string[];
   selectedRetreatUrl: string;
-  retreatInDeletion: any = null;
 
   settings = {
     title: _('retreats.retreats'),
@@ -50,8 +57,6 @@ export class RetreatsComponent implements OnInit {
     ]
   };
 
-  securityOnDeletion = '';
-
   fields = [
     {
       name: 'name_fr',
@@ -64,212 +69,15 @@ export class RetreatsComponent implements OnInit {
       label: _('retreats.form.name_in_english')
     },
     {
-      name: 'type',
-      type: 'select',
-      label: _('retreat.form.type'),
-      choices: [
-        {
-          label: _('retreat.form.type.choices.physical'),
-          value: TYPE_CHOICES.PHYSICAL
-        },
-        {
-          label: _('retreat.form.type.choices.virtual'),
-          value: TYPE_CHOICES.VIRTUAL
-        }
-      ]
-    },
-    {
-      name: 'place_name',
-      type: 'text',
-      label: _('retreats.form.place_name')
-    },
-    {
-      name: 'activity_language',
-      type: 'select',
-      label: _('retreats.form.activity_language'),
-      choices: [
-        {
-          label: _('retreats.form.activity_language.choices.english'),
-          value: 'EN'
-        },
-        {
-          label: _('retreats.form.activity_language.choices.french'),
-          value: 'FR'
-        },
-        {
-          label: _('retreats.form.activity_language.choices.bilingual'),
-          value: 'B'
-        }
-      ]
-    },
-    {
-      name: 'room_type',
-      type: 'select',
-      label: _('retreats.form.room_type'),
-      choices: [
-        {
-          label: _('retreats.form.room_type.choices.single_occupation'),
-          value: ROOM_CHOICES.SINGLE_OCCUPATION
-        },
-        {
-          label: _('retreats.form.room_type.choices.double_occupation'),
-          value: ROOM_CHOICES.DOUBLE_OCCUPATION
-        },
-        {
-          label: _('retreats.form.room_type.choices.double_single_occupation'),
-          value: ROOM_CHOICES.DOUBLE_SINGLE_OCCUPATION
-        }
-      ]
-    },
-    {
-      name: 'details_fr',
-      type: 'textarea',
-      label: _('retreats.form.description_in_french')
-    },
-    {
-      name: 'details_en',
-      type: 'textarea',
-      label: _('retreats.form.description_in_english')
-    },
-    {
-      name: 'seats',
-      type: 'number',
-      label: _('retreats.form.seats')
-    },
-    {
       name: 'price',
       type: 'number',
       label: _('retreats.form.price')
     },
     {
-      name: 'start_time',
-      type: 'datetime',
-      label: _('retreats.form.start_time')
-    },
-    {
-      name: 'end_time',
-      type: 'datetime',
-      label: _('retreats.form.end_time')
-    },
-    {
-      name: 'form_url',
-      type: 'textarea',
-      label: _('retreats.form.form_url')
-    },
-    {
-      name: 'carpool_url',
-      type: 'textarea',
-      label: _('retreats.form.carpool_url')
-    },
-    {
-      name: 'review_url',
-      type: 'textarea',
-      label: _('retreats.form.review_url')
-    },
-    {
-      name: 'email_content',
-      type: 'textarea',
-      label: _('retreats.form.email_content')
-    },
-    {
-      name: 'min_day_refund',
-      type: 'number',
-      label: _('retreats.form.min_day_refund')
-    },
-    {
-      name: 'min_day_exchange',
-      type: 'number',
-      label: _('retreats.form.min_day_exchange')
-    },
-    {
-      name: 'refund_rate',
-      type: 'number',
-      label: _('retreats.form.refund_rate')
-    },
-    {
-      name: 'warning',
-      type: 'alert',
-      label: _('retreats.form.refund_rate_warning')
-    },
-    {
-      name: 'address_line1_fr',
-      type: 'text',
-      label: _('retreats.form.address_line1_in_french')
-    },
-    {
-      name: 'address_line2_fr',
-      type: 'text',
-      label: _('retreats.form.address_line2_in_french')
-    },
-    {
-      name: 'address_line1_en',
-      type: 'text',
-      label: _('retreats.form.address_line1_in_english')
-    },
-    {
-      name: 'address_line2_en',
-      type: 'text',
-      label: _('retreats.form.address_line2_in_english')
-    },
-    {
-      name: 'postal_code',
-      type: 'text',
-      label: _('retreats.form.postal_code')
-    },
-    {
-      name: 'city_fr',
-      type: 'text',
-      label: _('retreats.form.city_in_french')
-    },
-    {
-      name: 'city_en',
-      type: 'text',
-      label: _('retreats.form.city_in_english')
-    },
-    {
-      name: 'state_province_fr',
-      type: 'text',
-      label: _('retreats.form.state_province_in_french')
-    },
-    {
-      name: 'state_province_en',
-      type: 'text',
-      label: _('retreats.form.state_province_in_english')
-    },
-    {
-      name: 'country_fr',
-      type: 'text',
-      label: _('retreats.form.country_in_french')
-    },
-    {
-      name: 'country_en',
-      type: 'text',
-      label: _('retreats.form.country_in_english')
-    },
-    {
-      name: 'accessibility',
-      type: 'checkbox',
-      label: _('retreats.form.accessibility')
-    },
-    {
-      name: 'toilet_gendered',
-      type: 'checkbox',
-      label: _('retreats.form.toilet_gendered')
-    },
-    {
-      name: 'is_active',
-      type: 'checkbox',
-      label: _('retreats.form.available')
-    },
-    {
-      name: 'has_shared_rooms',
-      type: 'checkbox',
-      label: _('retreats.form.has_shared_rooms')
-    },
-    {
-      name: 'hidden',
-      type: 'checkbox',
-      label: _('retreats.form.hidden')
+      name: 'type',
+      type: 'select',
+      label: _('retreat.form.type'),
+      choices: []
     },
   ];
 
@@ -277,9 +85,11 @@ export class RetreatsComponent implements OnInit {
               private myModalService: MyModalService,
               private notificationService: MyNotificationService,
               private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private retreatTypeService: RetreatTypeService) { }
 
   ngOnInit() {
+    this.refreshRetreatTypeList();
     this.refreshRetreatList();
     this.initRetreatForm();
   }
@@ -293,13 +103,27 @@ export class RetreatsComponent implements OnInit {
     this.refreshRetreatList(index);
   }
 
-  refreshRetreatList(page = 1, limit = 20) {
-    const filters = [
-      {
-        name: 'ordering',
-        value: '-start_time'
+  refreshRetreatTypeList() {
+    this.retreatTypeService.list().subscribe(
+      (retreatTypes) => {
+        this.retreatTypes = retreatTypes.results.map(
+          o => new RetreatType(o)
+        );
+        const typeChoices = this.fields.find(field => field.name === 'type');
+        typeChoices.choices = [];
+        for (const type of this.retreatTypes) {
+          const choice: Choice = {
+            value: type.url,
+            label: type.name
+          };
+          typeChoices.choices.push(choice);
+        }
       }
-    ];
+    );
+  }
+
+  refreshRetreatList(page = 1, limit = 20) {
+    const filters = [];
     this.retreatService.list(filters, limit, limit * (page - 1)).subscribe(
       retreats => {
         this.settings.numberOfPage = Math.ceil(retreats.count / limit);
@@ -318,7 +142,13 @@ export class RetreatsComponent implements OnInit {
   }
 
   OpenModalCreateRetreat() {
-    this.router.navigate(['/admin/retreats/create']);
+    this.initRetreatForm();
+    this.selectedRetreatUrl = null;
+    this.toggleModal(
+      'form_retreats',
+      _('retreats.create_retreat_modal.title'),
+      _('retreats.create_retreat_modal.button')
+    );
   }
 
   redirectToRetreat(id = null) {
@@ -329,40 +159,6 @@ export class RetreatsComponent implements OnInit {
       url += 'new';
     }
     this.router.navigate([url]);
-  }
-
-  removeRetreat(item = null, force = false) {
-    if (!item && !this.retreatInDeletion) {
-      console.error('No one timeslot given in argument');
-    } else {
-      if (item) {
-        this.retreatInDeletion = item;
-      }
-      if (!force) {
-        this.securityOnDeletion = '';
-        this.toggleModal(
-          'validation_deletion',
-          _('retreats.force_delete_retreat_modal.title'),
-          _('retreats.force_delete_retreat_modal.button')
-        );
-      } else {
-        this.retreatService.remove(this.retreatInDeletion).subscribe(
-          () => {
-            this.notificationService.success(
-              _('retreats.notifications.delete_space.title'),
-              _('retreats.notifications.delete_space.content')
-            );
-            this.refreshRetreatList();
-          },
-          () => {
-            this.notificationService.error(
-              _('retreats.notifications.fail_deletion.title'),
-              _('retreats.notifications.fail_deletion.content')
-            );
-          }
-        );
-      }
-    }
   }
 
   toggleModal(name, title: string | string[] = '', button2: string | string[] = '') {
@@ -397,14 +193,6 @@ export class RetreatsComponent implements OnInit {
         this.retreatForm = FormUtil.manageFormErrors(this.retreatForm, err);
       }
     );
-  }
-
-  isSecurityOnDeletionValid() {
-    if (this.retreatInDeletion) {
-      return this.retreatInDeletion.name === this.securityOnDeletion;
-    } else {
-      return false;
-    }
   }
 
   exportReservations(retreat: Retreat) {

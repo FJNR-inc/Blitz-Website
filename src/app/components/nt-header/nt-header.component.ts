@@ -54,13 +54,17 @@ export class NtHeaderComponent implements OnInit {
 
   nav: any[] = [
     {
+      label: _('header.virtual_activities.title'),
+      url: '',
+      router_url: '/virtual-activities',
+    }, {
       label: _('header.retreat.title'),
       url: '',
-      router_url: '/retreats',
+      router_url: '/retreats/' + environment.defaultRetreatId,
     }, {
       label: _('header.espace.title'),
       url: '',
-      router_url: '/reservation/',
+      router_url: '/reservation/' + environment.defaultWorkplaceId,
     }, {
       label: _('header.pilot_project'),
       url: 'https://www.thesez-vous.com/projets-pilotes.html',

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Retreat} from '../../../../models/retreat';
 import {RetreatReservation} from '../../../../models/retreatReservation';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
@@ -33,6 +33,8 @@ export class ProfileRetreatsComponent implements OnInit {
   displayAllRetreatReservation = false;
   retreatReservationOpen: number;
 
+  @Input() type: 'virtual' | 'physical';
+
   @Output() totalPastTomatoes: EventEmitter<any> = new EventEmitter();
   @Output() totalFutureTomatoes: EventEmitter<any> = new EventEmitter();
   @Output() openVirtualReservation: EventEmitter<any> = new EventEmitter();
@@ -46,7 +48,6 @@ export class ProfileRetreatsComponent implements OnInit {
               private notificationService: MyNotificationService) { }
 
   ngOnInit() {
-    this.refreshRetreats();
     this.refreshRetreatReservation();
   }
 
@@ -60,6 +61,10 @@ export class ProfileRetreatsComponent implements OnInit {
       {
         'name': 'end_time__gte',
         'value': now
+      },
+      {
+        'name': 'type',
+        'value': this.selectedRetreatReservation.retreat_details.type.id
       }
     ];
     this.retreatService.list(filters).subscribe(
@@ -80,6 +85,10 @@ export class ProfileRetreatsComponent implements OnInit {
       {
         'name': 'is_active',
         'value': true
+      },
+      {
+        'name': 'retreat__type__is_virtual',
+        'value': this.type === 'virtual'
       }
     ];
     this.retreatReservationService.list(filters).subscribe(

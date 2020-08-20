@@ -1,6 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Retreat, TYPE_CHOICES} from '../../../../../models/retreat';
+import {Retreat} from '../../../../../models/retreat';
 import {DateUtil} from '../../../../../utils/date';
+import {environment} from '../../../../../../environments/environment';
+import {RetreatType} from '../../../../../models/retreatType';
+import {RetreatTypeService} from '../../../../../services/retreat-type.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-retreat-reservation-summary',
@@ -9,23 +13,41 @@ import {DateUtil} from '../../../../../utils/date';
 })
 export class RetreatReservationSummaryComponent implements OnInit {
 
-  @Input() retreats: Retreat[];
+  @Input() retreatTypeId: number;
+
+  _retreats;
+  get retreats() {
+    return this._retreats;
+  }
+  @Input() set retreats(value: Retreat[]) {
+     this._retreats = value;
+     this.initContent();
+  }
   @Output() filteredRetreats: EventEmitter<Retreat[]> = new EventEmitter<Retreat[]>();
   summaryList: Retreat[];
 
   month = new Date().getMonth();
   year = new Date().getFullYear();
-  filteredType: TYPE_CHOICES = null;
+  retreatTypes: RetreatType[];
 
-  constructor() { }
+  constructor(private retreatTypeService: RetreatTypeService,
+              private router: Router) { }
+
+  get isDefaultRetreatType() {
+    return environment.defaultRetreatId.toString() === this.retreatTypeId.toString();
+  }
 
   ngOnInit() {
+    this.initContent();
+  }
+
+  initContent() {
     this.filterRetreat();
+    this.refreshRetreatType();
   }
 
   changeFilteredType(event) {
-    this.filteredType = event.target.value;
-    this.filterRetreat();
+    this.router.navigate(['/retreats/' + event.target.value]);
   }
 
   getPreviousMonth() {
@@ -55,11 +77,8 @@ export class RetreatReservationSummaryComponent implements OnInit {
   filterRetreat(month = this.month, year = this.year) {
     const newFilteredList = [];
     for (const retreat of this.retreats) {
-      console.log(retreat.getStartDate());
         if (retreat.getStartDate().getMonth() === month && retreat.getStartDate().getFullYear() === year) {
-          if (!this.filteredType || retreat.type === this.filteredType) {
-            newFilteredList.push(retreat);
-          }
+          newFilteredList.push(retreat);
         }
     }
     this.filteredRetreats.emit(newFilteredList);
@@ -70,5 +89,19 @@ export class RetreatReservationSummaryComponent implements OnInit {
 
   scrollToElement(element) {
     document.getElementById(element).scrollIntoView({behavior: 'smooth'});
+  }
+
+  refreshRetreatType() {
+    const filter = [
+      {
+        name: 'is_virtual',
+        value: 'true',
+      }
+    ];
+    this.retreatTypeService.list(filter).subscribe(
+      (retreatTypes) => {
+        this.retreatTypes = retreatTypes.results.map(o => new RetreatType(o));
+      }
+    );
   }
 }
