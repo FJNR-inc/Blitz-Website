@@ -4,6 +4,8 @@ import {AuthenticationService} from '../../../services/authentication.service';
 import {Step} from './payment-flow-wizard/payment-flow-wizard.component';
 import {Cart} from '../../../models/cart';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
+import {RetreatType} from '../../../models/retreatType';
+import {RetreatTypeService} from '../../../services/retreat-type.service';
 
 @Component({
   selector: 'app-payment-flow',
@@ -37,7 +39,6 @@ export class PaymentFlowComponent implements OnInit {
     'id': 'confirmation'
   };
 
-
   steps: Step[];
 
   saveSteps: Step[] = [
@@ -50,13 +51,15 @@ export class PaymentFlowComponent implements OnInit {
 
   currentStep: Step;
 
+  retreatTypes: RetreatType[];
+
   constructor(private cartService: MyCartService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private retreatTypeService: RetreatTypeService) {
 
   }
 
   ngOnInit() {
-
     this.cartService.elementChangeInCart$.subscribe(
       () => {
         this.steps = this.saveSteps;
@@ -65,6 +68,15 @@ export class PaymentFlowComponent implements OnInit {
       }
     );
 
+    this.refreshRetreatTypeList();
+  }
+
+  refreshRetreatTypeList() {
+    this.retreatTypeService.list().subscribe(
+      (retreatTypes) => {
+        this.retreatTypes = retreatTypes.results.map(o => new RetreatType(o));
+      }
+    );
   }
 
   filterStep() {
@@ -112,7 +124,16 @@ export class PaymentFlowComponent implements OnInit {
   isAfterBourseStep() {
     return this.steps.indexOf(this.currentStep) > this.steps.indexOf(this.bourseStep);
   }
+
   isOnOrAfterBourseStep() {
     return this.steps.indexOf(this.currentStep) >= this.steps.indexOf(this.bourseStep);
+  }
+
+  retreatTypeIsInCart(type: RetreatType) {
+    return this.cartService.containTypeOfRetreat(type);
+  }
+
+  get hasTimeslot() {
+    return this.cartService.hasTimeslot;
   }
 }

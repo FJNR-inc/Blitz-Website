@@ -11,6 +11,7 @@ export const environment = {
   // tslint:disable-next-line:max-line-length
   token_paysafe: 'T1QtMjMxODcwOkItcWEyLTAtNWI4NmUxMDktMC0zMDJjMDIxNDJiMWI4YjNjZmMyNmM0YTc3ZTUzNTI0YjYzNzEwMzU3YWE1NmYzNWMwMjE0NjM5N2ZhZTJiMDZjNjFiYmFhNGQ1NGZjNDE2MjlhOGIxNzVmOTRhNw==',
   defaultWorkplaceId: 6,
+  defaultRetreatId: 1,
   canHideFooter: false,
   paths_api: {
     activation: '/users/activate',
@@ -52,6 +53,8 @@ export const environment = {
     reservations_export: '/reservations/export',
     custom_payments: '/custom_payments',
     retreats: '/retreat/retreats',
+    retreat_types: '/retreat/retreat_types',
+    retreat_dates: '/retreat/retreat_dates',
     retreatReservations: '/retreat/reservations',
     retreatInvitations: '/retreat/retreat_invitation',
     coupons: '/coupons',

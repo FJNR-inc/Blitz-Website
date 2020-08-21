@@ -4,12 +4,6 @@
   <div class="admin-retreat-page__header">
     <div class="admin-retreat-page__header__name">
       {{ retreat.name }}
-      <a class="admin-retreat-page__header__name__edit button" (click)="OpenModalEditRetreat()">
-        <i class="fas fa-pencil-alt"></i> {{ 'retreat.edit_retreat' | translate }}
-      </a>
-      <a class="admin-retreat-page__header__name__edit button" (click)="exportOptions()">
-        <i class="fas fa-file-download"></i> {{ 'retreat.export_options' | translate }}
-      </a>
     </div>
     <div class="admin-retreat-page__header__informations">
       <i class="fas fa-clock"></i> {{ retreat.getDateInterval() }}<br/>
@@ -21,6 +15,28 @@
       {{ retreat.details }}
     </p>
   </div>
+
+  <div class="admin-retreat-page__action-panel">
+    <div class="admin-retreat-page__action-panel__section">
+      <a class="admin-retreat-page__header__name__edit button" (click)="OpenModalEditRetreat()">
+        <i class="fas fa-pencil-alt"></i> {{ 'retreat.edit_retreat' | translate }}
+      </a>
+      <a class="admin-retreat-page__header__name__edit button" (click)="exportOptions()">
+        <i class="fas fa-file-download"></i> {{ 'retreat.export_options' | translate }}
+      </a>
+    </div>
+    <div class="admin-retreat-page__action-panel__section">
+      <a class="button" *ngIf="!retreat.is_active" (click)="activateRetreat()">Activer la retraite</a>
+      <div *ngIf="retreat.is_active">
+        <i class="far fa-check-circle"></i>
+        La retraite est active
+      </div>
+    </div>
+  </div>
+
+  <app-retreat-date class="admin-retreat-page__dates"
+                    (editedDates)="refreshRetreat()"
+                    [retreat]="retreat"></app-retreat-date>
 
   <app-retreat-invitation
     class="admin-retreat-page__invitations"
@@ -92,8 +108,9 @@
 <app-nt-modal name="form_retreats"
               typeModal="success"
               (button2)="submitRetreat()"
+              *ngIf="retreat"
               maxWidth="600px">
-  <app-form [form]="retreatForm" [fields]="retreatFields" [errors]="errors"></app-form>
+  <app-form [form]="retreatForm" [fields]="formField" [errors]="errors"></app-form>
 </app-nt-modal>
 
 <app-nt-modal name="cancel_reservation"
@@ -142,4 +159,16 @@
     <app-alert type="danger" [messages]="errors">
     </app-alert>
   </div>
+</app-nt-modal>
+
+<app-nt-modal name="error_on_activation"
+              typeModal="success"
+              [autoClose]="true"
+              button2Label="J'ai compris"
+              maxWidth="600px">
+  <ul>
+    <li *ngFor="let error of errorsOnActivation">
+      {{ error }}
+    </li>
+  </ul>
 </app-nt-modal>

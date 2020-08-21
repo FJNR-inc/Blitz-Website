@@ -9,9 +9,11 @@ import {RetreatWaitingQueue} from '../../../../models/retreatWaitingQueue';
 import {RetreatService} from '../../../../services/retreat.service';
 import {RetreatWaitingQueueService} from '../../../../services/retreatWaitingQueue.service';
 import {RetreatWaitingQueueNotificationService} from '../../../../services/retreatWaitingQueueNotification.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 import {RightPanelService} from '../../../../services/right-panel.service';
+import {RetreatTypeService} from '../../../../services/retreat-type.service';
+import {RetreatType} from '../../../../models/retreatType';
 
 @Component({
   selector: 'app-retreat-reservation',
@@ -20,9 +22,8 @@ import {RightPanelService} from '../../../../services/right-panel.service';
 })
 export class RetreatReservationComponent implements OnInit, OnDestroy {
 
-  // 2020-06-04: Raphaelle asked to hide this section since it's no more interresting and that policies should take
-  // too much place now with new virtual retreat policy
-  displayTutorial = false;
+  retreatTypeId: number;
+  retreatType: RetreatType;
 
   retreats: Retreat[];
   displayedRetreats: Retreat[];
@@ -45,7 +46,9 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
               private retreatWaitingQueueService: RetreatWaitingQueueService,
               private retreatWaitingQueueNotificationService: RetreatWaitingQueueNotificationService,
               private router: Router,
-              private _rightPanelService: RightPanelService) {
+              private _rightPanelService: RightPanelService,
+              private activatedRoute: ActivatedRoute,
+              private retreatTypeService: RetreatTypeService) {
 
     this.authenticationService.profile.subscribe(
       () => {
@@ -73,31 +76,25 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.refreshContent();
-    if (this.authenticationService.isAuthenticated()) {
-      this.refreshRetreatReservations(true);
-    }
+    this.activatedRoute.params.subscribe(
+      (params: Params) => {
+        this.retreatTypeId = params['id'];
+
+        this.retreatTypeService.get(this.retreatTypeId).subscribe(
+          (retreatType) => {
+            this.retreatType = new RetreatType(retreatType);
+          }
+        );
+
+        this.refreshContent();
+        if (this.authenticationService.isAuthenticated()) {
+          this.refreshRetreatReservations();
+        }
+      }
+    );
   }
 
-  updateTutorialDisplay(numberOfRetreatReservations) {
-    if (numberOfRetreatReservations >= 2) {
-      this.closeTutorial();
-    } else {
-      this.openTutorial();
-    }
-  }
-
-  openTutorial() {
-    // 2020-06-04: Raphaelle asked to hide this section since it's no more interresting and that policies should take
-    // too much place now with new virtual retreat policy
-    // this.displayTutorial = true;
-  }
-
-  closeTutorial() {
-    this.displayTutorial = false;
-  }
-
-  refreshRetreatReservations(refreshTutorial = false) {
+  refreshRetreatReservations() {
     const filters = [
       {
         'name': 'user',
@@ -111,9 +108,6 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
     this.retreatReservationService.list(filters).subscribe(
       data => {
         this.retreatReservations = data.results.map(r => new RetreatReservation(r));
-        if (refreshTutorial) {
-          this.updateTutorialDisplay(this.retreatReservations.length);
-        }
       }
     );
   }
@@ -138,13 +132,13 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
         'value': now
       },
       {
+        'name': 'type',
+        'value': this.retreatTypeId,
+      },
+      {
         'name': 'hidden',
         'value': false
       },
-      {
-        'name': 'ordering',
-        'value': 'start_time'
-      }
     ];
     this.retreatService.list(filters).subscribe(
       data => {

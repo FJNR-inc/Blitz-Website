@@ -185,7 +185,12 @@ import { RightPanelContainerComponent } from './components/shared/right-panel-co
 import { ProfileReservationOpenComponent } from './components/pages/profile/profile-reservation-open/profile-reservation-open.component';
 // tslint:disable-next-line:max-line-length
 import { RetreatReservationSummaryComponent } from './components/pages/retreat/retreat-reservation/retreat-reservation-summary/retreat-reservation-summary.component';
-import { RetreatEditFormComponent } from './components/pages/admin/retreat-edit-form/retreat-edit-form.component';
+import { VirtualActivitiesComponent } from './components/pages/virtual-activities/virtual-activities.component';
+// tslint:disable-next-line:max-line-length
+import {VirtualActivitiesItemComponent} from './components/pages/virtual-activities/virtual-activities-item/virtual-activities-item.component';
+import {RetreatTypeService} from './services/retreat-type.service';
+import {RetreatDateService} from './services/retreat-date.service';
+import {RetreatDateComponent} from './components/pages/admin/retreat-date/retreat-date.component';
 
 registerLocaleData(localeFr);
 
@@ -223,12 +228,12 @@ const appRoutes = [
         component: ReservationPageComponent,
       },
       {
-        path: 'retreats',
+        path: 'retreats/:id',
         component: RetreatReservationComponent,
       },
       {
-        path: 'retirements',
-        redirectTo: '/retreats'
+        path: 'virtual-activities',
+        component: VirtualActivitiesComponent,
       },
       {
         path: 'profile',
@@ -554,22 +559,6 @@ const appRoutes = [
             ],
             component: RetreatsComponent,
           },
-          {
-            path: 'create',
-            canActivate: [
-              CanActivateViaAuthGuard,
-              CanAccessAdminPanelGuard,
-            ],
-            component: RetreatEditFormComponent,
-          },
-          {
-            path: 'edit/:id',
-            canActivate: [
-              CanActivateViaAuthGuard,
-              CanAccessAdminPanelGuard,
-            ],
-            component: RetreatEditFormComponent,
-          }
         ]
       },
       {
@@ -732,7 +721,9 @@ const appRoutes = [
     RightPanelContainerComponent,
     ProfileReservationOpenComponent,
     RetreatReservationSummaryComponent,
-    RetreatEditFormComponent,
+    VirtualActivitiesComponent,
+    VirtualActivitiesItemComponent,
+    RetreatDateComponent,
   ],
   imports: [
     BrowserModule,
@@ -802,6 +793,8 @@ const appRoutes = [
     RetreatWaitingQueueService,
     RetreatWaitingQueueNotificationService,
     RetreatInvitationService,
+    RetreatTypeService,
+    RetreatDateService,
   ],
   bootstrap: [AppComponent]
 })

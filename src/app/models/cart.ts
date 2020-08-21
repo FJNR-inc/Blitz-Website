@@ -1,5 +1,5 @@
 import {Membership} from './membership';
-import {Retreat, TYPE_CHOICES} from './retreat';
+import {Retreat} from './retreat';
 import {TimeSlot} from './timeSlot';
 import {TaxeUtil} from '../utils/taxe';
 import {Order} from './order';
@@ -9,6 +9,7 @@ import {AppliedCoupon} from './appliedCoupon';
 import {ReservationPackage} from './reservationPackage';
 import {OptionProduct} from './optionProduct';
 import {User} from './user';
+import {RetreatType} from './retreatType';
 
 export interface SelectedProductOption {
   option: OptionProduct;
@@ -132,6 +133,15 @@ export class Cart {
       }
     }
 
+    return false;
+  }
+
+  containTypeOfRetreat(type: RetreatType) {
+    for (const retreat of this.getRetreats()) {
+      if (retreat.type.id === type.id) {
+        return true;
+      }
+    }
     return false;
   }
 
@@ -405,7 +415,7 @@ export class Cart {
     const numberOfFreeVirtualRetreatAvailable = this.getNumberOfFreeVirtualRetreat() + this.getMemberships().length;
 
     for (const retreatItem of this._retreats) {
-      const isVirtualRetreat = retreatItem.type === TYPE_CHOICES.VIRTUAL;
+      const isVirtualRetreat = retreatItem.type.is_virtual;
       const canGetVirtualRetreatForFree = numberOfFreeVirtualRetreatAvailable > numberOfFreeVirtualRetreatAlreadyCounted;
       const isFree = isVirtualRetreat && canGetVirtualRetreatForFree;
 

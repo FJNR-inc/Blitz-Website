@@ -1,6 +1,9 @@
 <div class="profile-retreats">
-  <h2 class="title title--8">
-    {{ 'profile-retreats.list_retreat_reservations.title' | translate }}
+  <h2 class="title title--8" *ngIf="type === 'physical'">
+    {{ 'profile-retreats.list_retreat_reservations.title_physical' | translate }}
+  </h2>
+  <h2 class="title title--8" *ngIf="type === 'virtual'">
+    {{ 'profile-retreats.list_retreat_reservations.title_virtual' | translate }}
   </h2>
 
   <div class="profile-retreats__list profile-retreats__list--loading" *ngIf="!getDisplayedRetreatReservation()">
@@ -14,7 +17,7 @@
          *ngFor="let retreatReservation of getDisplayedRetreatReservation()"
          [ngClass]="{'profile-retreats__list__item--open': retreatReservation.retreat_details.isOpen}"
          (click)="openRetreatReservation(retreatReservation.id)">
-      <i class="profile-retreats__list__item__icon fas" [ngClass]="{'fa-desktop': retreatReservation.retreat_details.type === 'V', 'fa-home': retreatReservation.retreat_details.type === 'P'}"></i>
+      <img class="profile-retreats__list__item__icon" src="{{retreatReservation.retreat_details.type.icon}}"/>
       <div class="profile-retreats__list__item__title">
         <div class="profile-retreats__list__item__title__text">
           <app-title [level]="5" [text]="retreatReservation.retreat_details.name"></app-title>
