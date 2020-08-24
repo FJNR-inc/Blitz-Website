@@ -799,8 +799,6 @@
   "reservation-page.modal.add_package__title": "Insufficient prepaid blocks",
   "reservation-page.payment_service_hs": "Our payment system is currently experiencing some difficulties. Please try again.",
   "reservation-page.text_available_seats": "Spots available",
-  "reservation-page.text_coffee_tea_at_will": "Unlimited coffee & tea",
-  "reservation-page.text_reservation_included": "Included in your booking",
   "reservation-page.title_address": "Address",
   "reservation.add_card": "Add card",
   "reservation.add_new_card": "Add card",

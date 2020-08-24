@@ -393,30 +393,7 @@ export class Cart {
   }
 
   getRetreatPrice(retreat: Retreat) {
-    if (this.isVirtualRetreatFree(retreat)) {
-      return 0;
-    } else {
-      return retreat.price;
-    }
-  }
-
-  isVirtualRetreatFree(retreat: Retreat) {
-    let numberOfFreeVirtualRetreatAlreadyCounted = 0;
-    const numberOfFreeVirtualRetreatAvailable = this.getNumberOfFreeVirtualRetreat() + this.getMemberships().length;
-
-    for (const retreatItem of this._retreats) {
-      const isVirtualRetreat = retreatItem.type === TYPE_CHOICES.VIRTUAL;
-      const canGetVirtualRetreatForFree = numberOfFreeVirtualRetreatAvailable > numberOfFreeVirtualRetreatAlreadyCounted;
-      const isFree = isVirtualRetreat && canGetVirtualRetreatForFree;
-
-      if (isFree) {
-        numberOfFreeVirtualRetreatAlreadyCounted += 1;
-      }
-
-      if (retreatItem.id === retreat.id) {
-        return isFree;
-      }
-    }
+    return retreat.price;
   }
 
   getSubTotal(): string {
@@ -426,9 +403,7 @@ export class Cart {
       total += Number(membership.price);
     }
     for (const retreat of this._retreats) {
-      if (!this.isVirtualRetreatFree(retreat)) {
-        total += Number(retreat.price);
-      }
+      total += Number(retreat.price);
     }
     for (const reservationPackage of this._reservationPackages) {
       total += Number(reservationPackage.price);
