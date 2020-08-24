@@ -322,7 +322,6 @@
   "membership-subscription.new_end_date": "Votre membership sera actif pendant {{nb_days}} jours et prendra donc fin le {{end_date}}.",
   "membership-subscription.text_1": "Le membership est valable pour un an et n'est pas remboursable.",
   "membership-subscription.text_2": "Des courriels de rappel sont envoyés quelques semaines avant la date d'échéance de votre membership pour vous inviter à le renouveler.",
-  "membership-subscription.text_3": "Une retraite virtuelle est offerte gratuitement à l’achat d’un membership avant le premier septembre 2020!",
   "membership-subscription.title": "Membership",
   "membership-subscription.to_soon_message": "Vous pourrez renouveler votre membership à partir de 30 jours avant sa date d'échéance.",
   "membership-subscription.you_already_have_a_membership": "Vous disposez déjà d'un membership actif.",
@@ -822,8 +821,6 @@
   "reservation-page.modal.add_package__title": "Nombre de blocs prépayés insuffisant",
   "reservation-page.payment_service_hs": "Notre système de paiement semble rencontrer quelques difficultés. Veuillez réessayer.",
   "reservation-page.text_available_seats": "Places disponibles",
-  "reservation-page.text_coffee_tea_at_will": "Café et thé à volonté",
-  "reservation-page.text_reservation_included": "Inclus avec la réservation",
   "reservation-page.title_address": "Adresse",
   "reservation.add_card": "Ajouter une carte",
   "reservation.add_new_card": "Ajouter une carte",
@@ -1366,5 +1363,5 @@
   "workplaces.validation_deletion_modal.text_1": "La suppression d'un espace de travail peut avoir de lourdes conséquences dont de nombreux remboursements et pertes de données.",
   "workplaces.validation_deletion_modal.text_2": "En supprimant cet espace de travail, vous prenez la responsabilité des conséquences éventuelles. Assurez-vous d'en avoir préalablement discuté avec une personne ressource de votre organisation.",
   "workplaces.validation_deletion_modal.text_3": "Veuillez saisir le nom complet de l'espace de travail pour confirmer sa suppression.",
-  "workplaces.workplaces": "Espaces de travail"
+  "workplaces.workplaces": "Espaces de travail",
 }
