@@ -9,8 +9,6 @@ export const environment = {
   multilingual_activated: true,
   minutesBeforeShowVirtualRetreatLink: 30,
   tomato_per_timeslot: 4,
-  tomato_per_physical_retreat: 20,
-  tomato_per_virtual_retreat: 6,
   url_base_api: 'http://127.0.0.1:8000',
   environment_paysafe: 'TEST',
   // tslint:disable-next-line:max-line-length

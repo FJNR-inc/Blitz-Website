@@ -7,7 +7,6 @@ import {RetreatReservationService} from '../../../../services/retreat-reservatio
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
-import {environment} from '../../../../../environments/environment';
 import {Router} from '@angular/router';
 import {MatMenuTrigger} from '@angular/material/menu';
 
@@ -104,9 +103,9 @@ export class ProfileRetreatsComponent implements OnInit {
 
         for ( const retreatReservation of listRetreatReservations ) {
           if (retreatReservation.retreat_details.getEndDate() < new Date()) {
-            this.totalPastRetreatReservations += environment.tomato_per_physical_retreat;
+            this.totalPastRetreatReservations += retreatReservation.retreat_details.type.number_of_tomatoes;
           } else {
-            this.totalFutureRetreatReservations += environment.tomato_per_physical_retreat;
+            this.totalFutureRetreatReservations += retreatReservation.retreat_details.type.number_of_tomatoes;
             this.listFutureRetreatReservations.push(retreatReservation);
           }
 

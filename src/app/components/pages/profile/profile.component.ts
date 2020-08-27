@@ -14,8 +14,10 @@ export class ProfileComponent implements OnInit {
 
   totalPastTimeslotTomatoes = 0;
   totalFutureTimeslotTomatoes = 0;
-  totalPastRetreatTomatoes = 0;
-  totalFutureRetreatTomatoes = 0;
+  totalPastPhysicalRetreatTomatoes = 0;
+  totalFuturePhysicalRetreatTomatoes = 0;
+  totalPastVirtualRetreatTomatoes = 0;
+  totalFutureVirtualRetreatTomatoes = 0;
   openVirtualReservation: RetreatReservation;
 
   constructor(private authenticationService: AuthenticationService) { }
@@ -29,10 +31,10 @@ export class ProfileComponent implements OnInit {
   }
 
   getTotalPastTomatoes() {
-    return this.totalPastTimeslotTomatoes + this.totalPastRetreatTomatoes;
+    return this.totalPastTimeslotTomatoes + this.totalPastPhysicalRetreatTomatoes + this.totalPastVirtualRetreatTomatoes;
   }
 
   getTotalFutureTomatoes() {
-    return this.totalFutureTimeslotTomatoes + this.totalFutureRetreatTomatoes;
+    return this.totalFutureTimeslotTomatoes + this.totalFuturePhysicalRetreatTomatoes + this.totalFutureVirtualRetreatTomatoes;
   }
 }
