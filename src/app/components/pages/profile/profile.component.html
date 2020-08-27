@@ -31,9 +31,8 @@
         <div class="profile-page__body__content__left__account">
           <app-profile-deactivate></app-profile-deactivate>
         </div>
-
-
       </div>
+
       <div class="profile-page__body__content__right">
         <div class="profile-page__body__content__right__top">
           <app-profile-stats></app-profile-stats>
@@ -43,16 +42,18 @@
           <app-profile-tomatoes [totalPastTomatoes]="getTotalPastTomatoes()" [totalFutureTomatoes]="getTotalFutureTomatoes()"></app-profile-tomatoes>
         </div>
 
-        <div class="profile-page__body__content__right__timeslots">
-          <app-profile-timeslots (totalPastTomatoes)="totalPastTimeslotTomatoes = $event" (totalFutureTomatoes)="totalFutureTimeslotTomatoes = $event"></app-profile-timeslots>
+        <div class="profile-page__body__content__right__separator"></div>
+
+        <div class="profile-page__body__content__right__retreats">
+          <app-profile-retreats [type]='"virtual"' (openVirtualReservation)="openVirtualReservation = $event" (totalPastTomatoes)="totalPastRetreatTomatoes = $event" (totalFutureTomatoes)="totalFutureRetreatTomatoes = $event"></app-profile-retreats>
         </div>
 
         <div class="profile-page__body__content__right__retreats">
           <app-profile-retreats [type]='"physical"' (openVirtualReservation)="openVirtualReservation = $event" (totalPastTomatoes)="totalPastRetreatTomatoes = $event" (totalFutureTomatoes)="totalFutureRetreatTomatoes = $event"></app-profile-retreats>
         </div>
 
-        <div class="profile-page__body__content__right__retreats">
-          <app-profile-retreats [type]='"virtual"' (openVirtualReservation)="openVirtualReservation = $event" (totalPastTomatoes)="totalPastRetreatTomatoes = $event" (totalFutureTomatoes)="totalFutureRetreatTomatoes = $event"></app-profile-retreats>
+        <div class="profile-page__body__content__right__timeslots">
+          <app-profile-timeslots (totalPastTomatoes)="totalPastTimeslotTomatoes = $event" (totalFutureTomatoes)="totalFutureTimeslotTomatoes = $event"></app-profile-timeslots>
         </div>
       </div>
     </div>
