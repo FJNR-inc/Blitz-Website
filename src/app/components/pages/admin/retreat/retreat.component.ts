@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Retreat, ROOM_CHOICES} from '../../../../models/retreat';
 import { RetreatService } from '../../../../services/retreat.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import { MyModalService } from '../../../../services/my-modal/my-modal.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {FormUtil} from '../../../../utils/form';
@@ -15,8 +15,10 @@ import { isNull } from 'util';
 import { TableRetreatReservationsComponent } from '../../../table/table-retreat-reservations/table-retreat-reservations.component';
 import {RetreatType} from '../../../../models/retreatType';
 import {RetreatTypeService} from '../../../../services/retreat-type.service';
-import {RetreatDateService} from '../../../../services/retreat-date.service';
 import {RetreatDate} from '../../../../models/retreatDate';
+import {AcademicLevel} from '../../../../models/academicLevel';
+import {Membership} from '../../../../models/membership';
+import {MembershipService} from '../../../../services/membership.service';
 
 
 interface Choice {
@@ -282,7 +284,14 @@ export class RetreatComponent implements OnInit {
       type: 'checkbox',
       label: _('retreat.form.hidden')
     },
+    {
+      name: 'exclusive_memberships',
+      type: 'choices',
+      label: _('retreat.form.memberships_required'),
+      choices: []
+    },
   ];
+
   virtualRetreatFields = [
     {
       name: 'name_fr',
@@ -394,6 +403,12 @@ export class RetreatComponent implements OnInit {
       type: 'checkbox',
       label: _('retreat.form.hidden')
     },
+    {
+      name: 'exclusive_memberships',
+      type: 'choices',
+      label: _('retreat.form.memberships_required'),
+      choices: []
+    },
   ];
 
   selectedReservationOnCancellation = null;
@@ -411,6 +426,7 @@ export class RetreatComponent implements OnInit {
       label: _('retreat.cancel_reservation_modal.refund')
     },
   ];
+  listMemberships: Membership[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private retreatService: RetreatService,
@@ -421,13 +437,14 @@ export class RetreatComponent implements OnInit {
               private retreatReservationService: RetreatReservationService,
               private router: Router,
               private retreatTypeService: RetreatTypeService,
-              private retreatDateService: RetreatDateService) { }
+              private membershipService: MembershipService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.retreatId = params['id'];
       this.refreshRetreat();
       this.refreshRetreatTypeList();
+      this.refreshMembershipList();
     });
   }
 
@@ -435,10 +452,27 @@ export class RetreatComponent implements OnInit {
     this.retreatService.get(this.retreatId).subscribe(
       data => {
         this.retreat = new Retreat(data);
-        this.initRetreatForm();
         this.initCancelReservationForm();
       }
     );
+  }
+
+  updateFields(membershipsSelected = []) {
+    for (const list of [this.retreatFields, this.virtualRetreatFields]) {
+      for (const field of list) {
+        if (field.name === 'exclusive_memberships') {
+          field['choices'] = [];
+          for (const level of this.listMemberships) {
+            const choice = {
+              label: level.name,
+              value: membershipsSelected.indexOf(level.url) > -1
+            };
+            // @ts-ignore
+            field['choices'].push(choice);
+          }
+        }
+      }
+    }
   }
 
   activateRetreat() {
@@ -492,12 +526,21 @@ export class RetreatComponent implements OnInit {
     }
   }
 
+  refreshMembershipList() {
+    this.membershipService.list().subscribe(
+      levels => {
+        this.listMemberships = levels.results.map(l => new AcademicLevel(l));
+      }
+    );
+  }
+
   initRetreatForm() {
     /*
     Init form and init all values
      */
 
     const formUtil = new FormUtil();
+    this.updateFields(this.retreat.exclusive_memberships);
     this.retreatForm = formUtil.createFormGroup(this.formField);
 
     if (this.retreat.type.is_virtual) {
@@ -567,6 +610,17 @@ export class RetreatComponent implements OnInit {
   submitRetreat() {
     const value = this.retreatForm.value;
     value['timezone'] = 'America/Montreal';
+
+    const formArray = this.retreatForm.get('exclusive_memberships') as FormArray;
+    value['exclusive_memberships'] = [];
+    let index = 0;
+    for (const control of formArray.controls) {
+      if (control.value) {
+        value['exclusive_memberships'].push(this.listMemberships[index].url);
+      }
+      index++;
+    }
+
     if ( this.retreatForm.valid ) {
       this.retreatService.update(this.retreat.url, value).subscribe(
         () => {
