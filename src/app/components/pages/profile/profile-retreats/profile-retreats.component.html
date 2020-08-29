@@ -83,7 +83,7 @@
       </div>
     </div>
   </div>
-  <a class="profile-retreats__action" routerLink="/retreats">
+  <a class="profile-retreats__action" [routerLink]="linkToAddNewRetreat">
     <i class="icon icon-plus icon--2x"></i>
     <span *ngIf="type === 'physical'">
       {{ 'profile-retreats.add_physical_retreat_reservations' | translate }}
