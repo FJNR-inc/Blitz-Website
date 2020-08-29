@@ -10,6 +10,7 @@ import {MyNotificationService} from '../../../../services/my-notification/my-not
 import {Router} from '@angular/router';
 import {MatMenuTrigger} from '@angular/material/menu';
 import { v4 as uuid } from 'uuid';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-profile-retreats',
@@ -44,6 +45,7 @@ export class ProfileRetreatsComponent implements OnInit {
   exchangeModalName: string;
   noExchangeAvailableModalName: string;
   uuid: string;
+  linkToAddNewRetreat: string;
 
   constructor(private retreatService: RetreatService,
               private retreatReservationService: RetreatReservationService,
@@ -58,6 +60,12 @@ export class ProfileRetreatsComponent implements OnInit {
     this.deleteModalName = 'delete_modal_' + this.uuid;
     this.exchangeModalName = 'exchange_modal_' + this.uuid;
     this.noExchangeAvailableModalName = 'no_available_exchange_modal_' + this.uuid;
+
+    if (this.type === 'physical') {
+      this.linkToAddNewRetreat = '/retreats/' + environment.defaultRetreatId;
+    } else {
+      this.linkToAddNewRetreat = '/virtual-activities';
+    }
   }
 
   refreshRetreats() {
