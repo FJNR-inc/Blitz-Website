@@ -736,7 +736,6 @@ export class RetreatComponent implements OnInit {
         this.selectedUser = null;
       },
       err => {
-        console.log(err);
         this.errors = err.error.non_field_errors;
       }
     );
@@ -776,7 +775,6 @@ export class RetreatComponent implements OnInit {
         _('retreat.cancel_reservation_modal.button')
       );
     } else {
-      console.log(event);
       this.notificationService.error(
         _('retreat.notifications.cancellation_already_done.title')
       );

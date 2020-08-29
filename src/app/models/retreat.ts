@@ -173,7 +173,6 @@ export class Retreat extends BaseModel {
     const visibleDate = new Date(new Date(this.start_time).getTime() - minutesBeforeRetreat * 60 * 1000);
     const linkIsVisible = new Date() > visibleDate;
     const isFinished = new Date() > new Date(this.end_time);
-    console.log(this);
     return this.type.is_virtual && this.videoconference_link && linkIsVisible && !isFinished;
   }
 
