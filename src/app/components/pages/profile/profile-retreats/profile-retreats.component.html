@@ -63,10 +63,7 @@
                 (click)="stopPropagation($event)"
         >{{ 'profile-retreats.retreats.details.options' | translate }}
           <i class="icon icon-caret-down"></i></button>
-        <mat-menu #optionsRetreat="matMenu"
-                  class="options_menu"
-        >
-
+        <mat-menu #optionsRetreat="matMenu" class="options_menu">
           <button mat-menu-item class="options_menu__item"
                   *ngIf="retreatReservation.refundable || isAdminReservation(retreatReservation)"
                   (click)="openModalCancelRetreatReservation(retreatReservation)">
@@ -77,10 +74,9 @@
                   (click)="openModalExchangeRetreatReservation(retreatReservation)">
             {{ 'profile-retreats.retreats.details.change' | translate }}
           </button>
-          <a
-            *ngIf="retreatReservation.retreat_details.form_url"
-            target="_blank" [href]="retreatReservation.retreat_details.form_url"
-            mat-menu-item class="options_menu__item">
+          <a *ngIf="retreatReservation.retreat_details.form_url"
+             target="_blank" [href]="retreatReservation.retreat_details.form_url"
+             mat-menu-item class="options_menu__item">
             {{ 'profile-retreats.retreats.details.detail' | translate }}
           </a>
         </mat-menu>
@@ -116,7 +112,7 @@
 </div>
 
 
-<app-nt-modal name="form_exchange_retreat"
+<app-nt-modal [name]="exchangeModalName"
               typeModal="danger"
               title="{{ 'profile-retreats.exchange_reservation_retreat_title' | translate }}"
               button2Label="{{ 'profile-retreats.exchange_reservation_retreat_button_confirm' | translate }}"
@@ -154,7 +150,20 @@
   </div>
 </app-nt-modal>
 
-<app-nt-modal name="form_cancel_reservation_retreat"
+<app-nt-modal [name]="noExchangeAvailableModalName"
+              typeModal="danger"
+              title="{{ 'profile-retreats.no_available_exchange_reservation_retreat_title' | translate }}"
+              button2Label="{{ 'profile-retreats.no_available_exchange_reservation_retreat_button_confirm' | translate }}"
+              [autoClose]="true"
+              maxWidth="600px">
+  <div>
+    <p>
+      {{ 'profile-retreats.no_available_exchange_reservation_retreat_text' | translate }}
+    </p>
+  </div>
+</app-nt-modal>
+
+<app-nt-modal [name]="deleteModalName"
               typeModal="danger"
               title="{{ 'profile-retreats.cancel_reservation_retreat' | translate }}"
               button2Label="{{ 'profile-retreats.cancel_reservation_retreat_button' | translate }}"

@@ -24,7 +24,6 @@ export class FormUtil {
     for (const field of fields) {
       if (field.type !== 'alert') {
         if (!form.controls[field.name].value) {
-          console.log(form.controls[field.name].value);
           return false;
         }
       }

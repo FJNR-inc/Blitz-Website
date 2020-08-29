@@ -9,6 +9,7 @@ import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {Router} from '@angular/router';
 import {MatMenuTrigger} from '@angular/material/menu';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-profile-retreats',
@@ -39,6 +40,11 @@ export class ProfileRetreatsComponent implements OnInit {
   @Output() openVirtualReservation: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
 
+  deleteModalName: string;
+  exchangeModalName: string;
+  noExchangeAvailableModalName: string;
+  uuid: string;
+
   constructor(private retreatService: RetreatService,
               private retreatReservationService: RetreatReservationService,
               private authenticationService: AuthenticationService,
@@ -48,6 +54,10 @@ export class ProfileRetreatsComponent implements OnInit {
 
   ngOnInit() {
     this.refreshRetreatReservation();
+    this.uuid = uuid();
+    this.deleteModalName = 'delete_modal_' + this.uuid;
+    this.exchangeModalName = 'exchange_modal_' + this.uuid;
+    this.noExchangeAvailableModalName = 'no_available_exchange_modal_' + this.uuid;
   }
 
   refreshRetreats() {
@@ -68,9 +78,13 @@ export class ProfileRetreatsComponent implements OnInit {
     ];
     this.retreatService.list(filters).subscribe(
       reservations => {
-        this.listRetreats = reservations.results.map(
-          r => new Retreat(r)
-        );
+        this.listRetreats = reservations.results.map(r => new Retreat(r));
+        if (this.getChoicesExchangeRetreat().length) {
+          this.selectedRetreatForExchange = this.getChoicesExchangeRetreat()[0].url;
+          this.toogleModal(this.exchangeModalName);
+        } else {
+          this.toogleModal(this.noExchangeAvailableModalName);
+        }
       }
     );
   }
@@ -157,15 +171,13 @@ export class ProfileRetreatsComponent implements OnInit {
 
   openModalExchangeRetreatReservation(selectedRetreatReservation) {
     this.selectedRetreatReservation = selectedRetreatReservation;
-    this.selectedRetreatForExchange = this.getChoicesExchangeRetreat()[0].url;
     this.refreshRetreats();
-    this.toogleModal('form_exchange_retreat');
   }
 
   openModalCancelRetreatReservation(selectedRetreatReservation) {
     this.errorCancelationRetreatReservation = null;
     this.selectedRetreatReservation = selectedRetreatReservation;
-    this.toogleModal('form_cancel_reservation_retreat');
+    this.toogleModal(this.deleteModalName);
   }
 
   getChoicesExchangeRetreat() {
@@ -200,7 +212,7 @@ export class ProfileRetreatsComponent implements OnInit {
           _('profile-retreats.notifications.exchange_retreat_reservation.content')
         );
         this.refreshRetreatReservation();
-        this.toogleModal('form_exchange_retreat');
+        this.toogleModal(this.exchangeModalName);
       },
       err => {
         if (err.error.non_field_errors) {
@@ -220,7 +232,7 @@ export class ProfileRetreatsComponent implements OnInit {
           _('profile-retreats.notifications.cancel_retreat_reservation.content')
         );
         this.refreshRetreatReservation();
-        this.toogleModal('form_cancel_reservation_retreat');
+        this.toogleModal(this.deleteModalName);
       },
       err => {
         if (err.error.non_field_errors) {
