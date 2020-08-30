@@ -9,6 +9,8 @@ import {OrderService} from '../../../../services/order.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
+import {RetreatType} from '../../../../models/retreatType';
+import {RetreatTypeService} from '../../../../services/retreat-type.service';
 
 @Component({
   selector: 'app-payment-flow-confirmation',
@@ -33,11 +35,14 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   new_card: string;
   no_payment_mode: string;
 
+  retreatTypes: RetreatType[];
+
   constructor(private cartService: MyCartService,
               private authenticationService: AuthenticationService,
               private cardService: CardService,
               private orderService: OrderService,
               private router: Router,
+              private retreatTypeService: RetreatTypeService,
               private translate: TranslateService) {
     this.new_card = this.translate.instant('new_card_added');
     this.no_payment_mode = this.translate.instant('no_payment_mode');
@@ -51,6 +56,15 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refreshRetreatTypeList();
+  }
+
+  refreshRetreatTypeList() {
+    this.retreatTypeService.list().subscribe(
+      (retreatTypes) => {
+        this.retreatTypes = retreatTypes.results.map(o => new RetreatType(o));
+      }
+    );
   }
 
   changePaymentMethod() {
@@ -149,5 +163,13 @@ export class PaymentFlowConfirmationComponent implements OnInit {
     } else {
       return _('payment-flow-confirmation.confirm_button_paiement');
     }
+  }
+
+  retreatTypeIsInCart(type: RetreatType) {
+    return this.cartService.containTypeOfRetreat(type);
+  }
+
+  get hasTimeslot() {
+    return this.cartService.hasTimeslot;
   }
 }
