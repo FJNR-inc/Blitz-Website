@@ -1,0 +1,17 @@
+<div class="virtual-activities">
+  <div class="virtual-activities__main">
+    <div class="virtual-activities__main__content">
+      <div class="virtual-activities__main__content__header">
+        <app-title [level]="4"
+                   class="virtual-activities__main__content__header__title"
+                   text="{{ 'virtual-activities.title' | translate }}">
+        </app-title>
+      </div>
+      <div class="virtual-activities__main__content__services">
+        <app-virtual-activities-item class="virtual-activities__main__content__services__item"
+                                     *ngFor="let retreatType of retreatTypes"
+                                     [retreatType]="retreatType"></app-virtual-activities-item>
+      </div>
+    </div>
+  </div>
+</div>

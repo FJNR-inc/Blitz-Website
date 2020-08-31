@@ -7,6 +7,7 @@ import {Coupon} from '../../models/coupon';
 import {AppliedCoupon} from '../../models/appliedCoupon';
 import {ReservationPackage} from '../../models/reservationPackage';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {RetreatType} from '../../models/retreatType';
 
 @Injectable({
   providedIn: 'root'
@@ -179,5 +180,10 @@ export class MyCartService {
   get hasTimeslot(): boolean {
     const localCart = this.localCart;
     return localCart.hasTimeslot;
+  }
+
+  containTypeOfRetreat(type: RetreatType) {
+    const localCart = this.localCart;
+    return localCart.containTypeOfRetreat(type);
   }
 }

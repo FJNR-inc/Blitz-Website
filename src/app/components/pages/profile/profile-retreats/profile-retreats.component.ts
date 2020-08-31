@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Retreat} from '../../../../models/retreat';
 import {RetreatReservation} from '../../../../models/retreatReservation';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
@@ -7,9 +7,10 @@ import {RetreatReservationService} from '../../../../services/retreat-reservatio
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
-import {environment} from '../../../../../environments/environment';
 import {Router} from '@angular/router';
 import {MatMenuTrigger} from '@angular/material/menu';
+import { v4 as uuid } from 'uuid';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-profile-retreats',
@@ -33,10 +34,18 @@ export class ProfileRetreatsComponent implements OnInit {
   displayAllRetreatReservation = false;
   retreatReservationOpen: number;
 
+  @Input() type: 'virtual' | 'physical';
+
   @Output() totalPastTomatoes: EventEmitter<any> = new EventEmitter();
   @Output() totalFutureTomatoes: EventEmitter<any> = new EventEmitter();
   @Output() openVirtualReservation: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
+
+  deleteModalName: string;
+  exchangeModalName: string;
+  noExchangeAvailableModalName: string;
+  uuid: string;
+  linkToAddNewRetreat: string;
 
   constructor(private retreatService: RetreatService,
               private retreatReservationService: RetreatReservationService,
@@ -46,8 +55,17 @@ export class ProfileRetreatsComponent implements OnInit {
               private notificationService: MyNotificationService) { }
 
   ngOnInit() {
-    this.refreshRetreats();
     this.refreshRetreatReservation();
+    this.uuid = uuid();
+    this.deleteModalName = 'delete_modal_' + this.uuid;
+    this.exchangeModalName = 'exchange_modal_' + this.uuid;
+    this.noExchangeAvailableModalName = 'no_available_exchange_modal_' + this.uuid;
+
+    if (this.type === 'physical') {
+      this.linkToAddNewRetreat = '/retreats/' + environment.defaultRetreatId;
+    } else {
+      this.linkToAddNewRetreat = '/virtual-activities';
+    }
   }
 
   refreshRetreats() {
@@ -60,13 +78,21 @@ export class ProfileRetreatsComponent implements OnInit {
       {
         'name': 'end_time__gte',
         'value': now
+      },
+      {
+        'name': 'type',
+        'value': this.selectedRetreatReservation.retreat_details.type.id
       }
     ];
     this.retreatService.list(filters).subscribe(
       reservations => {
-        this.listRetreats = reservations.results.map(
-          r => new Retreat(r)
-        );
+        this.listRetreats = reservations.results.map(r => new Retreat(r));
+        if (this.getChoicesExchangeRetreat().length) {
+          this.selectedRetreatForExchange = this.getChoicesExchangeRetreat()[0].url;
+          this.toogleModal(this.exchangeModalName);
+        } else {
+          this.toogleModal(this.noExchangeAvailableModalName);
+        }
       }
     );
   }
@@ -80,6 +106,10 @@ export class ProfileRetreatsComponent implements OnInit {
       {
         'name': 'is_active',
         'value': true
+      },
+      {
+        'name': 'retreat__type__is_virtual',
+        'value': this.type === 'virtual'
       }
     ];
     this.retreatReservationService.list(filters).subscribe(
@@ -95,9 +125,9 @@ export class ProfileRetreatsComponent implements OnInit {
 
         for ( const retreatReservation of listRetreatReservations ) {
           if (retreatReservation.retreat_details.getEndDate() < new Date()) {
-            this.totalPastRetreatReservations += environment.tomato_per_physical_retreat;
+            this.totalPastRetreatReservations += retreatReservation.retreat_details.type.number_of_tomatoes;
           } else {
-            this.totalFutureRetreatReservations += environment.tomato_per_physical_retreat;
+            this.totalFutureRetreatReservations += retreatReservation.retreat_details.type.number_of_tomatoes;
             this.listFutureRetreatReservations.push(retreatReservation);
           }
 
@@ -149,15 +179,13 @@ export class ProfileRetreatsComponent implements OnInit {
 
   openModalExchangeRetreatReservation(selectedRetreatReservation) {
     this.selectedRetreatReservation = selectedRetreatReservation;
-    this.selectedRetreatForExchange = this.getChoicesExchangeRetreat()[0].url;
     this.refreshRetreats();
-    this.toogleModal('form_exchange_retreat');
   }
 
   openModalCancelRetreatReservation(selectedRetreatReservation) {
     this.errorCancelationRetreatReservation = null;
     this.selectedRetreatReservation = selectedRetreatReservation;
-    this.toogleModal('form_cancel_reservation_retreat');
+    this.toogleModal(this.deleteModalName);
   }
 
   getChoicesExchangeRetreat() {
@@ -192,7 +220,7 @@ export class ProfileRetreatsComponent implements OnInit {
           _('profile-retreats.notifications.exchange_retreat_reservation.content')
         );
         this.refreshRetreatReservation();
-        this.toogleModal('form_exchange_retreat');
+        this.toogleModal(this.exchangeModalName);
       },
       err => {
         if (err.error.non_field_errors) {
@@ -212,7 +240,7 @@ export class ProfileRetreatsComponent implements OnInit {
           _('profile-retreats.notifications.cancel_retreat_reservation.content')
         );
         this.refreshRetreatReservation();
-        this.toogleModal('form_cancel_reservation_retreat');
+        this.toogleModal(this.deleteModalName);
       },
       err => {
         if (err.error.non_field_errors) {

@@ -29,20 +29,24 @@
               maxWidth="800px"
               [autoClose]="true">
   <div class="payment-flow-confirmation-modale-politics">
-    <app-title [level]="3" text="{{'payment-flow-confirmation.modal_title' | translate}}"></app-title>
-    <app-title [level]="6" class="payment-flow-confirmation-modale-politics__title"
-               text="{{'retreat-reservation.modal_policies.physical.title' | translate}}"></app-title>
-    <app-title [level]="9" text="{{'retreat-reservation.modal_policies.physical.text' | translate}}"></app-title>
+    <ng-container *ngFor="let type of retreatTypes">
+      <div *ngIf="retreatTypeIsInCart(type)">
+        <app-title [level]="6"
+                   class="payment-flow-confirmation-modale-politics__title"
+                   text="{{ type.name }}"></app-title>
+        <app-title [level]="9"
+                   class="payment-flow-confirmation-modale-politics"
+                   text="{{ type.cancellation_policies }}"></app-title>
+      </div>
+    </ng-container>
 
-    <app-title [level]="6" class="payment-flow-confirmation-modale-politics__title"
-               text="{{'retreat-reservation.modal_policies.virtual.title' | translate}}"></app-title>
-    <app-title [level]="9" text="{{'retreat-reservation.modal_policies.virtual.text' | translate}}"></app-title>
-
-    <app-title [level]="6"
-               class="payment-flow-confirmation-modale-politics__title"
-               text="{{'payment-flow-confirmation.cancelation_politic.title' | translate}}"></app-title>
-    <app-title [level]="9" text="{{'payment-flow-confirmation.cancelation_politic.text_1' | translate}}"></app-title>
-    <app-title [level]="9" text="{{'payment-flow-confirmation.cancelation_politic.text_2' | translate}}"></app-title>
-    <app-title [level]="9" text="{{'payment-flow-confirmation.cancelation_politic.text_3' | translate}}"></app-title>
+    <ng-container *ngIf="hasTimeslot">
+      <app-title [level]="6"
+                 class="payment-flow-confirmation-modale-politics__title"
+                 text="{{'payment-flow.cancelation_politic.title' | translate}}"></app-title>
+      <app-title [level]="9" text="{{'payment-flow.cancelation_politic.text_1' | translate}}"></app-title>
+      <app-title [level]="9" text="{{'payment-flow.cancelation_politic.text_2' | translate}}"></app-title>
+      <app-title [level]="9" text="{{'payment-flow.cancelation_politic.text_3' | translate}}"></app-title>
+    </ng-container>
   </div>
 </app-nt-modal>

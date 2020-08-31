@@ -21,22 +21,15 @@
         <div class="cart-summary__items__item__left__name">
           <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="retreat.name"></app-title><br/>
           <app-title [level]="9"
-                     *ngIf="retreat.type === 'P'"
+                     *ngIf="!retreat.type.is_virtual"
                      class="cart-summary__items__item__left__name"
                      [text]="retreat.place_name"></app-title>
           <app-title [level]="9"
-                     *ngIf="retreat.type === 'V'"
+                     *ngIf="retreat.type.is_virtual"
                      class="cart-summary__items__item__left__name"
                      [text]="retreat.videoconference_tool"></app-title>
           <br/>
           <app-title [level]="9" class="cart-summary__items__item__left__name" [text]="retreat.getDateInterval()"></app-title><br/>
-          <div *ngIf="cart.isVirtualRetreatFree(retreat)">
-            <br/>
-            <br/>
-            <app-title [level]="9"
-                       class="cart-summary__items__item__left__name"
-                       text="{{'cart-summary.why_virtual_retreat_is_free' | translate}}"></app-title>
-          </div>
           <br/>
           <app-title [level]="9"
                      *ngFor="let assignedOption of cart.getAssignedProductOptions(retreat)"

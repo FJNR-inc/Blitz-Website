@@ -10,7 +10,8 @@
     align-items: center;
 
     &__icon {
-      font-size: 45px;
+      max-width: 45px;
+      max-height: 45px;
     }
 
     &__name {
@@ -66,7 +67,7 @@
 
     &__details {
       &__item {
-        display: block;
+        display: flex;
         margin-top: 20px;
 
         &__title {

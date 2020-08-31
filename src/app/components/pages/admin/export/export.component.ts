@@ -134,8 +134,6 @@ export class ExportComponent implements OnInit {
       if (exportType.code === type) {
         exportType.service.export(pageToGet).subscribe(
           data => {
-            console.log(data);
-
             const numberOfPages = Math.ceil(data.count / data.limit);
             this.numberOfPages = Array.from(Array(numberOfPages), (x, i) => i);
             this.limit = data.limit;

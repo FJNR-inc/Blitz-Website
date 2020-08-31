@@ -1,20 +1,30 @@
 <div class="profile-retreats">
-  <h2 class="title title--8">
-    {{ 'profile-retreats.list_retreat_reservations.title' | translate }}
+  <h2 class="title title--8" *ngIf="type === 'physical'">
+    {{ 'profile-retreats.list_retreat_reservations.title_physical' | translate }}
+  </h2>
+  <h2 class="title title--8" *ngIf="type === 'virtual'">
+    {{ 'profile-retreats.list_retreat_reservations.title_virtual' | translate }}
   </h2>
 
   <div class="profile-retreats__list profile-retreats__list--loading" *ngIf="!getDisplayedRetreatReservation()">
     <app-loader></app-loader>
   </div>
   <div class="profile-retreats__list profile-retreats__list--empty" *ngIf="getDisplayedRetreatReservation() && getDisplayedRetreatReservation().length === 0">
-    {{ 'profile-retreats.list_retreat_reservations.no_reservation' | translate }}
+    <span *ngIf="type === 'physical'">
+        {{ 'profile-retreats.list_retreat_reservations.no_physical_reservation' | translate }}
+    </span>
+    <span *ngIf="type === 'virtual'">
+        {{ 'profile-retreats.list_retreat_reservations.no_virtual_reservation' | translate }}
+    </span>
   </div>
   <div class="profile-retreats__list" *ngIf="getDisplayedRetreatReservation() && getDisplayedRetreatReservation().length">
     <div class="profile-retreats__list__item"
          *ngFor="let retreatReservation of getDisplayedRetreatReservation()"
          [ngClass]="{'profile-retreats__list__item--open': retreatReservation.retreat_details.isOpen}"
          (click)="openRetreatReservation(retreatReservation.id)">
-      <i class="profile-retreats__list__item__icon fas" [ngClass]="{'fa-desktop': retreatReservation.retreat_details.type === 'V', 'fa-home': retreatReservation.retreat_details.type === 'P'}"></i>
+      <div class="profile-retreats__list__item__icon">
+        <img src="{{retreatReservation.retreat_details.type.icon}}"/>
+      </div>
       <div class="profile-retreats__list__item__title">
         <div class="profile-retreats__list__item__title__text">
           <app-title [level]="5" [text]="retreatReservation.retreat_details.name"></app-title>
@@ -53,10 +63,7 @@
                 (click)="stopPropagation($event)"
         >{{ 'profile-retreats.retreats.details.options' | translate }}
           <i class="icon icon-caret-down"></i></button>
-        <mat-menu #optionsRetreat="matMenu"
-                  class="options_menu"
-        >
-
+        <mat-menu #optionsRetreat="matMenu" class="options_menu">
           <button mat-menu-item class="options_menu__item"
                   *ngIf="retreatReservation.refundable || isAdminReservation(retreatReservation)"
                   (click)="openModalCancelRetreatReservation(retreatReservation)">
@@ -67,30 +74,45 @@
                   (click)="openModalExchangeRetreatReservation(retreatReservation)">
             {{ 'profile-retreats.retreats.details.change' | translate }}
           </button>
-          <a
-            *ngIf="retreatReservation.retreat_details.form_url"
-            target="_blank" [href]="retreatReservation.retreat_details.form_url"
-            mat-menu-item class="options_menu__item">
+          <a *ngIf="retreatReservation.retreat_details.form_url"
+             target="_blank" [href]="retreatReservation.retreat_details.form_url"
+             mat-menu-item class="options_menu__item">
             {{ 'profile-retreats.retreats.details.detail' | translate }}
           </a>
         </mat-menu>
       </div>
     </div>
   </div>
-  <a class="profile-retreats__action" routerLink="/retreats">
+  <a class="profile-retreats__action" [routerLink]="linkToAddNewRetreat">
     <i class="icon icon-plus icon--2x"></i>
-    {{ 'profile-retreats.add_retreat_reservations' | translate }}
+    <span *ngIf="type === 'physical'">
+      {{ 'profile-retreats.add_physical_retreat_reservations' | translate }}
+    </span>
+    <span *ngIf="type === 'virtual'">
+      {{ 'profile-retreats.add_virtual_retreat_reservations' | translate }}
+    </span>
   </a>
+
   <a *ngIf="!displayAllRetreatReservation" class="profile-retreats__link nt-link" (click)="setDisplayAllRetreatReservation(true)">
-    {{ 'profile-retreats.display_old_retreat_reservations' | translate }}
+    <span *ngIf="type === 'physical'">
+      {{ 'profile-retreats.display_old_physical_retreat_reservations' | translate }}
+    </span>
+    <span *ngIf="type === 'virtual'">
+      {{ 'profile-retreats.display_old_virtual_retreat_reservations' | translate }}
+    </span>
   </a>
   <a *ngIf="displayAllRetreatReservation" class="profile-retreats__link nt-link" (click)="setDisplayAllRetreatReservation(false)">
-    {{ 'profile-retreats.hide_old_retreat_reservations' | translate }}
+      <span *ngIf="type === 'physical'">
+      {{ 'profile-retreats.hide_old_physical_retreat_reservations' | translate }}
+    </span>
+    <span *ngIf="type === 'virtual'">
+      {{ 'profile-retreats.hide_old_virtual_retreat_reservations' | translate }}
+    </span>
   </a>
 </div>
 
 
-<app-nt-modal name="form_exchange_retreat"
+<app-nt-modal [name]="exchangeModalName"
               typeModal="danger"
               title="{{ 'profile-retreats.exchange_reservation_retreat_title' | translate }}"
               button2Label="{{ 'profile-retreats.exchange_reservation_retreat_button_confirm' | translate }}"
@@ -128,7 +150,20 @@
   </div>
 </app-nt-modal>
 
-<app-nt-modal name="form_cancel_reservation_retreat"
+<app-nt-modal [name]="noExchangeAvailableModalName"
+              typeModal="danger"
+              title="{{ 'profile-retreats.no_available_exchange_reservation_retreat_title' | translate }}"
+              button2Label="{{ 'profile-retreats.no_available_exchange_reservation_retreat_button_confirm' | translate }}"
+              [autoClose]="true"
+              maxWidth="600px">
+  <div>
+    <p>
+      {{ 'profile-retreats.no_available_exchange_reservation_retreat_text' | translate }}
+    </p>
+  </div>
+</app-nt-modal>
+
+<app-nt-modal [name]="deleteModalName"
               typeModal="danger"
               title="{{ 'profile-retreats.cancel_reservation_retreat' | translate }}"
               button2Label="{{ 'profile-retreats.cancel_reservation_retreat_button' | translate }}"

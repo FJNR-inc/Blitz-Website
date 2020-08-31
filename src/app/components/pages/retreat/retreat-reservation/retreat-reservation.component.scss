@@ -29,6 +29,7 @@
 
         &__description {
           margin-top: 20px;
+          white-space: pre-wrap;
         }
 
         &__links {
@@ -67,6 +68,10 @@
       &__title {
         display: block;
         margin-bottom: 20px;
+      }
+
+      &__content {
+        white-space: pre-wrap;
       }
     }
   }

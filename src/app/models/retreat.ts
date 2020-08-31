@@ -2,9 +2,12 @@ import BaseModel from './baseModel';
 import {User} from './user';
 import {Membership} from './membership';
 import {DateUtil} from '../utils/date';
-import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {OptionProduct} from './optionProduct';
 import {environment} from '../../environments/environment';
+import {RetreatType} from './retreatType';
+import {RetreatDate} from './retreatDate';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 
 export enum ROOM_CHOICES {
   DOUBLE_OCCUPATION = 'double_occupation' ,
@@ -12,15 +15,11 @@ export enum ROOM_CHOICES {
   DOUBLE_SINGLE_OCCUPATION = 'double_single_occupation' ,
 }
 
-export enum TYPE_CHOICES {
-  VIRTUAL = 'V' ,
-  PHYSICAL = 'P' ,
-}
-
 export class Retreat extends BaseModel {
   id: number;
   url: string;
-  type: TYPE_CHOICES;
+  animator: string;
+  type: RetreatType;
   country: string;
   place_name: string;
   state_province: string;
@@ -81,10 +80,21 @@ export class Retreat extends BaseModel {
   toilet_gendered: boolean;
   videoconference_tool: string;
   videoconference_link: string;
+  dates: RetreatDate[];
 
   constructor(data: Object = {}) {
+    if (data) {
+      if (data.hasOwnProperty('dates')) {
+        const newValue = [];
+        data['dates'].map(
+          r => {
+            newValue.push(new RetreatDate(r));
+          }
+        );
+        data['dates'] = newValue;
+      }
+    }
     super(data);
-
   }
 
   getAddress() {
@@ -100,7 +110,11 @@ export class Retreat extends BaseModel {
   }
 
   getDateInterval() {
-    return DateUtil.getDateInterval(new Date(this.start_time), new Date(this.end_time));
+    if (this.start_time && this.end_time) {
+      return DateUtil.getDateInterval(new Date(this.start_time), new Date(this.end_time));
+    } else {
+      return 'Aucune date pour le moment';
+    }
   }
 
   getStartDate() {
@@ -127,11 +141,7 @@ export class Retreat extends BaseModel {
   }
 
   get type_name() {
-    if (this.type === 'V') {
-      return 'retreat.form.retreat.type.choices.virtual';
-    } else {
-      return 'retreat.form.retreat.type.choices.physical';
-    }
+    return this.type.name;
   }
 
   get activityLanguageLabel() {
@@ -155,11 +165,7 @@ export class Retreat extends BaseModel {
   }
 
   get numberOfTomatoes() {
-    if (this.type === 'V') {
-      return environment.tomato_per_virtual_retreat;
-    } else {
-      return environment.tomato_per_physical_retreat;
-    }
+    return this.type.number_of_tomatoes;
   }
 
   get isOpen() {
@@ -167,7 +173,31 @@ export class Retreat extends BaseModel {
     const visibleDate = new Date(new Date(this.start_time).getTime() - minutesBeforeRetreat * 60 * 1000);
     const linkIsVisible = new Date() > visibleDate;
     const isFinished = new Date() > new Date(this.end_time);
-    return this.type === 'V' && this.videoconference_link && linkIsVisible && !isFinished;
+    return this.type.is_virtual && this.videoconference_link && linkIsVisible && !isFinished;
+  }
+
+  get addressIsFilled() {
+    const fields = [
+      'country',
+      'place_name',
+      'state_province',
+      'city',
+      'address_line1',
+      'address_line2',
+      'postal_code',
+    ];
+
+    for (const field of fields) {
+      if (!(this.hasOwnProperty(field) && this[field])) {
+          return false;
+      }
+    }
+
+    return true;
+  }
+
+  get isSameDay() {
+    return moment(this.start_time).isSame(moment(this.end_time), 'day');
   }
 }
 
