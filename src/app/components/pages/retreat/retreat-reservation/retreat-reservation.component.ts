@@ -128,7 +128,7 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
         'value': true
       },
       {
-        'name': 'end_time__gte',
+        'name': 'finish_after',
         'value': now
       },
       {
