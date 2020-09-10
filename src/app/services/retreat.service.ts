@@ -55,8 +55,8 @@ export class RetreatService extends GlobalService {
         if (filter.name === 'name') {
           params = params.set('name', filter.value);
         }
-        if (filter.name === 'end_time__gte') {
-          params = params.set('end_time__gte', filter.value);
+        if (filter.name === 'finish_after') {
+          params = params.set('finish_after', filter.value);
         }
         if (filter.name === 'ordering') {
           params = params.set('ordering', filter.value);
