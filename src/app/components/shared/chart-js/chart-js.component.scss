@@ -1,13 +1,13 @@
 @import "../../../../assets/scss/_theme.scss";
 
-/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
   background-color: $nt-10;
 }
-/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: $nt-13;
 }
 
-/deep/ .mat-progress-spinner circle, .mat-spinner circle {
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
   stroke: $nt-14;
 }
 
