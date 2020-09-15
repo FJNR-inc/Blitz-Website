@@ -29,6 +29,8 @@
               maxWidth="800px"
               [autoClose]="true">
   <div class="payment-flow-confirmation-modale-politics">
+    <app-title [level]="3" text="{{'payment-flow.title_cancelled_policy_1' | translate}}"></app-title>
+
     <ng-container *ngFor="let type of retreatTypes">
       <div *ngIf="retreatTypeIsInCart(type)">
         <app-title [level]="6"
