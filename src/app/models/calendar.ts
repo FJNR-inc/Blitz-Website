@@ -59,6 +59,6 @@ export class CalendarPeriod extends BaseModel {
     }
   }
 
-  reservations: string[];
+  nb_reservations_active: number;
   users: string[];
 }

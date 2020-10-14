@@ -370,8 +370,8 @@ export class PeriodComponent implements OnInit {
       url: timeslot.url,
       start_time: timeslot.getStartDay() + ' - ' + timeslot.getStartTime(),
       end_time: timeslot.getStartDay() + ' - ' + timeslot.getEndTime(),
-      display_reservations: timeslot.reservations.length + ' / ' + timeslot.workplace.seats,
-      number_of_reservations: timeslot.reservations.length
+      display_reservations: timeslot.nb_reservations_active + ' / ' + timeslot.workplace.seats,
+      number_of_reservations: timeslot.nb_reservations_active
     };
   }
 
