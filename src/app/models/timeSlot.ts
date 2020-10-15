@@ -14,6 +14,7 @@ export class TimeSlot extends BaseModel {
   users: string[];
   places_remaining: number;
   workplace: Workplace;
+  nb_reservations_active: number;
 
   getEndDate() {
     return new Date(this.end_time);

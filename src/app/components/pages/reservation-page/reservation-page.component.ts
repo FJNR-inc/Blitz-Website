@@ -316,14 +316,14 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
     };
   }
 
-  newTimeSlotAdapter(timeSlot) {
+  newTimeSlotAdapter(timeSlot: TimeSlot) {
     return new CalendarPeriod({
       id: timeSlot.id,
       start: new Date(timeSlot.start_time),
       end: new Date(timeSlot.end_time),
       places: timeSlot.workplace.seats,
       places_remaining: timeSlot.places_remaining,
-      reservations: timeSlot.reservations,
+      nb_reservations_active: timeSlot.nb_reservations_active,
       users: timeSlot.users
     });
   }

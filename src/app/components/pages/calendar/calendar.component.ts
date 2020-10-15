@@ -155,7 +155,7 @@ export class CalendarComponent implements OnInit {
         css += ' calendar__table__content__col__box--pointer';
       }
     }
-    if (period.reservations.length > 0 && !!period.users.find((userUrl) => profile.url === userUrl)) {
+    if (period.nb_reservations_active > 0 && !!period.users.find((userUrl) => profile.url === userUrl)) {
       css = 'calendar__table__content__col__box--reserved';
     }
 
