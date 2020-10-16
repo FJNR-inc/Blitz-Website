@@ -324,7 +324,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
       places: timeSlot.workplace.seats,
       places_remaining: timeSlot.places_remaining,
       nb_reservations_active: timeSlot.nb_reservations_active,
-      users: timeSlot.users
+      is_reserved: timeSlot.is_reserved
     });
   }
 

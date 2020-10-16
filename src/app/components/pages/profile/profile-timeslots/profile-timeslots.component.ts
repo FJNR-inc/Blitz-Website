@@ -67,7 +67,7 @@ export class ProfileTimeslotsComponent implements OnInit {
         'value': '-timeslot__start_time'
       }
     ];
-    this.reservationService.list(filters).subscribe(
+    this.reservationService.list(filters, 50).subscribe(
       reservations => {
         const listReservations = reservations.results.map(
           r => new Reservation(r)

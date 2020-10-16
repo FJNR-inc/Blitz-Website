@@ -1,7 +1,6 @@
 import BaseModel from './baseModel';
 import { DateUtil } from '../utils/date';
 import {Workplace} from './workplace';
-import {OptionProduct} from './optionProduct';
 
 export class TimeSlot extends BaseModel {
   url: string;
@@ -11,10 +10,10 @@ export class TimeSlot extends BaseModel {
   billing_price: number;
   start_time: string;
   end_time: string;
-  users: string[];
   places_remaining: number;
   workplace: Workplace;
   nb_reservations_active: number;
+  is_reserved: boolean;
 
   getEndDate() {
     return new Date(this.end_time);

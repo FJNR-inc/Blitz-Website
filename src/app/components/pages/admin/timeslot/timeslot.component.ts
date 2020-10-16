@@ -143,7 +143,7 @@ export class TimeslotComponent implements OnInit {
         'value': 'user__first_name'
       }
     ];
-    this.reservationService.list(filters).subscribe(
+    this.reservationService.list(filters, 50).subscribe(
       reservations => {
         this.listReservations = reservations.results.map(
           r => this.reservationAdapter(new Reservation(r))
