@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CalendarDay, CalendarPeriod, ColorCode, PeriodOfDay} from '../../../models/calendar';
 import {DatePipe} from '@angular/common';
-import {AuthenticationService} from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-calendar',
@@ -41,8 +40,7 @@ export class CalendarComponent implements OnInit {
   daysOfWeek: CalendarDay[];
 
   constructor(
-    public datePipe: DatePipe,
-    private authService: AuthenticationService) {
+    public datePipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -146,7 +144,6 @@ export class CalendarComponent implements OnInit {
       return null;
     }
     let css: string = null;
-    const profile = this.authService.getProfile();
     if (period) {
       css = 'calendar__table__content__col__box';
       if (period.css_style === this.COLOR_CODE_ALMOST_NO_PLACE
@@ -155,7 +152,7 @@ export class CalendarComponent implements OnInit {
         css += ' calendar__table__content__col__box--pointer';
       }
     }
-    if (period.nb_reservations_active > 0 && !!period.users.find((userUrl) => profile.url === userUrl)) {
+    if (period.nb_reservations_active > 0 && period.is_reserved) {
       css = 'calendar__table__content__col__box--reserved';
     }
 

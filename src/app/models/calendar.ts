@@ -1,5 +1,4 @@
 import BaseModel from './baseModel';
-import {User} from './user';
 import {DateUtil} from '../utils/date';
 
 export enum ColorCode {
@@ -60,5 +59,5 @@ export class CalendarPeriod extends BaseModel {
   }
 
   nb_reservations_active: number;
-  users: string[];
+  is_reserved: boolean;
 }
