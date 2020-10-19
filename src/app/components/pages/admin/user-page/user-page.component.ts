@@ -210,7 +210,18 @@ export class UserPageComponent implements OnInit {
   }
 
   refreshReservation() {
-    this.reservationService.list([{'name': 'user', 'value': this.user.id}]).subscribe(
+    this.reservationService.list(
+      [
+        {
+          'name': 'user',
+          'value': this.user.id
+        },
+        {
+          'name': 'ordering',
+          'value': '-timeslot__start_time'
+        }],
+      50
+    ).subscribe(
       reservations => {
         this.listReservations = reservations.results.map(
           r => this.reservationAdapter(new Reservation(r))
