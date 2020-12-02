@@ -4,6 +4,10 @@
 
   &__texts {
     margin-bottom: 30px;
+
+    &__wrap {
+      white-space: pre-wrap;
+    }
   }
 
   &__actions {
