@@ -3,7 +3,7 @@ import {FormGroup} from '@angular/forms';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {FormUtil} from '../../../../utils/form';
 import {AuthenticationService} from '../../../../services/authentication.service';
-import {User} from '../../../../models/user';
+import {IUserEdit} from '../../../../models/user';
 import {Coupon} from '../../../../models/coupon';
 import {UserService} from '../../../../services/user.service';
 import {MyCartService} from '../../../../services/my-cart/my-cart.service';
@@ -77,11 +77,11 @@ export class PaymentFlowBourseComponent implements OnInit {
   submitUniversityInformation() {
     const temporaryCart = this.currentCart;
 
-    const value = new User({
+    const value: IUserEdit = {
       academic_program_code: this.universityForm.controls['academic_program_code'].value,
       faculty: this.universityForm.controls['faculty'].value,
       student_number: this.universityForm.controls['student_number'].value
-    });
+    };
     if (!this.universityForm.controls['coupon_code'].value) {
       temporaryCart.removeCoupon();
     } else {

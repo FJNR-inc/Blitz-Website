@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
-import { User } from '../models/user';
+import {IUserEdit, User} from '../models/user';
 import { environment } from '../../environments/environment';
 
 
@@ -112,7 +112,7 @@ export class UserService extends GlobalService {
     );
   }
 
-  update(url: string, user: User): Observable<any> {
+  update(url: string, user: IUserEdit): Observable<any> {
     const headers = this.getHeaders();
     return this.http.patch<any>(
       url,

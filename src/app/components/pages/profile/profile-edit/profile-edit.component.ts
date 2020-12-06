@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../../../models/user';
+import {IUserEdit, User} from '../../../../models/user';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {ProfileService} from '../../../../services/profile.service';
 import {AuthenticationService} from '../../../../services/authentication.service';
@@ -172,15 +172,15 @@ export class ProfileEditComponent implements OnInit {
 
   submitProfile() {
     if ( this.userForm.valid ) {
-      const value = this.userForm.value;
-      if (this.userForm.controls['university'].value !== '') {
-        const newUniversity = this.userForm.controls['university'].value;
-        value['university'] = {'name': newUniversity};
+      const value: IUserEdit = this.userForm.value;
+      if (this.userForm.controls.university.value !== '') {
+        const newUniversity = this.userForm.controls.university.value;
+        value.university = {'name': newUniversity};
       } else {
-        value['university'] = null;
+        value.university = null;
       }
-      if (this.userForm.controls['birthdate']) {
-        value['birthdate'] = this.userForm.controls['birthdate'].value.toISOString().substr(0, 10);
+      if (this.userForm.controls.birthdate) {
+        value.birthdate = this.userForm.controls.birthdate.value.toISOString().substr(0, 10);
       }
       this.userService.update(this.profile.url, value).subscribe(
         () => {

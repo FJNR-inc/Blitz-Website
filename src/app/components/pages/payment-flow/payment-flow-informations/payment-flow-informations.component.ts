@@ -4,6 +4,7 @@ import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {FormUtil} from '../../../../utils/form';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {UserService} from '../../../../services/user.service';
+import {IUserEdit} from '../../../../models/user';
 
 @Component({
   selector: 'app-payment-flow-informations',
@@ -111,7 +112,7 @@ export class PaymentFlowInformationsComponent implements OnInit {
   }
 
   submitPersonalInformation() {
-    const value = this.personalInformationForm.value;
+    const value: IUserEdit = this.personalInformationForm.value;
     const profile = this.authenticationService.getProfile();
     this.userService.update(profile.url, value).subscribe(
       user => {
