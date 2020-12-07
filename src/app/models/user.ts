@@ -1,5 +1,23 @@
 import BaseModel from './baseModel';
 
+export interface IUserEdit {
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  phone?: string;
+  other_phone?: string;
+  birthdate?: string;
+  gender?: string;
+  language?: string;
+  academic_program_code?: string;
+  faculty?: string;
+  student_number?: string;
+  personnal_restrictions?: string;
+  city?: string;
+  university?: any;
+  hide_newsletter?: boolean;
+}
+
 export class User extends BaseModel {
   id: number;
   url: string;

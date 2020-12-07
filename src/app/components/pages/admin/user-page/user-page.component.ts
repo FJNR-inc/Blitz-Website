@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
-import { User } from '../../../../models/user';
+import {IUserEdit, User} from '../../../../models/user';
 import { TimeSlot } from '../../../../models/timeSlot';
 import { Card } from '../../../../models/card';
 import { CardService } from '../../../../services/card.service';
@@ -343,8 +343,8 @@ export class UserPageComponent implements OnInit {
   }
 
   editUser() {
-    const value = this.userForm.value;
-    value['birthdate'] = this.userForm.controls['birthdate'].value.toISOString().substr(0, 10);
+    const value: IUserEdit = this.userForm.value;
+    value.birthdate = this.userForm.controls['birthdate'].value.toISOString().substr(0, 10);
 
     this.userService.update(this.user.url, value).subscribe(
       data => {

@@ -67,13 +67,14 @@ export class NewsletterService extends GlobalService {
     }
   }
 
-  set profileHideNewsletter(hide: boolean) {
+  set profileHideNewsletter(hide_newsletter: boolean) {
     if (this.auth.isAuthenticated()) {
       const profile = this.auth.getProfile();
-      profile.hide_newsletter = hide;
       this.userService.update(
         profile.url,
-        profile
+        {
+          hide_newsletter
+        }
       ).subscribe(
         (user: User) => {
           this.auth.setProfile(user);
