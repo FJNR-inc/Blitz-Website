@@ -1,19 +1,21 @@
 <div class="payment-flow-membership">
   <app-title [level]="4" text="Membership" class="payment-flow-membership__texts"></app-title>
-  <app-title [level]="9"  class="payment-flow-membership__texts"
+  <app-title [level]="9" class="payment-flow-membership__texts"
              text="{{'payment-flow-membership.title2' | translate}}"></app-title>
-  <app-title [level]="9"  class="payment-flow-membership__texts"
+  <app-title [level]="9" class="payment-flow-membership__texts" *ngIf="false"
              text="{{'payment-flow-membership.title3' | translate}}"></app-title>
 
   <div class="form-group form-group--large">
-    <app-title [level]="7" type="label" for="membership" text="{{'payment-flow-membership.title4' | translate}}"></app-title>
+    <app-title [level]="7" type="label" for="membership"
+               text="{{'payment-flow-membership.title4' | translate}}"></app-title>
     <select class="nt-form-input nt-form-input--select" id="membership" [(ngModel)]="selectedMembership">
       <option [ngValue]="null">{{'payment-flow-membership.select_option_1' | translate}}</option>
       <option *ngFor="let membership of memberships" [ngValue]="membership">{{ membership.name }}</option>
     </select>
   </div>
   <div class="payment-flow-membership__actions">
-    <app-button text="{{'payment-flow-membership.action_btn' | translate}}" [type]="1" (click)="goForward()"></app-button>
+    <app-button text="{{'payment-flow-membership.action_btn' | translate}}" [type]="1"
+                (click)="goForward()"></app-button>
     <app-link text="{{'payment-flow-membership.action_link' | translate}}" (click)="goForward(true)"></app-link>
   </div>
 </div>
