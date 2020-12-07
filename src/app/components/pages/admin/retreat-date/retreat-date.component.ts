@@ -169,7 +169,15 @@ export class RetreatDateComponent implements OnInit {
   submitDate() {
     if (this.selectedDate) {
 
-      const data = this.dateForm.value;
+      const data: RetreatDate = this.dateForm.value;
+
+      const start_date = new Date(data.start_time);
+      start_date.setSeconds(0);
+      data.start_time = start_date.toISOString();
+
+      const end_time = new Date(data.end_time);
+      end_time.setSeconds(0);
+      data.end_time = end_time.toISOString();
 
       this.retreatDateService
         .update(this.selectedDate.url, data).subscribe(
@@ -194,6 +202,14 @@ export class RetreatDateComponent implements OnInit {
 
       const date: RetreatDate = this.dateForm.value;
       date.retreat = this.retreat.url;
+
+      const start_date = new Date(date.start_time);
+      start_date.setSeconds(0);
+      date.start_time = start_date.toISOString();
+
+      const end_time = new Date(date.end_time);
+      end_time.setSeconds(0);
+      date.end_time = end_time.toISOString();
 
       this.retreatDateService
         .create(date).subscribe(
