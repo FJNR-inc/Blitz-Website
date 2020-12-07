@@ -179,8 +179,16 @@ export class TablePeriodsComponent implements OnInit {
   submitPeriod() {
     const request = this.periodForm.value;
 
+    const start_date = new Date(this.periodForm.value.start_date);
+    start_date.setSeconds(0);
+    request.start_date = start_date.toISOString();
+
+    const end_time = new Date(this.periodForm.value.end_date);
+    end_time.setSeconds(0);
+    request.end_date = end_time.toISOString();
+
     if (this.selectedPeriod) {
-      request['price'] = this.selectedPeriod.price;
+      request.price = this.selectedPeriod.price;
 
       this.periodService.update(this.selectedPeriod.url, request).subscribe(
         data => {
