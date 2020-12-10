@@ -127,9 +127,8 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   }
 
   submitOrder() {
-    const order = this.cart.generateOrder();
     this.waitAPI = true;
-
+    const order = this.cart.generateOrder();
     this.orderService.create(order).subscribe(
       () => {
         this.cartService.resetCart();
@@ -154,7 +153,9 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   }
 
   goForward() {
-    this.submitOrder();
+    if (!this.waitAPI) {
+      this.submitOrder();
+    }
   }
 
   get confirmButtonText(){

@@ -20,7 +20,7 @@
   <app-alert class="payment-flow-confirmation__error" type="danger" [messages]="errorOrder" *ngIf="errorOrder"></app-alert>
   <div class="payment-flow-confirmation__actions">
     <app-button [text]="'payment-flow-confirmation.btn_past' | translate" [type]="3" (click)="goBack()"></app-button>
-    <app-button [text]="confirmButtonText | translate" [type]="1" (click)="goForward()" [disabled]="!isReadyToFinalize()"></app-button>
+    <app-button [text]="confirmButtonText | translate" [type]="1" (click)="goForward()" [disabled]="!isReadyToFinalize() || waitAPI"></app-button>
   </div>
 </div>
 
