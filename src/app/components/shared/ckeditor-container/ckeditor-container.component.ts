@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import * as EditorTV from '../../../../ckeditor5TV/build/ckeditor.js';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {User} from '../../../models/user';
 import {CKEditorPageService} from '../../../services/ckeditor-page.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 export interface CKEditorPage {
   url: string;
@@ -39,9 +40,7 @@ export class CKEditorContainerComponent implements OnInit {
       save: () => this.saveData()
     },
   };
-  public configRead = {
-
-  };
+  public configRead = {};
   public config;
 
   disableEditor = true;
@@ -51,7 +50,8 @@ export class CKEditorContainerComponent implements OnInit {
   profile: User;
 
   constructor(private auth: AuthenticationService,
-              private ckEditorPageService: CKEditorPageService) {
+              private ckEditorPageService: CKEditorPageService,
+              private sanitized: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class CKEditorContainerComponent implements OnInit {
     );
   }
 
-  public saveData( ) {
+  public saveData() {
 
     const data = this.ckEditorPage.data;
 
@@ -84,6 +84,10 @@ export class CKEditorContainerComponent implements OnInit {
         }
       });
     }
+  }
+
+  cleanContent(value) {
+    return this.sanitized.bypassSecurityTrustHtml(value);
   }
 
 

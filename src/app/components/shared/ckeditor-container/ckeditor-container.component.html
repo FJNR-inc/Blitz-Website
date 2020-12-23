@@ -1,5 +1,11 @@
-<ckeditor *ngIf="ckEditorPage" [editor]="Editor"
-          [disabled]="disableEditor"
-          [(ngModel)]="ckEditorPage.data"
-          [config]="config">
-</ckeditor>
+<div *ngIf="ckEditorPage" class="ckeditor-container">
+
+  <ckeditor *ngIf="!disableEditor; else readOnly" [editor]="Editor"
+            [disabled]="disableEditor"
+            [(ngModel)]="ckEditorPage.data"
+            [config]="config">
+  </ckeditor>
+  <ng-template #readOnly>
+    <div [innerHTML]="cleanContent(ckEditorPage.data)"></div>
+  </ng-template>
+</div>
