@@ -460,7 +460,7 @@
   "payment-flow-bourse.form.errors.unknown": "Certains éléments du formulaire sont mal saisis.",
   "payment-flow-bourse.text1_content_of_link": "Cliquez ici",
   "payment-flow-bourse.text1_prefix": "Wow! Certaines universités et associations offrent des bourses pour réduire vos frais d'inscription.",
-  "payment-flow-bourse.text1_suffix": "pour voir si vous êtes éligible et comment vous inscrire. Le cas échéant, entrez les informations suivantes pour appliquer une bourse.\n\nCette section est aussi valide pour saisir votre code de certificat-cadeau.\n\nATTENTION: Vous devez utiliser toute la valeur de votre bourse ou certificat lors d'UNE SEULE TRANSACTION, car la plateforme ne conserve pas de crédit pour une transaction ultérieure.",
+  "payment-flow-bourse.text1_suffix": "pour voir si vous êtes éligible et comment vous inscrire. Le cas échéant, entrez les informations suivantes pour appliquer une bourse.\n\nCette section est aussi valide pour saisir votre code de certificat-cadeau.\n\nATTENTION: Vous devez utiliser toute la valeur de votre bourse ou certificat-cadeau lors d'une seule transaction car la plateforme ne conserve pas de crédit pour une transaction ultérieure.",
   "payment-flow-bourse.title1": "Bourses et certificats-cadeaux",
   "payment-flow-confirmation.accept_policy_text1": "J'ai lu, je comprends et j'accepte la ",
   "payment-flow-confirmation.accept_policy_text2": "Politique d'annulation.",
