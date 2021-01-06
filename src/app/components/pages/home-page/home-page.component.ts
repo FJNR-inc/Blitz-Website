@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {MyNotificationService} from '../../../services/my-notification/my-notification.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
@@ -14,12 +14,13 @@ export class HomePageComponent implements OnInit {
   constructor(
     private router: Router,
     private notificationService: MyNotificationService,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService) {
+  }
 
   ngOnInit() {
     const isConnected = this.authenticationService.isAuthenticated();
 
-    if (isConnected) {
+    if (isConnected && !this.authenticationService.isAdmin()) {
       this.router.navigate(['/profile']).then();
     }
   }

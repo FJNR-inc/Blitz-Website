@@ -1,14 +1,26 @@
+@import "../../../../assets/scss/theme.scss";
+
+.ckeditor-container {
+
+}
+
 ::ng-deep p {
   margin-bottom: 0;
 }
-:host ::ng-deep .ck.ck-editor__editable_inline>:last-child {
+
+:host ::ng-deep .ck.ck-editor__editable_inline > :last-child {
   margin-bottom: 0;
 }
 
-:host ::ng-deep .ck.ck-editor__editable_inline>:first-child {
+:host ::ng-deep .ck.ck-editor__editable_inline > :first-child {
   margin-top: 0;
 }
 
 :host ::ng-deep strong {
   font-weight: 700;
+}
+
+::ng-deep .ckeditor-container a {
+  color: $nt2-color-4;
+  border-bottom: 1px solid $nt2-color-4;
 }
