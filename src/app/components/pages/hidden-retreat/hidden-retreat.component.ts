@@ -42,7 +42,11 @@ export class HiddenRetreatComponent implements OnInit, OnDestroy {
           if (data.count > 0) {
             this.invitation = data.results[0];
             this.retreat = new Retreat(this.invitation.retreat_detail);
-            this.coupon = new Coupon(this.invitation.coupon_detail);
+            if (this.invitation.coupon_detail) {
+              this.coupon = new Coupon(this.invitation.coupon_detail);
+            } else {
+              this.coupon = null;
+            }
           } else {
             this.router.navigate(['/404']).then();
           }
@@ -97,7 +101,7 @@ export class HiddenRetreatComponent implements OnInit, OnDestroy {
 
   redirectToRetreatInfo() {
     window.open(
-      'http://www.thesez-vous.com/questcequuneretraite.html',
+      'https://www.thesez-vous.com/services.html',
       '_blank',
     );
   }
