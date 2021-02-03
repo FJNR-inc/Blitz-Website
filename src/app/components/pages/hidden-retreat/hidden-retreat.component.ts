@@ -101,7 +101,7 @@ export class HiddenRetreatComponent implements OnInit, OnDestroy {
 
   redirectToRetreatInfo() {
     window.open(
-      'http://www.thesez-vous.com/questcequuneretraite.html',
+      'https://www.thesez-vous.com/services.html',
       '_blank',
     );
   }
