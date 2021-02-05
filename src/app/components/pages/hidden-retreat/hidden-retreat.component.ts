@@ -81,7 +81,9 @@ export class HiddenRetreatComponent implements OnInit, OnDestroy {
   subscribe() {
 
     this.cartService.setMetadata(this.retreat, this.generateMetaData());
-    this.cartService.addCoupon(this.coupon);
+    if (this.coupon) {
+      this.cartService.addCoupon(this.coupon);
+    }
     if (this.authenticationService.isAuthenticated()) {
       this._rightPanelService.openProductSelectorPanel(this.retreat);
     } else {
