@@ -26,21 +26,6 @@ export class PaymentFlowBourseComponent implements OnInit {
       name: 'coupon_code',
       type: 'text',
       label: _('retreat-cart.labels.grant_code')
-    },
-    {
-      name: 'student_number',
-      type: 'text',
-      label: _('retreat-cart.labels.matricule')
-    },
-    {
-      name: 'faculty',
-      type: 'text',
-      label: _('retreat-cart.labels.faculty')
-    },
-    {
-      name: 'academic_program_code',
-      type: 'text',
-      label: _('retreat-cart.labels.program_code')
     }
   ];
 
@@ -69,19 +54,11 @@ export class PaymentFlowBourseComponent implements OnInit {
     if (coupons.length > 0) {
       this.universityForm.controls['coupon_code'].setValue(coupons[0].code);
     }
-    this.universityForm.controls['academic_program_code'].setValue(profile.academic_program_code);
-    this.universityForm.controls['faculty'].setValue(profile.faculty);
-    this.universityForm.controls['student_number'].setValue(profile.student_number);
   }
 
   submitUniversityInformation() {
     const temporaryCart = this.currentCart;
 
-    const value: IUserEdit = {
-      academic_program_code: this.universityForm.controls['academic_program_code'].value,
-      faculty: this.universityForm.controls['faculty'].value,
-      student_number: this.universityForm.controls['student_number'].value
-    };
     if (!this.universityForm.controls['coupon_code'].value) {
       temporaryCart.removeCoupon();
     } else {
@@ -92,21 +69,7 @@ export class PaymentFlowBourseComponent implements OnInit {
       temporaryCart.addCoupon(newCoupon);
     }
 
-    const profile = this.authenticationService.getProfile();
-    this.userService.update(profile.url, value).subscribe(
-      user => {
-        this.authenticationService.setProfile(user);
-        this.refreshCouponUsage(temporaryCart);
-      },
-      err => {
-        if (err.error.non_field_errors) {
-          this.universityErrors = err.error.non_field_errors;
-        } else {
-          this.universityErrors = ['payment-flow-bourse.form.errors.unknown'];
-        }
-        this.universityForm = FormUtil.manageFormErrors(this.universityForm, err);
-      }
-    );
+    this.refreshCouponUsage(temporaryCart);
   }
 
   canAddAGrant() {
