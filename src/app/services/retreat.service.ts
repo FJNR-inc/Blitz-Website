@@ -9,6 +9,7 @@ import {Retreat} from '../models/retreat';
 export class RetreatService extends GlobalService {
 
   url_retreats = environment.url_base_api + environment.paths_api.retreats;
+  url_bulk_retreats = environment.url_base_api + environment.paths_api.bulk_retreats;
 
   constructor(public http: HttpClient) {
     super();
@@ -19,6 +20,15 @@ export class RetreatService extends GlobalService {
     return this.http.post<any>(
       this.url_retreats,
       retreat,
+      {headers: headers}
+    );
+  }
+
+  createBulk(data: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      this.url_bulk_retreats,
+      data,
       {headers: headers}
     );
   }
