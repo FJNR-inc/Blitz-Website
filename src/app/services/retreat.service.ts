@@ -64,6 +64,9 @@ export class RetreatService extends GlobalService {
         if (filter.name === 'type') {
           params = params.set('type__id', filter.value);
         }
+        if (filter.name === 'search') {
+          params = params.set('search', filter.value);
+        }
       }
     }
     return this.http.get<any>(
