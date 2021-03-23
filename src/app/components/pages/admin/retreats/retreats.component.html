@@ -5,7 +5,11 @@
                   (addButton)="OpenModalCreateRetreat()"
                   (selectItem)="redirectToRetreat($event.id)"
                   (changePage)="changePage($event)"
+                  (openTabItem)="redirectToRetreat($event.id, true)"
                   (downloadItem)="exportReservations($event)"
+                  [filters]="filters"
+                  [useSearchBar]="true"
+                  (searchBar)="updateFilter('search', $event)"
                   [confirmationOnDeletion]="false">
     </app-my-table>
   </div>

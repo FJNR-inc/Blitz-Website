@@ -42,6 +42,7 @@ export class RetreatsComponent implements OnInit {
     clickable: true,
     previous: false,
     downloadButton: true,
+    openTabButton: true,
     next: false,
     numberOfPage: 0,
     page: 0,
@@ -80,6 +81,8 @@ export class RetreatsComponent implements OnInit {
       choices: []
     },
   ];
+
+  filters = [];
 
   constructor(private retreatService: RetreatService,
               private myModalService: MyModalService,
@@ -123,7 +126,7 @@ export class RetreatsComponent implements OnInit {
   }
 
   refreshRetreatList(page = 1, limit = 20) {
-    const filters = [];
+    const filters = this.filters;
     this.retreatService.list(filters, limit, limit * (page - 1)).subscribe(
       retreats => {
         this.settings.numberOfPage = Math.ceil(retreats.count / limit);
@@ -151,14 +154,19 @@ export class RetreatsComponent implements OnInit {
     );
   }
 
-  redirectToRetreat(id = null) {
+  redirectToRetreat(id = null, inNewTab = false) {
     let url = '/admin/retreats/';
     if (id !== null) {
       url += id.toString();
     } else {
       url += 'new';
     }
-    this.router.navigate([url]);
+
+    if (inNewTab) {
+      window.open(url, '_blank');
+    } else {
+      this.router.navigate([url]);
+    }
   }
 
   toggleModal(name, title: string | string[] = '', button2: string | string[] = '') {
@@ -207,5 +215,23 @@ export class RetreatsComponent implements OnInit {
     const retreatAdapted = new RetreatAdapted(retreat);
     retreatAdapted.start_time_readable = retreat.getDateInterval();
     return retreatAdapted;
+  }
+
+  updateFilter(name, value) {
+    let update = false;
+    for (const filter of this.filters) {
+      if (filter.name === name) {
+        filter.value = value;
+        update = true;
+      }
+    }
+    if (!update) {
+      const newFilter = {
+        name: name,
+        value: value
+      };
+      this.filters.push(newFilter);
+    }
+    this.refreshRetreatList();
   }
 }

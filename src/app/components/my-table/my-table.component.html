@@ -90,6 +90,11 @@
     </td>
     <td class="my-table__table__line__cell my-table__table__line__cell--actions"
         *ngIf="displayActionColumn()">
+      <a *ngIf="settings.openTabButton"
+         class="my-table__table__line__cell--actions__download"
+         (click)="openTab(item)">
+        <i class="fas fa-external-link-alt actionnable"></i>
+      </a>
       <a *ngIf="settings.downloadButton"
          class="my-table__table__line__cell--actions__download"
          (click)="download(item)">
@@ -99,6 +104,11 @@
          class="my-table__table__line__cell--actions__edit"
          (click)="edit(item)">
         <i class="fas fa-pencil-alt actionnable"></i>
+      </a>
+      <a *ngIf="settings.removeButton"
+         class="my-table__table__line__cell--actions__remove"
+         (click)="remove(item)">
+        <i class="fa fa-trash actionnable"></i>
       </a>
       <a *ngIf="settings.removeButton"
          class="my-table__table__line__cell--actions__remove"
