@@ -1,3 +1,59 @@
+@import '../../../../../assets/scss/theme';
+@import '../../../../../assets/scss/easings';
+
 .admin-retreats-page {
   padding: 20px;
+}
+
+.form-create-retreat {
+  &__selector {
+    display: flex;
+    justify-content: space-around;
+
+    &__item {
+      margin: 20px;
+      padding: 20px;
+      text-align: center;
+      flex: 1;
+      border: 1px solid $nt-14;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: $ease-in-sine 125ms;
+
+      &:hover {
+        color: white;
+        background-color: $nt-14;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__bulk {
+    &__weekdays {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
+
+      &__day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $color-main;
+        color: white;
+        margin: 0 10px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+
+        &--selected {
+          background-color: $nt-text;
+        }
+      }
+    }
+  }
 }

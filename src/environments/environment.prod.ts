@@ -51,6 +51,7 @@ export const environment = {
     reservations_export: '/reservations/export',
     custom_payments: '/custom_payments',
     retreats: '/retreat/retreats',
+    bulk_retreats: '/retreat/retreats/batch_create',
     retreat_types: '/retreat/retreat_types',
     retreat_dates: '/retreat/retreat_dates',
     retreatReservations: '/retreat/reservations',

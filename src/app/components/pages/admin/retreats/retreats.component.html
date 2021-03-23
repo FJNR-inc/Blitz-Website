@@ -17,7 +17,32 @@
 
 <app-nt-modal name="form_retreats"
               typeModal="success"
-              (button2)="submitRetreat()"
+              [displayButtons]="false"
+              class="form-create-retreat"
               maxWidth="600px">
-  <app-form [form]="retreatForm" [fields]="fields" [errors]="retreatErrors"></app-form>
+  <div class="form-create-retreat__selector" *ngIf="modalCreateMode === 'default'">
+    <div class="form-create-retreat__selector__item" (click)="modalCreateMode='simple'">
+      Creer une retraite
+    </div>
+    <div class="form-create-retreat__selector__item" (click)="modalCreateMode='bulk'">
+      Creer une liste de bloc virtuel
+    </div>
+  </div>
+
+  <div *ngIf="modalCreateMode === 'simple'" >
+    <app-form [form]="retreatForm" [fields]="fields" [errors]="retreatErrors"></app-form>
+    <button class="nt-button nt-button--full-width" type="submit" (click)="submitRetreat()">{{ 'retreats.create_retreat_modal.button' | translate }}</button>
+  </div>
+
+  <div *ngIf="modalCreateMode === 'bulk'" class="form-create-retreat__bulk" >
+    <div class="form-create-retreat__bulk__weekdays">
+      <div class="form-create-retreat__bulk__weekdays__day"
+           [ngClass]="{'form-create-retreat__bulk__weekdays__day--selected': selectedDays.lastIndexOf(day) > -1}"
+           *ngFor="let day of days" (click)="toogleDay(day)">
+        {{ day.label }}
+      </div>
+    </div>
+    <app-form [form]="retreatBulkForm" [fields]="bulk_fields" [errors]="retreatErrors"></app-form>
+    <button class="nt-button nt-button--full-width" type="submit" (click)="submitBulkRetreat()">{{ 'retreats.create_retreat_modal.button_bulk' | translate }}</button>
+  </div>
 </app-nt-modal>
