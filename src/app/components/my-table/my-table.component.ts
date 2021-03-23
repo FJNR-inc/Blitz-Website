@@ -20,6 +20,7 @@ export interface TableSetting {
     removeButton?: boolean;
     editButton?: boolean;
     downloadButton?: boolean;
+    openTabButton?: boolean;
     allowFiltering?: boolean;
     columns?: TableSettingColumns[];
 }
@@ -40,6 +41,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Input() useSearchBar = false;
 
   @Output() selectItem: EventEmitter<any> = new EventEmitter();
+  @Output() openTabItem: EventEmitter<any> = new EventEmitter();
   @Output() downloadItem: EventEmitter<any> = new EventEmitter();
   @Output() editItem: EventEmitter<any> = new EventEmitter();
   @Output() removeItem: EventEmitter<any> = new EventEmitter();
@@ -122,6 +124,10 @@ export class MyTableComponent implements OnInit, OnChanges {
         this.selectItem.emit(item);
       }
     }
+  }
+
+  openTab(item) {
+    this.openTabItem.emit(item);
   }
 
   download(item) {
