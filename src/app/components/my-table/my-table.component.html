@@ -16,7 +16,7 @@
   <span class="my-table__searchbar__icon">
     <i class="fas fa-search"></i>
   </span>
-  <input [(ngModel)]="searchBarText" class="my-table__searchbar__input" (keypress)="changeSearch()" type="text" placeholder="..."/>
+  <input [(ngModel)]="searchBarText" class="my-table__searchbar__input" (ngModelChange)="changeSearch()" type="text" placeholder="..."/>
 </div>
 <div class="my-table__filters" *ngIf="settings.allowFiltering">
   <label for="new_filter">{{ 'my-table.filter.add_a_filter' | translate }}: </label>
