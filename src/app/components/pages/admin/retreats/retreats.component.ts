@@ -13,6 +13,7 @@ import {RetreatTypeService} from '../../../../services/retreat-type.service';
 import {Membership} from '../../../../models/membership';
 import {AcademicLevel} from '../../../../models/academicLevel';
 import {MembershipService} from '../../../../services/membership.service';
+import {environment} from '../../../../../environments/environment';
 
 interface Choice {
   value: any;
@@ -363,6 +364,10 @@ export class RetreatsComponent implements OnInit {
     const value = this.retreatBulkForm.value;
     value['timezone'] = 'America/Montreal';
 
+    // Hardcode type Bloc since batch only work for virtual bloc
+    value['type'] = environment.url_base_api + environment.paths_api.retreat_types + '/' + environment.retreatTypeBlocId;
+
+    // Manage memberships
     const formArray = this.retreatBulkForm.get('exclusive_memberships') as FormArray;
     value['exclusive_memberships'] = [];
     let index = 0;
@@ -373,6 +378,14 @@ export class RetreatsComponent implements OnInit {
       index++;
     }
 
+    // Manage weekdays for batch
+    const days = [];
+    for (const day of this.selectedDays) {
+      days.push(day.value);
+    }
+    value['weekdays'] = days;
+
+    // Execute with API
     this.retreatService.createBulk(value).subscribe(
       () => {
         this.notificationService.success(
