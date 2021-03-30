@@ -16,7 +16,7 @@
   <span class="my-table__searchbar__icon">
     <i class="fas fa-search"></i>
   </span>
-  <input [(ngModel)]="searchBarText" class="my-table__searchbar__input" (keypress)="changeSearch()" type="text" placeholder="..."/>
+  <input [(ngModel)]="searchBarText" class="my-table__searchbar__input" (ngModelChange)="changeSearch()" type="text" placeholder="..."/>
 </div>
 <div class="my-table__filters" *ngIf="settings.allowFiltering">
   <label for="new_filter">{{ 'my-table.filter.add_a_filter' | translate }}: </label>
@@ -104,11 +104,6 @@
          class="my-table__table__line__cell--actions__edit"
          (click)="edit(item)">
         <i class="fas fa-pencil-alt actionnable"></i>
-      </a>
-      <a *ngIf="settings.removeButton"
-         class="my-table__table__line__cell--actions__remove"
-         (click)="remove(item)">
-        <i class="fa fa-trash actionnable"></i>
       </a>
       <a *ngIf="settings.removeButton"
          class="my-table__table__line__cell--actions__remove"
