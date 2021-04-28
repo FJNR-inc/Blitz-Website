@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import localeFr from '@angular/common/locales/fr';
 
 import { AppComponent } from './app.component';
-import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
@@ -63,7 +62,6 @@ import { TimeslotComponent } from './components/pages/admin/timeslot/timeslot.co
 import { PictureService } from './services/picture.service';
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CardService } from './services/card.service';
-import { BackgroundLayoutComponent } from './layouts/background-layout/background-layout.component';
 import { OrderService } from './services/order.service';
 import { NewLayoutComponent } from './layouts/new-layout/new-layout.component';
 import { NewBackgroundLayoutComponent } from './layouts/new-background-layout/new-background-layout.component';
@@ -358,12 +356,6 @@ const appRoutes = [
         path: 'hiddenRetreat/:token',
         component: HiddenRetreatComponent,
       },
-    ]
-  },
-  {
-    path: '',
-    component: DefaultLayoutComponent,
-    children: [
       {
         path: '403',
         component: Error403Component,
@@ -602,9 +594,7 @@ const appRoutes = [
 @NgModule({
   declarations: [
     AppComponent,
-    DefaultLayoutComponent,
     AdminLayoutComponent,
-    BackgroundLayoutComponent,
     NewBackgroundLayoutComponent,
     NewLayoutComponent,
     NtWizzardComponent,
@@ -730,7 +720,10 @@ const appRoutes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: false}
+      {
+        enableTracing: false,
+        scrollPositionRestoration: 'enabled',
+      }
     ),
     HttpClientModule,
     FormsModule,

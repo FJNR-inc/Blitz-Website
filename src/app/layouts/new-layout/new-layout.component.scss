@@ -1,41 +1,39 @@
 @import "../../../assets/scss/_theme.scss";
 
 .new-layout {
-  min-height: 100vh;
-  display: flex;
-  width: 100%;
-
-  &__container {
-    flex: 1;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-
-    &__content {
-      flex: 1;
-      height: 100vh;
-      overflow-y: auto;
-      display: grid;
-      grid-template-rows: 1fr auto
-    }
-
-    &__right-panel {
-      height: 100vh;
-    }
-
+  &__nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $nt-2;
   }
 
-  &__nav {
-    background-color: $nt-2;
+  &__container {
+    margin-left: 300px;
+    left: 300px;
+    min-height: 100vh;
+    //width: calc(100% - 300px);
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+
+  &__right-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
   }
 }
 
 @media only screen and (max-width: 1300px) {
   .new-layout {
-    flex-direction: column;
 
     &__nav {
       position: inherit;
+    }
+
+    &__container {
+      margin-left: 0;
+      width: 100% !important;
     }
   }
 }
