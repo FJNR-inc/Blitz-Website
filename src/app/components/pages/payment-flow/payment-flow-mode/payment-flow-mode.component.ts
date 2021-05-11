@@ -23,6 +23,8 @@ export class PaymentFlowModeComponent implements OnInit {
   cart: Cart;
   cart$: Observable<Cart>;
 
+  listCards: Card[];
+
   new_card: string;
   no_payment_mode: string;
 
@@ -37,37 +39,27 @@ export class PaymentFlowModeComponent implements OnInit {
   ngOnInit() {
     this.new_card = this.translate.instant('new_card_added');
     this.no_payment_mode = this.translate.instant('no_payment_mode');
-    this.cart$ = this.cartService.cart$;
-    this.cart$.subscribe(
-      (cart: Cart) => {
-        this.cart = cart;
-        this.getPaymentInfos();
-      }
-    );
-  }
 
-  getCard(paymentToken) {
     const user = this.authenticationService.getProfile();
-    this.paymentInfo = this.new_card;
     if ( user ) {
       const filters: any[] = [
         {
           'name': 'owner',
           'value': user.id
-        },
-        {
-          'name': 'payment_token',
-          'value': paymentToken
         }
       ];
       this.cardService.list(filters).subscribe(
         cards => {
-          if (cards.results.length > 0) {
-            const card = new Card(cards.results[0].cards[0]);
-            this.paymentInfo = '**** **** **** ' + card.last_digits + ' (' + card.card_expiry.month + '/' + card.card_expiry.year + ')';
-          } else {
-            this.paymentInfo = this.new_card;
+          if (cards.results.length >= 1) {
+            this.listCards = cards.results[0].cards.map(c => new Card(c));
           }
+          this.cart$ = this.cartService.cart$;
+          this.cart$.subscribe(
+            (cart: Cart) => {
+              this.cart = cart;
+              this.paymentInfo = this.getPaymentInfo();
+            }
+          );
         }
       );
     }
@@ -75,16 +67,6 @@ export class PaymentFlowModeComponent implements OnInit {
 
   havePaymentMethod() {
     return this.cart.containPaymentMethod();
-  }
-
-  getPaymentInfos() {
-    const paymentToken = this.cart.getPaymentToken();
-    if (paymentToken) {
-      this.getCard(paymentToken);
-    } else {
-      this.paymentInfo = this.no_payment_mode;
-    }
-
   }
 
   resetPaymentMode() {
@@ -105,5 +87,24 @@ export class PaymentFlowModeComponent implements OnInit {
 
   canGoForward() {
     return this.havePaymentMethod() || !this.cart.needPaymentInformation();
+  }
+
+  getPaymentInfo() {
+    const paymentToken = this.cart.getPaymentToken();
+    try {
+      if (paymentToken) {
+        for (const card of this.listCards) {
+          if (card.payment_token === paymentToken) {
+            return '**** **** **** ' + card.last_digits + ' (' + card.card_expiry.month + '/' + card.card_expiry.year + ')';
+          }
+        }
+
+        return this.new_card;
+      } else {
+        return this.no_payment_mode;
+      }
+    } catch {
+      return '';
+    }
   }
 }

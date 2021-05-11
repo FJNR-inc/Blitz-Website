@@ -1,11 +1,11 @@
-<div class="payment-flow-mode">
+<div class="payment-flow-mode" *ngIf="listCards">
   <app-title [level]="4" text="{{'payment-flow-mode.title1' | translate}}" class="payment-flow-mode__texts"></app-title>
 
-  <app-cart-payment *ngIf="!havePaymentMethod() && !isFree()"></app-cart-payment>
+  <app-cart-payment *ngIf="!havePaymentMethod() && !isFree()" [listCards]="listCards"></app-cart-payment>
 
   <div class="form-group form-group--large" *ngIf="havePaymentMethod() && !isFree()">
     <app-title [level]="7" text="{{'payment-flow-mode.title2' | translate}}"></app-title>
-    <input type="text" disabled="disabled" [value]="paymentInfo" class="nt-form-input"/>
+    <input type="text" disabled="disabled" value="{{ paymentInfo | translate }}" class="nt-form-input"/>
     <app-link text="{{'payment-flow-mode.link' | translate}}" (onClick)="resetPaymentMode()"></app-link>
   </div>
 

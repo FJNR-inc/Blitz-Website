@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Card} from '../../../models/card';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {CardService} from '../../../services/card.service';
@@ -13,7 +13,7 @@ import {MyModalService} from '../../../services/my-modal/my-modal.service';
 })
 export class CartPaymentComponent implements OnInit {
 
-  listCards: Card[];
+  @Input() listCards: Card[];
   paymentCard = '';
 
   constructor(private authenticationService: AuthenticationService,
@@ -21,28 +21,7 @@ export class CartPaymentComponent implements OnInit {
               private cartService: MyCartService,
               private modaleService: MyModalService) { }
 
-  ngOnInit() {
-    this.refreshListCard();
-  }
-
-  refreshListCard() {
-    const user = this.authenticationService.getProfile();
-    if ( user ) {
-      const filters: any[] = [
-        {
-          'name': 'owner',
-          'value': user.id
-        }
-      ];
-      this.cardService.list(filters).subscribe(
-        cards => {
-          if (cards.results.length >= 1) {
-            this.listCards = cards.results[0].cards.map(c => new Card(c));
-          }
-        }
-      );
-    }
-  }
+  ngOnInit() {}
 
   toggleFormNewCard() {
     this.toggleModaleNewCard();

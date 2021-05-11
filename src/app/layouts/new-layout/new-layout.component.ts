@@ -35,7 +35,6 @@ export class NewLayoutComponent implements OnInit {
     this._rightPanelService.currentPanel$.subscribe(
       (currentPanel: string) => {
         this.isRightPanelOpen = !!currentPanel;
-        console.log(this.getWidthRightPanel());
       }
     );
   }
