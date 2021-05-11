@@ -1,4 +1,4 @@
-<div class="payment-flow-confirmation">
+<div class="payment-flow-confirmation" *ngIf="listCards">
   <app-title [level]="4" text="{{'payment-flow-confirmation.title' | translate}}"></app-title>
   <app-cart-summary [displayTitle]="false"></app-cart-summary>
 
