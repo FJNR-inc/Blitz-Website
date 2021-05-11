@@ -19,6 +19,8 @@ import {RetreatTypeService} from '../../../../services/retreat-type.service';
 })
 export class PaymentFlowConfirmationComponent implements OnInit {
 
+  listCards: Card[];
+
   cart: Cart;
   cart$: Observable<Cart>;
 
@@ -46,13 +48,30 @@ export class PaymentFlowConfirmationComponent implements OnInit {
               private translate: TranslateService) {
     this.new_card = this.translate.instant('new_card_added');
     this.no_payment_mode = this.translate.instant('no_payment_mode');
-    this.cart$ = this.cartService.cart$;
-    this.cart$.subscribe(
-      (cart: Cart) => {
-        this.cart = cart;
-        this.getPaymentInfos();
-      }
-    );
+
+    const user = this.authenticationService.getProfile();
+    if ( user ) {
+      const filters: any[] = [
+        {
+          'name': 'owner',
+          'value': user.id
+        }
+      ];
+      this.cardService.list(filters).subscribe(
+        cards => {
+          if (cards.results.length >= 1) {
+            this.listCards = cards.results[0].cards.map(c => new Card(c));
+          }
+          this.cart$ = this.cartService.cart$;
+          this.cart$.subscribe(
+            (cart: Cart) => {
+              this.cart = cart;
+              this.paymentInfo = this.getPaymentInfo();
+            }
+          );
+        }
+      );
+    }
   }
 
   ngOnInit() {
@@ -70,44 +89,6 @@ export class PaymentFlowConfirmationComponent implements OnInit {
   changePaymentMethod() {
     this.cartService.removePaymentToken();
     this.goBack();
-  }
-
-  getCard(paymentToken): Card {
-    const user = this.authenticationService.getProfile();
-    this.paymentInfo = this.new_card;
-    if ( user ) {
-      const filters: any[] = [
-        {
-          'name': 'owner',
-          'value': user.id
-        },
-        {
-          'name': 'payment_token',
-          'value': paymentToken
-        }
-      ];
-      this.cardService.list(filters).subscribe(
-        cards => {
-          if (cards.results.length > 0) {
-            const card = new Card(cards.results[0].cards[0]);
-            this.paymentInfo = '**** **** **** ' + card.last_digits + ' (' + card.card_expiry.month + '/' + card.card_expiry.year + ')';
-          } else {
-            this.paymentInfo = this.new_card;
-          }
-        }
-      );
-    }
-    return null;
-  }
-
-  getPaymentInfos() {
-    const paymentToken = this.cart.getPaymentToken();
-    if (paymentToken) {
-      this.getCard(paymentToken);
-    } else {
-      this.paymentInfo = this.no_payment_mode;
-    }
-
   }
 
   goBack() {
@@ -172,5 +153,25 @@ export class PaymentFlowConfirmationComponent implements OnInit {
 
   get hasTimeslot() {
     return this.cartService.hasTimeslot;
+  }
+
+  getPaymentInfo() {
+    const paymentToken = this.cart.getPaymentToken();
+
+    try {
+      if (paymentToken) {
+        for (const card of this.listCards) {
+          if (card.payment_token === paymentToken) {
+            return '**** **** **** ' + card.last_digits + ' (' + card.card_expiry.month + '/' + card.card_expiry.year + ')';
+          }
+        }
+
+        return this.new_card;
+      } else {
+        return this.no_payment_mode;
+      }
+    } catch {
+      return '';
+    }
   }
 }
