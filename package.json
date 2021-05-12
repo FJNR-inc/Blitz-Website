@@ -47,7 +47,7 @@
     "@types/uuid": "^3.4.6",
     "angular2-image-upload": "^1.0.0-rc.2",
     "angular2-notifications": "^2.0.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.6.0",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.6.10",
