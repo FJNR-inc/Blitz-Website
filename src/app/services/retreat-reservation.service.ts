@@ -3,14 +3,13 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import GlobalService from './globalService';
 import { environment } from '../../environments/environment';
-import {Retreat} from '../models/retreat';
 import {RetreatReservation} from '../models/retreatReservation';
-import {Organization} from '../models/organization';
 
 @Injectable()
 export class RetreatReservationService extends GlobalService {
 
   url_retreat_reservation = environment.url_base_api + environment.paths_api.retreatReservations;
+  url_log_activity = environment.url_base_api + environment.paths_api.retreatLogActivity;
 
   constructor(public http: HttpClient) {
     super();
@@ -69,6 +68,17 @@ export class RetreatReservationService extends GlobalService {
     return this.http.patch<any>(
       url,
       retreatReservation,
+      {headers: headers}
+    );
+  }
+
+  logActivity(urlOfReservation: string) {
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      this.url_log_activity,
+      {
+        reservation: urlOfReservation
+      },
       {headers: headers}
     );
   }
