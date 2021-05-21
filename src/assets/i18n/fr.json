@@ -1045,6 +1045,7 @@
   "retreat.form.min_day_refund": "Nombre de jours avant la retraite pour un remboursement",
   "retreat.form.name_in_english": "Nom (en)",
   "retreat.form.name_in_french": "Nom (fr)",
+  "retreat.form.display_start_time": "Date d'affichage",
   "retreat.form.place_name": "Nom du lieu",
   "retreat.form.postal_code": "Code postal",
   "retreat.form.price": "Prix",

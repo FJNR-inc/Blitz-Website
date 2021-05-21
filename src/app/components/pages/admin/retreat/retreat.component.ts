@@ -102,6 +102,11 @@ export class RetreatComponent implements OnInit {
       choices: []
     },
     {
+      name: 'display_start_time',
+      type: 'datetime',
+      label: _('retreat.form.display_start_time'),
+    },
+    {
       name: 'animator',
       type: 'text',
       label: _('retreat.form.animator')
@@ -308,6 +313,11 @@ export class RetreatComponent implements OnInit {
       type: 'select',
       label: _('retreat.form.type'),
       choices: []
+    },
+    {
+      name: 'display_start_time',
+      type: 'datetime',
+      label: _('retreat.form.display_start_time'),
     },
     {
       name: 'animator',
@@ -569,6 +579,7 @@ export class RetreatComponent implements OnInit {
     }
 
     this.retreatForm.controls['type'].setValue(this.retreat.type.url);
+    this.retreatForm.controls['display_start_time'].setValue(this.retreat.display_start_time);
     this.retreatForm.controls['name_fr'].setValue(this.retreat.name_fr);
     this.retreatForm.controls['name_en'].setValue(this.retreat.name_en);
     this.retreatForm.controls['details_fr'].setValue(this.retreat.details_fr);
