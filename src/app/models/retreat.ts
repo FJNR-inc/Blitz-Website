@@ -51,6 +51,7 @@ export class Retreat extends BaseModel {
   price: number;
   start_time: string;
   end_time: string;
+  display_start_time: string;
   min_day_refund: number;
   refund_rate: number;
   min_day_exchange: number;
@@ -123,6 +124,14 @@ export class Retreat extends BaseModel {
 
   getEndDate() {
     return new Date(this.end_time);
+  }
+
+  getDisplayStartDate() {
+    if (this.display_start_time) {
+      return new Date(this.display_start_time);
+    } else {
+      return null;
+    }
   }
 
   getStartDay() {

@@ -77,9 +77,15 @@ export class RetreatReservationSummaryComponent implements OnInit {
   filterRetreat(month = this.month, year = this.year) {
     const newFilteredList = [];
     for (const retreat of this.retreats) {
+      if (retreat.getDisplayStartDate()) {
+        if (retreat.getDisplayStartDate().getMonth() === month && retreat.getDisplayStartDate().getFullYear() === year) {
+          newFilteredList.push(retreat);
+        }
+      } else {
         if (retreat.getStartDate().getMonth() === month && retreat.getStartDate().getFullYear() === year) {
           newFilteredList.push(retreat);
         }
+      }
     }
     this.filteredRetreats.emit(newFilteredList);
     this.summaryList = newFilteredList;
