@@ -544,4 +544,7 @@ export class Cart {
   get hasTimeslot(): boolean {
     return this.getTimeslots().length > 0;
   }
+  get hasReservationPackages(): boolean {
+    return this.getReservationPackages().length > 0;
+  }
 }
