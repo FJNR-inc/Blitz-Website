@@ -45,15 +45,15 @@
         <div class="profile-page__body__content__right__separator"></div>
 
         <div class="profile-page__body__content__right__retreats">
-          <app-profile-retreats [type]='"virtual"' (openVirtualReservation)="openVirtualReservation = $event" (totalPastTomatoes)="totalPastVirtualRetreatTomatoes = $event" (totalFutureTomatoes)="totalFutureVirtualRetreatTomatoes = $event"></app-profile-retreats>
+          <app-profile-retreats [type]='"virtual"' (openVirtualReservation)="openVirtualReservation = $event"></app-profile-retreats>
         </div>
 
         <div class="profile-page__body__content__right__retreats">
-          <app-profile-retreats [type]='"physical"' (openVirtualReservation)="openVirtualReservation = $event" (totalPastTomatoes)="totalPastPhysicalRetreatTomatoes = $event" (totalFutureTomatoes)="totalFuturePhysicalRetreatTomatoes = $event"></app-profile-retreats>
+          <app-profile-retreats [type]='"physical"' (openVirtualReservation)="openVirtualReservation = $event"></app-profile-retreats>
         </div>
 
         <div class="profile-page__body__content__right__timeslots">
-          <app-profile-timeslots (totalPastTomatoes)="totalPastTimeslotTomatoes = $event" (totalFutureTomatoes)="totalFutureTimeslotTomatoes = $event"></app-profile-timeslots>
+          <app-profile-timeslots></app-profile-timeslots>
         </div>
       </div>
     </div>
