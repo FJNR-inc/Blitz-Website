@@ -182,6 +182,11 @@ export class MyCartService {
     return localCart.hasTimeslot;
   }
 
+  get hasReservationPackages(): boolean {
+    const localCart = this.localCart;
+    return localCart.hasReservationPackages;
+  }
+
   containTypeOfRetreat(type: RetreatType) {
     const localCart = this.localCart;
     return localCart.containTypeOfRetreat(type);

@@ -86,7 +86,7 @@ export class PaymentFlowComponent implements OnInit {
       this.removeStepMembership();
     }
 
-    if (!this.cartService.hasRetreat && !this.cartService.hasMembership) {
+    if (!this.cartService.hasRetreat && !this.cartService.hasMembership && !this.cartService.hasReservationPackages) {
       this.removeStepBourse();
     }
     if (!this.cartService.hasRetreat) {
