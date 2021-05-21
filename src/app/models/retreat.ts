@@ -82,6 +82,7 @@ export class Retreat extends BaseModel {
   videoconference_tool: string;
   videoconference_link: string;
   dates: RetreatDate[];
+  hide_from_client_admin_panel: boolean;
 
   constructor(data: Object = {}) {
     if (data) {

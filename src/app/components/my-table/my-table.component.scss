@@ -138,6 +138,16 @@
               cursor: pointer;
             }
           }
+
+          &__archive {
+            margin: 0 5px;
+            text-decoration: none;
+
+            &:hover {
+              color: $color-danger-text;
+              cursor: pointer;
+            }
+          }
         }
       }
 
