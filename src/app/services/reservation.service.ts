@@ -48,6 +48,9 @@ export class ReservationService extends GlobalService {
         if (filter.name === 'is_active') {
           params = params.set('is_active', filter.value);
         }
+        if (filter.name === 'timeslot__end_time__gte') {
+          params = params.set('timeslot__end_time__gte', filter.value);
+        }
         if (filter.name === 'ordering') {
           params = params.set('ordering', filter.value);
         }

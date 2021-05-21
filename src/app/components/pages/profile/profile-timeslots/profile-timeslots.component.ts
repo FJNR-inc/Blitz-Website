@@ -7,7 +7,6 @@ import {WorkplaceService} from '../../../../services/workplace.service';
 import {_} from '@biesbjerg/ngx-translate-extract/dist/utils/utils';
 import {MyNotificationService} from '../../../../services/my-notification/my-notification.service';
 import {MyModalService} from '../../../../services/my-modal/my-modal.service';
-import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-profile-timeslots',
@@ -24,12 +23,6 @@ export class ProfileTimeslotsComponent implements OnInit {
   reservationInCancelation: Reservation = null;
 
   displayAll = false;
-
-  totalPastReservations = 0;
-  totalFutureReservations = 0;
-
-  @Output() totalPastTomatoes: EventEmitter<any> = new EventEmitter();
-  @Output() totalFutureTomatoes: EventEmitter<any> = new EventEmitter();
 
   constructor(private authenticationService: AuthenticationService,
               private reservationService: ReservationService,
@@ -73,23 +66,15 @@ export class ProfileTimeslotsComponent implements OnInit {
           r => new Reservation(r)
         );
 
-        this.totalPastReservations = 0;
-        this.totalFutureReservations = 0;
         this.listReservations = [];
         this.listFutureReservations = [];
 
         for ( const reservation of listReservations ) {
-          if (reservation.timeslot_details.getEndDate() < new Date()) {
-            this.totalPastReservations += environment.tomato_per_timeslot;
-          } else {
-            this.totalFutureReservations += environment.tomato_per_timeslot;
+          if (reservation.timeslot_details.getEndDate() >= new Date()) {
             this.listFutureReservations.push(reservation);
           }
           this.listReservations.push(reservation);
         }
-
-        this.totalPastTomatoes.emit(this.totalPastReservations);
-        this.totalFutureTomatoes.emit(this.totalFutureReservations);
       }
     );
   }

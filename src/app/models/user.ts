@@ -46,6 +46,8 @@ export class User extends BaseModel {
   hide_newsletter: boolean;
   is_in_newsletter: boolean;
   number_of_free_virtual_retreat: number;
+  get_number_of_past_tomatoes: number;
+  get_number_of_future_tomatoes: number;
 
   getUniversity() {
     if (this.university) {

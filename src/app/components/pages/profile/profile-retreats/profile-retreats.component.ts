@@ -27,17 +27,12 @@ export class ProfileRetreatsComponent implements OnInit {
 
   listRetreatReservations: RetreatReservation[];
   listFutureRetreatReservations: RetreatReservation[];
-  totalPastRetreatReservations = 0;
-  totalFutureRetreatReservations = 0;
   listReservationToAdmin: RetreatReservation[] = [];
 
   displayAllRetreatReservation = false;
   retreatReservationOpen: number;
 
   @Input() type: 'virtual' | 'physical';
-
-  @Output() totalPastTomatoes: EventEmitter<any> = new EventEmitter();
-  @Output() totalFutureTomatoes: EventEmitter<any> = new EventEmitter();
   @Output() openVirtualReservation: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
 
@@ -55,7 +50,7 @@ export class ProfileRetreatsComponent implements OnInit {
               private notificationService: MyNotificationService) { }
 
   ngOnInit() {
-    this.refreshRetreatReservation();
+    this.refreshFutureRetreatReservation();
     this.uuid = uuid();
     this.deleteModalName = 'delete_modal_' + this.uuid;
     this.exchangeModalName = 'exchange_modal_' + this.uuid;
@@ -104,8 +99,48 @@ export class ProfileRetreatsComponent implements OnInit {
         'value': this.authenticationService.getProfile().id
       },
       {
+        'name': 'retreat__type__is_virtual',
+        'value': this.type === 'virtual'
+      }
+    ];
+    this.retreatReservationService.list(filters).subscribe(
+      retreatReservations => {
+        const listRetreatReservations = retreatReservations.results.map(
+          r => new RetreatReservation(r)
+        );
+
+        this.listRetreatReservations = [];
+
+        for ( const retreatReservation of listRetreatReservations ) {
+          if (retreatReservation.order_line == null) {
+            this.listReservationToAdmin.push(retreatReservation);
+          }
+          this.listRetreatReservations.push(retreatReservation);
+        }
+
+        for (const reservation of this.listRetreatReservations) {
+          if (reservation.retreat_details.isOpen) {
+            this.openVirtualReservation.emit(reservation);
+          }
+        }
+      }
+    );
+  }
+
+  refreshFutureRetreatReservation() {
+    const now = new Date().toISOString();
+    const filters = [
+      {
+        'name': 'user',
+        'value': this.authenticationService.getProfile().id
+      },
+      {
         'name': 'is_active',
         'value': true
+      },
+      {
+        'name': 'finish_after',
+        'value': now
       },
       {
         'name': 'retreat__type__is_virtual',
@@ -118,31 +153,13 @@ export class ProfileRetreatsComponent implements OnInit {
           r => new RetreatReservation(r)
         );
 
-        this.totalPastRetreatReservations = 0;
-        this.totalFutureRetreatReservations = 0;
-        this.listRetreatReservations = [];
         this.listFutureRetreatReservations = [];
 
         for ( const retreatReservation of listRetreatReservations ) {
-          if (retreatReservation.retreat_details.getEndDate() < new Date()) {
-            this.totalPastRetreatReservations += retreatReservation.retreat_details.type.number_of_tomatoes;
-          } else {
-            this.totalFutureRetreatReservations += retreatReservation.retreat_details.type.number_of_tomatoes;
-            this.listFutureRetreatReservations.push(retreatReservation);
-          }
+          this.listFutureRetreatReservations.push(retreatReservation);
 
           if (retreatReservation.order_line == null) {
             this.listReservationToAdmin.push(retreatReservation);
-          }
-          this.listRetreatReservations.push(retreatReservation);
-        }
-
-        this.totalPastTomatoes.emit(this.totalPastRetreatReservations);
-        this.totalFutureTomatoes.emit(this.totalFutureRetreatReservations);
-
-        for (const reservation of this.listRetreatReservations) {
-          if (reservation.retreat_details.isOpen) {
-            this.openVirtualReservation.emit(reservation);
           }
         }
       }
@@ -166,6 +183,7 @@ export class ProfileRetreatsComponent implements OnInit {
   }
 
   setDisplayAllRetreatReservation(value) {
+    this.refreshRetreatReservation();
     this.displayAllRetreatReservation = value;
   }
 
