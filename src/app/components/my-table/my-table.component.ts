@@ -18,6 +18,7 @@ export interface TableSetting {
     numberOfPage?: number;
     page?: number;
     removeButton?: boolean;
+    archiveButton?: boolean;
     editButton?: boolean;
     downloadButton?: boolean;
     openTabButton?: boolean;
@@ -37,6 +38,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() filters: any[];
   @Input() confirmationOnDeletion = true;
+  @Input() confirmationOnArchive = true;
   @Input() limitChoices: number[] = null;
   @Input() useSearchBar = false;
 
@@ -45,6 +47,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   @Output() downloadItem: EventEmitter<any> = new EventEmitter();
   @Output() editItem: EventEmitter<any> = new EventEmitter();
   @Output() removeItem: EventEmitter<any> = new EventEmitter();
+  @Output() archiveItem: EventEmitter<any> = new EventEmitter();
   @Output() addButton: EventEmitter<any> = new EventEmitter();
   @Output() changePage: EventEmitter<any> = new EventEmitter();
   @Output() updateFilters: EventEmitter<any> = new EventEmitter();
@@ -54,6 +57,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   selectedItem: any;
   uuid: string;
   deleteModalName: string;
+  archiveModalName: string;
   pagination = [];
   selectionnedFilters = [];
 
@@ -66,6 +70,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.uuid = uuid();
     this.deleteModalName = 'delete_table_' + this.uuid;
+    this.archiveModalName = 'archive_table_' + this.uuid;
   }
 
   ngOnChanges () {
@@ -158,6 +163,25 @@ export class MyTableComponent implements OnInit, OnChanges {
       modal.toggle();
     } else {
       this.removeItem.emit(this.selectedItem);
+    }
+  }
+
+  archive(item = null, force = false) {
+    if (item) {
+      this.selectedItem = item;
+    }
+
+    if (this.confirmationOnArchive && !force) {
+
+      const modal = this.myModalService.get(this.archiveModalName);
+
+      if (!modal) {
+        return;
+      }
+
+      modal.toggle();
+    } else {
+      this.archiveItem.emit(this.selectedItem);
     }
   }
 

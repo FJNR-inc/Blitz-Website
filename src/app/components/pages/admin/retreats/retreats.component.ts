@@ -14,6 +14,7 @@ import {Membership} from '../../../../models/membership';
 import {AcademicLevel} from '../../../../models/academicLevel';
 import {MembershipService} from '../../../../services/membership.service';
 import {environment} from '../../../../../environments/environment';
+import {TableSetting} from '../../../my-table/my-table.component';
 
 interface Choice {
   value: any;
@@ -40,13 +41,14 @@ export class RetreatsComponent implements OnInit {
   retreatBulkForm: FormGroup;
   selectedRetreatUrl: string;
 
-  settings = {
+  settings: TableSetting = {
     title: _('retreats.retreats'),
     noDataText: _('retreats.no_retreat'),
     addButton: true,
     clickable: true,
     previous: false,
     downloadButton: true,
+    archiveButton: true,
     openTabButton: true,
     next: false,
     numberOfPage: 0,
@@ -170,7 +172,12 @@ export class RetreatsComponent implements OnInit {
     },
   ];
 
-  filters = [];
+  filters = [
+    {
+      name: 'hide_from_client_admin_panel',
+      value: 'false'
+    }
+  ];
   modalCreateMode: 'default' | 'simple' | 'bulk';
 
   selectedDays = [];
@@ -444,5 +451,26 @@ export class RetreatsComponent implements OnInit {
     } else {
       this.selectedDays.push(day);
     }
+  }
+
+  archiveItem(retreat: Retreat) {
+    const data = {
+      name: retreat.name,
+      hide_from_client_admin_panel: true
+    };
+
+    this.retreatService.update(retreat.url, data).subscribe(
+      () => {
+        this.notificationService.success(
+          _('retreat.notifications.commons.archived.title')
+        );
+        this.refreshRetreatList();
+      },
+      () => {
+        this.notificationService.error(
+          _('shared.form.errors.unknown')
+        );
+      }
+    );
   }
 }

@@ -74,6 +74,9 @@ export class RetreatService extends GlobalService {
         if (filter.name === 'type') {
           params = params.set('type__id', filter.value);
         }
+        if (filter.name === 'hide_from_client_admin_panel') {
+          params = params.set('hide_from_client_admin_panel', filter.value);
+        }
         if (filter.name === 'search') {
           params = params.set('search', filter.value);
         }
@@ -85,7 +88,7 @@ export class RetreatService extends GlobalService {
     );
   }
 
-  update(url: string, retreat: Retreat): Observable<any> {
+  update(url: string, retreat: any): Observable<any> {
     const headers = this.getHeaders();
     return this.http.patch<any>(
       url,
