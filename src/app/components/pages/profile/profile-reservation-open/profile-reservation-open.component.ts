@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RetreatReservation} from '../../../../models/retreatReservation';
+import {RetreatReservationService} from '../../../../services/retreat-reservation.service';
 
 @Component({
   selector: 'app-profile-reservation-open',
@@ -10,11 +11,18 @@ export class ProfileReservationOpenComponent implements OnInit {
 
   @Input() reservation: RetreatReservation = null;
 
-  constructor() { }
+  constructor(private retreatReservationService: RetreatReservationService) { }
 
   ngOnInit() {}
 
   goToVideoconference() {
-    window.open(this.reservation.retreat_details.videoconference_link, '_blank');
+    this.retreatReservationService.logActivity(this.reservation.url).subscribe(
+      () => {
+        window.open(this.reservation.retreat_details.videoconference_link, '_blank');
+      },
+      () => {
+        window.open(this.reservation.retreat_details.videoconference_link, '_blank');
+      }
+    );
   }
 }
