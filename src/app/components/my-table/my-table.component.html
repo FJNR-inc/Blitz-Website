@@ -110,6 +110,11 @@
          (click)="remove(item)">
         <i class="fa fa-trash actionnable"></i>
       </a>
+      <a *ngIf="settings.archiveButton"
+         class="my-table__table__line__cell--actions__archive"
+         (click)="archive(item)">
+        <i class="fa fa-archive actionnable"></i>
+      </a>
     </td>
   </tr>
 </table>
@@ -138,4 +143,14 @@
               maxWidth="600px"
               [autoClose]="true">
   {{ 'my-table.delete_modal.text' | translate }}
+</app-nt-modal>
+
+<app-nt-modal name="{{archiveModalName}}"
+              typeModal="danger"
+              title="{{ 'my-table.archive_modal.title' | translate }}"
+              button2Label="Archiver"
+              (button2)="archive(null, true)"
+              maxWidth="600px"
+              [autoClose]="true">
+  {{ 'my-table.archive_modal.text' | translate }}
 </app-nt-modal>
