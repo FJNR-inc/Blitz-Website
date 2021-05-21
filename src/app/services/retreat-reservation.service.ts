@@ -29,6 +29,8 @@ export class RetreatReservationService extends GlobalService {
           params = params.set('retreat', filter.value);
         } else if (filter.name === 'is_active') {
           params = params.set('is_active', filter.value);
+        } else if (filter.name === 'finish_after') {
+          params = params.set('finish_after', filter.value);
         } else if (filter.name === 'retreat__type__is_virtual') {
           params = params.set('retreat__type__is_virtual', filter.value);
         }
