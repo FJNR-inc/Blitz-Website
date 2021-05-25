@@ -1,6 +1,9 @@
 <app-loader *ngIf="!profile"></app-loader>
 
 <div class="profile-page" *ngIf="profile">
+  <app-cart-button *ngIf="displayCartButton$ | async"
+                   class="profile-page__cart-button"
+                   (onClick)="openCart()"></app-cart-button>
   <app-profile-reservation-open *ngIf="openVirtualReservation" [reservation]="openVirtualReservation"></app-profile-reservation-open>
   <div class="profile-page__body">
     <h1 class="profile-page__body__title">

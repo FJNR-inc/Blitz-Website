@@ -69,5 +69,6 @@ export const environment = {
     retreat_waiting_queue_notifications: '/retreat/wait_queue_notifications',
     retreat_invitation: '/retreat/retreat_invitation',
     urlCKEditorPage: '/ckeditor_page',
+    retreatLogActivity: '/retreat/retreat_usage_log',
   }
 };
