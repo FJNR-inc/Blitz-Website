@@ -1,4 +1,7 @@
 <div class="virtual-activities">
+  <app-cart-button *ngIf="displayCartButton$ | async"
+                   class="virtual-activities__cart-button"
+                   (onClick)="openCart()"></app-cart-button>
   <div class="virtual-activities__main">
     <div class="virtual-activities__main__content">
       <div class="virtual-activities__main__content__header">
