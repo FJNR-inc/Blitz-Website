@@ -4,6 +4,13 @@
   background-color: white;
   min-height: 100vh;
 
+  &__cart-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+  }
+
   &__reservation-open {
     display: flex;
     background-color: $nt-14;
