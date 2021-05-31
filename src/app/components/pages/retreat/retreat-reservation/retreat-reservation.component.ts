@@ -140,7 +140,7 @@ export class RetreatReservationComponent implements OnInit, OnDestroy {
         'value': false
       },
     ];
-    this.retreatService.list(filters).subscribe(
+    this.retreatService.list(filters, 300).subscribe(
       data => {
         this.retreats = [];
         for (const retreat of data.results) {
