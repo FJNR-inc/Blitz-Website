@@ -52,6 +52,8 @@ export class PaymentFlowModeComponent implements OnInit {
         cards => {
           if (cards.results.length >= 1) {
             this.listCards = cards.results[0].cards.map(c => new Card(c));
+          } else {
+            this.listCards = [];
           }
           this.cart$ = this.cartService.cart$;
           this.cart$.subscribe(
