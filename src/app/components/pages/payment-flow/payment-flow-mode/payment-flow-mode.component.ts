@@ -34,6 +34,7 @@ export class PaymentFlowModeComponent implements OnInit {
               private cardService: CardService,
               private authenticationService: AuthenticationService,
               private translate: TranslateService) {
+    this.resetPaymentMode();
   }
 
   ngOnInit() {
