@@ -162,6 +162,12 @@ export class ProfileRetreatsComponent implements OnInit {
             this.listReservationToAdmin.push(retreatReservation);
           }
         }
+
+        for (const reservation of this.listFutureRetreatReservations) {
+          if (reservation.retreat_details.isOpen) {
+            this.openVirtualReservation.emit(reservation);
+          }
+        }
       }
     );
   }
