@@ -284,4 +284,15 @@ export class ProfileRetreatsComponent implements OnInit {
     }
     modal.toggle();
   }
+
+  goToVideoconference(reservation) {
+    this.retreatReservationService.logActivity(reservation.url).subscribe(
+      () => {
+        window.open(reservation.retreat_details.videoconference_link, '_blank');
+      },
+      () => {
+        window.open(reservation.retreat_details.videoconference_link, '_blank');
+      }
+    );
+  }
 }
