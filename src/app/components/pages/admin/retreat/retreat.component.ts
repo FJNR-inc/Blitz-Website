@@ -230,6 +230,11 @@ export class RetreatComponent implements OnInit {
       label: _('retreat.form.price')
     },
     {
+      name: 'number_of_tomatoes',
+      type: 'number',
+      label: _('retreat.form.number_of_tomatoes')
+    },
+    {
       name: 'form_url',
       type: 'text',
       label: _('retreat.form.form_url')
@@ -595,6 +600,7 @@ export class RetreatComponent implements OnInit {
     this.retreatForm.controls['email_content'].setValue(this.retreat.email_content);
     this.retreatForm.controls['hidden'].setValue(this.retreat.hidden);
     this.retreatForm.controls['animator'].setValue(this.retreat.animator);
+    this.retreatForm.controls['number_of_tomatoes'].setValue(this.retreat.number_of_tomatoes);
   }
 
   OpenModalEditRetreat() {
@@ -631,7 +637,9 @@ export class RetreatComponent implements OnInit {
       }
       index++;
     }
-
+    if (value['number_of_tomatoes'] === '') {
+      value['number_of_tomatoes'] = null;
+    }
     if ( this.retreatForm.valid ) {
       this.retreatService.update(this.retreat.url, value).subscribe(
         () => {

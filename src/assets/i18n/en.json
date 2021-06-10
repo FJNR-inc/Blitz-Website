@@ -985,6 +985,7 @@
   "retreat.form.place_name": "Location",
   "retreat.form.postal_code": "Postal code",
   "retreat.form.price": "Price",
+  "retreat.form.number_of_tomatoes": "Nombre de tomate",
   "retreat.form.refund_rate": "Refund rate (%)",
   "retreat.form.refund_rate_warning": "The refund rate is the percentage of the paid amount refunded to users in the event of a cancellation.",
   "retreat.form.review_url": "Review form link",

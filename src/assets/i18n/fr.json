@@ -1051,6 +1051,7 @@
   "retreat.form.place_name": "Nom du lieu",
   "retreat.form.postal_code": "Code postal",
   "retreat.form.price": "Prix",
+  "retreat.form.number_of_tomatoes": "Nombre de tomate",
   "retreat.form.refund_rate": "Taux de remboursement (%)",
   "retreat.form.refund_rate_warning": "Le taux de remboursement correspond au pourcentage remboursé aux utilisateur.rice.s en cas d'annulation.",
   "retreat.form.retreat.activity_language.choices.bilingual": "Bilingual / Bilingue",
