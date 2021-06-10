@@ -43,8 +43,8 @@
                   target="_blank"
                   text="{{ 'profile-retreats.list_retreat_reservations.how_to_prepare' | translate }}"></app-link>
         <app-link *ngIf="retreatReservation.retreat_details.isOpen"
-                  [href]="retreatReservation.retreat_details.videoconference_link"
                   target="_blank"
+                  (click)="goToVideoconference(retreatReservation)"
                   text="{{ 'profile-retreats.list_retreat_reservations.join_videoconference' | translate }}"></app-link>
 
         <div class="profile-retreats__list__item__description__more" *ngIf="retreatReservationOpen === retreatReservation.id">
