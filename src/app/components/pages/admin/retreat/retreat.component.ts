@@ -379,6 +379,11 @@ export class RetreatComponent implements OnInit {
       label: _('retreat.form.price')
     },
     {
+      name: 'number_of_tomatoes',
+      type: 'number',
+      label: _('retreat.form.number_of_tomatoes')
+    },
+    {
       name: 'form_url',
       type: 'text',
       label: _('retreat.form.form_url')
