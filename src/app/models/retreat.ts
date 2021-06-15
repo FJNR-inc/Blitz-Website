@@ -176,7 +176,11 @@ export class Retreat extends BaseModel {
   }
 
   get numberOfTomatoes() {
-    return this.type.number_of_tomatoes;
+    if (this.number_of_tomatoes) {
+      return this.number_of_tomatoes;
+    } else {
+      return this.type.number_of_tomatoes;
+    }
   }
 
   get isOpen() {
