@@ -953,6 +953,7 @@
   "retreat-preview.success": "Liste d'attente",
   "retreat-preview.to_register": "S'inscrire",
   "retreat-preview.videoconference_tool": "Outil",
+  "retreat-preview.number_of_tomatoes": "Nombre de tomates",
   "retreat-reservation-model.cancelation_action.exchange": "Échange",
   "retreat-reservation-model.cancelation_action.refund": "Remboursement",
   "retreat-reservation-model.cancelation_reason.admin_cancellation": "Annulation par un.e administrateur.trice",

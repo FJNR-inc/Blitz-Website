@@ -28,8 +28,10 @@
       <app-link text="{{ retreat.place_name }} ({{ retreat.city }})" [href]="retreat.google_maps_url" target="_blank"></app-link>
     </div>
     <div class="retreat-preview__infos__line" *ngIf="retreat.type.is_virtual">
-      <app-title [level]='5' text="{{'retreat-preview.videoconference_tool' | translate}}"></app-title>
-      <app-title [level]='9' [text]="retreat.videoconference_tool"></app-title>
+      <app-title [level]='5' text="{{'retreat-preview.number_of_tomatoes' | translate}}"></app-title>
+      <div style="display: flex; align-items: center">
+        <app-title [level]='9' [text]="retreat.numberOfTomatoes"></app-title><i class="icon icon-tomato icon--3x"></i>
+      </div>
     </div>
     <div class="retreat-preview__infos__line">
       <app-title [level]='5' text="{{'retreat-preview.space_available' | translate}}"></app-title>
