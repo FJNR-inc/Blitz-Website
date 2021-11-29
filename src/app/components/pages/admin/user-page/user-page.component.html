@@ -13,8 +13,8 @@
         <i class="fas fa-user-shield"></i> {{ 'user-page.common.administrator' | translate }}
       </div>
       <div class="user-page__header__informations__university" *ngIf="user.university">
-        {{ user.university.name }}<br/>
-        {{ user.academic_level.name }} ({{ user.academic_field.name }})
+        {{ user.university?.name }}<br/>
+        {{ user.academic_level?.name }} ({{ user.academic_field?.name }})
       </div>
     </div>
     <div class="user-page__header__right">
@@ -29,7 +29,7 @@
           {{ user.getTimeBeforeEndMembership() }}
         </div>
         {{ 'user-page.remaining_days' | translate }}<br/>
-        ({{ 'user-page.common.membership' | translate }} {{ user.membership.name }})
+        ({{ 'user-page.common.membership' | translate }} {{ user.membership?.name }})
       </div>
     </div>
   </div>
