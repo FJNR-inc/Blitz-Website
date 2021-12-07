@@ -70,5 +70,10 @@ pipeline {
         '''
       }
     }
+    stage("Final Cleanup") {
+      steps {
+        cleanWs deleteDirs: true, notFailBuild: true
+      }
+    }
   }
 }
