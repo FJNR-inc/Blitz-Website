@@ -32,7 +32,7 @@
 npm-debug.log
 testem.log
 /typings
-src/assets/i18n/strings.json
+src/assets/i18n/strings.
 
 # e2e
 /e2e/*.js
@@ -43,5 +43,4 @@ src/assets/i18n/strings.json
 Thumbs.db
 
 # translate file generate
-src/assets/i18n/strings.json
 /src/ckeditor5TV/node_modules/
