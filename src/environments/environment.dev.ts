@@ -4,7 +4,7 @@ export const environment = {
   multilingual_activated: true,
   minutesBeforeShowVirtualRetreatLink: 30,
   tomato_per_timeslot: 4,
-  url_base_api: 'https://api-dev.thesez-vous.org',
+  url_base_api: 'https://api-dev-gcp.thesez-vous.org',
   environment_paysafe: 'TEST',
   // tslint:disable-next-line:max-line-length
   token_paysafe: 'T1QtMjMxODcwOkItcWEyLTAtNWI4NmUxMDktMC0zMDJjMDIxNDJiMWI4YjNjZmMyNmM0YTc3ZTUzNTI0YjYzNzEwMzU3YWE1NmYzNWMwMjE0NjM5N2ZhZTJiMDZjNjFiYmFhNGQ1NGZjNDE2MjlhOGIxNzVmOTRhNw==',
