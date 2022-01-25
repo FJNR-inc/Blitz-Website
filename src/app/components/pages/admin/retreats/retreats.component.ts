@@ -77,6 +77,11 @@ export class RetreatsComponent implements OnInit {
       label: _('retreats.form.name_in_english')
     },
     {
+      name: 'display_start_time',
+      type: 'datetime',
+      label: _('retreat.form.display_start_time'),
+    },
+    {
       name: 'price',
       type: 'number',
       label: _('retreats.form.price')
