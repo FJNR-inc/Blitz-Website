@@ -15,7 +15,6 @@
     "deploy:prod": "npm run build:prod && firebase deploy --only hosting --project thesez-vous-5e376",
     "build:qa": "ng build -c=qa",
     "deploy:qa": "npm run build:qa && firebase deploy --only hosting --project thesez-vous-qa-fda06"
-
   },
   "private": true,
   "dependencies": {

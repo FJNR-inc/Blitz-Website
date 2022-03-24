@@ -88,6 +88,14 @@ export class TimeslotComponent implements OnInit {
         title: _('timeslot.common.last_name')
       },
       {
+        name: 'email',
+        title: _('timeslot.common.email')
+      },
+      {
+        name: 'phone',
+        title: _('timeslot.common.phone')
+      },
+      {
         name: 'is_active',
         title: _('timeslot.common.active'),
         type: 'boolean'
@@ -161,6 +169,7 @@ export class TimeslotComponent implements OnInit {
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
+      phone: user.phone,
       is_active: reservation.is_active,
       is_present: reservation.is_present,
       cancelation_reason: reservation.getCancelationReasonLabel()
@@ -181,33 +190,33 @@ export class TimeslotComponent implements OnInit {
 
   addReservation() {
     if (this.selectedUser) {
-       const cart = new Cart();
-       cart.addTimeslot(this.timeslot);
-       cart.setBypassPayment(this.bypassPayment);
-       cart.setTargetUser(this.selectedUser);
+      const cart = new Cart();
+      cart.addTimeslot(this.timeslot);
+      cart.setBypassPayment(this.bypassPayment);
+      cart.setTargetUser(this.selectedUser);
 
-       this.orderService.create(cart.generateOrder()).subscribe(
-         () => {
-           this.refreshReservation();
-           this.toggleModal('select_user');
-         },
-         err => {
-           this.waitAPI = false;
-           this.errorOrder = [];
-           if (err.error.non_field_errors) {
-             this.errorOrder = err.error.non_field_errors;
-           } else {
-             this.errorOrder = this.errorOrder.concat([_('shared.form.errors.unknown')]);
-             if (err.error.order_lines) {
-               for (const orderLine of err.error.order_lines) {
-                 if (orderLine.object_id) {
-                   this.errorOrder = this.errorOrder.concat(orderLine.object_id);
-                 }
-               }
-             }
-           }
-         }
-       );
+      this.orderService.create(cart.generateOrder()).subscribe(
+        () => {
+          this.refreshReservation();
+          this.toggleModal('select_user');
+        },
+        err => {
+          this.waitAPI = false;
+          this.errorOrder = [];
+          if (err.error.non_field_errors) {
+            this.errorOrder = err.error.non_field_errors;
+          } else {
+            this.errorOrder = this.errorOrder.concat([_('shared.form.errors.unknown')]);
+            if (err.error.order_lines) {
+              for (const orderLine of err.error.order_lines) {
+                if (orderLine.object_id) {
+                  this.errorOrder = this.errorOrder.concat(orderLine.object_id);
+                }
+              }
+            }
+          }
+        }
+      );
     }
   }
 
