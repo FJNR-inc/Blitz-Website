@@ -30,7 +30,7 @@
     "@angular/router": "^8.2.14",
     "@ckeditor/ckeditor5-angular": "^1.1.2",
     "@ckeditor/ckeditor5-build-inline": "^17.0.0",
-    "@ckeditor/ckeditor5-font": "^17.0.0",
+    "@ckeditor/ckeditor5-font": "^27.0.0",
     "@ngx-translate/core": "^10.0.0",
     "@ngx-translate/http-loader": "^4.0.0",
     "@rignonnoel/angular-multiselect": "2.0.0",
